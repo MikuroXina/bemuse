@@ -184,9 +184,6 @@
     "variance": "0.0.1",
     "whatwg-fetch": "^1.1.1"
   },
-  "resolutions": {
-    "natives": "1.1.6"
-  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"

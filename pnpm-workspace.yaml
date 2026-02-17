@@ -1,0 +1,6 @@
+packages:
+  - 'bemuse'
+  - 'website'
+  - 'e2e'
+  - 'build-scripts'
+  - 'packages/**'

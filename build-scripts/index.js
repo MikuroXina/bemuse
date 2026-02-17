@@ -27,11 +27,11 @@ yargs
       // Builds inside CircleCI sees 36 cores. This causes the build to fail
       // due to out-of-memory error because Rush tries to build everything at
       // once. We limit the parallelism to 2 to avoid this.
-      const parallel = process.env.CIRCLE_BUILD_NUM ? ' --parallelism 2' : ''
+      if (process.env.CIRCLE_BUILD_NUM) {
+        process.env.WIREIT_PARALLEL = '2'
+      }
 
-      await run(
-        `node common/scripts/install-run-rush.js build --to bemuse --to bemuse-docs${parallel}`
-      )
+      await run('pnpm run --filter build-scripts build')
       await run('node build-scripts build:dist')
     }
   )
