@@ -155,7 +155,8 @@ jobs:
       AUTHOR: ${{ github.event.pull_request.user.login }}
       PR: ${{ github.event.pull_request.number }}
       PR_NEW_FILE_URL:
-        https://github.com/${{ github.event.pull_request.head.repo.full_name }}/new/${{ github.event.pull_request.head.ref }}
+        https://github.com/${{ github.event.pull_request.head.repo.full_name
+        }}/new/${{ github.event.pull_request.head.ref }}
     steps:
       - name: Generate changelog file
         uses: actions/github-script@v8
