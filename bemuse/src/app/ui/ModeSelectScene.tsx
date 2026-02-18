@@ -102,6 +102,9 @@ const ModeSelectScene = () => {
   }
 
   const setPlayDevice = (device: PlayDevice) => {
+    if (playDevice.current === device) {
+      return
+    }
     console.log('Set play device to', device)
     if (!playDevice.current) {
       playDevice.current = device
