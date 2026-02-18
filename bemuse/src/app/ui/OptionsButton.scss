@@ -1,5 +1,5 @@
-@import '~bemuse/ui/common';
+@use '@bemuse/ui/common.scss';
 
 .OptionsButton {
-  @include button;
+  @include common.button;
 }

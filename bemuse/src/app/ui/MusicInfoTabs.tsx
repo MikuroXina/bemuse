@@ -1,10 +1,10 @@
 import './MusicInfoTabs.scss'
 
-import { Chart, Song } from 'bemuse/collection-model/types'
+import { Chart, Song } from '@bemuse/collection-model/types'
 import React, { useState } from 'react'
 
-import { Icon } from 'bemuse/fa'
-import { MappingMode } from 'bemuse/rules/mapping-mode'
+import { Icon } from '@bemuse/fa'
+import { MappingMode } from '@bemuse/rules/mapping-mode'
 import MusicInfoTabInformation from './MusicInfoTabInformation'
 import MusicInfoTabStats from './MusicInfoTabStats'
 import RankingContainer from './RankingContainer'

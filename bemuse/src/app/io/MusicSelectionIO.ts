@@ -1,11 +1,11 @@
 import { AnyAction, Dispatch } from 'redux'
-import { Chart, Song } from 'bemuse/collection-model/types'
+import { Chart, Song } from '@bemuse/collection-model/types'
 import { OptionsState, optionsSlice } from '../entities/Options'
 import { getChartLevel, musicSelectionSlice } from '../entities/MusicSelection'
 
 import { ChartProps } from '../ui/MusicList'
-import { SceneManager } from 'bemuse/scene-manager'
-import { SongMetadataInCollection } from 'bemuse-types'
+import { SceneManager } from '@bemuse/scene-manager'
+import { SongMetadataInCollection } from '@bemuse-types'
 import { launch } from '../game-launcher'
 import { rageQuitSlice } from '../redux/ReduxState'
 

@@ -15,7 +15,7 @@ import {
   previewStateReducer,
 } from './PreviewState'
 import { PreviewKeyHandler } from './PreviewKeyHandler'
-import { showAlert, showQuickPick } from 'bemuse/ui-dialogs'
+import { showAlert, showQuickPick } from '@bemuse/ui-dialogs'
 import _ from 'lodash'
 
 export const BemusePreviewer = () => {

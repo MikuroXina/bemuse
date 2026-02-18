@@ -4,7 +4,7 @@ import {
   Animation,
   _attrs,
   _compile,
-} from 'bemuse/scintillator/nodes/concerns/animation'
+} from '@bemuse/scintillator/nodes/concerns/animation'
 
 const $xml = (xml) => $($.parseXML(xml).documentElement)
 

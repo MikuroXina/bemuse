@@ -4,21 +4,21 @@ import * as Analytics from '../analytics'
 import * as QueryFlags from '../query-flags'
 
 import React, { MouseEvent } from 'react'
-import SceneToolbar, { SceneToolbarSpacer } from 'bemuse/ui/SceneToolbar'
+import SceneToolbar, { SceneToolbarSpacer } from '@bemuse/ui/SceneToolbar'
 
-import { Chart } from 'bemuse-types'
+import { Chart } from '@bemuse-types'
 import FirstTimeTip from './FirstTimeTip'
-import Flex from 'bemuse/ui/Flex'
-import { Icon } from 'bemuse/fa'
-import { MappingMode } from 'bemuse/rules/mapping-mode'
+import Flex from '@bemuse/ui/Flex'
+import { Icon } from '@bemuse/fa'
+import { MappingMode } from '@bemuse/rules/mapping-mode'
 import MusicChartInfo from './MusicChartInfo'
 import MusicChartSelectorItem from './MusicChartSelectorItem'
 import RankingContainer from './RankingContainer'
 import ResultExpertInfo from './ResultExpertInfo'
 import ResultGrade from './ResultGrade'
 import ResultTable from './ResultTable'
-import Scene from 'bemuse/ui/Scene'
-import SceneHeading from 'bemuse/ui/SceneHeading'
+import Scene from '@bemuse/ui/Scene'
+import SceneHeading from '@bemuse/ui/SceneHeading'
 
 export interface Result {
   1: number

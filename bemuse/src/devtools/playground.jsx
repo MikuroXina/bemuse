@@ -1,6 +1,6 @@
 import React from 'react'
-import query from 'bemuse/utils/query'
-import { sceneRoot } from 'bemuse/utils/main-element'
+import query from '@bemuse/utils/query.js'
+import { sceneRoot } from '@bemuse/utils/main-element.js'
 
 const availablePlaygrounds = (function (context) {
   const playgrounds = {}

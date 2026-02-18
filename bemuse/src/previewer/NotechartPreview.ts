@@ -2,12 +2,12 @@ import Notechart, {
   GameLandmine,
   GameNote,
   SoundedEvent,
-} from 'bemuse-notechart'
+} from '@bemuse-notechart'
 import SamplingMaster, {
   PlayInstance,
   Sample,
   SoundGroup,
-} from 'bemuse/sampling-master'
+} from '@bemuse/sampling-master'
 import _ from 'lodash'
 
 export interface NotechartPreview {

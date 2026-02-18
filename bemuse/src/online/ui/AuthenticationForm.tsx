@@ -1,6 +1,6 @@
 import './AuthenticationForm.scss'
 
-import OptionsButton from 'bemuse/app/ui/OptionsButton'
+import OptionsButton from '@bemuse/app/ui/OptionsButton'
 import React, { KeyboardEvent, MouseEvent, useRef } from 'react'
 
 export interface AuthenticationFormData {

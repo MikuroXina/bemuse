@@ -1,8 +1,8 @@
 import { Provider } from 'react-redux'
 import React from 'react'
-import ResultScene from 'bemuse/app/ui/ResultScene'
-import { SceneManager } from 'bemuse/scene-manager'
-import configureStore from 'bemuse/app/redux/configureStore'
+import ResultScene from '@bemuse/app/ui/ResultScene'
+import { SceneManager } from '@bemuse/scene-manager'
+import configureStore from '@bemuse/app/redux/configureStore'
 
 const sceneManager = new SceneManager(React.Fragment)
 

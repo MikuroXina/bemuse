@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 .ResultDeltasView {
   $early-color: #66f;
   $late-color: #f66;
@@ -82,12 +84,12 @@
     &.is-early {
       left: 16px;
       text-align: left;
-      color: lighten($early-color, 10%);
+      color: color.adjust($early-color, $lightness: 10%);
     }
     &.is-late {
       right: 16px;
       text-align: right;
-      color: lighten($late-color, 10%);
+      color: color.adjust($late-color, $lightness: 10%);
     }
   }
   &のinfo {

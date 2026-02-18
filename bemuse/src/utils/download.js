@@ -1,5 +1,5 @@
 import delay from 'delay'
-import { BYTES_FORMATTER } from 'bemuse/progress/formatters'
+import { BYTES_FORMATTER } from '@bemuse/progress/formatters'
 
 // Downloads the file from the URL.
 // The download will not actually be started unless the ``as()`` method

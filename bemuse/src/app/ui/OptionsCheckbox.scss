@@ -1,8 +1,8 @@
-@import '~bemuse/ui/common';
+@use '@bemuse/ui/common.scss';
 
 .OptionsCheckbox {
   > label > input {
-    @include input;
+    @include common.input;
     appearance: none;
     width: 21px;
     height: 21px;

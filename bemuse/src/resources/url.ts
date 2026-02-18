@@ -1,6 +1,5 @@
-import Progress from 'bemuse/progress'
-import download from 'bemuse/utils/download'
-import { basename } from 'path'
+import Progress from '@bemuse/progress'
+import download from '@bemuse/utils/download'
 import { IResource, IResources } from './types'
 
 export class URLResource implements IResource {
@@ -14,7 +13,7 @@ export class URLResource implements IResource {
   }
 
   get name() {
-    return basename(this.url)
+    return new URL(this.url).pathname.split('/').pop()
   }
 }
 

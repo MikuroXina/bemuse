@@ -1,11 +1,11 @@
 import './MusicInfo.scss'
 
-import { Chart, Song } from 'bemuse/collection-model/types'
+import { Chart, Song } from '@bemuse/collection-model/types'
 import MusicChartSelector, {
   MusicChartSelectorProps,
 } from './MusicChartSelector'
 
-import { MappingMode } from 'bemuse/rules/mapping-mode'
+import { MappingMode } from '@bemuse/rules/mapping-mode'
 import MusicChartInfo from './MusicChartInfo'
 import MusicInfoTabs from './MusicInfoTabs'
 import React from 'react'

@@ -1,4 +1,4 @@
-import { isQueryFlagEnabled } from 'bemuse/flags'
+import { isQueryFlagEnabled } from '@bemuse/flags'
 
 export const SUPPORTED = [
   {

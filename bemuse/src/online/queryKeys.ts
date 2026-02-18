@@ -1,4 +1,4 @@
-import { MappingMode } from 'bemuse/rules/mapping-mode'
+import { MappingMode } from '@bemuse/rules/mapping-mode'
 import { QueryKey } from 'react-query'
 
 export const rootQueryKey: QueryKey = ['online']

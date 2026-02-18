@@ -1,4 +1,4 @@
-import type { Chart, SongMetadataInCollection } from 'bemuse-types'
+import type { Chart, SongMetadataInCollection } from '@bemuse-types'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import produce, { Draft } from 'immer'
 

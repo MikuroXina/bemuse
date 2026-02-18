@@ -11,7 +11,7 @@ import { ScoreboardClient, ScoreboardRow } from './ScoreboardClient'
 import { RecordLevel } from '../level'
 import { createFakeScoreboardClient } from './createFakeScoreboardClient'
 import { createNextScoreboardClient } from './createNextScoreboardClient'
-import { isTestModeEnabled } from 'bemuse/devtools/BemuseTestMode'
+import { isTestModeEnabled } from '@bemuse/devtools/BemuseTestMode'
 
 export interface OnlineServiceOptions {
   fake?: boolean

@@ -1,4 +1,4 @@
-import query from 'bemuse/utils/query'
+import query from '@bemuse/utils/query'
 
 /**
  * The `?server` flag specifies a URL to a Bemuse custom music server.

@@ -6,8 +6,9 @@
     "baseUrl": ".",
     "noEmit": true,
     "paths": {
-      "bemuse/*": ["./src/*"]
+      "@bemuse/*": ["./src/*"]
     },
-    "target": "ES2019"
+    "target": "ES2019",
+    "module": "node20"
   }
 }

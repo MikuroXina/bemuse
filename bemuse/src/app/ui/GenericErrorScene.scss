@@ -1,7 +1,7 @@
-@import '~bemuse/ui/common';
+@use '@bemuse/ui/common.scss';
 
 .GenericErrorScene {
-  @include scene-background(url(~bemuse/ui/images/bg/c.jpg));
+  @include common.scene-background(url(~bemuse/ui/images/bg/c.jpg));
 
   &のwrapper {
     padding: 1em;
@@ -10,7 +10,7 @@
     box-sizing: border-box;
   }
   &のstack {
-    @include input;
+    @include common.input;
     color: #faa;
     display: block;
     width: 100%;

@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js'
 import $ from 'jquery'
 import debug from 'debug'
-import { PERCENTAGE_FORMATTER } from 'bemuse/progress/formatters'
+import { PERCENTAGE_FORMATTER } from '@bemuse/progress/formatters'
 
 import Compiler from './compiler'
 import Resources from './resources'

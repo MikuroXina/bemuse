@@ -1,5 +1,5 @@
-import Progress from 'bemuse/progress'
-import Observable from 'bemuse/utils/observable'
+import Progress from '@bemuse/progress'
+import Observable from '@bemuse/utils/observable'
 
 export function start<T, R>(
   tasks: (task: TaskFn<T>, run: RunFn<T>) => PromiseLike<R>

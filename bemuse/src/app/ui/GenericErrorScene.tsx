@@ -2,9 +2,9 @@ import './GenericErrorScene.scss'
 
 import React from 'react'
 import OptionsButton from './OptionsButton'
-import ModalPopup from 'bemuse/ui/ModalPopup'
-import Panel from 'bemuse/ui/Panel'
-import Scene from 'bemuse/ui/Scene'
+import ModalPopup from '@bemuse/ui/ModalPopup'
+import Panel from '@bemuse/ui/Panel'
+import Scene from '@bemuse/ui/Scene'
 
 import * as Analytics from '../analytics'
 

@@ -1,11 +1,11 @@
 import _ from 'lodash'
-import MusicSelectPreviewer from 'bemuse/music-previewer/MusicSelectPreviewer'
-import getPlayableCharts from 'bemuse/music-collection/getPlayableCharts'
-import getPreviewResourceUrl from 'bemuse/music-collection/getPreviewResourceUrl'
-import groupSongsIntoCategories from 'bemuse/music-collection/groupSongsIntoCategories'
-import sortSongs from 'bemuse/music-collection/sortSongs'
+import MusicSelectPreviewer from '@bemuse/music-previewer/MusicSelectPreviewer'
+import getPlayableCharts from '@bemuse/music-collection/getPlayableCharts'
+import getPreviewResourceUrl from '@bemuse/music-collection/getPreviewResourceUrl'
+import groupSongsIntoCategories from '@bemuse/music-collection/groupSongsIntoCategories'
+import sortSongs from '@bemuse/music-collection/sortSongs'
 import React, { useState } from 'react'
-import { Song } from 'bemuse/collection-model/types'
+import { Song } from '@bemuse/collection-model/types'
 
 type Sorter = (songs: readonly Song[]) => {
   title: string

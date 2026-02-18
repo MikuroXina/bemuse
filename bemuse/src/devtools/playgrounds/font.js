@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js'
-import MAIN from 'bemuse/utils/main-element'
+import MAIN from '@bemuse/utils/main-element'
 
 export function main() {
   const renderer = PIXI.autoDetectRenderer(640, 480)

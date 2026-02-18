@@ -2,7 +2,7 @@ import './RunningNumber.scss'
 
 import React, { useEffect, useRef } from 'react'
 
-import now from 'bemuse/utils/now'
+import now from '@bemuse/utils/now'
 
 export interface RunningNumberProps {
   formatter?: (value: number) => string

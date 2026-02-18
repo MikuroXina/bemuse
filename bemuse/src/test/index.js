@@ -1,11 +1,11 @@
 // This file boots up Mocha
 //
-import 'script-loader!mocha/mocha.js'
-import 'style-loader!mocha/mocha.css'
-import 'style-loader!./support/mocha-overrides.css'
+import 'mocha/mocha.js'
+import 'mocha/mocha.css'
+import './support/mocha-overrides.css'
 
-import loadSpecs from './loadSpecs'
-import prepareTestEnvironment from './prepareTestEnvironment'
+import loadSpecs from './loadSpecs.js'
+import prepareTestEnvironment from './prepareTestEnvironment.js'
 
 /* eslint import/no-webpack-loader-syntax: off */
 

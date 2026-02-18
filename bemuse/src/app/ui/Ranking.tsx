@@ -3,9 +3,9 @@ import './Ranking.scss'
 import RankingTable, { Message, Row } from './RankingTable'
 import React, { useState } from 'react'
 
-import AuthenticationPopup from 'bemuse/online/ui/AuthenticationPopup'
-import { RankingState } from 'bemuse/online'
-import { isWaiting } from 'bemuse/online/operations'
+import AuthenticationPopup from '@bemuse/online/ui/AuthenticationPopup'
+import { RankingState } from '@bemuse/online'
+import { isWaiting } from '@bemuse/online/operations'
 
 const Error = ({
   text,

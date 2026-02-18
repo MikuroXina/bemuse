@@ -1,7 +1,8 @@
-@import '~bemuse/ui/common';
+@use 'sass:color';
+@use '@bemuse/ui/common.scss';
 
 .ResultScene {
-  @include scene-background(url(~bemuse/ui/images/bg/b.jpg));
+  @include common.scene-background(url(~bemuse/ui/images/bg/b.jpg));
   $bottom-padding: calc(32px + 4vh);
 
   color: black;
@@ -107,7 +108,7 @@
   @mixin button($face) {
     display: block;
     background: $face;
-    border: 2px solid darken($face, 5%);
+    border: 2px solid color.adjust($face, $lightness: -5%);
     text-align: center;
     font-size: 1.75rem;
     color: #fff;

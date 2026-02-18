@@ -1,4 +1,4 @@
-@import '~bemuse/ui/common';
+@use '@bemuse/ui/common.scss';
 
 .OptionsSpeed {
   .OptionsButton {
@@ -20,9 +20,9 @@
     margin-left: -1px;
   }
   .OptionsInputField {
-    @include input-button-zindex(20);
+    @include common.input-button-zindex(20);
   }
   .OptionsButton {
-    @include input-button-zindex(21);
+    @include common.input-button-zindex(21);
   }
 }

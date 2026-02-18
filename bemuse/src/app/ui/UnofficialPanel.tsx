@@ -1,9 +1,9 @@
 import './UnofficialPanel.scss'
 
-import DialogContent, { Buttons } from 'bemuse/ui/DialogContent'
+import DialogContent, { Buttons } from '@bemuse/ui/DialogContent'
 
 import OptionsButton from './OptionsButton'
-import Panel from 'bemuse/ui/Panel'
+import Panel from '@bemuse/ui/Panel'
 import React from 'react'
 
 export interface UnofficialPanelProps {

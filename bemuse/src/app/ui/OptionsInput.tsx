@@ -1,6 +1,6 @@
 import './OptionsInput.scss'
 
-import OmniInput, { getName, key川 } from 'bemuse/omni-input'
+import OmniInput, { getName, key川 } from '@bemuse/omni-input'
 import React, { useEffect, useRef, useState } from 'react'
 import {
   isContinuousAxisEnabled,

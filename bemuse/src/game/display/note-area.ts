@@ -1,4 +1,4 @@
-import { GameEvent, GameNote } from 'bemuse-notechart'
+import { GameEvent, GameNote } from '@bemuse-notechart'
 
 import _ from 'lodash'
 

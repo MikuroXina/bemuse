@@ -1,4 +1,4 @@
-import { OmniInput } from 'bemuse/omni-input'
+import { OmniInput } from '@bemuse/omni-input'
 import { DualInput } from './dual-input'
 
 function OmniInputPlugin(game) {

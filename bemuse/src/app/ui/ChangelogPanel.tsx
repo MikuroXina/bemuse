@@ -1,7 +1,7 @@
 import './ChangelogPanel.scss'
 
-import Markdown from 'bemuse/ui/Markdown'
-import Panel from 'bemuse/ui/Panel'
+import Markdown from '@bemuse/ui/Markdown'
+import Panel from '@bemuse/ui/Panel'
 import React, { useEffect, useState } from 'react'
 
 type Status =

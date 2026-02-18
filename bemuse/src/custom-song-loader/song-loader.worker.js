@@ -1,4 +1,4 @@
-import 'bemuse/bootstrap'
+import '@bemuse/bootstrap/index.js'
 
 import * as indexer from 'bemuse-indexer'
 

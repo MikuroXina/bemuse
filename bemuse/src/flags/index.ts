@@ -1,4 +1,4 @@
-import query from 'bemuse/utils/query'
+import query from '@bemuse/utils/query'
 
 let flagSet: Set<string> | undefined
 

@@ -8,14 +8,14 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import AboutScene from './AboutScene'
 import ChangelogPanel from './ChangelogPanel'
-import HomePage from 'bemuse/site/HomePage'
-import ModalPopup from 'bemuse/ui/ModalPopup'
+import HomePage from '@bemuse/site/HomePage'
+import ModalPopup from '@bemuse/ui/ModalPopup'
 import ModeSelectScene from './ModeSelectScene'
-import Scene from 'bemuse/ui/Scene'
-import { SceneManagerContext } from 'bemuse/scene-manager'
+import Scene from '@bemuse/ui/Scene'
+import { SceneManagerContext } from '@bemuse/scene-manager'
 import Toolbar from './Toolbar'
 import { selectOptions } from '../redux/ReduxState'
-import version from 'bemuse/utils/version'
+import version from '@bemuse/utils/version'
 
 const HAS_PARENT = (() => {
   try {

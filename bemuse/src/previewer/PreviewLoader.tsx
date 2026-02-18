@@ -2,9 +2,9 @@ import _ from 'lodash'
 import NotechartLoader from 'bemuse-notechart/lib/loader'
 import ObjectID from 'bson-objectid'
 import pMap from 'p-map'
-import SamplingMaster, { Sample } from 'bemuse/sampling-master'
+import SamplingMaster, { Sample } from '@bemuse/sampling-master'
 import { get, set } from 'idb-keyval'
-import { showAlert } from 'bemuse/ui-dialogs'
+import { showAlert } from '@bemuse/ui-dialogs'
 
 import { createNotechartPreview } from './NotechartPreview'
 

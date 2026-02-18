@@ -2,7 +2,7 @@ import ObjectID from 'bson-objectid'
 import mean from 'mean'
 import median from 'median'
 import variance from 'variance'
-import { MISSED } from 'bemuse/game/judgments'
+import { MISSED } from '@bemuse/game/judgments'
 import { stringify } from 'qs'
 
 import * as Options from './entities/Options'

@@ -1,4 +1,4 @@
-import { Song } from 'bemuse/collection-model/types'
+import { Song } from '@bemuse/collection-model/types'
 import _ from 'lodash'
 import isChartPlayable from './isChartPlayable'
 

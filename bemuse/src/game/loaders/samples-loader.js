@@ -1,8 +1,8 @@
-import * as ProgressUtils from 'bemuse/progress/utils'
+import * as ProgressUtils from '@bemuse/progress/utils'
 import _ from 'lodash'
-import defaultKeysoundCache from 'bemuse/keysound-cache'
+import defaultKeysoundCache from '@bemuse/keysound-cache'
 import pMap from 'p-map'
-import { EXTRA_FORMATTER } from 'bemuse/progress/formatters'
+import { EXTRA_FORMATTER } from '@bemuse/progress/formatters'
 
 export class SamplesLoader {
   constructor(assets, master, { keysoundCache = defaultKeysoundCache } = {}) {

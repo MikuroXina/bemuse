@@ -2,7 +2,7 @@ import './MusicListItemCharts.scss'
 
 import React, { MouseEvent } from 'react'
 
-import { Chart } from 'bemuse-types'
+import { Chart } from '@bemuse-types'
 import MusicListItemChart from './MusicListItemChart'
 
 export interface MusicListItemChartsProps {

@@ -5,10 +5,10 @@ import * as Analytics from '../analytics'
 import React, { useState } from 'react'
 
 import FirstTimeTip from './FirstTimeTip'
-import ModalPopup from 'bemuse/ui/ModalPopup'
+import ModalPopup from '@bemuse/ui/ModalPopup'
 import { Result } from './ResultScene'
 import ResultDeltasView from './ResultDeltasView'
-import RunningNumber from 'bemuse/ui/RunningNumber'
+import RunningNumber from '@bemuse/ui/RunningNumber'
 
 const formatAccuracy = (value: number) => {
   return (value * 100).toFixed(2) + '%'

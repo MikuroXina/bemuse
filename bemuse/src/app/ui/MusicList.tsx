@@ -1,11 +1,11 @@
 import './MusicList.scss'
 
-import { Chart, SongMetadataInCollection } from 'bemuse-types'
+import { Chart, SongMetadataInCollection } from '@bemuse-types'
 import React, { useLayoutEffect, useRef } from 'react'
 
-import { MappingMode } from 'bemuse/rules/mapping-mode'
+import { MappingMode } from '@bemuse/rules/mapping-mode'
 import MusicListItem from './MusicListItem'
-import { Song } from 'bemuse/collection-model/types'
+import { Song } from '@bemuse/collection-model/types'
 import _ from 'lodash'
 
 export interface ChartProps {

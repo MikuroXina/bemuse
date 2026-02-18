@@ -1,12 +1,12 @@
 import Notechart from 'bemuse-notechart'
 import NotechartLoader from 'bemuse-notechart/lib/loader'
-import Progress from 'bemuse/progress'
-import SamplingMaster from 'bemuse/sampling-master'
-import keysoundCache from 'bemuse/keysound-cache'
+import Progress from '@bemuse/progress'
+import SamplingMaster from '@bemuse/sampling-master'
+import keysoundCache from '@bemuse/keysound-cache'
 import { ChartInfo } from 'bemuse-types'
-import { IResource, IResources } from 'bemuse/resources/types'
-import { atomic } from 'bemuse/progress/utils'
-import { resolveRelativeResources } from 'bemuse/resources/resolveRelativeResource'
+import { IResource, IResources } from '@bemuse/resources/types'
+import { atomic } from '@bemuse/progress/utils'
+import { resolveRelativeResources } from '@bemuse/resources/resolveRelativeResource.js'
 
 import * as Multitasker from './multitasker'
 import GameAudio from '../audio'
@@ -59,10 +59,7 @@ export function load(spec: LoadSpec) {
 
   return Multitasker.start<Tasks, GameController>(function (task, run) {
     task('Scintillator', 'Loading game engine', [], function (progress) {
-      return atomic(
-        progress,
-        import(/* webpackChunkName: 'gameEngine' */ 'bemuse/scintillator')
-      )
+      return atomic(progress, import('@bemuse/scintillator/index.js'))
     })
 
     task(

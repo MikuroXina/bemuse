@@ -1,5 +1,5 @@
-import { isModalActive } from 'bemuse/ui-dialogs'
-import { useLatest } from 'bemuse/utils/useLatest'
+import { isModalActive } from '@bemuse/ui-dialogs'
+import { useLatest } from '@bemuse/utils/useLatest'
 import { useEffect } from 'react'
 import { NotechartPreview } from './NotechartPreview'
 import { PreviewAction } from './PreviewState'

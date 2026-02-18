@@ -1,5 +1,5 @@
-@import '~bemuse/ui/common';
-@import 'options-input-common';
+@use '@bemuse/ui/common.scss';
+@use 'options-input-common';
 
 .OptionsInputKey {
   &のcontents {
@@ -10,11 +10,11 @@
   }
   @mixin color($color) {
     .OptionsInputKeyのcontents {
-      @include options-input-button($color);
+      @include options-input-common.options-input-button($color);
     }
   }
   &のtext {
-    @include options-input-button--text;
+    @include options-input-common.options-input-button--text;
   }
   @include color(#feb);
   &[data-n='2'],

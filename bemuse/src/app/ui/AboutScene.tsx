@@ -2,10 +2,10 @@ import './AboutScene.scss'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import Scene from 'bemuse/ui/Scene'
-import SceneHeading from 'bemuse/ui/SceneHeading'
-import { SceneManagerContext } from 'bemuse/scene-manager'
-import SceneToolbar from 'bemuse/ui/SceneToolbar'
+import Scene from '@bemuse/ui/Scene'
+import SceneHeading from '@bemuse/ui/SceneHeading'
+import { SceneManagerContext } from '@bemuse/scene-manager'
+import SceneToolbar from '@bemuse/ui/SceneToolbar'
 
 const Artists = ({ artists }: { artists: { name: string; url: string }[] }) => {
   if (artists.length === 0) {

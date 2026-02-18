@@ -1,4 +1,4 @@
-import download from 'bemuse/utils/download'
+import download from '@bemuse/utils/download'
 
 describe('download', function () {
   const options = {

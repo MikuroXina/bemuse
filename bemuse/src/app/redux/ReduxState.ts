@@ -17,17 +17,17 @@ import type {
   Chart,
   MusicServerIndex,
   SongMetadataInCollection,
-} from 'bemuse-types'
+} from '@bemuse-types'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 import _ from 'lodash'
 import { createSelector } from 'reselect'
 import { enableMapSet } from 'immer'
-import filterSongs from 'bemuse/music-collection/filterSongs'
-import getPlayableCharts from 'bemuse/music-collection/getPlayableCharts'
-import groupSongsIntoCategories from 'bemuse/music-collection/groupSongsIntoCategories'
-import preprocessCollection from 'bemuse/music-collection/preprocessCollection'
-import sortSongs from 'bemuse/music-collection/sortSongs'
+import filterSongs from '@bemuse/music-collection/filterSongs'
+import getPlayableCharts from '@bemuse/music-collection/getPlayableCharts'
+import groupSongsIntoCategories from '@bemuse/music-collection/groupSongsIntoCategories'
+import preprocessCollection from '@bemuse/music-collection/preprocessCollection'
+import sortSongs from '@bemuse/music-collection/sortSongs'
 
 enableMapSet()
 

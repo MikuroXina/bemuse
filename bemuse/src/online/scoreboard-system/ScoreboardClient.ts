@@ -1,5 +1,5 @@
-import { MappingMode } from 'bemuse/rules/mapping-mode'
-import type { ScoreCount } from 'bemuse/rules/accuracy'
+import { MappingMode } from '@bemuse/rules/mapping-mode'
+import type { ScoreCount } from '@bemuse/rules/accuracy'
 
 export interface ScoreboardClient {
   signUp(options: {

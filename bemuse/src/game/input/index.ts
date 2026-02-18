@@ -1,6 +1,6 @@
 import Control from './control'
 import _ from 'lodash'
-import bench from 'bemuse/devtools/benchmark'
+import bench from '@bemuse/devtools/benchmark'
 
 type GameInputPluginInternalInstance = {
   get(): [string, number][]

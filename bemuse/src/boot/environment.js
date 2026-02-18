@@ -1,5 +1,5 @@
 import 'jquery'
-import 'bemuse/bootstrap'
+import '@bemuse/bootstrap/index.js'
 import FastClick from 'fastclick'
 import React from 'react'
 

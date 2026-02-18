@@ -1,27 +1,27 @@
 import * as Analytics from './analytics'
 import * as Options from './entities/Options'
 
-import { Chart, Song } from 'bemuse/collection-model/types'
-import { ReactScene, SceneManager } from 'bemuse/scene-manager'
+import { Chart, Song } from '@bemuse/collection-model/types'
+import { ReactScene, SceneManager } from '@bemuse/scene-manager'
 
-import GameScene from 'bemuse/game/game-scene'
+import GameScene from '@bemuse/game/game-scene'
 import GenericErrorScene from './ui/GenericErrorScene'
-import { LoadSpec } from 'bemuse/game/loaders/game-loader'
-import LoadingScene from 'bemuse/game/ui/LoadingScene'
-import { MISSED } from 'bemuse/game/judgments'
-import Player from 'bemuse/game/player'
-import PlayerState from 'bemuse/game/state/player-state'
+import { LoadSpec } from '@bemuse/game/loaders/game-loader'
+import LoadingScene from '@bemuse/game/ui/LoadingScene'
+import { MISSED } from '@bemuse/game/judgments'
+import Player from '@bemuse/game/player'
+import PlayerState from '@bemuse/game/state/player-state'
 import React from 'react'
 import ResultScene from './ui/ResultScene'
 import { StoredOptions } from './types'
 import createAutoVelocity from './interactors/createAutoVelocity'
-import { getGrade } from 'bemuse/rules/grade'
-import { getSongResources } from 'bemuse/music-collection/getSongResources'
+import { getGrade } from '@bemuse/rules/grade'
+import { getSongResources } from '@bemuse/music-collection/getSongResources'
 import { getSoundVolume } from './query-flags'
 import invariant from 'invariant'
-import { isTitleDisplayMode } from 'bemuse/devtools/query-flags'
-import query from 'bemuse/utils/query'
-import { unmuteAudio } from 'bemuse/sampling-master'
+import { isTitleDisplayMode } from '@bemuse/devtools/query-flags'
+import query from '@bemuse/utils/query'
+import { unmuteAudio } from '@bemuse/sampling-master'
 
 const Log = BemuseLogger.forModule('game-launcher')
 
@@ -158,7 +158,7 @@ async function launchGame(
     const loadStart = Date.now()
     setCurrentWork('loading the game')
     Log.info(`Loading game: ${describeChart(chart)}`)
-    const GameLoader: typeof import('bemuse/game/loaders/game-loader') = require('bemuse/game/loaders/game-loader')
+    const GameLoader: typeof import('@bemuse/game/loaders/game-loader') = require('@bemuse/game/loaders/game-loader')
     const loader = GameLoader.load(loadSpec)
     const { tasks, promise } = loader
 

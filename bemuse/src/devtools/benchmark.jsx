@@ -1,4 +1,4 @@
-import now from 'bemuse/utils/now'
+import now from '@bemuse/utils/now'
 import { shouldEnableBenchmark } from './query-flags'
 import React from 'react'
 import { createRoot } from 'react-dom/client'

@@ -1,9 +1,9 @@
 import './style.scss'
 
 import $ from 'jquery'
-import DndResources from 'bemuse/resources/dnd-resources'
-import SamplingMaster from 'bemuse/sampling-master'
-import ctx from 'bemuse/audio-context'
+import DndResources from '@bemuse/resources/dnd-resources'
+import SamplingMaster from '@bemuse/sampling-master'
+import ctx from '@bemuse/audio-context'
 import { Compiler, Notes, Reader, SongInfo, Timing } from 'bms'
 
 import template from './template.jade'

@@ -1,7 +1,7 @@
-@import '~bemuse/ui/common';
+@use '@bemuse/ui/common.scss';
 
 .OptionsInputField {
-  @include input;
+  @include common.input;
   text-align: center;
   &.is-invalid {
     color: #8b8685;

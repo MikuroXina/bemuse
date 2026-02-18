@@ -1,20 +1,20 @@
-import { RankingState, RankingStream } from 'bemuse/online'
+import { RankingState, RankingStream } from '@bemuse/online'
 import {
   useCurrentUser,
   useLeaderboardQuery,
   usePersonalRankingEntryQuery,
   useRecordSubmissionMutation,
-} from 'bemuse/online/hooks'
+} from '@bemuse/online/hooks'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 
-import { MappingMode } from 'bemuse/rules/mapping-mode'
-import { OnlineContext } from 'bemuse/online/instance'
+import { MappingMode } from '@bemuse/rules/mapping-mode'
+import { OnlineContext } from '@bemuse/online/instance'
 import Ranking from './Ranking'
 import { Result } from './ResultScene'
-import { ScoreCount } from 'bemuse/rules/accuracy'
-import { isQueryFlagEnabled } from 'bemuse/flags'
+import { ScoreCount } from '@bemuse/rules/accuracy'
+import { isQueryFlagEnabled } from '@bemuse/flags'
 import { UseMutationResult, UseQueryResult } from 'react-query'
-import { Operation, completed, error, loading } from 'bemuse/online/operations'
+import { Operation, completed, error, loading } from '@bemuse/online/operations'
 
 export interface RankingContainerProps {
   chart: { md5: string }

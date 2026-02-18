@@ -1,4 +1,4 @@
-import { BYTES_FORMATTER } from 'bemuse/progress/formatters'
+import { BYTES_FORMATTER } from '@bemuse/progress/formatters'
 import { Progress } from './Progress'
 
 /**

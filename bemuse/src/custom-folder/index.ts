@@ -7,10 +7,10 @@ import {
   CustomFolderSong,
   CustomFolderState,
 } from './types'
-import { loadSongFromResources } from 'bemuse/custom-song-loader'
-import { ICustomSongResources, IResources } from 'bemuse/resources/types'
-import { FileResource } from 'bemuse/resources/custom-song-resources'
-import { Song } from 'bemuse/collection-model/types'
+import { loadSongFromResources } from '@bemuse/custom-song-loader'
+import { ICustomSongResources, IResources } from '@bemuse/resources/types'
+import { FileResource } from '@bemuse/resources/custom-song-resources'
+import { Song } from '@bemuse/collection-model/types'
 
 export interface CustomFolderContext {
   get: (key: string) => Promise<CustomFolderState | undefined>

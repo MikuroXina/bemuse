@@ -1,4 +1,4 @@
-import Observable from 'bemuse/utils/observable'
+import Observable from '@bemuse/utils/observable'
 
 interface IProgressFormatter {
   (progress: Progress): string

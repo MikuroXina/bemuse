@@ -1,4 +1,4 @@
-@import '~bemuse/ui/common';
+@use '@bemuse/ui/common.scss';
 
 .CustomBMS {
   &のwrapper {
@@ -15,7 +15,7 @@
     color: #8b8685;
   }
   &のdropzone {
-    @include center-content;
+    @include common.center-content;
     border: 3px dashed #7b7675;
     height: 240px;
     margin-top: 1ex;
@@ -42,7 +42,7 @@
     display: none;
   }
   &のlog {
-    @include scrolling-y;
+    @include common.scrolling-y;
     width: 100%;
     height: 100%;
     box-sizing: border-box;

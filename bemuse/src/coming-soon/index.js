@@ -1,4 +1,4 @@
-import 'style-loader!./style.scss'
+import './style.scss'
 
 import template from './template.jade'
 

@@ -7,7 +7,7 @@ import {
   getPersonalRankingEntryQueryKey,
   getPersonalRecordQueryKey,
 } from './queryKeys'
-import { MappingMode } from 'bemuse/rules/mapping-mode'
+import { MappingMode } from '@bemuse/rules/mapping-mode'
 import { ScoreInfo } from '.'
 
 export function useCurrentUser() {

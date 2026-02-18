@@ -1,7 +1,7 @@
-import * as ProgressUtils from 'bemuse/progress/utils'
+import * as ProgressUtils from '@bemuse/progress/utils'
 import throat from 'throat'
 import axios from 'axios'
-import query from 'bemuse/utils/query'
+import query from '@bemuse/utils/query'
 
 import URLResource from './url'
 

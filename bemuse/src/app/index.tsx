@@ -2,11 +2,11 @@ import * as Analytics from './analytics'
 import * as BemuseTestMode from '../devtools/BemuseTestMode'
 import * as ReduxState from './redux/ReduxState'
 
-import { SceneManager, SceneManagerContext } from 'bemuse/scene-manager'
+import { SceneManager, SceneManagerContext } from '@bemuse/scene-manager'
 import {
   getDefaultCustomFolderContext,
   getSongsFromCustomFolders,
-} from 'bemuse/custom-folder'
+} from '@bemuse/custom-folder'
 import {
   getInitialGrepString,
   getMusicServer,
@@ -15,12 +15,12 @@ import {
 import {
   shouldShowAbout,
   shouldShowModeSelect,
-} from 'bemuse/devtools/query-flags'
+} from '@bemuse/devtools/query-flags'
 
 import AboutScene from './ui/AboutScene'
 import BrowserSupportWarningScene from './ui/BrowserSupportWarningScene'
 import ModeSelectScene from './ui/ModeSelectScene'
-import { OFFICIAL_SERVER_URL } from 'bemuse/music-collection'
+import { OFFICIAL_SERVER_URL } from '@bemuse/music-collection'
 import { Provider } from 'react-redux'
 import React from 'react'
 import TitleScene from './ui/TitleScene'
@@ -28,9 +28,9 @@ import configureStore from './redux/configureStore'
 import { isBrowserSupported } from './browser-support'
 import { monetize } from 'monetizer'
 import { musicSearchTextSlice } from './entities/MusicSearchText'
-import now from 'bemuse/utils/now'
+import now from '@bemuse/utils/now'
 import { optionsSlice } from './entities/Options'
-import { isQueryFlagEnabled } from 'bemuse/flags'
+import { isQueryFlagEnabled } from '@bemuse/flags'
 import MusicSelectScene from './ui/MusicSelectScene'
 
 const store = configureStore()

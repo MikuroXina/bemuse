@@ -2,7 +2,7 @@
 // our application still depends on a singleton.
 //
 
-import type { ICustomSongResources } from 'bemuse/resources/types'
+import type { ICustomSongResources } from '@bemuse/resources/types'
 
 import {
   LoadSongOptions,

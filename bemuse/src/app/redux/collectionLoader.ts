@@ -1,5 +1,5 @@
 import type { AnyAction, Middleware } from 'redux'
-import type { SongMetadataInCollection } from 'bemuse-types'
+import type { SongMetadataInCollection } from '@bemuse-types'
 
 import findMatchingSong from '../interactors/findMatchingSong'
 import { collectionsSlice } from '../redux/ReduxState'

@@ -1,4 +1,4 @@
-import Expression from 'bemuse/scintillator/expression'
+import Expression from '@bemuse/scintillator/expression'
 
 describe('Scintillator Expression', function () {
   describe('()', function () {

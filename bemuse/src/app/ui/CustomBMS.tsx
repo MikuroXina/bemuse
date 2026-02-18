@@ -9,8 +9,8 @@ import {
   hasPendingArchiveToLoad,
 } from '../PreloadedCustomBMS'
 
-import Panel from 'bemuse/ui/Panel'
-import { Song } from 'bemuse/collection-model/types'
+import Panel from '@bemuse/ui/Panel'
+import { Song } from '@bemuse/collection-model/types'
 import c from 'classnames'
 import { useCustomSongLoaderLog } from '../CustomSongs'
 import { useDispatch } from 'react-redux'

@@ -1,4 +1,4 @@
-import * as ProgressUtils from 'bemuse/progress/utils'
+import * as ProgressUtils from '@bemuse/progress/utils'
 import {
   FileEntry,
   LoggingFunction,
@@ -7,9 +7,9 @@ import {
 } from './types'
 import ResourceLogging from './resource-logging'
 import { unarchive } from './unarchiver'
-import readBlob from 'bemuse/utils/read-blob'
-import Progress from 'bemuse/progress'
-import download from 'bemuse/utils/download'
+import readBlob from '@bemuse/utils/read-blob'
+import Progress from '@bemuse/progress'
+import download from '@bemuse/utils/download'
 
 export const ARCHIVE_REGEXP = /\.(?:zip|rar|7z|tar(?:\.(?:gz|bz2))?)/i
 

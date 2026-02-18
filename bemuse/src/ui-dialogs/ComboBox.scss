@@ -1,10 +1,10 @@
-@import '~bemuse/ui/common';
+@use '@bemuse/ui/common.scss';
 
 .ComboBox {
   width: 24em;
   max-width: 80vw;
   &のinput {
-    @include input;
+    @include common.input;
     width: 100%;
     box-sizing: border-box;
   }

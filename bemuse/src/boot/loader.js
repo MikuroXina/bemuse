@@ -4,47 +4,43 @@ const modules = {
   // >> boot/modes
   // app
   //   The main game application. This will bring up the Title Screen.
-  app: () => import(/* webpackChunkName: 'app' */ 'bemuse/app'),
+  app: () => import('@bemuse/app'),
 
   // >>
   // music
   //   The music collection viewer which shows all the songs.
-  music: () =>
-    import(/* webpackChunkName: 'music' */ 'bemuse/music-collection-viewer'),
+  music: () => import('@bemuse/music-collection-viewer'),
 
   // >>
   // test
   //   The unit tests.
-  test: () => import(/* webpackChunkName: 'test' */ 'bemuse/test'),
+  test: () => import('@bemuse/test'),
 
   // >>
   // comingSoon
   //   Displays the "coming soon" text.
-  comingSoon: () =>
-    import(/* webpackChunkName: 'comingSoon' */ 'bemuse/coming-soon'),
+  comingSoon: () => import('@bemuse/coming-soon'),
 
   // >>
   // sync
   //   Displays a simple UI for determining your computer's audio+input
   //   latency.
-  sync: () => import(/* webpackChunkName: 'sync' */ 'bemuse/auto-synchro'),
+  sync: () => import('@bemuse/auto-synchro'),
 
   // >>
   // game
   //   Runs the game shell.
-  game: () => import(/* webpackChunkName: 'game' */ 'bemuse/game'),
+  game: () => import('@bemuse/game'),
 
   // >>
   // playground
   //   Various playgrounds...
-  playground: () =>
-    import(/* webpackChunkName: 'playground' */ 'bemuse/devtools/playground'),
+  playground: () => import('@bemuse/devtools/playground'),
 
   // >>
   // previewer
   //   Runs BMS previewer.
-  previewer: () =>
-    import(/* webpackChunkName: 'previewer' */ 'bemuse/previewer'),
+  previewer: () => import('@bemuse/previewer'),
 }
 
 export default modules

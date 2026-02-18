@@ -35,10 +35,10 @@ import {
 import { RecordLevel, fromObject } from './level'
 
 import { BatchedFetcher } from './BatchedFetcher'
-import { ScoreCount } from 'bemuse/rules/accuracy'
+import { ScoreCount } from '@bemuse/rules/accuracy'
 import _ from 'lodash'
 import id from './id'
-import { queryClient } from 'bemuse/react-query'
+import { queryClient } from '@bemuse/react-query'
 import { rootQueryKey } from './queryKeys'
 
 export interface SignUpInfo {

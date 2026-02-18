@@ -1,6 +1,6 @@
 import './OptionsPlayerGraphics.scss'
 
-import * as touch3d from 'bemuse/game/display/touch3d'
+import * as touch3d from '@bemuse/game/display/touch3d'
 
 import { PanelPlacement, ScratchPosition } from '../entities/Options'
 import React, { ReactNode } from 'react'

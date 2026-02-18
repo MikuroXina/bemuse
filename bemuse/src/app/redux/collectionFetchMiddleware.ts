@@ -5,7 +5,7 @@ import {
   currentCollectionSlice,
 } from './ReduxState'
 
-import { load as loadCollection } from 'bemuse/music-collection'
+import { load as loadCollection } from '@bemuse/music-collection'
 
 export const collectionFetchMiddleware: Middleware<{}, AppState> =
   ({ dispatch }) =>

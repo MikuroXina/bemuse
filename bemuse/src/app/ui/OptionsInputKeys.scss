@@ -1,5 +1,5 @@
 @use 'sass:math';
-@import '~bemuse/ui/common';
+@use '@bemuse/ui/common.scss';
 
 .OptionsInputKeys {
   height: 160px;

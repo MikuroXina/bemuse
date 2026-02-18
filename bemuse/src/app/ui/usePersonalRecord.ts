@@ -2,9 +2,9 @@ import './MusicInfoTabStats.scss'
 
 import * as ReduxState from '../redux/ReduxState'
 
-import { ScoreboardDataRecord } from 'bemuse/online'
+import { ScoreboardDataRecord } from '@bemuse/online'
 import { useSelector } from 'react-redux'
-import { usePersonalRecordsByMd5Query } from 'bemuse/online/hooks'
+import { usePersonalRecordsByMd5Query } from '@bemuse/online/hooks'
 
 export interface PartialChart {
   md5: string

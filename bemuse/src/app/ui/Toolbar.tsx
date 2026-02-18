@@ -1,13 +1,13 @@
 import FloatingMobileMenu, {
   FloatingMobileMenuSeparator,
-} from 'bemuse/ui/FloatingMobileMenu'
+} from '@bemuse/ui/FloatingMobileMenu'
 import React, { MouseEvent, memo, useState } from 'react'
-import SceneToolbar, { SceneToolbarSpacer } from 'bemuse/ui/SceneToolbar'
+import SceneToolbar, { SceneToolbarSpacer } from '@bemuse/ui/SceneToolbar'
 
 import FirstTimeTip from './FirstTimeTip'
-import FloatingMobileButton from 'bemuse/ui/FloatingMobileButton'
-import { Icon } from 'bemuse/fa'
-import TipContainer from 'bemuse/ui/TipContainer'
+import FloatingMobileButton from '@bemuse/ui/FloatingMobileButton'
+import { Icon } from '@bemuse/fa'
+import TipContainer from '@bemuse/ui/TipContainer'
 import { WindowSize } from 'react-fns'
 
 export interface ToolbarItem {

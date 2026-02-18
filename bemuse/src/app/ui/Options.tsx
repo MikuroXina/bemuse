@@ -3,7 +3,7 @@ import './Options.scss'
 import OptionsAdvanced from './OptionsAdvanced'
 import OptionsInput from './OptionsInput'
 import OptionsPlayer from './OptionsPlayer'
-import Panel from 'bemuse/ui/Panel'
+import Panel from '@bemuse/ui/Panel'
 import React from 'react'
 
 export interface OptionsProps {

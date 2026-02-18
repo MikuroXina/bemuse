@@ -1,6 +1,6 @@
 import * as Judgments from '../judgments'
 
-import Notechart from 'bemuse-notechart'
+import Notechart from '@bemuse-notechart'
 import _ from 'lodash'
 
 const getAccuracyScore = (accuracy: number) => Math.floor(accuracy * 500000)

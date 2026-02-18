@@ -4,9 +4,9 @@ import {
   ScoreboardRow,
 } from './ScoreboardClient'
 
-import { MappingMode } from 'bemuse/rules/mapping-mode'
+import { MappingMode } from '@bemuse/rules/mapping-mode'
 import ObjectID from 'bson-objectid'
-import type { ScoreCount } from 'bemuse/rules/accuracy'
+import type { ScoreCount } from '@bemuse/rules/accuracy'
 import delay from 'delay'
 
 interface Submission {

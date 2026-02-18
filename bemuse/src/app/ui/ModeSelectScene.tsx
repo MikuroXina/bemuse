@@ -4,12 +4,12 @@ import * as Analytics from '../analytics'
 
 import React, { useContext, useRef } from 'react'
 
-import { MappingMode } from 'bemuse/rules/mapping-mode'
+import { MappingMode } from '@bemuse/rules/mapping-mode'
 import MusicSelectScene from './MusicSelectScene'
-import Scene from 'bemuse/ui/Scene'
-import SceneHeading from 'bemuse/ui/SceneHeading'
-import { SceneManagerContext } from 'bemuse/scene-manager'
-import SceneToolbar from 'bemuse/ui/SceneToolbar'
+import Scene from '@bemuse/ui/Scene'
+import SceneHeading from '@bemuse/ui/SceneHeading'
+import { SceneManagerContext } from '@bemuse/scene-manager'
+import SceneToolbar from '@bemuse/ui/SceneToolbar'
 import { optionsSlice } from '../entities/Options'
 import { useDispatch } from 'react-redux'
 

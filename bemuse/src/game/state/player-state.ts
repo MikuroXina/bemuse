@@ -11,7 +11,7 @@ import {
 
 import Control from '../input/control'
 import GameInput from '../input'
-import { GameNote } from 'bemuse-notechart/lib/types'
+import { GameNote } from '@bemuse-notechart/lib/types'
 import Player from '../player'
 import PlayerStats from './player-stats'
 import _ from 'lodash'

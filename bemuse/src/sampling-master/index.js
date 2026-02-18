@@ -1,5 +1,5 @@
-import defaultAudioContext from 'bemuse/audio-context'
-import readBlob from 'bemuse/utils/read-blob'
+import defaultAudioContext from '@bemuse/audio-context'
+import readBlob from '@bemuse/utils/read-blob'
 import { decodeOGG } from './ogg'
 
 export const FADE_LENGTH = 0.001

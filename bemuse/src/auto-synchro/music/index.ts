@@ -1,8 +1,8 @@
-import SamplingMaster, { Sample } from 'bemuse/sampling-master'
+import SamplingMaster, { Sample } from '@bemuse/sampling-master'
 
 import _ from 'lodash'
-import context from 'bemuse/audio-context'
-import download from 'bemuse/utils/download'
+import context from '@bemuse/audio-context'
+import download from '@bemuse/utils/download'
 
 /**
  * The asset URL of these files...

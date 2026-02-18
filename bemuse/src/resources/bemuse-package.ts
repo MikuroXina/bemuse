@@ -1,7 +1,7 @@
-import * as ProgressUtils from 'bemuse/progress/utils'
+import * as ProgressUtils from '@bemuse/progress/utils'
 import _ from 'lodash'
-import Progress from 'bemuse/progress'
-import readBlob from 'bemuse/utils/read-blob'
+import Progress from '@bemuse/progress'
+import readBlob from '@bemuse/utils/read-blob'
 import throat from 'throat'
 
 import { IResource, IResources } from './types'
