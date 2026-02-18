@@ -3,6 +3,7 @@
 // High-accuracy timer, optionally synchronized globally.
 
 import sync from 'timesynchro'
+import * as BemuseLogger from '@bemuse/logger/index.js'
 const Log = BemuseLogger.forModule('timesynchro')
 
 let offset = 0

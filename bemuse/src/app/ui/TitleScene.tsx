@@ -1,4 +1,5 @@
 import './TitleScene.scss'
+import logo from './images/logo-with-shadow.svg'
 
 import * as Analytics from '../analytics'
 
@@ -15,7 +16,7 @@ import Scene from '@bemuse/ui/Scene'
 import { SceneManagerContext } from '@bemuse/scene-manager'
 import Toolbar from './Toolbar'
 import { selectOptions } from '../redux/ReduxState'
-import version from '@bemuse/utils/version'
+import version from '@bemuse/utils/version.js'
 
 const HAS_PARENT = (() => {
   try {
@@ -115,7 +116,7 @@ const TitleScene = () => {
             <div className='TitleSceneのtagline'>
               online, web-based rhythm game
             </div>
-            <img src={require('./images/logo-with-shadow.svg')} />
+            <img src={logo} />
           </div>
           <div className='TitleSceneのenter'>
             <a onClick={enterGame} data-testid='enter-game'>

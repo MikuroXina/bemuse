@@ -85,7 +85,7 @@ function createMusicPreviewer() {
   let backgroundPlayed = false
   const instances = {}
 
-  const background = new Audio(require('./default.ogg'))
+  const background = new Audio('./default.ogg')
   background.preload = 'auto'
   background.loop = true
   background.oncanplaythrough = () => {
@@ -95,7 +95,7 @@ function createMusicPreviewer() {
   background.load()
 
   const goSound = document.createElement('audio')
-  goSound.src = require('./go.ogg')
+  goSound.src = './go.ogg'
   goSound.volume = 0.5
   goSound.load()
 

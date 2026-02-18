@@ -43,59 +43,58 @@ window.onerror = function (message, url, line, col, e) {
 
 const mode = query.mode || 'app'
 
-import(/* webpackChunkName: 'environment' */ './environment.js')
-  .then((_) => {
-    if (loadModule[mode]) {
-      // >>
-      // The main script is then loaded and imported into the environment,
-      // and its ``main()`` method is invoked.
-      //
-      // Available Modes
-      // ~~~~~~~~~~~~~~~
-      // The available modes are specified in :src:`boot/loader.js`.
-      //
-      // .. codedoc:: boot/modes
-      //
-      bootRoot.render(<Boot status={`Loading ${mode} bundle`} />)
-      loadModule[mode]()
-        .then((loadedModule) => {
-          bootRoot.render(<Boot status='Initializing' />)
-          return loadedModule.main({ setStatus: Boot.setStatus })
-        })
-        .then(() => {
-          bootRoot.render(<Boot hidden />)
-        })
-        .catch((err) => {
-          console.error(err)
-          bootRoot.render(
-            <ErrorDialog
-              onClose={closeErrorDialog}
-              message={`An error occurred while initializing "${mode}"`}
-              err={err}
-            />
-          )
-        })
-    } else {
+try {
+  if (loadModule[mode]) {
+    // >>
+    // The main script is then loaded and imported into the environment,
+    // and its ``main()`` method is invoked.
+    //
+    // Available Modes
+    // ~~~~~~~~~~~~~~~
+    // The available modes are specified in :src:`boot/loader.js`.
+    //
+    // .. codedoc:: boot/modes
+    //
+    bootRoot.render(<Boot status={`Loading ${mode} bundle`} />)
+    try {
+      const loadedModule = await loadModule[mode]()
+      bootRoot.render(<Boot status='Initializing' />)
+      await loadedModule.main({
+        setStatus: (status: string) => {
+          bootRoot.render(<Boot status={status} />)
+        },
+      })
+      bootRoot.render(<Boot hidden />)
+    } catch (err: unknown) {
+      console.error(err)
       bootRoot.render(
         <ErrorDialog
           onClose={closeErrorDialog}
-          message={`Invalid mode: ${mode}`}
+          message={`An error occurred while initializing "${mode}"`}
+          err={err instanceof Error ? err : undefined}
         />
       )
     }
-  })
-  .catch((err) => {
+  } else {
     bootRoot.render(
       <ErrorDialog
         onClose={closeErrorDialog}
-        message={
-          'Failed to load environment bundle. Please refresh the page to try again. ' +
-          'If that does not work, try holding down the Shift key while clicking Refresh. ' +
-          'If that still does not work, please report this issue to the developers at ' +
-          'https://github.com/bemusic/bemuse/issues'
-        }
-        err={err}
+        message={`Invalid mode: ${mode}`}
       />
     )
-    console.error('An error occurred while loading the component', err)
-  })
+  }
+} catch (err: unknown) {
+  bootRoot.render(
+    <ErrorDialog
+      onClose={closeErrorDialog}
+      message={
+        'Failed to load environment bundle. Please refresh the page to try again. ' +
+        'If that does not work, try holding down the Shift key while clicking Refresh. ' +
+        'If that still does not work, please report this issue to the developers at ' +
+        'https://github.com/bemusic/bemuse/issues'
+      }
+      err={err instanceof Error ? err : undefined}
+    />
+  )
+  console.error('An error occurred while loading the component', err)
+}

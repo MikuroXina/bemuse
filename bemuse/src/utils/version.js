@@ -1,2 +1,2 @@
-const version = import.meta.env.BEMUSE_BUILD_VERSION
+const version = window._BEMUSE_BUILD_VERSION
 export default version

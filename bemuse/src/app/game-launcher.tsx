@@ -22,11 +22,12 @@ import invariant from 'invariant'
 import { isTitleDisplayMode } from '@bemuse/devtools/query-flags'
 import query from '@bemuse/utils/query'
 import { unmuteAudio } from '@bemuse/sampling-master'
+import * as BemuseLogger from '@bemuse/logger/index.js'
 
 const Log = BemuseLogger.forModule('game-launcher')
 
-if (module.hot) {
-  module.hot.accept('bemuse/game/loaders/game-loader')
+if (import.meta.hot) {
+  import.meta.hot.accept('@bemuse/game/loaders/game-loader')
 }
 
 export type LaunchOptions = {

@@ -4,7 +4,7 @@ const modules = {
   // >> boot/modes
   // app
   //   The main game application. This will bring up the Title Screen.
-  app: () => import('@bemuse/app'),
+  app: () => import('@bemuse/app/index.js'),
 
   // >>
   // music

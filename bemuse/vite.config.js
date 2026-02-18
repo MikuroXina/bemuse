@@ -6,6 +6,7 @@ import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { readFileSync } from 'node:fs'
 import react from '@vitejs/plugin-react'
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 function gitRevision() {
   return require('child_process')
@@ -18,7 +19,7 @@ function buildInfo() {
   const file = fileURLToPath(new URL('package.json', import.meta.url))
   const pkgJson = JSON.parse(readFileSync(file, 'utf-8'))
   let name = 'Bemuse'
-  let version = pkgJson.version.replace(/\.0$/, '').replace(/\.0$/, '')
+  let version = pkgJson.version
 
   if (process.env.CONTEXT === 'deploy-preview') {
     name += 'DevMode'
@@ -63,10 +64,13 @@ export default defineConfig({
     },
     peggy(),
     react(),
+    nodePolyfills({
+      include: ['util'],
+    }),
   ],
   define: {
-    BEMUSE_BUILD_VERSION: JSON.stringify(version),
-    BEMUSE_BUILD_NAME: JSON.stringify(name),
+    _BEMUSE_BUILD_NAME: JSON.stringify(name),
+    _BEMUSE_BUILD_VERSION: JSON.stringify(version),
   },
   resolve: {
     alias: {
