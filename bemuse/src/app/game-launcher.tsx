@@ -2,12 +2,12 @@ import * as Analytics from './analytics'
 import * as Options from './entities/Options'
 
 import { Chart, Song } from '@bemuse/collection-model/types'
-import { ReactScene, SceneManager } from '@bemuse/scene-manager'
+import { ReactScene, SceneManager } from '@bemuse/scene-manager/index.js'
 
 import GameScene from '@bemuse/game/game-scene'
-import GenericErrorScene from './ui/GenericErrorScene'
+import GenericErrorScene from './ui/GenericErrorScene.js'
 import { LoadSpec } from '@bemuse/game/loaders/game-loader'
-import LoadingScene from '@bemuse/game/ui/LoadingScene'
+import LoadingScene from '@bemuse/game/ui/LoadingScene.js'
 import { MISSED } from '@bemuse/game/judgments'
 import Player from '@bemuse/game/player'
 import PlayerState from '@bemuse/game/state/player-state'
@@ -54,14 +54,15 @@ export async function launch(launchOptions: LaunchOptions) {
       (work) => (currentWork = work)
     )
   } catch (e) {
+    Log.error(e)
     await new Promise<void>((resolve, reject) => {
       sceneDisplayContext
         .showScene(
-          GenericErrorScene.getScene({
-            preamble: `Bemuse has encountered a problem while ${currentWork}`,
-            error: e as Error,
-            onContinue: resolve,
-          })
+          <GenericErrorScene
+            preamble={`Bemuse has encountered a problem while ${currentWork}`}
+            error={e as Error}
+            onContinue={resolve}
+          />
         )
         .catch(reject)
     })
@@ -159,9 +160,12 @@ async function launchGame(
     const loadStart = Date.now()
     setCurrentWork('loading the game')
     Log.info(`Loading game: ${describeChart(chart)}`)
-    const GameLoader: typeof import('@bemuse/game/loaders/game-loader') = require('@bemuse/game/loaders/game-loader')
+    const GameLoader = await import('@bemuse/game/loaders/game-loader.js')
     const loader = GameLoader.load(loadSpec)
     const { tasks, promise } = loader
+    promise.catch((err: unknown) => {
+      Log.error(err)
+    })
 
     // display loading scene
     const loadingScene = (

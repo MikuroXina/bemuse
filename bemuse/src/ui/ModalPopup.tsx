@@ -1,9 +1,8 @@
 import './ModalPopup.scss'
 
-import c from 'classnames'
 import React, { MouseEvent } from 'react'
 
-import WarpContainer from './WarpContainer'
+import WarpContainer from './WarpContainer.js'
 
 export interface ModalPopupProps {
   visible?: boolean
@@ -20,9 +19,8 @@ const ModalPopup = ({
   return (
     <WarpContainer>
       <div
-        className={c('ModalPopup', {
-          'is-visible': visible,
-        })}
+        className='ModalPopup'
+        data-visible={visible}
         onClick={onBackdropClick}
       >
         <div className='ModalPopupのscroller'>

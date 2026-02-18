@@ -1,7 +1,7 @@
 import React, { ReactNode, createContext } from 'react'
 import { Root, createRoot } from 'react-dom/client'
 
-import MAIN from '@bemuse/utils/main-element'
+import MAIN from '@bemuse/utils/main-element.js'
 import { QueryClientProvider } from 'react-query'
 import { queryClient } from '@bemuse/react-query'
 
@@ -53,7 +53,7 @@ export class SceneManager {
 
       // detach the previous scene
       if (this.current) {
-        await Promise.resolve(this.current.instance.teardown())
+        await this.current.instance.teardown()
         this.current.root.unmount()
       }
 

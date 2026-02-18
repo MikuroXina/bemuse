@@ -6,7 +6,7 @@ import { getChartLevel, musicSelectionSlice } from '../entities/MusicSelection'
 import { ChartProps } from '../ui/MusicList'
 import { SceneManager } from '@bemuse/scene-manager'
 import { SongMetadataInCollection } from '@bemuse-types'
-import { launch } from '../game-launcher'
+import { launch } from '../game-launcher.js'
 import { rageQuitSlice } from '../redux/ReduxState'
 
 export function selectSong(

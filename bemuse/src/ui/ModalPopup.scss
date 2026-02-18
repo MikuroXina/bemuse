@@ -23,7 +23,7 @@
   &のcontents {
     position: relative;
   }
-  &:not(.is-visible) {
+  &[data-visible='true'] {
     display: none;
   }
 }

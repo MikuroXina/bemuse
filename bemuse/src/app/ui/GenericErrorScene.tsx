@@ -2,7 +2,7 @@ import './GenericErrorScene.scss'
 
 import React from 'react'
 import OptionsButton from './OptionsButton'
-import ModalPopup from '@bemuse/ui/ModalPopup'
+import ModalPopup from '@bemuse/ui/ModalPopup.js'
 import Panel from '@bemuse/ui/Panel'
 import Scene from '@bemuse/ui/Scene'
 
@@ -54,10 +54,4 @@ export default function GenericErrorScene(props: {
       </ModalPopup>
     </Scene>
   )
-}
-
-GenericErrorScene.getScene = (
-  props: React.ComponentPropsWithoutRef<typeof GenericErrorScene>
-) => {
-  return <GenericErrorScene {...props} />
 }
