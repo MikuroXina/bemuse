@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest'
 import assert from 'assert'
 
 import createKeysoundCache from './createKeysoundCache'

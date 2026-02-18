@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import Notechart from '@bemuse-notechart'
+import Notechart from 'bemuse-notechart'
 
 export enum Judgment {
   Missed = -1,

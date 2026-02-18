@@ -1,4 +1,4 @@
-import { Chart } from '@bemuse-types'
+import { Chart } from 'bemuse-types'
 import _ from 'lodash'
 import isChartPlayable from './isChartPlayable'
 

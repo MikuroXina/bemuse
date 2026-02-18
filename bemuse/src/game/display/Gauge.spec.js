@@ -1,6 +1,7 @@
 import assert from 'assert'
 
 import { getGauge } from './Gauge'
+import { describe, it } from 'vitest'
 
 describe('an inactive gauge', () => {
   it('does not display anything', () => {

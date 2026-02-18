@@ -2,6 +2,7 @@ import assert from 'assert'
 
 import PlayerStats from './player-stats'
 import { notechart } from '../test-helpers'
+import { describe, expect, it } from 'vitest'
 
 describe('PlayerStats', function () {
   const statsFor5Notes = () => new PlayerStats(notechart('#00111:1111111111'))

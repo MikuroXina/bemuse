@@ -1,6 +1,6 @@
 import './MusicList.scss'
 
-import { Chart, SongMetadataInCollection } from '@bemuse-types'
+import { Chart, SongMetadataInCollection } from 'bemuse-types'
 import React, { useLayoutEffect, useRef } from 'react'
 
 import { MappingMode } from '@bemuse/rules/mapping-mode'

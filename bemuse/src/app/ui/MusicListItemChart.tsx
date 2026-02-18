@@ -2,7 +2,7 @@ import './MusicListItemChart.scss'
 
 import React, { MouseEvent } from 'react'
 
-import { Chart } from '@bemuse-types'
+import { Chart } from 'bemuse-types'
 import c from 'classnames'
 import { getGrade } from '@bemuse/rules/grade'
 import { usePersonalRecord } from './usePersonalRecord'

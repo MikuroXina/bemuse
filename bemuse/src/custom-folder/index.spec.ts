@@ -1,11 +1,12 @@
+import { it, expect } from 'vitest'
 import {
   CustomFolderContext,
   CustomFolderScanIO,
   getCustomFolderState,
   scanFolder,
   setCustomFolder,
-} from '.'
-import { CustomFolderState } from './types'
+} from './index.js'
+import type { CustomFolderState } from './types.js'
 
 const debugging = false
 
@@ -109,7 +110,7 @@ class CustomFolderTestHarness {
 
   async checkState(f: (state: CustomFolderState) => Promise<void>) {
     const state = await getCustomFolderState(this.context)
-    void expect(state).not.to.equal(undefined)
+    expect(state).not.to.equal(undefined)
     await f(state!)
   }
 }

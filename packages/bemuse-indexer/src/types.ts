@@ -3,7 +3,7 @@ import type {
   ChartBpm as BPMInfo,
   Chart as OutputChart,
   SongMetadata,
-} from '@bemuse-types'
+} from 'bemuse-types'
 
 /* eslint camelcase: off */
 /* REASON: Our indexed JSON file is snake-cased */

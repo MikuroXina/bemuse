@@ -3,7 +3,7 @@ import './LoadingScene.scss'
 import LoadingSceneProgress, { Tasks } from './LoadingSceneProgress'
 import React, { useEffect, useRef } from 'react'
 
-import type { ChartInfo } from '@bemuse-types'
+import type { ChartInfo } from 'bemuse-types'
 import LoadingSceneSongInfo from './LoadingSceneSongInfo'
 import Scene from '@bemuse/ui/Scene'
 import delay from 'delay'

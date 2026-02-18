@@ -1,5 +1,6 @@
-import { getJudgeForNotechart, judgeTime, timegate } from './judgments'
-import { notechart } from './test-helpers'
+import { describe, expect, it } from 'vitest'
+import { getJudgeForNotechart, judgeTime, timegate } from './judgments.js'
+import { notechart } from './test-helpers/index.js'
 
 describe('tutorial song', () => {
   it('beginning is easy', () => {

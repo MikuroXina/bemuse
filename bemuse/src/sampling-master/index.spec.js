@@ -1,18 +1,28 @@
 /* global AudioContext, WebAudioTestAPI */
 
 import 'web-audio-test-api'
-
+import {
+  describe,
+  it,
+  expect,
+  beforeEach,
+  beforeAll,
+  afterAll,
+  vi,
+} from 'vitest'
 import assert from 'assert'
 
-import SamplingMaster, { FADE_LENGTH } from './'
+import SamplingMaster, { FADE_LENGTH } from './index.js'
 
 describe('SamplingMaster', function () {
   let context
   let master
-  before(() => {
+  beforeAll(() => {
     WebAudioTestAPI.use()
   })
   beforeEach(() => {
+    vi.resetAllMocks()
+
     context = new AudioContext()
     master = new SamplingMaster(context)
   })
@@ -20,13 +30,17 @@ describe('SamplingMaster', function () {
   describe('#unmute', function () {
     it('unmutes the audio', function () {
       const gain = context.createGain()
-      sinon.stub(context, 'createGain').returns(gain)
-      sinon.spy(gain, 'connect')
-      sinon.spy(gain, 'disconnect')
+      const createGainMock = vi
+        .spyOn(context, 'createGain')
+        .mockReturnValue(gain)
+      const connectMock = vi.spyOn(gain, 'connect')
+      const disconnectMock = vi.spyOn(gain, 'disconnect')
+
       master.unmute()
-      void expect(context.createGain).to.have.been.called
-      void expect(gain.connect).to.have.been.called
-      void expect(gain.disconnect).to.have.been.called
+
+      expect(createGainMock).toHaveBeenCalled()
+      expect(connectMock).toHaveBeenCalled()
+      expect(disconnectMock).toHaveBeenCalled()
     })
   })
 
@@ -38,10 +52,10 @@ describe('SamplingMaster', function () {
     it('connect upon construct, disconnect upon destroy', function () {
       const group = master.group()
       const node = group.destination
-      void expect(node.$isConnectedTo(master.destination)).to.be.true
+      expect(node.$isConnectedTo(master.destination)).toBe(true)
       group.destroy()
-      void expect(node.$isConnectedTo(master.destination)).to.be.false
-      void expect(group.destination).to.be.null
+      expect(node.$isConnectedTo(master.destination)).toBe(false)
+      expect(group.destination).toBe(null)
     })
   })
 
@@ -65,95 +79,91 @@ describe('SamplingMaster', function () {
         return master.sample(audioBuffer)
       })
     })
-    it('should reject when decoding failed', function () {
+    it('should reject when decoding failed', async () => {
       context.DECODE_AUDIO_DATA_FAILED = true
-      return expect(
-        master
-          .sample(new ArrayBuffer(0))
-          .finally(() => (context.DECODE_AUDIO_DATA_FAILED = false))
-      ).to.be.rejected
+      await expect(master.sample(new ArrayBuffer(0))).rejects.toThrow()
+      context.DECODE_AUDIO_DATA_FAILED = false
     })
     describe('#play', function () {
       let sample
       let bufferSource
       let buffer
+      let createBufferSourceMock
+      let startMock
+
       beforeEach(function () {
+        vi.resetAllMocks()
+
         bufferSource = context.createBufferSource()
         buffer = context.createBuffer(1, 44100, 44100)
         bufferSource.buffer = buffer
-        sinon.stub(context, 'createBufferSource').returns(bufferSource)
-        sinon.spy(bufferSource, 'start')
+        createBufferSourceMock = vi
+          .spyOn(context, 'createBufferSource')
+          .mockReturnValue(bufferSource)
+        startMock = vi.spyOn(bufferSource, 'start')
+
         return master.sample(new Blob([])).then((s) => (sample = s))
       })
       it('should play a buffer source', function () {
         sample.play()
-        void expect(context.createBufferSource).to.have.been.called
-        expect(bufferSource.start).to.have.been.calledWith(0)
+        expect(createBufferSourceMock).toHaveBeenCalled()
+        expect(startMock).toHaveBeenCalledWith(0, 0)
       })
       it('should play a buffer source with delay', function () {
         context.$processTo(1)
         sample.play(20)
-        void expect(context.createBufferSource).to.have.been.called
-        expect(bufferSource.start).to.have.been.calledWith(21)
+        expect(createBufferSourceMock).toHaveBeenCalled()
+        expect(startMock).toHaveBeenCalledWith(21, 0)
       })
       it('should play a buffer slice (without end)', function () {
         sample.play(0, { start: 1, end: undefined })
-        expect(bufferSource.start).to.have.been.calledWith(0, 1)
+        expect(startMock).toHaveBeenCalledWith(0, 1)
       })
       it('should play a buffer slice (with end)', function () {
         sample.play(0, { start: 1, end: 3 })
-        expect(bufferSource.start).to.have.been.calledWith(
-          0,
-          1,
-          2 + FADE_LENGTH
-        )
+        expect(startMock).toHaveBeenCalledWith(0, 1, 2 + FADE_LENGTH)
       })
       it('should play to a group', function () {
         const group = master.group()
         const instance = sample.play(0, { group })
-        void expect(instance.TEST_node.$isConnectedTo(group.destination)).to.be
-          .true
+        expect(instance.TEST_node.$isConnectedTo(group.destination)).toBe(true)
       })
 
-      // HACK: only enable this test case when Event#type can be set after
-      // being constructed. If this isn't true, WebAudioTestAPI will cause
-      // an error due to how its own Event is implemented.
-      // https://github.com/mohayonao/web-audio-test-api/issues/18
-      void (function () {
-        try {
-          new Event('wat').type = 'customevent'
-          return it
-        } catch (e) {
-          void e
-          return it.skip
-        }
-      })()('should call #stop when playing finished', function () {
+      it('should call #stop when playing finished', function () {
         const instance = sample.play()
-        sinon.spy(instance, 'stop')
+        const stopMock = vi.spyOn(instance, 'stop')
+
         context.$processTo(1.5)
-        void expect(instance.stop).to.have.been.called
+
+        expect(stopMock).toHaveBeenCalled()
       })
 
       describe('#stop', function () {
         it('should stop the buffer source', function () {
           const instance = sample.play()
-          sinon.spy(bufferSource, 'stop')
+          const stopMock = vi.spyOn(bufferSource, 'stop')
+
           instance.stop()
-          void expect(bufferSource.stop).to.have.been.called
+
+          expect(stopMock).toHaveBeenCalled()
         })
         it('can be called multiple times', function () {
           const instance = sample.play()
-          sinon.spy(bufferSource, 'stop')
+          const stopMock = vi.spyOn(bufferSource, 'stop')
+
           instance.stop()
           instance.stop()
           instance.stop()
-          void expect(bufferSource.stop).to.have.been.calledOnce
+
+          expect(stopMock).toHaveBeenCalledOnce()
         })
         it('should call #onstop', function () {
           const instance = sample.play()
-          instance.onstop = sinon.spy()
+          instance.onstop = vi.fn()
+
           instance.stop()
-          void expect(instance.onstop).to.have.been.called
+
+          expect(instance.onstop).toHaveBeenCalled()
         })
       })
 
@@ -176,28 +186,32 @@ describe('SamplingMaster', function () {
       const a = sample.play()
       const b = sample.play()
       const c = sample.play()
-      sinon.spy(a, 'stop')
-      sinon.spy(b, 'stop')
-      sinon.spy(c, 'stop')
+      const aStopMock = vi.spyOn(a, 'stop')
+      const bStopMock = vi.spyOn(b, 'stop')
+      const cStopMock = vi.spyOn(c, 'stop')
+
       master.destroy()
-      void expect(a.stop).to.have.been.called
-      void expect(b.stop).to.have.been.called
-      void expect(c.stop).to.have.been.called
+
+      expect(aStopMock).toHaveBeenCalled()
+      expect(bStopMock).toHaveBeenCalled()
+      expect(cStopMock).toHaveBeenCalled()
     })
-    it('can no longer create samples', function () {
+    it('can no longer create samples', async () => {
       master.destroy()
-      return expect(master.sample(new Blob([]))).to.be.rejected
+      await expect(master.sample(new Blob([]))).rejects.toThrow()
     })
     it('only destroys once', function () {
       const a = sample.play()
-      sinon.spy(a, 'destroy')
+      const destroyMock = vi.spyOn(a, 'destroy')
+
       master.destroy()
       master.destroy()
-      expect(a.destroy).to.have.callCount(1)
+
+      expect(destroyMock).toHaveBeenCalledOnce()
     })
   })
 
-  after(() => {
+  afterAll(() => {
     WebAudioTestAPI.unuse()
   })
 })

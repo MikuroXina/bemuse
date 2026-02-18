@@ -1,6 +1,6 @@
 import './MusicChartInfo.scss'
 
-import { Chart } from '@bemuse-types'
+import { Chart } from 'bemuse-types'
 import React from 'react'
 
 const MusicChartInfo = ({ info }: Pick<Chart, 'info'>) => (

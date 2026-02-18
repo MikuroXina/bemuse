@@ -1,6 +1,6 @@
 import * as BMS from 'bms'
-import { fromBMSChart } from '@bemuse-notechart/lib/loader/BMSNotechartLoader'
-import Player from '../player'
+import { fromBMSChart } from 'bemuse-notechart/lib/loader/BMSNotechartLoader.js'
+import Player from '../player.js'
 import _ from 'lodash'
 
 export const tap = _.tap

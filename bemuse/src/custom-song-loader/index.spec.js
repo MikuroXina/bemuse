@@ -1,4 +1,5 @@
-import { loadSongFromResources } from './'
+import { describe, it, expect, beforeAll } from 'vitest'
+import { loadSongFromResources } from './index.js'
 
 describe('SongLoader', function () {
   function buffer(text) {
@@ -33,7 +34,7 @@ describe('SongLoader', function () {
       },
     })
     let song
-    before(async function () {
+    beforeAll(async function () {
       const options = { onMessage: (msg) => console.log(msg) }
       const x = await loadSongFromResources(resources, options)
       song = x
@@ -58,7 +59,7 @@ describe('SongLoader', function () {
       },
     })
     let song
-    before(async function () {
+    beforeAll(async function () {
       const x = await loadSongFromResources(resources)
       song = x
     })

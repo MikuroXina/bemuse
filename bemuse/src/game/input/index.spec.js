@@ -1,5 +1,7 @@
 import GameInput from './'
 
+import { beforeEach, describe, it, expect } from 'vitest'
+
 describe('GameInput', function () {
   let input
   let plugin

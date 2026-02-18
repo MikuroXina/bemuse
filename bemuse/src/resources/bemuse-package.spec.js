@@ -1,6 +1,7 @@
 import assert from 'assert'
 
-import BemusePackageResources from './bemuse-package'
+import BemusePackageResources from './bemuse-package.js'
+import { describe, it, expect, beforeEach } from 'vitest'
 
 describe('BemusePackageResources', function () {
   describe('#file', function () {
@@ -8,25 +9,22 @@ describe('BemusePackageResources', function () {
 
     beforeEach(function () {
       resources = new BemusePackageResources(
-        '/base/src/resources/test-fixtures/a/'
+        new URL('./test-fixtures/a/', import.meta.url)
       )
     })
 
-    it('returns a file', function () {
-      return expect(resources.file('do.mp3')).to.be.fulfilled
+    it('returns a file', async () => {
+      expect(await resources.file('do.mp3')).toBeTruthy()
     })
 
-    it('rejects if file not found', function () {
-      return expect(resources.file('wow.mp3')).to.be.rejected
+    it('rejects if file not found', async () => {
+      await expect(resources.file('wow.mp3')).rejects.toThrow()
     })
 
-    it('can be read', function () {
-      return expect(
-        resources
-          .file('mi.mp3')
-          .then((file) => file.read())
-          .then((buffer) => buffer.byteLength)
-      ).to.eventually.eq(30093)
+    it('can be read', async () => {
+      const file = await resources.file('mi.mp3')
+      const buffer = await file.read()
+      expect(buffer.byteLength).toStrictEqual(30093)
     })
 
     it('can obtain url', function () {
@@ -38,12 +36,13 @@ describe('BemusePackageResources', function () {
         })
     })
 
-    it('cannot read if not bemuse file', function () {
+    it('cannot read if not bemuse file', async () => {
       resources = new BemusePackageResources(
-        '/base/src/resources/test-fixtures/b/'
+        new URL('./test-fixtures/b/', import.meta.url)
       )
-      return expect(resources.file('do.mp3').then((file) => file.read())).to.be
-        .rejected
+      await expect(
+        resources.file('do.mp3').then((file) => file.read())
+      ).rejects.toThrow()
     })
 
     it('data is correct', function () {
@@ -58,31 +57,28 @@ describe('BemusePackageResources', function () {
         })
     })
 
-    it('supports fallback', function () {
+    it('supports fallback', async function () {
       resources = new BemusePackageResources(
-        '/base/src/resources/test-fixtures/a/',
+        new URL('./test-fixtures/a/', import.meta.url),
         {
-          fallback: '/base/src/resources/test-fixtures/f/',
+          fallback: new URL('./test-fixtures/f/', import.meta.url),
           fallbackPattern: /\.txt$/,
         }
       )
-      return resources
-        .file('meow.txt')
-        .then((file) => file.read())
-        .then((buffer) => new Uint8Array(buffer))
-        .then((array) => {
-          expect([array[0], array[1]]).to.deep.equal([0x68, 0x69])
-        })
+      const file = await resources.file('meow.txt')
+      const buffer = await file.read()
+      const array = new Uint8Array(buffer)
+      expect([array[0], array[1]]).to.deep.equal([0x68, 0x69])
     })
-    it('supports fallback only with the pattern', function () {
+    it('supports fallback only with the pattern', async () => {
       resources = new BemusePackageResources(
-        '/base/spec/resources/fixtures/a/',
+        new URL('./test-fixtures/a/', import.meta.url),
         {
-          fallback: '/base/src/resources/test-fixtures/f/',
+          fallback: new URL('./test-fixtures/f/', import.meta.url),
           fallbackPattern: /\.txt$/,
         }
       )
-      return expect(resources.file('meow.dat')).to.be.rejected
+      await expect(resources.file('meow.dat')).rejects.toThrow()
     })
   })
 })

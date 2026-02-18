@@ -1,4 +1,4 @@
-import { MusicServerIndex, SongMetadataInCollection } from '@bemuse-types'
+import { MusicServerIndex, SongMetadataInCollection } from 'bemuse-types'
 import produce, { Draft } from 'immer'
 
 export interface Preprocessed extends MusicServerIndex {

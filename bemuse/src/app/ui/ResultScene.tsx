@@ -6,7 +6,7 @@ import * as QueryFlags from '../query-flags'
 import React, { MouseEvent } from 'react'
 import SceneToolbar, { SceneToolbarSpacer } from '@bemuse/ui/SceneToolbar'
 
-import { Chart } from '@bemuse-types'
+import { Chart } from 'bemuse-types'
 import FirstTimeTip from './FirstTimeTip'
 import Flex from '@bemuse/ui/Flex'
 import { Icon } from '@bemuse/fa'

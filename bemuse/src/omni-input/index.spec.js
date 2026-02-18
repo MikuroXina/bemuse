@@ -1,8 +1,9 @@
-import { OmniInput, _key川ForUpdate川, getName, key川 } from './'
+import { OmniInput, _key川ForUpdate川, getName, key川 } from './index.js'
 
 import { EventEmitter } from 'events'
 import { Subject } from 'rxjs'
 import assert from 'power-assert'
+import { describe, it, beforeEach, afterEach } from 'vitest'
 
 function fakeWindow() {
   const events = new EventEmitter()
@@ -41,14 +42,17 @@ function fakeWindow() {
 }
 
 describe('OmniInput', function () {
+  let window
+  let input
+  let midi
   beforeEach(function () {
-    this.window = fakeWindow()
-    this.midi口 = new Subject()
-    this.input = new OmniInput(this.window, {
-      getMidi川: () => this.midi口,
+    window = fakeWindow()
+    const midiSubject = new Subject()
+    input = new OmniInput(window, {
+      getMidi川: () => midiSubject,
     })
-    this.midi = (...args) => {
-      this.midi口.next({
+    midi = (...args) => {
+      midiSubject.next({
         data: args,
         target: { id: '1234' },
       })
@@ -56,7 +60,7 @@ describe('OmniInput', function () {
   })
 
   afterEach(function () {
-    this.input.dispose()
+    input.dispose()
   })
 
   it('does not fail when browser support is limited', () => {
@@ -71,10 +75,10 @@ describe('OmniInput', function () {
 
   describe('keyboard', function () {
     it('recognizes input', function () {
-      this.window.keydown(32)
-      assert(this.input.update()['32'])
-      this.window.keyup(32)
-      assert(!this.input.update()['32'])
+      window.keydown(32)
+      assert(input.update()['32'])
+      window.keyup(32)
+      assert(!input.update()['32'])
     })
     it('returns the key name', function () {
       assert(getName('32') === 'Space')
@@ -84,12 +88,12 @@ describe('OmniInput', function () {
 
   describe('gamepad', function () {
     it('recognizes input', function () {
-      this.window.gamepads.push(null, {
+      window.gamepads.push(null, {
         index: 1,
         buttons: [{}, { value: 0.9 }],
         axes: [0, 0.9, -0.9],
       })
-      const data = this.input.update()
+      const data = input.update()
       assert(!data['gamepad.1.button.0'])
       assert(data['gamepad.1.button.1'])
       assert(!data['gamepad.1.axis.0'])
@@ -104,37 +108,34 @@ describe('OmniInput', function () {
 
   describe('midi', function () {
     it('handles notes', function () {
-      this.midi(0x92, 0x40, 0x7f)
-      assert(this.input.update()['midi.1234.2.note.64'], 'note on')
-      this.midi(0x82, 0x40, 0x7f)
-      assert(!this.input.update()['midi.1234.2.note.64'], 'note off')
-      this.midi(0x92, 0x40, 0x7f)
-      assert(this.input.update()['midi.1234.2.note.64'], 'note on')
-      this.midi(0x92, 0x40, 0x00)
-      assert(
-        !this.input.update()['midi.1234.2.note.64'],
-        'note off with note on'
-      )
+      midi(0x92, 0x40, 0x7f)
+      assert(input.update()['midi.1234.2.note.64'], 'note on')
+      midi(0x82, 0x40, 0x7f)
+      assert(!input.update()['midi.1234.2.note.64'], 'note off')
+      midi(0x92, 0x40, 0x7f)
+      assert(input.update()['midi.1234.2.note.64'], 'note on')
+      midi(0x92, 0x40, 0x00)
+      assert(!input.update()['midi.1234.2.note.64'], 'note off with note on')
     })
     it('handles pitch bend', function () {
-      this.midi(0xe1, 0x7f, 0x7f)
-      assert(this.input.update()['midi.1234.1.pitch.up'])
-      assert(!this.input.update()['midi.1234.1.pitch.down'])
-      this.midi(0xe1, 0x7f, 0x1f)
-      assert(this.input.update()['midi.1234.1.pitch.down'])
-      assert(!this.input.update()['midi.1234.1.pitch.up'])
+      midi(0xe1, 0x7f, 0x7f)
+      assert(input.update()['midi.1234.1.pitch.up'])
+      assert(!input.update()['midi.1234.1.pitch.down'])
+      midi(0xe1, 0x7f, 0x1f)
+      assert(input.update()['midi.1234.1.pitch.down'])
+      assert(!input.update()['midi.1234.1.pitch.up'])
     })
     it('handles sustain pedal', function () {
-      this.midi(0xbc, 0x40, 0x7f)
-      assert(this.input.update()['midi.1234.12.sustain'])
-      this.midi(0xbc, 0x40, 0x00)
-      assert(!this.input.update()['midi.1234.12.sustain'])
+      midi(0xbc, 0x40, 0x7f)
+      assert(input.update()['midi.1234.12.sustain'])
+      midi(0xbc, 0x40, 0x00)
+      assert(!input.update()['midi.1234.12.sustain'])
     })
     it('handles modulation lever', function () {
-      this.midi(0xbc, 0x01, 0x7f)
-      assert(this.input.update()['midi.1234.12.mod'])
-      this.midi(0xbc, 0x01, 0x00)
-      assert(!this.input.update()['midi.1234.12.mod'])
+      midi(0xbc, 0x01, 0x7f)
+      assert(input.update()['midi.1234.12.mod'])
+      midi(0xbc, 0x01, 0x00)
+      assert(!input.update()['midi.1234.12.mod'])
     })
     it('returns the key name', function () {
       assert(getName('midi.1234.12.note.60').match(/C4/))
@@ -148,12 +149,12 @@ describe('OmniInput', function () {
   describe('key川', function () {
     it('should return events', function () {
       let last
-      const subscription = key川(this.input, this.window).subscribe(
+      const subscription = key川(input, window).subscribe(
         (value) => (last = value)
       )
 
-      this.window.keydown(32)
-      this.window.tick()
+      window.keydown(32)
+      window.tick()
       assert(last === '32')
 
       subscription.unsubscribe()

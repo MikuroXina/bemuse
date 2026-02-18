@@ -4,6 +4,7 @@ import GameInput from '../input'
 import Player from '../player'
 import PlayerState from './player-state'
 import { notechart } from '../test-helpers'
+import { describe, expect, it, vi, beforeEach } from 'vitest'
 
 describe('PlayerState', function () {
   it('updates the input', function () {
@@ -140,9 +141,9 @@ describe('PlayerState', function () {
           #BPM 120
           #00111:01
         `)
-        sinon.spy(state.stats, 'handleDelta')
+        const mock = vi.spyOn(state.stats, 'handleDelta')
         advance(2.01, { p1_1: 1 })
-        assert(state.stats.handleDelta.calledWith(2.01 - 2))
+        expect(mock).toHaveBeenCalledWith(2.01 - 2)
       })
 
       it('does not record delta when missed', function () {
@@ -150,9 +151,9 @@ describe('PlayerState', function () {
           #BPM 120
           #00111:01
         `)
-        sinon.spy(state.stats, 'handleDelta')
+        const mock = vi.spyOn(state.stats, 'handleDelta')
         advance(9, { p1_1: 1 })
-        assert(state.stats.handleDelta.callCount === 0)
+        expect(mock).not.toHaveBeenCalled()
       })
 
       describe('with long note', function () {
@@ -181,10 +182,10 @@ describe('PlayerState', function () {
           assert(state.stats.numJudgments === 2)
         })
         it('records delta once', function () {
-          sinon.spy(state.stats, 'handleDelta')
+          const mock = vi.spyOn(state.stats, 'handleDelta')
           advance(2, { p1_1: 1 })
           advance(3, { p1_1: 0 })
-          assert(state.stats.handleDelta.callCount === 1)
+          expect(mock).toHaveBeenCalledOnce()
         })
         it('judges missed long note', function () {
           advance(2.3, { p1_1: 1 })

@@ -3,6 +3,15 @@ import { filter, first, firstValueFrom } from 'rxjs'
 import Online from '.'
 import OnlineService from './scoreboard-system/OnlineService'
 import assert from 'power-assert'
+import {
+  describe,
+  it,
+  expect,
+  beforeEach,
+  beforeAll,
+  afterAll,
+  vi,
+} from 'vitest'
 
 const uid = (function () {
   const session = Math.floor(Math.random() * 65536).toString(16)
@@ -52,49 +61,51 @@ function tests(onlineServiceOptions) {
       }
     }
 
-    this.timeout(20000)
+    vi.setConfig({ testTimeout: 20000 })
 
     describe('signup', function () {
       let online
       let info
-      before(function () {
+      beforeAll(function () {
         online = createOnline()
       })
-      after(function () {
+      afterAll(function () {
         online = null
       })
-      before(function () {
+      beforeAll(function () {
         info = createAccountInfo()
       })
-      it('should succeed', function () {
-        return expect(online.signUp(info)).to.be.fulfilled
+      it('should succeed', async () => {
+        await online.signUp(info)
       })
-      it('should not allow duplicate signup', function () {
-        return expect(online.signUp(info)).to.be.rejectedWith(Error)
+      it('should not allow duplicate signup', async () => {
+        await expect(online.signUp(info)).rejects.toThrowError()
       })
     })
 
     describe('initially', function () {
       let online
-      before(async () => {
+      beforeAll(async () => {
         await createOnline().logOut()
       })
       beforeEach(async () => {
         online = createOnline()
       })
       describe('user川', function () {
-        it('should be null', function (done) {
-          online.user川.pipe(first()).subscribe((user) => {
-            assert(user === null)
-            done()
-          })
+        it('should be null', async () => {
+          await new Promise((resolve) =>
+            online.user川.pipe(first()).subscribe((user) => {
+              assert(user === null)
+              resolve()
+            })
+          )
         })
       })
     })
 
     describe('when signed up', function () {
       let online
-      before(function () {
+      beforeAll(function () {
         online = createOnline()
       })
       describe('user川', function () {
@@ -119,7 +130,7 @@ function tests(onlineServiceOptions) {
     describe('with an active user', function () {
       let online
       const info = createAccountInfo()
-      before(function () {
+      beforeAll(function () {
         online = createOnline()
         return online.signUp(info)
       })
@@ -141,7 +152,7 @@ function tests(onlineServiceOptions) {
 
     describe('submitting high scores', function () {
       let online
-      before(function () {
+      beforeAll(function () {
         online = createOnline()
       })
 
@@ -244,7 +255,7 @@ function tests(onlineServiceOptions) {
 
     describe('the scoreboard', function () {
       let online
-      before(function () {
+      beforeAll(function () {
         online = createOnline()
         return online.logOut()
       })
@@ -364,11 +375,13 @@ function tests(onlineServiceOptions) {
             expect(state.meta.submission.value.playCount).to.equal(1)
           })
         })
-        after(function () {
+        afterAll(function () {
           online.logOut()
         })
       })
     })
+
+    vi.resetConfig()
   })
 }
 
@@ -376,7 +389,7 @@ function steps(f) {
   let _resolve
   let promise = new Promise((resolve) => (_resolve = resolve))
   let i = 0
-  before(() => void _resolve())
+  beforeAll(() => void _resolve())
   return f((name, fn) => {
     promise = promise.then(fn, () => {
       throw new Error('Previous steps errored')

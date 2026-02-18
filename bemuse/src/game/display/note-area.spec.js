@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import NoteArea from './note-area'
 
 describe('NoteArea', function () {

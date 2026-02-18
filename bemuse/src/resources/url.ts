@@ -24,7 +24,8 @@ export class URLResources implements IResources {
       .split('/')
       .map((part) => encodeURIComponent(part))
       .join('/')
-    return new URLResource(new URL(path, this.base).href)
+    const href = new URL(path, this.base + '/').href
+    return new URLResource(href)
   }
 }
 

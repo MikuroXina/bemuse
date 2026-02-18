@@ -1,6 +1,8 @@
 import * as PIXI from 'pixi.js'
 import TouchPlugin from './touch-plugin'
 
+import { describe, it, expect } from 'vitest'
+
 describe('TouchPlugin', function () {
   it('should get value when touching', function () {
     const instance = new TouchPlugin({

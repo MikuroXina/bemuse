@@ -1,3 +1,4 @@
+import { describe, it, vi, expect } from 'vitest'
 import assert from 'assert'
 
 import createAutoVelocity from './createAutoVelocity'
@@ -20,11 +21,13 @@ describe('createAutoVelocity', function () {
         desiredLeadTime: 1000,
         songBPM: 220,
       })
-      const saveSpeed = sinon.spy()
-      const saveLeadTime = sinon.spy()
+      const saveSpeed = vi.fn()
+      const saveLeadTime = vi.fn()
+
       autoVelocity.handleGameFinish(2.4, { saveSpeed, saveLeadTime })
-      assert(saveSpeed.calledWith(2.4))
-      assert(!saveLeadTime.called)
+
+      expect(saveSpeed).toHaveBeenCalledWith(2.4)
+      expect(saveLeadTime).not.toHaveBeenCalled()
     })
   })
 
@@ -83,11 +86,13 @@ describe('createAutoVelocity', function () {
         desiredLeadTime: 1685,
         songBPM: 178,
       })
-      const saveSpeed = sinon.spy()
-      const saveLeadTime = sinon.spy()
+      const saveSpeed = vi.fn()
+      const saveLeadTime = vi.fn()
+
       autoVelocity.handleGameFinish(3, { saveSpeed, saveLeadTime })
-      assert(saveSpeed.calledWith(3))
-      assert(saveLeadTime.calledWith(562))
+
+      expect(saveSpeed).toHaveBeenCalledWith(3)
+      expect(saveLeadTime).toHaveBeenCalledWith(562)
     })
     it('should not save if speed remains the same', () => {
       const autoVelocity = createAutoVelocity({
@@ -96,11 +101,13 @@ describe('createAutoVelocity', function () {
         desiredLeadTime: 1685,
         songBPM: 178,
       })
-      const saveSpeed = sinon.spy()
-      const saveLeadTime = sinon.spy()
+      const saveSpeed = vi.fn()
+      const saveLeadTime = vi.fn()
+
       autoVelocity.handleGameFinish(1, { saveSpeed, saveLeadTime })
-      assert(saveSpeed.calledWith(1))
-      assert(!saveLeadTime.called)
+
+      expect(saveSpeed).toHaveBeenCalledWith(1)
+      expect(saveLeadTime).not.toHaveBeenCalled()
     })
   })
 })

@@ -3,6 +3,7 @@ import * as Options from './Options'
 import { given, shouldEqual } from 'circumstance'
 
 import assert from 'assert'
+import { describe, it } from 'vitest'
 
 const update = (action) => (state) =>
   Options.optionsSlice.reducer(state, action)

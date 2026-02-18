@@ -5,6 +5,7 @@ import {
   _attrs,
   _compile,
 } from '@bemuse/scintillator/nodes/concerns/animation'
+import { describe, expect, it } from 'vitest'
 
 const $xml = (xml) => $($.parseXML(xml).documentElement)
 

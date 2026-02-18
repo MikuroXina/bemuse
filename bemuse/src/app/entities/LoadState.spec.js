@@ -1,3 +1,4 @@
+import { describe, it } from 'vitest'
 import * as LoadState from './LoadState'
 
 import { given, shouldEqual } from 'circumstance'

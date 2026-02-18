@@ -1,3 +1,4 @@
+import { describe, it } from 'vitest'
 import * as MusicSelection from './MusicSelection'
 import { given, shouldEqual } from 'circumstance'
 

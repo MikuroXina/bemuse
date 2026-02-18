@@ -6,6 +6,7 @@ import {
 
 import configureStore from './configureStore'
 import { optionsSlice } from '../entities/Options'
+import { describe, it, expect } from 'vitest'
 
 describe('ReduxState', function () {
   describe('integration test', function () {

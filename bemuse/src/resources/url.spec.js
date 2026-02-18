@@ -1,11 +1,12 @@
 import assert from 'assert'
 
 import URLResource from './url'
+import { describe, it, expect } from 'vitest'
 
 describe('URLResource', function () {
   it('can download a resource from an arbitrary URL', function () {
     const resource = new URLResource(
-      '/base/src/resources/test-fixtures/f/meow.txt'
+      new URL('./test-fixtures/f/meow.txt', import.meta.url)
     )
     return resource
       .read()
@@ -16,7 +17,7 @@ describe('URLResource', function () {
   })
   it('can retrieve back the URL', function () {
     const resource = new URLResource(
-      '/base/src/resources/test-fixtures/f/meow.txt'
+      new URL('./test-fixtures/f/meow.txt', import.meta.url)
     )
     return resource.resolveUrl().then((url) => {
       assert(/\/meow\.txt$/.test(url))
@@ -24,7 +25,7 @@ describe('URLResource', function () {
   })
   it('has a name, which is only the file name without the path', function () {
     const resource = new URLResource(
-      '/base/src/resources/test-fixtures/f/meow.txt'
+      new URL('./test-fixtures/f/meow.txt', import.meta.url)
     )
     assert(resource.name === 'meow.txt')
   })

@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url'
 import { readFileSync } from 'node:fs'
 import react from '@vitejs/plugin-react'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
+import { playwright } from '@vitest/browser-playwright'
 
 function gitRevision() {
   return require('child_process')
@@ -68,6 +69,7 @@ export default defineConfig({
       include: ['buffer', 'crypto', 'os', 'path', 'stream', 'util', 'vm'],
     }),
   ],
+  appType: 'mpa',
   base: './',
   define: {
     _BEMUSE_BUILD_NAME: JSON.stringify(name),
@@ -88,6 +90,13 @@ export default defineConfig({
       loader: {
         '.js': 'jsx',
       },
+    },
+  },
+  test: {
+    browser: {
+      enabled: true,
+      provider: playwright(),
+      instances: [{ browser: 'chromium' }],
     },
   },
 })

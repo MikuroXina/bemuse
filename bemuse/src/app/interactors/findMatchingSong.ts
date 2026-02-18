@@ -1,6 +1,6 @@
 // Finds a song matching the title
 
-import type { SongMetadataInCollection } from '@bemuse-types'
+import type { SongMetadataInCollection } from 'bemuse-types'
 
 function findMatchingSong({
   songs,

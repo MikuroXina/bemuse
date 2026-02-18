@@ -17,7 +17,7 @@ import type {
   Chart,
   MusicServerIndex,
   SongMetadataInCollection,
-} from '@bemuse-types'
+} from 'bemuse-types'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 import _ from 'lodash'

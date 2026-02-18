@@ -1,6 +1,7 @@
+import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import * as Scintillator from './'
 
-const fixture = (file) => `/base/src/scintillator/test-fixtures/${file}`
+const fixture = (file) => new URL(`./test-fixtures/${file}`, import.meta.url)
 
 describe('Scintillator', function () {
   describe('#load', function () {
@@ -9,9 +10,10 @@ describe('Scintillator', function () {
       expect(skin.width).to.equal(123)
       expect(skin.height).to.equal(456)
     })
-    it('should reject if invalid', function () {
-      return expect(Scintillator.load(fixture('invalid_tag.xml'))).to.be
-        .rejected
+    it('should reject if invalid', async () => {
+      await expect(
+        Scintillator.load(fixture('invalid_tag.xml'))
+      ).rejects.toThrow()
     })
   })
 
@@ -136,9 +138,10 @@ describe('Scintillator', function () {
       expect(sprite.visible).to.equal(false)
       context.destroy()
     })
-    it('should reject if blend mode is invalid', function () {
-      return expect(Scintillator.load(fixture('sprite_invalid_blend.xml'))).to
-        .be.rejected
+    it('should reject if blend mode is invalid', async () => {
+      await expect(
+        Scintillator.load(fixture('sprite_invalid_blend.xml'))
+      ).rejects.toThrow()
     })
   })
 
