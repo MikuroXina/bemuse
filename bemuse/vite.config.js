@@ -77,7 +77,7 @@ export default defineConfig({
       '@bemuse': resolve(__dirname, './src'),
     },
   },
-  assetsInclude: ['../CHANGELOG.md'],
+  assetsInclude: ['../CHANGELOG.md', '../public/**/*'],
   optimizeDeps: {
     force: true,
     esbuildOptions: {
