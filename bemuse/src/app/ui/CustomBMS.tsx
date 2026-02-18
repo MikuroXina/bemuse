@@ -1,7 +1,7 @@
 import './CustomBMS.scss'
 
 import * as Analytics from '../analytics'
-import * as CustomSongsIO from '../io/CustomSongsIO'
+import * as CustomSongsIO from '../io/CustomSongsIO.js'
 
 import React, { DragEventHandler, useEffect, useRef, useState } from 'react'
 import {

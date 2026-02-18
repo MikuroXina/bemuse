@@ -2,7 +2,7 @@ import type { AnyAction, Dispatch } from 'redux'
 import {
   LoadSongOptions,
   loadSongFromResources,
-} from '@bemuse/custom-song-loader'
+} from '@bemuse/custom-song-loader/index.js'
 
 import type { ICustomSongResources } from '@bemuse/resources/types'
 import { customSongsSlice } from './redux/ReduxState'

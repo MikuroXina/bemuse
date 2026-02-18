@@ -7,7 +7,7 @@ import {
 import DndResources from '../../resources/dnd-resources'
 import { URLResources } from '@bemuse/resources/url'
 import { getIPFSResources } from '../../resources/ipfs-resources'
-import { loadCustomSong } from '../CustomSongs'
+import { loadCustomSong } from '../CustomSongs.js'
 
 export const handleCustomSongFileSelect =
   (dispatch: Dispatch<AnyAction>) => (selectedFile: File) => {
