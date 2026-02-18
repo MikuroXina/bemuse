@@ -1,17 +1,9 @@
 import gulp from 'gulp'
-import { Server, config } from 'karma'
-import { join } from 'path'
+import { startVitest } from 'vitest/node'
 
-gulp.task('test', async function (done) {
-  const parsedConfig = await config.parseConfig(
-    join(__dirname, '..', 'karma.conf.js'),
-    {
-      singleRun: true,
-    },
-    {
-      promiseConfig: true,
-      throwErrors: true,
-    }
-  )
-  await new Server(parsedConfig, done).start()
+gulp.task('test', async function (_done) {
+  const vitest = await startVitest('test', {
+    watch: false,
+  })
+  await vitest.close()
 })

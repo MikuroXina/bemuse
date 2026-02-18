@@ -1,16 +1,14 @@
-import path from './path'
-
 export default [
   {
-    src: path('public'),
+    src: 'public',
     dest: [],
   },
   {
-    src: path('src'),
+    src: 'src',
     dest: ['src'],
   },
   {
-    src: path('spec'),
+    src: 'spec',
     dest: ['spec'],
   },
 ]

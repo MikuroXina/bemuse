@@ -9,6 +9,6 @@
       "@bemuse/*": ["./src/*"]
     },
     "target": "ES2019",
-    "module": "node20"
+    "module": "node16"
   }
 }
