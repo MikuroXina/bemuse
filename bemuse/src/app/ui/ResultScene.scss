@@ -2,7 +2,7 @@
 @use '@bemuse/ui/common.scss';
 
 .ResultScene {
-  @include common.scene-background(url(~bemuse/ui/images/bg/b.jpg));
+  @include common.scene-background(url(@bemuse/ui/images/bg/b.jpg));
   $bottom-padding: calc(32px + 4vh);
 
   color: black;

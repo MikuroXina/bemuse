@@ -1,6 +1,6 @@
 import './ResultDeltasView.scss'
 
-import Panel from '@bemuse/ui/Panel'
+import Panel from '@bemuse/ui/Panel.js'
 import React from 'react'
 import _ from 'lodash'
 import getNonMissedDeltas from '../interactors/getNonMissedDeltas'

@@ -65,7 +65,7 @@ export default defineConfig({
     peggy(),
     react(),
     nodePolyfills({
-      include: ['util'],
+      include: ['path', 'util'],
     }),
   ],
   define: {

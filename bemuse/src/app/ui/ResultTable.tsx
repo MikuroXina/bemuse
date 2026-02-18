@@ -5,9 +5,9 @@ import * as Analytics from '../analytics'
 import React, { useState } from 'react'
 
 import FirstTimeTip from './FirstTimeTip'
-import ModalPopup from '@bemuse/ui/ModalPopup'
+import ModalPopup from '@bemuse/ui/ModalPopup.js'
 import { Result } from './ResultScene'
-import ResultDeltasView from './ResultDeltasView'
+import ResultDeltasView from './ResultDeltasView.js'
 import RunningNumber from '@bemuse/ui/RunningNumber'
 
 const formatAccuracy = (value: number) => {

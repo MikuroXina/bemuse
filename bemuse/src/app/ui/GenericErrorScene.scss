@@ -1,7 +1,7 @@
 @use '@bemuse/ui/common.scss';
 
 .GenericErrorScene {
-  @include common.scene-background(url(~bemuse/ui/images/bg/c.jpg));
+  @include common.scene-background(url(@bemuse/ui/images/bg/c.jpg));
 
   &のwrapper {
     padding: 1em;

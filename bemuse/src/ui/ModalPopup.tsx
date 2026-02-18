@@ -18,11 +18,7 @@ const ModalPopup = ({
   if (visible === false) return null
   return (
     <WarpContainer>
-      <div
-        className='ModalPopup'
-        data-visible={visible}
-        onClick={onBackdropClick}
-      >
+      <div className='ModalPopup' onClick={onBackdropClick}>
         <div className='ModalPopupのscroller'>
           <div className='ModalPopupのcontentsContainer'>
             <div
