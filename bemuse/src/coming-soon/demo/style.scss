@@ -35,6 +35,9 @@
       color: #8b8685;
       opacity: 0;
     }
+    pre {
+      text-align: left;
+    }
   }
 
   h1 {
@@ -63,5 +66,9 @@
     padding: 8px;
     font: bold 15px verdana, sans-serif;
     margin-top: 18px;
+  }
+  button:disabled {
+    color: rgb(117, 81, 86);
+    text-decoration-line: line-through;
   }
 }
