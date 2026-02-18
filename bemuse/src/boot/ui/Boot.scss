@@ -26,6 +26,9 @@
     color: #8b8685;
     animation: 1s boot--text--pulse linear infinite;
   }
+  &[data-hidden='true'] {
+    display: none;
+  }
 }
 
 @keyframes boot--dj--spin {

@@ -52,16 +52,10 @@
       }
     </style>
     <!--#include file="includes/newrelic.inc"-->
-    <script>
-      // Force HTTPS
-      if (location.href === 'http://bemuse.ninja/') {
-        location.replace('https://bemuse.ninja/')
-      }
-    </script>
   </head>
   <body>
+    <div id="boot-root"></div>
     <main>
-      <div id="boot-root"></div>
       <div id="scene-root"></div>
       <div id="warp-root"></div>
     </main>

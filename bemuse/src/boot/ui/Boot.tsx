@@ -9,11 +9,7 @@ export interface BootProps {
 
 export default function Boot({ hidden, status = 'Loading page' }: BootProps) {
   return (
-    <div
-      id='boot'
-      className='Boot'
-      style={{ display: hidden ? 'none' : 'unset' }}
-    >
+    <div id='boot' className='Boot' data-hidden={hidden}>
       <div className='Bootのcontent'>
         <div className='Bootのdj' />
         <div className='Bootのtext'>
