@@ -1,10 +1,11 @@
+import produce, { enableMapSet } from 'immer'
+
 import {
-  LoadState,
   completeWithValue,
   errorWithReason,
   initLoading,
+  LoadState,
 } from './LoadState'
-import produce, { enableMapSet } from 'immer'
 
 enableMapSet()
 

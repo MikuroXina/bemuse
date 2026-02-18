@@ -1,14 +1,13 @@
 import './ResultTable.scss'
 
-import * as Analytics from '../analytics'
-
+import ModalPopup from '@bemuse/ui/ModalPopup.js'
+import RunningNumber from '@bemuse/ui/RunningNumber'
 import React, { useState } from 'react'
 
+import * as Analytics from '../analytics'
 import FirstTimeTip from './FirstTimeTip'
-import ModalPopup from '@bemuse/ui/ModalPopup.js'
-import { Result } from './ResultScene'
 import ResultDeltasView from './ResultDeltasView.js'
-import RunningNumber from '@bemuse/ui/RunningNumber'
+import { Result } from './ResultScene'
 
 const formatAccuracy = (value: number) => {
   return (value * 100).toFixed(2) + '%'

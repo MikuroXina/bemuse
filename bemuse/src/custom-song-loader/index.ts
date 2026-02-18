@@ -1,7 +1,6 @@
-import { ICustomSongResources } from '@bemuse/resources/types'
-import { Song } from '@bemuse/collection-model/types'
+import type { Song } from '@bemuse/collection-model/types.js'
+import type { ICustomSongResources } from '@bemuse/resources/types.js'
 
-/* eslint import/no-webpack-loader-syntax: off */
 export function loadSongFromResources(
   resources: ICustomSongResources,
   options: LoadSongOptions = {}

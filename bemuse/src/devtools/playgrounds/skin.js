@@ -1,12 +1,12 @@
-import * as Scintillator from '@bemuse/scintillator'
-import $ from 'jquery'
-import BMS from 'bms'
-import Game from '@bemuse/game/game'
 import GameDisplay from '@bemuse/game/display'
+import Game from '@bemuse/game/game'
 import GameInput from '@bemuse/game/input'
 import GameState from '@bemuse/game/state'
+import * as Scintillator from '@bemuse/scintillator'
 import MAIN from '@bemuse/utils/main-element'
 import { fromBMSChart } from 'bemuse-notechart/lib/loader/BMSNotechartLoader'
+import BMS from 'bms'
+import $ from 'jquery'
 
 // TODO [#628]: Convert the `main` method to async function (instead of using `co`) in src/devtools/playgrounds/skin.js
 // See issue #575 for more details.

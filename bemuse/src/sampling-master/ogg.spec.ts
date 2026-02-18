@@ -1,5 +1,6 @@
-import { describe, it, expect } from 'vitest'
 import download from '@bemuse/utils/download.js'
+import { describe, expect, it } from 'vitest'
+
 import { decodeOGG } from './ogg.js'
 
 describe('ogg decoder', () => {

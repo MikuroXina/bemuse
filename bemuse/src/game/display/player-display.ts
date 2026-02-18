@@ -1,11 +1,9 @@
-import * as touch3d from './touch3d'
-
-import { Gauge, getGauge } from './Gauge'
-import { JudgedJudgment, MISSED, breaksCombo } from '../judgments'
+import { breaksCombo, JudgedJudgment, MISSED } from '../judgments'
 import Player, { PlayerOptionsPlacement, PlayerOptionsScratch } from '../player'
 import PlayerState, { JudgementNotification } from '../state/player-state'
-
+import { Gauge, getGauge } from './Gauge'
 import NoteArea from './note-area'
+import * as touch3d from './touch3d'
 
 interface PlayerData {
   placement: PlayerOptionsPlacement

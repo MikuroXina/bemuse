@@ -1,9 +1,8 @@
-import * as Options from './Options'
-
-import { given, shouldEqual } from 'circumstance'
-
 import assert from 'assert'
+import { given, shouldEqual } from 'circumstance'
 import { describe, it } from 'vitest'
+
+import * as Options from './Options'
 
 const update = (action) => (state) =>
   Options.optionsSlice.reducer(state, action)

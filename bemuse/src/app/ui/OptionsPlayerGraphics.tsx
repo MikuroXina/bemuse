@@ -1,11 +1,10 @@
 import './OptionsPlayerGraphics.scss'
 
 import * as touch3d from '@bemuse/game/display/touch3d'
-
-import { PanelPlacement, ScratchPosition } from '../entities/Options'
+import c from 'classnames'
 import React, { ReactNode } from 'react'
 
-import c from 'classnames'
+import { PanelPlacement, ScratchPosition } from '../entities/Options'
 
 const PANEL_PATH = (function () {
   const x = 48

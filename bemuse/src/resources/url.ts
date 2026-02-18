@@ -1,5 +1,6 @@
 import Progress from '@bemuse/progress'
 import download from '@bemuse/utils/download'
+
 import { IResource, IResources } from './types'
 
 export class URLResource implements IResource {

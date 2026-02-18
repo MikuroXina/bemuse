@@ -1,10 +1,10 @@
-import $ from 'jquery'
-import assert from 'assert'
 import {
-  Animation,
   _attrs,
   _compile,
+  Animation,
 } from '@bemuse/scintillator/nodes/concerns/animation'
+import assert from 'assert'
+import $ from 'jquery'
 import { describe, expect, it } from 'vitest'
 
 const $xml = (xml) => $($.parseXML(xml).documentElement)

@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+
 import { getJudgeForNotechart, judgeTime, timegate } from './judgments.js'
 import { notechart } from './test-helpers/index.js'
 

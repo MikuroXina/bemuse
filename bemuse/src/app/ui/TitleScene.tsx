@@ -1,27 +1,26 @@
 import './TitleScene.scss'
-import logo from './images/logo-with-shadow.svg'
 
-import * as Analytics from '../analytics'
-
+import { SceneManagerContext } from '@bemuse/scene-manager/index.js'
+import HomePage from '@bemuse/site/HomePage.js'
+import ModalPopup from '@bemuse/ui/ModalPopup.js'
+import Scene from '@bemuse/ui/Scene.js'
+import version from '@bemuse/utils/version.js'
 import React, { MouseEvent, useContext, useState } from 'react'
-import { lastSeenVersion, optionsSlice } from '../entities/Options'
 import { useDispatch, useSelector } from 'react-redux'
 
-import AboutScene from './AboutScene'
-import ChangelogPanel from './ChangelogPanel'
-import HomePage from '@bemuse/site/HomePage'
-import ModalPopup from '@bemuse/ui/ModalPopup'
-import ModeSelectScene from './ModeSelectScene'
-import Scene from '@bemuse/ui/Scene'
-import { SceneManagerContext } from '@bemuse/scene-manager'
-import Toolbar from './Toolbar'
-import { selectOptions } from '../redux/ReduxState'
-import version from '@bemuse/utils/version.js'
+import * as Analytics from '../analytics.js'
+import { lastSeenVersion, optionsSlice } from '../entities/Options.js'
+import { selectOptions } from '../redux/ReduxState.js'
+import AboutScene from './AboutScene.js'
+import ChangelogPanel from './ChangelogPanel.js'
+import logo from './images/logo-with-shadow.svg'
+import ModeSelectScene from './ModeSelectScene.js'
+import Toolbar from './Toolbar.js'
 
 const HAS_PARENT = (() => {
   try {
     return window.parent !== window
-  } catch (e) {
+  } catch {
     return false
   }
 })()

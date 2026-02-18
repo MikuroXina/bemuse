@@ -1,13 +1,16 @@
+import { load as loadCollection } from '@bemuse/music-collection/index.js'
 import { AnyAction, Middleware } from 'redux'
+
 import {
   AppState,
   collectionsSlice,
   currentCollectionSlice,
-} from './ReduxState'
+} from './ReduxState.js'
 
-import { load as loadCollection } from '@bemuse/music-collection'
-
-export const collectionFetchMiddleware: Middleware<{}, AppState> =
+export const collectionFetchMiddleware: Middleware<
+  Record<string, never>,
+  AppState
+> =
   ({ dispatch }) =>
   (next) =>
   (action: AnyAction) => {

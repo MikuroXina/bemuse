@@ -1,7 +1,8 @@
 import now from '@bemuse/utils/now'
-import { shouldEnableBenchmark } from './query-flags'
 import React from 'react'
 import { createRoot } from 'react-dom/client'
+
+import { shouldEnableBenchmark } from './query-flags'
 import BenchmarkPanel from './ui/BenchmarkPanel'
 
 function Stat() {
@@ -72,7 +73,7 @@ function Benchmarker() {
 function FakeBenchmarker() {
   return {
     enabled: false,
-    wrap: (title, f) => f,
+    wrap: (_title, f) => f,
   }
 }
 

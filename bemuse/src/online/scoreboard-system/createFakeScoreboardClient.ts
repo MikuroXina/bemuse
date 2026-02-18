@@ -1,13 +1,13 @@
+import type { ScoreCount } from '@bemuse/rules/accuracy.js'
+import { MappingMode } from '@bemuse/rules/mapping-mode.js'
+import ObjectID from 'bson-objectid'
+import delay from 'delay'
+
 import {
   ScoreboardClient,
   ScoreboardEntry,
   ScoreboardRow,
-} from './ScoreboardClient'
-
-import { MappingMode } from '@bemuse/rules/mapping-mode'
-import ObjectID from 'bson-objectid'
-import type { ScoreCount } from '@bemuse/rules/accuracy'
-import delay from 'delay'
+} from './ScoreboardClient.js'
 
 interface Submission {
   md5: string
@@ -68,7 +68,7 @@ export function createFakeScoreboardClient(): ScoreboardClient {
       await delay(100)
       return { playerToken: 'FAKE!' + options.username }
     },
-    changePassword: async (options) => {
+    changePassword: async () => {
       return {}
     },
     renewPlayerToken: async (options) => {

@@ -1,10 +1,14 @@
+import { readFileSync } from 'node:fs'
+
 import chalk from 'chalk'
 import PluginError from 'plugin-error'
-
-import * as Env from '../../../config/env.js'
 import { createServer } from 'vite'
 
-import pkgJson from '../../../package.json' with { type: 'json' }
+import * as Env from '../../../config/env.js'
+
+const pkgJson = JSON.parse(
+  readFileSync(new URL('../../../package.json', import.meta.url), 'utf-8')
+)
 
 export async function start() {
   console.log(

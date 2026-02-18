@@ -1,11 +1,12 @@
+import type { Song } from '@bemuse/collection-model/types.js'
+import getPlayableCharts from '@bemuse/music-collection/getPlayableCharts.js'
+import getPreviewResourceUrl from '@bemuse/music-collection/getPreviewResourceUrl.js'
+import groupSongsIntoCategories from '@bemuse/music-collection/groupSongsIntoCategories.js'
+import sortSongs from '@bemuse/music-collection/sortSongs.js'
+import MusicSelectPreviewer from '@bemuse/music-previewer/MusicSelectPreviewer.js'
 import _ from 'lodash'
-import MusicSelectPreviewer from '@bemuse/music-previewer/MusicSelectPreviewer'
-import getPlayableCharts from '@bemuse/music-collection/getPlayableCharts'
-import getPreviewResourceUrl from '@bemuse/music-collection/getPreviewResourceUrl'
-import groupSongsIntoCategories from '@bemuse/music-collection/groupSongsIntoCategories'
-import sortSongs from '@bemuse/music-collection/sortSongs'
 import React, { useState } from 'react'
-import { Song } from '@bemuse/collection-model/types'
+import { inspect } from 'util'
 
 type Sorter = (songs: readonly Song[]) => {
   title: string
@@ -132,7 +133,7 @@ const SongRow = ({
       <strong
         onClick={() => {
           console.log(song)
-          alert(require('util').inspect(song))
+          alert(inspect(song))
         }}
       >
         {song.title}

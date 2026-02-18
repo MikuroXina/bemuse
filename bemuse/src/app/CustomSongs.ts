@@ -1,13 +1,13 @@
-import type { AnyAction, Dispatch } from 'redux'
 import {
-  LoadSongOptions,
   loadSongFromResources,
+  LoadSongOptions,
 } from '@bemuse/custom-song-loader/index.js'
-
 import type { ICustomSongResources } from '@bemuse/resources/types'
-import { customSongsSlice } from './redux/ReduxState'
 import { observable } from 'mobx'
 import { useObserver } from 'mobx-react-lite'
+import type { AnyAction, Dispatch } from 'redux'
+
+import { customSongsSlice } from './redux/ReduxState'
 
 const loadSongFromResourcesWrapper = async (
   resources: ICustomSongResources,

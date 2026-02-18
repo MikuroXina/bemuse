@@ -1,19 +1,17 @@
-import { defineConfig } from 'vite'
-import tsconfigPaths from 'vite-tsconfig-paths'
-import { compile } from 'pug'
-import peggy from 'rollup-plugin-peggy'
+import { execSync } from 'node:child_process'
+import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { readFileSync } from 'node:fs'
+
 import react from '@vitejs/plugin-react'
-import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import { playwright } from '@vitest/browser-playwright'
+import peggy from 'rollup-plugin-peggy'
+import { defineConfig } from 'vite'
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 function gitRevision() {
-  return require('child_process')
-    .execSync('git rev-parse --short HEAD')
-    .toString()
-    .trim()
+  return execSync('git rev-parse --short HEAD').toString().trim()
 }
 
 function buildInfo() {
@@ -45,24 +43,6 @@ const { name, version } = buildInfo()
 export default defineConfig({
   plugins: [
     tsconfigPaths(),
-    {
-      // based on https://stackoverflow.com/a/69035377/9067735
-      name: 'vite-plugin-pug',
-      transform(src, id) {
-        if (id.endsWith('.pug') || id.endsWith('.jade')) {
-          const render = compile(src, { filename: id })
-          const html = render()
-          let code = ''
-
-          for (const dep of render.dependencies) {
-            code += `import ${JSON.stringify(dep)};\n`
-          }
-          code += `export default ${JSON.stringify(html)};`
-
-          return { code }
-        }
-      },
-    },
     peggy(),
     react(),
     nodePolyfills({

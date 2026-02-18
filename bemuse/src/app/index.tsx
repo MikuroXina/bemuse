@@ -1,37 +1,36 @@
-import * as Analytics from './analytics'
-import * as BemuseTestMode from '../devtools/BemuseTestMode'
-import * as ReduxState from './redux/ReduxState'
-
-import { SceneManager, SceneManagerContext } from '@bemuse/scene-manager'
 import {
   getDefaultCustomFolderContext,
   getSongsFromCustomFolders,
 } from '@bemuse/custom-folder'
 import {
+  shouldShowAbout,
+  shouldShowModeSelect,
+} from '@bemuse/devtools/query-flags'
+import { isQueryFlagEnabled } from '@bemuse/flags'
+import { OFFICIAL_SERVER_URL } from '@bemuse/music-collection'
+import { SceneManager, SceneManagerContext } from '@bemuse/scene-manager'
+import now from '@bemuse/utils/now'
+import { monetize } from 'monetizer'
+import React from 'react'
+import { Provider } from 'react-redux'
+
+import * as BemuseTestMode from '../devtools/BemuseTestMode'
+import * as Analytics from './analytics'
+import { isBrowserSupported } from './browser-support'
+import { musicSearchTextSlice } from './entities/MusicSearchText'
+import { optionsSlice } from './entities/Options'
+import {
   getInitialGrepString,
   getMusicServer,
   getTimeSynchroServer,
 } from './query-flags'
-import {
-  shouldShowAbout,
-  shouldShowModeSelect,
-} from '@bemuse/devtools/query-flags'
-
+import configureStore from './redux/configureStore'
+import * as ReduxState from './redux/ReduxState'
 import AboutScene from './ui/AboutScene'
 import BrowserSupportWarningScene from './ui/BrowserSupportWarningScene'
 import ModeSelectScene from './ui/ModeSelectScene'
-import { OFFICIAL_SERVER_URL } from '@bemuse/music-collection'
-import { Provider } from 'react-redux'
-import React from 'react'
-import TitleScene from './ui/TitleScene'
-import configureStore from './redux/configureStore'
-import { isBrowserSupported } from './browser-support'
-import { monetize } from 'monetizer'
-import { musicSearchTextSlice } from './entities/MusicSearchText'
-import now from '@bemuse/utils/now'
-import { optionsSlice } from './entities/Options'
-import { isQueryFlagEnabled } from '@bemuse/flags'
 import MusicSelectScene from './ui/MusicSelectScene'
+import TitleScene from './ui/TitleScene'
 
 const store = configureStore()
 

@@ -1,8 +1,8 @@
 import * as PIXI from 'pixi.js'
 
 import Expression from '../expression'
-import Instance from './lib/instance'
 import SkinNode from './lib/base'
+import Instance from './lib/instance'
 
 function ChildManager(expr, child, poolSize) {
   return {

@@ -1,6 +1,6 @@
-import * as touch3d from '../display/touch3d'
-
 import bench from '@bemuse/devtools/benchmark'
+
+import * as touch3d from '../display/touch3d'
 
 const BUTTONS = [
   'p1_1',

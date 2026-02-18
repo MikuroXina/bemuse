@@ -1,10 +1,10 @@
-import { OFFICIAL_SERVER_URL, load } from '@bemuse/music-collection'
-import React, { useEffect, useState } from 'react'
-
-import { MusicServerIndex } from 'bemuse-types'
-import MusicTable from './MusicTable'
+import { load, OFFICIAL_SERVER_URL } from '@bemuse/music-collection'
 import preprocessCollection from '@bemuse/music-collection/preprocessCollection'
 import query from '@bemuse/utils/query'
+import { MusicServerIndex } from 'bemuse-types'
+import React, { useEffect, useState } from 'react'
+
+import MusicTable from './MusicTable'
 
 export const CollectionViewer = () => {
   const [status, setStatus] = useState('Loading')

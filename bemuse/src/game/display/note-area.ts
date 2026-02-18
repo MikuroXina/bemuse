@@ -1,5 +1,4 @@
 import { GameEvent, GameNote } from 'bemuse-notechart'
-
 import _ from 'lodash'
 
 export interface VisibleNote {

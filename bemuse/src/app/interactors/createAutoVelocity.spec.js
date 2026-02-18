@@ -1,5 +1,5 @@
-import { describe, it, vi, expect } from 'vitest'
 import assert from 'assert'
+import { describe, expect, it, vi } from 'vitest'
 
 import createAutoVelocity from './createAutoVelocity'
 

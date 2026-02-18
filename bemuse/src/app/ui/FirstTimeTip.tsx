@@ -1,8 +1,8 @@
+import TipContainer from '@bemuse/ui/TipContainer'
 import React, { ComponentProps } from 'react'
-import { hasAcknowledged, optionsSlice } from '../entities/Options'
 import { useDispatch, useSelector } from 'react-redux'
 
-import TipContainer from '@bemuse/ui/TipContainer'
+import { hasAcknowledged, optionsSlice } from '../entities/Options'
 import { selectOptions } from '../redux/ReduxState'
 
 export const FirstTimeTip = ({

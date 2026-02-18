@@ -1,7 +1,7 @@
 import assert from 'assert'
+import { beforeEach, describe, expect, it } from 'vitest'
 
 import BemusePackageResources from './bemuse-package.js'
-import { describe, it, expect, beforeEach } from 'vitest'
 
 describe('BemusePackageResources', function () {
   describe('#file', function () {

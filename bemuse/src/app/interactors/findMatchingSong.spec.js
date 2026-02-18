@@ -1,5 +1,5 @@
-import { describe, it } from 'vitest'
 import assert from 'assert'
+import { describe, it } from 'vitest'
 
 import findMatchingSong from './findMatchingSong'
 

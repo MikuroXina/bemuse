@@ -1,8 +1,8 @@
-import { Middleware, compose } from 'redux'
+import { configureStore as createStore } from '@reduxjs/toolkit'
+import { compose, Middleware } from 'redux'
 
 import { collectionFetchMiddleware } from './collectionFetchMiddleware'
 import { collectionLoader } from './collectionLoader'
-import { configureStore as createStore } from '@reduxjs/toolkit'
 import { optionsStorageMiddleware } from './optionsStorageMiddleware'
 import { reducer } from './ReduxState'
 

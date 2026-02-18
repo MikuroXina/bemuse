@@ -1,5 +1,6 @@
-import SamplesLoader from './samples-loader.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+
+import SamplesLoader from './samples-loader.js'
 
 describe('SamplesLoader', function () {
   const assets = { file: () => {} }

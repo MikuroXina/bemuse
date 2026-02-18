@@ -1,9 +1,9 @@
 import './AuthenticationPopup.scss'
 
+import ModalPopup from '@bemuse/ui/ModalPopup'
 import React, { ComponentPropsWithRef } from 'react'
 
 import AuthenticationPanel from './AuthenticationPanel'
-import ModalPopup from '@bemuse/ui/ModalPopup'
 
 export interface AuthenticationPopupProps
   extends ComponentPropsWithRef<typeof ModalPopup> {

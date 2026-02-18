@@ -1,16 +1,20 @@
+import type { Song } from '@bemuse/collection-model/types.js'
+import { loadSongFromResources } from '@bemuse/custom-song-loader/index.js'
+import { FileResource } from '@bemuse/resources/custom-song-resources.js'
+import type {
+  ICustomSongResources,
+  IResources,
+} from '@bemuse/resources/types.js'
+import { del, get, set } from 'idb-keyval'
 import _ from 'lodash'
-import { get, set, del } from 'idb-keyval'
 import pMemoize from 'p-memoize'
-import {
+
+import type {
   CustomFolderChartFile,
   CustomFolderFolderEntry,
   CustomFolderSong,
   CustomFolderState,
-} from './types'
-import { loadSongFromResources } from '@bemuse/custom-song-loader'
-import { ICustomSongResources, IResources } from '@bemuse/resources/types'
-import { FileResource } from '@bemuse/resources/custom-song-resources'
-import { Song } from '@bemuse/collection-model/types'
+} from './types.js'
 
 export interface CustomFolderContext {
   get: (key: string) => Promise<CustomFolderState | undefined>
@@ -104,7 +108,7 @@ async function scanIteration(
   }
 
   if ((state?.foldersToRemove?.length ?? 0) > 0) {
-    return removeFolders(state, handle, io)
+    return removeFolders(state, io)
   }
 }
 
@@ -289,7 +293,6 @@ async function updateFolders(
 
 async function removeFolders(
   state: CustomFolderState,
-  handle: FileSystemDirectoryHandle,
   io: CustomFolderScanIO
 ): Promise<ScanIterationResult | undefined> {
   const { log, setStatus } = io

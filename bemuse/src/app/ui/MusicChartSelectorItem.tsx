@@ -1,9 +1,9 @@
 import './MusicChartSelectorItem.scss'
 
-import { Chart } from 'bemuse-types'
 import { Icon } from '@bemuse/fa'
-import React from 'react'
+import { Chart } from 'bemuse-types'
 import c from 'classnames'
+import React from 'react'
 
 const Text = ({
   isTutorial,

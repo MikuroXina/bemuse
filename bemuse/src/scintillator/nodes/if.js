@@ -1,8 +1,8 @@
 import * as PIXI from 'pixi.js'
 
+import Expression from '../expression'
 import SkinNode from './lib/base'
 import Instance from './lib/instance'
-import Expression from '../expression'
 
 export class IfNode extends SkinNode {
   compile(compiler, $el) {

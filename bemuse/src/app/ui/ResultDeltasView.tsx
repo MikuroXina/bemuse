@@ -1,13 +1,14 @@
 import './ResultDeltasView.scss'
 
+import { timegate } from '@bemuse/game/judgments'
 import Panel from '@bemuse/ui/Panel.js'
-import React from 'react'
 import _ from 'lodash'
-import getNonMissedDeltas from '../interactors/getNonMissedDeltas'
 import mean from 'mean'
 import median from 'median'
-import { timegate } from '@bemuse/game/judgments'
+import React from 'react'
 import variance from 'variance'
+
+import getNonMissedDeltas from '../interactors/getNonMissedDeltas'
 
 const ms = (delta: number) => `${(delta * 1000).toFixed(1)} ms`
 

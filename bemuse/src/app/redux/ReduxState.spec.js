@@ -1,12 +1,12 @@
+import { describe, expect, it } from 'vitest'
+
+import { optionsSlice } from '../entities/Options'
+import configureStore from './configureStore'
 import {
   collectionsSlice,
   selectSelectedChart,
   selectSelectedSong,
 } from './ReduxState'
-
-import configureStore from './configureStore'
-import { optionsSlice } from '../entities/Options'
-import { describe, it, expect } from 'vitest'
 
 describe('ReduxState', function () {
   describe('integration test', function () {

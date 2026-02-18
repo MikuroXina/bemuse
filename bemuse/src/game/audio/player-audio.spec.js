@@ -1,6 +1,7 @@
-import PlayerAudio from './player-audio.js'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+
 import { playerWithBMS } from '../test-helpers/index.js'
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import PlayerAudio from './player-audio.js'
 
 describe('PlayerAudio', function () {
   const waveFactory = {

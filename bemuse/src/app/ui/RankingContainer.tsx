@@ -1,20 +1,25 @@
-import { RankingState, RankingStream } from '@bemuse/online'
+import { isQueryFlagEnabled } from '@bemuse/flags/index.js'
 import {
   useCurrentUser,
   useLeaderboardQuery,
   usePersonalRankingEntryQuery,
   useRecordSubmissionMutation,
-} from '@bemuse/online/hooks'
-import React, { useContext, useEffect, useRef, useState } from 'react'
-
-import { MappingMode } from '@bemuse/rules/mapping-mode'
-import { OnlineContext } from '@bemuse/online/instance'
-import Ranking from './Ranking'
-import { Result } from './ResultScene'
-import { ScoreCount } from '@bemuse/rules/accuracy'
-import { isQueryFlagEnabled } from '@bemuse/flags'
+} from '@bemuse/online/hooks.js'
+import { RankingState, RankingStream } from '@bemuse/online/index.js'
+import { OnlineContext } from '@bemuse/online/instance.js'
+import {
+  completed,
+  error,
+  loading,
+  Operation,
+} from '@bemuse/online/operations.js'
+import { ScoreCount } from '@bemuse/rules/accuracy.js'
+import { MappingMode } from '@bemuse/rules/mapping-mode.js'
+import React, { FC, useContext, useEffect, useRef, useState } from 'react'
 import { UseMutationResult, UseQueryResult } from 'react-query'
-import { Operation, completed, error, loading } from '@bemuse/online/operations'
+
+import Ranking from './Ranking.js'
+import { Result } from './ResultScene.js'
 
 export interface RankingContainerProps {
   chart: { md5: string }
@@ -123,7 +128,7 @@ export const NewRankingContainer = ({
             canSubmit ? submissionMutation : personalRankingEntryQuery
           )
         : { status: 'unauthenticated' },
-      scoreboard: operationFromResult(leaderboardQuery as any),
+      scoreboard: operationFromResult(leaderboardQuery),
     },
   }
   const submitted = useRef(false)
@@ -143,13 +148,13 @@ export const NewRankingContainer = ({
 }
 
 function operationFromResult<T>(
-  result: UseMutationResult<T, any, any, any> | UseQueryResult<T, any>
+  result: UseMutationResult<T> | UseQueryResult<T>
 ): Operation<T> {
   if (result.isLoading) {
     return loading()
   }
   if (result.isError) {
-    return error(result.error as any)
+    return error(result.error)
   }
   return completed(result.data!)
 }

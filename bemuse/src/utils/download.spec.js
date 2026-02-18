@@ -1,5 +1,5 @@
-import { describe, it, expect, vi } from 'vitest'
 import download from '@bemuse/utils/download.js'
+import { describe, expect, it, vi } from 'vitest'
 
 describe('download', function () {
   const options = {

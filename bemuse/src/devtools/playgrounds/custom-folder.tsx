@@ -1,7 +1,3 @@
-import React from 'react'
-import _ from 'lodash'
-import { sceneRoot } from '@bemuse/utils/main-element'
-import { QueryClientProvider, useQuery } from 'react-query'
 import {
   clearCustomFolder,
   getCustomFolderState,
@@ -10,6 +6,10 @@ import {
   setCustomFolder,
 } from '@bemuse/custom-folder'
 import { queryClient } from '@bemuse/react-query'
+import { sceneRoot } from '@bemuse/utils/main-element'
+import _ from 'lodash'
+import React from 'react'
+import { QueryClientProvider, useQuery } from 'react-query'
 
 const CustomFolderTester = () => {
   const context = getDefaultCustomFolderContext()

@@ -1,11 +1,13 @@
 import './GameShellScene.scss'
 
-import { IResource, IResources } from '@bemuse/resources/types'
-import { PanelPlacement, ScratchPosition } from '@bemuse/app/entities/Options'
-import React, { ChangeEvent, DragEvent, FormEvent, useState } from 'react'
-
-import DndResources from '@bemuse/resources/dnd-resources'
+import {
+  PanelPlacement,
+  ScratchPosition,
+} from '@bemuse/app/entities/Options.js'
+import DndResources from '@bemuse/resources/dnd-resources.js'
+import type { IResource, IResources } from '@bemuse/resources/types.js'
 import c from 'classnames'
+import React, { ChangeEvent, DragEvent, FormEvent, useState } from 'react'
 
 interface BmsEntry {
   name: string
@@ -222,7 +224,7 @@ const GameShellScene = ({
                 type='radio'
                 value={placement}
                 onChange={bindOption(
-                  (o, v) => (o.players[0].placement = placement)
+                  (o) => (o.players[0].placement = placement)
                 )}
                 checked={options.players[0].placement === placement}
               />

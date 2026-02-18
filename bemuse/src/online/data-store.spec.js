@@ -1,8 +1,8 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import _ from 'lodash'
+import { beforeEach, describe, expect, it } from 'vitest'
+
 import * as DataStore from './data-store'
 import * as Operations from './operations'
-
-import _ from 'lodash'
 
 describe('Online DataStore', function () {
   describe('initial state', function () {

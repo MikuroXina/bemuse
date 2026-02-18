@@ -58,6 +58,7 @@
   "license": "AGPL-1.0",
   "devDependencies": {
     "@types/eslint": "^4.16.8",
+    "@types/fastclick": "^1.0.33",
     "@types/invariant": "^2.2.37",
     "@types/jquery": "^3.5.33",
     "@types/lodash": "^4.17.23",

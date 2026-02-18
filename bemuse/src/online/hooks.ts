@@ -1,14 +1,15 @@
+import { MappingMode } from '@bemuse/rules/mapping-mode'
 import { useContext } from 'react'
-import { OnlineContext } from './instance'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
+
+import { ScoreInfo } from '.'
+import { OnlineContext } from './instance'
 import {
   currentUserQueryKey,
   getLeaderboardQueryKey,
   getPersonalRankingEntryQueryKey,
   getPersonalRecordQueryKey,
 } from './queryKeys'
-import { MappingMode } from '@bemuse/rules/mapping-mode'
-import { ScoreInfo } from '.'
 
 export function useCurrentUser() {
   const online = useContext(OnlineContext)

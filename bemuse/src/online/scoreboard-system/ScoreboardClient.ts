@@ -1,5 +1,5 @@
-import { MappingMode } from '@bemuse/rules/mapping-mode'
-import type { ScoreCount } from '@bemuse/rules/accuracy'
+import type { ScoreCount } from '@bemuse/rules/accuracy.js'
+import { MappingMode } from '@bemuse/rules/mapping-mode.js'
 
 export interface ScoreboardClient {
   signUp(options: {
@@ -17,7 +17,7 @@ export interface ScoreboardClient {
     playerToken: string
   }>
 
-  changePassword(options: { email: string }): Promise<{}>
+  changePassword(options: { email: string }): Promise<Record<string, never>>
 
   submitScore(options: {
     playerToken: string

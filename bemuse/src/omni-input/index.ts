@@ -1,18 +1,18 @@
+import keycode from 'keycode'
+import _ from 'lodash'
 import {
-  Observable,
-  Subscription,
   concat,
   concatMap,
   fromEvent,
   map,
+  Observable,
   of,
   pairwise,
+  Subscription,
 } from 'rxjs'
 
 import { AxisLogic } from './axis-logic'
-import _ from 'lodash'
 import getMidi川 from './midi'
-import keycode from 'keycode'
 
 declare global {
   interface Navigator {

@@ -1,5 +1,6 @@
 import defaultAudioContext from '@bemuse/audio-context'
 import readBlob from '@bemuse/utils/read-blob'
+
 import { decodeOGG } from './ogg'
 
 export const FADE_LENGTH = 0.001
@@ -187,6 +188,7 @@ export class Sample {
 //
 // You don't invoke this constructor directly; it is invoked by `Sample#play`.
 export class PlayInstance {
+  onstop
   constructor(samplingMaster, buffer, delay, options = {}) {
     delay = delay || 0
     this._master = samplingMaster

@@ -1,9 +1,10 @@
-import PlayerState from './player-state'
-import Game from '../game'
-import Player from '../player'
-import GameInput from '../input'
-import GameTimer from '../game-timer'
 import invariant from 'invariant'
+
+import Game from '../game'
+import GameTimer from '../game-timer'
+import GameInput from '../input'
+import Player from '../player'
+import PlayerState from './player-state'
 
 export class GameState {
   /** See Timer#readyFraction. We need it here so that the display can read this information. */

@@ -1,4 +1,5 @@
-import { describe, it, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
+
 import { Progress } from './Progress.js'
 import * as ProgressUtils from './utils.js'
 

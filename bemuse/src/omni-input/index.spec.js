@@ -1,9 +1,9 @@
-import { OmniInput, _key川ForUpdate川, getName, key川 } from './index.js'
-
 import { EventEmitter } from 'events'
-import { Subject } from 'rxjs'
 import assert from 'power-assert'
-import { describe, it, beforeEach, afterEach } from 'vitest'
+import { Subject } from 'rxjs'
+import { afterEach, beforeEach, describe, it } from 'vitest'
+
+import { _key川ForUpdate川, getName, key川, OmniInput } from './index.js'
 
 function fakeWindow() {
   const events = new EventEmitter()

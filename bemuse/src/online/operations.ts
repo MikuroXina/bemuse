@@ -1,4 +1,4 @@
-import { Observable, from, startWith } from 'rxjs'
+import { from, Observable, startWith } from 'rxjs'
 
 export type Pending = {
   status: 'pending'

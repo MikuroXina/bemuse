@@ -1,8 +1,9 @@
-import { isModalActive } from '@bemuse/ui-dialogs'
-import { useLatest } from '@bemuse/utils/useLatest'
+import { isModalActive } from '@bemuse/ui-dialogs/index.js'
+import { useLatest } from '@bemuse/utils/useLatest.js'
 import { useEffect } from 'react'
-import { NotechartPreview } from './NotechartPreview'
-import { PreviewAction } from './PreviewState'
+
+import { NotechartPreview } from './NotechartPreview.js'
+import { PreviewAction } from './PreviewState.js'
 
 let rememberedMeasureNumber: number | null = null
 
@@ -12,7 +13,7 @@ export interface PreviewKeyHandler {
   onReload: () => void
 }
 
-export const PreviewKeyHandler: FC<PreviewKeyHandler> = (props) => {
+export const PreviewKeyHandler = (props: PreviewKeyHandler) => {
   const getLatestNotechartPreview = useLatest(props.notechartPreview)
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {

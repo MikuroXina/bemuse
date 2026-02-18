@@ -1,7 +1,13 @@
 import './OptionsInput.scss'
 
 import OmniInput, { getName, key川 } from '@bemuse/omni-input'
+import c from 'classnames'
+import _ from 'lodash'
 import React, { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { createSelector } from 'reselect'
+import { tap, throttleTime } from 'rxjs'
+
 import {
   isContinuousAxisEnabled,
   keyboardMapping,
@@ -11,18 +17,12 @@ import {
   scratchPosition,
   sensitivity,
 } from '../entities/Options'
-import { tap, throttleTime } from 'rxjs'
-import { useDispatch, useSelector } from 'react-redux'
-
 import { AppState } from '../redux/ReduxState'
 import OptionsButton from './OptionsButton'
 import OptionsCheckbox from './OptionsCheckbox'
 import OptionsInputField from './OptionsInputField'
 import OptionsInputKeys from './OptionsInputKeys'
 import OptionsInputScratch from './OptionsInputScratch'
-import _ from 'lodash'
-import c from 'classnames'
-import { createSelector } from 'reselect'
 
 const selectKeyboardMapping = createSelector(
   (state: AppState) => state.options,

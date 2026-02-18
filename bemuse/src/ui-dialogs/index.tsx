@@ -1,15 +1,14 @@
 import './index.scss'
 
+import Button from '@bemuse/ui/Button.js'
+import Panel from '@bemuse/ui/Panel.js'
+import VBox from '@bemuse/ui/VBox.js'
+import WARP from '@bemuse/utils/warp-element.js'
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
-
 import React, { ReactNode } from 'react'
-
-import Button from '@bemuse/ui/Button'
-import { ComboBox } from './ComboBox'
-import Panel from '@bemuse/ui/Panel'
-import VBox from '@bemuse/ui/VBox'
-import WARP from '@bemuse/utils/warp-element'
 import { createRoot } from 'react-dom/client'
+
+import { ComboBox } from './ComboBox.js'
 
 export async function showAlert(title: string, message: ReactNode) {
   await registerActiveModal(
@@ -87,9 +86,9 @@ export type QuickPickOptions = {
   title: string
 }
 
-const activeModals = new Set<Promise<any>>()
+const activeModals = new Set<Promise<unknown>>()
 
-function registerActiveModal<T extends Promise<any>>(promise: T) {
+function registerActiveModal<T extends Promise<unknown>>(promise: T) {
   activeModals.add(promise)
   Promise.resolve(promise).finally(() => {
     activeModals.delete(promise)

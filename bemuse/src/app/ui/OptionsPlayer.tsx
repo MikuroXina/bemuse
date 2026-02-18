@@ -1,7 +1,9 @@
 import './OptionsPlayer.scss'
 
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
 import {
-  OptionsState,
   isAutoVelocityEnabled,
   isBackgroundAnimationsEnabled,
   isGaugeEnabled,
@@ -9,20 +11,18 @@ import {
   laneCover,
   leadTime,
   optionsSlice,
+  OptionsState,
   panelPlacement,
   scratchPosition,
   speed,
 } from '../entities/Options'
-import { Panel, Scratch } from './OptionsPlayerGraphics'
-import { useDispatch, useSelector } from 'react-redux'
-
+import { selectOptions } from '../redux/ReduxState'
 import OptionsButton from './OptionsButton'
 import OptionsCheckbox from './OptionsCheckbox'
 import OptionsInputField from './OptionsInputField'
+import { Panel, Scratch } from './OptionsPlayerGraphics'
 import { OptionsPlayerSelector } from './OptionsPlayerSelector'
 import OptionsSpeed from './OptionsSpeed'
-import React from 'react'
-import { selectOptions } from '../redux/ReduxState'
 
 interface SettingRowProps {
   label: string

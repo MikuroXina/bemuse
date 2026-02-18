@@ -1,4 +1,5 @@
-import { describe, it, expect, beforeEach, afterEach } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+
 import * as Scintillator from './'
 
 const fixture = (file) => new URL(`./test-fixtures/${file}`, import.meta.url)

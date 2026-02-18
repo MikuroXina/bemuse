@@ -1,5 +1,5 @@
-import Notechart from 'bemuse-notechart'
-import { PlayerOptions } from 'bemuse-notechart/lib/types'
+import type { Notechart } from 'bemuse-notechart'
+import type { PlayerOptions } from 'bemuse-notechart/lib/types.js'
 
 export type PlayerControlKeys =
   | '1'

@@ -1,24 +1,23 @@
 import './ResultScene.scss'
 
-import * as Analytics from '../analytics'
-import * as QueryFlags from '../query-flags'
-
-import React, { MouseEvent } from 'react'
-import SceneToolbar, { SceneToolbarSpacer } from '@bemuse/ui/SceneToolbar'
-
+import { Icon } from '@bemuse/fa/index.js'
+import { MappingMode } from '@bemuse/rules/mapping-mode.js'
+import Flex from '@bemuse/ui/Flex.js'
+import Scene from '@bemuse/ui/Scene.js'
+import SceneHeading from '@bemuse/ui/SceneHeading.js'
+import SceneToolbar, { SceneToolbarSpacer } from '@bemuse/ui/SceneToolbar.js'
 import { Chart } from 'bemuse-types'
-import FirstTimeTip from './FirstTimeTip'
-import Flex from '@bemuse/ui/Flex'
-import { Icon } from '@bemuse/fa'
-import { MappingMode } from '@bemuse/rules/mapping-mode'
-import MusicChartInfo from './MusicChartInfo'
-import MusicChartSelectorItem from './MusicChartSelectorItem'
-import RankingContainer from './RankingContainer'
-import ResultExpertInfo from './ResultExpertInfo'
-import ResultGrade from './ResultGrade'
-import ResultTable from './ResultTable'
-import Scene from '@bemuse/ui/Scene'
-import SceneHeading from '@bemuse/ui/SceneHeading'
+import React, { MouseEvent } from 'react'
+
+import * as Analytics from '../analytics.js'
+import * as QueryFlags from '../query-flags.js'
+import FirstTimeTip from './FirstTimeTip.js'
+import MusicChartInfo from './MusicChartInfo.js'
+import MusicChartSelectorItem from './MusicChartSelectorItem.js'
+import RankingContainer from './RankingContainer.js'
+import ResultExpertInfo from './ResultExpertInfo.js'
+import ResultGrade from './ResultGrade.js'
+import ResultTable from './ResultTable.js'
 
 export interface Result {
   1: number
@@ -73,7 +72,6 @@ const getTweetLink = ({ chart, result }: { chart: Chart; result: Result }) => {
 export interface ResultSceneProps {
   result: Result
   playMode: MappingMode
-  lr2Timegate: unknown[]
   chart: Chart
   onReplay: () => void
   onExit: (e: MouseEvent) => void
@@ -83,7 +81,6 @@ const ResultScene = ({
   result,
   playMode,
   chart,
-  lr2Timegate,
   onReplay,
   onExit,
 }: ResultSceneProps) => {

@@ -1,22 +1,8 @@
-import {
-  Action,
-  DataStore,
-  initialState,
-  put,
-  putMultiple,
-  store川,
-} from './data-store'
-import {
-  INITIAL_OPERATION_STATE,
-  Operation,
-  completed,
-  operation川FromPromise,
-} from './operations'
+import { queryClient } from '@bemuse/react-query'
+import { ScoreCount } from '@bemuse/rules/accuracy'
 import Immutable, { Seq } from 'immutable'
+import _ from 'lodash'
 import {
-  Observable,
-  ObservableInput,
-  Subject,
   asapScheduler,
   bufferTime,
   combineLatest,
@@ -25,20 +11,34 @@ import {
   from,
   map,
   merge,
+  Observable,
+  ObservableInput,
   of,
   scan,
   scheduled,
   shareReplay,
   startWith,
+  Subject,
   switchMap,
 } from 'rxjs'
-import { RecordLevel, fromObject } from './level'
 
 import { BatchedFetcher } from './BatchedFetcher'
-import { ScoreCount } from '@bemuse/rules/accuracy'
-import _ from 'lodash'
+import {
+  Action,
+  DataStore,
+  initialState,
+  put,
+  putMultiple,
+  store川,
+} from './data-store'
 import id from './id'
-import { queryClient } from '@bemuse/react-query'
+import { fromObject, RecordLevel } from './level'
+import {
+  completed,
+  INITIAL_OPERATION_STATE,
+  Operation,
+  operation川FromPromise,
+} from './operations'
 import { rootQueryKey } from './queryKeys'
 
 export interface SignUpInfo {

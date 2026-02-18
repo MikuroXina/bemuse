@@ -1,11 +1,11 @@
 import './BrowserSupportWarningScene.scss'
 
+import { ReactScene, SceneManagerContext } from '@bemuse/scene-manager'
 import Scene from '@bemuse/ui/Scene'
 import React, { useContext } from 'react'
-import { ReactScene, SceneManagerContext } from '@bemuse/scene-manager'
 
-import OptionsButton from './OptionsButton'
 import { SUPPORTED } from '../browser-support'
+import OptionsButton from './OptionsButton'
 
 const BrowserSupportWarningScene = ({
   next,

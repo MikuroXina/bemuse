@@ -9,11 +9,11 @@ export class OfflineService {
     return false
   }
 
-  signUp({ username, password, email }) {
+  signUp() {
     return no()
   }
 
-  logIn({ username, password }) {
+  logIn() {
     return no()
   }
 
@@ -21,28 +21,28 @@ export class OfflineService {
     return no()
   }
 
-  changePassword({ email }) {
+  changePassword() {
     return no()
   }
 
-  submitScore(info) {
+  submitScore() {
     return Promise.reject(new Error('Online services not enabled.'))
   }
 
   // Retrieves a record.
   //
   // Returns a record object.
-  retrieveRecord(level, user) {
+  retrieveRecord() {
     return Promise.reject(new Error('Online services not enabled.'))
   }
 
   // Retrieves the scoreboard
-  retrieveScoreboard({ md5, playMode }) {
+  retrieveScoreboard() {
     return Promise.reject(new Error('Online services not enabled.'))
   }
 
   // Retrieve multiple records!
-  retrieveMultipleRecords(items, user) {
+  retrieveMultipleRecords() {
     return Promise.reject(new Error('Online services not enabled.'))
   }
 }

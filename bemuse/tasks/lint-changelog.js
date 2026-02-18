@@ -1,5 +1,5 @@
-import gulp from 'gulp'
 import fs from 'fs'
+import gulp from 'gulp'
 import path from 'path'
 
 gulp.task('lint-changelog', async function () {
@@ -9,14 +9,14 @@ gulp.task('lint-changelog', async function () {
   const referenced = new Map()
   data.replace(
     /^\s*\[(?:([a-z0-9-]+)\/([a-z.0-9-]+))?#(\d+)]:\s+/gim,
-    (a, owner, repo, number) => {
+    (_a, owner, repo, number) => {
       const id = `${owner || 'bemusic'}:${repo || 'bemuse'}:${number}`
       defined.add(id)
     }
   )
   data.replace(
     /\[((?:([a-z0-9-]+)\/([a-z.0-9-]+))?#(\d+))]($|[^(])/gi,
-    (a, tag, owner, repo, number) => {
+    (_a, tag, owner, repo, number) => {
       const id = `${owner || 'bemusic'}:${repo || 'bemuse'}:${number}`
       referenced.set(id, tag)
     }

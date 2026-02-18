@@ -2,7 +2,7 @@ let _enabled = false
 
 let _lifecycleHandler = {
   /** @returns {Promise<void>} */
-  pauseAt(t) {
+  pauseAt() {
     throw new Error('Cannot pause: No lifecycle handler registered!')
   },
   /** @returns {void} */

@@ -1,22 +1,24 @@
 import './BemusePreviewer.scss'
+
+import { showAlert, showQuickPick } from '@bemuse/ui-dialogs'
+import _ from 'lodash'
 import React, { useEffect, useReducer, useRef, useState } from 'react'
-import { PreviewCanvas } from './PreviewCanvas'
-import { PreviewInfo } from './PreviewInfo'
-import { PreviewFileDropHandler } from './PreviewFileDropHandler'
-import { getSavedPreviewInfo, loadPreview, setPreview } from './PreviewLoader'
+
 import {
   createNullNotechartPreview,
   NotechartPreview,
   NotechartPreviewPlayer,
 } from './NotechartPreview'
+import { PreviewCanvas } from './PreviewCanvas'
+import { PreviewFileDropHandler } from './PreviewFileDropHandler'
+import { PreviewInfo } from './PreviewInfo'
+import { PreviewKeyHandler } from './PreviewKeyHandler'
+import { getSavedPreviewInfo, loadPreview, setPreview } from './PreviewLoader'
 import {
   PreviewAction,
   PreviewState,
   previewStateReducer,
 } from './PreviewState'
-import { PreviewKeyHandler } from './PreviewKeyHandler'
-import { showAlert, showQuickPick } from '@bemuse/ui-dialogs'
-import _ from 'lodash'
 
 export const BemusePreviewer = () => {
   const div = useRef<HTMLDivElement>(null)

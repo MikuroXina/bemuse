@@ -1,5 +1,6 @@
+import { describe, expect, it, vi } from 'vitest'
+
 import readBlob from './read-blob'
-import { describe, it, expect, vi } from 'vitest'
 
 describe('readBlob', function () {
   it('rejects when cannot read blob', async () => {

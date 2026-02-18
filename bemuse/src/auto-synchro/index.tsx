@@ -1,10 +1,9 @@
-import * as Music from './music'
-
-import ExperimentScene, { ExperimentState } from './ui/ExperimentScene'
-
 import React from 'react'
-import { Subject } from 'rxjs'
 import { createRoot } from 'react-dom/client'
+import { Subject } from 'rxjs'
+
+import * as Music from './music'
+import ExperimentScene, { ExperimentState } from './ui/ExperimentScene'
 
 export async function main(bootContext: {
   setStatus: (status: string) => void

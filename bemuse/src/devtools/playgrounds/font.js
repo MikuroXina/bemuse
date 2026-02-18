@@ -1,7 +1,7 @@
 import meticulousFont from '@bemuse/../../public/skins/default/Fonts/BemuseDefault-Meticulous.fnt'
 import otherFont from '@bemuse/../../public/skins/default/Fonts/BemuseDefault-Other.fnt'
-import * as PIXI from 'pixi.js'
 import MAIN from '@bemuse/utils/main-element'
+import * as PIXI from 'pixi.js'
 
 export function main() {
   const renderer = PIXI.autoDetectRenderer(640, 480)

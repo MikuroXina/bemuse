@@ -1,20 +1,20 @@
-import Notechart from 'bemuse-notechart'
-import NotechartLoader from 'bemuse-notechart/lib/loader'
-import Progress from '@bemuse/progress'
-import SamplingMaster from '@bemuse/sampling-master'
-import keysoundCache from '@bemuse/keysound-cache'
-import { ChartInfo } from 'bemuse-types'
-import { IResource, IResources } from '@bemuse/resources/types'
-import { atomic } from '@bemuse/progress/utils'
+import keysoundCache from '@bemuse/keysound-cache/index.js'
+import Progress from '@bemuse/progress/index.js'
+import { atomic } from '@bemuse/progress/utils.js'
 import { resolveRelativeResources } from '@bemuse/resources/resolveRelativeResource.js'
+import type { IResource, IResources } from '@bemuse/resources/types.js'
+import SamplingMaster from '@bemuse/sampling-master/index.js'
+import type { Notechart, PlayerOptions } from 'bemuse-notechart'
+import { NotechartLoader } from 'bemuse-notechart/lib/loader/index.js'
+import { ChartInfo } from 'bemuse-types'
 
-import * as Multitasker from './multitasker'
-import GameAudio from '../audio'
-import GameController from '../game-controller'
-import GameDisplay from '../display'
-import SamplesLoader from './samples-loader'
-import loadImage from './loadImage'
-import Game, { GamePlayerOptionsInput } from '../game'
+import GameAudio from '../audio/index.js'
+import GameDisplay from '../display/index.js'
+import Game, { GamePlayerOptionsInput } from '../game.js'
+import GameController from '../game-controller.js'
+import loadImage from './loadImage.js'
+import * as Multitasker from './multitasker.js'
+import SamplesLoader from './samples-loader.js'
 
 type Tasks = {
   Scintillator: TODO
@@ -97,7 +97,11 @@ export function load(spec: LoadSpec) {
     task('Notechart', 'Loading ' + spec.bms.name, [], async (progress) => {
       const loader = new NotechartLoader()
       const arraybuffer = await bms.read(progress)
-      return loader.load(arraybuffer, spec.bms, spec.options.players[0])
+      return loader.load(
+        arraybuffer,
+        spec.bms,
+        spec.options.players[0] as PlayerOptions
+      )
     })
 
     task('EyecatchImage', null, ['Notechart'], function (notechart) {
@@ -136,7 +140,7 @@ export function load(spec: LoadSpec) {
       'Video',
       spec.videoUrl ? 'Loading video' : null,
       ['Notechart'],
-      async function (notechart, progress) {
+      async function (_notechart, progress) {
         if (!spec.videoUrl) return Promise.resolve(null)
         let videoUrl = spec.videoUrl
         if (!videoUrl.includes('://')) {
@@ -145,7 +149,7 @@ export function load(spec: LoadSpec) {
           const file = await base.file(filename)
           videoUrl = await file.resolveUrl()
         }
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
           const video = document.createElement('video')
           if (!video.canPlayType('video/webm')) return resolve(null)
           video.src = videoUrl

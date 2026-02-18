@@ -1,12 +1,12 @@
-import _ from 'lodash'
-import NotechartLoader from 'bemuse-notechart/lib/loader'
+import SamplingMaster, { Sample } from '@bemuse/sampling-master/index.js'
+import { showAlert } from '@bemuse/ui-dialogs/index.js'
+import { NotechartLoader } from 'bemuse-notechart/lib/loader/index.js'
 import ObjectID from 'bson-objectid'
-import pMap from 'p-map'
-import SamplingMaster, { Sample } from '@bemuse/sampling-master'
 import { get, set } from 'idb-keyval'
-import { showAlert } from '@bemuse/ui-dialogs'
+import _ from 'lodash'
+import pMap from 'p-map'
 
-import { createNotechartPreview } from './NotechartPreview'
+import { createNotechartPreview } from './NotechartPreview.js'
 
 const PREVIEWER_FS_HANDLE_KEYVAL_KEY = 'previewer-fs-handle'
 const getSamplingMaster = _.once(() => {
@@ -129,7 +129,7 @@ async function ensureReadable(directoryHandle: FileSystemDirectoryHandle) {
     if (permission === 'prompt') {
       permission = await directoryHandle.requestPermission({ mode: 'read' })
     }
-  } catch (error) {
+  } catch {
     await showAlert(
       'File system access required',
       'Please allow access to the filesystem.'

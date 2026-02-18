@@ -1,7 +1,7 @@
 import assert from 'assert'
+import { describe, expect, it } from 'vitest'
 
 import URLResource from './url'
-import { describe, it, expect } from 'vitest'
 
 describe('URLResource', function () {
   it('can download a resource from an arbitrary URL', function () {

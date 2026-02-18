@@ -1,7 +1,7 @@
-import { INITIAL_OPERATION_STATE, Operation } from './operations'
-import { Observable, distinct, map, scan } from 'rxjs'
-
 import Immutable from 'immutable'
+import { distinct, map, Observable, scan } from 'rxjs'
+
+import { INITIAL_OPERATION_STATE, Operation } from './operations'
 
 export type Action<T> =
   | { type: 'PUT'; data: Record<string, Operation<T>> }

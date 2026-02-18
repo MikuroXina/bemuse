@@ -1,11 +1,11 @@
+import screenSkin from '@bemuse/../../public/skins/default/skin_screen.xml'
 import touchSkin from '@bemuse/../../public/skins/default/skin_touch.xml'
 import touch3dSkin from '@bemuse/../../public/skins/default/skin_touch3d.xml'
-import screenSkin from '@bemuse/../../public/skins/default/skin_screen.xml'
 
 import { Context } from './context'
 import { load } from './loader'
 
-export { load, Context }
+export { Context, load }
 
 export function getSkinUrl({ displayMode } = {}) {
   if (displayMode === 'touch3d') {

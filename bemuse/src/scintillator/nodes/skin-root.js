@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js'
 
-import Instance from './lib/instance'
 import SkinNode from './lib/base'
+import Instance from './lib/instance'
 
 export class SkinRootNode extends SkinNode {
   compile(compiler, $el) {

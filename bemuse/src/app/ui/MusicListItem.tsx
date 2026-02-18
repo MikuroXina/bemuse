@@ -1,13 +1,13 @@
 import './MusicListItem.scss'
 
-import { Chart, SongMetadataInCollection } from 'bemuse-types'
-import React, { MouseEvent, memo } from 'react'
-
-import { MappingMode } from '@bemuse/rules/mapping-mode'
-import MusicListItemCharts from './MusicListItemCharts'
 import { Song } from '@bemuse/collection-model/types'
-import c from 'classnames'
 import getPlayableCharts from '@bemuse/music-collection/getPlayableCharts'
+import { MappingMode } from '@bemuse/rules/mapping-mode'
+import { Chart, SongMetadataInCollection } from 'bemuse-types'
+import c from 'classnames'
+import React, { memo, MouseEvent } from 'react'
+
+import MusicListItemCharts from './MusicListItemCharts'
 
 export interface MusicListItemProps {
   song: SongMetadataInCollection

@@ -1,17 +1,16 @@
 import './ModeSelectScene.scss'
 
-import * as Analytics from '../analytics'
-
-import React, { useContext, useRef } from 'react'
-
 import { MappingMode } from '@bemuse/rules/mapping-mode'
-import MusicSelectScene from './MusicSelectScene'
+import { SceneManagerContext } from '@bemuse/scene-manager'
 import Scene from '@bemuse/ui/Scene'
 import SceneHeading from '@bemuse/ui/SceneHeading'
-import { SceneManagerContext } from '@bemuse/scene-manager'
 import SceneToolbar from '@bemuse/ui/SceneToolbar'
-import { optionsSlice } from '../entities/Options'
+import React, { useContext, useRef } from 'react'
 import { useDispatch } from 'react-redux'
+
+import * as Analytics from '../analytics'
+import { optionsSlice } from '../entities/Options'
+import MusicSelectScene from './MusicSelectScene'
 
 function KBGraphics() {
   const children = []

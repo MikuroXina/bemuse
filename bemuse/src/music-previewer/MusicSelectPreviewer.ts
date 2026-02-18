@@ -1,6 +1,6 @@
-import * as MusicPreviewer from './index.js'
-
 import { useEffect, useState } from 'react'
+
+import * as MusicPreviewer from './index.js'
 
 MusicPreviewer.preload()
 

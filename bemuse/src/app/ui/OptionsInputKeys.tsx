@@ -1,8 +1,9 @@
 import './OptionsInputKeys.scss'
 
-import OptionsInputKey from './OptionsInputKey'
-import React from 'react'
 import _ from 'lodash'
+import React from 'react'
+
+import OptionsInputKey from './OptionsInputKey'
 
 export interface OptionsInputKeysProps {
   texts: Record<string, string>

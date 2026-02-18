@@ -1,6 +1,7 @@
-import { describe, it } from 'vitest'
-import * as MusicSearchText from './MusicSearchText'
 import { given, shouldEqual } from 'circumstance'
+import { describe, it } from 'vitest'
+
+import * as MusicSearchText from './MusicSearchText'
 
 describe('MusicSearchText', function () {
   it('is initially blank', () =>

@@ -1,10 +1,12 @@
 import type { AnyAction, Middleware } from 'redux'
-import { initialState, optionsSlice } from '../entities/Options'
 
-import type { AppState } from './ReduxState'
+import { initialState, optionsSlice } from '../entities/Options.js'
+import type { AppState } from './ReduxState.js'
 
 export const optionsStorageMiddleware =
-  (storage: Storage = localStorage): Middleware<{}, AppState> =>
+  (
+    storage: Storage = localStorage
+  ): Middleware<Record<string, never>, AppState> =>
   ({ dispatch, getState }) =>
   (next) =>
   (action: AnyAction) => {

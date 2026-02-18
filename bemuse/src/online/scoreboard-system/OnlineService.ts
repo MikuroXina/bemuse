@@ -1,17 +1,17 @@
-import type {
-  InternetRankingService,
-  ChangePasswordInfo,
-  LogInInfo,
-  ScoreInfo,
-  ScoreboardDataEntry,
-  SignUpInfo,
-} from '..'
-import { ScoreboardClient, ScoreboardRow } from './ScoreboardClient'
+import { isTestModeEnabled } from '@bemuse/devtools/BemuseTestMode.js'
 
-import { RecordLevel } from '../level'
-import { createFakeScoreboardClient } from './createFakeScoreboardClient'
-import { createNextScoreboardClient } from './createNextScoreboardClient'
-import { isTestModeEnabled } from '@bemuse/devtools/BemuseTestMode'
+import type {
+  ChangePasswordInfo,
+  InternetRankingService,
+  LogInInfo,
+  ScoreboardDataEntry,
+  ScoreInfo,
+  SignUpInfo,
+} from '../index.js'
+import { RecordLevel } from '../level.js'
+import { createFakeScoreboardClient } from './createFakeScoreboardClient.js'
+import { createNextScoreboardClient } from './createNextScoreboardClient.js'
+import { ScoreboardClient, ScoreboardRow } from './ScoreboardClient.js'
 
 export interface OnlineServiceOptions {
   fake?: boolean
@@ -63,7 +63,7 @@ export class OnlineService implements InternetRankingService {
           return null
         }
         return data
-      } catch (e) {
+      } catch {
         return null
       }
     }

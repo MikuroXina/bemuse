@@ -7,27 +7,26 @@
 // - The selectors can be used to query data from the store.
 //
 
-import * as Collections from '../entities/Collections'
-import * as LoadState from '../entities/LoadState'
-import * as MusicSearchText from '../entities/MusicSearchText'
-import * as MusicSelection from '../entities/MusicSelection'
-import * as Options from '../entities/Options'
-
-import type {
-  Chart,
-  MusicServerIndex,
-  SongMetadataInCollection,
-} from 'bemuse-types'
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-
-import _ from 'lodash'
-import { createSelector } from 'reselect'
-import { enableMapSet } from 'immer'
 import filterSongs from '@bemuse/music-collection/filterSongs'
 import getPlayableCharts from '@bemuse/music-collection/getPlayableCharts'
 import groupSongsIntoCategories from '@bemuse/music-collection/groupSongsIntoCategories'
 import preprocessCollection from '@bemuse/music-collection/preprocessCollection'
 import sortSongs from '@bemuse/music-collection/sortSongs'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import type {
+  Chart,
+  MusicServerIndex,
+  SongMetadataInCollection,
+} from 'bemuse-types'
+import { enableMapSet } from 'immer'
+import _ from 'lodash'
+import { createSelector } from 'reselect'
+
+import * as Collections from '../entities/Collections'
+import * as LoadState from '../entities/LoadState'
+import * as MusicSearchText from '../entities/MusicSearchText'
+import * as MusicSelection from '../entities/MusicSelection'
+import * as Options from '../entities/Options'
 
 enableMapSet()
 

@@ -1,4 +1,5 @@
-import { it, expect } from 'vitest'
+import { expect, it } from 'vitest'
+
 import {
   CustomFolderContext,
   CustomFolderScanIO,
@@ -12,10 +13,14 @@ const debugging = false
 
 const mockFolderScanIO: CustomFolderScanIO = {
   log: (text) => {
-    debugging && console.log('scanFolder: [log]', text)
+    if (debugging) {
+      console.log('scanFolder: [log]', text)
+    }
   },
   setStatus: (text) => {
-    debugging && console.debug('scanFolder: [setStatus]', text)
+    if (debugging) {
+      console.debug('scanFolder: [setStatus]', text)
+    }
   },
   updateState: () => {},
 }
@@ -142,7 +147,7 @@ function createMockFileSystemDirectoryHandle(
       expect(data[name]).to.be.a('string')
       return createMockFileSystemFileHandle(name, data[name] as string)
     },
-  } as any
+  } as FileSystemDirectoryHandle
 }
 
 function createMockFileSystemFileHandle(
@@ -157,7 +162,7 @@ function createMockFileSystemFileHandle(
       return Object.assign(blob, {
         name,
         lastModified: 1,
-      })
+      }) as File
     },
-  } as any
+  } as FileSystemFileHandle
 }

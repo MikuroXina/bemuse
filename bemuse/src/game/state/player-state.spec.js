@@ -1,10 +1,10 @@
 import assert from 'assert'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import GameInput from '../input'
 import Player from '../player'
-import PlayerState from './player-state'
 import { notechart } from '../test-helpers'
-import { describe, expect, it, vi, beforeEach } from 'vitest'
+import PlayerState from './player-state'
 
 describe('PlayerState', function () {
   it('updates the input', function () {

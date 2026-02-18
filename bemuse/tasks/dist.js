@@ -1,6 +1,7 @@
+import { resolve } from 'node:path'
+
 import gulp from 'gulp'
 import merge from 'merge-stream'
-import { resolve } from 'node:path'
 
 import routes from '../config/routes.js'
 

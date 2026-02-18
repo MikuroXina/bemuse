@@ -1,12 +1,12 @@
 import * as BemuseTestMode from '@bemuse/devtools/BemuseTestMode'
+import bench from '@bemuse/devtools/benchmark'
 
 import Clock from './clock'
-import GameInput from './input'
-import GameState from './state'
 import GameTimer from './game-timer'
+import GameInput from './input'
 import OmniInputPlugin from './input/omni-input-plugin'
 import TouchPlugin from './input/touch-plugin'
-import bench from '@bemuse/devtools/benchmark'
+import GameState from './state'
 
 // The GameController takes care of communications between each game
 // component, and takes care of the Game loop.

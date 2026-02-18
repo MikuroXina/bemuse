@@ -1,10 +1,10 @@
 import './UnofficialPanel.scss'
 
 import DialogContent, { Buttons } from '@bemuse/ui/DialogContent'
-
-import OptionsButton from './OptionsButton'
 import Panel from '@bemuse/ui/Panel'
 import React from 'react'
+
+import OptionsButton from './OptionsButton'
 
 export interface UnofficialPanelProps {
   onClose: () => void

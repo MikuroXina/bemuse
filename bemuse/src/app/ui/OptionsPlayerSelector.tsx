@@ -1,8 +1,6 @@
 import './OptionsPlayerSelector.scss'
 
-import React, { memo } from 'react'
-
-import c from 'classnames'
+import React, { memo, ReactNode } from 'react'
 
 export interface OptionsPlayerSelectorProps<T extends string> {
   onSelect: (item: T) => void
@@ -48,16 +46,15 @@ interface ItemContainerProps {
   children: ReactNode
 }
 
-const ItemContainer = memo(
-  ({ active, onSelect, label, children }: ItemContainerProps) => (
-    <div
-      className={c('OptionsPlayerSelectorのitem', {
-        'is-active': active,
-      })}
-      onClick={onSelect}
-    >
+const ItemContainer = memo(function ItemContainer({
+  onSelect,
+  label,
+  children,
+}: ItemContainerProps) {
+  return (
+    <div className='OptionsPlayerSelectorのitem' onClick={onSelect}>
       {children}
       <div className='OptionsPlayerSelectorのlabel'>{label}</div>
     </div>
   )
-)
+})

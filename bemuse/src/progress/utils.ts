@@ -1,5 +1,6 @@
-import { BYTES_FORMATTER } from '@bemuse/progress/formatters'
-import { Progress } from './Progress'
+import { BYTES_FORMATTER } from '@bemuse/progress/formatters.js'
+
+import { Progress } from './Progress.js'
 
 /**
  * Returns a callback that, when called,
@@ -10,14 +11,14 @@ export function fixed(total: number, progress: Progress) {
   if (!progress) return () => {}
   let loaded = 0
   progress.report(0, total)
-  return (extra: any) => progress.report(++loaded, total, extra)
+  return (extra?: unknown) => progress.report(++loaded, total, extra)
 }
 
 /**
  * Updates the progress with the result of an atomic operation.
  */
 export async function atomic<T>(
-  progress: Progress,
+  progress: Progress | undefined,
   promise: PromiseLike<T>
 ): Promise<T> {
   if (!progress) return promise
@@ -30,21 +31,26 @@ export async function atomic<T>(
   }
   return data
 }
-function hasByteLength(data: any): data is { byteLength: number } {
-  return data && data.byteLength
+function hasByteLength(data: unknown): data is { byteLength: number } {
+  return (
+    typeof data === 'object' &&
+    data !== null &&
+    'byteLength' in data &&
+    typeof data.byteLength === 'number'
+  )
 }
 
 /**
  * Wraps an async function that may be called multiple times.
  * Each call adds to the total, and each async resolution adds to current.
  */
-export function wrapPromise<A extends any[], R>(
+export function wrapPromise<A extends unknown[], R>(
   progress: Progress,
   f: (...args: A) => PromiseLike<R>
 ): (...args: A) => PromiseLike<R> {
   let current = 0
   let total = 0
-  return async function (this: any, ...args: A) {
+  return async function (this: unknown, ...args: A) {
     progress.report(current, ++total)
     const ret = await f.apply(this, args)
     progress.report(++current, total)

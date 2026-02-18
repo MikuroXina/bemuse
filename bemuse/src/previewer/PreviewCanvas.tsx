@@ -1,7 +1,8 @@
 import _ from 'lodash'
 import React, { useEffect, useMemo } from 'react'
-import { NotechartPreview } from './NotechartPreview'
-import { PreviewState } from './PreviewState'
+
+import { NotechartPreview } from './NotechartPreview.js'
+import { PreviewState } from './PreviewState.js'
 
 export type PreviewColumn = {
   x: number
@@ -59,7 +60,7 @@ export interface PreviewCanvas {
   notechartPreview: NotechartPreview
 }
 
-export const PreviewCanvas: FC<PreviewCanvas> = (props) => {
+export const PreviewCanvas = (props: PreviewCanvas) => {
   const keymap = 'SCs 1 2b 3 4g 5 6b 7 - 8 9b 10 11g 12 13b 14 SC2s'
   const notesImage = useImage('/skins/default/Note/DX/Note.png')
   const landmineImage = useImage('/skins/default/Note/DX/Landmine.png')

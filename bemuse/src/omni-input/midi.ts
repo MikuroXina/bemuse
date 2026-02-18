@@ -1,13 +1,12 @@
 import {
-  EMPTY,
-  Observable,
   catchError,
   concatMap,
+  EMPTY,
   from,
   fromEvent,
+  Observable,
   tap,
 } from 'rxjs'
-
 import { EventListenerObject } from 'rxjs/internal/observable/fromEvent'
 
 declare global {

@@ -1,5 +1,3 @@
-/* eslint import/no-webpack-loader-syntax: off */
-
 // :doc:
 //
 // Bemuse's **main** entry point.
@@ -9,13 +7,14 @@
 import '../ui/fonts.scss'
 import '../ui/global.scss'
 
-import query from '../utils/query.js'
+import attachFastClick from 'fastclick'
 import React from 'react'
+import { createRoot } from 'react-dom/client'
+
+import query from '../utils/query.js'
+import loadModule from './loader.js'
 import Boot from './ui/Boot.js'
 import ErrorDialog from './ui/ErrorDialog.js'
-import loadModule from './loader.js'
-import { createRoot } from 'react-dom/client'
-import attachFastClick from 'fastclick'
 
 if ('addEventListener' in document) {
   document.addEventListener(

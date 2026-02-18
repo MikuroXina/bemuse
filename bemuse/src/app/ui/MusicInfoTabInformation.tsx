@@ -1,9 +1,9 @@
 import './MusicInfoTabInformation.scss'
 
+import type { Song } from '@bemuse/collection-model/types'
 import Markdown from '@bemuse/ui/Markdown'
 import YouTube from '@bemuse/ui/YouTube'
 import React, { memo } from 'react'
-import type { Song } from '@bemuse/collection-model/types'
 
 import { useReadme } from '../io/ReadmeIO'
 

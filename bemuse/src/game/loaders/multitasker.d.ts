@@ -6,9 +6,9 @@ export function start<T, R>(
 ): {
   tasks: Observable<
     {
-      text: any
-      progress: any
-      progressText: any
+      text: string
+      progress: Progress
+      progressText: string
     }[]
   >
   promise: PromiseLike<R>
@@ -19,7 +19,7 @@ export function start<T, R>(
 // https://github.com/microsoft/TypeScript/issues/31286
 // https://github.com/microsoft/TypeScript/issues/16746
 // https://github.com/microsoft/TypeScript/issues/26058
-type TaskFn<T extends {}> = {
+type TaskFn<T extends Record<string, unknown>> = {
   <N extends keyof T>(
     name: N,
     description: null | string,
@@ -76,4 +76,4 @@ type TaskFn<T extends {}> = {
   bar(description: string, progress: Progress)
 }
 
-type RunFn = <T = any>(name: string) => Promise<T>
+type RunFn = <T = void>(name: string) => Promise<T>

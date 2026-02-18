@@ -1,5 +1,6 @@
 import './Button.scss'
-import React, { forwardRef } from 'react'
+
+import React, { forwardRef, type ReactNode } from 'react'
 
 const Button = forwardRef<
   HTMLButtonElement,
@@ -7,10 +8,12 @@ const Button = forwardRef<
     children?: ReactNode
     onClick?: React.DOMAttributes<HTMLButtonElement>['onClick']
   }
->(({ children, onClick }, ref) => (
-  <button className='Button' onClick={onClick} ref={ref}>
-    {children}
-  </button>
-))
+>(function Button({ children, onClick }, ref) {
+  return (
+    <button className='Button' onClick={onClick} ref={ref}>
+      {children}
+    </button>
+  )
+})
 
 export default Button

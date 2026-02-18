@@ -1,17 +1,17 @@
+import assert from 'power-assert'
 import { filter, first, firstValueFrom } from 'rxjs'
+import {
+  afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest'
 
 import Online from '.'
 import OnlineService from './scoreboard-system/OnlineService'
-import assert from 'power-assert'
-import {
-  describe,
-  it,
-  expect,
-  beforeEach,
-  beforeAll,
-  afterAll,
-  vi,
-} from 'vitest'
 
 const uid = (function () {
   const session = Math.floor(Math.random() * 65536).toString(16)

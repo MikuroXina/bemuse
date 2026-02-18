@@ -1,6 +1,7 @@
 import { Song } from '@bemuse/collection-model/types'
-import { SongOfTheDay } from './SongOfTheDay'
 import _ from 'lodash'
+
+import { SongOfTheDay } from './SongOfTheDay'
 
 interface Grouping {
   title: string

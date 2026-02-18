@@ -1,8 +1,8 @@
 import assert from 'assert'
-
-import PlayerDisplay from './player-display'
-import { notechart, playerWithBMS, tap } from '../test-helpers'
 import { beforeEach, describe, it, vi } from 'vitest'
+
+import { notechart, playerWithBMS, tap } from '../test-helpers'
+import PlayerDisplay from './player-display'
 
 describe('PlayerDisplay', function () {
   let display

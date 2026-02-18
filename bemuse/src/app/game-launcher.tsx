@@ -1,33 +1,32 @@
-import * as Analytics from './analytics'
-import * as Options from './entities/Options'
-
-import { Chart, Song } from '@bemuse/collection-model/types'
-import { ReactScene, SceneManager } from '@bemuse/scene-manager/index.js'
-
-import GameScene from '@bemuse/game/game-scene'
-import GenericErrorScene from './ui/GenericErrorScene.js'
-import { LoadSpec } from '@bemuse/game/loaders/game-loader'
+import type { Chart, Song } from '@bemuse/collection-model/types.js'
+import { isTitleDisplayMode } from '@bemuse/devtools/query-flags.js'
+import GameScene from '@bemuse/game/game-scene.js'
+import { MISSED } from '@bemuse/game/judgments.js'
+import { LoadSpec } from '@bemuse/game/loaders/game-loader.js'
+import Player from '@bemuse/game/player.js'
+import PlayerState from '@bemuse/game/state/player-state.js'
 import LoadingScene from '@bemuse/game/ui/LoadingScene.js'
-import { MISSED } from '@bemuse/game/judgments'
-import Player from '@bemuse/game/player'
-import PlayerState from '@bemuse/game/state/player-state'
-import React from 'react'
-import ResultScene from './ui/ResultScene'
-import { StoredOptions } from './types'
-import createAutoVelocity from './interactors/createAutoVelocity'
-import { getGrade } from '@bemuse/rules/grade'
-import { getSongResources } from '@bemuse/music-collection/getSongResources'
-import { getSoundVolume } from './query-flags'
-import invariant from 'invariant'
-import { isTitleDisplayMode } from '@bemuse/devtools/query-flags'
-import query from '@bemuse/utils/query'
-import { unmuteAudio } from '@bemuse/sampling-master'
 import * as BemuseLogger from '@bemuse/logger/index.js'
+import { getSongResources } from '@bemuse/music-collection/getSongResources.js'
+import { getGrade } from '@bemuse/rules/grade.js'
+import { unmuteAudio } from '@bemuse/sampling-master/index.js'
+import { ReactScene, SceneManager } from '@bemuse/scene-manager/index.js'
+import query from '@bemuse/utils/query.js'
+import invariant from 'invariant'
+import React from 'react'
+
+import * as Analytics from './analytics.js'
+import * as Options from './entities/Options.js'
+import createAutoVelocity from './interactors/createAutoVelocity.js'
+import { getSoundVolume } from './query-flags.js'
+import type { StoredOptions } from './types.js'
+import GenericErrorScene from './ui/GenericErrorScene.js'
+import ResultScene from './ui/ResultScene.js'
 
 const Log = BemuseLogger.forModule('game-launcher')
 
 if (import.meta.hot) {
-  import.meta.hot.accept('@bemuse/game/loaders/game-loader')
+  import.meta.hot.accept('@bemuse/game/loaders/game-loader', () => {})
 }
 
 export type LaunchOptions = {
@@ -93,7 +92,7 @@ async function launchGame(
 
   // initialize the loading specification
   // TODO [#625]: Create the LoadSpec object at the end instead of building object from blank.
-  const loadSpec: LoadSpec = {} as any
+  const loadSpec: Partial<LoadSpec> = {}
   loadSpec.songId = song.id
 
   const { baseResources, assetResources } = getSongResources(song, server.url)
@@ -135,7 +134,7 @@ async function launchGame(
         laneCover: Options.laneCover(options),
         gauge: Options.getGauge(options),
         input: {
-          keyboard: keyboardMapping as any,
+          keyboard: keyboardMapping,
           continuous: Options.isContinuousAxisEnabled(options),
           sensitivity: Options.sensitivity(options),
         },
@@ -161,7 +160,7 @@ async function launchGame(
     setCurrentWork('loading the game')
     Log.info(`Loading game: ${describeChart(chart)}`)
     const GameLoader = await import('@bemuse/game/loaders/game-loader.js')
-    const loader = GameLoader.load(loadSpec)
+    const loader = GameLoader.load(loadSpec as LoadSpec)
     const { tasks, promise } = loader
     promise.catch((err: unknown) => {
       Log.error(err)

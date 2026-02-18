@@ -1,7 +1,7 @@
 import './RankingTable.scss'
 
+import { formattedAccuracyForRecord, ScoreCount } from '@bemuse/rules/accuracy'
 import React, { ReactNode } from 'react'
-import { ScoreCount, formattedAccuracyForRecord } from '@bemuse/rules/accuracy'
 
 const RankingTable = ({ children }: { children: ReactNode }) => (
   <table className='RankingTable'>

@@ -1,15 +1,27 @@
 import './MusicSelectScene.scss'
 
-import * as Analytics from '../analytics'
+import { Chart, Song } from '@bemuse/collection-model/types'
+import { shouldShowOptions } from '@bemuse/devtools/query-flags'
+import { OFFICIAL_SERVER_URL } from '@bemuse/music-collection'
 import * as MusicPreviewer from '@bemuse/music-previewer'
+import Online, { UserInfo } from '@bemuse/online'
+import { useCurrentUser } from '@bemuse/online/hooks'
+import { OnlineContext } from '@bemuse/online/instance'
+import AuthenticationPopup from '@bemuse/online/ui/AuthenticationPopup'
+import { SceneManagerContext } from '@bemuse/scene-manager/index.js'
+import ModalPopup from '@bemuse/ui/ModalPopup'
+import Scene from '@bemuse/ui/Scene'
+import SceneHeading from '@bemuse/ui/SceneHeading'
+import c from 'classnames'
+import React, { ChangeEvent, MouseEvent, useContext, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { createSelector, createStructuredSelector } from 'reselect'
+
+import * as Analytics from '../analytics'
+import * as Options from '../entities/Options'
 import * as MusicSearchIO from '../io/MusicSearchIO'
 import * as MusicSelectionIO from '../io/MusicSelectionIO'
-import * as Options from '../entities/Options'
-
-import { Chart, Song } from '@bemuse/collection-model/types'
-import Online, { UserInfo } from '@bemuse/online'
-import React, { ChangeEvent, MouseEvent, useContext, useState } from 'react'
-import { createSelector, createStructuredSelector } from 'reselect'
+import { hasPendingArchiveToLoad } from '../PreloadedCustomBMS'
 import {
   selectChartsForSelectedSong,
   selectCurrentCollectionUrl,
@@ -23,27 +35,14 @@ import {
   selectSelectedChart,
   selectSelectedSong,
 } from '../redux/ReduxState'
-import { useDispatch, useSelector } from 'react-redux'
-
-import AuthenticationPopup from '@bemuse/online/ui/AuthenticationPopup'
 import CustomBMS from './CustomBMS'
-import ModalPopup from '@bemuse/ui/ModalPopup'
 import MusicInfo from './MusicInfo'
 import MusicList from './MusicList'
-import { OFFICIAL_SERVER_URL } from '@bemuse/music-collection'
-import { OnlineContext } from '@bemuse/online/instance'
 import OptionsView from './Options'
 import RageQuitPopup from './RageQuitPopup'
-import Scene from '@bemuse/ui/Scene'
-import SceneHeading from '@bemuse/ui/SceneHeading'
-import { SceneManagerContext } from '@bemuse/scene-manager/index.js'
 import SongPreviewer from './SongPreviewer'
 import Toolbar from './Toolbar'
 import UnofficialPanel from './UnofficialPanel'
-import c from 'classnames'
-import { hasPendingArchiveToLoad } from '../PreloadedCustomBMS'
-import { shouldShowOptions } from '@bemuse/devtools/query-flags'
-import { useCurrentUser } from '@bemuse/online/hooks'
 
 const selectMusicSelectState = (() => {
   const selectLegacyServerObjectForCurrentCollection = createSelector(

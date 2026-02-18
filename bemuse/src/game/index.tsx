@@ -1,19 +1,18 @@
-import * as GameLoader from './loaders/game-loader'
-
-import GameShellScene, { OptionsDraft } from './ui/GameShellScene'
-import { SceneManager, SceneManagerContext } from '@bemuse/scene-manager'
-
-import BemusePackageResources from '@bemuse/resources/bemuse-package'
-import GameScene from './game-scene'
-import LoadingScene from './ui/LoadingScene'
-import { Provider } from 'react-redux'
-import React from 'react'
-import URLResource from '@bemuse/resources/url'
-import audioContext from '@bemuse/audio-context'
-import configureStore from '@bemuse/app/redux/configureStore'
 import { isScratchPosition } from '@bemuse/app/entities/Options'
-import query from '@bemuse/utils/query'
+import configureStore from '@bemuse/app/redux/configureStore'
+import audioContext from '@bemuse/audio-context'
+import BemusePackageResources from '@bemuse/resources/bemuse-package'
+import URLResource from '@bemuse/resources/url'
 import { unmuteAudio } from '@bemuse/sampling-master'
+import { SceneManager, SceneManagerContext } from '@bemuse/scene-manager'
+import query from '@bemuse/utils/query'
+import React from 'react'
+import { Provider } from 'react-redux'
+
+import GameScene from './game-scene'
+import * as GameLoader from './loaders/game-loader'
+import GameShellScene, { OptionsDraft } from './ui/GameShellScene'
+import LoadingScene from './ui/LoadingScene'
 
 const sceneManager = new SceneManager(({ children }) => (
   <SceneManagerContext.Provider value={sceneManager}>

@@ -1,6 +1,6 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Draft } from 'immer'
+
 import { MappingMode } from '../../rules/mapping-mode'
 import { StoredOptions } from '../types'
 
@@ -109,7 +109,7 @@ export const leadTime = (state: OptionsState) => {
 
 // Scratch position
 export const SCRATCH_POSITION = ['off', 'left', 'right'] as const
-export type ScratchPosition = typeof SCRATCH_POSITION[number]
+export type ScratchPosition = (typeof SCRATCH_POSITION)[number]
 export const isScratchPosition = (str: string): str is ScratchPosition =>
   (SCRATCH_POSITION as readonly string[]).includes(str)
 export const scratchPosition = (state: OptionsState): ScratchPosition => {

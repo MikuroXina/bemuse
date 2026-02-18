@@ -1,7 +1,7 @@
-import ModalPopup from '@bemuse/ui/ModalPopup'
 import Options from '@bemuse/app/ui/Options'
-import React from 'react'
+import ModalPopup from '@bemuse/ui/ModalPopup'
 import { sceneRoot } from '@bemuse/utils/main-element'
+import React from 'react'
 
 const noop = () => {}
 

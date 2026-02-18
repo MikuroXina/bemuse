@@ -1,16 +1,17 @@
-/* global AudioContext, WebAudioTestAPI */
+/* global WebAudioTestAPI */
 
 import 'web-audio-test-api'
+
+import assert from 'assert'
 import {
-  describe,
-  it,
-  expect,
-  beforeEach,
-  beforeAll,
   afterAll,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
   vi,
 } from 'vitest'
-import assert from 'assert'
 
 import SamplingMaster, { FADE_LENGTH } from './index.js'
 

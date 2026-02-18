@@ -1,14 +1,14 @@
+import { Icon } from '@bemuse/fa/index.js'
+import FloatingMobileButton from '@bemuse/ui/FloatingMobileButton.js'
 import FloatingMobileMenu, {
   FloatingMobileMenuSeparator,
-} from '@bemuse/ui/FloatingMobileMenu'
-import React, { MouseEvent, memo, useState } from 'react'
-import SceneToolbar, { SceneToolbarSpacer } from '@bemuse/ui/SceneToolbar'
-
-import FirstTimeTip from './FirstTimeTip'
-import FloatingMobileButton from '@bemuse/ui/FloatingMobileButton'
-import { Icon } from '@bemuse/fa'
-import TipContainer from '@bemuse/ui/TipContainer'
+} from '@bemuse/ui/FloatingMobileMenu.js'
+import SceneToolbar, { SceneToolbarSpacer } from '@bemuse/ui/SceneToolbar.js'
+import TipContainer from '@bemuse/ui/TipContainer.js'
+import React, { memo, MouseEvent, ReactNode, useState } from 'react'
 import { WindowSize } from 'react-fns'
+
+import FirstTimeTip from './FirstTimeTip.js'
 
 export interface ToolbarItem {
   type: 'item'
@@ -87,25 +87,31 @@ const DesktopToolbarItem = ({ item }: { item: ToolbarItem }) => {
   )
 }
 
-const DesktopToolbar = memo(({ items }: { items: ToolbarItems }) => (
-  <SceneToolbar>
-    {items.map((element, index) => {
-      if (element.type === 'item') {
-        return (
-          <React.Fragment key={index}>
-            <DesktopToolbarItem item={element} />
-          </React.Fragment>
-        )
-      } else {
-        return (
-          <React.Fragment key={index}>
-            <SceneToolbarSpacer />
-          </React.Fragment>
-        )
-      }
-    })}
-  </SceneToolbar>
-))
+const DesktopToolbar = memo(function DesktopToolbar({
+  items,
+}: {
+  items: ToolbarItems
+}) {
+  return (
+    <SceneToolbar>
+      {items.map((element, index) => {
+        if (element.type === 'item') {
+          return (
+            <React.Fragment key={index}>
+              <DesktopToolbarItem item={element} />
+            </React.Fragment>
+          )
+        } else {
+          return (
+            <React.Fragment key={index}>
+              <SceneToolbarSpacer />
+            </React.Fragment>
+          )
+        }
+      })}
+    </SceneToolbar>
+  )
+})
 
 const MobileToolbarItem = ({ item }: { item: ToolbarItem }) => (
   <a onClick={item.onClick} href={item.href}>
@@ -113,7 +119,11 @@ const MobileToolbarItem = ({ item }: { item: ToolbarItem }) => (
   </a>
 )
 
-const MobileToolbar = memo(({ items }: { items: ToolbarItems }) => {
+const MobileToolbar = memo(function MobileToolbar({
+  items,
+}: {
+  items: ToolbarItems
+}) {
   const [visible, setVisible] = useState(false)
 
   return (

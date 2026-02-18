@@ -1,8 +1,7 @@
 import delay from 'delay'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import WaveFactory from './wave-factory.js'
-
-import { beforeEach, describe, it, expect, vi } from 'vitest'
 
 function k(id) {
   return { keysound: id }

@@ -1,9 +1,9 @@
+import { MISSED } from '@bemuse/game/judgments'
 import ObjectID from 'bson-objectid'
 import mean from 'mean'
 import median from 'median'
-import variance from 'variance'
-import { MISSED } from '@bemuse/game/judgments'
 import { stringify } from 'qs'
+import variance from 'variance'
 
 import * as Options from './entities/Options'
 import getLR2Score from './interactors/getLR2Score'
