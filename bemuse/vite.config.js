@@ -65,9 +65,10 @@ export default defineConfig({
     peggy(),
     react(),
     nodePolyfills({
-      include: ['crypto', 'path', 'stream', 'util', 'vm'],
+      include: ['buffer', 'crypto', 'os', 'path', 'stream', 'util', 'vm'],
     }),
   ],
+  base: './',
   define: {
     _BEMUSE_BUILD_NAME: JSON.stringify(name),
     _BEMUSE_BUILD_VERSION: JSON.stringify(version),
@@ -78,6 +79,9 @@ export default defineConfig({
     },
   },
   assetsInclude: ['../CHANGELOG.md', '../public/**/*'],
+  worker: {
+    format: 'es',
+  },
   optimizeDeps: {
     force: true,
     esbuildOptions: {

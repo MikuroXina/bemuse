@@ -1,10 +1,10 @@
 import { Song } from '@bemuse/collection-model/types'
-import { getSongResources } from './getSongResources'
+import { getSongResources } from './getSongResources.js'
 
 export default async function getPreviewResourceUrl(
   song: Song,
   serverUrl: string
-) {
+): Promise<string | null> {
   if (!song) return null
   if (song.tutorial) return null
   const { baseResources } = getSongResources(song, serverUrl)

@@ -1,7 +1,7 @@
 import { Song } from '@bemuse/collection-model/types'
 import MusicSelectPreviewer from '@bemuse/music-previewer/MusicSelectPreviewer'
 import React, { useEffect, useState } from 'react'
-import getPreviewResourceUrl from '@bemuse/music-collection/getPreviewResourceUrl'
+import getPreviewResourceUrl from '@bemuse/music-collection/getPreviewResourceUrl.js'
 
 export default function SongPreviewer(props: {
   song: Song
@@ -12,8 +12,7 @@ export default function SongPreviewer(props: {
   useEffect(() => {
     getPreviewResourceUrl(song, serverUrl)
       .then((url) => setUrl(url))
-      .catch((error) => {
-        console.error(error)
+      .catch(() => {
         setUrl(null)
       })
   }, [song, serverUrl])

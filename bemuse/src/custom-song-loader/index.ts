@@ -56,7 +56,8 @@ export function loadSongFromResources(
     )
     const song = await new Promise<Song>((resolve, reject) => {
       const worker = new Worker(
-        new URL('./song-loader.worker.js', import.meta.url)
+        new URL('./song-loader.worker.js', import.meta.url),
+        { type: 'module' }
       )
       worker.onmessage = function ({ data }) {
         if (data.type === 'result') {
@@ -80,7 +81,6 @@ export function loadSongFromResources(
       worker.onerror = function (e) {
         onMessage('Worker error: ' + e.message)
         console.error('Worker error: ' + e.message)
-        console.dir(e.error)
         reject(e.error)
       }
       worker.postMessage({ files })
