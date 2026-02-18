@@ -13,7 +13,7 @@ const modules = {
   // >>
   // music
   //   The music collection viewer which shows all the songs.
-  music: () => import('@bemuse/music-collection-viewer/index.js'),
+  music: () => import('@bemuse/music-collection-viewer/index.jsx'),
 
   // >>
   // comingSoon
@@ -34,7 +34,7 @@ const modules = {
   // >>
   // playground
   //   Various playgrounds...
-  playground: () => import('@bemuse/devtools/playground.js'),
+  playground: () => import('@bemuse/devtools/playground.jsx'),
 
   // >>
   // previewer

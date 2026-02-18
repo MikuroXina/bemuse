@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react'
 import { createRoot } from 'react-dom/client'
 
 export function main() {
-  const root = createRoot(document.body)
+  const root = createRoot(document.getElementById('scene-root')!)
   root.render(<Page />)
 }
 
