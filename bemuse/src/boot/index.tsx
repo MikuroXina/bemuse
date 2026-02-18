@@ -15,6 +15,17 @@ import Boot from './ui/Boot.js'
 import ErrorDialog from './ui/ErrorDialog.js'
 import loadModule from './loader.js'
 import { createRoot } from 'react-dom/client'
+import attachFastClick from 'fastclick'
+
+if ('addEventListener' in document) {
+  document.addEventListener(
+    'DOMContentLoaded',
+    function () {
+      attachFastClick(document.body)
+    },
+    false
+  )
+}
 
 const bootRoot = createRoot(document.getElementById('boot-root')!)
 
