@@ -1,5 +1,6 @@
 import * as BMS from 'bms'
 import assert from 'assert'
+import { describe, it } from 'vitest'
 
 import * as bmson from '.'
 import { LegacyBmson } from './legacy'

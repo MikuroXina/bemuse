@@ -9,7 +9,11 @@ overrides:
 
 importers:
 
-  .: {}
+  .:
+    devDependencies:
+      wireit:
+        specifier: ^0.14.12
+        version: 0.14.12
 
   bemuse:
     dependencies:
@@ -670,6 +674,9 @@ importers:
       typescript:
         specifier: ^4.8.4
         version: 4.9.5
+      vitest:
+        specifier: ^4.0.18
+        version: 4.0.18(@types/node@25.2.3)(@vitest/browser-playwright@4.0.18)(jiti@1.21.7)(jsdom@16.7.0)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.0)
 
   packages/bemuse-types:
     devDependencies:
@@ -774,9 +781,6 @@ importers:
       '@types/lodash':
         specifier: ^4.14.176
         version: 4.17.23
-      '@types/mocha':
-        specifier: ^5.2.5
-        version: 5.2.7
       '@types/power-assert':
         specifier: ^1.5.0
         version: 1.5.12
@@ -792,15 +796,15 @@ importers:
       gulp:
         specifier: ^4.0.2
         version: 4.0.2
-      mocha:
-        specifier: ^5.2.0
-        version: 5.2.0
       power-assert:
         specifier: ^1.6.1
         version: 1.6.1
       typescript:
         specifier: ^4.8.4
         version: 4.9.5
+      vitest:
+        specifier: ^4.0.18
+        version: 4.0.18(@types/node@25.2.3)(@vitest/browser-playwright@4.0.18)(jiti@1.21.7)(jsdom@16.7.0)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.0)
 
   packages/eslint-config-bemuse:
     dependencies:
@@ -13103,7 +13107,7 @@ snapshots:
       '@docusaurus/react-loadable': 5.5.2(react@17.0.2)
       '@docusaurus/types': 2.1.0(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
       '@types/history': 4.7.11
-      '@types/react': 17.0.91
+      '@types/react': 18.3.28
       '@types/react-router-config': 5.0.11
       '@types/react-router-dom': 5.3.3
       react: 17.0.2
@@ -13425,7 +13429,7 @@ snapshots:
 
   '@docusaurus/react-loadable@5.5.2(react@17.0.2)':
     dependencies:
-      '@types/react': 17.0.91
+      '@types/react': 18.3.28
       prop-types: 15.8.1
       react: 17.0.2
 
@@ -14931,7 +14935,7 @@ snapshots:
   '@types/react-router@5.1.20':
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 17.0.91
+      '@types/react': 18.3.28
 
   '@types/react@17.0.91':
     dependencies:

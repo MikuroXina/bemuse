@@ -127,9 +127,9 @@ jobs:
       - name: Set up project
         uses: ./.github/actions/setup-project
       - name: Build
-        run: node common/scripts/install-run-rush.js build --to-except bemuse
+        run: pnpm run --filter bemuse build
       - name: Test
-        run: node ../common/scripts/install-run-rushx.js test
+        run: pnpm run --filter bemuse test
         working-directory: bemuse
       - uses: codecov/codecov-action@v5
         with:
@@ -142,9 +142,9 @@ jobs:
       - name: Set up project
         uses: ./.github/actions/setup-project
       - name: Build
-        run: node common/scripts/install-run-rush.js build --to-except bemuse
+        run: pnpm run build-packages
       - name: Test Packages
-        run: node common/scripts/install-run-rush.js test --to-except bemuse
+        run: pnpm run test-packages
       - uses: codecov/codecov-action@v5
         with:
           use_oidc: true

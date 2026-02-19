@@ -1,6 +1,49 @@
 {
+  "scripts": {
+    "build": "wireit",
+    "test": "wireit",
+    "build-packages": "wireit",
+    "test-packages": "wireit"
+  },
+  "wireit": {
+    "build": {
+      "dependencies": [
+        "build-packages",
+        "./bemuse:build"
+      ]
+    },
+    "test": {
+      "dependencies": [
+        "test-packages",
+        "./bemuse:test"
+      ]
+    },
+    "build-packages": {
+      "dependencies": [
+        "./packages/bemuse-indexer:build",
+        "./packages/bemuse-notechart:build",
+        "./packages/bemuse-tools:build",
+        "./packages/bms:build",
+        "./packages/bmson:build",
+        "./packages/monetizer:build"
+      ]
+    },
+    "test-packages": {
+      "dependencies": [
+        "./packages/bemuse-indexer:test",
+        "./packages/bemuse-notechart:test",
+        "./packages/bemuse-tools:test",
+        "./packages/bms:test",
+        "./packages/bmson:test",
+        "./packages/monetizer:test"
+      ]
+    }
+  },
   "resolutions": {
     "natives": "1.1.6"
   },
-  "packageManager": "pnpm@10.30.0+sha512.2b5753de015d480eeb88f5b5b61e0051f05b4301808a82ec8b840c9d2adf7748eb352c83f5c1593ca703ff1017295bc3fdd3119abb9686efc96b9fcb18200937"
+  "packageManager": "pnpm@10.30.0+sha512.2b5753de015d480eeb88f5b5b61e0051f05b4301808a82ec8b840c9d2adf7748eb352c83f5c1593ca703ff1017295bc3fdd3119abb9686efc96b9fcb18200937",
+  "devDependencies": {
+    "wireit": "^0.14.12"
+  }
 }

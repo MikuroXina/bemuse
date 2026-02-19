@@ -1,5 +1,6 @@
+import { beforeEach, describe, expect, it } from 'vitest'
+
 import Payload from '../src/payload'
-import { expect } from 'chai'
 
 describe('Payload', function () {
   let payload

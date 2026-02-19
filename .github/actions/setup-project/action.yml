@@ -5,10 +5,8 @@ runs:
   steps:
     - name: Setup Node.js
       uses: actions/setup-node@v6
-      with:
-        node-version: 16
     - name: Setup Rush cache
       uses: ./.github/actions/rush-cache
     - name: Install Deps
-      run: node common/scripts/install-run-rush.js install
+      run: pnpm install
       shell: bash

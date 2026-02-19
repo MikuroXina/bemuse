@@ -11,7 +11,7 @@
   "scripts": {
     "clean": "rimraf lib tsconfig.tsbuildinfo",
     "build": "tsc -b .",
-    "test": "nyc -r text -r lcov mocha -r ts-node/register './src/**/*.spec.ts'",
+    "test": "vitest",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ."
   },
   "keywords": [
@@ -30,16 +30,15 @@
   },
   "homepage": "https://github.com/dtinth/bmson#readme",
   "devDependencies": {
-    "@types/mocha": "^5.2.5",
     "@types/lodash": "^4.14.176",
     "@types/power-assert": "^1.5.0",
     "bms": "^51.0.0",
-    "gulp": "^4.0.2",
-    "mocha": "^5.2.0",
-    "power-assert": "^1.6.1",
     "eslint": "^8.25.0",
+    "eslint-config-bemuse": "^5.0.0",
+    "gulp": "^4.0.2",
+    "power-assert": "^1.6.1",
     "typescript": "^4.8.4",
-    "eslint-config-bemuse": "^5.0.0"
+    "vitest": "^4.0.18"
   },
   "dependencies": {
     "lodash": "^4.17.11"
