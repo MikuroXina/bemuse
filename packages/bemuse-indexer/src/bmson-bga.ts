@@ -1,6 +1,7 @@
-import * as bmson from 'bmson'
 import * as BMS from 'bms'
-import { BGAInfo } from './types'
+import * as bmson from 'bmson'
+
+import type { BGAInfo } from './types.js'
 
 export function getBmsonBga(
   object: bmson.Bmson,

@@ -1,6 +1,7 @@
-import { BPMInfo, OutputSongInfo } from './types'
-import { expect } from 'chai'
-import * as indexer from '.'
+import { beforeEach, describe, expect, it } from 'vitest'
+
+import * as indexer from './index.js'
+import type { BPMInfo, OutputSongInfo } from './types.js'
 
 describe('getFileInfo (bms)', function () {
   function info(source: string) {

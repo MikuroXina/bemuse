@@ -13,9 +13,6 @@
     "docusaurus": "docusaurus",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ."
   },
-  "volta": {
-    "extends": "../volta.json"
-  },
   "dependencies": {
     "@docusaurus/core": "2.1.0",
     "@docusaurus/plugin-client-redirects": "2.1.0",

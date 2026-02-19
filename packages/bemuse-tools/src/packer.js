@@ -1,10 +1,11 @@
-import fs from 'fs'
-import mkdirp from 'mkdirp'
-import { join } from 'path'
+import fs from 'node:fs'
+import { join } from 'node:path'
 
-import AudioConvertor from './audio'
-import BemusePacker from './bemuse-packer'
-import Directory from './directory'
+import mkdirp from 'mkdirp'
+
+import AudioConvertor from './audio.js'
+import BemusePacker from './bemuse-packer.js'
+import Directory from './directory.js'
 
 const fileStat = fs.promises.stat
 

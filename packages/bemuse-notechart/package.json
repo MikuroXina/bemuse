@@ -2,6 +2,7 @@
   "name": "bemuse-notechart",
   "version": "50.1.2",
   "description": "Bemuse notechart data structure, supports BMS and bmsons.",
+  "type": "module",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -9,31 +10,25 @@
   ],
   "scripts": {
     "clean": "rimraf lib tsconfig.tsbuildinfo",
-    "build": "tsc -b .",
-    "test": "nyc -r text -r lcov mocha -r ts-node/register 'src/**/*.spec.ts'",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx ."
+    "build": "tsc -b",
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
+    "lint": "eslint ."
   },
   "author": "Thai Pangsakulyanont <org.yi.dttvb@gmail.com> (http://dt.in.th/)",
   "license": "MIT",
   "devDependencies": {
-    "@types/chai": "^4.2.0",
     "@types/invariant": "^2.2.30",
     "@types/lodash": "^4.14.176",
-    "@types/mocha": "^5.2.5",
-    "chai": "^4.2.0",
-    "mocha": "^5.2.0",
-    "nyc": "^11.9.0",
-    "eslint": "^8.25.0",
+    "eslint": "^9.0.0",
+    "eslint-config-bemuse": "workspace:*",
     "typescript": "^4.8.4",
-    "eslint-config-bemuse": "^5.0.0"
+    "vitest": "^4.0.18"
   },
   "dependencies": {
-    "bms": "^51.0.0",
-    "bmson": "^50.1.2",
-    "lodash": "^4.17.11",
-    "invariant": "^2.2.4"
-  },
-  "volta": {
-    "extends": "../../volta.json"
+    "bms": "workspace:*",
+    "bmson": "workspace:*",
+    "invariant": "^2.2.4",
+    "lodash": "^4.17.11"
   }
 }

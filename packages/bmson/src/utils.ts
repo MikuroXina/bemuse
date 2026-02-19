@@ -1,6 +1,7 @@
-import _ from 'lodash'
 import * as BMS from 'bms'
-import { Note } from './types'
+import _ from 'lodash'
+
+import type { Note } from './types.js'
 
 export interface SoundSlice {
   /**

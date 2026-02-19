@@ -11,7 +11,8 @@
   "scripts": {
     "clean": "rimraf lib tsconfig.tsbuildinfo",
     "build": "tsc -b .",
-    "test": "jest",
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ."
   },
   "keywords": [
@@ -27,15 +28,12 @@
     "url": "https://github.com/bemusic/bemuse/issues"
   },
   "homepage": "https://github.com/bemusic/bemuse/tree/master/packages/monetizer#readme",
-  "volta": {
-    "extends": "../../volta.json"
-  },
   "devDependencies": {
-    "@types/jest": "^27.0.0",
+    "@vitest/browser-playwright": "^4.0.18",
     "eslint": "^8.25.0",
+    "eslint-config-bemuse": "workspace:*",
+    "playwright": "^1.58.2",
     "typescript": "^4.8.4",
-    "jest": "^27.2.4",
-    "ts-jest": "^27.0.5",
-    "eslint-config-bemuse": "^5.0.0"
+    "vitest": "^4.0.18"
   }
 }

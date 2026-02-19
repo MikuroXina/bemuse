@@ -9,9 +9,10 @@
   ],
   "scripts": {
     "clean": "rimraf lib tsconfig.tsbuildinfo",
-    "test": "vitest",
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
     "build": "tsc -b .",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx ."
+    "lint": "eslint ."
   },
   "bin": {
     "bemuse-tools": "./bin/bemuse-tools"
@@ -27,7 +28,7 @@
   },
   "homepage": "https://github.com/bemusic/bemuse-tools",
   "dependencies": {
-    "bemuse-indexer": "^51.0.2",
+    "bemuse-indexer": "workspace:*",
     "bytes": "^3.0.0",
     "chalk": "^2.4.1",
     "cors": "^2.8.4",
@@ -46,14 +47,9 @@
     "throat": "^2.0.2"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "eslint": "^8.25.0",
-    "eslint-config-bemuse": "^5.0.0",
-    "mocha": "^5.2.0",
+    "eslint": "^9.0.0",
+    "eslint-config-bemuse": "workspace:*",
     "typescript": "^4.8.4",
     "vitest": "^4.0.18"
-  },
-  "volta": {
-    "extends": "../../volta.json"
   }
 }

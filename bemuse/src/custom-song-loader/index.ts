@@ -1,7 +1,7 @@
 import type { Song } from '@bemuse/collection-model/types.js'
 import type { ICustomSongResources } from '@bemuse/resources/types.js'
 
-export function loadSongFromResources(
+export async function loadSongFromResources(
   resources: ICustomSongResources,
   options: LoadSongOptions = {}
 ) {
@@ -9,14 +9,10 @@ export function loadSongFromResources(
   if (resources.setLoggingFunction) {
     resources.setLoggingFunction(onMessage)
   }
-  return resources.fileList
-    .then((fileList) => {
-      return loadFromFileList(fileList)
-    })
-    .then((song) => {
-      song.resources = resources
-      return song
-    })
+  const fileList = await resources.fileList
+  const song = await loadFromFileList(fileList)
+  song.resources = resources
+  return song
 
   function loadFromFileList(fileList: string[]) {
     if (fileList.includes('bemuse-song.json')) {

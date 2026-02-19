@@ -1,4 +1,4 @@
-import * as indexer from 'bemuse-indexer'
+import { getSongInfo } from 'bemuse-indexer'
 
 /* global FileReaderSync */
 if (
@@ -27,8 +27,7 @@ addEventListener('message', function ({ data }) {
   function onProgress(current, total, file) {
     postMessage({ type: 'progress', current, total, file })
   }
-  indexer
-    .getSongInfo(files, { onProgress })
+  getSongInfo(files, { onProgress })
     .then(function (song) {
       song.warnings.forEach(function (warning) {
         if (global.console && console.warn) {

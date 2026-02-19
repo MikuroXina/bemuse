@@ -30,19 +30,19 @@ jobs:
       - name: Build
         run: |
           rm -rf dist
-          node build-scripts build
+          pnpm run build
         env:
           SCOREBOARD_SERVER: ${{ secrets.SCOREBOARD_SERVER }}
       - name: Compress build output
         if: always()
         run: tar -cvzf dist.tar.gz dist
       - name: Checks
-        run: node build-scripts pre-deploy
+        run: pnpm run --filter bemuse pre-deploy
       - name: Release
         if: github.event_name == 'push'
         id: release
         run: |
-          node build-scripts release --confirm
+          pnpm run release --confirm
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload artifact

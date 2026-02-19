@@ -10,7 +10,7 @@
     "sourceMap": true,
     "strict": true,
     "target": "es6",
-    "module": "commonjs",
+    "module": "node16",
     "jsx": "react"
   }
 }

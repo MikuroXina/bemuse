@@ -2,8 +2,10 @@
   "scripts": {
     "build": "wireit",
     "test": "wireit",
+    "coverage": "wireit",
     "build-packages": "wireit",
-    "test-packages": "wireit"
+    "test-packages": "wireit",
+    "coverage-packages": "wireit"
   },
   "wireit": {
     "build": {
@@ -18,6 +20,12 @@
         "./bemuse:test"
       ]
     },
+    "coverage": {
+      "dependencies": [
+        "coverage-packages",
+        "./bemuse:coverage"
+      ]
+    },
     "build-packages": {
       "dependencies": [
         "./packages/bemuse-indexer:build",
@@ -30,12 +38,23 @@
     },
     "test-packages": {
       "dependencies": [
+        "build-packages",
         "./packages/bemuse-indexer:test",
         "./packages/bemuse-notechart:test",
         "./packages/bemuse-tools:test",
         "./packages/bms:test",
         "./packages/bmson:test",
         "./packages/monetizer:test"
+      ]
+    },
+    "coverage-packages": {
+      "dependencies": [
+        "./packages/bemuse-indexer:coverage",
+        "./packages/bemuse-notechart:coverage",
+        "./packages/bemuse-tools:coverage",
+        "./packages/bms:coverage",
+        "./packages/bmson:coverage",
+        "./packages/monetizer:coverage"
       ]
     }
   },

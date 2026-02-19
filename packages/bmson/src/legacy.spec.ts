@@ -1,12 +1,11 @@
-import * as BMS from 'bms'
 import assert from 'assert'
+import * as BMS from 'bms'
 import { describe, it } from 'vitest'
 
-import * as bmson from '.'
-import { LegacyBmson } from './legacy'
-import { Note } from './types'
+import * as bmson from './index.js'
+import type { LegacyBmson } from './legacy.js'
+import type { Note } from './types.js'
 
-/* global describe, it */
 describe('legacy bmson', function () {
   describe('songInfoForBmson', function () {
     it('should return a song info', function () {
@@ -15,9 +14,9 @@ describe('legacy bmson', function () {
           title: 'Reminiscentia',
           artist: 'flicknote',
           genre: 'Dramatic Trance',
-          initBPM: 160,
+          init_bpm: 160,
         },
-      } as any)
+      })
       assert(info.title === 'Reminiscentia')
       assert(info.artist === 'flicknote')
       assert(info.genre === 'Dramatic Trance')
@@ -25,15 +24,31 @@ describe('legacy bmson', function () {
     })
   })
 
+  const exampleBmson: bmson.Bmson = {
+    version: '1.0.0',
+    info: {
+      title: 'Example',
+      artist: 'example sampler',
+      chart_name: 'BEGINNER',
+      init_bpm: 120,
+      genre: 'TUTORIAL',
+      level: 1,
+    },
+    sound_channels: [],
+    bga: {
+      bga_header: [],
+      bga_events: [],
+      layer_events: [],
+      poor_events: [],
+    },
+  }
+
   describe('barLinesForBmson', function () {
     it('should return barlines in beat', function () {
       const beats = bmson.barLinesForBmson({
-        lines: [
-          { y: 0, k: 0 },
-          { y: 960, k: 0 },
-          { y: 1920, k: 0 },
-        ],
-      } as any)
+        ...exampleBmson,
+        lines: [{ y: 0 }, { y: 960 }, { y: 1920 }],
+      })
       assert.deepEqual(beats, [0, 4, 8])
     })
   })
@@ -42,7 +57,7 @@ describe('legacy bmson', function () {
     it('should return timing of initial bpm', function () {
       const { initialBPM } = bmson.timingInfoForBmson({
         info: { initBPM: 180 },
-      } as LegacyBmson as any)
+      } as LegacyBmson)
       assert(initialBPM === 180)
     })
 
@@ -50,7 +65,7 @@ describe('legacy bmson', function () {
       const { initialBPM, actions } = bmson.timingInfoForBmson({
         info: { initBPM: 120 },
         bpmNotes: [{ y: 2880, v: 196 }],
-      } as LegacyBmson as any)
+      } as LegacyBmson)
       assert(initialBPM === 120)
       assert.deepEqual(actions, [{ type: 'bpm', beat: 12, bpm: 196 }])
     })
@@ -59,7 +74,7 @@ describe('legacy bmson', function () {
       const { initialBPM, actions } = bmson.timingInfoForBmson({
         info: { initBPM: 120 },
         stopNotes: [{ y: 2880, v: 196 }],
-      } as LegacyBmson as any)
+      } as LegacyBmson)
       assert(initialBPM === 120)
       assert.deepEqual(actions, [
         { type: 'stop', beat: 12, stopBeats: 196 / 240 },
@@ -79,8 +94,11 @@ describe('legacy bmson', function () {
             notes: notes,
           },
         ],
-      } as LegacyBmson
-      return bmson.musicalScoreForBmson(data as any)
+        lines: [],
+        bpmNotes: [],
+        stopNotes: [],
+      } satisfies LegacyBmson
+      return bmson.musicalScoreForBmson(data)
     }
 
     it('returns a timing', function () {
@@ -171,7 +189,7 @@ describe('legacy bmson', function () {
     it('should return true if there is a scratch in 1P', function () {
       const data = {
         soundChannel: [{ notes: [{ x: 1 }] }, { notes: [{ x: 3 }, { x: 8 }] }],
-      } as LegacyBmson as any
+      } as LegacyBmson
       assert(bmson.hasScratch(data))
     })
     it('should return true if there is a scratch in 2P', function () {
@@ -180,13 +198,13 @@ describe('legacy bmson', function () {
           { notes: [{ x: 1 }] },
           { notes: [{ x: 13 }, { x: 18 }] },
         ],
-      } as LegacyBmson as any
+      } as LegacyBmson
       assert(bmson.hasScratch(data))
     })
     it('should return false if scratch not found', function () {
       const data = {
         soundChannel: [{ notes: [{ x: 1 }] }, { notes: [{ x: 3 }, { x: 7 }] }],
-      } as LegacyBmson as any
+      } as LegacyBmson
       assert(!bmson.hasScratch(data))
     })
   })
@@ -198,7 +216,7 @@ describe('legacy bmson', function () {
           soundChannel: xs.map((x) => ({
             notes: [{ x }],
           })),
-        } as LegacyBmson as any)
+        } as LegacyBmson)
         assert(actual === keys)
       })
     }

@@ -1,7 +1,12 @@
 import * as BMS from 'bms'
 import _ from 'lodash'
-import Notechart from '../'
-import { PlayerOptions, NotechartInput, ExpertJudgmentWindow } from '../types'
+
+import Notechart from '../index.js'
+import type {
+  ExpertJudgmentWindow,
+  NotechartInput,
+  PlayerOptions,
+} from '../types.js'
 
 // Returns a new Notechart from a BMSChart.
 export function fromBMSChart(bms: BMS.BMSChart, playerOptions: PlayerOptions) {

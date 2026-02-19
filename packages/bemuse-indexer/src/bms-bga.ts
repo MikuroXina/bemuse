@@ -1,5 +1,6 @@
 import * as BMS from 'bms'
-import { BGAInfo } from './types'
+
+import type { BGAInfo } from './types.js'
 
 export function getBmsBga(
   chart: BMS.BMSChart,
