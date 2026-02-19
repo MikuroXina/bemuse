@@ -1,20 +1,16 @@
-/* global FileReader, Blob */
-import { ReaderOptions } from './types'
-import chardet = require('bemuse-chardet/bemuse-chardet')
+import { detect } from 'bemuse-chardet'
 
-export function read(buffer: Buffer) {
+import type { ReaderOptions } from './types.js'
+
+export function read() {
   throw new Error('Synchronous read unsupported in browser!')
 }
 
 export function readAsync(
   buffer: Buffer,
   options: ReaderOptions | null
-): Promise<string>
-export function readAsync(buffer: Buffer): Promise<string>
-export function readAsync(...args: any[]) {
-  const buffer: Buffer = args[0]
-  const options: ReaderOptions | null = args[1]
-  const charset = (options && options.forceEncoding) || chardet.detect(buffer)
+): Promise<string> {
+  const charset = (options && options.forceEncoding) || detect(buffer)
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.onload = function () {
@@ -27,4 +23,4 @@ export function readAsync(...args: any[]) {
   })
 }
 
-export { getReaderOptionsFromFilename } from './getReaderOptionsFromFilename'
+export { getReaderOptionsFromFilename } from './getReaderOptionsFromFilename.js'

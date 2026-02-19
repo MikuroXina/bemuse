@@ -1,5 +1,6 @@
-const { Keysounds } = require('../lib')
-const { expect } = require('chai')
+import { describe, expect, it } from 'vitest'
+
+import { Keysounds } from '../lib/index.js'
 
 describe('Keysounds', function () {
   describe('#files', function () {

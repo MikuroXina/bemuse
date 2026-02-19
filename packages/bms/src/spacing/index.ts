@@ -1,6 +1,6 @@
-import { Speedcore } from '../speedcore'
-import { BMSChart } from '../bms/chart'
-import { SpeedSegment } from '../speedcore/segment'
+import { BMSChart } from '../bms/chart.js'
+import { Speedcore } from '../speedcore/index.js'
+import { SpeedSegment } from '../speedcore/segment.js'
 
 /**
  * Public: A Spacing represents the relation between song beats and

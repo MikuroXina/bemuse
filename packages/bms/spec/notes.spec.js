@@ -1,5 +1,6 @@
-const { Compiler, Notes } = require('../lib')
-const { expect } = require('chai')
+import { describe, expect, it } from 'vitest'
+
+import { Compiler, Notes } from '../lib/index.js'
 
 describe('Notes', function () {
   it('should be able to process normal notes', function () {

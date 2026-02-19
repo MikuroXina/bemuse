@@ -1,8 +1,9 @@
-import { Note, BMSNote } from './note'
 import invariant from 'invariant'
-import * as ChannelMapping from './channels'
-import { BMSChart } from '../bms/chart'
-import { BMSObject } from '../bms/objects'
+
+import { BMSChart } from '../bms/chart.js'
+import { BMSObject } from '../bms/objects.js'
+import * as ChannelMapping from './channels.js'
+import { BMSNote, Note } from './note.js'
 
 export { BMSNote }
 

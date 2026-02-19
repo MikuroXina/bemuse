@@ -1,5 +1,6 @@
-const { Timing, Compiler } = require('../lib')
-const { expect } = require('chai')
+import { describe, expect, it } from 'vitest'
+
+import { Compiler, Timing } from '../lib/index.js'
 
 describe('Timing', function () {
   function case1() {

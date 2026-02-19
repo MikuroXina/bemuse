@@ -1,6 +1,6 @@
-import { match } from '../util/match'
-import { assign } from '../util/lodash'
-import { BMSChart } from '../bms/chart'
+import { BMSChart } from '../bms/chart.js'
+import { assign } from '../util/lodash.js'
+import { match } from '../util/match.js'
 
 export interface ISongInfoData {
   title: string

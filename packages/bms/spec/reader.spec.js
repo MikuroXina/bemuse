@@ -1,7 +1,9 @@
-const { Reader } = require('../lib')
-const fs = require('fs')
-const path = require('path')
-const { expect } = require('chai')
+import fs from 'node:fs'
+import path from 'node:path'
+
+import { describe, expect, it } from 'vitest'
+
+import { Reader } from '../lib/index.js'
 
 function fixture(name) {
   return fs.readFileSync(path.resolve(__dirname, 'fixtures/' + name))

@@ -1,9 +1,8 @@
 // Public: A module that takes a string representing the BMS notechart,
 // parses it, and compiles into a {BMSChart}.
-/* module */
-import { match } from '../util/match'
-import { BMSChart } from '../bms/chart'
-import { BMSObject } from '../bms/objects'
+import { BMSChart } from '../bms/chart.js'
+import { BMSObject } from '../bms/objects.js'
+import { match } from '../util/match.js'
 
 const matchers = {
   bms: {
@@ -76,7 +75,7 @@ export function compile(text: string, options?: Partial<BMSCompileOptions>) {
         result.controlSentences += 1
         skipStack.push(randomStack[randomStack.length - 1] !== +m[1])
       })
-      .when(matcher.endif, function (m) {
+      .when(matcher.endif, function () {
         result.controlSentences += 1
         skipStack.pop()
       })

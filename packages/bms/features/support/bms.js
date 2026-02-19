@@ -1,27 +1,27 @@
-const bms = require('../../lib')
+import { World } from '@cucumber/cucumber'
+import { setWorldConstructor } from '@cucumber/cucumber'
+import { expect } from 'vitest'
 
-const Compiler = bms.Compiler
-const Timing = bms.Timing
-const Notes = bms.Notes
-const SongInfo = bms.SongInfo
-const Keysounds = bms.Keysounds
-const Positioning = bms.Positioning
-const Spacing = bms.Spacing
+import {
+  Compiler,
+  Keysounds,
+  Notes,
+  Positioning,
+  SongInfo,
+  Spacing,
+  Timing,
+} from '../../lib/index.js'
 
-module.exports = function () {
-  const World = this.World
+class BmsWorld extends World {
+  parseOptions = {}
 
-  World.plug(function () {
-    this.parseOptions = {}
-  })
-
-  World.prototype.parseBMS = function (string) {
+  parseBMS(string) {
     this.source = string
     this.result = Compiler.compile(this.source, this.parseOptions)
     this.chart = this.result.chart
   }
 
-  World.prototype.getObject = function (value) {
+  getObject(value) {
     const matching = this.chart.objects.all().filter(function (object) {
       return object.value === value
     })
@@ -29,7 +29,7 @@ module.exports = function () {
     return matching[0]
   }
 
-  World.prototype.getNote = function (value) {
+  getNote(value) {
     const matching = this.notes.all().filter(function (object) {
       return object.keysound === value
     })
@@ -37,27 +37,29 @@ module.exports = function () {
     return matching[0]
   }
 
-  World.prop('timing', function () {
+  get timing() {
     return Timing.fromBMSChart(this.chart)
-  })
+  }
 
-  World.prop('notes', function () {
+  get notes() {
     return Notes.fromBMSChart(this.chart)
-  })
+  }
 
-  World.prop('songInfo', function () {
+  get songInfo() {
     return SongInfo.fromBMSChart(this.chart)
-  })
+  }
 
-  World.prop('keysounds', function () {
+  get keysounds() {
     return Keysounds.fromBMSChart(this.chart)
-  })
+  }
 
-  World.prop('positioning', function () {
+  get positioning() {
     return Positioning.fromBMSChart(this.chart)
-  })
+  }
 
-  World.prop('spacing', function () {
+  get spacing() {
     return Spacing.fromBMSChart(this.chart)
-  })
+  }
 }
+
+setWorldConstructor(BmsWorld)
