@@ -1,7 +1,7 @@
 import './MusicSelectScene.scss'
 
 import type { Chart, Song } from '@bemuse/collection-model/types.js'
-import { shouldShowOptions } from '@bemuse/devtools/query-flags.js'
+import { shouldShowOptions } from '@bemuse/flags/index.js'
 import { OFFICIAL_SERVER_URL } from '@bemuse/music-collection/index.js'
 import * as MusicPreviewer from '@bemuse/music-previewer/index.js'
 import { useCurrentUser } from '@bemuse/online/hooks.js'

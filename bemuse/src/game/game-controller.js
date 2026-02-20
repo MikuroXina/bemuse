@@ -1,5 +1,5 @@
-import * as BemuseTestMode from '@bemuse/devtools/BemuseTestMode'
-import bench from '@bemuse/devtools/benchmark'
+import * as BemuseTestMode from '@bemuse/debug/BemuseTestMode'
+import bench from '@bemuse/debug/benchmark'
 
 import Clock from './clock'
 import GameTimer from './game-timer'

@@ -2,10 +2,7 @@ import {
   getDefaultCustomFolderContext,
   getSongsFromCustomFolders,
 } from '@bemuse/custom-folder/index.js'
-import {
-  shouldShowAbout,
-  shouldShowModeSelect,
-} from '@bemuse/devtools/query-flags.js'
+import { shouldShowAbout, shouldShowModeSelect } from '@bemuse/flags/index.js'
 import { isQueryFlagEnabled } from '@bemuse/flags/index.js'
 import { OFFICIAL_SERVER_URL } from '@bemuse/music-collection/index.js'
 import {
@@ -17,7 +14,7 @@ import { monetize } from 'monetizer'
 import React from 'react'
 import { Provider } from 'react-redux'
 
-import * as BemuseTestMode from '../devtools/BemuseTestMode.js'
+import * as BemuseTestMode from '../debug/BemuseTestMode.js'
 import * as Analytics from './analytics.js'
 import { isBrowserSupported } from './browser-support.js'
 import { musicSearchTextSlice } from './entities/MusicSearchText.js'

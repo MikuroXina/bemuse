@@ -1,4 +1,4 @@
-import { isTestModeEnabled } from '@bemuse/devtools/BemuseTestMode.js'
+import { isTestModeEnabled } from '@bemuse/debug/BemuseTestMode.js'
 
 import type {
   ChangePasswordInfo,

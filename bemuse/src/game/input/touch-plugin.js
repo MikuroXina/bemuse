@@ -1,4 +1,4 @@
-import bench from '@bemuse/devtools/benchmark'
+import bench from '@bemuse/debug/benchmark'
 
 import * as touch3d from '../display/touch3d'
 
@@ -119,8 +119,8 @@ export function TouchPlugin(context) {
     return scratchY > scratchStartY + 4
       ? -1
       : scratchY < scratchStartY - 4
-      ? 1
-      : 0
+        ? 1
+        : 0
   }
   function _getPinch(input) {
     let a = null

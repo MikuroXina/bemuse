@@ -1,7 +1,7 @@
 import './game-display.scss'
 
 import { PanelPlacement } from '@bemuse/app/entities/Options.js'
-import { shouldDisableFullScreen } from '@bemuse/devtools/query-flags.js'
+import { shouldDisableFullScreen } from '@bemuse/flags/index.js'
 import { Context } from '@bemuse/scintillator/index.js'
 import { InfoPanelPosition } from '@bemuse/scintillator/skin.js'
 import $ from 'jquery'

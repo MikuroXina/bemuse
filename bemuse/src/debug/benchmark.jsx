@@ -1,8 +1,8 @@
 import now from '@bemuse/utils/now.js'
 import { createRoot } from 'react-dom/client'
 
-import { shouldEnableBenchmark } from './query-flags.js'
-import BenchmarkPanel from './ui/BenchmarkPanel.js'
+import { shouldEnableBenchmark } from '../devtools/query-flags.js'
+import BenchmarkPanel from '../devtools/ui/BenchmarkPanel.js'
 
 function Stat() {
   let sum = 0
