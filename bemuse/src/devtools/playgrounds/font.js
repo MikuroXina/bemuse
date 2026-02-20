@@ -1,5 +1,5 @@
-import meticulousFont from '@bemuse/../../public/skins/default/Fonts/BemuseDefault-Meticulous.fnt'
-import otherFont from '@bemuse/../../public/skins/default/Fonts/BemuseDefault-Other.fnt'
+import meticulousFont from '@bemuse/../public/skins/default/Fonts/BemuseDefault-Meticulous.fnt'
+import otherFont from '@bemuse/../public/skins/default/Fonts/BemuseDefault-Other.fnt'
 import MAIN from '@bemuse/utils/main-element'
 import * as PIXI from 'pixi.js'
 
