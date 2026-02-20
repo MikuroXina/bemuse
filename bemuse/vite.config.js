@@ -121,7 +121,7 @@ export default defineConfig({
           if (id.includes('devtools/')) {
             return 'playground'
           }
-          if (id.includes('previewer/')) {
+          if (!id.includes('music-previewer/') && id.includes('previewer/')) {
             return 'previewer'
           }
         },
@@ -140,6 +140,7 @@ export default defineConfig({
       'chardet',
       'iconv-lite',
       'bemuse-indexer',
+      'react',
       'node:util',
       'vite-plugin-node-polyfills/shims/buffer',
       'vite-plugin-node-polyfills/shims/global',
