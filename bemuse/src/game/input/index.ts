@@ -1,4 +1,4 @@
-import bench from '@bemuse/devtools/benchmark.js'
+import bench from '@bemuse/devtools/benchmark.jsx'
 import _ from 'lodash'
 
 import Control from './control.js'
