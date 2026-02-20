@@ -90,7 +90,7 @@ jobs:
       - name: Set up project
         uses: ./.github/actions/setup-project
       - name: Build dependencies
-        run: pnpm run build-packages
+        run: pnpm run build
       - name: Typecheck
         run: pnpm run --filter bemuse typecheck
   tidy:
@@ -101,7 +101,7 @@ jobs:
       - name: Set up project
         uses: ./.github/actions/setup-project
       - name: Build
-        run: pnpm run build-packages
+        run: pnpm run build
       - name: Lint all
         run: pnpm run lint
         if: always()
@@ -131,7 +131,7 @@ jobs:
       - name: Set up project
         uses: ./.github/actions/setup-project
       - name: Build
-        run: pnpm run build-packages
+        run: pnpm run build
       - name: Test Packages
         run: pnpm run test-packages
       - uses: codecov/codecov-action@v5

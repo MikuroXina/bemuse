@@ -11,10 +11,18 @@
   ],
   "scripts": {
     "clean": "rimraf lib tsconfig.tsbuildinfo",
-    "build": "tsc -b .",
+    "build": "wireit",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
     "lint": "eslint ."
+  },
+  "wireit": {
+    "build": {
+      "command": "tsc -b .",
+      "dependencies": [
+        "../bms:build"
+      ]
+    }
   },
   "keywords": [
     "BMS",
@@ -39,7 +47,8 @@
     "gulp": "^4.0.2",
     "power-assert": "^1.6.1",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.18"
+    "vitest": "^4.0.18",
+    "wireit": "^0.14.12"
   },
   "dependencies": {
     "bms": "workspace:*",

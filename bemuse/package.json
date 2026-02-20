@@ -13,7 +13,7 @@
     "node": ">=24.0.0"
   },
   "scripts": {
-    "build": "vite build",
+    "build": "wireit",
     "dev": "vite dev",
     "typecheck": "tsc",
     "pre-deploy": "gulp pre-deploy",
@@ -25,6 +25,14 @@
     "lint": "eslint ."
   },
   "wireit": {
+    "build": {
+      "command": "vite build",
+      "dependencies": [
+        "../packages/monetizer:build",
+        "../packages/bms:build",
+        "../packages/bmson:build"
+      ]
+    },
     "prod-build": {
       "command": "gulp build",
       "env": {
