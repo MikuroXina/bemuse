@@ -91,5 +91,11 @@ export default [
       'react/prop-types': 'off',
     },
   },
+  {
+    files: ['**/*.spec.ts', '**/*.test.ts'],
+    rules: {
+      'n/no-unpublished-import': 'off',
+    },
+  },
   eslintPluginPrettierRecommended,
 ]

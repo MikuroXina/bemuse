@@ -17,7 +17,7 @@ function gitRevision() {
 function buildInfo() {
   const file = fileURLToPath(new URL('package.json', import.meta.url))
   const pkgJson = JSON.parse(readFileSync(file, 'utf-8'))
-  let name = 'Bemuse'
+  let name = 'Bemuse MX'
   let version = pkgJson.version
 
   if (process.env.CONTEXT === 'deploy-preview') {
@@ -47,6 +47,9 @@ export default defineConfig({
     react(),
     nodePolyfills({
       include: ['buffer', 'crypto', 'os', 'path', 'stream', 'util', 'vm'],
+      globals: {
+        Buffer: true,
+      },
     }),
   ],
   appType: 'mpa',

@@ -9,6 +9,9 @@
     "not op_mini all"
   ],
   "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
   "scripts": {
     "build": "vite build",
     "dev": "vite dev",
@@ -152,8 +155,8 @@
     "@reduxjs/toolkit": "^1.9.7",
     "auth0-js": "^9.30.1",
     "axios": "^1.13.5",
-    "bemuse-indexer": "workspace:*",
-    "bemuse-notechart": "workspace:*",
+    "bemuse-indexer": "^51.0.2",
+    "bemuse-notechart": "^50.1.2",
     "bemuse-types": "workspace:*",
     "bms": "workspace:*",
     "bmson": "workspace:*",

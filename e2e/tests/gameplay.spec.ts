@@ -1,4 +1,4 @@
-import { Page, TestInfo, expect, test } from '@playwright/test'
+import { expect, Page, test, TestInfo } from '@playwright/test'
 
 test('Gameplay smoke test', async ({ page }, testInfo) => {
   await startBemuse(page)

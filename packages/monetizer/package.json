@@ -2,6 +2,7 @@
   "name": "monetizer",
   "version": "50.0.2",
   "description": "Web Monetization API for JavaScript",
+  "type": "module",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
   "files": [
@@ -13,7 +14,7 @@
     "build": "tsc -b .",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx ."
+    "lint": "eslint ."
   },
   "keywords": [
     "webmonetization"
@@ -30,7 +31,7 @@
   "homepage": "https://github.com/bemusic/bemuse/tree/master/packages/monetizer#readme",
   "devDependencies": {
     "@vitest/browser-playwright": "^4.0.18",
-    "eslint": "^8.25.0",
+    "eslint": "^9.0.0",
     "eslint-config-bemuse": "workspace:*",
     "playwright": "^1.58.2",
     "typescript": "^4.8.4",

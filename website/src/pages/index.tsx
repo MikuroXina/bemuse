@@ -1,12 +1,12 @@
-import React, { ReactNode } from 'react'
-import { docUrl, imgUrl, pageUrl } from '../lib/url'
-
-import { BrowserScreenshot } from '../components/browser-screenshot'
-import { CTAButtons } from '../components/cta-buttons'
-import { FeatureBlock } from '../components/feature-block'
-import Layout from '@theme/Layout'
 import Link from '@docusaurus/Link'
-import siteConfig from '../../docusaurus.config'
+import Layout from '@theme/Layout'
+import type { ReactNode } from 'react'
+
+import siteConfig from '../../docusaurus.config.js'
+import { BrowserScreenshot } from '../components/browser-screenshot.js'
+import { CTAButtons } from '../components/cta-buttons.js'
+import { FeatureBlock } from '../components/feature-block.js'
+import { docUrl, imgUrl, pageUrl } from '../lib/url.js'
 import styles from './index.module.css'
 
 const SplashContainer = ({ children }: { children: ReactNode }) => (
@@ -170,8 +170,9 @@ const Index = ({ language }: { language?: string }) => (
   </>
 )
 
-export default (props: { language?: string }) => (
+const IndexPage = (props: { language?: string }) => (
   <Layout>
     <Index {...props} />
   </Layout>
 )
+export default IndexPage

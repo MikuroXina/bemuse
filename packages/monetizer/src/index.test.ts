@@ -1,4 +1,5 @@
 import { expect, it } from 'vitest'
+
 import { Monetizer } from './index.js'
 
 it('creates a meta tag and returns a dispose function', () => {

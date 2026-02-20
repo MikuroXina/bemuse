@@ -2,9 +2,7 @@
   "name": "eslint-config-bemuse",
   "version": "5.0.0",
   "type": "module",
-  "files": [
-    "index.js"
-  ],
+  "main": "index.js",
   "dependencies": {
     "@typescript-eslint/parser": "^5.40.1",
     "eslint-config-prettier": "^8.5.0",

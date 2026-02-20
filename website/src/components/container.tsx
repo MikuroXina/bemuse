@@ -1,4 +1,4 @@
-import React, { HTMLProps } from 'react'
+import type { HTMLProps } from 'react'
 
 import styles from './container.module.css'
 
