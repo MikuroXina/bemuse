@@ -1,6 +1,6 @@
-import screenSkin from '@bemuse/../public/skins/default/skin_screen.xml'
-import touchSkin from '@bemuse/../public/skins/default/skin_touch.xml'
-import touch3dSkin from '@bemuse/../public/skins/default/skin_touch3d.xml'
+import screenSkin from '@bemuse/../public/skins/default/skin_screen.xml?raw'
+import touchSkin from '@bemuse/../public/skins/default/skin_touch.xml?raw'
+import touch3dSkin from '@bemuse/../public/skins/default/skin_touch3d.xml?raw'
 
 import { Context } from './context'
 import { load } from './loader'
