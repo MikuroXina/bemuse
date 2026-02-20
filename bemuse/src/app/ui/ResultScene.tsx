@@ -11,6 +11,7 @@ import type { MouseEvent } from 'react'
 
 import * as Analytics from '../analytics.js'
 import * as QueryFlags from '../query-flags.js'
+import type { Result } from '../types.js'
 import FirstTimeTip from './FirstTimeTip.js'
 import MusicChartInfo from './MusicChartInfo.js'
 import MusicChartSelectorItem from './MusicChartSelectorItem.js'
@@ -18,23 +19,6 @@ import RankingContainer from './RankingContainer.js'
 import ResultExpertInfo from './ResultExpertInfo.js'
 import ResultGrade from './ResultGrade.js'
 import ResultTable from './ResultTable.js'
-
-export interface Result {
-  1: number
-  2: number
-  3: number
-  4: number
-  missed: number
-  totalCombo: number
-  maxCombo: number
-  accuracy: number
-  grade: string
-  score: number
-  deltas: readonly number[]
-  totalNotes: number
-  tainted: boolean
-  log: string
-}
 
 const getTweetLink = ({ chart, result }: { chart: Chart; result: Result }) => {
   const title = chart.info.title

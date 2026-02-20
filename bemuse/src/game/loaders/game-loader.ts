@@ -2,16 +2,15 @@ import keysoundCache from '@bemuse/keysound-cache/index.js'
 import Progress from '@bemuse/progress/index.js'
 import { atomic } from '@bemuse/progress/utils.js'
 import { resolveRelativeResources } from '@bemuse/resources/resolveRelativeResource.js'
-import type { IResource, IResources } from '@bemuse/resources/types.js'
 import SamplingMaster from '@bemuse/sampling-master/index.js'
 import type { Notechart, PlayerOptions } from 'bemuse-notechart'
 import { NotechartLoader } from 'bemuse-notechart/lib/loader/index.js'
-import { ChartInfo } from 'bemuse-types'
 
 import GameAudio from '../audio/index.js'
 import GameDisplay from '../display/index.js'
-import Game, { GamePlayerOptionsInput } from '../game.js'
+import Game from '../game.js'
 import GameController from '../game-controller.js'
+import type { LoadSpec } from './load-spec.js'
 import loadImage from './loadImage.js'
 import * as Multitasker from './multitasker.js'
 import SamplesLoader from './samples-loader.js'
@@ -30,26 +29,6 @@ type Tasks = {
   Samples: TODO
   GameAudio: GameAudio
   GameController: GameController
-}
-
-export type Assets = IResources & {
-  progress?: {
-    current?: Progress
-    all?: Progress
-  }
-}
-
-export type LoadSpec = {
-  assets: Assets
-  bms: IResource
-  metadata: ChartInfo
-  songId?: string
-  displayMode?: 'touch3d' | 'normal'
-  backImageUrl?: string
-  eyecatchImageUrl?: string
-  videoUrl?: string
-  videoOffset?: number
-  options: GamePlayerOptionsInput
 }
 
 export function load(spec: LoadSpec) {

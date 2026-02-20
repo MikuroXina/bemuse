@@ -5,9 +5,9 @@ import RunningNumber from '@bemuse/ui/RunningNumber.js'
 import { useState } from 'react'
 
 import * as Analytics from '../analytics.js'
+import type { Result } from '../types.js'
 import FirstTimeTip from './FirstTimeTip.js'
 import ResultDeltasView from './ResultDeltasView.js'
-import { Result } from './ResultScene.js'
 
 const formatAccuracy = (value: number) => {
   return (value * 100).toFixed(2) + '%'
