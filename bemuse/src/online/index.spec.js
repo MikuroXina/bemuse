@@ -10,8 +10,8 @@ import {
   vi,
 } from 'vitest'
 
-import Online from '.'
-import OnlineService from './scoreboard-system/OnlineService'
+import Online from './index.js'
+import OnlineService from './scoreboard-system/OnlineService.js'
 
 const uid = (function () {
   const session = Math.floor(Math.random() * 65536).toString(16)

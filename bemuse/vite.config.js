@@ -74,6 +74,13 @@ export default defineConfig({
         '.js': 'jsx',
       },
     },
+    include: [
+      'bemuse-indexer',
+      'node:util',
+      'vite-plugin-node-polyfills/shims/buffer',
+      'vite-plugin-node-polyfills/shims/global',
+      'vite-plugin-node-polyfills/shims/process',
+    ],
   },
   test: {
     browser: {
