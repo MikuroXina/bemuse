@@ -103,30 +103,6 @@ export default defineConfig({
     commonjsOptions: {
       include: [/node_modules/],
     },
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('app/') || id.includes('game/')) {
-            return 'app'
-          }
-          if (id.includes('music-collection-viewer/')) {
-            return 'music'
-          }
-          if (id.includes('coming-soon/')) {
-            return 'coming-soon'
-          }
-          if (id.includes('auto-synchro/')) {
-            return 'sync'
-          }
-          if (id.includes('devtools/')) {
-            return 'playground'
-          }
-          if (!id.includes('music-previewer/') && id.includes('previewer/')) {
-            return 'previewer'
-          }
-        },
-      },
-    },
   },
   optimizeDeps: {
     force: true,
