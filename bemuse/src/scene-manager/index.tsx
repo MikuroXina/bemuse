@@ -1,4 +1,4 @@
-import { queryClient } from '@bemuse/react-query'
+import { queryClient } from '@bemuse/react-query/index.js'
 import MAIN from '@bemuse/utils/main-element.js'
 import React, { createContext, ReactNode } from 'react'
 import { createRoot, Root } from 'react-dom/client'

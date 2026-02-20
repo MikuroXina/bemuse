@@ -1,6 +1,6 @@
-import context from '@bemuse/audio-context'
-import SamplingMaster, { Sample } from '@bemuse/sampling-master'
-import download from '@bemuse/utils/download'
+import context from '@bemuse/audio-context/index.js'
+import SamplingMaster, { Sample } from '@bemuse/sampling-master/index.js'
+import download from '@bemuse/utils/download.js'
 import _ from 'lodash'
 
 import bgmFile from './data/bgm.ogg'

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import produce, { Draft } from 'immer'
+import { Draft, produce } from 'immer'
 
 export interface MusicSearchTextState {
   staged: string

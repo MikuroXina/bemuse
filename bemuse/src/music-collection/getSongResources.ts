@@ -1,8 +1,8 @@
-import { Song } from '@bemuse/collection-model/types'
-import BemusePackageResources from '@bemuse/resources/bemuse-package'
-import { resolveRelativeResources } from '@bemuse/resources/resolveRelativeResource'
-import { IResources } from '@bemuse/resources/types'
-import { URLResources } from '@bemuse/resources/url'
+import type { Song } from '@bemuse/collection-model/types.js'
+import BemusePackageResources from '@bemuse/resources/bemuse-package.js'
+import { resolveRelativeResources } from '@bemuse/resources/resolveRelativeResource.js'
+import type { IResources } from '@bemuse/resources/types.js'
+import { URLResources } from '@bemuse/resources/url.js'
 
 export function getSongResources(
   song: Song,

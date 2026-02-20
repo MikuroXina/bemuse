@@ -1,5 +1,5 @@
-import { queryClient } from '@bemuse/react-query'
-import { ScoreCount } from '@bemuse/rules/accuracy'
+import { queryClient } from '@bemuse/react-query/index.js'
+import { ScoreCount } from '@bemuse/rules/accuracy.js'
 import Immutable, { Seq } from 'immutable'
 import _ from 'lodash'
 import {
@@ -22,7 +22,7 @@ import {
   switchMap,
 } from 'rxjs'
 
-import { BatchedFetcher } from './BatchedFetcher'
+import { BatchedFetcher } from './BatchedFetcher.js'
 import {
   Action,
   DataStore,
@@ -30,16 +30,16 @@ import {
   put,
   putMultiple,
   store川,
-} from './data-store'
-import id from './id'
-import { fromObject, RecordLevel } from './level'
+} from './data-store.js'
+import id from './id.js'
+import { fromObject, RecordLevel } from './level.js'
 import {
   completed,
   INITIAL_OPERATION_STATE,
   Operation,
   operation川FromPromise,
-} from './operations'
-import { rootQueryKey } from './queryKeys'
+} from './operations.js'
+import { rootQueryKey } from './queryKeys.js'
 
 export interface SignUpInfo {
   username: string
@@ -99,7 +99,7 @@ export interface RankingState {
   data: ScoreboardDataEntry[] | null
   meta: {
     submission: SubmissionOperation
-    scoreboard: Operation<ScoreboardDataEntry | null>
+    scoreboard: Operation<{ data: ScoreboardDataEntry[] }>
   }
 }
 
@@ -306,9 +306,13 @@ export class Online {
     scoreboard: Operation<{ data: ScoreboardDataEntry[] }>
   }): RankingState => ({
     data:
-      scoreboard.status === 'completed' ? scoreboard.value?.data ?? null : null,
+      scoreboard.status === 'completed'
+        ? (scoreboard.value?.data ?? null)
+        : null,
     meta: {
-      scoreboard: _.omit(scoreboard, 'value') as Operation<ScoreboardDataEntry>,
+      scoreboard: _.omit(scoreboard, 'value') as Operation<{
+        data: ScoreboardDataEntry[]
+      }>,
       submission: { ...self } as Operation<ScoreboardDataEntry>,
     },
   })

@@ -1,7 +1,7 @@
 import Immutable from 'immutable'
 import { distinct, map, Observable, scan } from 'rxjs'
 
-import { INITIAL_OPERATION_STATE, Operation } from './operations'
+import { INITIAL_OPERATION_STATE, Operation } from './operations.js'
 
 export type Action<T> =
   | { type: 'PUT'; data: Record<string, Operation<T>> }

@@ -1,15 +1,25 @@
-import { MappingMode } from '@bemuse/rules/mapping-mode'
+import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
 import { useContext } from 'react'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
+import {
+  useMutation,
+  UseMutationResult,
+  useQuery,
+  useQueryClient,
+  UseQueryResult,
+} from 'react-query'
 
-import { ScoreInfo } from '.'
-import { OnlineContext } from './instance'
+import type {
+  ScoreboardDataEntry,
+  ScoreboardDataRecord,
+  ScoreInfo,
+} from './index.js'
+import { OnlineContext } from './instance.js'
 import {
   currentUserQueryKey,
   getLeaderboardQueryKey,
   getPersonalRankingEntryQueryKey,
   getPersonalRecordQueryKey,
-} from './queryKeys'
+} from './queryKeys.js'
 
 export function useCurrentUser() {
   const online = useContext(OnlineContext)
@@ -32,7 +42,7 @@ export function usePersonalRecordsByMd5Query(chart: { md5: string }) {
 export function useLeaderboardQuery(
   chart: { md5: string },
   playMode: MappingMode
-) {
+): UseQueryResult<{ data: ScoreboardDataEntry[] }> {
   const online = useContext(OnlineContext)
   return useQuery({
     queryKey: getLeaderboardQueryKey(chart.md5, playMode),
@@ -43,7 +53,7 @@ export function useLeaderboardQuery(
 export function usePersonalRankingEntryQuery(
   chart: { md5: string },
   playMode: MappingMode
-) {
+): UseQueryResult<ScoreboardDataRecord | null> {
   const online = useContext(OnlineContext)
   return useQuery({
     queryKey: getPersonalRankingEntryQueryKey(chart.md5, playMode),
@@ -52,7 +62,11 @@ export function usePersonalRankingEntryQuery(
   })
 }
 
-export function useRecordSubmissionMutation() {
+export function useRecordSubmissionMutation(): UseMutationResult<
+  ScoreboardDataRecord,
+  unknown,
+  ScoreInfo
+> {
   const online = useContext(OnlineContext)
   const client = useQueryClient()
   return useMutation({

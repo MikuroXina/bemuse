@@ -1,6 +1,4 @@
-/* eslint camelcase: off */
-
-import { PlayerOptionsPlacement } from '@bemuse/game/player'
+import type { PlayerOptionsPlacement } from '@bemuse/game/player.js'
 
 export type StoredOptions = {
   'system.offset.audio-input': string

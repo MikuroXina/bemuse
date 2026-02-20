@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Draft } from 'immer'
+import type { Draft } from 'immer'
 
-import { MappingMode } from '../../rules/mapping-mode'
-import { StoredOptions } from '../types'
+import type { MappingMode } from '../../rules/mapping-mode.js'
+import type { StoredOptions } from '../types.js'
 
 export type OptionsState = StoredOptions & Record<string, string>
 
@@ -154,10 +154,10 @@ export const getGauge = (state: OptionsState): Gauge =>
 
 // Queries
 export const keyboardMapping = (state: OptionsState) => {
-  const mapping: Record<string, string> = {}
+  const mapping: Record<string, number> = {}
   for (const control of ['1', '2', '3', '4', '5', '6', '7', 'SC', 'SC2']) {
     const key = 'input.P1.keyboard.' + playMode(state) + '.' + control
-    mapping[control] = state[key] || ''
+    mapping[control] = parseInt(state[key], 10) || 0
   }
   return mapping
 }

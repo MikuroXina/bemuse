@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { ComponentPropsWithRef } from 'react'
+import { ComponentPropsWithRef, ReactNode } from 'react'
 
 export interface FloatingMobileButtonProps {
   children?: ReactNode

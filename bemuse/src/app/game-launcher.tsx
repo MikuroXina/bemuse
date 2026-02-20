@@ -3,7 +3,7 @@ import { isTitleDisplayMode } from '@bemuse/devtools/query-flags.js'
 import GameScene from '@bemuse/game/game-scene.js'
 import { MISSED } from '@bemuse/game/judgments.js'
 import { LoadSpec } from '@bemuse/game/loaders/game-loader.js'
-import Player from '@bemuse/game/player.js'
+import Player, { PlayerControlKeysMap } from '@bemuse/game/player.js'
 import PlayerState from '@bemuse/game/state/player-state.js'
 import LoadingScene from '@bemuse/game/ui/LoadingScene.js'
 import * as BemuseLogger from '@bemuse/logger/index.js'
@@ -133,7 +133,7 @@ async function launchGame(
         laneCover: Options.laneCover(options),
         gauge: Options.getGauge(options),
         input: {
-          keyboard: keyboardMapping,
+          keyboard: keyboardMapping as PlayerControlKeysMap,
           continuous: Options.isContinuousAxisEnabled(options),
           sensitivity: Options.sensitivity(options),
         },

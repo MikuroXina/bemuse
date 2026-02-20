@@ -11,8 +11,8 @@ import {
   Subscription,
 } from 'rxjs'
 
-import { AxisLogic } from './axis-logic'
-import getMidi川 from './midi'
+import { AxisLogic } from './axis-logic.js'
+import getMidi川 from './midi.js'
 
 declare global {
   interface Navigator {
@@ -224,7 +224,7 @@ export default OmniInput
 
 const knownMidiIds = new Map<string, number>()
 
-export function getName(key: string) {
+export function getName(key: string): string {
   if (+key) {
     return _.capitalize(keycode(+key))
   }

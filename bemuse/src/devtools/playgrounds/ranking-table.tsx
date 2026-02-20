@@ -28,7 +28,7 @@ const RankingTablePlayground = () => (
         meta: {
           scoreboard: {
             status: 'completed',
-            value: null,
+            value: { data: [] },
           },
           submission: {
             status: 'completed',
@@ -49,7 +49,7 @@ const RankingTablePlayground = () => (
         meta: {
           scoreboard: {
             status: 'completed',
-            value: null,
+            value: { data: [] },
           },
           submission: {
             status: 'completed',
@@ -64,7 +64,7 @@ const RankingTablePlayground = () => (
         meta: {
           scoreboard: {
             status: 'completed',
-            value: null,
+            value: { data: [] },
           },
           submission: {
             status: 'unauthenticated',

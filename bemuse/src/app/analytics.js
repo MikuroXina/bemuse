@@ -11,7 +11,7 @@ import getNonMissedDeltas from './interactors/getNonMissedDeltas'
 
 const ga = window.ga || function () {}
 const startTime = Date.now()
-const sid = ObjectID.generate()
+const sid = ObjectID.default().toHexString()
 
 function getLabel(chart) {
   return `${chart.md5}`

@@ -1,4 +1,4 @@
-import { timegate } from '@bemuse/game/judgments'
+import { timegate } from '@bemuse/game/judgments.js'
 
 // For the purpose of displaying play accuracy statistics,
 // given an array of deltas,

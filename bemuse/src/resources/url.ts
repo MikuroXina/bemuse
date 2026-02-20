@@ -1,7 +1,7 @@
-import Progress from '@bemuse/progress'
-import download from '@bemuse/utils/download'
+import Progress from '@bemuse/progress/index.js'
+import download from '@bemuse/utils/download.js'
 
-import { IResource, IResources } from './types'
+import type { IResource, IResources } from './types.js'
 
 export class URLResource implements IResource {
   constructor(private url: string) {}
@@ -14,7 +14,7 @@ export class URLResource implements IResource {
   }
 
   get name() {
-    return new URL(this.url).pathname.split('/').pop()
+    return new URL(this.url).pathname.split('/').pop()!
   }
 }
 

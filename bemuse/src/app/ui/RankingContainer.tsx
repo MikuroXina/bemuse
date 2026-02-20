@@ -5,7 +5,12 @@ import {
   usePersonalRankingEntryQuery,
   useRecordSubmissionMutation,
 } from '@bemuse/online/hooks.js'
-import { RankingState, RankingStream } from '@bemuse/online/index.js'
+import {
+  RankingState,
+  RankingStream,
+  ScoreboardDataRecord,
+  ScoreInfo,
+} from '@bemuse/online/index.js'
 import { OnlineContext } from '@bemuse/online/instance.js'
 import {
   completed,
@@ -124,7 +129,7 @@ export const NewRankingContainer = ({
     data: leaderboardQuery.data?.data || null,
     meta: {
       submission: user
-        ? operationFromResult(
+        ? operationFromResult<ScoreboardDataRecord | null, unknown, ScoreInfo>(
             canSubmit ? submissionMutation : personalRankingEntryQuery
           )
         : { status: 'unauthenticated' },
@@ -147,8 +152,8 @@ export const NewRankingContainer = ({
   )
 }
 
-function operationFromResult<T>(
-  result: UseMutationResult<T> | UseQueryResult<T>
+function operationFromResult<T, TError, TVariables>(
+  result: UseMutationResult<T, TError, TVariables> | UseQueryResult<T, TError>
 ): Operation<T> {
   if (result.isLoading) {
     return loading()

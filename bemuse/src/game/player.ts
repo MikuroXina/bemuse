@@ -12,6 +12,8 @@ export type PlayerControlKeys =
   | 'SC'
   | 'SC2'
 
+export type PlayerControlKeysMap = Record<PlayerControlKeys, number>
+
 export type PlayerOptionsPlacement = 'left' | 'center' | 'right' | '3d'
 
 export type PlayerOptionsScratch = 'left' | 'right' | 'off'
@@ -19,7 +21,7 @@ export type PlayerOptionsScratch = 'left' | 'right' | 'off'
 export type PlayerOptionsGauge = 'off' | 'hope'
 
 type PlayerOptionsInputMapping = {
-  keyboard: { [control in PlayerControlKeys]: number }
+  keyboard: PlayerControlKeysMap
   continuous?: boolean
   sensitivity?: number
 }

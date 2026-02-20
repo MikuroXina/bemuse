@@ -1,6 +1,6 @@
 import type { AnyAction, Dispatch } from 'redux'
 
-import { musicSearchTextSlice } from '../entities/MusicSearchText'
+import { musicSearchTextSlice } from '../entities/MusicSearchText.js'
 
 let _timeout: NodeJS.Timeout
 

@@ -1,9 +1,12 @@
-import { breaksCombo, JudgedJudgment, MISSED } from '../judgments'
-import Player, { PlayerOptionsPlacement, PlayerOptionsScratch } from '../player'
-import PlayerState, { JudgementNotification } from '../state/player-state'
-import { Gauge, getGauge } from './Gauge'
-import NoteArea from './note-area'
-import * as touch3d from './touch3d'
+import { breaksCombo, JudgedJudgment, MISSED } from '../judgments.js'
+import Player, {
+  PlayerOptionsPlacement,
+  PlayerOptionsScratch,
+} from '../player.js'
+import PlayerState, { JudgementNotification } from '../state/player-state.js'
+import { Gauge, getGauge } from './Gauge.js'
+import NoteArea from './note-area.js'
+import * as touch3d from './touch3d.js'
 
 interface PlayerData {
   placement: PlayerOptionsPlacement
@@ -14,7 +17,10 @@ interface PlayerData {
 }
 
 export class PlayerDisplay {
-  constructor(private readonly player: Player, skinData: TODO) {
+  constructor(
+    private readonly player: Player,
+    skinData: TODO
+  ) {
     this._currentSpeed = 1
     this._noteArea = new NoteArea(
       player.notechart.notes,

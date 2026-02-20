@@ -89,9 +89,7 @@ export async function main() {
       bms: newOptions.resource ?? (new URLResource(url) as IResource),
       assets: newOptions.resources || new BemusePackageResources(assetsUrl),
       metadata: metadata,
-      options: Object.assign({}, newOptions.game, {
-        players: newOptions.players,
-      }),
+      options: { ...newOptions.game, players: newOptions.players },
     }
   }
 

@@ -1,12 +1,12 @@
 import './GenericErrorScene.scss'
 
 import ModalPopup from '@bemuse/ui/ModalPopup.js'
-import Panel from '@bemuse/ui/Panel'
-import Scene from '@bemuse/ui/Scene'
+import Panel from '@bemuse/ui/Panel.js'
+import Scene from '@bemuse/ui/Scene.js'
 import React from 'react'
 
-import * as Analytics from '../analytics'
-import OptionsButton from './OptionsButton'
+import * as Analytics from '../analytics.js'
+import OptionsButton from './OptionsButton.js'
 
 export default function GenericErrorScene(props: {
   preamble: string

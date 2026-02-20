@@ -147,7 +147,7 @@ function createMockFileSystemDirectoryHandle(
       expect(data[name]).to.be.a('string')
       return createMockFileSystemFileHandle(name, data[name] as string)
     },
-  } as FileSystemDirectoryHandle
+  } as unknown as FileSystemDirectoryHandle
 }
 
 function createMockFileSystemFileHandle(

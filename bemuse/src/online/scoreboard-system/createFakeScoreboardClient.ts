@@ -203,7 +203,7 @@ export function updateScoreboardEntry(
   const score = +data.score
   if (!original || score > original.score) {
     return Object.assign({}, original || {}, {
-      id: original?.id || ObjectID.generate(),
+      id: original?.id || ObjectID.default().toHexString(),
       score: score,
       playCount: nextPlayCount,
       playNumber: nextPlayCount,

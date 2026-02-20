@@ -7,11 +7,11 @@
 // - The selectors can be used to query data from the store.
 //
 
-import filterSongs from '@bemuse/music-collection/filterSongs'
-import getPlayableCharts from '@bemuse/music-collection/getPlayableCharts'
-import groupSongsIntoCategories from '@bemuse/music-collection/groupSongsIntoCategories'
-import preprocessCollection from '@bemuse/music-collection/preprocessCollection'
-import sortSongs from '@bemuse/music-collection/sortSongs'
+import filterSongs from '@bemuse/music-collection/filterSongs.js'
+import getPlayableCharts from '@bemuse/music-collection/getPlayableCharts.js'
+import groupSongsIntoCategories from '@bemuse/music-collection/groupSongsIntoCategories.js'
+import preprocessCollection from '@bemuse/music-collection/preprocessCollection.js'
+import sortSongs from '@bemuse/music-collection/sortSongs.js'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import type {
   Chart,
@@ -22,11 +22,11 @@ import { enableMapSet } from 'immer'
 import _ from 'lodash'
 import { createSelector } from 'reselect'
 
-import * as Collections from '../entities/Collections'
-import * as LoadState from '../entities/LoadState'
-import * as MusicSearchText from '../entities/MusicSearchText'
-import * as MusicSelection from '../entities/MusicSelection'
-import * as Options from '../entities/Options'
+import * as Collections from '../entities/Collections.js'
+import * as LoadState from '../entities/LoadState.js'
+import * as MusicSearchText from '../entities/MusicSearchText.js'
+import * as MusicSelection from '../entities/MusicSelection.js'
+import * as Options from '../entities/Options.js'
 
 enableMapSet()
 

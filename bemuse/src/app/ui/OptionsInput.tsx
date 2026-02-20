@@ -2,7 +2,6 @@ import './OptionsInput.scss'
 
 import OmniInput, { getName, key川 } from '@bemuse/omni-input/index.js'
 import c from 'classnames'
-import _ from 'lodash'
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createSelector } from 'reselect'
@@ -31,7 +30,13 @@ const selectKeyboardMapping = createSelector(
 
 const selectKeyboardMappingTexts = createSelector(
   selectKeyboardMapping,
-  (mapping) => _.mapValues(mapping, getName)
+  (mapping): Record<string, string> =>
+    Object.fromEntries(
+      Object.entries(mapping).map(([key, value]) => [
+        key,
+        getName(value.toString()),
+      ])
+    )
 )
 
 const extractState = (state: AppState) => ({

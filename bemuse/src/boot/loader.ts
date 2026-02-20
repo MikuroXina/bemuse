@@ -1,5 +1,5 @@
 export interface Module {
-  main: (callbacks: { setStatus: (status: string) => void }) => Promise<void>
+  main: (callbacks: { setStatus: (status: string) => void }) => void
 }
 
 // This file holds the logic to generate a code-splitting loader function.

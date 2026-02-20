@@ -1,5 +1,5 @@
-import { IResources } from './types'
-import { URLResources } from './url'
+import { IResources } from './types.js'
+import { URLResources } from './url.js'
 
 export function resolveRelativeResources(
   base: IResources,
@@ -20,7 +20,10 @@ export function resolveRelativeResources(
 }
 
 export class DirectoryResources implements IResources {
-  constructor(private base: IResources, private dirName: string) {}
+  constructor(
+    private base: IResources,
+    private dirName: string
+  ) {}
 
   async file(filename: string) {
     return this.base.file(`${this.dirName}/${filename}`)

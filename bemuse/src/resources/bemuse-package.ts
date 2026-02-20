@@ -1,6 +1,6 @@
-import Progress from '@bemuse/progress'
-import * as ProgressUtils from '@bemuse/progress/utils'
-import readBlob from '@bemuse/utils/read-blob'
+import Progress from '@bemuse/progress/index.js'
+import * as ProgressUtils from '@bemuse/progress/utils.js'
+import readBlob from '@bemuse/utils/read-blob.js'
 import _ from 'lodash'
 import throat from 'throat'
 
@@ -48,8 +48,8 @@ export class BemusePackageResources implements IResources {
       typeof options.fallback === 'string'
         ? new URLResources(new URL(options.fallback, location.href))
         : options.fallback instanceof URL
-        ? new URLResources(options.fallback)
-        : options.fallback
+          ? new URLResources(options.fallback)
+          : options.fallback
 
     this._base = base
     this._fallback = fallback

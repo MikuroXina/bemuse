@@ -1,13 +1,16 @@
-import { Chart, Song } from '@bemuse/collection-model/types'
-import { SceneManager } from '@bemuse/scene-manager'
+import type { Chart, Song } from '@bemuse/collection-model/types.js'
+import { SceneManager } from '@bemuse/scene-manager/index.js'
 import { SongMetadataInCollection } from 'bemuse-types'
 import { AnyAction, Dispatch } from 'redux'
 
-import { getChartLevel, musicSelectionSlice } from '../entities/MusicSelection'
-import { optionsSlice, OptionsState } from '../entities/Options'
+import {
+  getChartLevel,
+  musicSelectionSlice,
+} from '../entities/MusicSelection.js'
+import { optionsSlice, OptionsState } from '../entities/Options.js'
 import { launch } from '../game-launcher.js'
-import { rageQuitSlice } from '../redux/ReduxState'
-import { ChartProps } from '../ui/MusicList'
+import { rageQuitSlice } from '../redux/ReduxState.js'
+import { ChartProps } from '../ui/MusicList.js'
 
 export function selectSong(
   song: SongMetadataInCollection,

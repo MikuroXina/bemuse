@@ -1,5 +1,5 @@
-import { Song } from '@bemuse/collection-model/types'
-import { getSongResources } from '@bemuse/music-collection/getSongResources'
+import type { Song } from '@bemuse/collection-model/types.js'
+import { getSongResources } from '@bemuse/music-collection/getSongResources.js'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AnyAction, Dispatch } from 'redux'
@@ -7,7 +7,7 @@ import { AnyAction, Dispatch } from 'redux'
 import {
   currentSongReadmeSlice,
   selectCurrentCollectionUrl,
-} from '../redux/ReduxState'
+} from '../redux/ReduxState.js'
 
 export function useReadme(song: Song): string | null {
   const dispatch = useDispatch()

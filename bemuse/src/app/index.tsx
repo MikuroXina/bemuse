@@ -1,36 +1,39 @@
 import {
   getDefaultCustomFolderContext,
   getSongsFromCustomFolders,
-} from '@bemuse/custom-folder'
+} from '@bemuse/custom-folder/index.js'
 import {
   shouldShowAbout,
   shouldShowModeSelect,
-} from '@bemuse/devtools/query-flags'
-import { isQueryFlagEnabled } from '@bemuse/flags'
-import { OFFICIAL_SERVER_URL } from '@bemuse/music-collection'
-import { SceneManager, SceneManagerContext } from '@bemuse/scene-manager'
-import now from '@bemuse/utils/now'
+} from '@bemuse/devtools/query-flags.js'
+import { isQueryFlagEnabled } from '@bemuse/flags/index.js'
+import { OFFICIAL_SERVER_URL } from '@bemuse/music-collection/index.js'
+import {
+  SceneManager,
+  SceneManagerContext,
+} from '@bemuse/scene-manager/index.js'
+import now from '@bemuse/utils/now.js'
 import { monetize } from 'monetizer'
 import React from 'react'
 import { Provider } from 'react-redux'
 
-import * as BemuseTestMode from '../devtools/BemuseTestMode'
-import * as Analytics from './analytics'
-import { isBrowserSupported } from './browser-support'
-import { musicSearchTextSlice } from './entities/MusicSearchText'
-import { optionsSlice } from './entities/Options'
+import * as BemuseTestMode from '../devtools/BemuseTestMode.js'
+import * as Analytics from './analytics.js'
+import { isBrowserSupported } from './browser-support.js'
+import { musicSearchTextSlice } from './entities/MusicSearchText.js'
+import { optionsSlice } from './entities/Options.js'
 import {
   getInitialGrepString,
   getMusicServer,
   getTimeSynchroServer,
-} from './query-flags'
-import configureStore from './redux/configureStore'
-import * as ReduxState from './redux/ReduxState'
-import AboutScene from './ui/AboutScene'
-import BrowserSupportWarningScene from './ui/BrowserSupportWarningScene'
-import ModeSelectScene from './ui/ModeSelectScene'
-import MusicSelectScene from './ui/MusicSelectScene'
-import TitleScene from './ui/TitleScene'
+} from './query-flags.js'
+import configureStore from './redux/configureStore.js'
+import * as ReduxState from './redux/ReduxState.js'
+import AboutScene from './ui/AboutScene.js'
+import BrowserSupportWarningScene from './ui/BrowserSupportWarningScene.js'
+import ModeSelectScene from './ui/ModeSelectScene.js'
+import MusicSelectScene from './ui/MusicSelectScene.js'
+import TitleScene from './ui/TitleScene.js'
 
 const store = configureStore()
 

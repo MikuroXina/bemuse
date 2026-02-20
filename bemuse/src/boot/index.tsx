@@ -11,7 +11,7 @@ import attachFastClick from 'fastclick'
 import { createRoot } from 'react-dom/client'
 
 import query from '../utils/query.js'
-import loadModule from './loader.js'
+import loadModule, { Module } from './loader.js'
 import Boot from './ui/Boot.js'
 import ErrorDialog from './ui/ErrorDialog.js'
 
@@ -51,9 +51,12 @@ window.onerror = function (message, url, line, col, e) {
 // from the ``mode`` query parameter.
 
 const mode = query.mode || 'app'
+const selected: (() => Promise<Module>) | undefined = (
+  loadModule as Record<string, () => Promise<Module>>
+)[mode]
 
 try {
-  if (loadModule[mode]) {
+  if (selected) {
     // >>
     // The main script is then loaded and imported into the environment,
     // and its ``main()`` method is invoked.
@@ -66,7 +69,7 @@ try {
     //
     bootRoot.render(<Boot status={`Loading ${mode} bundle`} />)
     try {
-      const loadedModule = await loadModule[mode]()
+      const loadedModule = await selected()
       bootRoot.render(<Boot status='Initializing' />)
       await loadedModule.main({
         setStatus: (status: string) => {

@@ -4,9 +4,9 @@ import {
   getDefaultCustomFolderContext,
   scanFolder,
   setCustomFolder,
-} from '@bemuse/custom-folder'
-import { queryClient } from '@bemuse/react-query'
-import { sceneRoot } from '@bemuse/utils/main-element'
+} from '@bemuse/custom-folder/index.js'
+import { queryClient } from '@bemuse/react-query/index.js'
+import { sceneRoot } from '@bemuse/utils/main-element.js'
 import _ from 'lodash'
 import React from 'react'
 import { QueryClientProvider, useQuery } from 'react-query'

@@ -1,4 +1,4 @@
-import { LoggingFunction } from './types'
+import type { LoggingFunction } from './types.js'
 
 export default class ResourceLogging {
   private buffer: string[] | null = []

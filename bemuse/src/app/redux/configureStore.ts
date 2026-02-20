@@ -1,10 +1,10 @@
 import { configureStore as createStore } from '@reduxjs/toolkit'
 import { compose, Middleware } from 'redux'
 
-import { collectionFetchMiddleware } from './collectionFetchMiddleware'
-import { collectionLoader } from './collectionLoader'
-import { optionsStorageMiddleware } from './optionsStorageMiddleware'
-import { reducer } from './ReduxState'
+import { collectionFetchMiddleware } from './collectionFetchMiddleware.js'
+import { collectionLoader } from './collectionLoader.js'
+import { optionsStorageMiddleware } from './optionsStorageMiddleware.js'
+import { reducer } from './ReduxState.js'
 
 declare global {
   interface Window {
