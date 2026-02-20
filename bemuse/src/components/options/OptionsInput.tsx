@@ -15,8 +15,8 @@ import {
   playMode,
   scratchPosition,
   sensitivity,
-} from '../entities/Options.js'
-import { AppState } from '../redux/ReduxState.js'
+} from '../../app/entities/Options.js'
+import { AppState } from '../../redux/ReduxState.js'
 import OptionsButton from './OptionsButton.js'
 import OptionsCheckbox from './OptionsCheckbox.js'
 import OptionsInputField from './OptionsInputField.js'

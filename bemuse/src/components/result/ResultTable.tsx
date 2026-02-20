@@ -4,9 +4,9 @@ import ModalPopup from '@bemuse/ui/ModalPopup.js'
 import RunningNumber from '@bemuse/ui/RunningNumber.js'
 import { useState } from 'react'
 
-import * as Analytics from '../analytics.js'
-import type { Result } from '../types.js'
-import FirstTimeTip from './FirstTimeTip.js'
+import * as Analytics from '../../app/analytics.js'
+import type { Result } from '../../app/types.js'
+import FirstTimeTip from '../../app/ui/FirstTimeTip.js'
 import ResultDeltasView from './ResultDeltasView.js'
 
 const formatAccuracy = (value: number) => {

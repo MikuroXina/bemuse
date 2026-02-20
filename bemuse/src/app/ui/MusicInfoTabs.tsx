@@ -1,6 +1,7 @@
 import './MusicInfoTabs.scss'
 
 import type { Chart, Song } from '@bemuse/collection-model/types.js'
+import RankingContainer from '@bemuse/components/ranking/RankingContainer.js'
 import { Icon } from '@bemuse/fa/index.js'
 import { MappingMode } from '@bemuse/rules/mapping-mode.js'
 import c from 'classnames'
@@ -8,7 +9,6 @@ import { useState } from 'react'
 
 import MusicInfoTabInformation from './MusicInfoTabInformation.js'
 import MusicInfoTabStats from './MusicInfoTabStats.js'
-import RankingContainer from './RankingContainer.js'
 
 export interface MusicInfoTabsProps {
   chart: Chart

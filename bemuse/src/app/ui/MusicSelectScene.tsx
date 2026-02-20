@@ -1,6 +1,8 @@
 import './MusicSelectScene.scss'
 
 import type { Chart, Song } from '@bemuse/collection-model/types.js'
+import CustomBMS from '@bemuse/components/CustomBMS.js'
+import OptionsView from '@bemuse/components/options/Options.js'
 import { shouldShowOptions } from '@bemuse/flags/index.js'
 import { OFFICIAL_SERVER_URL } from '@bemuse/music-collection/index.js'
 import * as MusicPreviewer from '@bemuse/music-previewer/index.js'
@@ -34,11 +36,9 @@ import {
   selectSearchText,
   selectSelectedChart,
   selectSelectedSong,
-} from '../redux/ReduxState.js'
-import CustomBMS from './CustomBMS.js'
+} from '../../redux/ReduxState.js'
 import MusicInfo from './MusicInfo.js'
 import MusicList from './MusicList.js'
-import OptionsView from './Options.js'
 import RageQuitPopup from './RageQuitPopup.js'
 import SongPreviewer from './SongPreviewer.js'
 import Toolbar from './Toolbar.js'

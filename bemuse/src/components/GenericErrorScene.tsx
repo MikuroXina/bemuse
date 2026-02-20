@@ -5,8 +5,8 @@ import Panel from '@bemuse/ui/Panel.js'
 import Scene from '@bemuse/ui/Scene.js'
 import React from 'react'
 
-import * as Analytics from '../analytics.js'
-import OptionsButton from './OptionsButton.js'
+import * as Analytics from '../app/analytics.js'
+import OptionsButton from './options/OptionsButton.js'
 
 export default function GenericErrorScene(props: {
   preamble: string

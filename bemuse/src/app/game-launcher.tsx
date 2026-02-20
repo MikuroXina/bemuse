@@ -19,8 +19,8 @@ import * as Options from './entities/Options.js'
 import createAutoVelocity from './interactors/createAutoVelocity.js'
 import { getSoundVolume } from './query-flags.js'
 import type { StoredOptions } from './types.js'
-import GenericErrorScene from './ui/GenericErrorScene.js'
-import ResultScene from './ui/ResultScene.js'
+import GenericErrorScene from '../components/GenericErrorScene.js'
+import ResultScene from '../components/result/ResultScene.js'
 
 const Log = BemuseLogger.forModule('game-launcher')
 

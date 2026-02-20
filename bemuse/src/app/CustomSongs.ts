@@ -7,7 +7,7 @@ import { observable } from 'mobx'
 import { useObserver } from 'mobx-react-lite'
 import type { AnyAction, Dispatch } from 'redux'
 
-import { customSongsSlice } from './redux/ReduxState.js'
+import { customSongsSlice } from '../redux/ReduxState.js'
 
 const loadSongFromResourcesWrapper = async (
   resources: ICustomSongResources,

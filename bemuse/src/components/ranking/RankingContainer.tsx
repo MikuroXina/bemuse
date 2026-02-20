@@ -23,7 +23,7 @@ import { MappingMode } from '@bemuse/rules/mapping-mode.js'
 import { useContext, useEffect, useRef, useState } from 'react'
 import { UseMutationResult, UseQueryResult } from 'react-query'
 
-import type { Result } from '../types.js'
+import type { Result } from '../../app/types.js'
 import Ranking from './Ranking.js'
 
 export interface RankingContainerProps {

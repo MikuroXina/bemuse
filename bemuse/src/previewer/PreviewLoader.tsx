@@ -81,7 +81,7 @@ export async function loadPreview(loadOptions: LoadPreviewOptions) {
   }
   const samples = await pMap(
     notechart.samples,
-    async (filename) => {
+    async (filename: string) => {
       if (keysoundCache.has(filename)) {
         const sample = keysoundCache.get(filename) || null
         return { filename, sample }

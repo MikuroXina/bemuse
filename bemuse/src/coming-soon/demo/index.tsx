@@ -1,5 +1,7 @@
 import './style.scss'
 
+import { Buffer } from 'node:buffer'
+
 import ctx from '@bemuse/audio-context/index.js'
 import DndResources from '@bemuse/resources/dnd-resources.js'
 import SamplingMaster, { Sample } from '@bemuse/sampling-master/index.js'
@@ -158,19 +160,22 @@ function play(
 ) {
   master.unmute()
   for (const note of notes.all()) {
-    setTimeout(() => {
-      const sample = loadedSamples[note.keysound]
-      if (!sample) {
-        console.log('warn: unknown sample ' + note.keysound)
-        return
-      }
-      sampler.innerHTML = `<span>[${note.keysound}]</span>`
-      const instance = sample.play()
-      sampler.scrollTop = sampler.scrollHeight
-      instance.onstop = function () {
-        sampler.children.item(0)?.classList.add('is-off')
-      }
-    }, timing.beatToSeconds(note.beat) * 1000)
+    setTimeout(
+      () => {
+        const sample = loadedSamples[note.keysound]
+        if (!sample) {
+          console.log('warn: unknown sample ' + note.keysound)
+          return
+        }
+        sampler.innerHTML = `<span>[${note.keysound}]</span>`
+        const instance = sample.play()
+        sampler.scrollTop = sampler.scrollHeight
+        instance.onstop = function () {
+          sampler.children.item(0)?.classList.add('is-off')
+        }
+      },
+      timing.beatToSeconds(note.beat) * 1000
+    )
   }
   return false
 }

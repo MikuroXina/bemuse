@@ -1,10 +1,10 @@
 import type { SongMetadataInCollection } from 'bemuse-types'
 import type { AnyAction, Middleware } from 'redux'
 
-import { musicSelectionSlice } from '../entities/MusicSelection.js'
-import findMatchingSong from '../interactors/findMatchingSong.js'
-import { getInitiallySelectedSong } from '../query-flags.js'
-import { collectionsSlice } from '../redux/ReduxState.js'
+import { musicSelectionSlice } from '../app/entities/MusicSelection.js'
+import findMatchingSong from '../app/interactors/findMatchingSong.js'
+import { getInitiallySelectedSong } from '../app/query-flags.js'
+import { collectionsSlice } from './ReduxState.js'
 
 // Configure a collection loader, which loads the Bemuse music collection.
 export const collectionLoader: Middleware =

@@ -24,8 +24,8 @@ import {
   getMusicServer,
   getTimeSynchroServer,
 } from './query-flags.js'
-import configureStore from './redux/configureStore.js'
-import * as ReduxState from './redux/ReduxState.js'
+import configureStore from '../redux/configureStore.js'
+import * as ReduxState from '../redux/ReduxState.js'
 import AboutScene from './ui/AboutScene.js'
 import BrowserSupportWarningScene from './ui/BrowserSupportWarningScene.js'
 import ModeSelectScene from './ui/ModeSelectScene.js'

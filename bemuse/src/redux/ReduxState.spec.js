@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { optionsSlice } from '../entities/Options.js'
+import { optionsSlice } from '../app/entities/Options.js'
 import configureStore from './configureStore.js'
 import {
   collectionsSlice,

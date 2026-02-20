@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import * as Analytics from '../analytics.js'
 import { lastSeenVersion, optionsSlice } from '../entities/Options.js'
-import { selectOptions } from '../redux/ReduxState.js'
+import { selectOptions } from '../../redux/ReduxState.js'
 import AboutScene from './AboutScene.js'
 import ChangelogPanel from './ChangelogPanel.js'
 import logo from './images/logo-with-shadow.svg'

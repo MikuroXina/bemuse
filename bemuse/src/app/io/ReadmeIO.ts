@@ -7,7 +7,7 @@ import { AnyAction, Dispatch } from 'redux'
 import {
   currentSongReadmeSlice,
   selectCurrentCollectionUrl,
-} from '../redux/ReduxState.js'
+} from '../../redux/ReduxState.js'
 
 export function useReadme(song: Song): string | null {
   const dispatch = useDispatch()

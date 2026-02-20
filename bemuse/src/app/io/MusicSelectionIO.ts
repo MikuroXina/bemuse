@@ -9,7 +9,7 @@ import {
 } from '../entities/MusicSelection.js'
 import { optionsSlice, OptionsState } from '../entities/Options.js'
 import { launch } from '../game-launcher.js'
-import { rageQuitSlice } from '../redux/ReduxState.js'
+import { rageQuitSlice } from '../../redux/ReduxState.js'
 import { ChartProps } from '../ui/MusicList.js'
 
 export function selectSong(

@@ -3,7 +3,7 @@ import { ComponentProps } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { hasAcknowledged, optionsSlice } from '../entities/Options.js'
-import { selectOptions } from '../redux/ReduxState.js'
+import { selectOptions } from '../../redux/ReduxState.js'
 
 export const FirstTimeTip = ({
   featureKey,

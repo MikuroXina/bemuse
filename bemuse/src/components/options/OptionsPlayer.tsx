@@ -15,8 +15,8 @@ import {
   panelPlacement,
   scratchPosition,
   speed,
-} from '../entities/Options.js'
-import { selectOptions } from '../redux/ReduxState.js'
+} from '../../app/entities/Options.js'
+import { selectOptions } from '../../redux/ReduxState.js'
 import OptionsButton from './OptionsButton.js'
 import OptionsCheckbox from './OptionsCheckbox.js'
 import OptionsInputField from './OptionsInputField.js'

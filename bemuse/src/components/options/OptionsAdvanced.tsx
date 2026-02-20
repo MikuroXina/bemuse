@@ -3,8 +3,8 @@ import './OptionsAdvanced.scss'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import * as Options from '../entities/Options.js'
-import { selectOptions } from '../redux/ReduxState.js'
+import * as Options from '../../app/entities/Options.js'
+import { selectOptions } from '../../redux/ReduxState.js'
 import OptionsButton from './OptionsButton.js'
 import OptionsInputField from './OptionsInputField.js'
 

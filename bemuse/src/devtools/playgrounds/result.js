@@ -1,5 +1,5 @@
-import configureStore from '@bemuse/app/redux/configureStore'
-import ResultScene from '@bemuse/app/ui/ResultScene'
+import ResultScene from '@bemuse/components/result/ResultScene.js'
+import configureStore from '@bemuse/redux/configureStore.js'
 import { SceneManager } from '@bemuse/scene-manager'
 import React from 'react'
 import { Provider } from 'react-redux'

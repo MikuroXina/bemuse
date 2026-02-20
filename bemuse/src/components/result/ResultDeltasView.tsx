@@ -8,7 +8,7 @@ import median from 'median'
 import { ReactNode } from 'react'
 import variance from 'variance'
 
-import getNonMissedDeltas from '../interactors/getNonMissedDeltas.js'
+import getNonMissedDeltas from '../../app/interactors/getNonMissedDeltas.js'
 
 const ms = (delta: number) => `${(delta * 1000).toFixed(1)} ms`
 

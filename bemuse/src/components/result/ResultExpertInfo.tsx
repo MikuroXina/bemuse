@@ -3,7 +3,7 @@ import { memo } from 'react'
 import { createSelector, createStructuredSelector } from 'reselect'
 import variance from 'variance'
 
-import getNonMissedDeltas from '../interactors/getNonMissedDeltas.js'
+import getNonMissedDeltas from '../../app/interactors/getNonMissedDeltas.js'
 
 const getStats = (() => {
   const selectMean = createSelector(getNonMissedDeltas, (deltas) =>

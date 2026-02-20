@@ -22,11 +22,11 @@ import { enableMapSet } from 'immer'
 import _ from 'lodash'
 import { createSelector } from 'reselect'
 
-import * as Collections from '../entities/Collections.js'
-import * as LoadState from '../entities/LoadState.js'
-import * as MusicSearchText from '../entities/MusicSearchText.js'
-import * as MusicSelection from '../entities/MusicSelection.js'
-import * as Options from '../entities/Options.js'
+import * as Collections from '../app/entities/Collections.js'
+import * as LoadState from '../app/entities/LoadState.js'
+import * as MusicSearchText from '../app/entities/MusicSearchText.js'
+import * as MusicSelection from '../app/entities/MusicSelection.js'
+import * as Options from '../app/entities/Options.js'
 
 enableMapSet()
 
