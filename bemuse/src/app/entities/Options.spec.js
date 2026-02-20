@@ -1,6 +1,6 @@
 import assert from 'assert'
 import { given, shouldEqual } from 'circumstance'
-import { describe, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
 import * as Options from './Options'
 
@@ -35,13 +35,15 @@ describe('Options', () => {
       given(Options.initialState)
         .when(update(actions.CHANGE_PLAY_MODE({ mode: 'KB' })))
         .then(Options.keyboardMapping, (mapping) => {
-          assert(mapping['4'] === '32') // KB mode, 4th button is space.
+          // KB mode, 4th button is space.
+          expect(mapping['4']).toStrictEqual(32)
         })
 
       given(Options.initialState)
         .when(update(actions.CHANGE_PLAY_MODE({ mode: 'BM' })))
         .then(Options.keyboardMapping, (mapping) => {
-          assert(mapping['4'] === '68') // BM mode, 4th button is D.
+          // BM mode, 4th button is D.
+          expect(mapping['4']).toStrictEqual(68)
         })
     })
     describe('key setting progression (in options screen)', () => {
