@@ -41,7 +41,7 @@
     "@types/object-assign": "^4.0.30",
     "eslint": "^9.0.0",
     "eslint-config-bemuse": "workspace:*",
-    "typescript": "^4.8.4",
+    "typescript": "^5.9.3",
     "vitest": "^4.0.18"
   }
 }
