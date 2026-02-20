@@ -8,7 +8,7 @@ import {
 import { queryClient } from '@bemuse/react-query/index.js'
 import { sceneRoot } from '@bemuse/utils/main-element.js'
 import _ from 'lodash'
-import React from 'react'
+import { useState } from 'react'
 import { QueryClientProvider, useQuery } from 'react-query'
 
 const CustomFolderTester = () => {
@@ -17,7 +17,7 @@ const CustomFolderTester = () => {
     const result = await getCustomFolderState(context)
     return result
   })
-  const [status, setStatus] = React.useState('')
+  const [status, setStatus] = useState('')
 
   if (isLoading) return <div>Loading...</div>
 

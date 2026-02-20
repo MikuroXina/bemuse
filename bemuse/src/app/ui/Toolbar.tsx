@@ -5,7 +5,7 @@ import FloatingMobileMenu, {
 } from '@bemuse/ui/FloatingMobileMenu.js'
 import SceneToolbar, { SceneToolbarSpacer } from '@bemuse/ui/SceneToolbar.js'
 import TipContainer from '@bemuse/ui/TipContainer.js'
-import React, { memo, MouseEvent, ReactNode, useState } from 'react'
+import { Fragment, memo, MouseEvent, ReactNode, useState } from 'react'
 import { WindowSize } from 'react-fns'
 
 import FirstTimeTip from './FirstTimeTip.js'
@@ -97,15 +97,15 @@ const DesktopToolbar = memo(function DesktopToolbar({
       {items.map((element, index) => {
         if (element.type === 'item') {
           return (
-            <React.Fragment key={index}>
+            <Fragment key={index}>
               <DesktopToolbarItem item={element} />
-            </React.Fragment>
+            </Fragment>
           )
         } else {
           return (
-            <React.Fragment key={index}>
+            <Fragment key={index}>
               <SceneToolbarSpacer />
-            </React.Fragment>
+            </Fragment>
           )
         }
       })}
@@ -132,15 +132,15 @@ const MobileToolbar = memo(function MobileToolbar({
         {items.map((element, index) => {
           if (element.type === 'item') {
             return (
-              <React.Fragment key={index}>
+              <Fragment key={index}>
                 <MobileToolbarItem item={element} />
-              </React.Fragment>
+              </Fragment>
             )
           } else {
             return (
-              <React.Fragment key={index}>
+              <Fragment key={index}>
                 <FloatingMobileMenuSeparator />
-              </React.Fragment>
+              </Fragment>
             )
           }
         })}

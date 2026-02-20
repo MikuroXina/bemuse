@@ -1,6 +1,6 @@
 import { queryClient } from '@bemuse/react-query/index.js'
 import MAIN from '@bemuse/utils/main-element.js'
-import React, { createContext, ReactNode } from 'react'
+import { cloneElement, createContext, ReactNode } from 'react'
 import { createRoot, Root } from 'react-dom/client'
 import { QueryClientProvider } from 'react-query'
 
@@ -85,7 +85,7 @@ function ReactScene(
 ): ReactScene {
   return function instantiate(_element, root) {
     let teardown: TeardownCallback = () => {}
-    const clonedElement = React.cloneElement(scene, {
+    const clonedElement = cloneElement(scene, {
       registerTeardownCallback: (callback: TeardownCallback) => {
         teardown = callback
       },

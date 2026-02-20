@@ -1,10 +1,10 @@
 import ResultScene from '@bemuse/components/result/ResultScene.js'
 import configureStore from '@bemuse/redux/configureStore.js'
 import { SceneManager } from '@bemuse/scene-manager'
-import React from 'react'
+import { Fragment } from 'react'
 import { Provider } from 'react-redux'
 
-const sceneManager = new SceneManager(React.Fragment)
+const sceneManager = new SceneManager(Fragment)
 
 export function main() {
   const props = {

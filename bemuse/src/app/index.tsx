@@ -11,10 +11,11 @@ import {
 } from '@bemuse/scene-manager/index.js'
 import now from '@bemuse/utils/now.js'
 import { monetize } from 'monetizer'
-import React from 'react'
 import { Provider } from 'react-redux'
 
 import * as BemuseTestMode from '../debug/BemuseTestMode.js'
+import configureStore from '../redux/configureStore.js'
+import * as ReduxState from '../redux/ReduxState.js'
 import * as Analytics from './analytics.js'
 import { isBrowserSupported } from './browser-support.js'
 import { musicSearchTextSlice } from './entities/MusicSearchText.js'
@@ -24,8 +25,6 @@ import {
   getMusicServer,
   getTimeSynchroServer,
 } from './query-flags.js'
-import configureStore from '../redux/configureStore.js'
-import * as ReduxState from '../redux/ReduxState.js'
 import AboutScene from './ui/AboutScene.js'
 import BrowserSupportWarningScene from './ui/BrowserSupportWarningScene.js'
 import ModeSelectScene from './ui/ModeSelectScene.js'
@@ -103,7 +102,7 @@ function getFirstScene() {
     return <MusicSelectScene />
   }
 
-  const scene = React.createElement(TitleScene)
+  const scene = <TitleScene />
   if (!isBrowserSupported()) {
     return <BrowserSupportWarningScene next={scene} />
   }

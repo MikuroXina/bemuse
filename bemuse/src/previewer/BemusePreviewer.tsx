@@ -2,7 +2,7 @@ import './BemusePreviewer.scss'
 
 import { showAlert, showQuickPick } from '@bemuse/ui-dialogs/index.js'
 import _ from 'lodash'
-import React, { useEffect, useReducer, useRef, useState } from 'react'
+import { useEffect, useReducer, useRef, useState } from 'react'
 
 import {
   createNullNotechartPreview,

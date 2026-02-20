@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import React, { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { NotechartPreview } from './NotechartPreview.js'
 import { PreviewState } from './PreviewState.js'
@@ -64,7 +64,7 @@ export const PreviewCanvas = (props: PreviewCanvas) => {
   const keymap = 'SCs 1 2b 3 4g 5 6b 7 - 8 9b 10 11g 12 13b 14 SC2s'
   const notesImage = useImage('/skins/default/Note/DX/Note.png')
   const landmineImage = useImage('/skins/default/Note/DX/Landmine.png')
-  const canvasRef = React.useRef<HTMLCanvasElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
 
   const layout = useMemo(() => new PreviewLayout(keymap), [keymap])
   const width = layout.totalWidth + 1
@@ -215,7 +215,7 @@ export const PreviewCanvas = (props: PreviewCanvas) => {
 }
 
 function useImage(src: string) {
-  const [image, setImage] = React.useState<HTMLImageElement | null>(null)
+  const [image, setImage] = useState<HTMLImageElement | null>(null)
   useEffect(() => {
     const img = new Image()
     img.src = src
