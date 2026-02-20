@@ -18,7 +18,7 @@ export default function Boot({ hidden, status = 'Loading page' }: BootProps) {
               Bemuse <span>{`v${version}`}</span>
             </strong>
           </div>
-          <div>${status}</div>
+          <div>{status}</div>
         </div>
       </div>
     </div>
