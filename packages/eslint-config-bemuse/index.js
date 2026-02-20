@@ -1,6 +1,6 @@
 import pluginJs from '@eslint/js'
+import eslintConfigPrettier from 'eslint-config-prettier/flat'
 import nodePlugin from 'eslint-plugin-n'
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 import reactJSXRuntime from 'eslint-plugin-react/configs/jsx-runtime.js'
 import reactRecommended from 'eslint-plugin-react/configs/recommended.js'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
@@ -98,5 +98,5 @@ export default [
       'n/no-unpublished-import': 'off',
     },
   },
-  eslintPluginPrettierRecommended,
+  eslintConfigPrettier,
 ]
