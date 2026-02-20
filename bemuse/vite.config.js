@@ -43,14 +43,32 @@ const { name, version } = buildInfo()
 export default defineConfig({
   plugins: [
     tsconfigPaths(),
+    {
+      ...nodePolyfills({
+        include: [
+          'buffer',
+          'crypto',
+          'fs',
+          'os',
+          'path',
+          'stream',
+          'util',
+          'vm',
+        ],
+        protocolImports: true,
+      }),
+      resolveId(source) {
+        const m =
+          /^vite-plugin-node-polyfills\/shims\/(buffer|global|process)$/.exec(
+            source
+          )
+        if (m) {
+          return `node_modules/vite-plugin-node-polyfills/shims/${m[1]}/dist/index.cjs`
+        }
+      },
+    },
     peggy(),
     react(),
-    nodePolyfills({
-      include: ['buffer', 'crypto', 'os', 'path', 'stream', 'util', 'vm'],
-      globals: {
-        Buffer: true,
-      },
-    }),
   ],
   appType: 'mpa',
   base: './',
@@ -59,13 +77,55 @@ export default defineConfig({
     _BEMUSE_BUILD_VERSION: JSON.stringify(version),
   },
   resolve: {
-    alias: {
-      '@bemuse': resolve(__dirname, './src'),
-    },
+    alias: [
+      {
+        find: '@bemuse',
+        replacement: resolve(__dirname, './src'),
+      },
+      {
+        find: /^(vite-plugin-node-polyfills\/shims\/.+)/,
+        replacement: '$1',
+        customResolver(source) {
+          return import.meta.resolve(source).replace(/^file:\/\//, '')
+        },
+      },
+    ],
   },
   assetsInclude: ['../CHANGELOG.md', '../public/**/*'],
   worker: {
     format: 'es',
+  },
+  build: {
+    commonjsOptions: {
+      include: ['bemuse-chardet'],
+    },
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('app/')) {
+            return 'app'
+          }
+          if (id.includes('music-collection-viewer/')) {
+            return 'music'
+          }
+          if (id.includes('coming-soon/')) {
+            return 'coming-soon'
+          }
+          if (id.includes('auto-synchro/')) {
+            return 'sync'
+          }
+          if (id.includes('game/')) {
+            return 'game'
+          }
+          if (id.includes('devtools/')) {
+            return 'playground'
+          }
+          if (id.includes('previewer/')) {
+            return 'previewer'
+          }
+        },
+      },
+    },
   },
   optimizeDeps: {
     force: true,
