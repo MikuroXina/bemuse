@@ -1,3 +1,5 @@
+import { inspect } from 'node:util'
+
 import type { Song } from '@bemuse/collection-model/types.js'
 import getPlayableCharts from '@bemuse/music-collection/getPlayableCharts.js'
 import getPreviewResourceUrl from '@bemuse/music-collection/getPreviewResourceUrl.js'
@@ -6,7 +8,6 @@ import sortSongs from '@bemuse/music-collection/sortSongs.js'
 import MusicSelectPreviewer from '@bemuse/music-previewer/MusicSelectPreviewer.js'
 import _ from 'lodash'
 import { useState } from 'react'
-import { inspect } from 'util'
 
 type Sorter = (songs: readonly Song[]) => {
   title: string

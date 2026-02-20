@@ -1,4 +1,4 @@
-import { detect } from 'bemuse-chardet'
+import * as chardet from 'chardet'
 
 import type { ReaderOptions } from './types.js'
 
@@ -10,7 +10,7 @@ export function readAsync(
   buffer: Buffer,
   options: ReaderOptions | null
 ): Promise<string> {
-  const charset = (options && options.forceEncoding) || detect(buffer)
+  const charset = (options && options.forceEncoding) || chardet.detect(buffer)
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.onload = function () {
@@ -19,7 +19,7 @@ export function readAsync(
     reader.onerror = function () {
       reject(new Error('cannot read it'))
     }
-    reader.readAsText(new Blob([buffer as BlobPart]), charset)
+    reader.readAsText(new Blob([buffer as BlobPart]), charset ?? 'utf-8')
   })
 }
 

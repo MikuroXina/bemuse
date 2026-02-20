@@ -55,6 +55,9 @@ export default defineConfig({
           'util',
           'vm',
         ],
+        globals: {
+          process: true,
+        },
         protocolImports: true,
       }),
       resolveId(source) {
@@ -96,13 +99,14 @@ export default defineConfig({
     format: 'es',
   },
   build: {
+    sourcemap: true,
     commonjsOptions: {
-      include: ['bemuse-chardet'],
+      include: [/node_modules/],
     },
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes('app/')) {
+          if (id.includes('app/') || id.includes('game/')) {
             return 'app'
           }
           if (id.includes('music-collection-viewer/')) {
@@ -113,9 +117,6 @@ export default defineConfig({
           }
           if (id.includes('auto-synchro/')) {
             return 'sync'
-          }
-          if (id.includes('game/')) {
-            return 'game'
           }
           if (id.includes('devtools/')) {
             return 'playground'
@@ -135,6 +136,9 @@ export default defineConfig({
       },
     },
     include: [
+      'lodash.uniq',
+      'chardet',
+      'iconv-lite',
       'bemuse-indexer',
       'node:util',
       'vite-plugin-node-polyfills/shims/buffer',

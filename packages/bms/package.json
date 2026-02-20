@@ -76,7 +76,7 @@
     "wireit": "^0.14.12"
   },
   "dependencies": {
-    "bemuse-chardet": "0.0.8",
+    "chardet": "^2.1.1",
     "data-structure": "^1.2.0",
     "iconv-lite": "^0.4.24",
     "invariant": "^2.2.4",

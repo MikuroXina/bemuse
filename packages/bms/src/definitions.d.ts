@@ -16,10 +16,3 @@ declare module 'data-structure' {
   }
   export = DataStructure
 }
-
-declare module 'bemuse-chardet' {
-  const BemuseChardet: {
-    detect(buffer: Buffer): string
-  }
-  export = BemuseChardet
-}

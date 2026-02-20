@@ -4,8 +4,8 @@
 // The Reader follows [ruv-it!’s algorithm](http://hitkey.nekokan.dyndns.info/cmds.htm#CHARSET)
 // for detecting the character set.
 //
-import { detect } from 'bemuse-chardet'
-import iconv from 'iconv-lite'
+import * as chardet from 'chardet'
+import * as iconv from 'iconv-lite'
 
 import { ReaderOptions } from './types.js'
 
@@ -18,8 +18,8 @@ export function read(
   buffer: Buffer,
   options: ReaderOptions | null = null
 ): string {
-  const charset = (options && options.forceEncoding) || detect(buffer)
-  const text = iconv.decode(buffer, charset)
+  const charset = (options && options.forceEncoding) || chardet.detect(buffer)
+  const text = iconv.decode(buffer, charset ?? 'utf-8')
   if (text.charCodeAt(0) === 0xfeff) {
     // BOM?!
     return text.slice(1)
