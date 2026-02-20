@@ -118,9 +118,9 @@ jobs:
       - name: Playwright setup
         run: pnpx playwright install --with-deps
       - name: Build
-        run: pnpm run --filter bemuse build
+        run: pnpm run build
       - name: Test
-        run: pnpm run --filter bemuse test
+        run: pnpm run test
         working-directory: bemuse
       - uses: codecov/codecov-action@v5
         with:
