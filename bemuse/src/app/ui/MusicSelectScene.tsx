@@ -19,11 +19,6 @@ import { ChangeEvent, MouseEvent, useContext, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createSelector, createStructuredSelector } from 'reselect'
 
-import * as Analytics from '../analytics.js'
-import * as Options from '../entities/Options.js'
-import * as MusicSearchIO from '../io/MusicSearchIO.js'
-import * as MusicSelectionIO from '../io/MusicSelectionIO.js'
-import { hasPendingArchiveToLoad } from '../PreloadedCustomBMS.js'
 import {
   selectChartsForSelectedSong,
   selectCurrentCollectionUrl,
@@ -37,6 +32,11 @@ import {
   selectSelectedChart,
   selectSelectedSong,
 } from '../../redux/ReduxState.js'
+import * as Analytics from '../analytics.js'
+import * as Options from '../entities/Options.js'
+import * as MusicSearchIO from '../io/MusicSearchIO.js'
+import * as MusicSelectionIO from '../io/MusicSelectionIO.js'
+import { hasPendingArchiveToLoad } from '../PreloadedCustomBMS.js'
 import MusicInfo from './MusicInfo.js'
 import MusicList from './MusicList.js'
 import RageQuitPopup from './RageQuitPopup.js'
