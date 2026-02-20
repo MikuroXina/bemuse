@@ -35,7 +35,7 @@ jobs:
           SCOREBOARD_SERVER: ${{ secrets.SCOREBOARD_SERVER }}
       - name: Compress build output
         if: always()
-        run: tar -cvzf dist.tar.gz dist
+        run: tar -cvzf dist.tar.gz bemuse/dist
       - name: Checks
         run: pnpm run --filter bemuse pre-deploy
       - name: Release
