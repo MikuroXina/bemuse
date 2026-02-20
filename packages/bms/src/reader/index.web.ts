@@ -19,7 +19,7 @@ export function readAsync(
     reader.onerror = function () {
       reject(new Error('cannot read it'))
     }
-    reader.readAsText(new Blob([buffer]), charset)
+    reader.readAsText(new Blob([buffer as BlobPart]), charset)
   })
 }
 
