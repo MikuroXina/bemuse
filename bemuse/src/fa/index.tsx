@@ -6,7 +6,6 @@ import { faGear } from '@fortawesome/free-solid-svg-icons/faGear'
 import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons/faSpinner'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { FC } from 'react'
 
 const icons = {
   play: faPlay,
@@ -21,6 +20,6 @@ export interface Icon {
   spin?: boolean
 }
 
-export const Icon: FC<Icon> = (props) => {
+export const Icon = (props: Icon) => {
   return <FontAwesomeIcon icon={icons[props.name]} spin={props.spin} />
 }

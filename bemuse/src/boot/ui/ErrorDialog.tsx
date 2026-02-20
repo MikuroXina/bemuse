@@ -1,7 +1,5 @@
 import './ErrorDialog.scss'
 
-import React from 'react'
-
 export interface ErrorDialogProps {
   onClose: () => void
   message: string

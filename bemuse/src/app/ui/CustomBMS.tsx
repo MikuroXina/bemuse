@@ -1,18 +1,18 @@
 import './CustomBMS.scss'
 
-import { Song } from '@bemuse/collection-model/types'
-import Panel from '@bemuse/ui/Panel'
+import { Song } from '@bemuse/collection-model/types.js'
+import Panel from '@bemuse/ui/Panel.js'
 import c from 'classnames'
-import React, { DragEventHandler, useEffect, useRef, useState } from 'react'
+import { DragEventHandler, useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-import * as Analytics from '../analytics'
-import { useCustomSongLoaderLog } from '../CustomSongs'
+import * as Analytics from '../analytics.js'
+import { useCustomSongLoaderLog } from '../CustomSongs.js'
 import * as CustomSongsIO from '../io/CustomSongsIO.js'
 import {
   consumePendingArchiveURL,
   hasPendingArchiveToLoad,
-} from '../PreloadedCustomBMS'
+} from '../PreloadedCustomBMS.js'
 
 export interface CustomBMSProps {
   onSongLoaded?: (song: Song) => void

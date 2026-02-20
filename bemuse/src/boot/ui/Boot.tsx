@@ -1,7 +1,6 @@
 import './Boot.scss'
 
 import version from '@bemuse/utils/version.js'
-import React from 'react'
 
 export interface BootProps {
   hidden?: boolean

@@ -1,6 +1,6 @@
 import './OptionsPlayer.scss'
 
-import React from 'react'
+import type { ReactNode } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import {
@@ -15,14 +15,14 @@ import {
   panelPlacement,
   scratchPosition,
   speed,
-} from '../entities/Options'
-import { selectOptions } from '../redux/ReduxState'
-import OptionsButton from './OptionsButton'
-import OptionsCheckbox from './OptionsCheckbox'
-import OptionsInputField from './OptionsInputField'
-import { Panel, Scratch } from './OptionsPlayerGraphics'
-import { OptionsPlayerSelector } from './OptionsPlayerSelector'
-import OptionsSpeed from './OptionsSpeed'
+} from '../entities/Options.js'
+import { selectOptions } from '../redux/ReduxState.js'
+import OptionsButton from './OptionsButton.js'
+import OptionsCheckbox from './OptionsCheckbox.js'
+import OptionsInputField from './OptionsInputField.js'
+import { Panel, Scratch } from './OptionsPlayerGraphics.js'
+import { OptionsPlayerSelector } from './OptionsPlayerSelector.js'
+import OptionsSpeed from './OptionsSpeed.js'
 
 interface SettingRowProps {
   label: string

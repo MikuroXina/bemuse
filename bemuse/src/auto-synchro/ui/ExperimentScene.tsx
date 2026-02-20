@@ -1,7 +1,7 @@
 import './ExperimentScene.scss'
 
 import c from 'classnames'
-import React, { MouseEventHandler } from 'react'
+import type { MouseEventHandler } from 'react'
 import { useObservable } from 'react-rx'
 import { Observable } from 'rxjs'
 

@@ -1,9 +1,9 @@
 import './LoadingSceneProgress.scss'
 
-import { Observable } from '@bemuse/utils/observable'
-import React, { useEffect, useState } from 'react'
+import { Observable } from '@bemuse/utils/observable.js'
+import { useEffect, useState } from 'react'
 
-import LoadingSceneProgressBar from './LoadingSceneProgressBar'
+import LoadingSceneProgressBar from './LoadingSceneProgressBar.js'
 
 const Item = ({ text, progressText, progress }: TaskItem) => {
   const width = Math.round(progress * 100 || 0).toString() + '%'

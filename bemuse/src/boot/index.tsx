@@ -8,7 +8,6 @@ import '../ui/fonts.scss'
 import '../ui/global.scss'
 
 import attachFastClick from 'fastclick'
-import React from 'react'
 import { createRoot } from 'react-dom/client'
 
 import query from '../utils/query.js'

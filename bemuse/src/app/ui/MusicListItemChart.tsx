@@ -1,11 +1,11 @@
 import './MusicListItemChart.scss'
 
-import { getGrade } from '@bemuse/rules/grade'
+import { getGrade } from '@bemuse/rules/grade.js'
 import { Chart } from 'bemuse-types'
 import c from 'classnames'
-import React, { MouseEvent } from 'react'
+import type { MouseEvent } from 'react'
 
-import { usePersonalRecord } from './usePersonalRecord'
+import { usePersonalRecord } from './usePersonalRecord.js'
 
 export interface MusicListItemChartProps {
   chart: Chart

@@ -1,6 +1,6 @@
 import './PreviewInfo.scss'
 
-import React, { ReactNode, useMemo } from 'react'
+import { ReactNode, useMemo } from 'react'
 
 import { BarDot } from './BarDot.js'
 import { MeasureInfo, NotechartPreview } from './NotechartPreview.js'

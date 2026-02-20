@@ -11,7 +11,7 @@ export function start<T, R>(
       progressText: string
     }[]
   >
-  promise: PromiseLike<R>
+  promise: Promise<R>
   get: <N extends keyof T>(name: N) => PromiseLike<T[N]>
 }
 

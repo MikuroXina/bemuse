@@ -49,7 +49,7 @@ export class SongInfo implements ISongInfoData {
    * Constructs a SongInfo with given data
    * @param info the properties to set on this new instance
    */
-  constructor(info: { [propertyName: string]: any }) {
+  constructor(info: { [propertyName: string]: unknown }) {
     /** the song title */
     this.title = 'NO TITLE'
     /** the song artist */

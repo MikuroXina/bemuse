@@ -1,6 +1,6 @@
 // !! avoid external dependencies since this is used in boot script!
 
-import Callbacks from '@bemuse/utils/callbacks'
+import Callbacks from '@bemuse/utils/callbacks.js'
 
 export class Observable<T> {
   private _callbacks = new Callbacks<[T]>()

@@ -1,7 +1,6 @@
 import './OptionsInputKey.scss'
 
 import c from 'classnames'
-import React from 'react'
 
 export interface OptionsInputKeyProps {
   text: string

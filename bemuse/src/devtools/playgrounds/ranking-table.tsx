@@ -1,9 +1,8 @@
 import './ranking-table-playground.scss'
 
-import Ranking from '@bemuse/app/ui/Ranking'
-import { ScoreboardDataEntry } from '@bemuse/online'
-import { sceneRoot } from '@bemuse/utils/main-element'
-import React from 'react'
+import Ranking from '@bemuse/app/ui/Ranking.js'
+import type { ScoreboardDataEntry } from '@bemuse/online/index.js'
+import { sceneRoot } from '@bemuse/utils/main-element.js'
 
 const players: ScoreboardDataEntry[] = [
   {

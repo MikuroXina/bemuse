@@ -1,6 +1,5 @@
-import { BarDot } from '@bemuse/previewer/BarDot'
-import { sceneRoot } from '@bemuse/utils/main-element'
-import React from 'react'
+import { BarDot } from '@bemuse/previewer/BarDot.js'
+import { sceneRoot } from '@bemuse/utils/main-element.js'
 
 export function main() {
   sceneRoot.render(

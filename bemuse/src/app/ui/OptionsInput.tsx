@@ -1,9 +1,9 @@
 import './OptionsInput.scss'
 
-import OmniInput, { getName, key川 } from '@bemuse/omni-input'
+import OmniInput, { getName, key川 } from '@bemuse/omni-input/index.js'
 import c from 'classnames'
 import _ from 'lodash'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createSelector } from 'reselect'
 import { tap, throttleTime } from 'rxjs'
@@ -16,13 +16,13 @@ import {
   playMode,
   scratchPosition,
   sensitivity,
-} from '../entities/Options'
-import { AppState } from '../redux/ReduxState'
-import OptionsButton from './OptionsButton'
-import OptionsCheckbox from './OptionsCheckbox'
-import OptionsInputField from './OptionsInputField'
-import OptionsInputKeys from './OptionsInputKeys'
-import OptionsInputScratch from './OptionsInputScratch'
+} from '../entities/Options.js'
+import { AppState } from '../redux/ReduxState.js'
+import OptionsButton from './OptionsButton.js'
+import OptionsCheckbox from './OptionsCheckbox.js'
+import OptionsInputField from './OptionsInputField.js'
+import OptionsInputKeys from './OptionsInputKeys.js'
+import OptionsInputScratch from './OptionsInputScratch.js'
 
 const selectKeyboardMapping = createSelector(
   (state: AppState) => state.options,

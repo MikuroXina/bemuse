@@ -1,6 +1,6 @@
 import './OptionsPlayerSelector.scss'
 
-import React, { memo, ReactNode } from 'react'
+import { memo, ReactNode } from 'react'
 
 export interface OptionsPlayerSelectorProps<T extends string> {
   onSelect: (item: T) => void

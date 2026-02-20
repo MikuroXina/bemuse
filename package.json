@@ -1,6 +1,7 @@
 {
   "scripts": {
     "build": "wireit",
+    "lint": "wireit",
     "test": "wireit",
     "coverage": "wireit",
     "build-packages": "wireit",
@@ -12,6 +13,19 @@
       "dependencies": [
         "build-packages",
         "./bemuse:build"
+      ]
+    },
+    "lint": {
+      "dependencies": [
+        "./bemuse:lint",
+        "./e2e:lint",
+        "./packages/bemuse-indexer:lint",
+        "./packages/bemuse-notechart:lint",
+        "./packages/bemuse-tools:lint",
+        "./packages/bms:lint",
+        "./packages/bmson:lint",
+        "./packages/monetizer:lint",
+        "./website:lint"
       ]
     },
     "test": {

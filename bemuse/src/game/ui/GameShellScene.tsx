@@ -7,7 +7,7 @@ import {
 import DndResources from '@bemuse/resources/dnd-resources.js'
 import type { IResource, IResources } from '@bemuse/resources/types.js'
 import c from 'classnames'
-import React, { ChangeEvent, DragEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, DragEvent, FormEvent, useState } from 'react'
 
 interface BmsEntry {
   name: string
@@ -149,7 +149,7 @@ const GameShellScene = ({
       setOptions((options) => ({ ...options, resources }))
     } catch (err) {
       if (err instanceof MediaError) {
-        throw new Error('File Error code ' + err.code)
+        throw new Error('File Error', { cause: err })
       } else {
         throw err
       }

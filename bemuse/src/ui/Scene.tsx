@@ -1,7 +1,7 @@
 import './Scene.scss'
 
 import c from 'classnames'
-import React, { DragEvent, ForwardedRef, forwardRef } from 'react'
+import { DragEvent, ForwardedRef, forwardRef, ReactNode } from 'react'
 
 export interface SceneProps {
   className: string

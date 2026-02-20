@@ -1,11 +1,11 @@
 import './Ranking.scss'
 
-import { RankingState } from '@bemuse/online'
-import { isWaiting } from '@bemuse/online/operations'
-import AuthenticationPopup from '@bemuse/online/ui/AuthenticationPopup'
-import React, { useState } from 'react'
+import { RankingState } from '@bemuse/online/index.js'
+import { isWaiting } from '@bemuse/online/operations.js'
+import AuthenticationPopup from '@bemuse/online/ui/AuthenticationPopup.js'
+import { ReactNode, useState } from 'react'
 
-import RankingTable, { Message, Row } from './RankingTable'
+import RankingTable, { Message, Row } from './RankingTable.js'
 
 const Error = ({
   text,

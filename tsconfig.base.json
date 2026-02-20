@@ -3,7 +3,7 @@
     "allowJs": true,
     "esModuleInterop": true,
     "downlevelIteration": true,
-    "lib": ["es5", "es6", "dom"],
+    "lib": ["es2024", "dom"],
     "noUnusedLocals": true,
     "pretty": true,
     "skipLibCheck": true,

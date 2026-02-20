@@ -1,12 +1,12 @@
 import './MusicInfoTabStats.scss'
 
-import { Icon } from '@bemuse/fa'
-import { useCurrentUser } from '@bemuse/online/hooks'
-import { formattedAccuracyForRecord } from '@bemuse/rules/accuracy'
-import React, { ReactNode } from 'react'
+import { Icon } from '@bemuse/fa/index.js'
+import { useCurrentUser } from '@bemuse/online/hooks.js'
+import { formattedAccuracyForRecord } from '@bemuse/rules/accuracy.js'
+import type { ReactNode } from 'react'
 
-import formatTime from '../../utils/formatTime'
-import { usePersonalRecord } from './usePersonalRecord'
+import formatTime from '../../utils/formatTime.js'
+import { usePersonalRecord } from './usePersonalRecord.js'
 
 export interface PartialChart {
   md5: string

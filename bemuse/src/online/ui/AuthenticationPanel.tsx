@@ -1,16 +1,16 @@
 import './AuthenticationPanel.scss'
 
 import djBemuse from '@bemuse/app/ui/about-scene/DJBM.png'
-import { OnlineContext } from '@bemuse/online/instance'
-import Flex from '@bemuse/ui/Flex'
-import Panel from '@bemuse/ui/Panel'
+import { OnlineContext } from '@bemuse/online/instance.js'
+import Flex from '@bemuse/ui/Flex.js'
+import Panel from '@bemuse/ui/Panel.js'
 import c from 'classnames'
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 
 import AuthenticationForm, {
   AuthenticationFormData,
   AuthMode,
-} from './AuthenticationForm'
+} from './AuthenticationForm.js'
 
 export interface AuthenticationPanelProps {
   onFinish?: () => void

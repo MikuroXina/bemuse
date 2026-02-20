@@ -1,6 +1,6 @@
 import './ModalPopup.scss'
 
-import React, { MouseEvent } from 'react'
+import type { MouseEvent, ReactNode } from 'react'
 
 import WarpContainer from './WarpContainer.js'
 

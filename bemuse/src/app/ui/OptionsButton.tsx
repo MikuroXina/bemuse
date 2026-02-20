@@ -1,6 +1,6 @@
 import './OptionsButton.scss'
 
-import React, { MouseEvent } from 'react'
+import type { MouseEvent, ReactNode } from 'react'
 
 const OptionsButton = ({
   children,

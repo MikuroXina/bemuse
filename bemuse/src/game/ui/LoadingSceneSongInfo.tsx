@@ -1,7 +1,6 @@
 import './LoadingSceneSongInfo.scss'
 
-import { isTitleDisplayMode } from '@bemuse/devtools/query-flags'
-import React from 'react'
+import { isTitleDisplayMode } from '@bemuse/devtools/query-flags.js'
 
 export interface LoadingSceneSongInfoProps {
   song: {

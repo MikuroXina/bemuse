@@ -70,6 +70,7 @@ export default [
       'no-void': 'off',
       'dot-notation': 'off',
       'object-shorthand': 'off',
+      'n/no-missing-import': 'off',
 
       // These should be errors, but we just added them and there are too many
       // violations to fix right now.

@@ -1,7 +1,6 @@
 import './OptionsInputScratch.scss'
 
 import c from 'classnames'
-import React from 'react'
 
 export interface OptionsInputScratchProps {
   text: readonly [string, string]

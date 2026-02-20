@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { expect, Page, test, TestInfo } from '@playwright/test'
 
 test('Gameplay smoke test', async ({ page }, testInfo) => {

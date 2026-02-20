@@ -1,7 +1,5 @@
 import './BarDot.scss'
 
-import React from 'react'
-
 export interface BarDot {
   fraction: number
   fill: string

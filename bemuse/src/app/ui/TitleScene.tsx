@@ -5,7 +5,7 @@ import HomePage from '@bemuse/site/HomePage.js'
 import ModalPopup from '@bemuse/ui/ModalPopup.js'
 import Scene from '@bemuse/ui/Scene.js'
 import version from '@bemuse/utils/version.js'
-import React, { MouseEvent, useContext, useState } from 'react'
+import { MouseEvent, useContext, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import * as Analytics from '../analytics.js'

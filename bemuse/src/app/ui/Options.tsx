@@ -1,11 +1,10 @@
 import './Options.scss'
 
-import Panel from '@bemuse/ui/Panel'
-import React from 'react'
+import Panel from '@bemuse/ui/Panel.js'
 
-import OptionsAdvanced from './OptionsAdvanced'
-import OptionsInput from './OptionsInput'
-import OptionsPlayer from './OptionsPlayer'
+import OptionsAdvanced from './OptionsAdvanced.js'
+import OptionsInput from './OptionsInput.js'
+import OptionsPlayer from './OptionsPlayer.js'
 
 export interface OptionsProps {
   onClose?: () => void

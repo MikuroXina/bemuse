@@ -5,7 +5,7 @@ import Panel from '@bemuse/ui/Panel.js'
 import VBox from '@bemuse/ui/VBox.js'
 import WARP from '@bemuse/utils/warp-element.js'
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
-import React, { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
 
 import { ComboBox } from './ComboBox.js'

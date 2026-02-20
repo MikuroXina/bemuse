@@ -1,12 +1,12 @@
 import './OptionsAdvanced.scss'
 
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import * as Options from '../entities/Options'
-import { selectOptions } from '../redux/ReduxState'
-import OptionsButton from './OptionsButton'
-import OptionsInputField from './OptionsInputField'
+import * as Options from '../entities/Options.js'
+import { selectOptions } from '../redux/ReduxState.js'
+import OptionsButton from './OptionsButton.js'
+import OptionsInputField from './OptionsInputField.js'
 
 const stringifyLatency = (latency: number): string => {
   return Math.round(latency) + 'ms'

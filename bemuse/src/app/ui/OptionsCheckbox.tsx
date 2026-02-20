@@ -1,6 +1,6 @@
 import './OptionsCheckbox.scss'
 
-import React from 'react'
+import type { ReactNode } from 'react'
 
 const OptionsCheckbox = ({
   checked,

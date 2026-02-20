@@ -9,6 +9,7 @@
       "@bemuse/*": ["./src/*"]
     },
     "target": "ES2019",
-    "module": "node16"
+    "module": "node16",
+    "jsx": "react-jsx"
   }
 }

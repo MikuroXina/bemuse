@@ -1,6 +1,6 @@
 import './style.scss'
 
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { createRoot } from 'react-dom/client'
 
 export function main() {

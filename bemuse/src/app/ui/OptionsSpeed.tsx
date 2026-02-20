@@ -1,9 +1,9 @@
 import './OptionsSpeed.scss'
 
-import React, { memo } from 'react'
+import { memo } from 'react'
 
-import OptionsButton from './OptionsButton'
-import OptionsInputField from './OptionsInputField'
+import OptionsButton from './OptionsButton.js'
+import OptionsInputField from './OptionsInputField.js'
 
 export interface OptionsSpeedProps {
   value: string

@@ -13,7 +13,6 @@ import { unmuteAudio } from '@bemuse/sampling-master/index.js'
 import { ReactScene, SceneManager } from '@bemuse/scene-manager/index.js'
 import query from '@bemuse/utils/query.js'
 import invariant from 'invariant'
-import React from 'react'
 
 import * as Analytics from './analytics.js'
 import * as Options from './entities/Options.js'
@@ -148,13 +147,11 @@ async function launchGame(
 
   // set video options
   if (Options.isBackgroundAnimationsEnabled(options)) {
-    loadSpec.videoUrl = await findVideoUrl(song, loadSpec.assets)
+    loadSpec.videoUrl = await findVideoUrl(song, loadSpec.assets!)
     loadSpec.videoOffset = +(song.video_offset || 0)
   }
 
-  let replay = false
-
-  do {
+  while (true) {
     // start loading the game
     const loadStart = Date.now()
     setCurrentWork('loading the game')
@@ -175,7 +172,6 @@ async function launchGame(
       />
     )
     await sceneDisplayContext.showScene(loadingScene)
-    replay = false
 
     // if in title display mode, stop here
     if (isTitleDisplayMode()) return
@@ -216,6 +212,7 @@ async function launchGame(
 
     // send data to analytics & display evaluation
     window.removeEventListener('beforeunload', onUnload, false)
+    let replay
     if (state.finished) {
       setCurrentWork('showing game results')
       Analytics.gameFinish(song, chart, state, gameMode)
@@ -235,7 +232,10 @@ async function launchGame(
       }
     }
     controller.destroy()
-  } while (replay)
+    if (!replay) {
+      break
+    }
+  }
 }
 
 async function findVideoUrl(song: Song, assets: LoadSpec['assets']) {

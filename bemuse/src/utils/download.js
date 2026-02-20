@@ -1,4 +1,4 @@
-import { BYTES_FORMATTER } from '@bemuse/progress/formatters'
+import { BYTES_FORMATTER } from '@bemuse/progress/formatters.js'
 import delay from 'delay'
 
 // Downloads the file from the URL.

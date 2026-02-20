@@ -5,6 +5,9 @@
   "type": "module",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
+  "engines": {
+    "node": ">=24.0.0"
+  },
   "files": [
     "src",
     "lib"

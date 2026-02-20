@@ -15,7 +15,7 @@ import {
 } from '@bemuse/online/operations.js'
 import { ScoreCount } from '@bemuse/rules/accuracy.js'
 import { MappingMode } from '@bemuse/rules/mapping-mode.js'
-import React, { FC, useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { UseMutationResult, UseQueryResult } from 'react-query'
 
 import Ranking from './Ranking.js'
@@ -154,11 +154,11 @@ function operationFromResult<T>(
     return loading()
   }
   if (result.isError) {
-    return error(result.error)
+    return error(result.error as Error)
   }
   return completed(result.data!)
 }
 
-export default (isQueryFlagEnabled('old-ranking')
+export default isQueryFlagEnabled('old-ranking')
   ? OldRankingContainer
-  : NewRankingContainer) as FC<RankingContainerProps>
+  : NewRankingContainer

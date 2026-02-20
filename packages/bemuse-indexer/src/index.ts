@@ -147,8 +147,8 @@ export async function getSongInfo(
       get(md5: string): OutputFileInfo
       put(md5: string, info: OutputFileInfo): void
     }
-    extra?: any
-    onProgress?: any
+    extra?: unknown
+    onProgress?: (processed: number, len: number, name: string) => void
     onError?: (error: Error, name: string) => void
     getFileInfo?: typeof getFileInfo
   }

@@ -1,18 +1,21 @@
-import { isScratchPosition } from '@bemuse/app/entities/Options'
-import configureStore from '@bemuse/app/redux/configureStore'
-import audioContext from '@bemuse/audio-context'
-import BemusePackageResources from '@bemuse/resources/bemuse-package'
-import URLResource from '@bemuse/resources/url'
-import { unmuteAudio } from '@bemuse/sampling-master'
-import { SceneManager, SceneManagerContext } from '@bemuse/scene-manager'
-import query from '@bemuse/utils/query'
-import React from 'react'
+import { isScratchPosition } from '@bemuse/app/entities/Options.js'
+import configureStore from '@bemuse/app/redux/configureStore.js'
+import audioContext from '@bemuse/audio-context/index.js'
+import BemusePackageResources from '@bemuse/resources/bemuse-package.js'
+import type { IResource } from '@bemuse/resources/types.js'
+import URLResource from '@bemuse/resources/url.js'
+import { unmuteAudio } from '@bemuse/sampling-master/index.js'
+import {
+  SceneManager,
+  SceneManagerContext,
+} from '@bemuse/scene-manager/index.js'
+import query from '@bemuse/utils/query.js'
 import { Provider } from 'react-redux'
 
-import GameScene from './game-scene'
-import * as GameLoader from './loaders/game-loader'
-import GameShellScene, { OptionsDraft } from './ui/GameShellScene'
-import LoadingScene from './ui/LoadingScene'
+import GameScene from './game-scene.js'
+import * as GameLoader from './loaders/game-loader.js'
+import GameShellScene, { OptionsDraft } from './ui/GameShellScene.js'
+import LoadingScene from './ui/LoadingScene.js'
 
 const sceneManager = new SceneManager(({ children }) => (
   <SceneManagerContext.Provider value={sceneManager}>
@@ -83,7 +86,7 @@ export async function main() {
       level: 0,
     }
     return {
-      bms: newOptions.resource || new URLResource(url),
+      bms: newOptions.resource ?? (new URLResource(url) as IResource),
       assets: newOptions.resources || new BemusePackageResources(assetsUrl),
       metadata: metadata,
       options: Object.assign({}, newOptions.game, {

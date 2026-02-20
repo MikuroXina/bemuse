@@ -1,11 +1,11 @@
 import './MusicInfoTabInformation.scss'
 
-import type { Song } from '@bemuse/collection-model/types'
-import Markdown from '@bemuse/ui/Markdown'
-import YouTube from '@bemuse/ui/YouTube'
-import React, { memo } from 'react'
+import type { Song } from '@bemuse/collection-model/types.js'
+import Markdown from '@bemuse/ui/Markdown.js'
+import YouTube from '@bemuse/ui/YouTube.js'
+import { memo } from 'react'
 
-import { useReadme } from '../io/ReadmeIO'
+import { useReadme } from '../io/ReadmeIO.js'
 
 export interface MusicInfoTabInformationProps {
   song: Song

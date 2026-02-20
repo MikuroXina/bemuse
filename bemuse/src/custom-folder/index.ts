@@ -248,16 +248,14 @@ async function updateFolders(
         folder.path,
         state.chartFiles || []
       )
-      const { resources: _unused, ...song } = await loadSongFromResources(
-        resources,
-        {
-          onMessage: (text) => {
-            log(text)
-            setStatus(`${statusPrefix} ${text}`)
-          },
-        }
-      )
+      const song = await loadSongFromResources(resources, {
+        onMessage: (text) => {
+          log(text)
+          setStatus(`${statusPrefix} ${text}`)
+        },
+      })
       if (song.charts.length > 0) {
+        delete song.resources
         songsToSave.push({
           path: folder.path,
           song,

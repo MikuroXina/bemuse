@@ -1,7 +1,7 @@
 import './SceneHeading.scss'
 
 import c from 'classnames'
-import React from 'react'
+import type { ReactNode } from 'react'
 
 export interface SceneHeadingProps {
   className?: string

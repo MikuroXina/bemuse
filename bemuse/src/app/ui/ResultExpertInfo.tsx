@@ -1,9 +1,9 @@
 import mean from 'mean'
-import React, { memo } from 'react'
+import { memo } from 'react'
 import { createSelector, createStructuredSelector } from 'reselect'
 import variance from 'variance'
 
-import getNonMissedDeltas from '../interactors/getNonMissedDeltas'
+import getNonMissedDeltas from '../interactors/getNonMissedDeltas.js'
 
 const getStats = (() => {
   const selectMean = createSelector(getNonMissedDeltas, (deltas) =>

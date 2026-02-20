@@ -5,7 +5,7 @@ import groupSongsIntoCategories from '@bemuse/music-collection/groupSongsIntoCat
 import sortSongs from '@bemuse/music-collection/sortSongs.js'
 import MusicSelectPreviewer from '@bemuse/music-previewer/MusicSelectPreviewer.js'
 import _ from 'lodash'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { inspect } from 'util'
 
 type Sorter = (songs: readonly Song[]) => {
