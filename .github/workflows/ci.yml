@@ -121,7 +121,6 @@ jobs:
         run: pnpm run build
       - name: Test
         run: pnpm run test
-        working-directory: bemuse
       - uses: codecov/codecov-action@v5
         with:
           use_oidc: true
