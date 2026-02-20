@@ -7,8 +7,6 @@ runs:
       uses: actions/setup-node@v6
     - name: Setup pnpm
       uses: pnpm/action-setup@v4
-      with:
-        cache: true
     - name: Setup Rush cache
       uses: ./.github/actions/rush-cache
     - name: Install Deps
