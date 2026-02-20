@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -48,10 +48,11 @@
       }
       body {
         color: #e9e8e7;
-        font: 14px Verdana, sans-serif;
+        font:
+          14px Verdana,
+          sans-serif;
       }
     </style>
-    <!--#include file="includes/newrelic.inc"-->
   </head>
   <body>
     <div id="boot-root"></div>
@@ -59,12 +60,6 @@
       <div id="scene-root"></div>
       <div id="warp-root"></div>
     </main>
-
-    <!-- BEGIN BOOT SCRIPT -->
     <script type="module" src="src/boot/index.tsx"></script>
-    <!-- END BOOT SCRIPT -->
-
-    <!--#include file="includes/ga.inc"-->
-    <!--#include file="includes/amplitude.inc"-->
   </body>
 </html>
