@@ -2,8 +2,11 @@ import {
   getDefaultCustomFolderContext,
   getSongsFromCustomFolders,
 } from '@bemuse/custom-folder/index.js'
-import { shouldShowAbout, shouldShowModeSelect } from '@bemuse/flags/index.js'
-import { isQueryFlagEnabled } from '@bemuse/flags/index.js'
+import {
+  isQueryFlagEnabled,
+  shouldShowAbout,
+  shouldShowModeSelect,
+} from '@bemuse/flags/index.js'
 import { OFFICIAL_SERVER_URL } from '@bemuse/music-collection/index.js'
 import {
   SceneManager,
@@ -45,7 +48,7 @@ const sceneManager = new SceneManager(({ children }) => (
 
 // Allow hot reloading of some modules.
 if (import.meta.hot) {
-  import.meta.hot.accept('./redux/ReduxState', () => {})
+  import.meta.hot.accept('../redux/ReduxState.js', () => {})
 }
 
 function bootUp() {
