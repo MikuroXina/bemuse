@@ -94,7 +94,7 @@ export default defineConfig({
       },
     ],
   },
-  assetsInclude: ['../CHANGELOG.md', '../public/**/*'],
+  assetsInclude: ['../CHANGELOG.md', './public/**/*'],
   worker: {
     format: 'es',
   },
