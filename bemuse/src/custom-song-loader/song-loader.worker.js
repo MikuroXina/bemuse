@@ -1,3 +1,5 @@
+import { Buffer } from 'node:buffer'
+
 import { getSongInfo } from 'bemuse-indexer'
 
 /* global FileReaderSync */
