@@ -14,13 +14,13 @@ import { ReactScene, SceneManager } from '@bemuse/scene-manager/index.js'
 import query from '@bemuse/utils/query.js'
 import invariant from 'invariant'
 
+import GenericErrorScene from '../components/GenericErrorScene.js'
+import ResultScene from '../components/result/ResultScene.js'
 import * as Analytics from './analytics.js'
 import * as Options from './entities/Options.js'
 import createAutoVelocity from './interactors/createAutoVelocity.js'
 import { getSoundVolume } from './query-flags.js'
 import type { StoredOptions } from './types.js'
-import GenericErrorScene from '../components/GenericErrorScene.js'
-import ResultScene from '../components/result/ResultScene.js'
 
 const Log = BemuseLogger.forModule('game-launcher')
 

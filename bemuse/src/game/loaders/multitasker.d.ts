@@ -7,7 +7,7 @@ export function start<T, R>(
   tasks: Observable<
     {
       text: string
-      progress: Progress
+      progress: number
       progressText: string
     }[]
   >
@@ -42,7 +42,7 @@ type TaskFn<T extends Record<string, unknown>> = {
     N extends keyof T,
     D1 extends keyof T,
     D2 extends keyof T,
-    D3 extends keyof T
+    D3 extends keyof T,
   >(
     name: N,
     description: null | string,
@@ -59,7 +59,7 @@ type TaskFn<T extends Record<string, unknown>> = {
     D1 extends keyof T,
     D2 extends keyof T,
     D3 extends keyof T,
-    D4 extends keyof T
+    D4 extends keyof T,
   >(
     name: N,
     description: null | string,
