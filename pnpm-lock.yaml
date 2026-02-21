@@ -345,7 +345,7 @@ importers:
       rollup-plugin-peggy:
         specifier: ^6.1.0
         version: 6.1.0(peggy@5.0.6)(rollup@4.57.1)
-      sass-embedded:
+      sass:
         specifier: ^1.97.3
         version: 1.97.3
       service-worker-webpack:
@@ -12241,7 +12241,8 @@ snapshots:
 
   '@bcoe/v8-coverage@1.0.2': {}
 
-  '@bufbuild/protobuf@2.11.0': {}
+  '@bufbuild/protobuf@2.11.0':
+    optional: true
 
   '@colors/colors@1.5.0':
     optional: true
@@ -16229,7 +16230,6 @@ snapshots:
   chokidar@4.0.3:
     dependencies:
       readdirp: 4.1.2
-    optional: true
 
   chownr@1.1.4: {}
 
@@ -16349,7 +16349,8 @@ snapshots:
 
   colorette@2.0.20: {}
 
-  colorjs.io@0.5.2: {}
+  colorjs.io@0.5.2:
+    optional: true
 
   combine-promises@1.2.0: {}
 
@@ -21792,8 +21793,7 @@ snapshots:
     dependencies:
       picomatch: 2.3.1
 
-  readdirp@4.1.2:
-    optional: true
+  readdirp@4.1.2: {}
 
   rechoir@0.6.2:
     dependencies:
@@ -22308,6 +22308,7 @@ snapshots:
       sass-embedded-unknown-all: 1.97.3
       sass-embedded-win32-arm64: 1.97.3
       sass-embedded-win32-x64: 1.97.3
+    optional: true
 
   sass@1.97.3:
     dependencies:
@@ -22316,7 +22317,6 @@ snapshots:
       source-map-js: 1.2.1
     optionalDependencies:
       '@parcel/watcher': 2.5.6
-    optional: true
 
   sax@1.4.4: {}
 
@@ -22978,8 +22978,10 @@ snapshots:
   sync-child-process@1.0.2:
     dependencies:
       sync-message-port: 1.2.0
+    optional: true
 
-  sync-message-port@1.2.0: {}
+  sync-message-port@1.2.0:
+    optional: true
 
   tagged-tag@1.0.0: {}
 
@@ -23634,7 +23636,8 @@ snapshots:
     dependencies:
       average: 0.0.1
 
-  varint@6.0.0: {}
+  varint@6.0.0:
+    optional: true
 
   vary@1.1.2: {}
 

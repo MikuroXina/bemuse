@@ -127,7 +127,7 @@
     "puppeteer": "^13.7.0",
     "rimraf": "^2.7.1",
     "rollup-plugin-peggy": "^6.1.0",
-    "sass-embedded": "^1.97.3",
+    "sass": "^1.97.3",
     "service-worker-webpack": "^0.0.11",
     "source-map-support": "^0.5.21",
     "stream-browserify": "^3.0.0",
