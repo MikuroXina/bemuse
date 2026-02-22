@@ -1,5 +1,6 @@
 import { execSync } from 'node:child_process'
 import { readFileSync } from 'node:fs'
+import { createRequire } from 'node:module'
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -39,42 +40,42 @@ function buildInfo() {
 
 const { name, version } = buildInfo()
 
+const require = createRequire(import.meta.url)
+const commonPlugins = [
+  nodePolyfills({
+    include: ['buffer', 'crypto', 'fs', 'os', 'path', 'stream', 'util', 'vm'],
+    globals: {
+      process: true,
+    },
+    protocolImports: true,
+  }),
+  {
+    name: 'vite-plugin-node-polyfills:shims-resolver',
+    resolveId(source) {
+      const res =
+        /^vite-plugin-node-polyfills\/shims\/(?<shim>buffer|global|process)/.exec(
+          source
+        )
+      if (res && res.groups) {
+        const { shim } = res.groups
+        const id = require
+          .resolve(`vite-plugin-node-polyfills/shims/${shim}`)
+          .replace('file://', '')
+        return {
+          id,
+          external: false,
+        }
+      }
+      return null
+    },
+  },
+]
+
 // @ts-check
 export default defineConfig({
-  plugins: [
-    tsconfigPaths(),
-    {
-      ...nodePolyfills({
-        include: [
-          'buffer',
-          'crypto',
-          'fs',
-          'os',
-          'path',
-          'stream',
-          'util',
-          'vm',
-        ],
-        globals: {
-          process: true,
-        },
-        protocolImports: true,
-      }),
-      resolveId(source) {
-        const m =
-          /^vite-plugin-node-polyfills\/shims\/(buffer|global|process)$/.exec(
-            source
-          )
-        if (m) {
-          return `node_modules/vite-plugin-node-polyfills/shims/${m[1]}/dist/index.cjs`
-        }
-      },
-    },
-    peggy(),
-    react(),
-  ],
-  appType: 'mpa',
-  base: './',
+  plugins: [...commonPlugins, tsconfigPaths(), peggy(), react()],
+  base: '/',
+  mode: 'production',
   define: {
     _BEMUSE_BUILD_NAME: JSON.stringify(name),
     _BEMUSE_BUILD_VERSION: JSON.stringify(version),
@@ -83,25 +84,22 @@ export default defineConfig({
     alias: [
       {
         find: '@bemuse',
-        replacement: resolve(__dirname, './src'),
-      },
-      {
-        find: /^(vite-plugin-node-polyfills\/shims\/.+)/,
-        replacement: '$1',
-        customResolver(source) {
-          return import.meta.resolve(source).replace(/^file:\/\//, '')
-        },
+        replacement: resolve(import.meta.dirname, './src'),
       },
     ],
   },
   assetsInclude: ['../CHANGELOG.md', './public/**/*'],
   worker: {
     format: 'es',
+    plugins: () => commonPlugins,
   },
   build: {
     sourcemap: true,
     commonjsOptions: {
       include: [/node_modules/],
+    },
+    dynamicImportVarsOptions: {
+      errorWhenNoFilesFound: true,
     },
   },
   optimizeDeps: {
@@ -112,11 +110,7 @@ export default defineConfig({
       },
     },
     include: [
-      'lodash.uniq',
-      'chardet',
-      'iconv-lite',
       'bemuse-indexer',
-      'react',
       'node:util',
       'vite-plugin-node-polyfills/shims/buffer',
       'vite-plugin-node-polyfills/shims/global',
