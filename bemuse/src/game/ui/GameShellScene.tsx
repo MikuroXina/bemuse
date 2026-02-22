@@ -1,13 +1,18 @@
 import './GameShellScene.scss'
 
-import {
+import type {
   PanelPlacement,
   ScratchPosition,
 } from '@bemuse/app/entities/Options.js'
 import DndResources from '@bemuse/resources/dnd-resources.js'
 import type { IResource, IResources } from '@bemuse/resources/types.js'
 import c from 'classnames'
-import { ChangeEvent, DragEvent, FormEvent, useState } from 'react'
+import {
+  type ChangeEvent,
+  type DragEvent,
+  type FormEvent,
+  useState,
+} from 'react'
 
 interface BmsEntry {
   name: string

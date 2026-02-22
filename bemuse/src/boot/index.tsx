@@ -11,7 +11,7 @@ import attachFastClick from 'fastclick'
 import { createRoot } from 'react-dom/client'
 
 import query from '../utils/query.js'
-import loadModule, { Module } from './loader.js'
+import loadModule, { type Module } from './loader.js'
 import Boot from './ui/Boot.js'
 import ErrorDialog from './ui/ErrorDialog.js'
 

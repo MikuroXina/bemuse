@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import type { Draft } from 'immer'
 
 import type { MappingMode } from '../../rules/mapping-mode.js'

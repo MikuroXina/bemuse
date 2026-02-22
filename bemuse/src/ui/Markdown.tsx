@@ -1,5 +1,5 @@
 import Markdown from 'markdown-it'
-import { MouseEvent, useMemo } from 'react'
+import { type MouseEvent, useMemo } from 'react'
 
 const markdown = new Markdown({
   linkify: true,

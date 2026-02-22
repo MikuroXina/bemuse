@@ -1,6 +1,6 @@
 import type { Notechart } from 'bemuse-notechart'
 
-import Player, { PlayerOptionsInput } from './player.js'
+import Player, { type PlayerOptionsInput } from './player.js'
 
 export type GamePlayerOptionsInput = {
   players: Omit<PlayerOptionsInput, 'autosound' | 'tutorial'>[]

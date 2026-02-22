@@ -5,7 +5,13 @@ import FloatingMobileMenu, {
 } from '@bemuse/ui/FloatingMobileMenu.js'
 import SceneToolbar, { SceneToolbarSpacer } from '@bemuse/ui/SceneToolbar.js'
 import TipContainer from '@bemuse/ui/TipContainer.js'
-import { Fragment, memo, MouseEvent, ReactNode, useState } from 'react'
+import {
+  Fragment,
+  memo,
+  type MouseEvent,
+  type ReactNode,
+  useState,
+} from 'react'
 import { WindowSize } from 'react-fns'
 
 import FirstTimeTip from './FirstTimeTip.js'

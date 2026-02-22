@@ -1,4 +1,4 @@
-import Progress from '@bemuse/progress/index.js'
+import type Progress from '@bemuse/progress/index.js'
 import download from '@bemuse/utils/download.js'
 
 import type { IResource, IResources } from './types.js'

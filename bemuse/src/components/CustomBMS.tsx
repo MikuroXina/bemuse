@@ -1,9 +1,9 @@
 import './CustomBMS.scss'
 
-import { Song } from '@bemuse/collection-model/types.js'
+import type { Song } from '@bemuse/collection-model/types.js'
 import Panel from '@bemuse/ui/Panel.js'
 import c from 'classnames'
-import { DragEventHandler, useEffect, useRef, useState } from 'react'
+import { type DragEventHandler, useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import * as Analytics from '../app/analytics.js'

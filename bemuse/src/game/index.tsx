@@ -1,6 +1,6 @@
 import { isScratchPosition } from '@bemuse/app/entities/Options.js'
-import configureStore from '@bemuse/redux/configureStore.js'
 import audioContext from '@bemuse/audio-context/index.js'
+import configureStore from '@bemuse/redux/configureStore.js'
 import BemusePackageResources from '@bemuse/resources/bemuse-package.js'
 import type { IResource } from '@bemuse/resources/types.js'
 import URLResource from '@bemuse/resources/url.js'
@@ -14,7 +14,7 @@ import { Provider } from 'react-redux'
 
 import GameScene from './game-scene.js'
 import type { LoadSpec } from './loaders/load-spec.js'
-import GameShellScene, { OptionsDraft } from './ui/GameShellScene.js'
+import GameShellScene, { type OptionsDraft } from './ui/GameShellScene.js'
 import LoadingScene from './ui/LoadingScene.js'
 
 const sceneManager = new SceneManager(({ children }) => (

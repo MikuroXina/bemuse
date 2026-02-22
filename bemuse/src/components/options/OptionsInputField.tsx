@@ -1,7 +1,7 @@
 import './OptionsInputField.scss'
 
 import _ from 'lodash'
-import { ChangeEvent, ComponentProps, useRef } from 'react'
+import { type ChangeEvent, type ComponentProps, useRef } from 'react'
 
 export interface OptionsInputFieldProps<T> {
   stringify: (x: T) => string

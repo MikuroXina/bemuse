@@ -6,8 +6,8 @@ import { useEffect, useReducer, useRef, useState } from 'react'
 
 import {
   createNullNotechartPreview,
-  NotechartPreview,
-  NotechartPreviewPlayer,
+  type NotechartPreview,
+  type NotechartPreviewPlayer,
 } from './NotechartPreview.js'
 import { PreviewCanvas } from './PreviewCanvas.js'
 import { PreviewFileDropHandler } from './PreviewFileDropHandler.js'
@@ -19,8 +19,8 @@ import {
   setPreview,
 } from './PreviewLoader.js'
 import {
-  PreviewAction,
-  PreviewState,
+  type PreviewAction,
+  type PreviewState,
   previewStateReducer,
 } from './PreviewState.js'
 

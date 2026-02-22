@@ -1,7 +1,10 @@
 import './BrowserSupportWarningScene.scss'
 
 import OptionsButton from '@bemuse/components/options/OptionsButton.js'
-import { ReactScene, SceneManagerContext } from '@bemuse/scene-manager/index.js'
+import {
+  type ReactScene,
+  SceneManagerContext,
+} from '@bemuse/scene-manager/index.js'
 import Scene from '@bemuse/ui/Scene.js'
 import { useContext } from 'react'
 

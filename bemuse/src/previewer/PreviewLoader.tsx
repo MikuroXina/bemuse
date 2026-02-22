@@ -148,6 +148,6 @@ export async function setPreview(
   await set(PREVIEWER_FS_HANDLE_KEYVAL_KEY, {
     directory: handle,
     chartFilename: selectedChartFilename,
-    handleId: ObjectID.default().toHexString(),
+    handleId: ObjectID().toHexString(),
   })
 }

@@ -1,7 +1,12 @@
 import './AuthenticationForm.scss'
 
 import OptionsButton from '@bemuse/components/options/OptionsButton.js'
-import { InputEvent, KeyboardEvent, MouseEvent, useRef } from 'react'
+import {
+  type InputEvent,
+  type KeyboardEvent,
+  type MouseEvent,
+  useRef,
+} from 'react'
 
 export interface AuthenticationFormData {
   username: string

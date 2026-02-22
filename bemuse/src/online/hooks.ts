@@ -2,10 +2,10 @@ import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
 import { useContext } from 'react'
 import {
   useMutation,
-  UseMutationResult,
+  type UseMutationResult,
   useQuery,
   useQueryClient,
-  UseQueryResult,
+  type UseQueryResult,
 } from 'react-query'
 
 import type {

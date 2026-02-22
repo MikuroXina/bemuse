@@ -3,7 +3,7 @@ import './MusicInfoTabs.scss'
 import type { Chart, Song } from '@bemuse/collection-model/types.js'
 import RankingContainer from '@bemuse/components/ranking/RankingContainer.js'
 import { Icon } from '@bemuse/fa/index.js'
-import { MappingMode } from '@bemuse/rules/mapping-mode.js'
+import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
 import c from 'classnames'
 import { useState } from 'react'
 

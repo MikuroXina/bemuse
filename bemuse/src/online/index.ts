@@ -1,5 +1,5 @@
 import { queryClient } from '@bemuse/react-query/index.js'
-import { ScoreCount } from '@bemuse/rules/accuracy.js'
+import type { ScoreCount } from '@bemuse/rules/accuracy.js'
 import Immutable, { Seq } from 'immutable'
 import _ from 'lodash'
 import {
@@ -12,7 +12,7 @@ import {
   map,
   merge,
   Observable,
-  ObservableInput,
+  type ObservableInput,
   of,
   scan,
   scheduled,
@@ -24,19 +24,19 @@ import {
 
 import { BatchedFetcher } from './BatchedFetcher.js'
 import {
-  Action,
-  DataStore,
+  type Action,
+  type DataStore,
   initialState,
   put,
   putMultiple,
   store川,
 } from './data-store.js'
 import id from './id.js'
-import { fromObject, RecordLevel } from './level.js'
+import { fromObject, type RecordLevel } from './level.js'
 import {
   completed,
   INITIAL_OPERATION_STATE,
-  Operation,
+  type Operation,
   operation川FromPromise,
 } from './operations.js'
 import { rootQueryKey } from './queryKeys.js'

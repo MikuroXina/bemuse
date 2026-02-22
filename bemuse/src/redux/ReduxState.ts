@@ -12,7 +12,7 @@ import getPlayableCharts from '@bemuse/music-collection/getPlayableCharts.js'
 import groupSongsIntoCategories from '@bemuse/music-collection/groupSongsIntoCategories.js'
 import preprocessCollection from '@bemuse/music-collection/preprocessCollection.js'
 import sortSongs from '@bemuse/music-collection/sortSongs.js'
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import type {
   Chart,
   MusicServerIndex,

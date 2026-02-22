@@ -5,7 +5,7 @@ import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
 
 import MusicChartInfo from './MusicChartInfo.js'
 import MusicChartSelector, {
-  MusicChartSelectorProps,
+  type MusicChartSelectorProps,
 } from './MusicChartSelector.js'
 import MusicInfoTabs from './MusicInfoTabs.js'
 

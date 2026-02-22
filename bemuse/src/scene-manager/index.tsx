@@ -1,7 +1,7 @@
 import { queryClient } from '@bemuse/react-query/index.js'
 import MAIN from '@bemuse/utils/main-element.js'
-import { cloneElement, createContext, ReactNode } from 'react'
-import { createRoot, Root } from 'react-dom/client'
+import { cloneElement, createContext, type ReactNode } from 'react'
+import { createRoot, type Root } from 'react-dom/client'
 import { QueryClientProvider } from 'react-query'
 
 export type TeardownCallback = () => PromiseLike<void> | void

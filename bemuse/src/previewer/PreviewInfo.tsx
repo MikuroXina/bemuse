@@ -1,10 +1,10 @@
 import './PreviewInfo.scss'
 
-import { ReactNode, useMemo } from 'react'
+import { type ReactNode, useMemo } from 'react'
 
 import { BarDot } from './BarDot.js'
-import { MeasureInfo, NotechartPreview } from './NotechartPreview.js'
-import { PreviewState } from './PreviewState.js'
+import type { MeasureInfo, NotechartPreview } from './NotechartPreview.js'
+import type { PreviewState } from './PreviewState.js'
 
 export interface PreviewInfo {
   notechartPreview: NotechartPreview

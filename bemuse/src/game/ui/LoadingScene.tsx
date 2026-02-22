@@ -5,7 +5,7 @@ import type { ChartInfo } from 'bemuse-types'
 import delay from 'delay'
 import { useEffect, useRef } from 'react'
 
-import LoadingSceneProgress, { Tasks } from './LoadingSceneProgress.js'
+import LoadingSceneProgress, { type Tasks } from './LoadingSceneProgress.js'
 import LoadingSceneSongInfo from './LoadingSceneSongInfo.js'
 
 export interface LoadingSceneProps {

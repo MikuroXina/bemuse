@@ -6,9 +6,9 @@ import Control from '../input/control.js'
 import GameInput from '../input/index.js'
 import {
   getJudgeForNotechart,
-  IJudge,
+  type IJudge,
   isBad,
-  JudgedJudgment,
+  type JudgedJudgment,
   judgeEndTime,
   judgeTime,
   Judgment,
@@ -174,8 +174,8 @@ export class PlayerState {
     const amount = this._rawInput!.get('select').value
       ? 0.1
       : this.speed < 0.5
-      ? 0.3
-      : 0.5
+        ? 0.3
+        : 0.5
     this.speed += direction * amount
     if (this.speed < 0.2) this.speed = 0.2
   }

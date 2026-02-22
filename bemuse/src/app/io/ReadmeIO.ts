@@ -2,7 +2,7 @@ import type { Song } from '@bemuse/collection-model/types.js'
 import { getSongResources } from '@bemuse/music-collection/getSongResources.js'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { AnyAction, Dispatch } from 'redux'
+import type { AnyAction, Dispatch } from 'redux'
 
 import {
   currentSongReadmeSlice,

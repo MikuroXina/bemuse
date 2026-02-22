@@ -4,7 +4,7 @@ import {
   completeWithValue,
   errorWithReason,
   initLoading,
-  LoadState,
+  type LoadState,
 } from './LoadState.js'
 
 enableMapSet()

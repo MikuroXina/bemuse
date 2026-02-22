@@ -1,5 +1,5 @@
 import type { ScoreCount } from '@bemuse/rules/accuracy.js'
-import { MappingMode } from '@bemuse/rules/mapping-mode.js'
+import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
 
 export interface ScoreboardClient {
   signUp(options: {

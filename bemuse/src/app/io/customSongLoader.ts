@@ -6,7 +6,7 @@ import type { ICustomSongResources } from '@bemuse/resources/types.js'
 
 import {
   loadSongFromResources,
-  LoadSongOptions,
+  type LoadSongOptions,
 } from '../../custom-song-loader/index.js'
 
 // Configure a custom song loader which loads custom song from resources.

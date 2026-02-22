@@ -7,7 +7,7 @@ import {
   Observable,
   tap,
 } from 'rxjs'
-import { EventListenerObject } from 'rxjs/internal/observable/fromEvent'
+import type { EventListenerObject } from 'rxjs/internal/observable/fromEvent'
 
 declare global {
   interface Navigator {
@@ -23,7 +23,7 @@ declare global {
     readonly inputs: MIDIInputMap
     readonly outputs: MIDIOutputMap
     onstatechange: // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ((this: MIDIAccess, event: MIDIConnectionEvent) => any) | null
+      ((this: MIDIAccess, event: MIDIConnectionEvent) => any) | null
   }
   interface MIDIInput extends MIDIPort {
     type: 'input'

@@ -13,6 +13,7 @@
     "baseUrl": ".",
     "paths": {
       "@bemuse/*": ["./src/*"]
-    }
+    },
+    "verbatimModuleSyntax": true
   }
 }

@@ -2,7 +2,7 @@ import './RankingTable.scss'
 
 import {
   formattedAccuracyForRecord,
-  ScoreCount,
+  type ScoreCount,
 } from '@bemuse/rules/accuracy.js'
 import type { ReactNode } from 'react'
 

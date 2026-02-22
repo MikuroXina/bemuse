@@ -128,9 +128,11 @@ class AudioTime {
   constructor(
     private readonly audioContext: AudioContext,
     private readonly leadTime: number
-  ) {}
+  ) {
+    this.start = this.audioContext.currentTime
+  }
 
-  private start = this.audioContext.currentTime
+  private start: number
 
   get t() {
     return this.audioContext.currentTime - this.start + this.leadTime

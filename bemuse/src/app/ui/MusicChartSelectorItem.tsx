@@ -1,7 +1,7 @@
 import './MusicChartSelectorItem.scss'
 
 import { Icon } from '@bemuse/fa/index.js'
-import { Chart } from 'bemuse-types'
+import type { Chart } from 'bemuse-types'
 import c from 'classnames'
 
 const Text = ({

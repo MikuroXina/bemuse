@@ -11,7 +11,7 @@ import {
   laneCover,
   leadTime,
   optionsSlice,
-  OptionsState,
+  type OptionsState,
   panelPlacement,
   scratchPosition,
   speed,

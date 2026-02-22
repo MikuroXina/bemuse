@@ -1,8 +1,8 @@
 import { expect, it } from 'vitest'
 
 import {
-  CustomFolderContext,
-  CustomFolderScanIO,
+  type CustomFolderContext,
+  type CustomFolderScanIO,
   getCustomFolderState,
   scanFolder,
   setCustomFolder,

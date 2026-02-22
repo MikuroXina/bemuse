@@ -1,9 +1,9 @@
 import type { ScoreCount } from '@bemuse/rules/accuracy.js'
-import { MappingMode } from '@bemuse/rules/mapping-mode.js'
+import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
 import ObjectID from 'bson-objectid'
 import delay from 'delay'
 
-import {
+import type {
   ScoreboardClient,
   ScoreboardEntry,
   ScoreboardRow,
@@ -203,7 +203,7 @@ export function updateScoreboardEntry(
   const score = +data.score
   if (!original || score > original.score) {
     return Object.assign({}, original || {}, {
-      id: original?.id || ObjectID.default().toHexString(),
+      id: original?.id || ObjectID().toHexString(),
       score: score,
       playCount: nextPlayCount,
       playNumber: nextPlayCount,

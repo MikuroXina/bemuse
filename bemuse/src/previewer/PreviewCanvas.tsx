@@ -1,8 +1,8 @@
 import _ from 'lodash'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
-import { NotechartPreview } from './NotechartPreview.js'
-import { PreviewState } from './PreviewState.js'
+import type { NotechartPreview } from './NotechartPreview.js'
+import type { PreviewState } from './PreviewState.js'
 
 export type PreviewColumn = {
   x: number

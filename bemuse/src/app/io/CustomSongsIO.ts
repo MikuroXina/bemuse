@@ -1,5 +1,5 @@
 import { URLResources } from '@bemuse/resources/url.js'
-import { AnyAction, Dispatch } from 'redux'
+import type { AnyAction, Dispatch } from 'redux'
 
 import {
   CustomSongResources,

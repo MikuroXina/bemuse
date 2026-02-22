@@ -1,9 +1,9 @@
 import './Ranking.scss'
 
-import { RankingState } from '@bemuse/online/index.js'
+import type { RankingState } from '@bemuse/online/index.js'
 import { isWaiting } from '@bemuse/online/operations.js'
 import AuthenticationPopup from '@bemuse/online/ui/AuthenticationPopup.js'
-import { ReactNode, useState } from 'react'
+import { type ReactNode, useState } from 'react'
 
 import RankingTable, { Message, Row } from './RankingTable.js'
 

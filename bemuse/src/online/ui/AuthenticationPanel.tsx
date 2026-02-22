@@ -8,8 +8,8 @@ import c from 'classnames'
 import { useContext, useState } from 'react'
 
 import AuthenticationForm, {
-  AuthenticationFormData,
-  AuthMode,
+  type AuthenticationFormData,
+  type AuthMode,
 } from './AuthenticationForm.js'
 
 export interface AuthenticationPanelProps {

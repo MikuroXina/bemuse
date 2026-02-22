@@ -1,8 +1,8 @@
 import { load as loadCollection } from '@bemuse/music-collection/index.js'
-import { AnyAction, Middleware } from 'redux'
+import type { AnyAction, Middleware } from 'redux'
 
 import {
-  AppState,
+  type AppState,
   collectionsSlice,
   currentCollectionSlice,
 } from './ReduxState.js'

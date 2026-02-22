@@ -1,4 +1,4 @@
-import { IResources } from './types.js'
+import type { IResources } from './types.js'
 import { URLResources } from './url.js'
 
 export function resolveRelativeResources(

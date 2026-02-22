@@ -5,7 +5,7 @@ import {
   usePersonalRankingEntryQuery,
   useRecordSubmissionMutation,
 } from '@bemuse/online/hooks.js'
-import {
+import type {
   RankingState,
   RankingStream,
   ScoreboardDataRecord,
@@ -16,12 +16,12 @@ import {
   completed,
   error,
   loading,
-  Operation,
+  type Operation,
 } from '@bemuse/online/operations.js'
-import { ScoreCount } from '@bemuse/rules/accuracy.js'
-import { MappingMode } from '@bemuse/rules/mapping-mode.js'
+import type { ScoreCount } from '@bemuse/rules/accuracy.js'
+import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
 import { useContext, useEffect, useRef, useState } from 'react'
-import { UseMutationResult, UseQueryResult } from 'react-query'
+import type { UseMutationResult, UseQueryResult } from 'react-query'
 
 import type { Result } from '../../app/types.js'
 import Ranking from './Ranking.js'

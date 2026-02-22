@@ -1,10 +1,12 @@
-import { breaksCombo, JudgedJudgment, MISSED } from '../judgments.js'
+import { breaksCombo, type JudgedJudgment, MISSED } from '../judgments.js'
 import Player, {
-  PlayerOptionsPlacement,
-  PlayerOptionsScratch,
+  type PlayerOptionsPlacement,
+  type PlayerOptionsScratch,
 } from '../player.js'
-import PlayerState, { JudgementNotification } from '../state/player-state.js'
-import { Gauge, getGauge } from './Gauge.js'
+import PlayerState, {
+  type JudgementNotification,
+} from '../state/player-state.js'
+import { type Gauge, getGauge } from './Gauge.js'
 import NoteArea from './note-area.js'
 import * as touch3d from './touch3d.js'
 

@@ -8,10 +8,10 @@ import type {
   ScoreInfo,
   SignUpInfo,
 } from '../index.js'
-import { RecordLevel } from '../level.js'
+import type { RecordLevel } from '../level.js'
 import { createFakeScoreboardClient } from './createFakeScoreboardClient.js'
 import { createNextScoreboardClient } from './createNextScoreboardClient.js'
-import { ScoreboardClient, ScoreboardRow } from './ScoreboardClient.js'
+import type { ScoreboardClient, ScoreboardRow } from './ScoreboardClient.js'
 
 export interface OnlineServiceOptions {
   fake?: boolean

@@ -5,7 +5,7 @@ import Panel from '@bemuse/ui/Panel.js'
 import _ from 'lodash'
 import mean from 'mean'
 import median from 'median'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import variance from 'variance'
 
 import getNonMissedDeltas from '../../app/interactors/getNonMissedDeltas.js'

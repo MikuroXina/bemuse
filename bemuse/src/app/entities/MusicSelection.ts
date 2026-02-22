@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import type { Chart, SongMetadataInCollection } from 'bemuse-types'
-import { Draft, produce } from 'immer'
+import { type Draft, produce } from 'immer'
 import _ from 'lodash'
 
 export interface MusicSelectionState {

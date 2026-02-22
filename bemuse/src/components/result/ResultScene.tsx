@@ -2,7 +2,7 @@ import './ResultScene.scss'
 
 import RankingContainer from '@bemuse/components/ranking/RankingContainer.js'
 import { Icon } from '@bemuse/fa/index.js'
-import { MappingMode } from '@bemuse/rules/mapping-mode.js'
+import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
 import Flex from '@bemuse/ui/Flex.js'
 import Scene from '@bemuse/ui/Scene.js'
 import SceneHeading from '@bemuse/ui/SceneHeading.js'

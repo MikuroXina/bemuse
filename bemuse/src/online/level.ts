@@ -1,4 +1,4 @@
-import { isMappingMode, MappingMode } from '@bemuse/rules/mapping-mode.js'
+import { isMappingMode, type MappingMode } from '@bemuse/rules/mapping-mode.js'
 import invariant from 'invariant'
 
 export interface RecordLevel {

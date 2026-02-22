@@ -1,6 +1,6 @@
 import './ModeSelectScene.scss'
 
-import { MappingMode } from '@bemuse/rules/mapping-mode.js'
+import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
 import { SceneManagerContext } from '@bemuse/scene-manager/index.js'
 import Scene from '@bemuse/ui/Scene.js'
 import SceneHeading from '@bemuse/ui/SceneHeading.js'

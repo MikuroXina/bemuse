@@ -3,7 +3,7 @@ import './MusicChartSelector.scss'
 import type { Chart, SongMetadata } from 'bemuse-types'
 
 import MusicChartSelectorItem, {
-  MusicChartSelectorItemProps,
+  type MusicChartSelectorItemProps,
 } from './MusicChartSelectorItem.js'
 
 export interface MusicChartSelectorProps {

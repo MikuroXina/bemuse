@@ -1,6 +1,6 @@
 import {
   loadSongFromResources,
-  LoadSongOptions,
+  type LoadSongOptions,
 } from '@bemuse/custom-song-loader/index.js'
 import type { ICustomSongResources } from '@bemuse/resources/types.js'
 import { useSyncExternalStore } from 'react'
