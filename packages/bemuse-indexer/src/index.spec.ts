@@ -1,6 +1,7 @@
-import { BPMInfo, OutputSongInfo } from './types'
-import { expect } from 'chai'
-import * as indexer from '.'
+import { beforeEach, describe, expect, it } from 'vitest'
+
+import * as indexer from './index.js'
+import type { BPMInfo, OutputSongInfo } from './types.js'
 
 describe('getFileInfo (bms)', function () {
   function info(source: string) {
@@ -142,7 +143,7 @@ describe('getFileInfo (bms)', function () {
 })
 
 describe('getFileInfo (bmson)', function () {
-  function info(bmson: any) {
+  function info(bmson: unknown) {
     const source = JSON.stringify(bmson)
     return indexer.getFileInfo(Buffer.from(source), { name: 'meow.bmson' })
   }
@@ -261,7 +262,40 @@ describe('getSongInfo', function () {
 
   describe('a song’s video', function () {
     it('is taken from an available bga in a chart', function () {
-      const charts = [{}, { bga: { file: 'a.mp4', offset: 2 } }, {}] as any
+      const chartBase = {
+        md5: '',
+        info: {
+          title: '',
+          artist: '',
+          genre: '',
+          subtitles: [],
+          subartists: [],
+          difficulty: 1,
+          level: 1,
+        },
+        noteCount: 0,
+        bpm: {
+          init: 120,
+          min: 120,
+          median: 120,
+          max: 120,
+        },
+        duration: 6,
+        scratch: false,
+        keys: '5K' as const,
+      }
+      const charts = [
+        {
+          ...chartBase,
+        },
+        {
+          ...chartBase,
+          bga: { file: 'a.mp4', offset: 2 },
+        },
+        {
+          ...chartBase,
+        },
+      ]
       expect(indexer._getSongVideoFromCharts(charts).video_file).to.equal(
         'a.mp4'
       )

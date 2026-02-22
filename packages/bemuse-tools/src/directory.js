@@ -1,6 +1,7 @@
-import fs from 'fs'
+import fs from 'node:fs'
+import path from 'node:path'
+
 import glob from 'glob-promise'
-import path from 'path'
 
 const { readFile } = fs.promises
 

@@ -1,8 +1,7 @@
-import { ICustomSongResources } from 'bemuse/resources/types'
-import { Song } from 'bemuse/collection-model/types'
+import type { Song } from '@bemuse/collection-model/types.js'
+import type { ICustomSongResources } from '@bemuse/resources/types.js'
 
-/* eslint import/no-webpack-loader-syntax: off */
-export function loadSongFromResources(
+export async function loadSongFromResources(
   resources: ICustomSongResources,
   options: LoadSongOptions = {}
 ) {
@@ -10,14 +9,10 @@ export function loadSongFromResources(
   if (resources.setLoggingFunction) {
     resources.setLoggingFunction(onMessage)
   }
-  return resources.fileList
-    .then((fileList) => {
-      return loadFromFileList(fileList)
-    })
-    .then((song) => {
-      song.resources = resources
-      return song
-    })
+  const fileList = await resources.fileList
+  const song = await loadFromFileList(fileList)
+  song.resources = resources
+  return song
 
   function loadFromFileList(fileList: string[]) {
     if (fileList.includes('bemuse-song.json')) {
@@ -56,8 +51,8 @@ export function loadSongFromResources(
     )
     const song = await new Promise<Song>((resolve, reject) => {
       const worker = new Worker(
-        // @ts-ignore
-        new URL('./song-loader.worker.js', import.meta.url)
+        new URL('./song-loader.worker.js', import.meta.url),
+        { type: 'module' }
       )
       worker.onmessage = function ({ data }) {
         if (data.type === 'result') {
@@ -79,8 +74,8 @@ export function loadSongFromResources(
         }
       }
       worker.onerror = function (e) {
-        onMessage('Worker error: ' + e)
-        console.error('Worker error: ' + e)
+        onMessage('Worker error: ' + e.message)
+        console.error('Worker error: ' + e.message)
         reject(e.error)
       }
       worker.postMessage({ files })

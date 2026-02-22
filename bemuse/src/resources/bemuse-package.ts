@@ -1,11 +1,11 @@
-import * as ProgressUtils from 'bemuse/progress/utils'
+import Progress from '@bemuse/progress/index.js'
+import * as ProgressUtils from '@bemuse/progress/utils.js'
+import readBlob from '@bemuse/utils/read-blob.js'
 import _ from 'lodash'
-import Progress from 'bemuse/progress'
-import readBlob from 'bemuse/utils/read-blob'
 import throat from 'throat'
 
-import { IResource, IResources } from './types'
-import { URLResources } from './url'
+import type { IResource, IResources } from './types.js'
+import { URLResources } from './url.js'
 
 type MetadataFileJSON = {
   files: BemusePackFileEntry[]
@@ -33,7 +33,7 @@ export class BemusePackageResources implements IResources {
     base: string | URL | IResources,
     options: {
       metadataFilename?: string
-      fallback?: string | IResources
+      fallback?: string | URL | IResources
       fallbackPattern?: RegExp
     } = {}
   ) {
@@ -47,7 +47,9 @@ export class BemusePackageResources implements IResources {
     const fallback =
       typeof options.fallback === 'string'
         ? new URLResources(new URL(options.fallback, location.href))
-        : options.fallback
+        : options.fallback instanceof URL
+          ? new URLResources(options.fallback)
+          : options.fallback
 
     this._base = base
     this._fallback = fallback

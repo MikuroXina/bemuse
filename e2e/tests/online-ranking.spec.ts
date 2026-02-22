@@ -1,4 +1,4 @@
-import { Page, expect, test } from '@playwright/test'
+import { expect, Page, test } from '@playwright/test'
 
 test('Can sign up', async ({ page }) => {
   await page.goto('/?flags=fake-scoreboard,skip-to-music-select')

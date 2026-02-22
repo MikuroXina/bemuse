@@ -1,3 +1,5 @@
+import { format } from 'node:util'
+
 export function forModule(moduleName: string) {
   return {
     info: bindLogger(moduleName, 'info'),
@@ -7,11 +9,9 @@ export function forModule(moduleName: string) {
 }
 
 function bindLogger(moduleName: string, level: 'info' | 'warn' | 'error') {
-  return (...args: any[]) => {
+  return (...args: unknown[]) => {
     console.log(
-      `[${new Date().toJSON()}] [${moduleName}] [${level}] ${require('util').format(
-        ...args
-      )}`
+      `[${new Date().toJSON()}] [${moduleName}] [${level}] ${format(...args)}`
     )
   }
 }

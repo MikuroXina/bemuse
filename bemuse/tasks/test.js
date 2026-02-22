@@ -1,17 +1,12 @@
 import gulp from 'gulp'
-import { Server, config } from 'karma'
-import { join } from 'path'
+import { startVitest } from 'vitest/node'
 
-gulp.task('test', async function (done) {
-  const parsedConfig = await config.parseConfig(
-    join(__dirname, '..', 'karma.conf.js'),
-    {
-      singleRun: true,
+gulp.task('test', async function () {
+  const measureCoverage = !!process.env.BEMUSE_COV
+  await startVitest('test', [], {
+    watch: false,
+    coverage: {
+      enabled: measureCoverage,
     },
-    {
-      promiseConfig: true,
-      throwErrors: true,
-    }
-  )
-  await new Server(parsedConfig, done).start()
+  })
 })

@@ -1,37 +1,38 @@
-import * as Analytics from './analytics'
-import * as BemuseTestMode from '../devtools/BemuseTestMode'
-import * as ReduxState from './redux/ReduxState'
-
-import { SceneManager, SceneManagerContext } from 'bemuse/scene-manager'
 import {
   getDefaultCustomFolderContext,
   getSongsFromCustomFolders,
-} from 'bemuse/custom-folder'
+} from '@bemuse/custom-folder/index.js'
+import {
+  isQueryFlagEnabled,
+  shouldShowAbout,
+  shouldShowModeSelect,
+} from '@bemuse/flags/index.js'
+import { OFFICIAL_SERVER_URL } from '@bemuse/music-collection/index.js'
+import {
+  SceneManager,
+  SceneManagerContext,
+} from '@bemuse/scene-manager/index.js'
+import now from '@bemuse/utils/now.js'
+import { monetize } from 'monetizer'
+import { Provider } from 'react-redux'
+
+import * as BemuseTestMode from '../debug/BemuseTestMode.js'
+import configureStore from '../redux/configureStore.js'
+import * as ReduxState from '../redux/ReduxState.js'
+import * as Analytics from './analytics.js'
+import { isBrowserSupported } from './browser-support.js'
+import { musicSearchTextSlice } from './entities/MusicSearchText.js'
+import { optionsSlice } from './entities/Options.js'
 import {
   getInitialGrepString,
   getMusicServer,
   getTimeSynchroServer,
-} from './query-flags'
-import {
-  shouldShowAbout,
-  shouldShowModeSelect,
-} from 'bemuse/devtools/query-flags'
-
-import AboutScene from './ui/AboutScene'
-import BrowserSupportWarningScene from './ui/BrowserSupportWarningScene'
-import ModeSelectScene from './ui/ModeSelectScene'
-import { OFFICIAL_SERVER_URL } from 'bemuse/music-collection'
-import { Provider } from 'react-redux'
-import React from 'react'
-import TitleScene from './ui/TitleScene'
-import configureStore from './redux/configureStore'
-import { isBrowserSupported } from './browser-support'
-import { monetize } from 'monetizer'
-import { musicSearchTextSlice } from './entities/MusicSearchText'
-import now from 'bemuse/utils/now'
-import { optionsSlice } from './entities/Options'
-import { isQueryFlagEnabled } from 'bemuse/flags'
-import MusicSelectScene from './ui/MusicSelectScene'
+} from './query-flags.js'
+import AboutScene from './ui/AboutScene.js'
+import BrowserSupportWarningScene from './ui/BrowserSupportWarningScene.js'
+import ModeSelectScene from './ui/ModeSelectScene.js'
+import MusicSelectScene from './ui/MusicSelectScene.js'
+import TitleScene from './ui/TitleScene.js'
 
 const store = configureStore()
 
@@ -46,8 +47,8 @@ const sceneManager = new SceneManager(({ children }) => (
 ))
 
 // Allow hot reloading of some modules.
-if (module.hot) {
-  module.hot.accept('./redux/ReduxState', () => {})
+if (import.meta.hot) {
+  import.meta.hot.accept('../redux/ReduxState.js', () => {})
 }
 
 function bootUp() {
@@ -104,7 +105,7 @@ function getFirstScene() {
     return <MusicSelectScene />
   }
 
-  const scene = React.createElement(TitleScene)
+  const scene = <TitleScene />
   if (!isBrowserSupported()) {
     return <BrowserSupportWarningScene next={scene} />
   }

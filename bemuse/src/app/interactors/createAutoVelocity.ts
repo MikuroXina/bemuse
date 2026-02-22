@@ -1,5 +1,5 @@
-import _ from 'lodash'
 import invariant from 'invariant'
+import _ from 'lodash'
 type VelocityControllerOptions = {
   enabled: boolean
   initialSpeed: number

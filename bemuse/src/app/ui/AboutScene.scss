@@ -1,14 +1,14 @@
-@import '~bemuse/ui/common';
+@use '@bemuse/ui/common.scss';
 
 .AboutScene {
-  @include scene-background(url(~bemuse/ui/images/bg/c.jpg));
+  @include common.scene-background(url(../../ui/images/bg/c.jpg));
 
   .SceneHeading {
     z-index: 10;
   }
   > section {
-    @include scrolling-y;
-    @include full-screen;
+    @include common.scrolling-y;
+    @include common.full-screen;
     padding: 10rem 3.85rem 3em;
     background: rgba(black, 0.64);
     font-size: 17px;
@@ -23,7 +23,7 @@
       display: flex;
     }
     > section > article {
-      @include scrolling-y;
+      @include common.scrolling-y;
       width: 50%;
       height: 100%;
       box-sizing: border-box;

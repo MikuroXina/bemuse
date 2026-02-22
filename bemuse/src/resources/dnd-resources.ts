@@ -1,11 +1,14 @@
+import { addUnprefixed } from './addUnprefixed.js'
 import {
   ARCHIVE_REGEXP,
   CustomSongResources,
   downloadFileEntryFromURL,
-} from './custom-song-resources'
-import { FileEntry, ICustomSongResources, LoggingFunction } from './types'
-
-import { addUnprefixed } from './addUnprefixed'
+} from './custom-song-resources.js'
+import type {
+  FileEntry,
+  ICustomSongResources,
+  LoggingFunction,
+} from './types.js'
 
 // TODO [#634]: Remove the `DndResources` class and have users of this class create a `CustomSongResources` directly.
 //
@@ -67,15 +70,15 @@ async function getFilesFromEvent(
     }
   }
 
-  function readEntry(entry: any, prefix = '') {
+  function readEntry(entry: FileSystemEntry, prefix = '') {
     if (entry.isFile) {
-      return readFile(entry, prefix)
+      return readFile(entry as FileSystemFileEntry, prefix)
     } else if (entry.isDirectory) {
-      return readDirectory(entry, prefix)
+      return readDirectory(entry as FileSystemDirectoryEntry, prefix)
     }
   }
 
-  async function readFile(entry: any, prefix = '') {
+  async function readFile(entry: FileSystemFileEntry, prefix = '') {
     const file = await new Promise<File>((resolve, reject) => {
       entry.file(resolve, reject)
     })
@@ -83,11 +86,11 @@ async function getFilesFromEvent(
     return file
   }
 
-  async function readDirectory(dir: any, prefix = '') {
-    const entries: any[] = []
+  async function readDirectory(dir: FileSystemDirectoryEntry, prefix = '') {
+    const entries: FileSystemEntry[] = []
     const reader = dir.createReader()
     const readMore = () =>
-      new Promise<any>((resolve, reject) => {
+      new Promise<FileSystemEntry[]>((resolve, reject) => {
         reader.readEntries(resolve, reject)
       })
     for (;;) {

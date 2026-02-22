@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from './color-list.module.css'
 
 export interface ColorDef {

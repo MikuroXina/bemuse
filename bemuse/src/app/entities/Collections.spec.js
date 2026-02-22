@@ -1,7 +1,8 @@
+import { given, shouldEqual } from 'circumstance'
+import { describe, it } from 'vitest'
+
 import * as Collections from './Collections'
 import * as LoadState from './LoadState'
-
-import { given, shouldEqual } from 'circumstance'
 
 describe('Collections', function () {
   it('should receive collection data', () =>

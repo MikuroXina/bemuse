@@ -1,7 +1,7 @@
-import * as ProgressUtils from 'bemuse/progress/utils'
-import throat from 'throat'
+import * as ProgressUtils from '@bemuse/progress/utils'
+import query from '@bemuse/utils/query'
 import axios from 'axios'
-import query from 'bemuse/utils/query'
+import throat from 'throat'
 
 import URLResource from './url'
 
@@ -92,7 +92,7 @@ class GatewayIPFSResources {
     const data = response.data
     const out = []
     const prefix = this._path.replace(/\/?$/, '/')
-    data.replace(/"(\/ipfs\/[^"]+)"/g, (a, encodedPathname) => {
+    data.replace(/"(\/ipfs\/[^"]+)"/g, (_a, encodedPathname) => {
       if (encodedPathname.substr(0, prefix.length) === prefix) {
         out.push({
           Name: decodeURIComponent(encodedPathname.substr(prefix.length)),

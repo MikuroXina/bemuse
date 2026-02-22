@@ -1,7 +1,7 @@
-@import '~bemuse/ui/common';
+@use '@bemuse/ui/common.scss';
 
 .MusicListItem {
-  @include soft-shadow;
+  @include common.soft-shadow;
   background: rgba(#fff, 0.9);
   border: 5px solid rgba(#fff, 0);
   border-radius: 0.8rem;

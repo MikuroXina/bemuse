@@ -1,4 +1,4 @@
-import { getPreloadArchiveFlag } from './query-flags'
+import { getPreloadArchiveFlag } from './query-flags.js'
 
 let pending: string | null = String(getPreloadArchiveFlag() || '') || null
 

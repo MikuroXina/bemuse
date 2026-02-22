@@ -59,21 +59,19 @@
  *   - {Speedcore} represents a linear animation.
  */
 
-import * as Reader from './reader'
-import * as Compiler from './compiler'
+import * as Compiler from './compiler/index.js'
+import * as Reader from './reader/index.js'
 
-export { Reader, Compiler }
-export * from './reader/types'
-
-export * from './bms/chart'
-export * from './bms/headers'
-export * from './bms/objects'
-
-export * from './speedcore'
-export * from './time-signatures'
-export * from './notes'
-export * from './timing'
-export * from './song-info'
-export * from './keysounds'
-export * from './positioning'
-export * from './spacing'
+export { Compiler, Reader }
+export * from './bms/chart.js'
+export * from './bms/headers.js'
+export * from './bms/objects.js'
+export * from './keysounds/index.js'
+export * from './notes/index.js'
+export * from './positioning/index.js'
+export * from './reader/types.js'
+export * from './song-info/index.js'
+export * from './spacing/index.js'
+export * from './speedcore/index.js'
+export * from './time-signatures/index.js'
+export * from './timing/index.js'

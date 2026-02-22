@@ -1,11 +1,12 @@
 import './AboutScene.scss'
 
-import React, { useContext, useEffect, useState } from 'react'
+import { SceneManagerContext } from '@bemuse/scene-manager/index.js'
+import Scene from '@bemuse/ui/Scene.js'
+import SceneHeading from '@bemuse/ui/SceneHeading.js'
+import SceneToolbar from '@bemuse/ui/SceneToolbar.js'
+import { useContext, useEffect, useState } from 'react'
 
-import Scene from 'bemuse/ui/Scene'
-import SceneHeading from 'bemuse/ui/SceneHeading'
-import { SceneManagerContext } from 'bemuse/scene-manager'
-import SceneToolbar from 'bemuse/ui/SceneToolbar'
+import djBm from './about-scene/DJBM.png'
 
 const Artists = ({ artists }: { artists: { name: string; url: string }[] }) => {
   if (artists.length === 0) {
@@ -65,7 +66,7 @@ const AboutScene = () => {
             available on <a href='https://github.com/bemusic/bemuse'>GitHub</a>.
           </p>
           <div className='AboutSceneのdjbm'>
-            <img src={require('./about-scene/DJBM.png')} alt='DJ Bemuse' />
+            <img src={djBm} alt='DJ Bemuse' />
           </div>
         </article>
         <article>
@@ -99,11 +100,11 @@ const AboutScene = () => {
           </p>
 
           <p>
-            We'd like to thank{' '}
+            We&apos;d like to thank{' '}
             <a href='https://hitkey.nekokan.dyndns.info/'>hitkey</a> for
             providing us with a comprehensive reference on the BMS file format
-            and for giving us suggestions. We'd also like to thank the following
-            artists for letting us use their songs in the game:{' '}
+            and for giving us suggestions. We&apos;d also like to thank the
+            following artists for letting us use their songs in the game:{' '}
             <Artists artists={artists} />.
           </p>
 

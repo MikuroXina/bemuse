@@ -1,11 +1,12 @@
-@import '~bemuse/ui/common';
+@use 'sass:color';
+@use '@bemuse/ui/common.scss';
 
 .MusicSelectScene {
-  @include main-bg;
-  font: 1rem $ui-font;
+  @include common.main-bg;
+  font: 1rem common.$ui-font;
 
   &のloading {
-    @include centered;
+    @include common.centered;
     font-size: 2rem;
     text-align: center;
     color: rgba(black, 0.5);
@@ -13,7 +14,7 @@
   }
 
   &のmain {
-    @include full-screen;
+    @include common.full-screen;
   }
 
   &のunofficialLabel {
@@ -28,15 +29,15 @@
     background: $color;
     line-height: 1.2;
     padding: 0.3em 0.6em;
-    border: 1px solid darken($color, 25%);
+    border: 1px solid color.adjust($color, $lightness: -25%);
     box-shadow: 0 1px 2px rgba(black, 0.2);
-    color: darken($color, 64%);
+    color: color.adjust($color, $lightness: -64%);
     border-radius: 3px;
     font-weight: normal;
     z-index: 15;
     cursor: pointer;
     &:hover {
-      background: lighten($color, 10%);
+      background: color.adjust($color, $lightness: 10%);
     }
   }
 
@@ -46,7 +47,7 @@
     right: 4rem;
     transform: translateY(-50%);
     width: 8em;
-    font: 0.4em $ui-font;
+    font: 0.4em common.$ui-font;
     padding: 0.3em;
     border: 1px solid #ddd;
     background: linear-gradient(to bottom, #f5f4f3, #fff);
@@ -59,13 +60,13 @@
   }
 
   .MusicList {
-    @include full-screen;
-    @include scrolling-y;
+    @include common.full-screen;
+    @include common.scrolling-y;
     padding: 10rem calc(50vw + 1rem) 3rem 4rem;
   }
 
   .MusicInfo {
-    @include scrolling-y;
+    @include common.scrolling-y;
     position: absolute;
     top: 0;
     right: 4rem;

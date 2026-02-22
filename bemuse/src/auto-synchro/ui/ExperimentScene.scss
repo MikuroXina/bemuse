@@ -1,4 +1,4 @@
-@import '~bemuse/ui/common';
+@use '@bemuse/ui/common.scss';
 
 .ExperimentScene {
   display: flex;
@@ -11,7 +11,7 @@
   justify-content: center;
 
   &のbutton {
-    @include button;
+    @include common.button;
     font-size: 18px;
   }
 

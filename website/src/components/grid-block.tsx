@@ -1,4 +1,4 @@
-import React, { HTMLProps, ReactNode } from 'react'
+import type { HTMLProps, ReactNode } from 'react'
 
 import styles from './grid-block.module.css'
 

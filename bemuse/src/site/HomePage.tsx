@@ -1,6 +1,4 @@
-import React from 'react'
-
-import Page, { Heading } from './Page'
+import Page, { Heading } from './Page.js'
 
 export const HomePage = () => {
   return (

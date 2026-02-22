@@ -28,7 +28,7 @@ export class BMSHeaders {
    * Iterates through each header field using a callback function.
    * @param callback will be called for each header field
    */
-  each(callback: (key: string, value: string) => any) {
+  each(callback: (key: string, value: string) => void) {
     for (const i in this._data) {
       callback(i, this._data[i])
     }

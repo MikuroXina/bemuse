@@ -1,9 +1,9 @@
-@import './common.scss';
+@use '@bemuse/ui/common.scss';
 
 .Scene {
-  @include full-screen;
+  @include common.full-screen;
   overflow: hidden;
-  font-family: $ui-font;
+  font-family: common.$ui-font;
   > .SceneHeading {
     position: absolute;
     top: 20px;

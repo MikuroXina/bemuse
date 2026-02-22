@@ -1,77 +1,131 @@
-import assert from 'assert'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import SamplesLoader from './samples-loader'
+import SamplesLoader from './samples-loader.js'
 
 describe('SamplesLoader', function () {
-  let assets
-  let master
+  const assets = { file: () => {} }
+  const master = { decode: () => {}, sample: () => {} }
+  const keysoundCache = {
+    isCached: () => false,
+    cache: () => {},
+    get: () => {},
+  }
   let loader
-  let keysoundCache
 
   beforeEach(function () {
-    assets = { file: sinon.stub() }
-    master = { decode: sinon.stub(), sample: sinon.stub() }
-    keysoundCache = { isCached: () => false, cache: sinon.spy(() => {}) }
+    vi.resetAllMocks()
     loader = new SamplesLoader(assets, master, { keysoundCache })
   })
 
   describe('#loadFiles', function () {
-    it('should not include undecodable audio', function () {
-      assets.file.returns(Promise.reject(new Error('cannot decode')))
-      assets.file.withArgs('a.wav').returns(
-        Promise.resolve({
-          read: () => Promise.resolve('ok1'),
-        })
-      )
-      master.decode.withArgs('ok1').returns(Promise.reject(new Error('..')))
-      return expect(loader.loadFiles(['a.wav'])).to.eventually.deep.eq({})
-    })
-
-    it('should cache', function () {
-      assets.file.returns(Promise.reject(new Error('invalid filename')))
-      assets.file.withArgs('a.wav').returns(
-        Promise.resolve({
-          read: () => Promise.resolve('ok1'),
-        })
-      )
-      master.decode.withArgs('ok1').returns(Promise.resolve('ok2'))
-      master.sample.withArgs('ok2').returns(Promise.resolve('ok3'))
-      return loader.loadFiles(['a.wav']).then(() => {
-        assert(keysoundCache.cache.calledOnce)
-        assert(keysoundCache.cache.calledWith('a.wav', 'ok2'))
+    it('should not include undecodable audio', async () => {
+      vi.spyOn(assets, 'file').mockImplementation((arg) => {
+        if (arg === 'a.wav') {
+          return Promise.resolve({
+            read: () => Promise.resolve('ok1'),
+          })
+        }
+        return Promise.reject(new Error('cannot decode'))
       })
+      const mock = vi.spyOn(master, 'decode').mockImplementation((arg) => {
+        if (arg === 'ok1') {
+          return Promise.reject(new Error('..'))
+        }
+      })
+      expect(await loader.loadFiles(['a.wav'])).toStrictEqual({})
+      expect(mock).toHaveBeenCalledWith('ok1')
     })
 
-    it('should use cache', function () {
-      assets.file.returns(Promise.reject(new Error('unexpected call')))
-      keysoundCache.isCached = (name) => name === 'name.wav'
-      keysoundCache.get = (name) => {
-        if (name === 'name.wav') return 'buffer'
+    it('should cache', async () => {
+      vi.spyOn(assets, 'file').mockImplementation((arg) => {
+        if (arg === 'a.wav') {
+          return Promise.resolve({
+            read: () => Promise.resolve('ok1'),
+          })
+        }
+        return Promise.reject(new Error('invalid filename'))
+      })
+      const decodeMock = vi
+        .spyOn(master, 'decode')
+        .mockImplementation((arg) => {
+          if (arg === 'ok1') {
+            return Promise.resolve('ok2')
+          }
+        })
+      const sampleMock = vi
+        .spyOn(master, 'sample')
+        .mockImplementation((arg) => {
+          if (arg === 'ok2') {
+            return Promise.resolve('ok3')
+          }
+        })
+      const cacheMock = vi.spyOn(keysoundCache, 'cache')
+
+      await loader.loadFiles(['a.wav'])
+
+      expect(cacheMock).toHaveBeenCalledOnce()
+      expect(cacheMock).toHaveBeenCalledWith('a.wav', 'ok2')
+      expect(decodeMock).toHaveBeenCalledWith('ok1')
+      expect(sampleMock).toHaveBeenCalledWith('ok2')
+    })
+
+    it('should use cache', async () => {
+      vi.spyOn(assets, 'file').mockRejectedValue(new Error('unexpected call'))
+      vi.spyOn(keysoundCache, 'isCached').mockImplementation(
+        (name) => name === 'name.wav'
+      )
+      vi.spyOn(keysoundCache, 'get').mockImplementation((name) => {
+        if (name === 'name.wav') {
+          return 'buffer'
+        }
         throw new Error('expected name.wav')
-      }
-      master.sample.withArgs('buffer').returns(Promise.resolve('sample'))
-      return expect(loader.loadFiles(['name.wav'])).to.eventually.deep.eq({
+      })
+      const sampleMock = vi
+        .spyOn(master, 'sample')
+        .mockImplementation((arg) => {
+          if (arg === 'buffer') {
+            return Promise.resolve('sample')
+          }
+        })
+      expect(await loader.loadFiles(['name.wav'])).toStrictEqual({
         'name.wav': 'sample',
       })
+      expect(sampleMock).toHaveBeenCalledWith('buffer')
     })
 
-    it('should try mp3', function () {
-      assets.file.returns(Promise.reject(new Error('invalid filename')))
-      assets.file.withArgs('a.mp3').returns(
-        Promise.resolve({
-          read: () => Promise.resolve('ok1'),
+    it('should try mp3', async () => {
+      vi.spyOn(assets, 'file').mockImplementation((arg) => {
+        if (arg === 'a.mp3') {
+          return Promise.resolve({
+            read: () => Promise.resolve('ok1'),
+          })
+        }
+        return Promise.reject(new Error('invalid filename'))
+      })
+      const decodeMock = vi
+        .spyOn(master, 'decode')
+        .mockImplementation((arg) => {
+          if (arg === 'ok1') {
+            return Promise.resolve('ok2')
+          }
         })
-      )
-      master.decode.withArgs('ok1').returns(Promise.resolve('ok2'))
-      master.sample.withArgs('ok2').returns(Promise.resolve('ok3'))
-      return expect(loader.loadFiles(['a.wav'])).to.eventually.deep.eq({
+      const sampleMock = vi
+        .spyOn(master, 'sample')
+        .mockImplementation((arg) => {
+          if (arg === 'ok2') {
+            return Promise.resolve('ok3')
+          }
+        })
+      expect(await loader.loadFiles(['a.wav'])).toStrictEqual({
         'a.wav': 'ok3',
       })
+      expect(decodeMock).toHaveBeenCalledWith('ok1')
+      expect(sampleMock).toHaveBeenCalledWith('ok2')
     })
 
-    it('should not include failed matches', function () {
-      assets.file.returns(Promise.reject(new Error('i give up')))
-      return expect(loader.loadFiles(['a.wav'])).to.eventually.deep.eq({})
+    it('should not include failed matches', async () => {
+      vi.spyOn(assets, 'file').mockRejectedValue(new Error('i give up'))
+      expect(await loader.loadFiles(['a.wav'])).toStrictEqual({})
     })
   })
 })

@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react'
 import { keyframes } from '@emotion/react'
 import styled from '@emotion/styled'
+import type { ReactNode } from 'react'
 
 export interface FloatingMobileMenuProps {
   children?: ReactNode

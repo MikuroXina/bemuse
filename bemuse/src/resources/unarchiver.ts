@@ -1,6 +1,7 @@
-import { Archive } from 'libarchive.js/main.js'
-import { addUnprefixed } from './addUnprefixed'
-import { FileEntry } from './types'
+import { Archive, FileRecord } from 'libarchive.js/main.js'
+
+import { addUnprefixed } from './addUnprefixed.js'
+import type { FileEntry } from './types.js'
 
 Archive.init({
   workerUrl: '/vendor/libarchive.js-1.3.0/dist/worker-bundle.js',
@@ -10,14 +11,15 @@ export async function unarchive(file: File): Promise<FileEntry[]> {
   const out: FileEntry[] = []
   const archive = await Archive.open(file)
   const extracted = await archive.extractFiles()
-  const traverse = (tree: any, prefix = '') => {
+  const traverse = (tree: FileRecord, prefix = '') => {
     for (const key of Object.keys(tree)) {
-      if (tree[key] instanceof File) {
+      const value = tree[key]
+      if (value instanceof File) {
         addUnprefixed(prefix, key, (name) => {
-          out.push({ name, file: tree[key] })
+          out.push({ name, file: value })
         })
-      } else if (tree[key] && typeof tree[key] === 'object') {
-        traverse(tree[key], prefix + key + '/')
+      } else if (value && typeof value === 'object') {
+        traverse(value, prefix + key + '/')
       }
     }
   }

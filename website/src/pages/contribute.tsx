@@ -5,13 +5,13 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { GridBlock } from '../components/grid-block'
-import Layout from '@theme/Layout'
 import Link from '@docusaurus/Link'
-import { MainWrapper } from '../components/main-wrapper'
-import { Post } from '../components/post'
-import React from 'react'
-import { docUrl } from '../lib/url'
+import Layout from '@theme/Layout'
+
+import { GridBlock } from '../components/grid-block.js'
+import { MainWrapper } from '../components/main-wrapper.js'
+import { Post } from '../components/post.js'
+import { docUrl } from '../lib/url.js'
 
 const pageContent = (
   <div>
@@ -38,7 +38,7 @@ export const Help = () => {
           <Link to={docUrl('developer-guide.html')}>
             developer documentation
           </Link>{' '}
-          to get started. Don't forget to read our{' '}
+          to get started. Don&apos;t forget to read our{' '}
           <Link to='https://github.com/bemusic/bemuse/blob/master/CONTRIBUTING.md'>
             coding guidelines
           </Link>{' '}
@@ -54,7 +54,8 @@ export const Help = () => {
           <Link to='https://github.com/bemusic/bemuse/issues'>
             issues thread
           </Link>{' '}
-          and pick an issue. If you're confused, we recommend starting out with{' '}
+          and pick an issue. If you&apos;re confused, we recommend starting out
+          with{' '}
           <Link to='https://github.com/bemusic/bemuse/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22'>
             these issues
           </Link>
@@ -75,8 +76,9 @@ export const Help = () => {
   )
 }
 
-export default () => (
+const ContributePage = () => (
   <Layout>
     <Help />
   </Layout>
 )
+export default ContributePage

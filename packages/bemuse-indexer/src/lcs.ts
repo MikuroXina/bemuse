@@ -15,5 +15,5 @@ export function lcp(a: string, i: number, b: string, j: number) {
   for (; k < m; k++) {
     if (a[k + i].toLowerCase() !== b[k + j].toLowerCase()) break
   }
-  return a.substr(i, k)
+  return a.slice(i, i + k)
 }

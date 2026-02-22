@@ -1,8 +1,8 @@
 import * as PIXI from 'pixi.js'
 
 import DisplayObject from './concerns/display-object'
-import Instance from './lib/instance'
 import SkinNode from './lib/base'
+import Instance from './lib/instance'
 import { parseFrame } from './lib/utils'
 
 export class SpriteNode extends SkinNode {

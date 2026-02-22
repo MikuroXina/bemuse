@@ -1,6 +1,7 @@
-import { expect } from 'chai'
-import NotechartLoader from '.'
-import { PlayerOptions } from '../types'
+import { describe, expect, it } from 'vitest'
+
+import type { PlayerOptions } from '../types.js'
+import NotechartLoader from './index.js'
 
 const options: PlayerOptions = { scratch: 'left' }
 

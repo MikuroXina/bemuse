@@ -1,20 +1,19 @@
-import Notechart from 'bemuse-notechart'
-import NotechartLoader from 'bemuse-notechart/lib/loader'
-import Progress from 'bemuse/progress'
-import SamplingMaster from 'bemuse/sampling-master'
-import keysoundCache from 'bemuse/keysound-cache'
-import { ChartInfo } from 'bemuse-types'
-import { IResource, IResources } from 'bemuse/resources/types'
-import { atomic } from 'bemuse/progress/utils'
-import { resolveRelativeResources } from 'bemuse/resources/resolveRelativeResource'
+import keysoundCache from '@bemuse/keysound-cache/index.js'
+import Progress from '@bemuse/progress/index.js'
+import { atomic } from '@bemuse/progress/utils.js'
+import { resolveRelativeResources } from '@bemuse/resources/resolveRelativeResource.js'
+import SamplingMaster from '@bemuse/sampling-master/index.js'
+import type { Notechart, PlayerOptions } from 'bemuse-notechart'
+import { NotechartLoader } from 'bemuse-notechart/lib/loader/index.js'
 
-import * as Multitasker from './multitasker'
-import GameAudio from '../audio'
-import GameController from '../game-controller'
-import GameDisplay from '../display'
-import SamplesLoader from './samples-loader'
-import loadImage from './loadImage'
-import Game, { GamePlayerOptionsInput } from '../game'
+import GameAudio from '../audio/index.js'
+import GameDisplay from '../display/index.js'
+import Game from '../game.js'
+import GameController from '../game-controller.js'
+import type { LoadSpec } from './load-spec.js'
+import loadImage from './loadImage.js'
+import * as Multitasker from './multitasker.js'
+import SamplesLoader from './samples-loader.js'
 
 type Tasks = {
   Scintillator: TODO
@@ -32,26 +31,6 @@ type Tasks = {
   GameController: GameController
 }
 
-export type Assets = IResources & {
-  progress?: {
-    current?: Progress
-    all?: Progress
-  }
-}
-
-export type LoadSpec = {
-  assets: Assets
-  bms: IResource
-  metadata: ChartInfo
-  songId?: string
-  displayMode?: 'touch3d' | 'normal'
-  backImageUrl?: string
-  eyecatchImageUrl?: string
-  videoUrl?: string
-  videoOffset?: number
-  options: GamePlayerOptionsInput
-}
-
 export function load(spec: LoadSpec) {
   const assets = spec.assets
   const bms = spec.bms
@@ -59,10 +38,7 @@ export function load(spec: LoadSpec) {
 
   return Multitasker.start<Tasks, GameController>(function (task, run) {
     task('Scintillator', 'Loading game engine', [], function (progress) {
-      return atomic(
-        progress,
-        import(/* webpackChunkName: 'gameEngine' */ 'bemuse/scintillator')
-      )
+      return atomic(progress, import('@bemuse/scintillator/index.js'))
     })
 
     task(
@@ -100,7 +76,11 @@ export function load(spec: LoadSpec) {
     task('Notechart', 'Loading ' + spec.bms.name, [], async (progress) => {
       const loader = new NotechartLoader()
       const arraybuffer = await bms.read(progress)
-      return loader.load(arraybuffer, spec.bms, spec.options.players[0])
+      return loader.load(
+        arraybuffer,
+        spec.bms,
+        spec.options.players[0] as PlayerOptions
+      )
     })
 
     task('EyecatchImage', null, ['Notechart'], function (notechart) {
@@ -139,7 +119,7 @@ export function load(spec: LoadSpec) {
       'Video',
       spec.videoUrl ? 'Loading video' : null,
       ['Notechart'],
-      async function (notechart, progress) {
+      async function (_notechart, progress) {
         if (!spec.videoUrl) return Promise.resolve(null)
         let videoUrl = spec.videoUrl
         if (!videoUrl.includes('://')) {
@@ -148,7 +128,7 @@ export function load(spec: LoadSpec) {
           const file = await base.file(filename)
           videoUrl = await file.resolveUrl()
         }
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
           const video = document.createElement('video')
           if (!video.canPlayType('video/webm')) return resolve(null)
           video.src = videoUrl

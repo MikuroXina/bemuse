@@ -1,15 +1,15 @@
-import React from 'react'
-import _ from 'lodash'
-import { sceneRoot } from 'bemuse/utils/main-element'
-import { QueryClientProvider, useQuery } from 'react-query'
 import {
   clearCustomFolder,
   getCustomFolderState,
   getDefaultCustomFolderContext,
   scanFolder,
   setCustomFolder,
-} from 'bemuse/custom-folder'
-import { queryClient } from 'bemuse/react-query'
+} from '@bemuse/custom-folder/index.js'
+import { queryClient } from '@bemuse/react-query/index.js'
+import { sceneRoot } from '@bemuse/utils/main-element.js'
+import _ from 'lodash'
+import { useState } from 'react'
+import { QueryClientProvider, useQuery } from 'react-query'
 
 const CustomFolderTester = () => {
   const context = getDefaultCustomFolderContext()
@@ -17,7 +17,7 @@ const CustomFolderTester = () => {
     const result = await getCustomFolderState(context)
     return result
   })
-  const [status, setStatus] = React.useState('')
+  const [status, setStatus] = useState('')
 
   if (isLoading) return <div>Loading...</div>
 

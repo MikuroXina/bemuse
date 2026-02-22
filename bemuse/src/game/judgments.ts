@@ -1,5 +1,5 @@
+import type { Notechart } from 'bemuse-notechart'
 import _ from 'lodash'
-import Notechart from 'bemuse-notechart'
 
 export enum Judgment {
   Missed = -1,
@@ -61,7 +61,7 @@ export interface IJudge {
 
 class FixedTimegatesJudge implements IJudge {
   constructor(private timegates: Timegates) {}
-  getTimegates(_gameTime: number | null, _noteTime: number | null) {
+  getTimegates() {
     return this.timegates
   }
 }
@@ -134,7 +134,7 @@ export const judgeTime = judgeTimeWith((t) => t.timegate)
 export const judgeEndTime = judgeTimeWith((t) => t.endTimegate)
 
 export function timegate(judgment: Judgment, judge = NORMAL_JUDGE) {
-  return _.find(judge.getTimegates(null, null), { value: judgment })!.timegate
+  return _.find(judge.getTimegates(), { value: judgment })!.timegate
 }
 
 export function isBad(judgment: Judgment) {

@@ -1,4 +1,6 @@
-@import '~bemuse/ui/common';
+@use 'sass:color';
+@use 'sass:string';
+@use '@bemuse/ui/common.scss';
 
 .MusicChartSelectorItem {
   list-style: none;
@@ -20,7 +22,7 @@
     transition: 0.3s opacity;
   }
   &のplay {
-    @include centered;
+    @include common.centered;
     opacity: 0;
     transition: 0.3s opacity;
   }
@@ -38,7 +40,7 @@
 @mixin music-chart-selector-item--color($color, $name, $selector) {
   $animation-name: music-chart-selector-item--active-#{$name};
   .MusicChartSelectorItem {
-    #{unquote($selector)} {
+    #{string.unquote($selector)} {
       border: 2px solid $color;
       &.is-active {
         background: #8ac;
@@ -47,8 +49,8 @@
     }
   }
   @keyframes #{$animation-name} {
-    $color1: lighten($color, 10%);
-    $color2: darken($color, 10%);
+    $color1: color.adjust($color, $lightness: 10%);
+    $color2: color.adjust($color, $lightness: -10%);
     0% {
       background: $color1;
     }

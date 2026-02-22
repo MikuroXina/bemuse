@@ -1,7 +1,5 @@
 import './LoadingSceneProgressBar.scss'
 
-import React from 'react'
-
 export interface LoadingSceneProgressBarProps {
   width: string | number
 }

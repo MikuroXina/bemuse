@@ -1,12 +1,12 @@
-import { basename, dirname, join } from 'path'
+import fs from 'node:fs'
+import { basename, dirname, join } from 'node:path'
 
-import _ from 'lodash'
-import chalk from 'chalk'
-import fs from 'fs'
 import { getSongInfo } from 'bemuse-indexer'
-import glob from 'glob-promise'
+import chalk from 'chalk'
 import json from 'format-json'
+import glob from 'glob-promise'
 import yaml from 'js-yaml'
+import _ from 'lodash'
 
 const { readFile, writeFile, stat: fileStat } = fs.promises
 
@@ -19,7 +19,7 @@ function Cache(path) {
     let text
     try {
       text = fs.readFileSync(path, 'utf-8')
-    } catch (e) {
+    } catch {
       return out
     }
     text.split(/\n/).forEach(function (line) {
@@ -80,16 +80,13 @@ export async function index(path, { recursive }) {
     const levels = _(song.charts)
       .sortBy((chart) => chart.info.level)
       .map((chart) => {
-        const ch =
-          chart.keys === '5K'
-            ? chalk.gray
-            : chart.keys === '7K'
-            ? chalk.green
-            : chart.keys === '10K'
-            ? chalk.magenta
-            : chart.keys === '14K'
-            ? chalk.red
-            : chalk.inverse
+        const colors = {
+          '5K': chalk.gray,
+          '7K': chalk.green,
+          '10K': chalk.magenta,
+          '14K': chalk.red,
+        }
+        const ch = colors[chart.keys] ?? chalk.inverse
         return ch(chart.info.level)
       })
     console.log(
@@ -116,7 +113,7 @@ async function getExtra(dir) {
   try {
     readme = await readFile(join(dir, 'README.md'), 'utf-8')
     extra.readme = 'README.md'
-  } catch (e) {
+  } catch {
     readme = null
   }
   if (readme !== null) {

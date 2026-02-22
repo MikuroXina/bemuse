@@ -1,8 +1,8 @@
 import './ChangelogPanel.scss'
 
-import Markdown from 'bemuse/ui/Markdown'
-import Panel from 'bemuse/ui/Panel'
-import React, { useEffect, useState } from 'react'
+import Markdown from '@bemuse/ui/Markdown.js'
+import Panel from '@bemuse/ui/Panel.js'
+import { useEffect, useState } from 'react'
 
 type Status =
   | { state: 'loading' }
@@ -33,12 +33,14 @@ const getMarkdown = (status: Status) => {
 const ChangelogPanel = () => {
   const [status, setStatus] = useState<Status>({ state: 'loading' })
   useEffect(() => {
-    // @ts-ignore
-    const promise = import('../../../../CHANGELOG.md').then((m) => m.default)
-    promise.then(
-      (changelog) => setStatus({ state: 'completed', changelog }),
-      () => setStatus({ state: 'error' })
-    )
+    ;(async () => {
+      const { default: changelog } = await import(
+        '@bemuse/../../CHANGELOG.md?raw'
+      )
+      setStatus({ state: 'completed', changelog })
+    })().catch(() => {
+      setStatus({ state: 'error' })
+    })
   }, [])
 
   return (

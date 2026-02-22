@@ -1,21 +1,21 @@
+import type { GameNote } from 'bemuse-notechart/lib/types.js'
+import invariant from 'invariant'
+import _ from 'lodash'
+
+import Control from '../input/control.js'
+import GameInput from '../input/index.js'
 import {
-  IJudge,
-  JudgedJudgment,
-  Judgment,
-  MISSED,
   getJudgeForNotechart,
+  IJudge,
   isBad,
+  JudgedJudgment,
   judgeEndTime,
   judgeTime,
-} from '../judgments'
-
-import Control from '../input/control'
-import GameInput from '../input'
-import { GameNote } from 'bemuse-notechart/lib/types'
-import Player from '../player'
-import PlayerStats from './player-stats'
-import _ from 'lodash'
-import invariant from 'invariant'
+  Judgment,
+  MISSED,
+} from '../judgments.js'
+import Player from '../player.js'
+import PlayerStats from './player-stats.js'
 
 type NoteResult = {
   judgment: Judgment
@@ -348,7 +348,7 @@ type NoteBuffer = {
 }
 
 function isAutoplayEnabled() {
-  return !!(window as any).BEMUSE_AUTOPLAY
+  return !!(window as unknown as Record<string, unknown>).BEMUSE_AUTOPLAY
 }
 
 function noteBuffer(state: PlayerState) {

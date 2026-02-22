@@ -1,7 +1,7 @@
-import { Speedcore } from '../speedcore'
-import { uniq, map } from '../util/lodash'
-import { BMSChart } from '../bms/chart'
-import { SpeedSegment } from '../speedcore/segment'
+import { BMSChart } from '../bms/chart.js'
+import { Speedcore } from '../speedcore/index.js'
+import { SpeedSegment } from '../speedcore/segment.js'
+import { map, uniq } from '../util/lodash.js'
 
 const precedence = { bpm: 1, stop: 2 }
 

@@ -1,6 +1,5 @@
-import AuthenticationPopup from 'bemuse/online/ui/AuthenticationPopup'
-import React from 'react'
-import { sceneRoot } from 'bemuse/utils/main-element'
+import AuthenticationPopup from '@bemuse/online/ui/AuthenticationPopup.js'
+import { sceneRoot } from '@bemuse/utils/main-element.js'
 
 const OnlineAuthenticationTestScene = () => (
   <div>

@@ -1,5 +1,6 @@
 import * as BMS from 'bms'
-import { Keys } from './types'
+
+import type { Keys } from './types.js'
 
 export function getKeys(chart: BMS.BMSChart): Keys {
   const objects = chart.objects.all()

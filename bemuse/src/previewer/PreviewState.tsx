@@ -1,4 +1,4 @@
-import { NotechartPreview } from './NotechartPreview'
+import type { NotechartPreview } from './NotechartPreview.js'
 
 export type PreviewState = {
   currentTime: number

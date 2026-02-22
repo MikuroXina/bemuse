@@ -1,9 +1,8 @@
 import * as PIXI from 'pixi.js'
 
+import DisplayObject from './concerns/display-object'
 import SkinNode from './lib/base'
 import Instance from './lib/instance'
-
-import DisplayObject from './concerns/display-object'
 import { parseFrame } from './lib/utils'
 
 export class Mask {

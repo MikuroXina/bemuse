@@ -1,10 +1,10 @@
-import { basename, extname } from 'path'
+import { spawn } from 'node:child_process'
+import fs from 'node:fs'
+import { cpus } from 'node:os'
+import { basename, extname } from 'node:path'
 
-import Throat from 'throat'
-import { cpus } from 'os'
 import endpoint from 'endpoint'
-import fs from 'fs'
-import { spawn } from 'child_process'
+import Throat from 'throat'
 
 const throat = new Throat(cpus().length || 1)
 
@@ -61,7 +61,7 @@ export class AudioConvertor {
       ) {
         typeArgs = ['-t', 'ogg']
       }
-    } catch (e) {
+    } catch {
       console.error('[WARN] Unable to detect file type!')
     }
     return this._doSoX(path, type, typeArgs)

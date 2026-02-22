@@ -3,7 +3,7 @@
 //
 // Example::
 //
-//    import query from 'bemuse/utils/query'
+//    import query from '@bemuse/utils/query'
 //    alert(query.mode)
 
 export default Object.fromEntries(

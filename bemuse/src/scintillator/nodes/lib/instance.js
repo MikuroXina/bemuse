@@ -1,4 +1,4 @@
-import Callbacks from 'bemuse/utils/callbacks'
+import Callbacks from '@bemuse/utils/callbacks'
 
 export class Instance {
   constructor (options) {

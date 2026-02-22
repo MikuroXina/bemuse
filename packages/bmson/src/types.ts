@@ -83,6 +83,7 @@ export interface SoundChannel {
 
 export interface Note {
   /** lane */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   x: any
   /** pulse number */
   y: number

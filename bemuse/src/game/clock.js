@@ -1,4 +1,4 @@
-import now from 'bemuse/utils/now'
+import now from '@bemuse/utils/now'
 
 // The game clock provides a high-accuracy time source for the game.
 //

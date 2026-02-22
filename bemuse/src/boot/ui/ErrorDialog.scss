@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 .ErrorDialog {
   background: #533;
   color: #edd;
@@ -40,7 +42,7 @@
     position: absolute;
     top: 1ex;
     right: 1ex;
-    background: lighten(#633, 0.1);
+    background: color.adjust(#633, $lightness: 10%);
     width: 1.3em;
     height: 1.3em;
     line-height: 1.3em;

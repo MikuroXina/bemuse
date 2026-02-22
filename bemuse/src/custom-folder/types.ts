@@ -1,4 +1,4 @@
-import { Song } from 'bemuse/collection-model/types'
+import type { Song } from '@bemuse/collection-model/types.js'
 
 export interface CustomFolderState {
   /**

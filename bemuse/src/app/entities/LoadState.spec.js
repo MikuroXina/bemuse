@@ -1,6 +1,7 @@
-import * as LoadState from './LoadState'
-
 import { given, shouldEqual } from 'circumstance'
+import { describe, it } from 'vitest'
+
+import * as LoadState from './LoadState'
 
 describe('LoadState', function () {
   it('initLoading should be loading', () =>

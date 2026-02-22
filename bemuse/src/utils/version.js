@@ -1,3 +1,2 @@
-/* eslint import/no-webpack-loader-syntax: off */
-import version from 'val-loader!./version-loader'
+const version = _BEMUSE_BUILD_VERSION
 export default version

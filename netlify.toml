@@ -1,3 +1,0 @@
-[build]
-publish = "dist/"
-command = "./build-scripts/netlify-build.sh"

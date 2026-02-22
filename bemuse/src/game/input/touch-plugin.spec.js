@@ -1,4 +1,6 @@
 import * as PIXI from 'pixi.js'
+import { describe, expect, it } from 'vitest'
+
 import TouchPlugin from './touch-plugin'
 
 describe('TouchPlugin', function () {

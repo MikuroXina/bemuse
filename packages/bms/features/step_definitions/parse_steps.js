@@ -1,5 +1,5 @@
-const steps = require('artstep')
+import { Given } from '@cucumber/cucumber'
 
-module.exports = steps().Given(/^a BMS file as follows$/, function (string) {
+Given(/^a BMS file as follows$/, function (string) {
   this.parseBMS(string)
 })

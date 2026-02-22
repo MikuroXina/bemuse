@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-
 /**
  * The Bemuse Music Server Index File. This is the contents of `index.json`.
  * @public
@@ -69,7 +67,7 @@ export interface SongMetadata {
   charts: Chart[]
 
   /** Warnings generating while indexing */
-  warnings?: any[]
+  warnings?: unknown[]
 
   /**
    * Mapping from filename to chart name.

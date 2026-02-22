@@ -1,7 +1,7 @@
-import * as Judgments from '../judgments'
-
-import Notechart from 'bemuse-notechart'
+import { Notechart } from 'bemuse-notechart'
 import _ from 'lodash'
+
+import * as Judgments from '../judgments.js'
 
 const getAccuracyScore = (accuracy: number) => Math.floor(accuracy * 500000)
 const getComboScore = (sum: number, total: number) =>

@@ -1,6 +1,6 @@
 import './SceneToolbar.scss'
 
-import React from 'react'
+import type { ReactNode } from 'react'
 
 export const SceneToolbar = ({ children }: { children?: ReactNode }) => (
   <div className='SceneToolbar'>{children}</div>

@@ -1,7 +1,6 @@
-import { BemusePreviewer } from './BemusePreviewer'
-import React from 'react'
-import _ from 'lodash'
-import { sceneRoot } from 'bemuse/utils/main-element'
+import { sceneRoot } from '@bemuse/utils/main-element.js'
+
+import { BemusePreviewer } from './BemusePreviewer.js'
 
 export function main() {
   sceneRoot.render(<BemusePreviewer />)

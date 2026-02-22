@@ -1,8 +1,10 @@
-import * as BMS from 'bms'
-import * as BMSNotechartLoader from './BMSNotechartLoader'
-import * as BmsonNotechartLoader from './BmsonNotechartLoader'
+import { Buffer } from 'node:buffer'
 
-import { PlayerOptions } from '../types'
+import * as BMS from 'bms'
+
+import type { PlayerOptions } from '../types.js'
+import * as BMSNotechartLoader from './BMSNotechartLoader.js'
+import * as BmsonNotechartLoader from './BmsonNotechartLoader.js'
 
 const coerceToBuffer = (bufferOrArrayBuffer: Buffer | ArrayBuffer) =>
   Buffer.isBuffer(bufferOrArrayBuffer)

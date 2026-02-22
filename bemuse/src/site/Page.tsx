@@ -1,6 +1,6 @@
 import './Page.scss'
 
-import React from 'react'
+import type { ReactNode } from 'react'
 
 export const Page = ({ children }: { children: ReactNode }) => (
   <div className='Page'>

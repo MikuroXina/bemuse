@@ -1,7 +1,7 @@
-@import '~bemuse/ui/common';
+@use '@bemuse/ui/common.scss';
 
 .MusicChartInfo {
-  font: 1rem $ui-font;
+  font: 1rem common.$ui-font;
   &のtitle {
     font-size: 2em;
     font-weight: bold;

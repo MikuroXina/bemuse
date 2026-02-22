@@ -1,12 +1,11 @@
 import './BarDot.scss'
-import React from 'react'
 
 export interface BarDot {
   fraction: number
   fill: string
 }
 
-export const BarDot: FC<BarDot> = (props) => (
+export const BarDot = (props: BarDot) => (
   <svg width={32} height={32} viewBox='0 0 32 32' className='BarDot'>
     {props.fraction > 0 ? (
       props.fraction < 0.99 ? (

@@ -1,4 +1,4 @@
-import { showQuickPick } from 'bemuse/ui-dialogs'
+import { showQuickPick } from '@bemuse/ui-dialogs/index.js'
 import { useEffect } from 'react'
 
 export interface PreviewFileDropHandler {
@@ -8,7 +8,7 @@ export interface PreviewFileDropHandler {
   ) => void
 }
 
-export const PreviewFileDropHandler: FC<PreviewFileDropHandler> = (props) => {
+export const PreviewFileDropHandler = (props: PreviewFileDropHandler) => {
   useEffect(() => {
     const onDragOver = (e: DragEvent) => {
       e.preventDefault()

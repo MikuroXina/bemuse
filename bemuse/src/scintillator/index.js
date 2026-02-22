@@ -1,16 +1,20 @@
+import screenSkin from '@bemuse/../public/skins/default/skin_screen.xml?raw'
+import touchSkin from '@bemuse/../public/skins/default/skin_touch.xml?raw'
+import touch3dSkin from '@bemuse/../public/skins/default/skin_touch3d.xml?raw'
+
 import { Context } from './context'
 import { load } from './loader'
 
-export { load, Context }
+export { Context, load }
 
 export function getSkinUrl({ displayMode } = {}) {
   if (displayMode === 'touch3d') {
-    return '/skins/default/skin_touch3d.xml'
+    return touch3dSkin
   } else {
     if (window.innerWidth < window.innerHeight) {
-      return '/skins/default/skin_touch.xml'
+      return touchSkin
     } else {
-      return '/skins/default/skin_screen.xml'
+      return screenSkin
     }
   }
 }

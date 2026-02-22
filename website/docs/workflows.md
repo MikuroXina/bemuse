@@ -51,5 +51,5 @@ Upon releasing a new version, it will automatically be deployed to production.
 Right now this is currently being done manually using this command:
 
 ```
-rush publish --apply --target-branch master --publish --npm-auth-token $NPM_TOKEN
+pnpm publish --apply --target-branch master --publish --npm-auth-token $NPM_TOKEN
 ```

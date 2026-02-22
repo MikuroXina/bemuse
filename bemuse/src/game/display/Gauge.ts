@@ -1,4 +1,4 @@
-import PlayerState from '../state/player-state'
+import PlayerState from '../state/player-state.js'
 
 export interface Gauge {
   update(playerState: PlayerState): void

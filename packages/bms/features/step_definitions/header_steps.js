@@ -1,6 +1,7 @@
-const steps = require('artstep')
+import { Then } from '@cucumber/cucumber'
+import { expect } from 'vitest'
 
-module.exports = steps().Then(
+Then(
   /^the header "([^"]*)" should have value "([^"]*)"$/,
   function (name, value) {
     expect(this.chart.headers.get(name)).to.equal(value)

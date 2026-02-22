@@ -1,7 +1,8 @@
+import _ from 'lodash'
+import { beforeEach, describe, expect, it } from 'vitest'
+
 import * as DataStore from './data-store'
 import * as Operations from './operations'
-
-import _ from 'lodash'
 
 describe('Online DataStore', function () {
   describe('initial state', function () {
@@ -14,7 +15,7 @@ describe('Online DataStore', function () {
     describe('has', function () {
       it('has should return false', function () {
         const has = DataStore.has(DataStore.initialState(), 'meow')
-        void expect(has).to.be.false
+        expect(has).toBe(false)
       })
     })
   })
@@ -46,6 +47,7 @@ describe('Online DataStore', function () {
   })
 
   describe('with records', function () {
+    let state
     beforeEach(function () {
       const action = DataStore.putMultiple({
         a: Operations.completed(1),
@@ -53,23 +55,23 @@ describe('Online DataStore', function () {
         c: Operations.INITIAL_OPERATION_STATE,
         d: Operations.loading(),
       })
-      this.state = DataStore.reduce(undefined, action)
+      state = DataStore.reduce(undefined, action)
     })
     describe('has', function () {
       it('has should return true if touched', function () {
-        void expect(DataStore.has(this.state, 'a')).to.be.true
-        void expect(DataStore.has(this.state, 'b')).to.be.true
-        void expect(DataStore.has(this.state, 'c')).to.be.true
-        void expect(DataStore.has(this.state, 'd')).to.be.true
+        expect(DataStore.has(state, 'a')).toBe(true)
+        expect(DataStore.has(state, 'b')).toBe(true)
+        expect(DataStore.has(state, 'c')).toBe(true)
+        expect(DataStore.has(state, 'd')).toBe(true)
       })
       it('has should return false if untouched', function () {
-        void expect(DataStore.has(this.state, 'e')).to.be.false
+        expect(DataStore.has(state, 'e')).toBe(false)
       })
     })
     describe('clear', function () {
       it('should clear the store', function () {
-        this.state = DataStore.reduce(this.state, DataStore.clear())
-        void expect(DataStore.has(this.state, 'a')).to.be.false
+        state = DataStore.reduce(state, DataStore.clear())
+        expect(DataStore.has(state, 'a')).toBe(false)
       })
     })
   })

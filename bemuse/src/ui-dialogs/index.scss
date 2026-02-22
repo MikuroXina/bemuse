@@ -1,14 +1,14 @@
-@import '~bemuse/ui/common';
+@use '@bemuse/ui/common.scss';
 
 .AlertDialog {
   &のoverlay {
-    @include full-screen-fixed;
+    @include common.full-screen-fixed;
     background: rgba(#111, 0.5);
     overflow: hidden;
     z-index: 10000;
   }
   &のcontent {
-    @include full-screen-fixed;
+    @include common.full-screen-fixed;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     z-index: 10001;

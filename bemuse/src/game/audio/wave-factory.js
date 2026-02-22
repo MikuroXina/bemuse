@@ -19,7 +19,7 @@ export class WaveFactory {
   }
 
   // Plays a note when hitting in the blank area (unlimited polyphony)
-  playFree(note, delay, slice) {
+  playFree(note, _delay, slice) {
     return this._play({ note, delay: 0, exclusive: false, slice })
   }
 

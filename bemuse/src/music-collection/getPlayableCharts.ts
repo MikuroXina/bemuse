@@ -1,6 +1,7 @@
-import { Chart } from 'bemuse-types'
+import type { Chart } from 'bemuse-types'
 import _ from 'lodash'
-import isChartPlayable from './isChartPlayable'
+
+import isChartPlayable from './isChartPlayable.js'
 
 export function getPlayableCharts(charts: readonly Chart[]): Chart[] {
   return _(charts)

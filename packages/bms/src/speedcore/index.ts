@@ -1,4 +1,4 @@
-import { Segment, SpeedSegment } from './segment'
+import { Segment, SpeedSegment } from './segment.js'
 
 /**
  * Speedcore is a small internally-used library.

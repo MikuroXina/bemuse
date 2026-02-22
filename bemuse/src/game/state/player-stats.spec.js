@@ -1,7 +1,8 @@
 import assert from 'assert'
+import { describe, expect, it } from 'vitest'
 
-import PlayerStats from './player-stats'
-import { notechart } from '../test-helpers'
+import { notechart } from '../test-helpers/index.js'
+import PlayerStats from './player-stats.js'
 
 describe('PlayerStats', function () {
   const statsFor5Notes = () => new PlayerStats(notechart('#00111:1111111111'))
