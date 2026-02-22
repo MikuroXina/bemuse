@@ -22,7 +22,7 @@ export default function ErrorDialog({
       <h1>An error has occured!</h1>
       <p>{message}</p>
       {url && <p className='ErrorDialogのwhere'>{`${url}:${line}:${col}`}</p>}
-      <pre>{err ? err.stack : 'No stack trave available'}</pre>
+      <pre>{err ? err.stack : 'No stack trace available'}</pre>
       <div className='ErrorDialogのclose' onClick={onClose}>
         &times;
       </div>
