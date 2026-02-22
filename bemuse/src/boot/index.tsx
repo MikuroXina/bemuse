@@ -15,6 +15,8 @@ import loadModule, { type Module } from './loader.js'
 import Boot from './ui/Boot.js'
 import ErrorDialog from './ui/ErrorDialog.js'
 
+let booted = false
+
 if (document.readyState === 'loading') {
   document.addEventListener(
     'DOMContentLoaded',
@@ -24,10 +26,14 @@ if (document.readyState === 'loading') {
     false
   )
 } else {
-  await boot()
+  void boot()
 }
 
 async function boot() {
+  if (booted) {
+    return
+  }
+  booted = true
   attachFastClick(document.body)
 
   const bootRoot = createRoot(document.getElementById('boot-root')!)
@@ -66,7 +72,7 @@ async function boot() {
   // After the ``boot`` script has been loaded, the main script is scanned
   // from the ``mode`` query parameter.
 
-  const mode = query.mode || 'app'
+  const mode = query.mode ?? 'app'
   const selected: (() => Promise<Module>) | undefined = (
     loadModule as Record<string, () => Promise<Module>>
   )[mode]
