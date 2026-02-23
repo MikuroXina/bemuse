@@ -58,10 +58,14 @@ test('Keeps highest score', async ({ page }) => {
   await page.goto(
     '/?mode=playground&playground=playgrounds/result&flags=fake-scoreboard'
   )
-  await expect(page.locator('.Ranking')).toContainText('111111')
+  const testerOldScore = '111111'
+  await expect(page.locator('.Ranking')).toContainText(testerOldScore)
+
   await logInFromRankingTable(page, 'tester')
+
   await expect(page.locator('.Ranking')).toContainText('555554')
-  await expect(page.locator('.Ranking')).not.toContainText('543210')
+  const testerHighScore = '543210'
+  await expect(page.locator('.Ranking')).toContainText(testerHighScore)
 })
 
 test('Clears data when switching user', async ({ page }) => {
