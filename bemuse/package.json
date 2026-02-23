@@ -16,7 +16,7 @@
     "build": "wireit",
     "dev": "vite dev",
     "typecheck": "tsc",
-    "pre-deploy": "gulp pre-deploy",
+    "pre-deploy": "wireit",
     "prod-build": "wireit",
     "prod-start": "wireit",
     "start": "wireit",
@@ -33,6 +33,13 @@
         "../packages/monetizer:build",
         "../packages/bms:build",
         "../packages/bmson:build"
+      ]
+    },
+    "pre-deploy": {
+      "command": "gulp pre-deploy",
+      "dependencies": [
+        "build",
+        "../website:build"
       ]
     },
     "prod-build": {

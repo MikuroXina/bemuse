@@ -21,7 +21,7 @@
     "test": {
       "command": "playwright test",
       "dependencies": [
-        "../bemuse:build"
+        "../bemuse:pre-deploy"
       ]
     }
   }
