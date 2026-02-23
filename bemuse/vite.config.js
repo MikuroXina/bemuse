@@ -9,6 +9,7 @@ import { playwright } from '@vitest/browser-playwright'
 import peggy from 'rollup-plugin-peggy'
 import { defineConfig } from 'vite'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
+import { VitePWA } from 'vite-plugin-pwa'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 function gitRevision() {
@@ -73,7 +74,7 @@ const commonPlugins = [
 
 // @ts-check
 export default defineConfig({
-  plugins: [...commonPlugins, tsconfigPaths(), peggy(), react()],
+  plugins: [...commonPlugins, tsconfigPaths(), peggy(), react(), VitePWA()],
   appType: 'mpa',
   base: '/',
   mode: 'production',
