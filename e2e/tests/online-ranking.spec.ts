@@ -45,7 +45,9 @@ test('Can log in and out', async ({ page }) => {
 })
 
 test('Can submit score to improve', async ({ page }) => {
-  await page.goto('/?mode=playground&playground=result&flags=fake-scoreboard')
+  await page.goto(
+    '/?mode=playground&playground=playgrounds/result&flags=fake-scoreboard'
+  )
   await expect(page.locator('.Ranking')).toContainText('111111')
   await logInFromRankingTable(page, 'tester')
   await expect(page.locator('.Ranking')).not.toContainText('111111')
@@ -53,7 +55,9 @@ test('Can submit score to improve', async ({ page }) => {
 })
 
 test('Keeps highest score', async ({ page }) => {
-  await page.goto('/?mode=playground&playground=result&flags=fake-scoreboard')
+  await page.goto(
+    '/?mode=playground&playground=playgrounds/result&flags=fake-scoreboard'
+  )
   await expect(page.locator('.Ranking')).toContainText('111111')
   await logInFromRankingTable(page, 'tester')
   await expect(page.locator('.Ranking')).toContainText('555554')
