@@ -33,7 +33,7 @@ export class BemusePackageResources implements IResources {
     base: string | URL | IResources,
     options: {
       metadataFilename?: string
-      fallback?: string | URL | IResources
+      fallback?: string | IResources
       fallbackPattern?: RegExp
     } = {}
   ) {
@@ -47,9 +47,7 @@ export class BemusePackageResources implements IResources {
     const fallback =
       typeof options.fallback === 'string'
         ? new URLResources(new URL(options.fallback, location.href))
-        : options.fallback instanceof URL
-          ? new URLResources(options.fallback)
-          : options.fallback
+        : options.fallback
 
     this._base = base
     this._fallback = fallback
