@@ -8,9 +8,9 @@
 import Layout from '@theme/Layout'
 import { useEffect, useState } from 'react'
 
-import { MainWrapper } from '../components/main-wrapper.js'
-import { Post } from '../components/post.js'
-import { MusicServerData } from '../lib/music.js'
+import { MainWrapper } from '../components/main-wrapper'
+import { Post } from '../components/post'
+import { MusicServerData } from '../lib/music'
 import styles from './music.module.css'
 
 interface SongInfo {

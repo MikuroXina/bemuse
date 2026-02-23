@@ -63,7 +63,7 @@ application at this URL:
 
 <div style={{textAlign: 'center', fontSize: '2em'}}>
 
-**<https://song-workshop.bemuse.ninja/>**
+**[https://song-workshop.bemuse.ninja/](https://song-workshop.bemuse.ninja/)**
 
 </div>
 
@@ -281,7 +281,7 @@ Now that your song is prepared and tested, it’s time to put it online!
 - Obtain the URL to the `bemuse-song.json` file.
 
   - For example:
-    <https://music4.bemuse.ninja/songs/[frums]credits/bemuse-song.json>
+    [https://music4.bemuse.ninja/songs/[frums]credits/bemuse-song.json](https://music4.bemuse.ninja/songs/[frums]credits/bemuse-song.json)
 
 ## Test your song online
 
@@ -291,7 +291,7 @@ Now that your song is online, you can test it!
   <code>https:/<i></i>/bemuse.ninja/?server=<em>&lt;url/to/bemuse-song.json&gt;</em></code><br />
 
   - For example:
-    <https://bemuse.ninja/?server=https://music4.bemuse.ninja/songs/[frums]credits/bemuse-song.json>
+    [https://bemuse.ninja/?server=https://music4.bemuse.ninja/songs/[frums]credits/bemuse-song.json](https://bemuse.ninja/?server=https://music4.bemuse.ninja/songs/[frums]credits/bemuse-song.json)
 
   - (Alternatively, you can launch Bemuse normally and then paste the URL into
     the Custom BMS dialog.)
@@ -330,7 +330,7 @@ place? In this case you would create a **music server file.**
 
   - This is your **Server URL**.
   - You can remove the `/index.json` part as Bemuse will add it automatically.
-  - For example, my server is at <https://flicknote.bemuse.ninja/index.json>
+  - For example, my server is at [https://flicknote.bemuse.ninja/index.json](https://flicknote.bemuse.ninja/index.json)
 
 ## Test and share your music server
 
@@ -340,4 +340,4 @@ your friends!
 - Go to <code>https:/<i></i>/bemuse.ninja/?server=<em>&lt;Server
   URL&gt;</em></code><br />
 
-  - For example, <https://bemuse.ninja/?server=https://flicknote.bemuse.ninja>
+  - For example, [https://bemuse.ninja/?server=https://flicknote.bemuse.ninja](https://bemuse.ninja/?server=https://flicknote.bemuse.ninja)

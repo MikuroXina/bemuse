@@ -15,7 +15,7 @@ installed from your web browser.
 
 You can launch a workspace by going to the below link:
 
-&rarr; <https://gitpod.io/#https://github.com/bemusic/bemuse>
+&rarr; [https://gitpod.io/#https://github.com/bemusic/bemuse](https://gitpod.io/#https://github.com/bemusic/bemuse)
 
 ## Develop in GitHub Codespaces
 
@@ -24,7 +24,7 @@ development environment that is integrated with GitHub.
 
 You can launch a workspace by going to the below link:
 
-&rarr; <https://github.com/codespaces/new?hide_repo_select=true&repo=27105154&machine=standardLinux32gb>
+&rarr; [https://github.com/codespaces/new?hide_repo_select=true&repo=27105154&machine=standardLinux32gb](https://github.com/codespaces/new?hide_repo_select=true&repo=27105154&machine=standardLinux32gb)
 
 It will take about 4 minutes to launch the workspace. Once it is ready, you can
 start the development server by running the following command:

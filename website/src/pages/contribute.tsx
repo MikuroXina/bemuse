@@ -8,10 +8,10 @@
 import Link from '@docusaurus/Link'
 import Layout from '@theme/Layout'
 
-import { GridBlock } from '../components/grid-block.js'
-import { MainWrapper } from '../components/main-wrapper.js'
-import { Post } from '../components/post.js'
-import { docUrl } from '../lib/url.js'
+import { GridBlock } from '../components/grid-block'
+import { MainWrapper } from '../components/main-wrapper'
+import { Post } from '../components/post'
+import { docUrl } from '../lib/url'
 
 const pageContent = (
   <div>

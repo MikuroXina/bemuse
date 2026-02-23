@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-import { Container } from './container.js'
+import { Container } from './container'
 import styles from './feature-block.module.css'
 
 export const FeatureBlock = ({

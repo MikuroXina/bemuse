@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-import { Container } from './container.js'
+import { Container } from './container'
 import styles from './main-wrapper.module.css'
 
 export const MainWrapper = ({ children }: { children: ReactNode }) => (

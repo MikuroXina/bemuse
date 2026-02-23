@@ -17,7 +17,11 @@ module.exports = {
   ],
   favicon: 'img/favicon.png',
   onBrokenLinks: 'log',
-  onBrokenMarkdownLinks: 'log',
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'log',
+    },
+  },
   presets: [
     [
       '@docusaurus/preset-classic',

@@ -1,6 +1,6 @@
 import type { HTMLAttributeAnchorTarget, ReactNode } from 'react'
 
-import { docUrl, pageUrl } from '../lib/url.js'
+import { docUrl, pageUrl } from '../lib/url'
 import styles from './cta-buttons.module.css'
 
 const Button = ({

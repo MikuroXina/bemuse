@@ -4,7 +4,7 @@ title: FAQ
 ---
 
 The FAQ contents has been moved to a Community FAQ site at
-<https://faq.bemuse.ninja/>
+[https://faq.bemuse.ninja/](https://faq.bemuse.ninja/)
 
 <div style={{height: '100vh'}}></div>
 
