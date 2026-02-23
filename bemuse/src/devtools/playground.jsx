@@ -1,13 +1,12 @@
 import { sceneRoot } from '@bemuse/utils/main-element.js'
 import query from '@bemuse/utils/query.js'
 
-const playgrounds = import.meta.glob('./playgrounds/*js');
+const playgrounds = import.meta.glob('./playgrounds/*.{js,jsx}');
 const availablePlaygrounds = {}
 for (const key of Object.keys(playgrounds)) {
   const name = key.match(/\w[^.]+/)[0]
   availablePlaygrounds[name] = await playgrounds[key]()
 }
-console.dir({playgrounds, availablePlaygrounds})
 
 const DefaultPlayground = () => {
   const linkStyle = { color: '#abc' }
