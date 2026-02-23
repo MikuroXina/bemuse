@@ -18,9 +18,15 @@ test('Music page', async ({ page }) => {
 
 test('Loading with service worker', async ({ page }) => {
   await page.goto('/')
-  await expect
-    .poll(() => page.evaluate(() => navigator.serviceWorker.controller?.state))
-    .toBe('activated')
-  await page.goto('/project/docs/workflows')
+  await page.evaluate(async () => {
+    const registration =
+      await window.navigator.serviceWorker.getRegistration('/')
+    if (registration.active?.state === 'activated') {
+      return
+    }
+    return window.navigator.serviceWorker.ready
+  })
+
+  await page.goto('/project/docs/workflows/')
   await expect(page.getByText('Publishing npm packages').first()).toBeVisible()
 })
