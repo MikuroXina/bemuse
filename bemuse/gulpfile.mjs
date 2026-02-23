@@ -1,8 +1,9 @@
 import './node-environment.mjs'
 
-import glob from 'glob'
+import { globSync } from 'glob'
 import gulp from 'gulp'
 import undertaker from 'undertaker-forward-reference'
 
 gulp.registry(undertaker())
-await Promise.all(glob.sync('./tasks/*.js').map((file) => import(file)))
+const path = import.meta.resolve('./tasks/').replace('file://', '') + '*.js'
+await Promise.all(globSync(path).map((file) => import(file)))
