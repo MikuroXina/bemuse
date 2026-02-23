@@ -458,6 +458,9 @@ importers:
       '@types/object-assign':
         specifier: ^4.0.30
         version: 4.0.33
+      '@vitest/coverage-v8':
+        specifier: ^4.0.18
+        version: 4.0.18(@vitest/browser@4.0.18(vite@7.3.1(@types/node@24.10.13)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.0)(yaml@2.8.2))(vitest@4.0.18))(vitest@4.0.18)
       eslint:
         specifier: ^9.0.0
         version: 9.39.2(jiti@1.21.7)
@@ -498,6 +501,9 @@ importers:
       '@types/node':
         specifier: ^25.3.0
         version: 25.3.0
+      '@vitest/coverage-v8':
+        specifier: ^4.0.18
+        version: 4.0.18(@vitest/browser@4.0.18(vite@7.3.1(@types/node@25.3.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.0)(yaml@2.8.2))(vitest@4.0.18))(vitest@4.0.18)
       eslint:
         specifier: ^9.0.0
         version: 9.39.2(jiti@1.21.7)
@@ -568,6 +574,9 @@ importers:
         specifier: ^2.0.2
         version: 2.0.2
     devDependencies:
+      '@vitest/coverage-v8':
+        specifier: ^4.0.18
+        version: 4.0.18(@vitest/browser@4.0.18(vite@7.3.1(@types/node@25.3.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.0)(yaml@2.8.2))(vitest@4.0.18))(vitest@4.0.18)
       eslint:
         specifier: ^9.0.0
         version: 9.39.2(jiti@1.21.7)
@@ -644,6 +653,9 @@ importers:
       '@types/node':
         specifier: '24'
         version: 24.10.13
+      '@vitest/coverage-v8':
+        specifier: ^4.0.18
+        version: 4.0.18(@vitest/browser@4.0.18(vite@7.3.1(@types/node@24.10.13)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.0)(yaml@2.8.2))(vitest@4.0.18))(vitest@4.0.18)
       eslint:
         specifier: ^9.0.0
         version: 9.39.2(jiti@1.21.7)
@@ -687,6 +699,9 @@ importers:
       '@types/power-assert':
         specifier: ^1.5.0
         version: 1.5.12
+      '@vitest/coverage-v8':
+        specifier: ^4.0.18
+        version: 4.0.18(@vitest/browser@4.0.18(vite@7.3.1(@types/node@25.3.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.0)(yaml@2.8.2))(vitest@4.0.18))(vitest@4.0.18)
       eslint:
         specifier: ^9.0.0
         version: 9.39.2(jiti@1.21.7)
@@ -747,6 +762,9 @@ importers:
       '@vitest/browser-playwright':
         specifier: ^4.0.18
         version: 4.0.18(playwright@1.58.2)(vite@7.3.1(@types/node@25.3.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.0)(yaml@2.8.2))(vitest@4.0.18)
+      '@vitest/coverage-v8':
+        specifier: ^4.0.18
+        version: 4.0.18(@vitest/browser@4.0.18(vite@7.3.1(@types/node@25.3.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.0)(yaml@2.8.2))(vitest@4.0.18))(vitest@4.0.18)
       eslint:
         specifier: ^9.0.0
         version: 9.39.2(jiti@1.21.7)
@@ -15193,6 +15211,22 @@ snapshots:
       - msw
       - utf-8-validate
       - vite
+
+  '@vitest/coverage-v8@4.0.18(@vitest/browser@4.0.18(vite@7.3.1(@types/node@24.10.13)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.0)(yaml@2.8.2))(vitest@4.0.18))(vitest@4.0.18)':
+    dependencies:
+      '@bcoe/v8-coverage': 1.0.2
+      '@vitest/utils': 4.0.18
+      ast-v8-to-istanbul: 0.3.11
+      istanbul-lib-coverage: 3.2.2
+      istanbul-lib-report: 3.0.1
+      istanbul-reports: 3.2.0
+      magicast: 0.5.2
+      obug: 2.1.1
+      std-env: 3.10.0
+      tinyrainbow: 3.0.3
+      vitest: 4.0.18(@types/node@24.10.13)(@vitest/browser-playwright@4.0.18)(jiti@1.21.7)(jsdom@16.7.0)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.0)(yaml@2.8.2)
+    optionalDependencies:
+      '@vitest/browser': 4.0.18(vite@7.3.1(@types/node@24.10.13)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.0)(yaml@2.8.2))(vitest@4.0.18)
 
   '@vitest/coverage-v8@4.0.18(@vitest/browser@4.0.18(vite@7.3.1(@types/node@25.3.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.0)(yaml@2.8.2))(vitest@4.0.18))(vitest@4.0.18)':
     dependencies:

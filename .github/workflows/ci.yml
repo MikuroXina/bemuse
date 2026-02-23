@@ -90,10 +90,11 @@ jobs:
         run: pnpx playwright install --with-deps
       - name: Build
         run: pnpm run build
-      - name: Test
-        run: pnpm run test
+      - name: Test with coverage
+        run: pnpm run coverage
       - uses: codecov/codecov-action@v5
         with:
+          files: ./bemuse/coverage/clover.xml,./package/bemuse-indexer/coverage/clover.xml,./package/bemuse-notechart/coverage/clover.xml,./package/bemuse-tools/coverage/clover.xml,./package/bms/coverage/clover.xml,./package/bmson/coverage/clover.xml,./package/monetizer/coverage/clover.xml
           use_oidc: true
       - name: Run E2E tests
         run: pnpm run --filter bemuse-e2e test

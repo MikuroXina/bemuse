@@ -65,6 +65,7 @@
     "@types/lodash.uniq": "^4.5.4",
     "@types/lodash.values": "^4.3.4",
     "@types/node": "24",
+    "@vitest/coverage-v8": "^4.0.18",
     "eslint": "^9.0.0",
     "eslint-config-bemuse": "workspace:*",
     "gulp": "^4.0.2",

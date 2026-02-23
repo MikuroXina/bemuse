@@ -55,6 +55,7 @@
     "throat": "^2.0.2"
   },
   "devDependencies": {
+    "@vitest/coverage-v8": "^4.0.18",
     "eslint": "^9.0.0",
     "eslint-config-bemuse": "workspace:*",
     "typescript": "^5.9.3",
