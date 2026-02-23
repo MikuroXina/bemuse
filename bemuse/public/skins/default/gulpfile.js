@@ -1,7 +1,8 @@
-const gulp = require('gulp')
-const jade = require('jade')
-const fs = require('fs')
-const yaml = require('js-yaml')
+import fs from 'node:fs'
+
+import gulp from 'gulp'
+import yaml from 'js-yaml'
+import pug from 'pug'
 
 function createCompiler(template, globals) {
   return function compile(outName, localsToAdd) {
@@ -13,7 +14,7 @@ function createCompiler(template, globals) {
 
 gulp.task('compile', function () {
   const globals = yaml.safeLoad(fs.readFileSync('skin_data.yml', 'utf8'))
-  const template = jade.compileFile('skin_template.jade', { pretty: true })
+  const template = pug.compileFile('skin_template.jade', { pretty: true })
   const compile = createCompiler(template, globals)
   compile('skin_screen.xml', { media: 'screen' })
   compile('skin_touch.xml', { media: 'touch' })
