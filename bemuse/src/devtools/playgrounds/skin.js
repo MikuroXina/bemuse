@@ -5,13 +5,13 @@ import GameState from '@bemuse/game/state'
 import * as Scintillator from '@bemuse/scintillator'
 import MAIN from '@bemuse/utils/main-element'
 import { fromBMSChart } from 'bemuse-notechart/lib/loader/BMSNotechartLoader'
-import BMS from 'bms'
+import { Compiler } from 'bms'
 import $ from 'jquery'
 
 // TODO [#628]: Convert the `main` method to async function (instead of using `co`) in src/devtools/playgrounds/skin.js
 // See issue #575 for more details.
 export async function main() {
-  const chart = BMS.Compiler.compile(`
+  const chart = Compiler.compile(`
     #TITLE ทดสอบ Bemuse
     #ARTIST ฟหกด
     #00111:01
@@ -38,7 +38,7 @@ export async function main() {
     #00218:010000000010010001000100
     #00219:010000000001000100000100`).chart
 
-  const notecharts = [fromBMSChart(chart)]
+  const notecharts = [fromBMSChart(chart, {})]
 
   const game = new Game(notecharts, {
     players: [{ speed: 2 }],
