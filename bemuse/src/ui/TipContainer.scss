@@ -1,5 +1,16 @@
+@media screen and (width >= 720px) {
+  .TipContainer {
+    display: inline-block;
+  }
+}
+
+@media screen and (width < 720px) {
+  .TipContainer {
+    display: none;
+  }
+}
+
 .TipContainer {
-  display: inline-block;
   position: relative;
 
   &のbubble {

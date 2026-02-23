@@ -41,7 +41,7 @@ import MusicInfo from './MusicInfo.js'
 import MusicList from './MusicList.js'
 import RageQuitPopup from './RageQuitPopup.js'
 import SongPreviewer from './SongPreviewer.js'
-import Toolbar from './Toolbar.js'
+import Toolbar, { item, spacer } from './Toolbar.js'
 import UnofficialPanel from './UnofficialPanel.js'
 
 const selectMusicSelectState = (() => {
@@ -167,13 +167,13 @@ const getToolbarItems = ({
     if (!online) return []
     if (user) {
       return [
-        Toolbar.item(<span>Log Out ({user.username})</span>, {
+        item(<span>Log Out ({user.username})</span>, {
           onClick: handleLogout,
         }),
       ]
     } else {
       return [
-        Toolbar.item('Log In / Create an Account', {
+        item('Log In / Create an Account', {
           onClick: handleAuthenticate,
         }),
       ]
@@ -181,15 +181,15 @@ const getToolbarItems = ({
   }
 
   return [
-    Toolbar.item('Exit', {
+    item('Exit', {
       onClick: handleExit,
     }),
-    Toolbar.item('Play Custom BMS', {
+    item('Play Custom BMS', {
       onClick: handleCustomBMSOpen,
     }),
-    Toolbar.spacer(),
+    spacer(),
     ...getOnlineToolbarButtons({ handleAuthenticate }),
-    Toolbar.item('Options', {
+    item('Options', {
       onClick: handleOptionsOpen,
     }),
   ]

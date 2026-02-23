@@ -15,7 +15,7 @@ import AboutScene from './AboutScene.js'
 import ChangelogPanel from './ChangelogPanel.js'
 import logo from './images/logo-with-shadow.svg'
 import ModeSelectScene from './ModeSelectScene.js'
-import Toolbar from './Toolbar.js'
+import Toolbar, { item, spacer } from './Toolbar.js'
 
 const HAS_PARENT = (() => {
   try {
@@ -40,32 +40,32 @@ const toolbarItems = ({
   viewChangelog: (e: MouseEvent<HTMLAnchorElement>) => void
   hasSeenChangelog: boolean
 }) => [
-  Toolbar.item('About', {
+  item('About', {
     onClick: showAbout,
   }),
-  Toolbar.item('Community FAQ', {
+  item('Community FAQ', {
     href: 'https://faq.bemuse.ninja',
     tip: 'New',
     tipFeatureKey: 'faq',
   }),
-  Toolbar.item('Docs', {
+  item('Docs', {
     href: '/project/',
   }),
-  Toolbar.item(<Version />, {
+  item(<Version />, {
     onClick: viewChangelog,
     tip: 'What’s new?',
     tipVisible: !hasSeenChangelog,
   }),
-  Toolbar.spacer(),
-  Toolbar.item('Discord', {
+  spacer(),
+  item('Discord', {
     href: 'https://discord.gg/aB6ucmx',
     tip: 'Join our community',
     tipFeatureKey: 'discord',
   }),
-  Toolbar.item('Twitter', {
+  item('Twitter', {
     href: 'https://twitter.com/bemusegame',
   }),
-  Toolbar.item('GitHub', {
+  item('GitHub', {
     href: 'https://github.com/bemusic/bemuse',
   }),
 ]
