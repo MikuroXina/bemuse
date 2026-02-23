@@ -74,6 +74,7 @@ const commonPlugins = [
 // @ts-check
 export default defineConfig({
   plugins: [...commonPlugins, tsconfigPaths(), peggy(), react()],
+  appType: 'mpa',
   base: '/',
   mode: 'production',
   define: {
@@ -112,6 +113,7 @@ export default defineConfig({
     include: [
       'bemuse-indexer',
       'node:util',
+      'redux',
       'vite-plugin-node-polyfills/shims/buffer',
       'vite-plugin-node-polyfills/shims/global',
       'vite-plugin-node-polyfills/shims/process',
