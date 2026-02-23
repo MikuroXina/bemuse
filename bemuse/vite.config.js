@@ -74,7 +74,17 @@ const commonPlugins = [
 
 // @ts-check
 export default defineConfig({
-  plugins: [...commonPlugins, tsconfigPaths(), peggy(), react(), VitePWA()],
+  plugins: [
+    ...commonPlugins,
+    tsconfigPaths(),
+    peggy(),
+    react(),
+    VitePWA({
+      workbox: {
+        navigateFallbackDenylist: [/^\/project\//],
+      },
+    }),
+  ],
   appType: 'mpa',
   base: '/',
   mode: 'production',
