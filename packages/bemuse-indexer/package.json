@@ -13,8 +13,17 @@
     "clean": "rimraf lib tsconfig.tsbuildinfo",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
-    "build": "tsc -b .",
+    "build": "wireit",
     "lint": "eslint ."
+  },
+  "wireit": {
+    "build": {
+      "command": "tsc -b",
+      "dependencies": [
+        "../bms:build",
+        "../bmson:build"
+      ]
+    }
   },
   "repository": {
     "type": "git",
@@ -43,6 +52,7 @@
     "eslint": "^9.0.0",
     "eslint-config-bemuse": "workspace:*",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.18"
+    "vitest": "^4.0.18",
+    "wireit": "^0.14.12"
   }
 }
