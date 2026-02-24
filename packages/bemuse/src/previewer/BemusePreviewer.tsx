@@ -103,7 +103,7 @@ export const BemusePreviewer = () => {
       <div className='BemusePreviewerのheader'>
         <h1>
           <a
-            href='https://bemuse.ninja/project/docs/previewer.html'
+            href='https://bemuse.pages.dev/project/docs/previewer.html'
             target='_blank'
             rel='noreferrer'
           >

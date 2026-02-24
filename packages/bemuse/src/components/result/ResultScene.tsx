@@ -10,7 +10,6 @@ import SceneToolbar, { SceneToolbarSpacer } from '@bemuse/ui/SceneToolbar.js'
 import type { Chart } from 'bemuse-types'
 import type { MouseEvent } from 'react'
 
-import * as Analytics from '../../app/analytics.js'
 import * as QueryFlags from '../../app/query-flags.js'
 import type { Result } from '../../app/types.js'
 import FirstTimeTip from '../../app/ui/FirstTimeTip.js'
@@ -35,12 +34,12 @@ const getTweetLink = ({ chart, result }: { chart: Chart; result: Result }) => {
   subtitle = subtitle.trim()
   if (subtitle !== '' && !/^[[(]/.test(subtitle)) subtitle = `[${subtitle}]`
   if (subtitle !== '') subtitle = ` ${subtitle}`
-  let url = 'https://bemuse.ninja/'
+  let url = 'https://bemuse.pages.dev/'
   const server = QueryFlags.getMusicServer()
   if (server) {
     url =
       (/^http:/.test(server) ? 'http' : 'https') +
-      '://bemuse.ninja/?server=' +
+      '://bemuse.pages.dev/?server=' +
       encodeURIComponent(server)
   }
   const text =
@@ -71,17 +70,11 @@ const ResultScene = ({
   const onTweet = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
     e.stopPropagation()
-    Analytics.send('ResultScene', 'tweet')
     window.open(
       getTweetLink({ chart, result }),
       'intent',
       'width=550,height=420'
     )
-  }
-
-  const handleExit = (e: MouseEvent<HTMLDivElement>) => {
-    onExit(e)
-    Analytics.send('ResultScene', 'exit')
   }
 
   return (
@@ -126,7 +119,7 @@ const ResultScene = ({
           </a>
           <Flex grow={1} />
           <FirstTimeTip tip='Back to music selection' featureKey='finishGame'>
-            <div className='ResultSceneのexit' onClick={handleExit}>
+            <div className='ResultSceneのexit' onClick={onExit}>
               Continue
             </div>
           </FirstTimeTip>

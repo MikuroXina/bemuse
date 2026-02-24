@@ -4,7 +4,6 @@ import ModalPopup from '@bemuse/ui/ModalPopup.js'
 import RunningNumber from '@bemuse/ui/RunningNumber.js'
 import { useState } from 'react'
 
-import * as Analytics from '../../app/analytics.js'
 import type { Result } from '../../app/types.js'
 import FirstTimeTip from '../../app/ui/FirstTimeTip.js'
 import ResultDeltasView from './ResultDeltasView.js'
@@ -26,7 +25,6 @@ const ResultTable = ({ result }: ResultTableProps) => {
 
   const handleViewDeltas = () => {
     handleToggleDeltasModal()
-    Analytics.send('ResultTable', 'view deltas')
   }
 
   return (

@@ -13,7 +13,7 @@ notes correctly to recreate the song!
 
 ## Entering the game
 
-Go to [bemuse.ninja](https://bemuse.ninja/) in your web browser. You will see
+Go to [bemuse.pages.dev](https://bemuse.pages.dev/) in your web browser. You will see
 the title screen:
 
 import title from './assets/user-guide/title.jpg'

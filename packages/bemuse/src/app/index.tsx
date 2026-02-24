@@ -19,7 +19,6 @@ import { Provider } from 'react-redux'
 import * as BemuseTestMode from '../debug/BemuseTestMode.js'
 import configureStore from '../redux/configureStore.js'
 import * as ReduxState from '../redux/ReduxState.js'
-import * as Analytics from './analytics.js'
 import { isBrowserSupported } from './browser-support.js'
 import { musicSearchTextSlice } from './entities/MusicSearchText.js'
 import { optionsSlice } from './entities/Options.js'
@@ -82,9 +81,9 @@ export function main() {
   // synchronize time
   const timeSynchroServer =
     getTimeSynchroServer() || 'wss://timesynchro.herokuapp.com/'
-  if (timeSynchroServer) now.synchronize(timeSynchroServer)
-
-  trackFullscreenEvents()
+  if (timeSynchroServer) {
+    now.synchronize(timeSynchroServer)
+  }
 
   // add web monetization meta tag
   monetize('$twitter.xrptipbot.com/bemusegame')
@@ -111,23 +110,6 @@ function getFirstScene() {
   }
   return scene
 }
-
-function trackFullscreenEvents() {
-  let fullscreen = false
-  document.addEventListener('fullscreenchange', () => {
-    if (document.fullscreenElement && !fullscreen) {
-      fullscreen = true
-      Analytics.send('fullscreen', 'enter')
-    } else if (!document.fullscreenElement && fullscreen) {
-      fullscreen = false
-      Analytics.send('fullscreen', 'exit')
-    }
-  })
-}
-
-window.addEventListener('beforeunload', () => {
-  Analytics.send('app', 'quit')
-})
 
 Object.assign(window, {
   BemuseTestMode,

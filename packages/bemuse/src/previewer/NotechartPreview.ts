@@ -74,7 +74,7 @@ export type VisibleBarLine = {
 
 export function createNullNotechartPreview(): NotechartPreview {
   const warning =
-    location.hostname !== 'bemuse.ninja'
+    location.hostname !== 'bemuse.pages.dev'
       ? ' [NOTE: Do not bookmark this URL because it is a preview and this URL will stop working in the future.]'
       : ''
   return {

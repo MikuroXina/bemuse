@@ -368,10 +368,10 @@ Make sure the directory layout is the same.
 [Enable cross-origin resource sharing](http://enable-cors.org/) on your web
 server to allow Bemuse client to connect.
 
-To connect to the music server, go to `http://bemuse.ninja/?server=<your URL>`.
+To connect to the music server, go to `http://bemuse.pages.dev/?server=<your URL>`.
 
 Example:
-http://bemuse.ninja/?server=http://flicknote.bemuse.ninja/bemuse/mumei12
+http://bemuse.pages.dev/?server=http://flicknote.bemuse.ninja/bemuse/mumei12
 
 ### On a Local Machine (Windows, XAMPP)
 
@@ -421,7 +421,7 @@ DocumentRoot "C:\Bemuse\myserver"
 Once the file is saved, open your XAMPP Control Pannel and run "Apache".
 
 Then connect to the music server with
-(http://bemuse.ninja/?server=https://localhost/).
+(http://bemuse.pages.dev/?server=https://localhost/).
 
 ### On a Local Machine (macOS, [nginx](https://nginx.org/en/))
 
@@ -489,7 +489,7 @@ $ nginx -s reload
 ```
 
 Now, the music server will be available at http://localhost. You can play by
-going to [http://bemuse.ninja/?server=http://localhost](http://bemuse.ninja/?server=http://localhost).
+going to [http://bemuse.pages.dev/?server=http://localhost](http://bemuse.pages.dev/?server=http://localhost).
 
 ##### Additional Note.
 
@@ -567,4 +567,4 @@ $ sudo systemctl restart nginx
 ```
 
 Now, the music server will be available at http://localhost. You can play by
-going to [http://bemuse.ninja/?server=http://localhost](http://bemuse.ninja/?server=http://localhost).
+going to [http://bemuse.pages.dev/?server=http://localhost](http://bemuse.pages.dev/?server=http://localhost).

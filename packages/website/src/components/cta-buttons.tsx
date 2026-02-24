@@ -44,7 +44,7 @@ export const CTAButtons = ({
 }) => (
   <PromoSection>
     <Button
-      href='https://bemuse.ninja'
+      href='https://bemuse.pages.dev'
       target='blank'
       rel='noopener noreferrer'
       isHighlight={isHighlight}

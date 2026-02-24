@@ -1,4 +1,4 @@
-<h1 align="center"><a href="https://bemuse.ninja/"><img src="website/static/img/logo.png" alt="Bemuse 〜beat☆music☆sequence〜" height="162" /></a></h1>
+<h1 align="center"><a href="https://bemuse.pages.dev/"><img src="website/static/img/logo.png" alt="Bemuse 〜beat☆music☆sequence〜" height="162" /></a></h1>
 
 <h2 align="center">open-source web-based online rhythm game</h2>
 
@@ -10,7 +10,7 @@
   <a href="https://sonarcloud.io/summary/new_code?id=bemusic_bemuse"><img src="https://sonarcloud.io/api/project_badges/measure?project=bemusic_bemuse&metric=alert_status" alt="Quality Gate Status" /></a>
   <a href="https://sonarcloud.io/summary/new_code?id=bemusic_bemuse"><img src="https://sonarcloud.io/api/project_badges/measure?project=bemusic_bemuse&metric=sqale_rating" alt="Maintainability Rating" /></a>
   <br>
-  <a href="https://bemuse.ninja/project/"><img src="https://img.shields.io/badge/read%20the-docs-brightgreen.svg?style=flat" alt="Docs"></a>
+  <a href="https://bemuse.pages.dev/project/"><img src="https://img.shields.io/badge/read%20the-docs-brightgreen.svg?style=flat" alt="Docs"></a>
   <a href="https://gitpod.io/#https://github.com/bemusic/bemuse" title="Develop in GitPod"><img src="https://img.shields.io/badge/develop%20in-gitpod-blue.svg?style=flat"></a>
 </p>
 
@@ -104,7 +104,7 @@ It is recommended to play this game on Google Chrome.
 - **Audio latency compensation.** Some systems may have audio latency. Bemuse
   contains a calibration system to compensate for the audio latency.
 
-**Play now at https://bemuse.ninja/.**
+**Play now at https://bemuse.pages.dev/.**
 
 ## Technology
 
@@ -137,7 +137,7 @@ rush build --to-except bemuse
 rush dev
 ```
 
-For more information, check out the [Developer Guide](https://bemuse.ninja/project/docs/developer-guide.html).
+For more information, check out the [Developer Guide](https://bemuse.pages.dev/project/docs/developer-guide.html).
 
 Note: Online ranking features are not available.
 
@@ -146,13 +146,13 @@ Note: Online ranking features are not available.
 This repository holds the code for other sub-projects, which are available for
 use on npm.
 
-| Project name                                      | Badge                                                                                                  | Description                                                                                     |
-| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
-| [**bms**](packages/bms)                           | [![npm](https://img.shields.io/npm/v/bms.svg)](http://npmjs.com/package/bms)                           | JavaScript [BMS](https://hitkey.nekokan.dyndns.info/cmds.htm) parser                            |
-| [**bmson**](packages/bmson)                       | [![npm](https://img.shields.io/npm/v/bmson.svg)](http://npmjs.com/package/bmson)                       | JavaScript [bmson](https://bmson.nekokan.dyndns.info/) parser                                   |
-| [**bemuse-tools**](packages/bemuse-tools)         | [![npm](https://img.shields.io/npm/v/bemuse-tools.svg)](http://npmjs.com/package/bemuse-tools)         | Tools for [hosting your own music server](https://bemuse.ninja/project/docs/music-server.html). |
-| [**bemuse-indexer**](packages/bemuse-indexer)     | [![npm](https://img.shields.io/npm/v/bemuse-indexer.svg)](http://npmjs.com/package/bemuse-indexer)     | Library for scanning a directory for BMS/bmson files and generate a metadata.                   |
-| [**bemuse-notechart**](packages/bemuse-notechart) | [![npm](https://img.shields.io/npm/v/bemuse-notechart.svg)](http://npmjs.com/package/bemuse-notechart) | Library for loading a notechart for use in game.                                                |
+| Project name                                      | Badge                                                                                                  | Description                                                                                         |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- |
+| [**bms**](packages/bms)                           | [![npm](https://img.shields.io/npm/v/bms.svg)](http://npmjs.com/package/bms)                           | JavaScript [BMS](https://hitkey.nekokan.dyndns.info/cmds.htm) parser                                |
+| [**bmson**](packages/bmson)                       | [![npm](https://img.shields.io/npm/v/bmson.svg)](http://npmjs.com/package/bmson)                       | JavaScript [bmson](https://bmson.nekokan.dyndns.info/) parser                                       |
+| [**bemuse-tools**](packages/bemuse-tools)         | [![npm](https://img.shields.io/npm/v/bemuse-tools.svg)](http://npmjs.com/package/bemuse-tools)         | Tools for [hosting your own music server](https://bemuse.pages.dev/project/docs/music-server.html). |
+| [**bemuse-indexer**](packages/bemuse-indexer)     | [![npm](https://img.shields.io/npm/v/bemuse-indexer.svg)](http://npmjs.com/package/bemuse-indexer)     | Library for scanning a directory for BMS/bmson files and generate a metadata.                       |
+| [**bemuse-notechart**](packages/bemuse-notechart) | [![npm](https://img.shields.io/npm/v/bemuse-notechart.svg)](http://npmjs.com/package/bemuse-notechart) | Library for loading a notechart for use in game.                                                    |
 
 ## How to contribute
 

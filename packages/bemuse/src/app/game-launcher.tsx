@@ -16,7 +16,6 @@ import invariant from 'invariant'
 
 import GenericErrorScene from '../components/GenericErrorScene.js'
 import ResultScene from '../components/result/ResultScene.js'
-import * as Analytics from './analytics.js'
 import * as Options from './entities/Options.js'
 import createAutoVelocity from './interactors/createAutoVelocity.js'
 import { getSoundVolume } from './query-flags.js'
@@ -153,7 +152,6 @@ async function launchGame(
 
   while (true) {
     // start loading the game
-    const loadStart = Date.now()
     setCurrentWork('loading the game')
     Log.info(`Loading game: ${describeChart(chart)}`)
     const GameLoader = await import('@bemuse/game/loaders/game-loader.js')
@@ -176,25 +174,11 @@ async function launchGame(
     // if in title display mode, stop here
     if (isTitleDisplayMode()) return
 
-    // send data to analytics
-    const gameMode = scratch ? 'BM' : 'KB'
-    Analytics.gameStart(song, chart, gameMode, options)
-
     // wait for game to load and display the game
     const controller = await promise
     setCurrentWork('running the game')
     await sceneDisplayContext.showScene(GameScene(controller.display))
     controller.start()
-
-    // send the timing data
-    const loadFinish = Date.now()
-    Analytics.recordGameLoadTime(loadFinish - loadStart)
-
-    // listen to unload events
-    const onUnload = () => {
-      Analytics.gameQuit(song, chart, state)
-    }
-    window.addEventListener('beforeunload', onUnload, false)
 
     // wait for final game state
     const playResult = await controller.promise
@@ -210,12 +194,10 @@ async function launchGame(
     autoVelocity.handleGameFinish(playerSpeed, { saveSpeed, saveLeadTime })
     loadSpec.options.players[0].speed = playerSpeed
 
-    // send data to analytics & display evaluation
-    window.removeEventListener('beforeunload', onUnload, false)
+    // display evaluation
     let replay
     if (state.finished) {
       setCurrentWork('showing game results')
-      Analytics.gameFinish(song, chart, state, gameMode)
       const exitResult = await showResult(
         player,
         playerState,
@@ -225,7 +207,6 @@ async function launchGame(
       replay = exitResult.replay
     } else {
       setCurrentWork('exiting the game')
-      Analytics.gameEscape(song, chart, state)
       replay = playResult.replay
       if (!replay) {
         if (song.tutorial && controller.latestGameTime! > 96) onRagequitted()

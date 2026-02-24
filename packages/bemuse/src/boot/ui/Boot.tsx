@@ -1,6 +1,6 @@
 import './Boot.scss'
 
-import version from '@bemuse/utils/version.js'
+import { buildName, version } from '@bemuse/utils/build-define.js'
 
 export interface BootProps {
   hidden?: boolean
@@ -15,7 +15,7 @@ export default function Boot({ hidden, status = 'Loading page' }: BootProps) {
         <div className='Bootのtext'>
           <div>
             <strong>
-              Bemuse <span>{`v${version}`}</span>
+              {buildName()} <span>v{version()}</span>
             </strong>
           </div>
           <div>{status}</div>

@@ -8,7 +8,6 @@ import SceneToolbar from '@bemuse/ui/SceneToolbar.js'
 import { useContext, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 
-import * as Analytics from '../analytics.js'
 import { optionsSlice } from '../entities/Options.js'
 import MusicSelectScene from './MusicSelectScene.js'
 
@@ -112,12 +111,10 @@ const ModeSelectScene = () => {
   const handleKB = () => {
     onSetMode('KB')
     sceneManager.display(<MusicSelectScene />)
-    Analytics.send('ModeSelectScene', 'select mode', 'KB')
   }
   const handleBM = () => {
     onSetMode('BM')
     sceneManager.display(<MusicSelectScene />)
-    Analytics.send('ModeSelectScene', 'select mode', 'BM')
   }
   const handleBack = () => {
     sceneManager.pop()

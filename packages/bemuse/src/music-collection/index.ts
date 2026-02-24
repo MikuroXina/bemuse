@@ -4,7 +4,7 @@ export const OFFICIAL_SERVER_URL = 'https://music4.bemuse.ninja/server'
 
 export async function load(
   serverUrl: string,
-  { fetch = global.fetch } = {}
+  { fetch = window.fetch } = {}
 ): Promise<MusicServerIndex> {
   const indexUrl = getServerIndexFileUrl(serverUrl)
   const data = await fetch(indexUrl).then((response) => response.json())

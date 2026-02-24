@@ -14,12 +14,10 @@
   },
   "scripts": {
     "build": "wireit",
+    "start": "pnpx http-server -p 5173 dist",
     "dev": "vite dev",
     "typecheck": "tsc",
     "pre-deploy": "wireit",
-    "prod-build": "wireit",
-    "prod-start": "wireit",
-    "start": "wireit",
     "test": "wireit",
     "coverage": "wireit",
     "lint": "eslint ."
@@ -42,27 +40,8 @@
         "../website:build"
       ]
     },
-    "prod-build": {
-      "command": "gulp build",
-      "env": {
-        "NODE_ENV": "production"
-      }
-    },
-    "prod-start": {
-      "command": "gulp server",
-      "env": {
-        "NODE_ENV": "production",
-        "HOT": "true"
-      }
-    },
-    "start": {
-      "command": "gulp server",
-      "env": {
-        "HOT": "true"
-      }
-    },
     "test": {
-      "command": "gulp test",
+      "command": "vitest run",
       "env": {
         "NODE_ENV": "test",
         "BEMUSE_COV": ""
@@ -72,7 +51,7 @@
       ]
     },
     "coverage": {
-      "command": "gulp test",
+      "command": "vitest run --coverage",
       "env": {
         "NODE_ENV": "test",
         "BEMUSE_COV": "true"
@@ -88,6 +67,7 @@
   "author": "Thai Pangsakulyanont <dtinth@spacet.me> (http://dt.in.th/)",
   "license": "AGPL-1.0",
   "devDependencies": {
+    "@types/assert": "^1.5.11",
     "@types/fastclick": "^1.0.33",
     "@types/invariant": "^2.2.37",
     "@types/jquery": "^3.5.33",

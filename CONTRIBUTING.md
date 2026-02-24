@@ -7,7 +7,7 @@
 - Always lint JavaScript code before committing. This helps reduce extraneous
   commits.
 - Take a look at:
-  - [Developer Guide](https://bemuse.ninja/project/docs/developer-guide.html)
+  - [Developer Guide](https://bemuse.pages.dev/project/docs/developer-guide.html)
   - [.editorconfig](.editorconfig)
   - [.eslintrc.yml](.eslintrc.yml)
 

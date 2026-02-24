@@ -18,7 +18,7 @@ You can access the previewer by going to this URL:
 
 <div style={{textAlign: 'center', fontSize: '2em'}}>
 
-**[https://bemuse.ninja/?mode=previewer](https://bemuse.ninja/?mode=previewer)**
+**[https://bemuse.pages.dev/?mode=previewer](https://bemuse.pages.dev/?mode=previewer)**
 
 </div>
 
@@ -31,17 +31,17 @@ As the developer has limited resources, no support is provided for this app, alt
 
 ## Keyboard shortcuts
 
-| Shortcut | Action |
-| --- | --- |
-| <kbd>Space</kbd> | Play/Pause |
-| <kbd>ArrowUp</kbd> | Jump to Next Measure |
-| <kbd>ArrowDown</kbd> | Jump to Previous Measure |
-| <kbd>ArrowLeft</kbd> | Jump Backward by 5 Seconds |
-| <kbd>ArrowRight</kbd> | Jump Forward by 5 Seconds |
-| <kbd>,</kbd> | Jump Backward by 0.1 Seconds |
-| <kbd>.</kbd> | Jump Forward by 0.1 Seconds |
-| <kbd>Home</kbd> | Jump to Beginning of Song |
-| <kbd>G</kbd> | Jump to Measure... |
-| <kbd>1</kbd> | Hi-Speed Up |
-| <kbd>2</kbd> | Hi-Speed Down |
-| <kbd>R</kbd> | Reload Chart File |
+| Shortcut              | Action                       |
+| --------------------- | ---------------------------- |
+| <kbd>Space</kbd>      | Play/Pause                   |
+| <kbd>ArrowUp</kbd>    | Jump to Next Measure         |
+| <kbd>ArrowDown</kbd>  | Jump to Previous Measure     |
+| <kbd>ArrowLeft</kbd>  | Jump Backward by 5 Seconds   |
+| <kbd>ArrowRight</kbd> | Jump Forward by 5 Seconds    |
+| <kbd>,</kbd>          | Jump Backward by 0.1 Seconds |
+| <kbd>.</kbd>          | Jump Forward by 0.1 Seconds  |
+| <kbd>Home</kbd>       | Jump to Beginning of Song    |
+| <kbd>G</kbd>          | Jump to Measure...           |
+| <kbd>1</kbd>          | Hi-Speed Up                  |
+| <kbd>2</kbd>          | Hi-Speed Down                |
+| <kbd>R</kbd>          | Reload Chart File            |

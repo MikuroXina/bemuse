@@ -4,12 +4,11 @@ import { SceneManagerContext } from '@bemuse/scene-manager/index.js'
 import HomePage from '@bemuse/site/HomePage.js'
 import ModalPopup from '@bemuse/ui/ModalPopup.js'
 import Scene from '@bemuse/ui/Scene.js'
-import version from '@bemuse/utils/version.js'
+import { buildName, version } from '@bemuse/utils/build-define.js'
 import { type MouseEvent, useContext, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { selectOptions } from '../../redux/ReduxState.js'
-import * as Analytics from '../analytics.js'
 import { lastSeenVersion, optionsSlice } from '../entities/Options.js'
 import AboutScene from './AboutScene.js'
 import ChangelogPanel from './ChangelogPanel.js'
@@ -27,7 +26,7 @@ const HAS_PARENT = (() => {
 
 const Version = () => (
   <>
-    <strong>Bemuse</strong> v{version}
+    <strong>{buildName()}</strong> v{version()}
   </>
 )
 
@@ -43,11 +42,6 @@ const toolbarItems = ({
   item('About', {
     onClick: showAbout,
   }),
-  item('Community FAQ', {
-    href: 'https://faq.bemuse.ninja',
-    tip: 'New',
-    tipFeatureKey: 'faq',
-  }),
   item('Docs', {
     href: '/project/',
   }),
@@ -57,16 +51,8 @@ const toolbarItems = ({
     tipVisible: !hasSeenChangelog,
   }),
   spacer(),
-  item('Discord', {
-    href: 'https://discord.gg/aB6ucmx',
-    tip: 'Join our community',
-    tipFeatureKey: 'discord',
-  }),
-  item('Twitter', {
-    href: 'https://twitter.com/bemusegame',
-  }),
   item('GitHub', {
-    href: 'https://github.com/bemusic/bemuse',
+    href: 'https://github.com/MikuroXina/bemuse',
   }),
 ]
 
@@ -77,28 +63,25 @@ const TitleScene = () => {
 
   const onMarkChangelogAsSeen = () => {
     dispatch(
-      optionsSlice.actions.UPDATE_LAST_SEEN_VERSION({ newVersion: version })
+      optionsSlice.actions.UPDATE_LAST_SEEN_VERSION({ newVersion: version() })
     )
   }
 
-  const hasSeenChangelog = lastSeenVersion(options) === version
+  const hasSeenChangelog = lastSeenVersion(options) === version()
 
   const [changelogModalVisible, setChangelogModalVisible] = useState(false)
 
   const enterGame = () => {
     sceneManager.push(<ModeSelectScene />)
-    Analytics.send('TitleScene', 'enter game')
   }
 
   const showAbout = () => {
     sceneManager.push(<AboutScene />)
-    Analytics.send('TitleScene', 'show about')
   }
 
   const viewChangelog = () => {
     toggleChangelogModal()
     onMarkChangelogAsSeen()
-    Analytics.send('TitleScene', 'view changelog')
   }
 
   const toggleChangelogModal = () => {
