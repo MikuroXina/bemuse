@@ -3,12 +3,7 @@
 <h2 align="center">open-source web-based online rhythm game</h2>
 
 <p align="center">
-  <a href="https://circleci.com/gh/bemusic/bemuse"><img src="https://img.shields.io/circleci/project/bemusic/bemuse/master.svg?style=flat" alt="CircleCI"></a>
-  <a href="https://codecov.io/gh/bemusic/bemuse"><img src="https://codecov.io/gh/bemusic/bemuse/branch/master/graph/badge.svg" alt="Codecov" /></a>
-  <a href="https://twitter.com/bemusegame"><img src="https://img.shields.io/badge/twitter-@bemusegame-blue.svg" alt="twitter" /></a>
-  <br>
-  <a href="https://sonarcloud.io/summary/new_code?id=bemusic_bemuse"><img src="https://sonarcloud.io/api/project_badges/measure?project=bemusic_bemuse&metric=alert_status" alt="Quality Gate Status" /></a>
-  <a href="https://sonarcloud.io/summary/new_code?id=bemusic_bemuse"><img src="https://sonarcloud.io/api/project_badges/measure?project=bemusic_bemuse&metric=sqale_rating" alt="Maintainability Rating" /></a>
+  <a href="https://codecov.io/gh/MikuroXina/bemuse"><img src="https://codecov.io/gh/MikuroXina/bemuse/branch/master/graph/badge.svg" alt="Codecov" /></a>
   <br>
   <a href="https://bemuse.pages.dev/project/"><img src="https://img.shields.io/badge/read%20the-docs-brightgreen.svg?style=flat" alt="Docs"></a>
   <a href="https://gitpod.io/#https://github.com/bemusic/bemuse" title="Develop in GitPod"><img src="https://img.shields.io/badge/develop%20in-gitpod-blue.svg?style=flat"></a>
@@ -43,7 +38,7 @@ It is recommended to play this game on Google Chrome.
 
 ## Quick Tour
 
-![Music selection](website/static/img/screenshots/music-selection.jpg)
+![Music selection](packages/website/static/img/screenshots/music-selection.jpg)
 
 - You can play **online songs** instantly in your browser.
 
@@ -57,7 +52,7 @@ It is recommended to play this game on Google Chrome.
 
 - It has an **insane tutorial.**
 
-![Gameplay](website/static/img/screenshots/gameplay-kbd.jpg)
+![Gameplay](packages/website/static/img/screenshots/gameplay-kbd.jpg)
 
 - **Keyboard mode** (7-keys). Play along the music with your keyboard.
 
@@ -93,7 +88,7 @@ It is recommended to play this game on Google Chrome.
 - **Early/Late indicator.** Bemuse will tell you if you press the note too early
   or too late.
 
-![Options](website/static/img/screenshots/options.jpg)
+![Options](packages/website/static/img/screenshots/options.jpg)
 
 - **Adjustable panel position.** You can position the note panel on either side
   of the screen, or put it at the center.
@@ -158,7 +153,7 @@ use on npm.
 
 - Drop a :star: on the GitHub repository (optional).
 
-- Before contributing, please read [CONTRIBUTING.md](https://github.com/bemusic/bemuse/blob/master/CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](https://github.com/bemusic/bemuse/blob/master/CODE_OF_CONDUCT.md).
+- Before contributing, please read [CONTRIBUTING.md](./CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md).
 
 ## Our amazing contributors🌟
 
