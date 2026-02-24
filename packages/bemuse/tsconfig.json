@@ -11,7 +11,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
-    "typeRoots": ["./types/"],
+    "typeRoots": ["./node_modules/@types", "./types/"],
     "paths": {
       "@bemuse/*": ["./src/*"]
     },
