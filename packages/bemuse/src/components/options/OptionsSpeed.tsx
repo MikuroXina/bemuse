@@ -1,7 +1,5 @@
 import './OptionsSpeed.scss'
 
-import { memo } from 'react'
-
 import OptionsButton from './OptionsButton.js'
 import OptionsInputField from './OptionsInputField.js'
 
@@ -43,6 +41,7 @@ const OptionsSpeed = ({ value, onChange }: OptionsSpeedProps) => {
         <OptionsButton onClick={handleMinusButtonClick}>-</OptionsButton>
       </span>
       <OptionsInputField
+        key={value}
         value={value}
         parse={parseSpeed}
         stringify={stringifySpeed}
@@ -56,4 +55,4 @@ const OptionsSpeed = ({ value, onChange }: OptionsSpeedProps) => {
   )
 }
 
-export default memo(OptionsSpeed)
+export default OptionsSpeed

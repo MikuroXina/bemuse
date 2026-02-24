@@ -149,16 +149,19 @@ const OptionsPlayer = ({ onClose }: { onClose?: () => void }) => {
         selector={laneCover}
         label='Cover'
         renderControl={(laneCover) => (
-          <OptionsInputField
-            parse={(str) => parseInt(str, 10) / 100}
-            stringify={(value) => Math.round(value * 100 || 0) + '%'}
-            validator={/^-?\d+(%)?$/}
-            value={laneCover}
-            onChange={(laneCover) =>
-              dispatch(optionsSlice.actions.CHANGE_LANE_COVER({ laneCover }))
-            }
-            style={{ width: '5em' }}
-          />
+          <>
+            <OptionsInputField
+              parse={(str) => parseInt(str, 10) / 100}
+              stringify={(value) => Math.round(value * 100 || 0).toString()}
+              validator={/^-?\d+$/}
+              value={laneCover}
+              onChange={(laneCover) =>
+                dispatch(optionsSlice.actions.CHANGE_LANE_COVER({ laneCover }))
+              }
+              style={{ width: '5em' }}
+            />
+            <span className='OptionsPlayerのhint'>%</span>
+          </>
         )}
       />
 
