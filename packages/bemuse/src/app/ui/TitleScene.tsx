@@ -27,7 +27,7 @@ const HAS_PARENT = (() => {
 
 const Version = () => (
   <>
-    <strong>{buildName}</strong> v{version}
+    <strong>{buildName()}</strong> v{version()}
   </>
 )
 
@@ -77,11 +77,11 @@ const TitleScene = () => {
 
   const onMarkChangelogAsSeen = () => {
     dispatch(
-      optionsSlice.actions.UPDATE_LAST_SEEN_VERSION({ newVersion: version })
+      optionsSlice.actions.UPDATE_LAST_SEEN_VERSION({ newVersion: version() })
     )
   }
 
-  const hasSeenChangelog = lastSeenVersion(options) === version
+  const hasSeenChangelog = lastSeenVersion(options) === version()
 
   const [changelogModalVisible, setChangelogModalVisible] = useState(false)
 

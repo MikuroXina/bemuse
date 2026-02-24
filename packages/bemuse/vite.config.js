@@ -23,17 +23,17 @@ function buildInfo() {
   let version = pkgJson.version
 
   if (process.env.CONTEXT === 'deploy-preview') {
-    name += 'DevMode'
+    name += ' DevMode'
     if (process.env.DEPLOY_PRIME_URL) {
       const m = process.env.DEPLOY_PRIME_URL.match(/\/\/(.*?)--/)
       version += `[${m[1]}]`
     }
     version += '@' + gitRevision()
   } else if (process.env.CONTEXT === 'production') {
-    name += 'DevMode'
+    name += ' DevMode'
     version += '+next[staging]@' + gitRevision()
   } else if (!process.env.CI) {
-    name += 'DevMode'
+    name += ' DevMode'
     version += '+local'
   }
   return { name, version }
@@ -80,8 +80,10 @@ export default defineConfig({
     peggy(),
     react(),
     VitePWA({
+      registerType: 'autoUpdate',
       workbox: {
         navigateFallbackDenylist: [/^\/project\//],
+        globPatterns: ['**/*.{js,css,html,svg,jpg,png}'],
       },
     }),
   ],
