@@ -1,5 +1,5 @@
 {
-  "last-release-sha": "07f0d4fe815b059d37eb486b899288029add937b",
+  "last-release-sha": "81e06c0951dfb2232e5daf92c32867fac4da806a",
   "changelog-path": "CHANGELOG.md",
   "packages": {
     "packages/bemuse-indexer": {
