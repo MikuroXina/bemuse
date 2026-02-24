@@ -1,5 +1,5 @@
 import { fromBMSChart } from 'bemuse-notechart/lib/loader/BMSNotechartLoader.js'
-import * as BMS from 'bms'
+import { Compiler } from 'bms'
 import _ from 'lodash'
 
 import Player from '../player.js'
@@ -7,7 +7,7 @@ import Player from '../player.js'
 export const tap = _.tap
 
 export function chart(code = '') {
-  return BMS.Compiler.compile(code).chart
+  return Compiler.compile(code).chart
 }
 
 export function notechart(code, options = {}) {
