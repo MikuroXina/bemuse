@@ -4,35 +4,35 @@
   "packages": {
     "packages/bemuse-indexer": {
       "release-type": "node",
-      "package-name": "bemuse-indexer"
+      "package-name": "@mikuroxina/bemuse-indexer"
     },
     "packages/bemuse-notechart": {
       "release-type": "node",
-      "package-name": "bemuse-notechart"
+      "package-name": "@mikuroxina/bemuse-notechart"
     },
     "packages/bemuse-tools": {
       "release-type": "node",
-      "package-name": "bemuse-tools"
+      "package-name": "@mikuroxina/bemuse-tools"
     },
     "packages/bemuse-types": {
       "release-type": "node",
-      "package-name": "bemuse-types"
+      "package-name": "@mikuroxina/bemuse-types"
     },
     "packages/bms": {
       "release-type": "node",
-      "package-name": "bms"
+      "package-name": "@mikuroxina/bms"
     },
     "packages/bmson": {
       "release-type": "node",
-      "package-name": "bmson"
+      "package-name": "@mikuroxina/bmson"
     },
     "packages/eslint-config-bemuse": {
       "release-type": "node",
-      "package-name": "eslint-config-bemuse"
+      "package-name": "@mikuroxina/eslint-config-bemuse"
     },
     "packages/monetizer": {
       "release-type": "node",
-      "package-name": "monetizer"
+      "package-name": "@mikuroxina/monetizer"
     }
   }
 }
