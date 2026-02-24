@@ -41,7 +41,7 @@
       ]
     },
     "test": {
-      "command": "gulp test",
+      "command": "vitest run",
       "env": {
         "NODE_ENV": "test",
         "BEMUSE_COV": ""
@@ -51,7 +51,7 @@
       ]
     },
     "coverage": {
-      "command": "gulp test",
+      "command": "vitest run --coverage",
       "env": {
         "NODE_ENV": "test",
         "BEMUSE_COV": "true"
