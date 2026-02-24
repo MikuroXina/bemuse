@@ -1,10 +1,10 @@
 {
-  "packages/bemuse-indexer": "51.0.2",
-  "packages/bemuse-notechart": "50.1.2",
-  "packages/bemuse-tools": "50.0.4",
-  "packages/bemuse-types": "50.0.2",
-  "packages/bms": "51.0.0",
-  "packages/bmson": "50.1.2",
-  "packages/eslint-config-bemuse": "5.0.0",
-  "packages/monetizer": "50.0.2"
+  "packages/bemuse-indexer": "52.0.0",
+  "packages/bemuse-notechart": "52.0.0",
+  "packages/bemuse-tools": "52.0.0",
+  "packages/bemuse-types": "52.0.0",
+  "packages/bms": "52.0.0",
+  "packages/bmson": "52.0.0",
+  "packages/eslint-config-bemuse": "52.0.0",
+  "packages/monetizer": "52.0.0"
 }

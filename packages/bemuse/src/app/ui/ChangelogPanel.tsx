@@ -34,8 +34,7 @@ const ChangelogPanel = () => {
   const [status, setStatus] = useState<Status>({ state: 'loading' })
   useEffect(() => {
     ;(async () => {
-      const { default: changelog } =
-        await import('@bemuse/../../../CHANGELOG.md?raw')
+      const { default: changelog } = await import('@bemuse/../CHANGELOG.md?raw')
       setStatus({ state: 'completed', changelog })
     })().catch(() => {
       setStatus({ state: 'error' })
