@@ -9,7 +9,7 @@ import OptionsButton from './OptionsButton.js'
 import OptionsInputField from './OptionsInputField.js'
 
 const stringifyLatency = (latency: number): string => {
-  return Math.round(latency) + 'ms'
+  return Math.round(latency).toString()
 }
 
 const parseLatency = (latencyText: string): number => {
@@ -58,10 +58,10 @@ const OptionsAdvanced = () => {
             value={Options.audioInputLatency(options)}
             parse={parseLatency}
             stringify={stringifyLatency}
-            validator={/^\d+(?:ms)?$/}
+            validator={/^\d+?$/}
             onChange={handleAudioInputLatencyChange}
           />
-          <label>audio</label>
+          <label>milliseconds</label>
         </div>
         <OptionsButton onClick={handleCalibrateButtonClick}>
           Calibrate
