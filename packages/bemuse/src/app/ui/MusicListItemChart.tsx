@@ -1,7 +1,7 @@
 import './MusicListItemChart.scss'
 
 import { getGrade } from '@bemuse/rules/grade.js'
-import type { Chart } from 'bemuse-types'
+import type { Chart } from '@mikuroxina/bemuse-types'
 import c from 'classnames'
 import type { MouseEvent } from 'react'
 

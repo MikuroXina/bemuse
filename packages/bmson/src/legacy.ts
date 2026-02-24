@@ -1,4 +1,4 @@
-import * as BMS from 'bms'
+import * as BMS from '@mikuroxina/bms'
 import _ from 'lodash'
 
 import type { Note, SoundChannel } from './types.js'
@@ -32,7 +32,7 @@ export function timingInfoForBmson(bmson: LegacyBmson): utils.TimingInfo {
             type: 'bpm',
             beat: beatForLoc(y),
             bpm: v,
-          } as BMS.BPMTimingAction)
+          }) as BMS.BPMTimingAction
       ),
       ...(bmson.stopNotes || []).map(
         ({ y, v }) =>
@@ -40,7 +40,7 @@ export function timingInfoForBmson(bmson: LegacyBmson): utils.TimingInfo {
             type: 'stop',
             beat: beatForLoc(y),
             stopBeats: beatForLoc(Math.floor(v)),
-          } as BMS.StopTimingAction)
+          }) as BMS.StopTimingAction
       ),
     ],
   }

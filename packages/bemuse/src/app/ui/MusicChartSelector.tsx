@@ -1,6 +1,6 @@
 import './MusicChartSelector.scss'
 
-import type { Chart, SongMetadata } from 'bemuse-types'
+import type { Chart, SongMetadata } from '@mikuroxina/bemuse-types'
 
 import MusicChartSelectorItem, {
   type MusicChartSelectorItemProps,

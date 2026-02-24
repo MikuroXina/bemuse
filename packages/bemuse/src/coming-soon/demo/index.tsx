@@ -5,7 +5,14 @@ import { Buffer } from 'node:buffer'
 import ctx from '@bemuse/audio-context/index.js'
 import DndResources from '@bemuse/resources/dnd-resources.js'
 import SamplingMaster, { Sample } from '@bemuse/sampling-master/index.js'
-import { BMSChart, Compiler, Notes, Reader, SongInfo, Timing } from 'bms'
+import {
+  BMSChart,
+  Compiler,
+  Notes,
+  Reader,
+  SongInfo,
+  Timing,
+} from '@mikuroxina/bms'
 import { useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 

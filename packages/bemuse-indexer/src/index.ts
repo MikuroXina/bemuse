@@ -9,13 +9,13 @@ import {
   Reader,
   SongInfo,
   Timing,
-} from 'bms'
+} from '@mikuroxina/bms'
 import {
   hasScratch as bmsonHasScratch,
   keysForBmson,
   musicalScoreForBmson,
   songInfoForBmson,
-} from 'bmson'
+} from '@mikuroxina/bmson'
 import invariant from 'invariant'
 import _ from 'lodash'
 import assign from 'object-assign'

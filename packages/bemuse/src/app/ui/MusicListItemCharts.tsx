@@ -1,6 +1,6 @@
 import './MusicListItemCharts.scss'
 
-import type { Chart } from 'bemuse-types'
+import type { Chart } from '@mikuroxina/bemuse-types'
 import type { MouseEvent } from 'react'
 
 import MusicListItemChart from './MusicListItemChart.js'

@@ -1,6 +1,6 @@
 import SamplingMaster, { Sample } from '@bemuse/sampling-master/index.js'
 import { showAlert } from '@bemuse/ui-dialogs/index.js'
-import { NotechartLoader } from 'bemuse-notechart/lib/loader/index.js'
+import { NotechartLoader } from '@mikuroxina/bemuse-notechart/lib/loader/index.js'
 import ObjectID from 'bson-objectid'
 import { get, set } from 'idb-keyval'
 import _ from 'lodash'

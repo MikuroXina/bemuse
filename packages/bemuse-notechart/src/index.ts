@@ -1,4 +1,4 @@
-import * as BMS from 'bms'
+import * as BMS from '@mikuroxina/bms'
 import invariant from 'invariant'
 import _ from 'lodash'
 

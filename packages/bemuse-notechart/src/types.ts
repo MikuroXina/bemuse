@@ -1,4 +1,4 @@
-import * as BMS from 'bms'
+import * as BMS from '@mikuroxina/bms'
 
 export interface NotechartInput {
   notes: BMS.BMSNote[]

@@ -1,6 +1,6 @@
 import { Buffer } from 'node:buffer'
 
-import { getSongInfo } from 'bemuse-indexer'
+import { getSongInfo } from '@mikuroxina/bemuse-indexer'
 
 /* global FileReaderSync */
 if (

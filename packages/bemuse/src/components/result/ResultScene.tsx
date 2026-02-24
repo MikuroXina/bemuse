@@ -7,7 +7,7 @@ import Flex from '@bemuse/ui/Flex.js'
 import Scene from '@bemuse/ui/Scene.js'
 import SceneHeading from '@bemuse/ui/SceneHeading.js'
 import SceneToolbar, { SceneToolbarSpacer } from '@bemuse/ui/SceneToolbar.js'
-import type { Chart } from 'bemuse-types'
+import type { Chart } from '@mikuroxina/bemuse-types'
 import type { MouseEvent } from 'react'
 
 import * as QueryFlags from '../../app/query-flags.js'

@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import type { Chart, SongMetadataInCollection } from 'bemuse-types'
+import type { Chart, SongMetadataInCollection } from '@mikuroxina/bemuse-types'
 import { type Draft, produce } from 'immer'
 import _ from 'lodash'
 

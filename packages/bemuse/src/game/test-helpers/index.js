@@ -1,5 +1,5 @@
-import { fromBMSChart } from 'bemuse-notechart/lib/loader/BMSNotechartLoader.js'
-import { Compiler } from 'bms'
+import { fromBMSChart } from '@mikuroxina/bemuse-notechart/lib/loader/BMSNotechartLoader.js'
+import { Compiler } from '@mikuroxina/bms'
 import _ from 'lodash'
 
 import Player from '../player.js'

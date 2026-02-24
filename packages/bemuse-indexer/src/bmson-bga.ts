@@ -1,5 +1,5 @@
-import * as BMS from 'bms'
-import * as bmson from 'bmson'
+import * as BMS from '@mikuroxina/bms'
+import * as bmson from '@mikuroxina/bmson'
 
 import type { BGAInfo } from './types.js'
 

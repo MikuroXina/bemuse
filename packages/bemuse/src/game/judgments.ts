@@ -1,4 +1,4 @@
-import type { Notechart } from 'bemuse-notechart'
+import type { Notechart } from '@mikuroxina/bemuse-notechart'
 import _ from 'lodash'
 
 export enum Judgment {

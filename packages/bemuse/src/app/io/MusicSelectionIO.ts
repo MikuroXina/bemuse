@@ -1,6 +1,6 @@
 import type { Chart, Song } from '@bemuse/collection-model/types.js'
 import { SceneManager } from '@bemuse/scene-manager/index.js'
-import type { SongMetadataInCollection } from 'bemuse-types'
+import type { SongMetadataInCollection } from '@mikuroxina/bemuse-types'
 import type { AnyAction, Dispatch } from 'redux'
 
 import { rageQuitSlice } from '../../redux/ReduxState.js'

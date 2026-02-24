@@ -13,7 +13,7 @@ import {
   SceneManagerContext,
 } from '@bemuse/scene-manager/index.js'
 import now from '@bemuse/utils/now.js'
-import { monetize } from 'monetizer'
+import { monetize } from '@mikuroxina/monetizer'
 import { Provider } from 'react-redux'
 
 import * as BemuseTestMode from '../debug/BemuseTestMode.js'

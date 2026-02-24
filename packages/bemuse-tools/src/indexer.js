@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import { basename, dirname, join } from 'node:path'
 
-import { getSongInfo } from 'bemuse-indexer'
+import { getSongInfo } from '@mikuroxina/bemuse-indexer'
 import chalk from 'chalk'
 import json from 'format-json'
 import { glob } from 'glob'

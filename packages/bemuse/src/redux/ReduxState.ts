@@ -17,7 +17,7 @@ import type {
   Chart,
   MusicServerIndex,
   SongMetadataInCollection,
-} from 'bemuse-types'
+} from '@mikuroxina/bemuse-types'
 import { enableMapSet } from 'immer'
 import _ from 'lodash'
 import { createSelector } from 'reselect'

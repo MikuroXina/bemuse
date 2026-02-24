@@ -2,7 +2,7 @@
 /* REASON: These snake case names are used in our JSON files. */
 
 import type { IResources } from '@bemuse/resources/types.js'
-import type { Chart, SongMetadataInCollection } from 'bemuse-types'
+import type { Chart, SongMetadataInCollection } from '@mikuroxina/bemuse-types'
 
 export interface Song extends SongMetadataInCollection {
   /** Resources that loaded the song file. Added by Bemuse at runtime. */

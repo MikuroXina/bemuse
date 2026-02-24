@@ -1,4 +1,4 @@
-import type { GameEvent, GameNote } from 'bemuse-notechart'
+import type { GameEvent, GameNote } from '@mikuroxina/bemuse-notechart'
 import _ from 'lodash'
 
 export interface VisibleNote {

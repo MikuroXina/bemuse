@@ -1,4 +1,4 @@
-import type { GameNote } from 'bemuse-notechart/lib/types.js'
+import type { GameNote } from '@mikuroxina/bemuse-notechart/lib/types.js'
 import invariant from 'invariant'
 import _ from 'lodash'
 
