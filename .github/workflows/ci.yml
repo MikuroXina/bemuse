@@ -36,14 +36,16 @@ jobs:
       - name: Compress build output
         if: always()
         run: tar -cvzf dist.tar.gz packages/bemuse/dist
-      - name: Checks
-        run: pnpm run --filter bemuse pre-deploy
       - name: Upload artifact
         if: always()
         uses: actions/upload-artifact@v6
         with:
           name: bemuse-build-${{ github.sha }}
           path: dist.tar.gz
+      - name: Checks
+        run: pnpm run --filter bemuse pre-deploy
+      - name: Publish dry run
+        run: pnpm publish -r --dry-run --no-git-checks
     outputs:
       released-tag: ${{ steps.release.outputs.tag }}
   typecheck:
