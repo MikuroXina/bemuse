@@ -26,7 +26,7 @@ const HAS_PARENT = (() => {
 
 const Version = () => (
   <>
-    <strong>{buildName()}</strong> v{version()}
+    <strong>{buildName()}</strong> {version()}
   </>
 )
 
