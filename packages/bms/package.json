@@ -1,6 +1,6 @@
 {
   "name": "@mikuroxina/bms",
-  "version": "51.0.0",
+  "version": "52.0.0",
   "description": "BMS Parser for JavaScript",
   "type": "module",
   "main": "./lib/index.js",
