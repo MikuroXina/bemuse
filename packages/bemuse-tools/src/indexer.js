@@ -4,7 +4,7 @@ import { basename, dirname, join } from 'node:path'
 import { getSongInfo } from 'bemuse-indexer'
 import chalk from 'chalk'
 import json from 'format-json'
-import glob from 'glob-promise'
+import { glob } from 'glob'
 import yaml from 'js-yaml'
 import _ from 'lodash'
 

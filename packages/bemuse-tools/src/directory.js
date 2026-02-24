@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import glob from 'glob-promise'
+import { glob } from 'glob'
 
 const { readFile } = fs.promises
 
