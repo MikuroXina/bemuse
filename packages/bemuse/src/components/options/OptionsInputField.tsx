@@ -47,7 +47,7 @@ const OptionsInputField = <T,>(
         'value',
       ])}
       type='text'
-      defaultValue={stringify(value)}
+      value={stringify(value)}
       onChange={handleInputChange}
       onBlur={handleInputBlur}
       className='OptionsInputField'

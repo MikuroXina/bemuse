@@ -97,7 +97,8 @@ const _changePlayMode = (state: Draft<OptionsState>, mode: MappingMode) => {
 }
 
 // Speed
-export const speed = (state: OptionsState) => state['player.P1.speed']
+export const speed = (state: OptionsState) =>
+  +(+state['player.P1.speed'] || 1.0).toFixed(1)
 
 // Lead time
 export const leadTime = (state: OptionsState) => {
@@ -239,9 +240,9 @@ export const optionsSlice = createSlice({
     },
     CHANGE_SPEED: (
       state,
-      { payload: { speed } }: PayloadAction<{ speed: string }>
+      { payload: { speed } }: PayloadAction<{ speed: number }>
     ) => {
-      state['player.P1.speed'] = speed
+      state['player.P1.speed'] = Math.max(speed, 0.1).toFixed(1)
     },
     CHANGE_LEAD_TIME: (
       state,
