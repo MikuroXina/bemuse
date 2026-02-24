@@ -11,7 +11,7 @@
   "dependencyDashboard": true,
   "semanticCommits": "enabled",
   "minimumReleaseAge": "3 days",
-  "fetchReleaseNotes": true,
+  "fetchChangeLogs": "pr",
   "enabledManagers": ["npm", "github-actions"],
   "packageRules": [
     {
@@ -24,7 +24,7 @@
     }
   ],
   "npm": {
-    "stabilityDays": 3
+    "minimumReleaseAge": "3 days"
   },
   "vulnerabilityAlerts": {
     "enabled": true,
