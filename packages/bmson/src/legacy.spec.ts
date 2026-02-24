@@ -1,5 +1,5 @@
-import assert from 'assert'
 import * as BMS from '@mikuroxina/bms'
+import assert from 'assert'
 import { describe, it } from 'vitest'
 
 import * as bmson from './index.js'
