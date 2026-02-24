@@ -108,7 +108,6 @@ export default defineConfig({
     plugins: () => commonPlugins,
   },
   build: {
-    sourcemap: true,
     commonjsOptions: {
       include: [/node_modules/],
     },
