@@ -1,0 +1,38 @@
+{
+  "last-release-sha": "07f0d4fe815b059d37eb486b899288029add937b",
+  "changelog-path": "CHANGELOG.md",
+  "packages": {
+    "packages/bemuse-indexer": {
+      "release-type": "node",
+      "package-name": "bemuse-indexer"
+    },
+    "packages/bemuse-notechart": {
+      "release-type": "node",
+      "package-name": "bemuse-notechart"
+    },
+    "packages/bemuse-tools": {
+      "release-type": "node",
+      "package-name": "bemuse-tools"
+    },
+    "packages/bemuse-types": {
+      "release-type": "node",
+      "package-name": "bemuse-types"
+    },
+    "packages/bms": {
+      "release-type": "node",
+      "package-name": "bms"
+    },
+    "packages/bmson": {
+      "release-type": "node",
+      "package-name": "bmson"
+    },
+    "packages/eslint-config-bemuse": {
+      "release-type": "node",
+      "package-name": "eslint-config-bemuse"
+    },
+    "packages/monetizer": {
+      "release-type": "node",
+      "package-name": "monetizer"
+    }
+  }
+}

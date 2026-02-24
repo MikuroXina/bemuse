@@ -28,11 +28,11 @@
     "build": {
       "command": "vite build",
       "dependencies": [
-        "../packages/bemuse-indexer:build",
-        "../packages/bemuse-notechart:build",
-        "../packages/monetizer:build",
-        "../packages/bms:build",
-        "../packages/bmson:build"
+        "../bemuse-indexer:build",
+        "../bemuse-notechart:build",
+        "../monetizer:build",
+        "../bms:build",
+        "../bmson:build"
       ]
     },
     "pre-deploy": {
@@ -117,7 +117,6 @@
     "eslint-config-bemuse": "workspace:*",
     "events": "^3.3.0",
     "express": "^4.22.1",
-    "gauge": "^5.0.0",
     "glob": "^13.0.0",
     "globals": "^17.3.0",
     "gulp": "^5.0.1",

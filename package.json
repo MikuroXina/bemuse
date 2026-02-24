@@ -10,37 +10,36 @@
   "wireit": {
     "build": {
       "dependencies": [
-        "./bemuse:build"
+        "./packages/bemuse:build"
       ]
     },
     "lint": {
       "dependencies": [
-        "./bemuse:lint",
-        "./e2e:lint",
+        "./packages/bemuse:lint",
+        "./packages/e2e:lint",
         "./packages/bemuse-indexer:lint",
         "./packages/bemuse-notechart:lint",
         "./packages/bemuse-tools:lint",
         "./packages/bms:lint",
         "./packages/bmson:lint",
         "./packages/monetizer:lint",
-        "./website:lint"
+        "./packages/website:lint"
       ]
     },
     "test": {
       "dependencies": [
         "test-packages",
-        "./bemuse:test"
+        "./packages/bemuse:test"
       ]
     },
     "coverage": {
       "dependencies": [
         "coverage-packages",
-        "./bemuse:coverage"
+        "./packages/bemuse:coverage"
       ]
     },
     "test-packages": {
       "dependencies": [
-        "build",
         "./packages/bemuse-indexer:test",
         "./packages/bemuse-notechart:test",
         "./packages/bemuse-tools:test",

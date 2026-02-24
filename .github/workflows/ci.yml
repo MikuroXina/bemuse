@@ -29,13 +29,13 @@ jobs:
         uses: ./.github/actions/setup-project
       - name: Build
         run: |
-          rm -rf bemuse/dist
+          rm -rf packages/bemuse/dist
           pnpm run build
         env:
           SCOREBOARD_SERVER: ${{ secrets.SCOREBOARD_SERVER }}
       - name: Compress build output
         if: always()
-        run: tar -cvzf dist.tar.gz bemuse/dist
+        run: tar -cvzf dist.tar.gz packages/bemuse/dist
       - name: Checks
         run: pnpm run --filter bemuse pre-deploy
       - name: Release
