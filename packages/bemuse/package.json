@@ -14,12 +14,10 @@
   },
   "scripts": {
     "build": "wireit",
+    "start": "pnpx http-server -p 5173 dist",
     "dev": "vite dev",
     "typecheck": "tsc",
     "pre-deploy": "wireit",
-    "prod-build": "wireit",
-    "prod-start": "wireit",
-    "start": "wireit",
     "test": "wireit",
     "coverage": "wireit",
     "lint": "eslint ."
@@ -41,25 +39,6 @@
         "build",
         "../website:build"
       ]
-    },
-    "prod-build": {
-      "command": "gulp build",
-      "env": {
-        "NODE_ENV": "production"
-      }
-    },
-    "prod-start": {
-      "command": "gulp server",
-      "env": {
-        "NODE_ENV": "production",
-        "HOT": "true"
-      }
-    },
-    "start": {
-      "command": "gulp server",
-      "env": {
-        "HOT": "true"
-      }
     },
     "test": {
       "command": "gulp test",
