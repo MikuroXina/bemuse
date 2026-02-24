@@ -1,8 +1,6 @@
 import { execSync } from 'node:child_process'
-import { readFileSync } from 'node:fs'
 import { createRequire } from 'node:module'
 import { resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
 
 import react from '@vitejs/plugin-react'
 import { playwright } from '@vitest/browser-playwright'
