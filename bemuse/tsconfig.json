@@ -3,11 +3,17 @@
   "include": ["src/**/*", "types/**/*"],
   "exclude": ["node_modules", "website/node_modules"],
   "compilerOptions": {
-    "baseUrl": ".",
+    "target": "ES2024",
+    "useDefineForClassFields": true,
+    "module": "es2022",
+    "moduleResolution": "bundler",
+    "isolatedModules": true,
     "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
     "paths": {
-      "bemuse/*": ["./src/*"]
+      "@bemuse/*": ["./src/*"]
     },
-    "target": "ES2019"
+    "verbatimModuleSyntax": true
   }
 }

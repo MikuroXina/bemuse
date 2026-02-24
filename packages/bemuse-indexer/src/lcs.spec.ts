@@ -1,5 +1,6 @@
-import { lcs } from './lcs'
-import { expect } from 'chai'
+import { describe, expect, it } from 'vitest'
+
+import { lcs } from './lcs.js'
 
 describe('lcs', function () {
   it('should find longest common substring', function () {

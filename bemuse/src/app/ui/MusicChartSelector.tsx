@@ -1,11 +1,10 @@
 import './MusicChartSelector.scss'
 
 import type { Chart, SongMetadata } from 'bemuse-types'
-import MusicChartSelectorItem, {
-  MusicChartSelectorItemProps,
-} from './MusicChartSelectorItem'
 
-import React from 'react'
+import MusicChartSelectorItem, {
+  type MusicChartSelectorItemProps,
+} from './MusicChartSelectorItem.js'
 
 export interface MusicChartSelectorProps {
   charts: readonly Chart[]

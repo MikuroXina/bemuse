@@ -1,19 +1,21 @@
-import * as GameLoader from './loaders/game-loader'
-
-import GameShellScene, { OptionsDraft } from './ui/GameShellScene'
-import { SceneManager, SceneManagerContext } from 'bemuse/scene-manager'
-
-import BemusePackageResources from 'bemuse/resources/bemuse-package'
-import GameScene from './game-scene'
-import LoadingScene from './ui/LoadingScene'
+import { isScratchPosition } from '@bemuse/app/entities/Options.js'
+import audioContext from '@bemuse/audio-context/index.js'
+import configureStore from '@bemuse/redux/configureStore.js'
+import BemusePackageResources from '@bemuse/resources/bemuse-package.js'
+import type { IResource } from '@bemuse/resources/types.js'
+import URLResource from '@bemuse/resources/url.js'
+import { unmuteAudio } from '@bemuse/sampling-master/index.js'
+import {
+  SceneManager,
+  SceneManagerContext,
+} from '@bemuse/scene-manager/index.js'
+import query from '@bemuse/utils/query.js'
 import { Provider } from 'react-redux'
-import React from 'react'
-import URLResource from 'bemuse/resources/url'
-import audioContext from 'bemuse/audio-context'
-import configureStore from 'bemuse/app/redux/configureStore'
-import { isScratchPosition } from 'bemuse/app/entities/Options'
-import query from 'bemuse/utils/query'
-import { unmuteAudio } from 'bemuse/sampling-master'
+
+import GameScene from './game-scene.js'
+import type { LoadSpec } from './loaders/load-spec.js'
+import GameShellScene, { type OptionsDraft } from './ui/GameShellScene.js'
+import LoadingScene from './ui/LoadingScene.js'
 
 const sceneManager = new SceneManager(({ children }) => (
   <SceneManagerContext.Provider value={sceneManager}>
@@ -42,8 +44,8 @@ export async function main() {
     })
   }
 
-  const getSong = async function (): Promise<GameLoader.LoadSpec> {
-    const kbm = (query.keyboard || '').split(',').map((x) => +x)
+  const getSong = async function (): Promise<LoadSpec> {
+    const kbm = (query.keyboard || '').split(',').map((x: string) => +x)
     const options: OptionsDraft = {
       url: query.bms || '/music/[snack]dddd/dddd_sph.bme',
       game: {
@@ -84,16 +86,16 @@ export async function main() {
       level: 0,
     }
     return {
-      bms: newOptions.resource || new URLResource(url),
+      bms: newOptions.resource ?? (new URLResource(url) as IResource),
       assets: newOptions.resources || new BemusePackageResources(assetsUrl),
       metadata: metadata,
-      options: Object.assign({}, newOptions.game, {
-        players: newOptions.players,
-      }),
+      options: { ...newOptions.game, players: newOptions.players },
     }
   }
 
   const loadSpec = await getSong()
+
+  const GameLoader = await import('./loaders/game-loader.js')
   const { tasks, promise } = GameLoader.load(loadSpec)
   await sceneManager.display(
     <LoadingScene tasks={tasks} song={loadSpec.metadata} />

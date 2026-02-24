@@ -1,17 +1,21 @@
-import SamplingMaster, { Sample } from 'bemuse/sampling-master'
-
+import context from '@bemuse/audio-context/index.js'
+import SamplingMaster, { Sample } from '@bemuse/sampling-master/index.js'
+import download from '@bemuse/utils/download.js'
 import _ from 'lodash'
-import context from 'bemuse/audio-context'
-import download from 'bemuse/utils/download'
+
+import bgmFile from './data/bgm.ogg'
+import introFile from './data/intro.ogg'
+import kickFile from './data/kick.ogg'
+import snareFile from './data/snare.ogg'
 
 /**
  * The asset URL of these files...
  */
 const ASSET_URLS = {
-  bgm: require('./data/bgm.ogg'),
-  intro: require('./data/intro.ogg'),
-  kick: require('./data/kick.ogg'),
-  snare: require('./data/snare.ogg'),
+  bgm: bgmFile,
+  intro: introFile,
+  kick: kickFile,
+  snare: snareFile,
 } as const
 type AssetKey = keyof typeof ASSET_URLS
 
@@ -124,9 +128,11 @@ class AudioTime {
   constructor(
     private readonly audioContext: AudioContext,
     private readonly leadTime: number
-  ) {}
+  ) {
+    this.start = this.audioContext.currentTime
+  }
 
-  private start = this.audioContext.currentTime
+  private start: number
 
   get t() {
     return this.audioContext.currentTime - this.start + this.leadTime

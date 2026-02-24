@@ -1,20 +1,26 @@
+import { expect, it } from 'vitest'
+
 import {
-  CustomFolderContext,
-  CustomFolderScanIO,
+  type CustomFolderContext,
+  type CustomFolderScanIO,
   getCustomFolderState,
   scanFolder,
   setCustomFolder,
-} from '.'
-import { CustomFolderState } from './types'
+} from './index.js'
+import type { CustomFolderState } from './types.js'
 
 const debugging = false
 
 const mockFolderScanIO: CustomFolderScanIO = {
   log: (text) => {
-    debugging && console.log('scanFolder: [log]', text)
+    if (debugging) {
+      console.log('scanFolder: [log]', text)
+    }
   },
   setStatus: (text) => {
-    debugging && console.debug('scanFolder: [setStatus]', text)
+    if (debugging) {
+      console.debug('scanFolder: [setStatus]', text)
+    }
   },
   updateState: () => {},
 }
@@ -109,7 +115,7 @@ class CustomFolderTestHarness {
 
   async checkState(f: (state: CustomFolderState) => Promise<void>) {
     const state = await getCustomFolderState(this.context)
-    void expect(state).not.to.equal(undefined)
+    expect(state).not.to.equal(undefined)
     await f(state!)
   }
 }
@@ -141,7 +147,7 @@ function createMockFileSystemDirectoryHandle(
       expect(data[name]).to.be.a('string')
       return createMockFileSystemFileHandle(name, data[name] as string)
     },
-  } as any
+  } as unknown as FileSystemDirectoryHandle
 }
 
 function createMockFileSystemFileHandle(
@@ -156,7 +162,7 @@ function createMockFileSystemFileHandle(
       return Object.assign(blob, {
         name,
         lastModified: 1,
-      })
+      }) as File
     },
-  } as any
+  } as FileSystemFileHandle
 }

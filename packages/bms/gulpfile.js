@@ -1,45 +1,12 @@
-const gulp = require('gulp')
-const mocha = require('gulp-mocha')
-const cucumber = require('gulp-cucumber')
-const fs = require('fs')
-const childProcess = require('child_process')
-
-const files = {
-  specs: ['spec/**/*_spec.js'],
-  sources: [
-    '*.js',
-    'bms/*.js',
-    'compiler/*.js',
-    'keysounds/*.js',
-    'notes/*.js',
-    'reader/*.js',
-    'song-info/*.js',
-    'speedcore/*.js',
-    'time-signatures/*.js',
-    'timing/*.js',
-    'util/*.js',
-  ],
-  get features() {
-    const home = process.env.BMSPEC_HOME || './bmspec'
-    if (home === undefined) {
-      console.error(
-        'WARNING! BMSPEC_HOME is not set. BMSpec test suites will not be run!'
-      )
-      return []
-    }
-    return require('./features').map(function (file) {
-      const filePath = home + '/features/' + file
-      if (!fs.existsSync(filePath)) {
-        console.error('WARNING! ' + filePath + ' does not exist.')
-      }
-      return filePath
-    })
-  },
-}
+import { runCucumber } from '@cucumber/cucumber/api'
+import childProcess from 'child_process'
+import fs from 'fs'
+import gulp from 'gulp'
+import { startVitest } from 'vitest/node'
 
 gulp.task('test:cucumber', cucumberTest)
-gulp.task('test:mocha', mochaTest)
-gulp.task('test', gulp.series('test:mocha', 'test:cucumber'))
+gulp.task('test:vitest', vitestTest)
+gulp.task('test', gulp.series('test:vitest', 'test:cucumber'))
 
 gulp.task('bmspec:update', async function () {
   if (!fs.existsSync('bmspec')) {
@@ -59,18 +26,45 @@ gulp.task('bmspec:update', async function () {
   }
 })
 
-function mochaTest() {
-  global.expect = require('chai').expect
-  return gulp
-    .src(files.specs, { read: false })
-    .pipe(mocha({ reporter: 'nyan' }))
+function vitestTest() {
+  return startVitest('test', [], {
+    coverage: {
+      enabled: !!process.env.BMS_COV,
+    },
+  })
 }
 
-function cucumberTest() {
-  return gulp.src(files.features, { read: false }).pipe(
-    cucumber({
-      steps: 'features/step_definitions/**/*_steps.js',
-      support: ['features/support/world.js', 'features/support/*.js'],
-    })
-  )
+async function cucumberTest() {
+  const runConfiguration = {
+    sources: {
+      defaultDialect: 'en',
+      paths: ['bmspec/features/**/*.feature'],
+      name: [],
+      order: 'defined',
+    },
+    support: {
+      importPaths: [
+        'features/support/**/*.js',
+        'features/step_definitions/**/*.js',
+      ],
+    },
+    formats: {
+      files: {},
+      options: {},
+      publish: false,
+      stdout: 'progress',
+    },
+    runtime: {
+      failFast: true,
+      filterStacktraces: false,
+      parallel: 3,
+      retry: 2,
+      strict: true,
+      worldParameters: {},
+    },
+  }
+  const { success } = await runCucumber(runConfiguration)
+  if (!success) {
+    throw new Error('cucumber test failed')
+  }
 }

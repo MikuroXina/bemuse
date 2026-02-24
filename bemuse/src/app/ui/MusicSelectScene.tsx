@@ -1,15 +1,24 @@
 import './MusicSelectScene.scss'
 
-import * as Analytics from '../analytics'
-import * as MusicPreviewer from 'bemuse/music-previewer'
-import * as MusicSearchIO from '../io/MusicSearchIO'
-import * as MusicSelectionIO from '../io/MusicSelectionIO'
-import * as Options from '../entities/Options'
-
-import { Chart, Song } from 'bemuse/collection-model/types'
-import Online, { UserInfo } from 'bemuse/online'
-import React, { ChangeEvent, MouseEvent, useContext, useState } from 'react'
+import type { Chart, Song } from '@bemuse/collection-model/types.js'
+import CustomBMS from '@bemuse/components/CustomBMS.js'
+import OptionsView from '@bemuse/components/options/Options.js'
+import { shouldShowOptions } from '@bemuse/flags/index.js'
+import { OFFICIAL_SERVER_URL } from '@bemuse/music-collection/index.js'
+import * as MusicPreviewer from '@bemuse/music-previewer/index.js'
+import { useCurrentUser } from '@bemuse/online/hooks.js'
+import Online, { type UserInfo } from '@bemuse/online/index.js'
+import { OnlineContext } from '@bemuse/online/instance.js'
+import AuthenticationPopup from '@bemuse/online/ui/AuthenticationPopup.js'
+import { SceneManagerContext } from '@bemuse/scene-manager/index.js'
+import ModalPopup from '@bemuse/ui/ModalPopup.js'
+import Scene from '@bemuse/ui/Scene.js'
+import SceneHeading from '@bemuse/ui/SceneHeading.js'
+import c from 'classnames'
+import { type ChangeEvent, type MouseEvent, useContext, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { createSelector, createStructuredSelector } from 'reselect'
+
 import {
   selectChartsForSelectedSong,
   selectCurrentCollectionUrl,
@@ -22,28 +31,18 @@ import {
   selectSearchText,
   selectSelectedChart,
   selectSelectedSong,
-} from '../redux/ReduxState'
-import { useDispatch, useSelector } from 'react-redux'
-
-import AuthenticationPopup from 'bemuse/online/ui/AuthenticationPopup'
-import CustomBMS from './CustomBMS'
-import ModalPopup from 'bemuse/ui/ModalPopup'
-import MusicInfo from './MusicInfo'
-import MusicList from './MusicList'
-import { OFFICIAL_SERVER_URL } from 'bemuse/music-collection'
-import { OnlineContext } from 'bemuse/online/instance'
-import OptionsView from './Options'
-import RageQuitPopup from './RageQuitPopup'
-import Scene from 'bemuse/ui/Scene'
-import SceneHeading from 'bemuse/ui/SceneHeading'
-import { SceneManagerContext } from 'bemuse/scene-manager'
-import SongPreviewer from './SongPreviewer'
-import Toolbar from './Toolbar'
-import UnofficialPanel from './UnofficialPanel'
-import c from 'classnames'
-import { hasPendingArchiveToLoad } from '../PreloadedCustomBMS'
-import { shouldShowOptions } from 'bemuse/devtools/query-flags'
-import { useCurrentUser } from 'bemuse/online/hooks'
+} from '../../redux/ReduxState.js'
+import * as Analytics from '../analytics.js'
+import * as Options from '../entities/Options.js'
+import * as MusicSearchIO from '../io/MusicSearchIO.js'
+import * as MusicSelectionIO from '../io/MusicSelectionIO.js'
+import { hasPendingArchiveToLoad } from '../PreloadedCustomBMS.js'
+import MusicInfo from './MusicInfo.js'
+import MusicList from './MusicList.js'
+import RageQuitPopup from './RageQuitPopup.js'
+import SongPreviewer from './SongPreviewer.js'
+import Toolbar, { item, spacer } from './Toolbar.js'
+import UnofficialPanel from './UnofficialPanel.js'
 
 const selectMusicSelectState = (() => {
   const selectLegacyServerObjectForCurrentCollection = createSelector(
@@ -168,13 +167,13 @@ const getToolbarItems = ({
     if (!online) return []
     if (user) {
       return [
-        Toolbar.item(<span>Log Out ({user.username})</span>, {
+        item(<span>Log Out ({user.username})</span>, {
           onClick: handleLogout,
         }),
       ]
     } else {
       return [
-        Toolbar.item('Log In / Create an Account', {
+        item('Log In / Create an Account', {
           onClick: handleAuthenticate,
         }),
       ]
@@ -182,15 +181,15 @@ const getToolbarItems = ({
   }
 
   return [
-    Toolbar.item('Exit', {
+    item('Exit', {
       onClick: handleExit,
     }),
-    Toolbar.item('Play Custom BMS', {
+    item('Play Custom BMS', {
       onClick: handleCustomBMSOpen,
     }),
-    Toolbar.spacer(),
+    spacer(),
     ...getOnlineToolbarButtons({ handleAuthenticate }),
-    Toolbar.item('Options', {
+    item('Options', {
       onClick: handleOptionsOpen,
     }),
   ]

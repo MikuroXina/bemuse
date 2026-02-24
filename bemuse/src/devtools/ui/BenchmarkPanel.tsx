@@ -1,6 +1,6 @@
 import './BenchmarkPanel.scss'
 
-import React, { MouseEvent, TouchEvent, useEffect, useState } from 'react'
+import { type MouseEvent, type TouchEvent, useEffect, useState } from 'react'
 
 const Table = ({ stats }: { stats: Record<string, unknown> }) => (
   <table>

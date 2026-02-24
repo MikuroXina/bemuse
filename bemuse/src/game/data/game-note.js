@@ -1,4 +1,5 @@
 import DataStructure from 'data-structure'
+
 import Event from './event'
 
 export const GameNote = new DataStructure(Event, {

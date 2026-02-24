@@ -1,12 +1,12 @@
 import './LoadingScene.scss'
 
-import LoadingSceneProgress, { Tasks } from './LoadingSceneProgress'
-import React, { useEffect, useRef } from 'react'
-
+import Scene from '@bemuse/ui/Scene.js'
 import type { ChartInfo } from 'bemuse-types'
-import LoadingSceneSongInfo from './LoadingSceneSongInfo'
-import Scene from 'bemuse/ui/Scene'
 import delay from 'delay'
+import { useEffect, useRef } from 'react'
+
+import LoadingSceneProgress, { type Tasks } from './LoadingSceneProgress.js'
+import LoadingSceneSongInfo from './LoadingSceneSongInfo.js'
 
 export interface LoadingSceneProps {
   song: ChartInfo

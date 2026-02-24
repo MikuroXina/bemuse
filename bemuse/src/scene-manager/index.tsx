@@ -1,9 +1,8 @@
-import React, { ReactNode, createContext } from 'react'
-import { Root, createRoot } from 'react-dom/client'
-
-import MAIN from 'bemuse/utils/main-element'
+import { queryClient } from '@bemuse/react-query/index.js'
+import MAIN from '@bemuse/utils/main-element.js'
+import { cloneElement, createContext, type ReactNode } from 'react'
+import { createRoot, type Root } from 'react-dom/client'
 import { QueryClientProvider } from 'react-query'
-import { queryClient } from 'bemuse/react-query'
 
 export type TeardownCallback = () => PromiseLike<void> | void
 
@@ -53,7 +52,7 @@ export class SceneManager {
 
       // detach the previous scene
       if (this.current) {
-        await Promise.resolve(this.current.instance.teardown())
+        await this.current.instance.teardown()
         this.current.root.unmount()
       }
 
@@ -86,7 +85,7 @@ function ReactScene(
 ): ReactScene {
   return function instantiate(_element, root) {
     let teardown: TeardownCallback = () => {}
-    const clonedElement = React.cloneElement(scene, {
+    const clonedElement = cloneElement(scene, {
       registerTeardownCallback: (callback: TeardownCallback) => {
         teardown = callback
       },

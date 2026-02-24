@@ -1,5 +1,5 @@
-import Observable from 'bemuse/utils/observable'
-import Progress from 'bemuse/progress'
+import Progress from '@bemuse/progress'
+import Observable from '@bemuse/utils/observable'
 import { throttle } from 'lodash'
 
 export function start(callback) {
@@ -10,10 +10,9 @@ export function start(callback) {
   function task(name, text, dependencies, f) {
     const progress = new Progress()
     if (text) taskList.push({ text, progress })
-    tasks[name] = function () {
-      return Promise.all(dependencies.map(run)).then((deps) =>
-        f(...deps.concat([progress]))
-      )
+    tasks[name] = async function () {
+      const deps = await Promise.all(dependencies.map(run))
+      return f(...deps.concat([progress]))
     }
   }
 

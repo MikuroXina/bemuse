@@ -102,7 +102,7 @@ const config: PlaywrightTestConfig = {
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: `npx http-server -p ${bemusePort} ../dist`,
+    command: `pnpx http-server -p ${bemusePort} ../bemuse/dist`,
     port: bemusePort,
     reuseExistingServer: !process.env.CI,
   },

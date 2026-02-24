@@ -1,4 +1,4 @@
-import Observable from 'bemuse/utils/observable'
+import Observable from '@bemuse/utils/observable.js'
 
 interface IProgressFormatter {
   (progress: Progress): string
@@ -16,7 +16,7 @@ export class Progress {
   /** Total progress value */
   public total: number | undefined = undefined
   /** Some arbitrary information associated with this Progress. */
-  public extra: any
+  public extra: unknown
   /**
    * The formatter of this progress. This formatter will be used to compute
    * the text representation of this progress (`Progress#toString`).
@@ -26,7 +26,7 @@ export class Progress {
   /**
    * Updates the progress.
    */
-  report(current: number, total: number, extra?: any) {
+  report(current: number, total: number, extra?: unknown) {
     this.current = current
     this.total = total
     this.extra = extra

@@ -1,22 +1,21 @@
+import { describe, expect, it, vi } from 'vitest'
+
 import readBlob from './read-blob'
 
 describe('readBlob', function () {
-  it('rejects when cannot read blob', function () {
+  it('rejects when cannot read blob', async () => {
     const blob = new Blob(['hello world'])
-    const stub = sinon
-      .stub(FileReader.prototype, 'readAsText')
-      .callsFake(function () {
+    vi.spyOn(FileReader.prototype, 'readAsText').mockImplementation(
+      function () {
         this.onerror(new Error('...'))
-      })
-    return expect(
-      readBlob(blob)
-        .as('text')
-        .finally(() => stub.restore())
-    ).to.be.rejected
+      }
+    )
+    await expect(readBlob(blob).as('text')).rejects.toThrow()
+    vi.restoreAllMocks()
   })
 
-  it('resolves with correct type', function () {
+  it('resolves with correct type', async () => {
     const blob = new Blob(['hello world'])
-    return expect(readBlob(blob).as('text')).to.eventually.equal('hello world')
+    expect(await readBlob(blob).as('text')).toStrictEqual('hello world')
   })
 })

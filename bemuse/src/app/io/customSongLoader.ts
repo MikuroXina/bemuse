@@ -2,12 +2,12 @@
 // our application still depends on a singleton.
 //
 
-import type { ICustomSongResources } from 'bemuse/resources/types'
+import type { ICustomSongResources } from '@bemuse/resources/types.js'
 
 import {
-  LoadSongOptions,
   loadSongFromResources,
-} from '../../custom-song-loader'
+  type LoadSongOptions,
+} from '../../custom-song-loader/index.js'
 
 // Configure a custom song loader which loads custom song from resources.
 export const customSongLoader = {

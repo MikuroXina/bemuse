@@ -1,22 +1,8 @@
-import {
-  Action,
-  DataStore,
-  initialState,
-  put,
-  putMultiple,
-  store川,
-} from './data-store'
-import {
-  INITIAL_OPERATION_STATE,
-  Operation,
-  completed,
-  operation川FromPromise,
-} from './operations'
+import { queryClient } from '@bemuse/react-query/index.js'
+import type { ScoreCount } from '@bemuse/rules/accuracy.js'
 import Immutable, { Seq } from 'immutable'
+import _ from 'lodash'
 import {
-  Observable,
-  ObservableInput,
-  Subject,
   asapScheduler,
   bufferTime,
   combineLatest,
@@ -25,21 +11,35 @@ import {
   from,
   map,
   merge,
+  Observable,
+  type ObservableInput,
   of,
   scan,
   scheduled,
   shareReplay,
   startWith,
+  Subject,
   switchMap,
 } from 'rxjs'
-import { RecordLevel, fromObject } from './level'
 
-import { BatchedFetcher } from './BatchedFetcher'
-import { ScoreCount } from 'bemuse/rules/accuracy'
-import _ from 'lodash'
-import id from './id'
-import { queryClient } from 'bemuse/react-query'
-import { rootQueryKey } from './queryKeys'
+import { BatchedFetcher } from './BatchedFetcher.js'
+import {
+  type Action,
+  type DataStore,
+  initialState,
+  put,
+  putMultiple,
+  store川,
+} from './data-store.js'
+import id from './id.js'
+import { fromObject, type RecordLevel } from './level.js'
+import {
+  completed,
+  INITIAL_OPERATION_STATE,
+  type Operation,
+  operation川FromPromise,
+} from './operations.js'
+import { rootQueryKey } from './queryKeys.js'
 
 export interface SignUpInfo {
   username: string
@@ -99,7 +99,7 @@ export interface RankingState {
   data: ScoreboardDataEntry[] | null
   meta: {
     submission: SubmissionOperation
-    scoreboard: Operation<ScoreboardDataEntry | null>
+    scoreboard: Operation<{ data: ScoreboardDataEntry[] }>
   }
 }
 
@@ -306,9 +306,13 @@ export class Online {
     scoreboard: Operation<{ data: ScoreboardDataEntry[] }>
   }): RankingState => ({
     data:
-      scoreboard.status === 'completed' ? scoreboard.value?.data ?? null : null,
+      scoreboard.status === 'completed'
+        ? (scoreboard.value?.data ?? null)
+        : null,
     meta: {
-      scoreboard: _.omit(scoreboard, 'value') as Operation<ScoreboardDataEntry>,
+      scoreboard: _.omit(scoreboard, 'value') as Operation<{
+        data: ScoreboardDataEntry[]
+      }>,
       submission: { ...self } as Operation<ScoreboardDataEntry>,
     },
   })

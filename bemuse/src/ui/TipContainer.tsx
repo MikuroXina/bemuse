@@ -1,6 +1,6 @@
 import './TipContainer.scss'
 
-import React from 'react'
+import type { ReactNode } from 'react'
 
 const TipContainer = ({
   children,

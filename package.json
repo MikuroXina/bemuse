@@ -1,0 +1,71 @@
+{
+  "scripts": {
+    "build": "wireit",
+    "lint": "wireit",
+    "test": "wireit",
+    "coverage": "wireit",
+    "test-packages": "wireit",
+    "coverage-packages": "wireit"
+  },
+  "wireit": {
+    "build": {
+      "dependencies": [
+        "./bemuse:build"
+      ]
+    },
+    "lint": {
+      "dependencies": [
+        "./bemuse:lint",
+        "./e2e:lint",
+        "./packages/bemuse-indexer:lint",
+        "./packages/bemuse-notechart:lint",
+        "./packages/bemuse-tools:lint",
+        "./packages/bms:lint",
+        "./packages/bmson:lint",
+        "./packages/monetizer:lint",
+        "./website:lint"
+      ]
+    },
+    "test": {
+      "dependencies": [
+        "test-packages",
+        "./bemuse:test"
+      ]
+    },
+    "coverage": {
+      "dependencies": [
+        "coverage-packages",
+        "./bemuse:coverage"
+      ]
+    },
+    "test-packages": {
+      "dependencies": [
+        "build",
+        "./packages/bemuse-indexer:test",
+        "./packages/bemuse-notechart:test",
+        "./packages/bemuse-tools:test",
+        "./packages/bms:test",
+        "./packages/bmson:test",
+        "./packages/monetizer:test"
+      ]
+    },
+    "coverage-packages": {
+      "dependencies": [
+        "./packages/bemuse-indexer:coverage",
+        "./packages/bemuse-notechart:coverage",
+        "./packages/bemuse-tools:coverage",
+        "./packages/bms:coverage",
+        "./packages/bmson:coverage",
+        "./packages/monetizer:coverage"
+      ]
+    }
+  },
+  "resolutions": {
+    "natives": "1.1.6"
+  },
+  "packageManager": "pnpm@10.30.0+sha512.2b5753de015d480eeb88f5b5b61e0051f05b4301808a82ec8b840c9d2adf7748eb352c83f5c1593ca703ff1017295bc3fdd3119abb9686efc96b9fcb18200937",
+  "devDependencies": {
+    "rimraf": "^6.1.0",
+    "wireit": "^0.14.12"
+  }
+}

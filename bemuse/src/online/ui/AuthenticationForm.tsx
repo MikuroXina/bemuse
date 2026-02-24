@@ -1,7 +1,12 @@
 import './AuthenticationForm.scss'
 
-import OptionsButton from 'bemuse/app/ui/OptionsButton'
-import React, { KeyboardEvent, MouseEvent, useRef } from 'react'
+import OptionsButton from '@bemuse/components/options/OptionsButton.js'
+import {
+  type InputEvent,
+  type KeyboardEvent,
+  type MouseEvent,
+  useRef,
+} from 'react'
 
 export interface AuthenticationFormData {
   username: string
@@ -32,7 +37,9 @@ const AuthenticationForm = ({ onSubmit, mode }: AuthenticationFormProps) => {
       email: emailRef.current?.value ?? '',
     })
   }
-  const preventPropagate = (e: KeyboardEvent<HTMLFormElement>) => {
+  const preventPropagate = (
+    e: KeyboardEvent<HTMLFormElement> | InputEvent<HTMLFormElement>
+  ) => {
     e.stopPropagation()
   }
 

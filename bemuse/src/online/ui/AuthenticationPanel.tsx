@@ -1,15 +1,16 @@
 import './AuthenticationPanel.scss'
 
-import AuthenticationForm, {
-  AuthMode,
-  AuthenticationFormData,
-} from './AuthenticationForm'
-import React, { useContext, useState } from 'react'
-
-import Flex from 'bemuse/ui/Flex'
-import { OnlineContext } from 'bemuse/online/instance'
-import Panel from 'bemuse/ui/Panel'
+import djBemuse from '@bemuse/app/ui/about-scene/DJBM.png'
+import { OnlineContext } from '@bemuse/online/instance.js'
+import Flex from '@bemuse/ui/Flex.js'
+import Panel from '@bemuse/ui/Panel.js'
 import c from 'classnames'
+import { useContext, useState } from 'react'
+
+import AuthenticationForm, {
+  type AuthenticationFormData,
+  type AuthMode,
+} from './AuthenticationForm.js'
 
 export interface AuthenticationPanelProps {
   onFinish?: () => void
@@ -128,10 +129,7 @@ const AuthenticationPanel = ({ onFinish }: AuthenticationPanelProps) => {
       <Panel title='Bemuse Online Ranking'>
         <div className='AuthenticationPanelのlayout'>
           <div className='AuthenticationPanelのtitle'>
-            <img
-              src={require('bemuse/app/ui/about-scene/DJBM.png')}
-              alt='DJ Bemuse'
-            />
+            <img src={djBemuse} alt='DJ Bemuse' />
             <div className='AuthenticationPanelのidentification'>
               Bemuse
               <br />

@@ -2,6 +2,7 @@
   "name": "bemuse-indexer",
   "version": "51.0.2",
   "description": "Parse and index BMS notecharts",
+  "type": "module",
   "main": "lib/index.js",
   "typings": "lib/index.d.js",
   "files": [
@@ -10,9 +11,19 @@
   ],
   "scripts": {
     "clean": "rimraf lib tsconfig.tsbuildinfo",
-    "test": "nyc -r text -r lcov mocha -r ts-node/register 'src/**/*.spec.ts'",
-    "build": "tsc -b .",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx ."
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
+    "build": "wireit",
+    "lint": "eslint ."
+  },
+  "wireit": {
+    "build": {
+      "command": "tsc -b",
+      "dependencies": [
+        "../bms:build",
+        "../bmson:build"
+      ]
+    }
   },
   "repository": {
     "type": "git",
@@ -25,29 +36,24 @@
   },
   "homepage": "https://github.com/bemusic/indexer",
   "dependencies": {
-    "bemuse-types": "^50.0.2",
-    "bms": "^51.0.0",
-    "bmson": "^50.1.2",
+    "bemuse-types": "workspace:*",
+    "bms": "workspace:*",
+    "bmson": "workspace:*",
     "invariant": "^2.2.4",
     "lodash": "^4.17.11",
     "object-assign": "^4.1.1",
     "p-map": "^4.0.0"
   },
   "devDependencies": {
-    "@types/object-assign": "^4.0.30",
-    "@types/lodash": "^4.14.176",
     "@types/invariant": "^2.2.30",
-    "@types/chai": "^4.2.0",
-    "@types/mocha": "^5.2.5",
-    "chai": "^4.2.0",
-    "chai-as-promised": "^7.1.1",
-    "mocha": "^5.2.0",
-    "eslint": "^8.25.0",
-    "typescript": "^4.8.4",
-    "nyc": "^11.9.0",
-    "eslint-config-bemuse": "^5.0.0"
-  },
-  "volta": {
-    "extends": "../../volta.json"
+    "@types/lodash": "^4.14.176",
+    "@types/node": "^24.10.13",
+    "@types/object-assign": "^4.0.30",
+    "@vitest/coverage-v8": "^4.0.18",
+    "eslint": "^9.0.0",
+    "eslint-config-bemuse": "workspace:*",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18",
+    "wireit": "^0.14.12"
   }
 }

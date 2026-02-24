@@ -1,7 +1,6 @@
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import type { Chart, SongMetadataInCollection } from 'bemuse-types'
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import produce, { Draft } from 'immer'
-
+import { type Draft, produce } from 'immer'
 import _ from 'lodash'
 
 export interface MusicSelectionState {
@@ -28,8 +27,12 @@ export const selectedChartGivenCharts =
   (charts: Chart[] = []) =>
   (state: MusicSelectionState): Chart => {
     // Workaround by https://github.com/DefinitelyTyped/DefinitelyTyped/issues/25758#issuecomment-580690247
-    const chart = _.find(charts, { file: state.selectedChartId as any })
-    if (chart) return chart
+    const chart = _.find(charts, {
+      file: state.selectedChartId,
+    }) as Chart | undefined
+    if (chart) {
+      return chart
+    }
     return _.minBy(charts, (chart) =>
       Math.abs(getChartLevel(chart) - state.selectedChartLevel)
     )!

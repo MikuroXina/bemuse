@@ -1,10 +1,11 @@
-import Rx from 'rx'
+import fs from 'node:fs'
+import path from 'node:path'
+
 import bytes from 'bytes'
 import cors from 'cors'
 import express from 'express'
-import fs from 'fs'
 import glob from 'glob-promise'
-import path from 'path'
+import Rx from 'rx'
 
 const { stat } = fs.promises
 

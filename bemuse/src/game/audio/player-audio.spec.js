@@ -1,18 +1,21 @@
-import PlayerAudio from './player-audio'
-import { playerWithBMS } from '../test-helpers'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+
+import { playerWithBMS } from '../test-helpers/index.js'
+import PlayerAudio from './player-audio.js'
 
 describe('PlayerAudio', function () {
-  let player
+  const waveFactory = {
+    playAuto: () => ({}),
+    playNote: () => ({}),
+    playFree: () => ({}),
+  }
   let audio
-  let waveFactory
 
-  function setup(_player) {
-    player = _player
-    waveFactory = {
-      playAuto: sinon.stub().returns({}),
-      playNote: sinon.stub().returns({}),
-      playFree: sinon.stub().returns({}),
-    }
+  beforeEach(() => {
+    vi.restoreAllMocks()
+  })
+
+  function setup(player) {
     audio = new PlayerAudio({ player, waveFactory })
   }
 
@@ -30,15 +33,15 @@ describe('PlayerAudio', function () {
         autosound: false,
       },
     })
+    const playAutoMock = vi.spyOn(waveFactory, 'playAuto')
+
     audio.update(0)
-    expect(waveFactory.playAuto).to.have.callCount(0)
+    expect(playAutoMock).not.toHaveBeenCalled()
     audio.update(1)
-    expect(waveFactory.playAuto).to.have.callCount(1)
-    expect(waveFactory.playAuto).to.have.been.calledWithMatch({
-      keysound: '0x',
-    })
+    expect(playAutoMock).toHaveBeenCalledOnce()
+    expect(playAutoMock.mock.calls[0][0]['keysound']).toStrictEqual('0x')
     audio.update(2)
-    expect(waveFactory.playAuto).to.have.callCount(3)
+    expect(playAutoMock).toHaveBeenCalledTimes(3)
   })
 
   it('should play notes automatically when autosound is on', function () {
@@ -51,10 +54,10 @@ describe('PlayerAudio', function () {
         autosound: true,
       },
     })
+    const playNoteMock = vi.spyOn(waveFactory, 'playNote')
+
     audio.update(1)
-    expect(waveFactory.playNote).to.have.been.calledWithMatch({
-      keysound: '0x',
-    })
+    expect(playNoteMock.mock.calls[0][0]['keysound']).toStrictEqual('0x')
   })
 
   it('should not play notes automatically when autosound is off', function () {
@@ -65,8 +68,10 @@ describe('PlayerAudio', function () {
       },
       options: {},
     })
+    const playNoteMock = vi.spyOn(waveFactory, 'playNote')
+
     audio.update(1)
-    void expect(waveFactory.playNote).to.not.have.been.called
+    expect(playNoteMock).not.toHaveBeenCalled()
   })
 
   it('should play notes ahead of time', function () {
@@ -77,44 +82,46 @@ describe('PlayerAudio', function () {
       },
       options: {},
     })
+    const playAutoMock = vi.spyOn(waveFactory, 'playAuto')
+
     audio.update(0.999)
-    expect(waveFactory.playAuto).to.have.been.calledWithMatch({
-      keysound: '0x',
-    })
-    expect(waveFactory.playAuto.getCall(0).args[1]).to.be.closeTo(0.001, 1e-5)
+    expect(playAutoMock.mock.calls[0][0]['keysound']).toStrictEqual('0x')
+    expect(playAutoMock.mock.calls[0][1]).to.be.closeTo(0.001, 1e-5)
   })
 
   it('should play hit notes', function () {
     setup(playerWithBMS())
+    const playNoteMock = vi.spyOn(waveFactory, 'playNote')
+
     audio.update(0.999, {
       notifications: {
         sounds: [{ note: { keysound: '0x' }, type: 'hit', judgment: 1 }],
       },
       stats: {},
     })
-    expect(waveFactory.playNote).to.have.been.calledWithMatch({
-      keysound: '0x',
-    })
+    expect(playNoteMock.mock.calls[0][0]['keysound']).toStrictEqual('0x')
   })
 
   it('badly hit note should sound off-pitch', function () {
     setup(playerWithBMS())
     const instance = {
-      bad: sinon.stub(),
+      bad: vi.fn(),
     }
-    waveFactory.playNote.returns(instance)
+    vi.spyOn(waveFactory, 'playNote').mockReturnValue(instance)
+
     audio.update(0.999, {
       notifications: {
         sounds: [{ note: { keysound: '0x' }, type: 'hit', judgment: 4 }],
       },
       stats: {},
     })
-    void expect(instance.bad).to.have.been.called
+    expect(instance.bad).toHaveBeenCalled()
   })
 
   it('should work even without audio', function () {
     setup(playerWithBMS())
-    waveFactory.playNote.returns(null)
+    vi.spyOn(waveFactory, 'playNote').mockReturnValue(null)
+
     audio.update(0.999, {
       notifications: {
         sounds: [{ note: { keysound: '0x' }, type: 'hit', judgment: 4 }],
@@ -126,8 +133,9 @@ describe('PlayerAudio', function () {
   it('should stop sound when broken', function () {
     setup(playerWithBMS())
     const note = { keysound: '0x' }
-    const instance = { stop: sinon.spy() }
-    waveFactory.playNote.returns(instance)
+    const instance = { stop: vi.fn() }
+    vi.spyOn(waveFactory, 'playNote').mockReturnValue(instance)
+
     audio.update(0.999, {
       notifications: {
         sounds: [{ note: note, type: 'hit' }],
@@ -140,24 +148,26 @@ describe('PlayerAudio', function () {
       },
       stats: {},
     })
-    void expect(instance.stop).to.have.been.called
+    expect(instance.stop).toHaveBeenCalled()
   })
 
   it('should play sounds when hitting blank space', function () {
     setup(playerWithBMS())
+    const playFreeMock = vi.spyOn(waveFactory, 'playFree')
+
     audio.update(0.999, {
       notifications: {
         sounds: [{ note: { keysound: '0x' }, type: 'free' }],
       },
       stats: {},
     })
-    expect(waveFactory.playFree).to.have.been.calledWithMatch({
-      keysound: '0x',
-    })
+    expect(playFreeMock.mock.calls[0][0]['keysound']).toStrictEqual('0x')
   })
 
   it('should play hit note once', function () {
     setup(playerWithBMS())
+    const playNoteMock = vi.spyOn(waveFactory, 'playNote')
+
     const note = { keysound: '0x' }
     audio.update(0.999, {
       notifications: {
@@ -171,6 +181,6 @@ describe('PlayerAudio', function () {
       },
       stats: {},
     })
-    expect(waveFactory.playNote).to.have.callCount(1)
+    expect(playNoteMock).toHaveBeenCalledOnce()
   })
 })

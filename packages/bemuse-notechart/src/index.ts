@@ -1,18 +1,19 @@
-import _ from 'lodash'
 import * as BMS from 'bms'
 import invariant from 'invariant'
-import {
-  NotechartInput,
-  PlayerOptions,
-  GameEvent,
-  GameNote,
-  SoundedEvent,
-  NoteInfo,
-  NotechartImages,
-  GameLandmine,
-} from './types'
+import _ from 'lodash'
 
-export * from './types'
+import type {
+  GameEvent,
+  GameLandmine,
+  GameNote,
+  NotechartImages,
+  NotechartInput,
+  NoteInfo,
+  PlayerOptions,
+  SoundedEvent,
+} from './types.js'
+
+export * from './types.js'
 
 /**
  * A notechart holds every info about a single player's note chart that the
@@ -40,8 +41,8 @@ export class Notechart {
     data: NotechartInput,
     playerOptions: Partial<PlayerOptions> = {}
   ) {
-    let {
-      notes: bmsNotes,
+    const {
+      notes,
       timing,
       keysounds,
       songInfo,
@@ -52,6 +53,7 @@ export class Notechart {
       expertJudgmentWindow,
       landmineNotes = [],
     } = data
+    let bmsNotes = notes
 
     invariant(bmsNotes, 'Expected "data.notes"')
     invariant(timing, 'Expected "data.timing"')
@@ -215,14 +217,14 @@ export class Notechart {
   /**
    * Finds the scrolling speed at the specified beat.
    */
-  scrollSpeedAtBeat(beat: any) {
+  scrollSpeedAtBeat(beat: number) {
     return this._positioning.speed(beat)
   }
 
   /**
    * Calculates the note spacing factor at the specified beat.
    */
-  spacingAtBeat(beat: any) {
+  spacingAtBeat(beat: number) {
     return this._spacing.factor(beat)
   }
 

@@ -1,4 +1,4 @@
-import { Assets } from './game-loader'
+import type { Assets } from './load-spec.js'
 
 export type LoadImagePromise = Promise<HTMLImageElement>
 

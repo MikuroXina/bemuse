@@ -1,10 +1,11 @@
+import { enableMapSet, produce } from 'immer'
+
 import {
-  LoadState,
   completeWithValue,
   errorWithReason,
   initLoading,
-} from './LoadState'
-import produce, { enableMapSet } from 'immer'
+  type LoadState,
+} from './LoadState.js'
 
 enableMapSet()
 

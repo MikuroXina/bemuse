@@ -4,9 +4,10 @@
 // The Reader follows [ruv-it!’s algorithm](http://hitkey.nekokan.dyndns.info/cmds.htm#CHARSET)
 // for detecting the character set.
 //
-import { ReaderOptions } from './types'
-import chardet = require('bemuse-chardet/bemuse-chardet')
-import iconv = require('iconv-lite')
+import * as chardet from 'chardet'
+import * as iconv from 'iconv-lite'
+
+import { ReaderOptions } from './types.js'
 
 /**
  * Reads the buffer, detect the character set, and returns the decoded
@@ -18,10 +19,10 @@ export function read(
   options: ReaderOptions | null = null
 ): string {
   const charset = (options && options.forceEncoding) || chardet.detect(buffer)
-  const text = iconv.decode(buffer, charset)
+  const text = iconv.decode(buffer, charset ?? 'utf-8')
   if (text.charCodeAt(0) === 0xfeff) {
     // BOM?!
-    return text.substr(1)
+    return text.slice(1)
   } else {
     return text
   }
@@ -38,10 +39,10 @@ export function readAsync(
  * Like `read(buffer)`, but this is the asynchronous version.
  */
 export function readAsync(buffer: Buffer): Promise<string>
-
-export function readAsync(...args: any[]) {
-  const buffer: Buffer = args[0]
-  const options: ReaderOptions | null = args[1]
+export function readAsync(
+  buffer: Buffer,
+  options?: ReaderOptions | null
+): Promise<string> {
   return new Promise(function (resolve, reject) {
     try {
       resolve(read(buffer, options))
@@ -51,4 +52,4 @@ export function readAsync(...args: any[]) {
   })
 }
 
-export { getReaderOptionsFromFilename } from './getReaderOptionsFromFilename'
+export { getReaderOptionsFromFilename } from './getReaderOptionsFromFilename.js'

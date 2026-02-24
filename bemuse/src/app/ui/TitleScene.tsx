@@ -1,26 +1,26 @@
 import './TitleScene.scss'
 
-import * as Analytics from '../analytics'
-
-import React, { MouseEvent, useContext, useState } from 'react'
-import { lastSeenVersion, optionsSlice } from '../entities/Options'
+import { SceneManagerContext } from '@bemuse/scene-manager/index.js'
+import HomePage from '@bemuse/site/HomePage.js'
+import ModalPopup from '@bemuse/ui/ModalPopup.js'
+import Scene from '@bemuse/ui/Scene.js'
+import version from '@bemuse/utils/version.js'
+import { type MouseEvent, useContext, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import AboutScene from './AboutScene'
-import ChangelogPanel from './ChangelogPanel'
-import HomePage from 'bemuse/site/HomePage'
-import ModalPopup from 'bemuse/ui/ModalPopup'
-import ModeSelectScene from './ModeSelectScene'
-import Scene from 'bemuse/ui/Scene'
-import { SceneManagerContext } from 'bemuse/scene-manager'
-import Toolbar from './Toolbar'
-import { selectOptions } from '../redux/ReduxState'
-import version from 'bemuse/utils/version'
+import { selectOptions } from '../../redux/ReduxState.js'
+import * as Analytics from '../analytics.js'
+import { lastSeenVersion, optionsSlice } from '../entities/Options.js'
+import AboutScene from './AboutScene.js'
+import ChangelogPanel from './ChangelogPanel.js'
+import logo from './images/logo-with-shadow.svg'
+import ModeSelectScene from './ModeSelectScene.js'
+import Toolbar, { item, spacer } from './Toolbar.js'
 
 const HAS_PARENT = (() => {
   try {
     return window.parent !== window
-  } catch (e) {
+  } catch {
     return false
   }
 })()
@@ -40,32 +40,32 @@ const toolbarItems = ({
   viewChangelog: (e: MouseEvent<HTMLAnchorElement>) => void
   hasSeenChangelog: boolean
 }) => [
-  Toolbar.item('About', {
+  item('About', {
     onClick: showAbout,
   }),
-  Toolbar.item('Community FAQ', {
+  item('Community FAQ', {
     href: 'https://faq.bemuse.ninja',
     tip: 'New',
     tipFeatureKey: 'faq',
   }),
-  Toolbar.item('Docs', {
+  item('Docs', {
     href: '/project/',
   }),
-  Toolbar.item(<Version />, {
+  item(<Version />, {
     onClick: viewChangelog,
     tip: 'What’s new?',
     tipVisible: !hasSeenChangelog,
   }),
-  Toolbar.spacer(),
-  Toolbar.item('Discord', {
+  spacer(),
+  item('Discord', {
     href: 'https://discord.gg/aB6ucmx',
     tip: 'Join our community',
     tipFeatureKey: 'discord',
   }),
-  Toolbar.item('Twitter', {
+  item('Twitter', {
     href: 'https://twitter.com/bemusegame',
   }),
-  Toolbar.item('GitHub', {
+  item('GitHub', {
     href: 'https://github.com/bemusic/bemuse',
   }),
 ]
@@ -115,7 +115,7 @@ const TitleScene = () => {
             <div className='TitleSceneのtagline'>
               online, web-based rhythm game
             </div>
-            <img src={require('./images/logo-with-shadow.svg')} />
+            <img src={logo} />
           </div>
           <div className='TitleSceneのenter'>
             <a onClick={enterGame} data-testid='enter-game'>

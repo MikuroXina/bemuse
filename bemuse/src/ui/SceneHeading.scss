@@ -1,11 +1,11 @@
-@import './common.scss';
+@use '@bemuse/ui/common.scss';
 
 .SceneHeading {
-  @include soft-shadow;
+  @include common.soft-shadow;
   background: white;
   margin: 0;
   padding: 0 20px;
-  font: bold 2rem $ui-font;
+  font: bold 2rem common.$ui-font;
   line-height: 40px;
   color: black;
   padding-left: 70px;

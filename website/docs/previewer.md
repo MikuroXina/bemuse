@@ -18,7 +18,7 @@ You can access the previewer by going to this URL:
 
 <div style={{textAlign: 'center', fontSize: '2em'}}>
 
-**<https://bemuse.ninja/?mode=previewer>**
+**[https://bemuse.ninja/?mode=previewer](https://bemuse.ninja/?mode=previewer)**
 
 </div>
 

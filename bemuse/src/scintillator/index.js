@@ -1,7 +1,7 @@
 import { Context } from './context'
 import { load } from './loader'
 
-export { load, Context }
+export { Context, load }
 
 export function getSkinUrl({ displayMode } = {}) {
   if (displayMode === 'touch3d') {

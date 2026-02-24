@@ -1,16 +1,17 @@
-import FloatingMobileMenu, {
-  FloatingMobileMenuSeparator,
-} from 'bemuse/ui/FloatingMobileMenu'
-import React, { MouseEvent, memo, useState } from 'react'
-import SceneToolbar, { SceneToolbarSpacer } from 'bemuse/ui/SceneToolbar'
+import { Icon } from '@bemuse/fa/index.js'
+import TipContainer from '@bemuse/ui/TipContainer.js'
+import {
+  Fragment,
+  memo,
+  type MouseEvent,
+  type ReactNode,
+  useState,
+} from 'react'
 
-import FirstTimeTip from './FirstTimeTip'
-import FloatingMobileButton from 'bemuse/ui/FloatingMobileButton'
-import { Icon } from 'bemuse/fa'
-import TipContainer from 'bemuse/ui/TipContainer'
-import { WindowSize } from 'react-fns'
+import FirstTimeTip from './FirstTimeTip.js'
+import styles from './Toolbar.module.scss'
 
-export interface ToolbarItem {
+export interface ToolbarItemProps {
   type: 'item'
   onClick: (e: MouseEvent<HTMLAnchorElement>) => void
   href?: string
@@ -20,25 +21,43 @@ export interface ToolbarItem {
   tipVisible?: boolean
 }
 
-export interface ToolbarSpacer {
+export interface ToolbarSpacerProps {
   type: 'spacer'
 }
 
-export type ToolbarItems = readonly (ToolbarItem | ToolbarSpacer)[]
+export type ToolbarItems = readonly (ToolbarItemProps | ToolbarSpacerProps)[]
 
-function Toolbar({ items }: { items: ToolbarItems }) {
+export default memo(function Toolbar({ items }: { items: ToolbarItems }) {
+  const [visible, setVisible] = useState(false)
+
   return (
-    <WindowSize
-      render={({ width }) =>
-        width < 720 ? (
-          <MobileToolbar items={items} />
-        ) : (
-          <DesktopToolbar items={items} />
-        )
-      }
-    />
+    <>
+      <nav className={styles.toolBar} data-visible={visible}>
+        {items.map((element, index) => {
+          if (element.type === 'item') {
+            return (
+              <Fragment key={index}>
+                <ToolbarItem item={element} />
+              </Fragment>
+            )
+          } else {
+            return (
+              <Fragment key={index}>
+                <hr className={styles.separator} />
+              </Fragment>
+            )
+          }
+        })}
+      </nav>
+      <button
+        className={styles.floatingMobileButton}
+        onClick={() => setVisible((flag) => !flag)}
+      >
+        <Icon name='bars' />
+      </button>
+    </>
   )
-}
+})
 
 function openLink(e: MouseEvent<HTMLAnchorElement>) {
   e.preventDefault()
@@ -48,10 +67,10 @@ const defaultOptions = {
   onClick: openLink,
 } as const
 
-Toolbar.item = (
+export const item = (
   text: ReactNode,
-  options: Partial<ToolbarItem>
-): ToolbarItem => {
+  options: Partial<ToolbarItemProps>
+): ToolbarItemProps => {
   return {
     type: 'item',
     text,
@@ -59,11 +78,11 @@ Toolbar.item = (
     ...options,
   }
 }
-Toolbar.spacer = (): ToolbarSpacer => {
+export const spacer = (): ToolbarSpacerProps => {
   return { type: 'spacer' }
 }
 
-const DesktopToolbarItem = ({ item }: { item: ToolbarItem }) => {
+const ToolbarItem = ({ item }: { item: ToolbarItemProps }) => {
   let content = <>{item.text}</>
   if (item.tip) {
     if (item.tipFeatureKey) {
@@ -81,67 +100,8 @@ const DesktopToolbarItem = ({ item }: { item: ToolbarItem }) => {
     }
   }
   return (
-    <a onClick={item.onClick} href={item.href} style={{ cursor: 'pointer' }}>
+    <a className={styles.toolBarItem} onClick={item.onClick} href={item.href}>
       {content}
     </a>
   )
 }
-
-const DesktopToolbar = memo(({ items }: { items: ToolbarItems }) => (
-  <SceneToolbar>
-    {items.map((element, index) => {
-      if (element.type === 'item') {
-        return (
-          <React.Fragment key={index}>
-            <DesktopToolbarItem item={element} />
-          </React.Fragment>
-        )
-      } else {
-        return (
-          <React.Fragment key={index}>
-            <SceneToolbarSpacer />
-          </React.Fragment>
-        )
-      }
-    })}
-  </SceneToolbar>
-))
-
-const MobileToolbarItem = ({ item }: { item: ToolbarItem }) => (
-  <a onClick={item.onClick} href={item.href}>
-    {item.text}
-  </a>
-)
-
-const MobileToolbar = memo(({ items }: { items: ToolbarItems }) => {
-  const [visible, setVisible] = useState(false)
-
-  return (
-    <>
-      <FloatingMobileMenu visible={visible}>
-        {items.map((element, index) => {
-          if (element.type === 'item') {
-            return (
-              <React.Fragment key={index}>
-                <MobileToolbarItem item={element} />
-              </React.Fragment>
-            )
-          } else {
-            return (
-              <React.Fragment key={index}>
-                <FloatingMobileMenuSeparator />
-              </React.Fragment>
-            )
-          }
-        })}
-      </FloatingMobileMenu>
-      <FloatingMobileButton
-        buttonProps={{ onClick: () => setVisible((flag) => !flag) }}
-      >
-        <Icon name='bars' />
-      </FloatingMobileButton>
-    </>
-  )
-})
-
-export default Toolbar

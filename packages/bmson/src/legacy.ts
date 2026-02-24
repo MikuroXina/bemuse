@@ -1,7 +1,8 @@
-import _ from 'lodash'
-import * as utils from './utils'
-import { SoundChannel, Note } from './types'
 import * as BMS from 'bms'
+import _ from 'lodash'
+
+import type { Note, SoundChannel } from './types.js'
+import * as utils from './utils.js'
 
 export interface LegacyBmson {
   soundChannel: SoundChannel[]

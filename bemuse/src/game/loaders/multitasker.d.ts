@@ -1,17 +1,17 @@
-import Progress from 'bemuse/progress'
-import Observable from 'bemuse/utils/observable'
+import Progress from '@bemuse/progress'
+import Observable from '@bemuse/utils/observable'
 
 export function start<T, R>(
   tasks: (task: TaskFn<T>, run: RunFn<T>) => PromiseLike<R>
 ): {
   tasks: Observable<
     {
-      text: any
-      progress: any
-      progressText: any
+      text: string
+      progress: number
+      progressText: string
     }[]
   >
-  promise: PromiseLike<R>
+  promise: Promise<R>
   get: <N extends keyof T>(name: N) => PromiseLike<T[N]>
 }
 
@@ -19,7 +19,7 @@ export function start<T, R>(
 // https://github.com/microsoft/TypeScript/issues/31286
 // https://github.com/microsoft/TypeScript/issues/16746
 // https://github.com/microsoft/TypeScript/issues/26058
-type TaskFn<T extends {}> = {
+type TaskFn<T extends Record<string, unknown>> = {
   <N extends keyof T>(
     name: N,
     description: null | string,
@@ -42,7 +42,7 @@ type TaskFn<T extends {}> = {
     N extends keyof T,
     D1 extends keyof T,
     D2 extends keyof T,
-    D3 extends keyof T
+    D3 extends keyof T,
   >(
     name: N,
     description: null | string,
@@ -59,7 +59,7 @@ type TaskFn<T extends {}> = {
     D1 extends keyof T,
     D2 extends keyof T,
     D3 extends keyof T,
-    D4 extends keyof T
+    D4 extends keyof T,
   >(
     name: N,
     description: null | string,
@@ -76,4 +76,4 @@ type TaskFn<T extends {}> = {
   bar(description: string, progress: Progress)
 }
 
-type RunFn = <T = any>(name: string) => Promise<T>
+type RunFn = <T = void>(name: string) => Promise<T>

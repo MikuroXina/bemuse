@@ -1,19 +1,20 @@
 import './game-display.scss'
 
+import type { PanelPlacement } from '@bemuse/app/entities/Options.js'
+import { shouldDisableFullScreen } from '@bemuse/flags/index.js'
+import { Context } from '@bemuse/scintillator/index.js'
+import type { InfoPanelPosition } from '@bemuse/scintillator/skin.js'
 import $ from 'jquery'
-import { Context } from 'bemuse/scintillator'
-import Game from '../game'
-import GameState from '../state'
-import { InfoPanelPosition } from 'bemuse/scintillator/skin'
-import { LoadImagePromise } from '../loaders/loadImage'
-import { PanelPlacement } from 'bemuse/app/entities/Options'
-import Player from '../player'
-import PlayerDisplay from './player-display'
-import React from 'react'
+import type { ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
-import formatTime from '../../utils/formatTime'
 import screenfull from 'screenfull'
-import { shouldDisableFullScreen } from 'bemuse/devtools/query-flags'
+
+import formatTime from '../../utils/formatTime.js'
+import Game from '../game.js'
+import type { LoadImagePromise } from '../loaders/loadImage.js'
+import Player from '../player.js'
+import GameState from '../state/index.js'
+import PlayerDisplay from './player-display.js'
 
 export interface Video {
   element: HTMLVideoElement

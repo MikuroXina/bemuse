@@ -1,4 +1,5 @@
-import Expression from 'bemuse/scintillator/expression'
+import Expression from '@bemuse/scintillator/expression'
+import { describe, expect, it } from 'vitest'
 
 describe('Scintillator Expression', function () {
   describe('()', function () {
@@ -10,11 +11,11 @@ describe('Scintillator Expression', function () {
   describe('#constant', function () {
     it('should be false when containing variables', function () {
       const f = new Expression('a+b')
-      void expect(f.constant).to.be.false
+      expect(f.constant).toBe(false)
     })
     it('should be true when only contains number', function () {
       const f = new Expression('-1.25')
-      void expect(f.constant).to.be.true
+      expect(f.constant).toBe(true)
     })
   })
 })

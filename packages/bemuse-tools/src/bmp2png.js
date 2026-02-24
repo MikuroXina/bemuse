@@ -1,9 +1,10 @@
-import Throat from 'throat'
-import { spawn } from 'child_process'
-import { cpus } from 'os'
+import { spawn } from 'node:child_process'
+import { realpathSync } from 'node:fs'
+import { cpus } from 'node:os'
+import { basename, extname } from 'node:path'
+
 import endpoint from 'endpoint'
-import { realpathSync } from 'fs'
-import { extname, basename } from 'path'
+import Throat from 'throat'
 
 const throat = new Throat(cpus().length || 1)
 

@@ -1,7 +1,7 @@
-@import '~bemuse/ui/common';
+@use '@bemuse/ui/common.scss';
 
 .LoadingScene {
-  @include main-bg;
+  @include common.main-bg;
 
   &のinfo {
     position: absolute;

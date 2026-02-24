@@ -1,6 +1,6 @@
-import _ from 'lodash'
 import $ from 'jquery'
 import keytime from 'keytime'
+import _ from 'lodash'
 
 const createKeytime = (def) =>
   Object.assign({}, def, { data: keytime(def.data) })
@@ -41,7 +41,7 @@ export class Animation {
     return Object.assign({}, ...values)
   }
 
-  static compile(compiler, $el) {
+  static compile(_compiler, $el) {
     const animationElements = Array.from($el.children('animation'))
     const animations = _.map(animationElements, (el) => _compile($(el)))
     const timeKey = $el.attr('t') || 't'

@@ -1,8 +1,14 @@
-import * as Server from './server'
+import { readFileSync } from 'node:fs'
 
-import { index } from './indexer'
 import meow from 'meow'
-import { packIntoBemuse } from './packer'
+
+import { index } from './indexer.js'
+import { packIntoBemuse } from './packer.js'
+import * as Server from './server.js'
+
+const pkgJson = JSON.parse(
+  readFileSync(new URL('../package.json', import.meta.url), 'utf-8')
+)
 
 const commands = [
   {
@@ -46,7 +52,7 @@ function main(args) {
   if (targetCommand) {
     console.error('Error: Unrecognized command.')
   } else {
-    console.error('This is bemuse-tools v' + require('../package').version)
+    console.error('This is bemuse-tools v' + pkgJson.version)
   }
   return args.showHelp()
 }
@@ -58,6 +64,6 @@ function getHelpText(command) {
 main(
   meow({
     help: commands.map(getHelpText).join('\n'),
-    pkg: require('../package.json'),
+    pkg: pkgJson,
   })
 )

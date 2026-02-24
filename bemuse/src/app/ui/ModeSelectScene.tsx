@@ -1,17 +1,16 @@
 import './ModeSelectScene.scss'
 
-import * as Analytics from '../analytics'
-
-import React, { useContext, useRef } from 'react'
-
-import { MappingMode } from 'bemuse/rules/mapping-mode'
-import MusicSelectScene from './MusicSelectScene'
-import Scene from 'bemuse/ui/Scene'
-import SceneHeading from 'bemuse/ui/SceneHeading'
-import { SceneManagerContext } from 'bemuse/scene-manager'
-import SceneToolbar from 'bemuse/ui/SceneToolbar'
-import { optionsSlice } from '../entities/Options'
+import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
+import { SceneManagerContext } from '@bemuse/scene-manager/index.js'
+import Scene from '@bemuse/ui/Scene.js'
+import SceneHeading from '@bemuse/ui/SceneHeading.js'
+import SceneToolbar from '@bemuse/ui/SceneToolbar.js'
+import { useContext, useRef } from 'react'
 import { useDispatch } from 'react-redux'
+
+import * as Analytics from '../analytics.js'
+import { optionsSlice } from '../entities/Options.js'
+import MusicSelectScene from './MusicSelectScene.js'
 
 function KBGraphics() {
   const children = []
@@ -102,6 +101,9 @@ const ModeSelectScene = () => {
   }
 
   const setPlayDevice = (device: PlayDevice) => {
+    if (playDevice.current === device) {
+      return
+    }
     console.log('Set play device to', device)
     if (!playDevice.current) {
       playDevice.current = device

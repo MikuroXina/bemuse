@@ -1,9 +1,8 @@
 import * as PIXI from 'pixi.js'
 
+import Expression from '../../expression'
 import SkinNode from '../lib/base'
 import Instance from '../lib/instance'
-
-import Expression from '../../expression'
 import Animation from './animation'
 
 // Numeric properties that may be interpreted as expressions.

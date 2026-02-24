@@ -1,15 +1,17 @@
 import './PreviewInfo.scss'
-import React, { useMemo } from 'react'
-import { MeasureInfo, NotechartPreview } from './NotechartPreview'
-import { PreviewState } from './PreviewState'
-import { BarDot } from './BarDot'
+
+import { type ReactNode, useMemo } from 'react'
+
+import { BarDot } from './BarDot.js'
+import type { MeasureInfo, NotechartPreview } from './NotechartPreview.js'
+import type { PreviewState } from './PreviewState.js'
 
 export interface PreviewInfo {
   notechartPreview: NotechartPreview
   previewState: PreviewState
 }
 
-export const PreviewInfo: FC<PreviewInfo> = (props) => {
+export const PreviewInfo = (props: PreviewInfo) => {
   const preview = props.notechartPreview
 
   const measureInfo = useMemo(() => {
@@ -104,7 +106,7 @@ interface BarDots {
   measureInfo: MeasureInfo
 }
 
-const BarDots: FC<BarDots> = (props) => {
+const BarDots = (props: BarDots) => {
   const { measureInfo } = props
   if (!measureInfo.measureEndBeat) return null
   const measureSize = measureInfo.measureEndBeat - measureInfo.measureStartBeat

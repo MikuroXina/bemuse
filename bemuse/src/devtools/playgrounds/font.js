@@ -1,14 +1,13 @@
+import meticulousFont from '@bemuse/../public/skins/default/Fonts/BemuseDefault-Meticulous.fnt'
+import otherFont from '@bemuse/../public/skins/default/Fonts/BemuseDefault-Other.fnt'
+import MAIN from '@bemuse/utils/main-element'
 import * as PIXI from 'pixi.js'
-import MAIN from 'bemuse/utils/main-element'
 
 export function main() {
   const renderer = PIXI.autoDetectRenderer(640, 480)
   const stage = new PIXI.Stage(0x8b8685)
   const loader = new PIXI.loaders.Loader()
-  const urls = [
-    '/skins/default/Fonts/BemuseDefault-Meticulous.fnt',
-    '/skins/default/Fonts/BemuseDefault-Other.fnt',
-  ]
+  const urls = [meticulousFont, otherFont]
   for (const url of urls) loader.add(url, url)
   loader.load(() => {
     const text = new PIXI.BitmapText('*1234567890', {

@@ -1,4 +1,4 @@
-@import '~bemuse/ui/common';
+@use '@bemuse/ui/common.scss';
 
 .MusicInfoTabInformation {
   overflow: hidden;
@@ -17,7 +17,7 @@
       margin-left: 0.3em;
       &:hover {
         background: #fff;
-        color: $link-color;
+        color: common.$link-color;
         border-color: rgba(#aaa, 0.5);
       }
     }
@@ -42,7 +42,7 @@
   &のreadme {
     clear: both;
     font-size: 0.9em;
-    @include scrolling-x;
+    @include common.scrolling-x;
     pre {
       white-space: pre-wrap;
     }

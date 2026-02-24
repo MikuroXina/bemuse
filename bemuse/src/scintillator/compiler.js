@@ -1,5 +1,5 @@
-import $ from 'jquery'
 import debug from 'debug'
+import $ from 'jquery'
 
 import GroupNode from './nodes/group'
 import IfNode from './nodes/if'

@@ -1,10 +1,10 @@
-const steps = require('artstep')
+import { Then } from '@cucumber/cucumber'
+import { expect } from 'vitest'
 
-module.exports = steps()
-  .Then(/^sound (\S+) references file "(.*?)"$/, function (id, file) {
-    expect(this.keysounds.get(id)).to.equal(file)
-  })
+Then(/^sound (\S+) references file "(.*?)"$/, function (id, file) {
+  expect(this.keysounds.get(id)).to.equal(file)
+})
 
-  .Then(/^sound (\S+) is a null reference$/, function (id) {
-    void expect(this.keysounds.get(id)).to.be.undefined
-  })
+Then(/^sound (\S+) is a null reference$/, function (id) {
+  void expect(this.keysounds.get(id)).to.be.undefined
+})

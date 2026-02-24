@@ -1,5 +1,7 @@
-import { Progress } from './Progress'
-import * as ProgressUtils from './utils'
+import { describe, expect, it } from 'vitest'
+
+import { Progress } from './Progress.js'
+import * as ProgressUtils from './utils.js'
 
 describe('ProgressUtils', function () {
   describe('.fixed', function () {
@@ -16,19 +18,20 @@ describe('ProgressUtils', function () {
   })
 
   describe('.wrapPromise', function () {
-    it('should report number of fulfilled promises', function () {
+    it('should report number of fulfilled promises', async () => {
       const progress = new Progress()
       const f = ProgressUtils.wrapPromise(progress, (promise) => promise)
-      const a = f(new Promise(() => {}))
+      void f(new Promise(() => {}))
       const b = f(Promise.resolve(1))
-      const c = f(Promise.reject(new Error('no')))
-      const d = f(Promise.resolve(3))
-      void a
-      void c
-      return Promise.all([b, d]).then(() => {
-        expect(progress.current).to.equal(2)
-        expect(progress.total).to.equal(4)
+      void f(Promise.reject(new Error('no'))).catch((err) => {
+        expect(err).toStrictEqual(new Error('no'))
       })
+      const d = f(Promise.resolve(3))
+
+      await Promise.all([b, d])
+
+      expect(progress.current).to.equal(2)
+      expect(progress.total).to.equal(4)
     })
   })
 

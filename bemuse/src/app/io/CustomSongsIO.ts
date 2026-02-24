@@ -1,13 +1,13 @@
-import { AnyAction, Dispatch } from 'redux'
+import { URLResources } from '@bemuse/resources/url.js'
+import type { AnyAction, Dispatch } from 'redux'
+
 import {
   CustomSongResources,
   downloadFileEntryFromURL,
-} from '../../resources/custom-song-resources'
-
-import DndResources from '../../resources/dnd-resources'
-import { URLResources } from 'bemuse/resources/url'
-import { getIPFSResources } from '../../resources/ipfs-resources'
-import { loadCustomSong } from '../CustomSongs'
+} from '../../resources/custom-song-resources.js'
+import DndResources from '../../resources/dnd-resources.js'
+import { getIPFSResources } from '../../resources/ipfs-resources.js'
+import { loadCustomSong } from '../CustomSongs.js'
 
 export const handleCustomSongFileSelect =
   (dispatch: Dispatch<AnyAction>) => (selectedFile: File) => {

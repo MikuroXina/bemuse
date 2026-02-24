@@ -1,9 +1,8 @@
 import './ranking-table-playground.scss'
 
-import Ranking from 'bemuse/app/ui/Ranking'
-import React from 'react'
-import { ScoreboardDataEntry } from 'bemuse/online'
-import { sceneRoot } from 'bemuse/utils/main-element'
+import Ranking from '@bemuse/components/ranking/Ranking.js'
+import type { ScoreboardDataEntry } from '@bemuse/online/index.js'
+import { sceneRoot } from '@bemuse/utils/main-element.js'
 
 const players: ScoreboardDataEntry[] = [
   {
@@ -29,7 +28,7 @@ const RankingTablePlayground = () => (
         meta: {
           scoreboard: {
             status: 'completed',
-            value: null,
+            value: { data: [] },
           },
           submission: {
             status: 'completed',
@@ -50,7 +49,7 @@ const RankingTablePlayground = () => (
         meta: {
           scoreboard: {
             status: 'completed',
-            value: null,
+            value: { data: [] },
           },
           submission: {
             status: 'completed',
@@ -65,7 +64,7 @@ const RankingTablePlayground = () => (
         meta: {
           scoreboard: {
             status: 'completed',
-            value: null,
+            value: { data: [] },
           },
           submission: {
             status: 'unauthenticated',

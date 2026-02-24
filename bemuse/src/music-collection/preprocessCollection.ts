@@ -1,5 +1,5 @@
-import { MusicServerIndex, SongMetadataInCollection } from 'bemuse-types'
-import produce, { Draft } from 'immer'
+import type { MusicServerIndex, SongMetadataInCollection } from 'bemuse-types'
+import { type Draft, produce } from 'immer'
 
 export interface Preprocessed extends MusicServerIndex {
   songOfTheDayEnabled?: boolean

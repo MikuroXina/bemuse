@@ -1,8 +1,8 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import type { Draft } from 'immer'
 
-import { Draft } from 'immer'
-import { MappingMode } from '../../rules/mapping-mode'
-import { StoredOptions } from '../types'
+import type { MappingMode } from '../../rules/mapping-mode.js'
+import type { StoredOptions } from '../types.js'
 
 export type OptionsState = StoredOptions & Record<string, string>
 
@@ -109,7 +109,7 @@ export const leadTime = (state: OptionsState) => {
 
 // Scratch position
 export const SCRATCH_POSITION = ['off', 'left', 'right'] as const
-export type ScratchPosition = typeof SCRATCH_POSITION[number]
+export type ScratchPosition = (typeof SCRATCH_POSITION)[number]
 export const isScratchPosition = (str: string): str is ScratchPosition =>
   (SCRATCH_POSITION as readonly string[]).includes(str)
 export const scratchPosition = (state: OptionsState): ScratchPosition => {
@@ -154,10 +154,10 @@ export const getGauge = (state: OptionsState): Gauge =>
 
 // Queries
 export const keyboardMapping = (state: OptionsState) => {
-  const mapping: Record<string, string> = {}
+  const mapping: Record<string, number> = {}
   for (const control of ['1', '2', '3', '4', '5', '6', '7', 'SC', 'SC2']) {
     const key = 'input.P1.keyboard.' + playMode(state) + '.' + control
-    mapping[control] = state[key] || ''
+    mapping[control] = parseInt(state[key], 10) || 0
   }
   return mapping
 }

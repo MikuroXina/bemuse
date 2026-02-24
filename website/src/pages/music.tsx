@@ -5,15 +5,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, { useEffect, useState } from 'react'
-
 import Layout from '@theme/Layout'
+import { useEffect, useState } from 'react'
+
 import { MainWrapper } from '../components/main-wrapper'
-import { MusicServerData } from '../lib/music'
 import { Post } from '../components/post'
+import { MusicServerData } from '../lib/music'
 import styles from './music.module.css'
 
-/* eslint-disable camelcase */
 interface SongInfo {
   title: string
   song_url?: string
@@ -132,7 +131,7 @@ const Content = () => {
   return (
     <div className={styles.content}>
       {state.type === 'loading' ? (
-        <div className={styles.message}>'(Loading song list...)'</div>
+        <div className={styles.message}>&apos;(Loading song list...)&apos;</div>
       ) : state.type === 'error' ? (
         <div className={styles.message}>`(Error: ${state.error})`</div>
       ) : (
@@ -146,16 +145,17 @@ const Music = () => (
   <MainWrapper>
     <Post title='Artists Showcase'>
       <p>
-        We'd like to thank the following artists for letting us use their songs
-        in the game.
+        We&apos;d like to thank the following artists for letting us use their
+        songs in the game.
       </p>
       <Content />
     </Post>
   </MainWrapper>
 )
 
-export default () => (
+const MusicPage = () => (
   <Layout>
     <Music />
   </Layout>
 )
+export default MusicPage

@@ -1,7 +1,6 @@
-import _ from 'lodash'
-import assign from 'object-assign'
-import invariant from 'invariant'
-import pMap from 'p-map'
+import { createHash } from 'node:crypto'
+import { extname } from 'node:path'
+
 import {
   BMSChart,
   BMSNote,
@@ -17,10 +16,18 @@ import {
   musicalScoreForBmson,
   songInfoForBmson,
 } from 'bmson'
-import { createHash } from 'crypto'
-import { extname } from 'path'
+import invariant from 'invariant'
+import _ from 'lodash'
+import assign from 'object-assign'
+import pMap from 'p-map'
 
-import {
+import { getBmsBga } from './bms-bga.js'
+import { getBmsonBga } from './bmson-bga.js'
+import { getBpmInfo } from './bpm-info.js'
+import { getDuration } from './duration.js'
+import { getKeys } from './keys.js'
+import { lcs } from './lcs.js'
+import type {
   BGAInfo,
   IndexingInputFile,
   Keys,
@@ -28,13 +35,7 @@ import {
   OutputFileInfo,
   OutputSongInfo,
   OutputSongInfoVideo,
-} from './types'
-import { getBmsBga } from './bms-bga'
-import { getBmsonBga } from './bmson-bga'
-import { getBpmInfo } from './bpm-info'
-import { getDuration } from './duration'
-import { getKeys } from './keys'
-import { lcs } from './lcs'
+} from './types.js'
 
 interface InputMeta {
   name: string
@@ -94,7 +95,7 @@ _extensions['.bmson'] = async function (source) {
   }
 }
 
-async function getFileInfo(
+export async function getFileInfo(
   data: Buffer,
   meta: InputMeta,
   options?: { extensions?: ExtensionMap }
@@ -139,18 +140,15 @@ async function getFileInfo(
   }
 }
 
-const _getFileInfo = getFileInfo
-export { _getFileInfo as getFileInfo }
-
-async function getSongInfo(
+export async function getSongInfo(
   files: IndexingInputFile[],
   options?: {
     cache?: {
       get(md5: string): OutputFileInfo
       put(md5: string, info: OutputFileInfo): void
     }
-    extra?: any
-    onProgress?: any
+    extra?: unknown
+    onProgress?: (processed: number, len: number, name: string) => void
     onError?: (error: Error, name: string) => void
     getFileInfo?: typeof getFileInfo
   }
@@ -214,9 +212,6 @@ async function getSongInfo(
   song.warnings = warnings
   return song as OutputSongInfo
 }
-
-const _getSongInfo = getSongInfo
-export { _getSongInfo as getSongInfo }
 
 function getSongVideoFromCharts(charts: OutputFileInfo[]): OutputSongInfoVideo {
   const result: OutputSongInfoVideo = {}

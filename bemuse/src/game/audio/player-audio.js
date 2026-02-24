@@ -1,7 +1,7 @@
 import _ from 'lodash'
 
-import WaveFactory from './wave-factory'
 import { isBad } from '../judgments'
+import WaveFactory from './wave-factory'
 
 function autoplayer(array) {
   array = _.sortBy(array, 'time')

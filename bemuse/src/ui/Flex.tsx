@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react'
+import type { CSSProperties } from 'react'
 
 export interface FlexProps {
   grow?: number | string

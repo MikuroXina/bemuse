@@ -1,0 +1,115 @@
+.toolBar {
+  position: fixed;
+  z-index: 101;
+}
+
+@keyframes y-slide {
+  from {
+    opacity: 0;
+    transform: translate(0, -50%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+.toolBarItem {
+  cursor: pointer;
+}
+
+@media screen and (width < 720px) {
+  .toolBar {
+    top: 0;
+    left: 0;
+    right: 0;
+    padding-top: 70px;
+    padding-bottom: 20px;
+    background: rgba(0, 0, 0, 0.75);
+    font-size: 18px;
+    animation: 0.3s y-slide;
+
+    & > a {
+      display: block;
+      padding: 4px 20px 4px 32px;
+      text-decoration: none;
+      color: #e9e8e7;
+    }
+  }
+
+  .toolBar[data-visible='false'] {
+    display: none;
+  }
+
+  .separator {
+    height: 0;
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .floatingMobileButton {
+    position: fixed;
+    z-index: 102;
+    top: 20px;
+    left: 20px;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    color: #e9e8e7;
+    font: inherit;
+    font-size: 24px;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+}
+
+@media screen and (width >= 720px) {
+  .toolBar {
+    background: rgba(black, 0.7);
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 0.5rem;
+    font-size: 1rem;
+    > a,
+    > span {
+      display: block;
+      padding: 0.8ex 1.3ex;
+    }
+    > a {
+      color: rgba(white, 0.8);
+      text-decoration: none;
+      background: rgba(black, 0);
+      transition:
+        0.1s background,
+        0.1s color;
+      cursor: pointer;
+      &:hover {
+        background: rgba(black, 0.5);
+        color: white;
+      }
+    }
+    > a[data-position='right'] {
+      float: right;
+    }
+    > span {
+      color: rgba(white, 0.6);
+    }
+  }
+  .separator {
+    border: 0;
+    flex: 1;
+  }
+
+  .floatingMobileButton {
+    display: none;
+  }
+}

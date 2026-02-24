@@ -1,32 +1,31 @@
-import * as Analytics from './analytics'
-import * as Options from './entities/Options'
-
-import { Chart, Song } from 'bemuse/collection-model/types'
-import { ReactScene, SceneManager } from 'bemuse/scene-manager'
-
-import GameScene from 'bemuse/game/game-scene'
-import GenericErrorScene from './ui/GenericErrorScene'
-import { LoadSpec } from 'bemuse/game/loaders/game-loader'
-import LoadingScene from 'bemuse/game/ui/LoadingScene'
-import { MISSED } from 'bemuse/game/judgments'
-import Player from 'bemuse/game/player'
-import PlayerState from 'bemuse/game/state/player-state'
-import React from 'react'
-import ResultScene from './ui/ResultScene'
-import { StoredOptions } from './types'
-import createAutoVelocity from './interactors/createAutoVelocity'
-import { getGrade } from 'bemuse/rules/grade'
-import { getSongResources } from 'bemuse/music-collection/getSongResources'
-import { getSoundVolume } from './query-flags'
+import type { Chart, Song } from '@bemuse/collection-model/types.js'
+import { isTitleDisplayMode } from '@bemuse/flags/index.js'
+import GameScene from '@bemuse/game/game-scene.js'
+import { MISSED } from '@bemuse/game/judgments.js'
+import type { LoadSpec } from '@bemuse/game/loaders/load-spec.js'
+import Player, { type PlayerControlKeysMap } from '@bemuse/game/player.js'
+import PlayerState from '@bemuse/game/state/player-state.js'
+import LoadingScene from '@bemuse/game/ui/LoadingScene.js'
+import * as BemuseLogger from '@bemuse/logger/index.js'
+import { getSongResources } from '@bemuse/music-collection/getSongResources.js'
+import { getGrade } from '@bemuse/rules/grade.js'
+import { unmuteAudio } from '@bemuse/sampling-master/index.js'
+import { type ReactScene, SceneManager } from '@bemuse/scene-manager/index.js'
+import query from '@bemuse/utils/query.js'
 import invariant from 'invariant'
-import { isTitleDisplayMode } from 'bemuse/devtools/query-flags'
-import query from 'bemuse/utils/query'
-import { unmuteAudio } from 'bemuse/sampling-master'
+
+import GenericErrorScene from '../components/GenericErrorScene.js'
+import ResultScene from '../components/result/ResultScene.js'
+import * as Analytics from './analytics.js'
+import * as Options from './entities/Options.js'
+import createAutoVelocity from './interactors/createAutoVelocity.js'
+import { getSoundVolume } from './query-flags.js'
+import type { StoredOptions } from './types.js'
 
 const Log = BemuseLogger.forModule('game-launcher')
 
-if (module.hot) {
-  module.hot.accept('bemuse/game/loaders/game-loader')
+if (import.meta.hot) {
+  import.meta.hot.accept('@bemuse/game/loaders/game-loader', () => {})
 }
 
 export type LaunchOptions = {
@@ -53,14 +52,15 @@ export async function launch(launchOptions: LaunchOptions) {
       (work) => (currentWork = work)
     )
   } catch (e) {
+    Log.error(e)
     await new Promise<void>((resolve, reject) => {
       sceneDisplayContext
         .showScene(
-          GenericErrorScene.getScene({
-            preamble: `Bemuse has encountered a problem while ${currentWork}`,
-            error: e as Error,
-            onContinue: resolve,
-          })
+          <GenericErrorScene
+            preamble={`Bemuse has encountered a problem while ${currentWork}`}
+            error={e as Error}
+            onContinue={resolve}
+          />
         )
         .catch(reject)
     })
@@ -91,7 +91,7 @@ async function launchGame(
 
   // initialize the loading specification
   // TODO [#625]: Create the LoadSpec object at the end instead of building object from blank.
-  const loadSpec: LoadSpec = {} as any
+  const loadSpec: Partial<LoadSpec> = {}
   loadSpec.songId = song.id
 
   const { baseResources, assetResources } = getSongResources(song, server.url)
@@ -133,7 +133,7 @@ async function launchGame(
         laneCover: Options.laneCover(options),
         gauge: Options.getGauge(options),
         input: {
-          keyboard: keyboardMapping as any,
+          keyboard: keyboardMapping as PlayerControlKeysMap,
           continuous: Options.isContinuousAxisEnabled(options),
           sensitivity: Options.sensitivity(options),
         },
@@ -147,20 +147,21 @@ async function launchGame(
 
   // set video options
   if (Options.isBackgroundAnimationsEnabled(options)) {
-    loadSpec.videoUrl = await findVideoUrl(song, loadSpec.assets)
+    loadSpec.videoUrl = await findVideoUrl(song, loadSpec.assets!)
     loadSpec.videoOffset = +(song.video_offset || 0)
   }
 
-  let replay = false
-
-  do {
+  while (true) {
     // start loading the game
     const loadStart = Date.now()
     setCurrentWork('loading the game')
     Log.info(`Loading game: ${describeChart(chart)}`)
-    const GameLoader: typeof import('bemuse/game/loaders/game-loader') = require('bemuse/game/loaders/game-loader')
-    const loader = GameLoader.load(loadSpec)
+    const GameLoader = await import('@bemuse/game/loaders/game-loader.js')
+    const loader = GameLoader.load(loadSpec as LoadSpec)
     const { tasks, promise } = loader
+    promise.catch((err: unknown) => {
+      Log.error(err)
+    })
 
     // display loading scene
     const loadingScene = (
@@ -171,7 +172,6 @@ async function launchGame(
       />
     )
     await sceneDisplayContext.showScene(loadingScene)
-    replay = false
 
     // if in title display mode, stop here
     if (isTitleDisplayMode()) return
@@ -212,6 +212,7 @@ async function launchGame(
 
     // send data to analytics & display evaluation
     window.removeEventListener('beforeunload', onUnload, false)
+    let replay
     if (state.finished) {
       setCurrentWork('showing game results')
       Analytics.gameFinish(song, chart, state, gameMode)
@@ -231,7 +232,10 @@ async function launchGame(
       }
     }
     controller.destroy()
-  } while (replay)
+    if (!replay) {
+      break
+    }
+  }
 }
 
 async function findVideoUrl(song: Song, assets: LoadSpec['assets']) {

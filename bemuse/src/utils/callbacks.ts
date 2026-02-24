@@ -1,11 +1,11 @@
 // !! avoid external dependencies since this is used in boot script!
 
-type CallbackEffect<T extends any[]> = (...args: T) => void
+type CallbackEffect<T extends unknown[]> = (...args: T) => void
 
 /**
  * A utility class to hold a collection of callbacks.
  */
-export class Callbacks<T extends any[]> {
+export class Callbacks<T extends unknown[]> {
   private _callbacks: { [id: number]: CallbackEffect<T> } = {}
   private _nextId = 1
   constructor(init?: CallbackEffect<T>[] | CallbackEffect<T>) {

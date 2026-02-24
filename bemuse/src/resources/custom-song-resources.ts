@@ -1,15 +1,16 @@
-import * as ProgressUtils from 'bemuse/progress/utils'
-import {
+import Progress from '@bemuse/progress/index.js'
+import * as ProgressUtils from '@bemuse/progress/utils.js'
+import download from '@bemuse/utils/download.js'
+import readBlob from '@bemuse/utils/read-blob.js'
+
+import ResourceLogging from './resource-logging.js'
+import type {
   FileEntry,
-  LoggingFunction,
-  IResource,
   ICustomSongResources,
-} from './types'
-import ResourceLogging from './resource-logging'
-import { unarchive } from './unarchiver'
-import readBlob from 'bemuse/utils/read-blob'
-import Progress from 'bemuse/progress'
-import download from 'bemuse/utils/download'
+  IResource,
+  LoggingFunction,
+} from './types.js'
+import { unarchive } from './unarchiver.js'
 
 export const ARCHIVE_REGEXP = /\.(?:zip|rar|7z|tar(?:\.(?:gz|bz2))?)/i
 
@@ -57,7 +58,7 @@ export class CustomSongResources implements ICustomSongResources {
 
 export class FileResource implements IResource {
   constructor(private _file: File) {}
-  read(progress: Progress) {
+  read(progress?: Progress): Promise<ArrayBuffer> {
     return ProgressUtils.atomic(
       progress,
       readBlob(this._file).as('arraybuffer')

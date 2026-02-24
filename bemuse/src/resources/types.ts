@@ -1,4 +1,4 @@
-import Progress from 'bemuse/progress'
+import type Progress from '@bemuse/progress/index.js'
 
 export interface IResources {
   file(name: string): PromiseLike<IResource>

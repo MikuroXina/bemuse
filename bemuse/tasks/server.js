@@ -1,7 +1,7 @@
 import gulp from 'gulp'
 
-import * as server from './support/dev-server'
+import * as server from './support/dev-server/index.js'
 
-gulp.task('server', function (_callback) {
+gulp.task('server', function () {
   server.start()
 })

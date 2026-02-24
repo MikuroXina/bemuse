@@ -1,9 +1,14 @@
-import * as bmson from 'bmson'
 import * as BMS from 'bms'
+import * as bmson from 'bmson'
 
-import Notechart from '../'
-import { PlayerOptions, NotechartInput, ExpertJudgmentWindow } from '../types'
-import { Bmson } from 'bmson/lib/types'
+import Notechart from '../index.js'
+import type {
+  ExpertJudgmentWindow,
+  NotechartInput,
+  PlayerOptions,
+} from '../types.js'
+
+type Bmson = bmson.Bmson
 
 export function load(source: string, playerOptions: PlayerOptions) {
   const data = JSON.parse(source)

@@ -1,7 +1,8 @@
 import assert from 'assert'
+import { beforeEach, describe, it, vi } from 'vitest'
 
-import PlayerDisplay from './player-display'
 import { notechart, playerWithBMS, tap } from '../test-helpers'
+import PlayerDisplay from './player-display'
 
 describe('PlayerDisplay', function () {
   let display
@@ -48,7 +49,9 @@ describe('PlayerDisplay', function () {
       assert(data['note_1'].length === 1)
     })
     it('hides judged notes', function () {
-      const state = tap(blankState(), (s) => s.getNoteStatus.returns('judged'))
+      const state = tap(blankState(), (s) =>
+        s.getNoteStatus.mockReturnValue('judged')
+      )
       update(3.95, 3.95, state)
       assert(!(data['note_1'] || []).length)
     })
@@ -65,19 +68,23 @@ describe('PlayerDisplay', function () {
       assert(!data['longnote_1'][0].missed)
     })
     it('displays holding long notes', function () {
-      const state = tap(blankState(), (s) => s.getNoteJudgment.returns(1))
+      const state = tap(blankState(), (s) =>
+        s.getNoteJudgment.mockReturnValue(1)
+      )
       update(3.95, 3.95, state)
       assert(data['longnote_1'][0].active)
     })
     it('displays holding long notes event it is bad', function () {
-      const state = tap(blankState(), (s) => s.getNoteJudgment.returns(4))
+      const state = tap(blankState(), (s) =>
+        s.getNoteJudgment.mockReturnValue(4)
+      )
       update(3.95, 3.95, state)
       assert(data['longnote_1'][0].active)
     })
     it('displays missed long notes', function () {
       const state = blankState()
-      state.getNoteJudgment.returns(-1)
-      state.getNoteStatus.returns('judged')
+      state.getNoteJudgment.mockReturnValue(-1)
+      state.getNoteStatus.mockReturnValue('judged')
       update(3.95, 3.95, state)
       assert(data['longnote_1'][0].missed)
     })
@@ -133,8 +140,8 @@ describe('PlayerDisplay', function () {
       speed: 1,
       input: { get: () => ({ value: 0, changed: false }) },
       notifications: { judgments: [] },
-      getNoteStatus: sinon.stub().returns('unjudged'),
-      getNoteJudgment: sinon.stub().returns(0),
+      getNoteStatus: vi.fn().mockReturnValue('unjudged'),
+      getNoteJudgment: vi.fn().mockReturnValue(0),
       stats: { score: 0 },
     }
   }

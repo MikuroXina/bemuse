@@ -1,11 +1,11 @@
-import * as ProgressUtils from 'bemuse/progress/utils'
+import Progress from '@bemuse/progress/index.js'
+import * as ProgressUtils from '@bemuse/progress/utils.js'
+import readBlob from '@bemuse/utils/read-blob.js'
 import _ from 'lodash'
-import Progress from 'bemuse/progress'
-import readBlob from 'bemuse/utils/read-blob'
 import throat from 'throat'
 
-import { IResource, IResources } from './types'
-import { URLResources } from './url'
+import type { IResource, IResources } from './types.js'
+import { URLResources } from './url.js'
 
 type MetadataFileJSON = {
   files: BemusePackFileEntry[]

@@ -1,6 +1,6 @@
 import './YouTube.scss'
 
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 const getUrl = (url: string) =>
   'https://www.youtube.com/embed/' + url.match(/v=([^&]+)/)![1]

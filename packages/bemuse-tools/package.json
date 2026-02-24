@@ -9,9 +9,18 @@
   ],
   "scripts": {
     "clean": "rimraf lib tsconfig.tsbuildinfo",
-    "test": "nyc -r text -r lcov mocha -r ts-node/register/transpile-only spec/*_spec.js",
-    "build": "tsc -b .",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx ."
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
+    "build": "wireit",
+    "lint": "eslint ."
+  },
+  "wireit": {
+    "build": {
+      "command": "tsc -b .",
+      "dependencies": [
+        "../bemuse-indexer:build"
+      ]
+    }
   },
   "bin": {
     "bemuse-tools": "./bin/bemuse-tools"
@@ -27,15 +36,15 @@
   },
   "homepage": "https://github.com/bemusic/bemuse-tools",
   "dependencies": {
-    "bemuse-indexer": "^51.0.2",
+    "bemuse-indexer": "workspace:*",
     "bytes": "^3.0.0",
     "chalk": "^2.4.1",
     "cors": "^2.8.4",
     "endpoint": "^0.4.2",
     "express": "^4.16.4",
     "format-json": "^1.0.3",
-    "glob": "^8.0.3",
-    "glob-promise": "^5.0.0",
+    "glob": "^13.0.0",
+    "glob-promise": "^6.0.0",
     "js-yaml": "^3.12.0",
     "lodash": "^4.17.11",
     "meow": "^3.1.0",
@@ -46,13 +55,11 @@
     "throat": "^2.0.2"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "mocha": "^5.2.0",
-    "eslint": "^8.25.0",
-    "typescript": "^4.8.4",
-    "eslint-config-bemuse": "^5.0.0"
-  },
-  "volta": {
-    "extends": "../../volta.json"
+    "@vitest/coverage-v8": "^4.0.18",
+    "eslint": "^9.0.0",
+    "eslint-config-bemuse": "workspace:*",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18",
+    "wireit": "^0.14.12"
   }
 }

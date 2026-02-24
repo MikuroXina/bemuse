@@ -1,4 +1,4 @@
-import { Page, expect, test } from '@playwright/test'
+import { expect, Page, test } from '@playwright/test'
 
 test('Can sign up', async ({ page }) => {
   await page.goto('/?flags=fake-scoreboard,skip-to-music-select')
@@ -45,7 +45,9 @@ test('Can log in and out', async ({ page }) => {
 })
 
 test('Can submit score to improve', async ({ page }) => {
-  await page.goto('/?mode=playground&playground=result&flags=fake-scoreboard')
+  await page.goto(
+    '/?mode=playground&playground=playgrounds/result&flags=fake-scoreboard'
+  )
   await expect(page.locator('.Ranking')).toContainText('111111')
   await logInFromRankingTable(page, 'tester')
   await expect(page.locator('.Ranking')).not.toContainText('111111')
@@ -53,11 +55,17 @@ test('Can submit score to improve', async ({ page }) => {
 })
 
 test('Keeps highest score', async ({ page }) => {
-  await page.goto('/?mode=playground&playground=result&flags=fake-scoreboard')
-  await expect(page.locator('.Ranking')).toContainText('111111')
+  await page.goto(
+    '/?mode=playground&playground=playgrounds/result&flags=fake-scoreboard'
+  )
+  const testerOldScore = '111111'
+  await expect(page.locator('.Ranking')).toContainText(testerOldScore)
+
   await logInFromRankingTable(page, 'tester')
+
   await expect(page.locator('.Ranking')).toContainText('555554')
-  await expect(page.locator('.Ranking')).not.toContainText('543210')
+  const testerHighScore = '543210'
+  await expect(page.locator('.Ranking')).toContainText(testerHighScore)
 })
 
 test('Clears data when switching user', async ({ page }) => {

@@ -1,6 +1,6 @@
-import { BMSHeaders } from './headers'
-import { BMSObjects } from './objects'
-import { TimeSignatures } from '../time-signatures'
+import { TimeSignatures } from '../time-signatures/index.js'
+import { BMSHeaders } from './headers.js'
+import { BMSObjects } from './objects.js'
 
 /**
  * A BMSChart holds information about a particular BMS notechart.

@@ -1,11 +1,9 @@
-import OfflineService from './OfflineService'
-import Online from './index'
-import OnlineService from './scoreboard-system/OnlineService'
-/* eslint import/no-webpack-loader-syntax: off */
-// @ts-ignore
-import config from 'val-loader?cacheable!./config'
+import { isQueryFlagEnabled } from '@bemuse/flags/index.js'
 import { createContext } from 'react'
-import { isQueryFlagEnabled } from 'bemuse/flags'
+
+import Online from './index.js'
+import OfflineService from './OfflineService.js'
+import OnlineService from './scoreboard-system/OnlineService.js'
 
 let instance: Online
 
@@ -13,8 +11,10 @@ if (isQueryFlagEnabled('fake-scoreboard')) {
   instance = new Online(new OnlineService({ fake: true }))
 } else if (isQueryFlagEnabled('offline')) {
   instance = new Online(new OfflineService())
-} else if (config.SCOREBOARD_SERVER) {
-  instance = new Online(new OnlineService({ server: config.SCOREBOARD_SERVER }))
+} else if (import.meta.env.SCOREBOARD_SERVER) {
+  instance = new Online(
+    new OnlineService({ server: import.meta.env.SCOREBOARD_SERVER })
+  )
 } else {
   console.warn(
     'Warning: No server specified. Using a fake scoreboard that resets when you refresh the page.'

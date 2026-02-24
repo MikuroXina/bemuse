@@ -1,8 +1,8 @@
 // Public: A module that exposes {Keysounds}
 /* module */
 
-import { uniq, values } from '../util/lodash'
-import { BMSChart } from '../bms/chart'
+import { BMSChart } from '../bms/chart.js'
+import { uniq, values } from '../util/lodash.js'
 
 /**
  * A simple mapping between keysounds ID and the file name.

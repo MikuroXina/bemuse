@@ -1,18 +1,18 @@
+import keycode from 'keycode'
+import _ from 'lodash'
 import {
-  Observable,
-  Subscription,
   concat,
   concatMap,
   fromEvent,
   map,
+  Observable,
   of,
   pairwise,
+  Subscription,
 } from 'rxjs'
 
-import { AxisLogic } from './axis-logic'
-import _ from 'lodash'
-import getMidi川 from './midi'
-import keycode from 'keycode'
+import { AxisLogic } from './axis-logic.js'
+import getMidi川 from './midi.js'
 
 declare global {
   interface Navigator {
@@ -224,7 +224,7 @@ export default OmniInput
 
 const knownMidiIds = new Map<string, number>()
 
-export function getName(key: string) {
+export function getName(key: string): string {
   if (+key) {
     return _.capitalize(keycode(+key))
   }

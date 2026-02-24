@@ -1,14 +1,20 @@
-import _ from 'lodash'
 import * as BMS from 'bms'
-import * as legacy from './legacy'
-import * as utils from './utils'
-import { Bmson } from './types'
-export * from './types'
+import _ from 'lodash'
+
+import * as legacy from './legacy.js'
+import type { Bmson } from './types.js'
+import * as utils from './utils.js'
+export * from './types.js'
+
+export interface PartialBmson {
+  info: Partial<Bmson['info']>
+  version?: string
+}
 
 /**
  * Returns a BMS.SongInfo corresponding to this BMS file.
  */
-export function songInfoForBmson(bmson: Bmson) {
+export function songInfoForBmson(bmson: PartialBmson): BMS.SongInfo {
   const bmsonInfo = bmson.info
   const info: Partial<BMS.ISongInfoData> = {}
   if (bmsonInfo.title) info.title = bmsonInfo.title
@@ -35,9 +41,8 @@ export function songInfoForBmson(bmson: Bmson) {
 /**
  * Returns the barlines as an array of beats.
  */
-export function barLinesForBmson(bmson: Bmson) {
-  if (!bmson.version)
-    return legacy.barLinesForBmson(bmson as any as legacy.LegacyBmson)
+export function barLinesForBmson(bmson: Bmson | legacy.LegacyBmson) {
+  if (!('version' in bmson)) return legacy.barLinesForBmson(bmson)
   const beatForPulse = beatForPulseForBmson(bmson)
   const lines = bmson.lines
   return _(lines)
@@ -51,9 +56,10 @@ export function barLinesForBmson(bmson: Bmson) {
  * in order to generate the timing data represented by the `bmson` object.
  * @param {Bmson} bmson
  */
-export function timingInfoForBmson(bmson: Bmson): utils.TimingInfo {
-  if (!bmson.version)
-    return legacy.timingInfoForBmson(bmson as any as legacy.LegacyBmson)
+export function timingInfoForBmson(
+  bmson: Bmson | legacy.LegacyBmson
+): utils.TimingInfo {
+  if (!('version' in bmson)) return legacy.timingInfoForBmson(bmson)
   const beatForPulse = beatForPulseForBmson(bmson)
   return {
     initialBPM: bmson.info.init_bpm,
@@ -82,7 +88,7 @@ export function timingInfoForBmson(bmson: Bmson): utils.TimingInfo {
  * Returns the timing data represented by the `bmson` object.
  * @param {Bmson} bmson
  */
-function timingForBmson(bmson: Bmson) {
+function timingForBmson(bmson: Bmson | legacy.LegacyBmson) {
   const { initialBPM, actions } = timingInfoForBmson(bmson)
   return new BMS.Timing(initialBPM, actions)
 }
@@ -102,7 +108,7 @@ export interface MusicalScoreOptions {
  * @param {Bmson} bmson
  */
 export function musicalScoreForBmson(
-  bmson: Bmson,
+  bmson: Bmson | legacy.LegacyBmson,
   options: MusicalScoreOptions = {}
 ) {
   const timing = timingForBmson(bmson)
@@ -128,14 +134,12 @@ export function musicalScoreForBmson(
   }
 }
 
-function soundChannelsForBmson(bmson: Bmson) {
-  return bmson.version
-    ? bmson.sound_channels
-    : (bmson as any as legacy.LegacyBmson).soundChannel
+function soundChannelsForBmson(bmson: Bmson | legacy.LegacyBmson) {
+  return 'version' in bmson ? bmson.sound_channels : bmson.soundChannel
 }
 
 function notesDataAndKeysoundsDataForBmsonAndTiming(
-  bmson: Bmson,
+  bmson: Bmson | legacy.LegacyBmson,
   timing: BMS.Timing,
   options: MusicalScoreOptions
 ) {
@@ -176,15 +180,15 @@ function notesDataAndKeysoundsDataForBmsonAndTiming(
   return { notes, keysounds }
 }
 
-export { _slicesForNotesAndTiming } from './legacy'
+export { _slicesForNotesAndTiming } from './legacy.js'
 
-export function beatForPulseForBmson(bmson: Bmson) {
-  if (!bmson.version) return legacy.beatForLoc
+export function beatForPulseForBmson(bmson: Bmson | legacy.LegacyBmson) {
+  if (!('version' in bmson)) return legacy.beatForLoc
   const resolution = (bmson.info && bmson.info.resolution) || 240
   return (y: number) => y / resolution
 }
 
-function getColumn(x: any, options: MusicalScoreOptions) {
+function getColumn(x: unknown, options: MusicalScoreOptions) {
   switch (x) {
     case 1:
       return '1'
@@ -230,7 +234,7 @@ function getColumn(x: any, options: MusicalScoreOptions) {
 /**
  * Checks if there is a scratch in a bmson file
  */
-export function hasScratch(bmson: Bmson) {
+export function hasScratch(bmson: Bmson | legacy.LegacyBmson) {
   const soundChannels = soundChannelsForBmson(bmson)
   if (soundChannels) {
     for (const { notes } of soundChannels) {
@@ -245,7 +249,7 @@ export function hasScratch(bmson: Bmson) {
 /**
  * Checks the key mode for a bmson file
  */
-export function keysForBmson(bmson: Bmson) {
+export function keysForBmson(bmson: Bmson | legacy.LegacyBmson) {
   const soundChannels = soundChannelsForBmson(bmson)
   let hasKeys = false
   let hasSecondPlayer = false

@@ -1,13 +1,12 @@
-import type { AnyAction, Dispatch } from 'redux'
 import {
-  LoadSongOptions,
   loadSongFromResources,
-} from 'bemuse/custom-song-loader'
+  type LoadSongOptions,
+} from '@bemuse/custom-song-loader/index.js'
+import type { ICustomSongResources } from '@bemuse/resources/types.js'
+import { useSyncExternalStore } from 'react'
+import type { AnyAction, Dispatch } from 'redux'
 
-import type { ICustomSongResources } from 'bemuse/resources/types'
-import { customSongsSlice } from './redux/ReduxState'
-import { observable } from 'mobx'
-import { useObserver } from 'mobx-react-lite'
+import { customSongsSlice } from '../redux/ReduxState.js'
 
 const loadSongFromResourcesWrapper = async (
   resources: ICustomSongResources,
@@ -19,39 +18,52 @@ const loadSongFromResourcesWrapper = async (
   return song
 }
 
-const state = observable({
-  loaderLog: null as string[] | null,
-})
+let loaderLog: string[] | null = null
+const listeners = new Set<() => void>()
 
 export function useCustomSongLoaderLog() {
-  // We need to clone the array to make sure that all items inside it gets properly tracked.
-  // Since this array will be very small, performance impact is negligible.
-  return useObserver(() => state.loaderLog && Array.from(state.loaderLog))
+  return useSyncExternalStore(
+    (listener) => {
+      listeners.add(listener)
+      return () => {
+        listeners.delete(listener)
+      }
+    },
+    () => loaderLog
+  )
+}
+
+function emit() {
+  for (const listener of listeners) {
+    listener()
+  }
 }
 
 export async function loadCustomSong(
   resources: ICustomSongResources,
-  initialLog: string[],
+  initialLog: readonly string[],
   dispatch: Dispatch<AnyAction>
 ) {
-  state.loaderLog = [...initialLog]
-  const log = state.loaderLog
+  loaderLog = [...initialLog]
   try {
     const song = await loadSongFromResourcesWrapper(resources, {
       onMessage(text: string) {
-        log.push(text)
+        loaderLog?.push(text)
+        emit()
       },
     })
     if (song && song.charts && song.charts.length) {
-      state.loaderLog = null
+      loaderLog = null
+      emit()
       dispatch(customSongsSlice.actions.CUSTOM_SONG_LOADED({ song }))
       return song
-    } else {
-      state.loaderLog = null
     }
+    loaderLog = null
+    emit()
   } catch (e) {
     const text = `Error caught: ${e}`
-    log.push(text)
+    loaderLog?.push(text)
+    emit()
     throw e
   }
 }

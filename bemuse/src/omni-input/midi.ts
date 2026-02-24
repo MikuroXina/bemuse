@@ -1,18 +1,17 @@
 import {
-  EMPTY,
-  Observable,
   catchError,
   concatMap,
+  EMPTY,
   from,
   fromEvent,
+  Observable,
   tap,
 } from 'rxjs'
-
-import { EventListenerObject } from 'rxjs/internal/observable/fromEvent'
+import type { EventListenerObject } from 'rxjs/internal/observable/fromEvent'
 
 declare global {
   interface Navigator {
-    requestMIDIAccess?(options?: MIDIAccessOptions): Promise<MIDIAccess>
+    requestMIDIAccess(options?: MIDIAccessOptions): Promise<MIDIAccess>
   }
 
   interface MIDIAccessOptions {
@@ -21,9 +20,10 @@ declare global {
   }
 
   interface MIDIAccess {
-    readonly inputs: Map<string, MIDIInput>
-    readonly outputs: Map<string, MIDIOutput>
-    onstatechange: (event: MIDIConnectEvent) => void
+    readonly inputs: MIDIInputMap
+    readonly outputs: MIDIOutputMap
+    onstatechange: // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ((this: MIDIAccess, event: MIDIConnectionEvent) => any) | null
   }
   interface MIDIInput extends MIDIPort {
     type: 'input'
@@ -49,29 +49,29 @@ declare global {
     type: 'output'
   }
   interface MIDIPort {
-    type: 'input' | 'output'
-    id: string
+    readonly type: MIDIPortType
+    readonly id: string
   }
   interface MIDIConnectEvent {
     readonly port: MIDIPort
   }
 
   interface MIDIMessageEvent {
-    readonly data: Uint8Array
+    readonly data: Uint8Array<ArrayBuffer> | null
     readonly target: MIDIPort | null
   }
 }
 
 function observeMidiAccess(access: MIDIAccess) {
   return new Observable<MIDIPort>((subscriber) => {
-    for (const port of access.inputs.values()) {
+    for (const port of (access.inputs as Map<string, MIDIInput>).values()) {
       subscriber.next(port)
     }
-    for (const port of access.outputs.values()) {
+    for (const port of (access.outputs as Map<string, MIDIOutput>).values()) {
       subscriber.next(port)
     }
     access.onstatechange = (e) => {
-      subscriber.next(e.port)
+      subscriber.next(e.port!)
     }
   })
 }

@@ -1,7 +1,7 @@
 /* eslint camelcase: off */
 /* REASON: These snake case names are used in our JSON files. */
 
-import { IResources } from 'bemuse/resources/types'
+import type { IResources } from '@bemuse/resources/types.js'
 import type { Chart, SongMetadataInCollection } from 'bemuse-types'
 
 export interface Song extends SongMetadataInCollection {

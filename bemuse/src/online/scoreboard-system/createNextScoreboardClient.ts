@@ -1,7 +1,7 @@
 import axios from 'axios'
 import invariant from 'invariant'
 
-import { ScoreboardClient, ScoreboardRow } from './ScoreboardClient'
+import type { ScoreboardClient, ScoreboardRow } from './ScoreboardClient.js'
 
 export interface CreateScoreboardClientOptions {
   /**
@@ -137,7 +137,7 @@ export function createNextScoreboardClient({
   return scoreboardClient
 }
 function handleAxiosError(prefix: string) {
-  return (error: any): never => {
+  return (error: Error): never => {
     if (axios.isAxiosError(error)) {
       const data = error.response?.data
       const message = data?.message

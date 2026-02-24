@@ -218,13 +218,15 @@ PS> bemuse-tools
 
 It should display the version:
 
-    This is bemuse-tools v1.1.0-beta.1
+```
+This is bemuse-tools v1.1.0-beta.1
 
-      bemuse-tools: Tools for Bemuse
+  bemuse-tools: Tools for Bemuse
 
-      index [-r] — Index BMS files in current directory
-      pack <path> — Packs sounds and BGAs into assets folder
-      server <path> — Serves a Bemuse server (no indexing or conversion)
+  index [-r] — Index BMS files in current directory
+  pack <path> — Packs sounds and BGAs into assets folder
+  server <path> — Serves a Bemuse server (no indexing or conversion)
+```
 
 If you installed bemuse-tools from yarn and get `command not found` error, you
 have to export path.
@@ -487,7 +489,7 @@ $ nginx -s reload
 ```
 
 Now, the music server will be available at http://localhost. You can play by
-going to <http://bemuse.ninja/?server=http://localhost>.
+going to [http://bemuse.ninja/?server=http://localhost](http://bemuse.ninja/?server=http://localhost).
 
 ##### Additional Note.
 
@@ -565,4 +567,4 @@ $ sudo systemctl restart nginx
 ```
 
 Now, the music server will be available at http://localhost. You can play by
-going to <http://bemuse.ninja/?server=http://localhost>.
+going to [http://bemuse.ninja/?server=http://localhost](http://bemuse.ninja/?server=http://localhost).

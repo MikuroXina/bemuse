@@ -1,6 +1,6 @@
-/// <reference types="jest" />
+import { expect, it } from 'vitest'
 
-import { Monetizer } from '.'
+import { Monetizer } from './index.js'
 
 it('creates a meta tag and returns a dispose function', () => {
   const monetizer = new Monetizer()

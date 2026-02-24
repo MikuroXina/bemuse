@@ -1,6 +1,7 @@
-import Payload from './payload'
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
+
+import Payload from './payload.js'
 
 const { writeFile } = fs.promises
 
