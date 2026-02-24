@@ -38,13 +38,6 @@ jobs:
         run: tar -cvzf dist.tar.gz packages/bemuse/dist
       - name: Checks
         run: pnpm run --filter bemuse pre-deploy
-      - name: Release
-        if: github.event_name == 'push'
-        id: release
-        run: |
-          pnpm run release --confirm
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload artifact
         if: always()
         uses: actions/upload-artifact@v6
