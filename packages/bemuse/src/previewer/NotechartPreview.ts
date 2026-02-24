@@ -8,7 +8,7 @@ import type {
   GameNote,
   Notechart,
   SoundedEvent,
-} from 'bemuse-notechart'
+} from '@mikuroxina/bemuse-notechart'
 import _ from 'lodash'
 
 export interface NotechartPreview {

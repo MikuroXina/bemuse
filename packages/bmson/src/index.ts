@@ -1,4 +1,4 @@
-import * as BMS from 'bms'
+import * as BMS from '@mikuroxina/bms'
 import _ from 'lodash'
 
 import * as legacy from './legacy.js'
@@ -70,7 +70,7 @@ export function timingInfoForBmson(
             type: 'bpm',
             beat: beatForPulse(y),
             bpm: bpm,
-          } as BMS.BPMTimingAction)
+          }) as BMS.BPMTimingAction
       ),
       ...(bmson.stop_events || []).map(
         ({ y, duration }) =>
@@ -78,7 +78,7 @@ export function timingInfoForBmson(
             type: 'stop',
             beat: beatForPulse(y),
             stopBeats: beatForPulse(Math.floor(duration)),
-          } as BMS.StopTimingAction)
+          }) as BMS.StopTimingAction
       ),
     ],
   }

@@ -1,6 +1,6 @@
 import { Buffer } from 'node:buffer'
 
-import * as BMS from 'bms'
+import * as BMS from '@mikuroxina/bms'
 
 import type { PlayerOptions } from '../types.js'
 import * as BMSNotechartLoader from './BMSNotechartLoader.js'

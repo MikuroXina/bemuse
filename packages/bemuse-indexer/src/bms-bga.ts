@@ -1,4 +1,4 @@
-import * as BMS from 'bms'
+import * as BMS from '@mikuroxina/bms'
 
 import type { BGAInfo } from './types.js'
 

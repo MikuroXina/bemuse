@@ -1,7 +1,7 @@
 import { load, OFFICIAL_SERVER_URL } from '@bemuse/music-collection/index.js'
 import preprocessCollection from '@bemuse/music-collection/preprocessCollection.js'
 import query from '@bemuse/utils/query.js'
-import type { MusicServerIndex } from 'bemuse-types'
+import type { MusicServerIndex } from '@mikuroxina/bemuse-types'
 import { useEffect, useState } from 'react'
 
 import MusicTable from './MusicTable.js'

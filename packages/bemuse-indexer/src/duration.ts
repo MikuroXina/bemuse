@@ -1,4 +1,4 @@
-import * as BMS from 'bms'
+import * as BMS from '@mikuroxina/bms'
 import _ from 'lodash'
 
 export function getDuration(notes: BMS.Notes, timing: BMS.Timing) {

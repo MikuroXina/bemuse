@@ -1,6 +1,6 @@
 import type { Progress } from '@bemuse/progress/Progress.js'
 import type { IResource, IResources } from '@bemuse/resources/types.js'
-import type { ChartInfo } from 'bemuse-types'
+import type { ChartInfo } from '@mikuroxina/bemuse-types'
 
 import type { GamePlayerOptionsInput } from '../game.js'
 

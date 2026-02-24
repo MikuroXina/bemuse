@@ -3,7 +3,7 @@ import './MusicListItem.scss'
 import type { Song } from '@bemuse/collection-model/types.js'
 import getPlayableCharts from '@bemuse/music-collection/getPlayableCharts.js'
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
-import type { Chart, SongMetadataInCollection } from 'bemuse-types'
+import type { Chart, SongMetadataInCollection } from '@mikuroxina/bemuse-types'
 import c from 'classnames'
 import { memo, type MouseEvent } from 'react'
 

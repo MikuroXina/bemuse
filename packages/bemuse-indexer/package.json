@@ -36,9 +36,9 @@
   },
   "homepage": "https://github.com/bemusic/indexer",
   "dependencies": {
-    "bemuse-types": "workspace:*",
-    "bms": "workspace:*",
-    "bmson": "workspace:*",
+    "@mikuroxina/bemuse-types": "workspace:*",
+    "@mikuroxina/bms": "workspace:*",
+    "@mikuroxina/bmson": "workspace:*",
     "invariant": "^2.2.4",
     "lodash": "^4.17.11",
     "object-assign": "^4.1.1",
@@ -51,7 +51,7 @@
     "@types/object-assign": "^4.0.30",
     "@vitest/coverage-v8": "^4.0.18",
     "eslint": "^9.0.0",
-    "eslint-config-bemuse": "workspace:*",
+    "@mikuroxina/eslint-config-bemuse": "workspace:*",
     "typescript": "^5.9.3",
     "vitest": "^4.0.18",
     "wireit": "^0.14.12"

@@ -4,7 +4,7 @@ import path from 'node:path'
 import bytes from 'bytes'
 import cors from 'cors'
 import express from 'express'
-import glob from 'glob-promise'
+import { glob } from 'glob'
 import Rx from 'rx'
 
 const { stat } = fs.promises

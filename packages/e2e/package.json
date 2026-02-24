@@ -5,7 +5,7 @@
     "@playwright/test": "^1.29.1",
     "@types/node": "24",
     "eslint": "^9.0.0",
-    "eslint-config-bemuse": "workspace:*",
+    "@mikuroxina/eslint-config-bemuse": "workspace:*",
     "typescript": "^5.9.3",
     "wireit": "^0.14.12"
   },

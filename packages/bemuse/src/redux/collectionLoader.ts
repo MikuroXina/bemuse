@@ -1,4 +1,4 @@
-import type { SongMetadataInCollection } from 'bemuse-types'
+import type { SongMetadataInCollection } from '@mikuroxina/bemuse-types'
 import type { AnyAction, Middleware } from 'redux'
 
 import { musicSelectionSlice } from '../app/entities/MusicSelection.js'

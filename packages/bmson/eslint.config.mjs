@@ -1,3 +1,3 @@
-import bemuseConfig from 'eslint-config-bemuse'
+import bemuseConfig from '@mikuroxina/eslint-config-bemuse'
 
 export default bemuseConfig

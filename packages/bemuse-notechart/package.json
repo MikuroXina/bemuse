@@ -32,14 +32,14 @@
     "@types/node": "^25.3.0",
     "@vitest/coverage-v8": "^4.0.18",
     "eslint": "^9.0.0",
-    "eslint-config-bemuse": "workspace:*",
+    "@mikuroxina/eslint-config-bemuse": "workspace:*",
     "typescript": "^5.9.3",
     "vitest": "^4.0.18",
     "wireit": "^0.14.12"
   },
   "dependencies": {
-    "bms": "workspace:*",
-    "bmson": "workspace:*",
+    "@mikuroxina/bms": "workspace:*",
+    "@mikuroxina/bmson": "workspace:*",
     "invariant": "^2.2.4",
     "lodash": "^4.17.11"
   }

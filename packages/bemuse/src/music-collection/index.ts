@@ -1,4 +1,4 @@
-import type { MusicServerIndex } from 'bemuse-types'
+import type { MusicServerIndex } from '@mikuroxina/bemuse-types'
 
 export const OFFICIAL_SERVER_URL = 'https://music4.bemuse.ninja/server'
 

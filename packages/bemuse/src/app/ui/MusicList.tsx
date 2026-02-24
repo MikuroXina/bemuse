@@ -2,7 +2,7 @@ import './MusicList.scss'
 
 import type { Song } from '@bemuse/collection-model/types.js'
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
-import type { Chart, SongMetadataInCollection } from 'bemuse-types'
+import type { Chart, SongMetadataInCollection } from '@mikuroxina/bemuse-types'
 import _ from 'lodash'
 import { useLayoutEffect, useRef } from 'react'
 

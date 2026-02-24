@@ -12,12 +12,12 @@ import getPlayableCharts from '@bemuse/music-collection/getPlayableCharts.js'
 import groupSongsIntoCategories from '@bemuse/music-collection/groupSongsIntoCategories.js'
 import preprocessCollection from '@bemuse/music-collection/preprocessCollection.js'
 import sortSongs from '@bemuse/music-collection/sortSongs.js'
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import type {
   Chart,
   MusicServerIndex,
   SongMetadataInCollection,
-} from 'bemuse-types'
+} from '@mikuroxina/bemuse-types'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { enableMapSet } from 'immer'
 import _ from 'lodash'
 import { createSelector } from 'reselect'

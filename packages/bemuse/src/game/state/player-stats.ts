@@ -1,4 +1,4 @@
-import { Notechart } from 'bemuse-notechart'
+import { Notechart } from '@mikuroxina/bemuse-notechart'
 import _ from 'lodash'
 
 import * as Judgments from '../judgments.js'

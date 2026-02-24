@@ -3,7 +3,7 @@ import type {
   ChartBga as BGAInfo,
   ChartBpm as BPMInfo,
   SongMetadata,
-} from 'bemuse-types'
+} from '@mikuroxina/bemuse-types'
 
 export type Keys = 'empty' | '14K' | '10K' | '7K' | '5K'
 
