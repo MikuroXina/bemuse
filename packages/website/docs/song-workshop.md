@@ -288,10 +288,10 @@ Now that your song is prepared and tested, it’s time to put it online!
 Now that your song is online, you can test it!
 
 - Go to
-  <code>https:/<i></i>/bemuse.ninja/?server=<em>&lt;url/to/bemuse-song.json&gt;</em></code><br />
+  <code>https:/<i></i>/bemuse.pages.dev/?server=<em>&lt;url/to/bemuse-song.json&gt;</em></code><br />
 
   - For example:
-    [https://bemuse.ninja/?server=https://music4.bemuse.ninja/songs/[frums]credits/bemuse-song.json](https://bemuse.ninja/?server=https://music4.bemuse.ninja/songs/[frums]credits/bemuse-song.json)
+    [https://bemuse.pages.dev/?server=https://music4.bemuse.ninja/songs/[frums]credits/bemuse-song.json](https://bemuse.pages.dev/?server=https://music4.bemuse.ninja/songs/[frums]credits/bemuse-song.json)
 
   - (Alternatively, you can launch Bemuse normally and then paste the URL into
     the Custom BMS dialog.)
@@ -337,7 +337,7 @@ place? In this case you would create a **music server file.**
 Now that your music server is online, you can try it in Bemuse and share it with
 your friends!
 
-- Go to <code>https:/<i></i>/bemuse.ninja/?server=<em>&lt;Server
+- Go to <code>https:/<i></i>/bemuse.pages.dev/?server=<em>&lt;Server
   URL&gt;</em></code><br />
 
-  - For example, [https://bemuse.ninja/?server=https://flicknote.bemuse.ninja](https://bemuse.ninja/?server=https://flicknote.bemuse.ninja)
+  - For example, [https://bemuse.pages.dev/?server=https://flicknote.bemuse.ninja](https://bemuse.pages.dev/?server=https://flicknote.bemuse.ninja)

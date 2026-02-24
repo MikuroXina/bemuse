@@ -5,7 +5,6 @@ import Panel from '@bemuse/ui/Panel.js'
 import Scene from '@bemuse/ui/Scene.js'
 import { useMemo } from 'react'
 
-import * as Analytics from '../app/analytics.js'
 import OptionsButton from './options/OptionsButton.js'
 
 export default function GenericErrorScene(props: {
@@ -42,7 +41,6 @@ export default function GenericErrorScene(props: {
             <div style={{ textAlign: 'right' }}>
               <OptionsButton
                 onClick={() => {
-                  Analytics.send('error', 'continue', String(error))
                   onContinue()
                 }}
               >

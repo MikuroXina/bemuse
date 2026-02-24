@@ -6,7 +6,6 @@ import c from 'classnames'
 import { type DragEventHandler, useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-import * as Analytics from '../app/analytics.js'
 import { useCustomSongLoaderLog } from '../app/CustomSongs.js'
 import * as CustomSongsIO from '../app/io/CustomSongsIO.js'
 import {
@@ -61,14 +60,12 @@ const CustomBMS = ({ onSongLoaded }: CustomBMSProps) => {
   }
   const handleDrop: DragEventHandler<HTMLDivElement> = (e) => {
     setHover(false)
-    Analytics.send('CustomBMS', 'drop')
     e.preventDefault()
     onFileDrop(e.nativeEvent).then((song) => {
       if (song && onSongLoaded) onSongLoaded(song)
     })
   }
   const handleFileSelect = (file: File) => {
-    Analytics.send('CustomBMS', 'select')
     onFileSelect(file)
   }
 

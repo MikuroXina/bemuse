@@ -3,7 +3,7 @@ import query from '@bemuse/utils/query.js'
 /**
  * The `?server` flag specifies a URL to a Bemuse custom music server.
  *
- * @see https://bemuse.ninja/project/docs/music-server.html
+ * @see https://bemuse.pages.dev/project/docs/music-server.html
  */
 export function getMusicServer(): string | undefined {
   return query.BEMUSE_MUSIC_SERVER || query.server
@@ -12,7 +12,7 @@ export function getMusicServer(): string | undefined {
 /**
  * The `?volume` flag specifies the sound volume.
  *
- * @see https://bemuse.ninja/project/docs/music-server.html
+ * @see https://bemuse.pages.dev/project/docs/music-server.html
  */
 export function getSoundVolume(): number {
   return +query.volume || 1

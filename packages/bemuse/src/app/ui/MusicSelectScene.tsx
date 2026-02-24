@@ -32,7 +32,6 @@ import {
   selectSelectedChart,
   selectSelectedSong,
 } from '../../redux/ReduxState.js'
-import * as Analytics from '../analytics.js'
 import * as Options from '../entities/Options.js'
 import * as MusicSearchIO from '../io/MusicSearchIO.js'
 import * as MusicSelectionIO from '../io/MusicSelectionIO.js'
@@ -155,7 +154,6 @@ const getToolbarItems = ({
   const handleLogout = () => {
     if (confirm('Do you really want to log out?')) {
       online.logOut()
-      Analytics.send('MusicSelectScene', 'logout')
     }
   }
 
@@ -238,14 +236,12 @@ const MusicSelectScene = () => {
 
   const showUnofficialDisclaimer = () => {
     setUnofficialDisclaimerVisible(true)
-    Analytics.send('MusicSelectScene', 'view unofficial disclaimer')
   }
   const hideUnofficialDisclaimer = () => {
     setUnofficialDisclaimerVisible(false)
   }
   const showCustomBMSModal = () => {
     setCustomBMSModalVisible(true)
-    Analytics.send('MusicSelectScene', 'open custom BMS')
   }
   const hideCustomBMSModal = () => {
     setCustomBMSModalVisible(false)
@@ -254,7 +250,6 @@ const MusicSelectScene = () => {
     onFilterTextChange(e.target.value)
   }
   const showOptions = () => {
-    Analytics.send('MusicSelectScene', 'open options')
     setOptionsVisible(true)
   }
   const hideOptions = () => {
@@ -262,7 +257,6 @@ const MusicSelectScene = () => {
   }
   const showAuthenticationPopup = () => {
     setAuthenticationPopupVisible(true)
-    Analytics.send('MusicSelectScene', 'authenticate')
   }
   const hideAuthenticationPopup = () => {
     setAuthenticationPopupVisible(false)
@@ -270,10 +264,8 @@ const MusicSelectScene = () => {
   const handleSongSelect = (song: Song, chart?: Chart) => {
     if (chart) {
       onSelectChart(song, chart)
-      Analytics.send('MusicSelectScene', 'select', 'song and chart')
     } else {
       onSelectSong(song)
-      Analytics.send('MusicSelectScene', 'select', 'song')
     }
     setInSong(true)
   }
@@ -284,13 +276,11 @@ const MusicSelectScene = () => {
 
   const handleChartClick = (chart: Chart, e: MouseEvent) => {
     if (musicSelect.chart.md5 === chart.md5) {
-      Analytics.send('MusicSelectScene', 'launch game')
       MusicPreviewer.go()
       onLaunchGame({
         autoplayEnabled: e.altKey,
       })
     } else {
-      Analytics.send('MusicSelectScene', 'select chart')
       onSelectChart(musicSelect.song, chart)
     }
   }

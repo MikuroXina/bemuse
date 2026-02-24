@@ -4,7 +4,7 @@
 module.exports = {
   title: 'Bemuse',
   tagline: 'online, web-based rhythm game',
-  url: 'https://bemuse.ninja',
+  url: 'https://bemuse.pages.dev',
   baseUrl: '/project/',
   organizationName: 'bemusic',
   projectName: 'bemuse',
@@ -59,7 +59,7 @@ module.exports = {
       },
       items: [
         {
-          href: 'https://bemuse.ninja',
+          href: 'https://bemuse.pages.dev',
           label: 'Play',
           position: 'left',
         },
@@ -69,7 +69,7 @@ module.exports = {
           position: 'left',
         },
         {
-          href: 'https://faq.bemuse.ninja',
+          href: 'https://faq.bemuse.pages.dev',
           label: 'Community FAQ',
           position: 'left',
         },
@@ -114,7 +114,7 @@ module.exports = {
             },
             {
               label: 'Community FAQ',
-              href: 'https://faq.bemuse.ninja',
+              href: 'https://faq.bemuse.pages.dev',
             },
             {
               label: 'GitHub Project',
