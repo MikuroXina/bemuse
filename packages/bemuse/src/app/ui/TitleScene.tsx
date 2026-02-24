@@ -4,7 +4,7 @@ import { SceneManagerContext } from '@bemuse/scene-manager/index.js'
 import HomePage from '@bemuse/site/HomePage.js'
 import ModalPopup from '@bemuse/ui/ModalPopup.js'
 import Scene from '@bemuse/ui/Scene.js'
-import version from '@bemuse/utils/version.js'
+import { buildName, version } from '@bemuse/utils/build-define.js'
 import { type MouseEvent, useContext, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -27,7 +27,7 @@ const HAS_PARENT = (() => {
 
 const Version = () => (
   <>
-    <strong>Bemuse</strong> v{version}
+    <strong>{buildName}</strong> v{version}
   </>
 )
 

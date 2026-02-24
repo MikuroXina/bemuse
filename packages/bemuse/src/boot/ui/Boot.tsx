@@ -1,6 +1,6 @@
 import './Boot.scss'
 
-import version from '@bemuse/utils/version.js'
+import { version } from '@bemuse/utils/build-define.js'
 
 export interface BootProps {
   hidden?: boolean
