@@ -80,10 +80,8 @@ export default defineConfig({
     peggy(),
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
       workbox: {
         navigateFallbackDenylist: [/^\/project\//],
-        globPatterns: ['**/*.{js,css,html,svg,jpg,png}'],
       },
     }),
   ],
