@@ -1,5 +1,5 @@
 {
-  "name": "bemuse-notechart",
+  "name": "@mikuroxina/bemuse-notechart",
   "version": "50.1.2",
   "description": "Bemuse notechart data structure, supports BMS and bmsons.",
   "type": "module",

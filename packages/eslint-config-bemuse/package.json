@@ -1,5 +1,5 @@
 {
-  "name": "eslint-config-bemuse",
+  "name": "@mikuroxina/eslint-config-bemuse",
   "version": "5.0.0",
   "type": "module",
   "main": "index.js",
