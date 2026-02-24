@@ -67,6 +67,7 @@
   "author": "Thai Pangsakulyanont <dtinth@spacet.me> (http://dt.in.th/)",
   "license": "AGPL-1.0",
   "devDependencies": {
+    "@types/assert": "^1.5.11",
     "@types/fastclick": "^1.0.33",
     "@types/invariant": "^2.2.37",
     "@types/jquery": "^3.5.33",
