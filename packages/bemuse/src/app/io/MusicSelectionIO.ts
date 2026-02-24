@@ -56,7 +56,7 @@ export function launchGame({
     chart,
     options,
     saveSpeed: (speed) => {
-      dispatch(optionsSlice.actions.CHANGE_SPEED({ speed: speed.toString() }))
+      dispatch(optionsSlice.actions.CHANGE_SPEED({ speed }))
     },
     saveLeadTime: (leadTime) => {
       dispatch(optionsSlice.actions.CHANGE_LEAD_TIME({ leadTime }))
