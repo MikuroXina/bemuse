@@ -1,8 +1,6 @@
 import { execSync } from 'node:child_process'
-import { readFileSync } from 'node:fs'
 import { createRequire } from 'node:module'
 import { resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
 
 import react from '@vitejs/plugin-react'
 import { playwright } from '@vitest/browser-playwright'
@@ -17,10 +15,8 @@ function gitRevision() {
 }
 
 function buildInfo() {
-  const file = fileURLToPath(new URL('package.json', import.meta.url))
-  const pkgJson = JSON.parse(readFileSync(file, 'utf-8'))
   let name = 'Bemuse MX'
-  let version = pkgJson.version
+  let version = ''
 
   if (process.env.CONTEXT === 'deploy-preview') {
     name += ' DevMode'
@@ -80,6 +76,11 @@ export default defineConfig({
     peggy(),
     react(),
     VitePWA({
+      registerType: 'autoUpdate',
+      devOptions: {
+        enabled: true,
+        type: 'module',
+      },
       workbox: {
         navigateFallbackDenylist: [/^\/project\//],
       },

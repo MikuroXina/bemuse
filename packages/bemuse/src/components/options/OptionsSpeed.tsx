@@ -6,8 +6,8 @@ import OptionsButton from './OptionsButton.js'
 import OptionsInputField from './OptionsInputField.js'
 
 export interface OptionsSpeedProps {
-  value: string
-  onChange: (speed: string) => void
+  value: number
+  onChange: (speed: number) => void
 }
 
 const parseSpeed = (speedString: string): number =>
@@ -16,30 +16,25 @@ const parseSpeed = (speedString: string): number =>
 const stringifySpeed = (speed: number): string => speed.toFixed(1)
 
 const tickAmount = (speed: number) => {
-  if (speed > 0.5) {
+  if (speed >= 0.5) {
     return 0.5
   }
-  if (speed > 0.2) {
-    return 0.3
-  }
-  return 0
+  return 0.1
 }
 
 const OptionsSpeed = ({ value, onChange }: OptionsSpeedProps) => {
   const handleMinusButtonClick = () => {
-    const speed = parseSpeed(value)
-    const nextSpeed = speed - tickAmount(speed)
-    onChange(stringifySpeed(nextSpeed))
+    const nextSpeed = value - tickAmount(value)
+    onChange(nextSpeed)
   }
 
   const handlePlusButtonClick = () => {
-    const speed = parseSpeed(value)
-    const nextSpeed = speed + tickAmount(speed)
-    onChange(stringifySpeed(nextSpeed))
+    const nextSpeed = value + tickAmount(value)
+    onChange(nextSpeed)
   }
 
   const handleSpeedInputChange = (nextSpeed: number) => {
-    onChange(stringifySpeed(nextSpeed))
+    onChange(nextSpeed)
   }
 
   return (
@@ -48,7 +43,7 @@ const OptionsSpeed = ({ value, onChange }: OptionsSpeedProps) => {
         <OptionsButton onClick={handleMinusButtonClick}>-</OptionsButton>
       </span>
       <OptionsInputField
-        value={parseSpeed(value)}
+        value={value}
         parse={parseSpeed}
         stringify={stringifySpeed}
         validator={/^\d+(?:\.\d)?$/}

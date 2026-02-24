@@ -1,7 +1,7 @@
 import './OptionsInputField.scss'
 
 import _ from 'lodash'
-import { type ChangeEvent, type ComponentProps, useRef } from 'react'
+import type { ChangeEvent, ComponentProps, FocusEvent } from 'react'
 
 export interface OptionsInputFieldProps<T> {
   stringify: (x: T) => string
@@ -25,23 +25,17 @@ const OptionsInputField = <T,>(
 ) => {
   const { stringify, parse, onChange, validator, value } = props
 
-  const inputRef = useRef<HTMLInputElement>(null)
-
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const input = e.currentTarget
     const valid = validator.test(input.value)
     input.classList[valid ? 'remove' : 'add']('is-invalid')
+  }
+  const handleInputBlur = (e: FocusEvent<HTMLInputElement>) => {
+    const input = e.currentTarget
+    const valid = validator.test(input.value)
     if (valid) {
       onChange(parse(input.value))
     }
-  }
-  const handleInputBlur = () => {
-    const input = inputRef.current
-    if (!input) {
-      return
-    }
-    input.value = stringify(value)
-    input.classList.remove('is-invalid')
   }
   return (
     <input
@@ -53,7 +47,6 @@ const OptionsInputField = <T,>(
         'value',
       ])}
       type='text'
-      ref={inputRef}
       value={stringify(value)}
       onChange={handleInputChange}
       onBlur={handleInputBlur}

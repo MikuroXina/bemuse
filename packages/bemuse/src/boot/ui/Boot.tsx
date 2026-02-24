@@ -15,7 +15,7 @@ export default function Boot({ hidden, status = 'Loading page' }: BootProps) {
         <div className='Bootのtext'>
           <div>
             <strong>
-              {buildName()} <span>v{version()}</span>
+              {buildName()} <span>{version()}</span>
             </strong>
           </div>
           <div>{status}</div>

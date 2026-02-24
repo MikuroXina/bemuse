@@ -16,7 +16,7 @@ import {
   scratchPosition,
   speed,
 } from '../../app/entities/Options.js'
-import { selectOptions } from '../../redux/ReduxState.js'
+import { type AppState, selectOptions } from '../../redux/ReduxState.js'
 import OptionsButton from './OptionsButton.js'
 import OptionsCheckbox from './OptionsCheckbox.js'
 import OptionsInputField from './OptionsInputField.js'
@@ -24,22 +24,25 @@ import { Panel, Scratch } from './OptionsPlayerGraphics.js'
 import { OptionsPlayerSelector } from './OptionsPlayerSelector.js'
 import OptionsSpeed from './OptionsSpeed.js'
 
-interface SettingRowProps {
+interface SettingRowProps<T> {
+  selector: (options: OptionsState) => T
   label: string
   isVisible?: (options: OptionsState) => boolean
-  renderControl: (options: OptionsState) => JSX.Element
+  renderControl: (options: T) => JSX.Element
   help?: ReactNode
 }
 
-const SettingRow = ({
+const SettingRow = <T,>({
+  selector,
   label,
   isVisible,
   help,
   renderControl,
-}: SettingRowProps) => {
+}: SettingRowProps<T>) => {
   const options = useSelector(selectOptions)
+  const value = useSelector((state: AppState) => selector(selectOptions(state)))
   const visible = isVisible ? isVisible(options) : true
-  const control = renderControl(options)
+  const control = renderControl(value)
   return (
     <OptionsPlayer.Row label={label} hidden={!visible}>
       {control}
@@ -54,14 +57,15 @@ const OptionsPlayer = ({ onClose }: { onClose?: () => void }) => {
   return (
     <div className='OptionsPlayer'>
       <SettingRow
+        selector={speed}
         label='Speed'
         isVisible={(options) => !isAutoVelocityEnabled(options)}
-        renderControl={(options) => (
+        renderControl={(speed) => (
           <OptionsSpeed
-            value={speed(options)}
-            onChange={(speed) =>
+            value={speed}
+            onChange={(speed) => {
               dispatch(optionsSlice.actions.CHANGE_SPEED({ speed }))
-            }
+            }}
           />
         )}
         help={
@@ -74,14 +78,15 @@ const OptionsPlayer = ({ onClose }: { onClose?: () => void }) => {
       />
 
       <SettingRow
+        selector={leadTime}
         label='LeadTime'
         isVisible={(options) => isAutoVelocityEnabled(options)}
-        renderControl={(options) => (
+        renderControl={(leadTime) => (
           <OptionsInputField
             parse={(str) => parseInt(str, 10)}
             stringify={(value) => String(value) + 'ms'}
             validator={/^\d+(ms)?$/}
-            value={leadTime(options)}
+            value={leadTime}
             onChange={(leadTime) =>
               dispatch(optionsSlice.actions.CHANGE_LEAD_TIME({ leadTime }))
             }
@@ -98,15 +103,16 @@ const OptionsPlayer = ({ onClose }: { onClose?: () => void }) => {
       />
 
       <SettingRow
+        selector={scratchPosition}
         label='Scratch'
-        renderControl={(options) => (
+        renderControl={(scratchPosition) => (
           <OptionsPlayerSelector
             options={[
               { value: 'left', label: 'Left' },
               { value: 'right', label: 'Right' },
               { value: 'off', label: 'Disabled' },
             ]}
-            defaultValue={scratchPosition(options)}
+            defaultValue={scratchPosition}
             onSelect={(position) =>
               dispatch(
                 optionsSlice.actions.CHANGE_SCRATCH_POSITION({ position })
@@ -118,8 +124,9 @@ const OptionsPlayer = ({ onClose }: { onClose?: () => void }) => {
       />
 
       <SettingRow
+        selector={panelPlacement}
         label='Panel'
-        renderControl={(options) => (
+        renderControl={(panelPlacement) => (
           <OptionsPlayerSelector
             options={[
               { value: 'left', label: 'Left' },
@@ -132,20 +139,21 @@ const OptionsPlayer = ({ onClose }: { onClose?: () => void }) => {
                 optionsSlice.actions.CHANGE_PANEL_PLACEMENT({ placement })
               )
             }
-            defaultValue={panelPlacement(options)}
+            defaultValue={panelPlacement}
             Item={Panel}
           />
         )}
       />
 
       <SettingRow
+        selector={laneCover}
         label='Cover'
-        renderControl={(options) => (
+        renderControl={(laneCover) => (
           <OptionsInputField
             parse={(str) => parseInt(str, 10) / 100}
             stringify={(value) => Math.round(value * 100 || 0) + '%'}
             validator={/^-?\d+(%)?$/}
-            value={laneCover(options)}
+            value={laneCover}
             onChange={(laneCover) =>
               dispatch(optionsSlice.actions.CHANGE_LANE_COVER({ laneCover }))
             }
@@ -155,10 +163,11 @@ const OptionsPlayer = ({ onClose }: { onClose?: () => void }) => {
       />
 
       <SettingRow
+        selector={isBackgroundAnimationsEnabled}
         label='BGA'
-        renderControl={(options) => (
+        renderControl={(isBackgroundAnimationsEnabled) => (
           <OptionsCheckbox
-            checked={isBackgroundAnimationsEnabled(options)}
+            checked={isBackgroundAnimationsEnabled}
             onToggle={() =>
               dispatch(optionsSlice.actions.TOGGLE_BACKGROUND_ANIMATIONS())
             }
@@ -170,10 +179,11 @@ const OptionsPlayer = ({ onClose }: { onClose?: () => void }) => {
       />
 
       <SettingRow
+        selector={isAutoVelocityEnabled}
         label='AutoVel'
-        renderControl={(options) => (
+        renderControl={(isAutoVelocityEnabled) => (
           <OptionsCheckbox
-            checked={isAutoVelocityEnabled(options)}
+            checked={isAutoVelocityEnabled}
             onToggle={() =>
               dispatch(optionsSlice.actions.TOGGLE_AUTO_VELOCITY())
             }
@@ -185,10 +195,11 @@ const OptionsPlayer = ({ onClose }: { onClose?: () => void }) => {
       />
 
       <SettingRow
+        selector={isGaugeEnabled}
         label='Gauge'
-        renderControl={(options) => (
+        renderControl={(isGaugeEnabled) => (
           <OptionsCheckbox
-            checked={isGaugeEnabled(options)}
+            checked={isGaugeEnabled}
             onToggle={() => dispatch(optionsSlice.actions.TOGGLE_GAUGE())}
           >
             Show expert gauge{' '}
@@ -198,10 +209,11 @@ const OptionsPlayer = ({ onClose }: { onClose?: () => void }) => {
       />
 
       <SettingRow
+        selector={isPreviewEnabled}
         label='Preview'
-        renderControl={(options) => (
+        renderControl={(isPreviewEnabled) => (
           <OptionsCheckbox
-            checked={isPreviewEnabled(options)}
+            checked={isPreviewEnabled}
             onToggle={() => dispatch(optionsSlice.actions.TOGGLE_PREVIEW())}
           >
             Enable music preview

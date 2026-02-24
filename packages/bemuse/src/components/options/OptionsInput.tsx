@@ -28,24 +28,27 @@ const selectKeyboardMapping = createSelector(
   (options) => keyboardMapping(options)
 )
 
-const selectKeyboardMappingTexts = createSelector(
-  selectKeyboardMapping,
-  (mapping): Record<string, string> =>
-    Object.fromEntries(
-      Object.entries(mapping).map(([key, value]) => [
-        key,
-        getName(value.toString()),
-      ])
-    )
-)
+const selectKeyboardMappingTexts = (
+  mapping: Record<string, number>
+): Record<string, string> =>
+  Object.fromEntries(
+    Object.entries(mapping).map(([key, value]) => [
+      key,
+      getName(value.toString()),
+    ])
+  )
 
-const extractState = (state: AppState) => ({
-  scratch: scratchPosition(state.options),
-  texts: selectKeyboardMappingTexts(state),
-  mode: playMode(state.options),
-  isContinuous: isContinuousAxisEnabled(state.options),
-  sensitivity: sensitivity(state.options),
-})
+const extractState = createSelector(
+  (state: AppState) => state.options,
+  selectKeyboardMapping,
+  (options, mapping) => ({
+    scratch: scratchPosition(options),
+    texts: selectKeyboardMappingTexts(mapping),
+    mode: playMode(options),
+    isContinuous: isContinuousAxisEnabled(options),
+    sensitivity: sensitivity(options),
+  })
+)
 
 const OptionsInput = () => {
   const dispatch = useDispatch()
