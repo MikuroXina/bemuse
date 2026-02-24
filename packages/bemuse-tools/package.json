@@ -36,7 +36,7 @@
   },
   "homepage": "https://github.com/bemusic/bemuse-tools",
   "dependencies": {
-    "bemuse-indexer": "workspace:*",
+    "@mikuroxina/bemuse-indexer": "workspace:*",
     "bytes": "^3.0.0",
     "chalk": "^2.4.1",
     "cors": "^2.8.4",
@@ -57,7 +57,7 @@
   "devDependencies": {
     "@vitest/coverage-v8": "^4.0.18",
     "eslint": "^9.0.0",
-    "eslint-config-bemuse": "workspace:*",
+    "@mikuroxina/eslint-config-bemuse": "workspace:*",
     "typescript": "^5.9.3",
     "vitest": "^4.0.18",
     "wireit": "^0.14.12"

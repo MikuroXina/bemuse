@@ -67,7 +67,7 @@
     "@types/node": "24",
     "@vitest/coverage-v8": "^4.0.18",
     "eslint": "^9.0.0",
-    "eslint-config-bemuse": "workspace:*",
+    "@mikuroxina/eslint-config-bemuse": "workspace:*",
     "gulp": "^4.0.2",
     "hide-stack-frames-from": "^1.0.0",
     "lazy-property": "^1.0.0",

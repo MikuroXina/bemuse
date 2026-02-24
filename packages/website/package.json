@@ -35,7 +35,7 @@
     "@types/node": "24",
     "@types/react": "^18.0.0",
     "eslint": "^9.0.0",
-    "eslint-config-bemuse": "workspace:*",
+    "@mikuroxina/eslint-config-bemuse": "workspace:*",
     "typescript": "^5.9.3"
   }
 }
