@@ -8,6 +8,12 @@ import pMap from 'p-map'
 
 import { createNotechartPreview } from './NotechartPreview.js'
 
+interface UserData {
+  directory: FileSystemDirectoryHandle
+  chartFilename: string
+  handleId: string
+}
+
 const PREVIEWER_FS_HANDLE_KEYVAL_KEY = 'previewer-fs-handle'
 const getSamplingMaster = _.once(() => {
   const samplingMaster = new SamplingMaster()
@@ -26,7 +32,7 @@ const keysoundCache = new Map<string, Sample>()
 let keysoundCacheHandleId = ''
 
 export async function getSavedPreviewInfo() {
-  const data = await get(PREVIEWER_FS_HANDLE_KEYVAL_KEY)
+  const data = await get<UserData>(PREVIEWER_FS_HANDLE_KEYVAL_KEY)
   const chartFilename = data?.chartFilename
   return chartFilename ? { chartFilename } : null
 }
@@ -41,7 +47,7 @@ export async function loadPreview(loadOptions: LoadPreviewOptions) {
     ((message: string) => console.log(`[PreviewLoader] ${message}`))
 
   log('Loading directory handle from IndexedDB')
-  const data = await get(PREVIEWER_FS_HANDLE_KEYVAL_KEY)
+  const data = (await get<UserData>(PREVIEWER_FS_HANDLE_KEYVAL_KEY))!
   const directoryHandle: FileSystemDirectoryHandle = data.directory
   const handleId = data.handleId
 
@@ -50,7 +56,7 @@ export async function loadPreview(loadOptions: LoadPreviewOptions) {
 
   log('Scanning charts')
   const chartHandles: { name: string; handle: FileSystemFileHandle }[] = []
-  for await (const [name, fileHandle] of directoryHandle) {
+  for await (const [name, fileHandle] of directoryHandle.entries()) {
     if (fileHandle.kind === 'file' && /\.(bms|bme|bml|bmson)$/i.test(name)) {
       chartHandles.push({ name, handle: fileHandle })
     }
@@ -149,5 +155,5 @@ export async function setPreview(
     directory: handle,
     chartFilename: selectedChartFilename,
     handleId: ObjectID().toHexString(),
-  })
+  } satisfies UserData)
 }
