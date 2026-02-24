@@ -123,6 +123,7 @@ export default defineConfig({
     },
     include: [
       '@mikuroxina/bemuse-indexer',
+      'fastclick',
       'node:util',
       'redux',
       'vite-plugin-node-polyfills/shims/buffer',
