@@ -28,11 +28,11 @@
     "build": {
       "command": "vite build",
       "dependencies": [
-        "../packages/bemuse-indexer:build",
-        "../packages/bemuse-notechart:build",
-        "../packages/monetizer:build",
-        "../packages/bms:build",
-        "../packages/bmson:build"
+        "../bemuse-indexer:build",
+        "../bemuse-notechart:build",
+        "../monetizer:build",
+        "../bms:build",
+        "../bmson:build"
       ]
     },
     "pre-deploy": {

@@ -29,7 +29,7 @@ jobs:
         uses: ./.github/actions/setup-project
       - name: Build
         run: |
-          rm -rf bemuse/dist
+          rm -rf packages/bemuse/dist
           pnpm run build
         env:
           SCOREBOARD_SERVER: ${{ secrets.SCOREBOARD_SERVER }}
