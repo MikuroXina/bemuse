@@ -77,66 +77,68 @@ const ResultScene = ({
   }
 
   return (
-    <Scene className={styles.container} data-testid='result-scene'>
-      <SceneHeading className={styles.heading}>
-        Play Result
-        <div className={styles.mode}>
-          {playMode === 'KB' ? 'Keyboard' : 'BMS'} Mode
+    <Scene className={styles.container}>
+      <div data-testid='result-scene'>
+        <SceneHeading className={styles.heading}>
+          Play Result
+          <div className={styles.mode}>
+            {playMode === 'KB' ? 'Keyboard' : 'BMS'} Mode
+          </div>
+        </SceneHeading>
+        <div className={styles.report}>
+          <ResultTable result={result} />
         </div>
-      </SceneHeading>
-      <div className={styles.report}>
-        <ResultTable result={result} />
-      </div>
-      <div className={styles.resultGrade}>
-        <ResultGrade grade={result.grade} />
-      </div>
-      <div className={styles.information}>
-        <div className={styles.informationHeader}>
-          <div className={styles.chart}>
-            <FirstTimeTip tip='Play again' featureKey='replayGame'>
-              <div className={styles.selectorItem}>
-                <MusicChartSelectorItem
-                  chart={chart}
-                  onChartClick={onReplay}
-                  isReplayable
-                />
+        <div className={styles.resultGrade}>
+          <ResultGrade grade={result.grade} />
+        </div>
+        <div className={styles.information}>
+          <div className={styles.informationHeader}>
+            <div className={styles.chart}>
+              <FirstTimeTip tip='Play again' featureKey='replayGame'>
+                <div className={styles.selectorItem}>
+                  <MusicChartSelectorItem
+                    chart={chart}
+                    onChartClick={onReplay}
+                    isReplayable
+                  />
+                </div>
+              </FirstTimeTip>
+            </div>
+            <div className={styles.chartInfo}>
+              <MusicChartInfo info={chart.info} />
+            </div>
+          </div>
+          <div className={styles.informationBody}>
+            <RankingContainer
+              result={result.tainted ? undefined : result}
+              chart={chart}
+              playMode={playMode}
+            />
+          </div>
+          <div className={styles.informationFooter}>
+            <a
+              href={getTweetLink({ chart, result })}
+              className={styles.tweet}
+              onClick={onTweet}
+            >
+              <Icon name='twitter' />
+            </a>
+            <Flex grow={1} />
+            <FirstTimeTip tip='Back to music selection' featureKey='finishGame'>
+              <div className={styles.exit} onClick={onExit}>
+                Continue
               </div>
             </FirstTimeTip>
           </div>
-          <div className={styles.chartInfo}>
-            <MusicChartInfo info={chart.info} />
-          </div>
         </div>
-        <div className={styles.informationBody}>
-          <RankingContainer
-            result={result.tainted ? undefined : result}
-            chart={chart}
-            playMode={playMode}
-          />
-        </div>
-        <div className={styles.informationFooter}>
-          <a
-            href={getTweetLink({ chart, result })}
-            className={styles.tweet}
-            onClick={onTweet}
-          >
-            <Icon name='twitter' />
-          </a>
-          <Flex grow={1} />
-          <FirstTimeTip tip='Back to music selection' featureKey='finishGame'>
-            <div className={styles.exit} onClick={onExit}>
-              Continue
-            </div>
-          </FirstTimeTip>
-        </div>
+        <SceneToolbar>
+          <span>
+            <ResultExpertInfo deltas={result.deltas} />
+          </span>
+          <SceneToolbarSpacer />
+          <a onClick={onExit}>Continue</a>
+        </SceneToolbar>
       </div>
-      <SceneToolbar>
-        <span>
-          <ResultExpertInfo deltas={result.deltas} />
-        </span>
-        <SceneToolbarSpacer />
-        <a onClick={onExit}>Continue</a>
-      </SceneToolbar>
     </Scene>
   )
 }
