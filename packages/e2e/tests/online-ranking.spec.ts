@@ -74,11 +74,11 @@ test('Clears data when switching user', async ({ page }) => {
     '.MusicListItemChart[data-md5="fb3dab834591381a5b8188bc2dc9c4b7"]'
   )
   await chart.click()
-  await expect(chart).not.toHaveClass(/is-played/)
+  await expect(chart).not.toHaveAttribute('data-played', 'true')
 
   await test.step('Log in as tester - stats should show', async () => {
     await logIn(page, 'tester')
-    await expect(chart).toHaveClass(/is-played/)
+    await expect(chart).toHaveAttribute('data-played', 'true')
     await expect(chart).toContainText('S')
     await expect(page.getByTestId('stats-best-score')).toContainText('543210')
     await page.getByText('Ranking').click()
@@ -87,7 +87,7 @@ test('Clears data when switching user', async ({ page }) => {
 
   await test.step('Log out - stats should vanish', async () => {
     await logOut(page)
-    await expect(chart).not.toHaveClass(/is-played/)
+    await expect(chart).not.toHaveAttribute('data-played', 'true')
     await expect(page.getByText('Log In / Create an Account')).toBeVisible()
     await expect(page.getByTestId('ranking-yours')).not.toContainText('543210')
   })
