@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import * as Options from '../../app/entities/Options.js'
-import { selectOptions } from '../../redux/ReduxState.js'
+import { type AppState, selectOptions } from '../../redux/ReduxState.js'
 import styles from './OptionsAdvanced.module.scss'
 import OptionsButton from './OptionsButton.js'
 import OptionsInputField from './OptionsInputField.js'
@@ -31,7 +31,9 @@ const useLatency = (handler: (latency: number) => void) => {
 
 const OptionsAdvanced = () => {
   const dispatch = useDispatch()
-  const options = useSelector(selectOptions)
+  const latency = useSelector((state: AppState) =>
+    Options.audioInputLatency(selectOptions(state))
+  )
 
   const handleAudioInputLatencyChange = (value: number) => {
     dispatch(
@@ -55,7 +57,8 @@ const OptionsAdvanced = () => {
         <div className={styles.groupItem}>
           <OptionsInputField
             className={styles.field}
-            value={Options.audioInputLatency(options)}
+            key={latency}
+            value={latency}
             parse={parseLatency}
             stringify={stringifyLatency}
             validator={/^\d+?$/}
