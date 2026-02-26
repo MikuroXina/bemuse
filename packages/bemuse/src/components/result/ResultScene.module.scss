@@ -1,0 +1,125 @@
+@use 'sass:color';
+@use '@bemuse/ui/common.scss';
+
+.container {
+  @include common.scene-background(url(@bemuse/ui/images/bg/b.jpg));
+
+  color: black;
+}
+
+$bottom-padding: calc(32px + 4vh);
+
+.heading {
+  z-index: 10;
+}
+
+.report {
+  position: absolute;
+  top: 9rem;
+  right: calc(50vw + 1rem);
+  bottom: 3rem;
+  left: 4rem;
+  @media (min-height: 480px) {
+    top: 10rem;
+  }
+}
+
+.information {
+  background: rgba(white, 0.8);
+  position: absolute;
+  top: 0;
+  right: 4rem;
+  bottom: 0;
+  left: calc(50vw + 1rem);
+  padding-top: 9rem;
+  padding-bottom: $bottom-padding;
+  display: flex;
+  flex-direction: column;
+  @media (min-height: 480px) {
+    padding-top: 10rem;
+  }
+  @media (orientation: portrait) {
+    right: 0;
+  }
+}
+
+.informationHeader {
+  flex: 0 0 auto;
+}
+
+.informationBody {
+  flex: 1 1 auto;
+  background: rgba(white, 0.6);
+  font-size: 1rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  margin: 0.5rem 0 0.5rem;
+  @media (min-height: 480px) {
+    margin: 4vh 0 4vh;
+  }
+}
+
+.informationFooter {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 0.5rem;
+  @media (min-height: 480px) {
+    padding: 0 2vw;
+  }
+}
+
+.chartInfo {
+  margin: 0 2vw;
+}
+
+.resultGrade {
+  position: absolute;
+  bottom: $bottom-padding;
+  right: 52vw;
+  width: 20vh;
+  height: 20vh;
+}
+
+.chart {
+  float: right;
+  margin-right: 2vw;
+  text-align: center;
+  z-index: 11;
+  position: relative;
+}
+
+.mode {
+  opacity: 0.5;
+  position: absolute;
+  right: 4rem;
+  top: 0;
+  bottom: 0;
+  font-size: 2rem;
+  text-align: right;
+}
+
+.selectorItem {
+  width: 4.5rem;
+}
+
+@mixin button($face) {
+  display: block;
+  background: $face;
+  border: 2px solid color.adjust($face, $lightness: -5%);
+  text-align: center;
+  font-size: 1.75rem;
+  color: #fff;
+  padding: 1ex 2ex;
+  cursor: pointer;
+  border-radius: 0.8rem;
+}
+
+.exit {
+  @include button(#5a5);
+}
+
+.tweet {
+  @include button(#54abee);
+}

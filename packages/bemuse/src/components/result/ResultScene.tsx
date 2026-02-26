@@ -1,5 +1,3 @@
-import './ResultScene.scss'
-
 import RankingContainer from '@bemuse/components/ranking/RankingContainer.js'
 import { Icon } from '@bemuse/fa/index.js'
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
@@ -17,6 +15,7 @@ import MusicChartInfo from '../../app/ui/MusicChartInfo.js'
 import MusicChartSelectorItem from '../../app/ui/MusicChartSelectorItem.js'
 import ResultExpertInfo from './ResultExpertInfo.js'
 import ResultGrade from './ResultGrade.js'
+import styles from './ResultScene.module.scss'
 import ResultTable from './ResultTable.js'
 
 const getTweetLink = ({ chart, result }: { chart: Chart; result: Result }) => {
@@ -78,48 +77,54 @@ const ResultScene = ({
   }
 
   return (
-    <Scene className='ResultScene'>
-      <SceneHeading>
+    <Scene className={styles.container} data-testid='result-scene'>
+      <SceneHeading className={styles.heading}>
         Play Result
-        <div className='ResultSceneのmode'>
+        <div className={styles.mode}>
           {playMode === 'KB' ? 'Keyboard' : 'BMS'} Mode
         </div>
       </SceneHeading>
-      <div className='ResultSceneのreport'>
+      <div className={styles.report}>
         <ResultTable result={result} />
       </div>
-      <ResultGrade grade={result.grade} />
-      <div className='ResultSceneのinformation'>
-        <div className='ResultSceneのinformationHeader'>
-          <div className='ResultSceneのchart'>
+      <div className={styles.resultGrade}>
+        <ResultGrade grade={result.grade} />
+      </div>
+      <div className={styles.information}>
+        <div className={styles.informationHeader}>
+          <div className={styles.chart}>
             <FirstTimeTip tip='Play again' featureKey='replayGame'>
-              <MusicChartSelectorItem
-                chart={chart}
-                onChartClick={onReplay}
-                isReplayable
-              />
+              <div className={styles.selectorItem}>
+                <MusicChartSelectorItem
+                  chart={chart}
+                  onChartClick={onReplay}
+                  isReplayable
+                />
+              </div>
             </FirstTimeTip>
           </div>
-          <MusicChartInfo info={chart.info} />
+          <div className={styles.chartInfo}>
+            <MusicChartInfo info={chart.info} />
+          </div>
         </div>
-        <div className='ResultSceneのinformationBody'>
+        <div className={styles.informationBody}>
           <RankingContainer
             result={result.tainted ? undefined : result}
             chart={chart}
             playMode={playMode}
           />
         </div>
-        <div className='ResultSceneのinformationFooter'>
+        <div className={styles.informationFooter}>
           <a
             href={getTweetLink({ chart, result })}
-            className='ResultSceneのtweet'
+            className={styles.tweet}
             onClick={onTweet}
           >
             <Icon name='twitter' />
           </a>
           <Flex grow={1} />
           <FirstTimeTip tip='Back to music selection' featureKey='finishGame'>
-            <div className='ResultSceneのexit' onClick={onExit}>
+            <div className={styles.exit} onClick={onExit}>
               Continue
             </div>
           </FirstTimeTip>

@@ -1,5 +1,3 @@
-import './MusicInfoTabStats.scss'
-
 import { usePersonalRecordsByMd5Query } from '@bemuse/online/hooks.js'
 import type { ScoreboardDataRecord } from '@bemuse/online/index.js'
 import { useSelector } from 'react-redux'

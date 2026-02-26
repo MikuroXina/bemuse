@@ -1,8 +1,8 @@
-import './ChangelogPanel.scss'
-
 import Markdown from '@bemuse/ui/Markdown.js'
 import Panel from '@bemuse/ui/Panel.js'
 import { useEffect, useState } from 'react'
+
+import styles from './ChangelogPanel.module.scss'
 
 type Status =
   | { state: 'loading' }
@@ -43,7 +43,7 @@ const ChangelogPanel = () => {
 
   return (
     <Panel className='ChangelogPanel' title='What’s New'>
-      <div className='ChangelogPanelのcontent'>
+      <div className={styles.content}>
         <Markdown source={getMarkdown(status)} safe />
       </div>
     </Panel>

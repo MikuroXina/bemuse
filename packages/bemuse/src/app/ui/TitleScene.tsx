@@ -1,5 +1,3 @@
-import './TitleScene.scss'
-
 import { SceneManagerContext } from '@bemuse/scene-manager/index.js'
 import HomePage from '@bemuse/site/HomePage.js'
 import ModalPopup from '@bemuse/ui/ModalPopup.js'
@@ -14,6 +12,7 @@ import AboutScene from './AboutScene.js'
 import ChangelogPanel from './ChangelogPanel.js'
 import logo from './images/logo-with-shadow.svg'
 import ModeSelectScene from './ModeSelectScene.js'
+import styles from './TitleScene.module.scss'
 import Toolbar, { item, spacer } from './Toolbar.js'
 
 const HAS_PARENT = (() => {
@@ -90,24 +89,22 @@ const TitleScene = () => {
 
   const shouldShowHomepage = !HAS_PARENT
   return (
-    <Scene className='TitleScene'>
-      <div className='TitleSceneのimage' />
-      <div className='TitleSceneのpage'>
-        <div className='TitleSceneのpageTitle'>
-          <div className='TitleSceneのlogo'>
-            <div className='TitleSceneのtagline'>
-              online, web-based rhythm game
-            </div>
+    <Scene className={styles.scene}>
+      <div className={styles.image} />
+      <div className={styles.page}>
+        <div className={styles.pageTitle}>
+          <div className={styles.logo}>
+            <div className={styles.tagline}>online, web-based rhythm game</div>
             <img src={logo} />
           </div>
-          <div className='TitleSceneのenter'>
+          <div className={styles.enter}>
             <a onClick={enterGame} data-testid='enter-game'>
               Enter Game
             </a>
           </div>
         </div>
         {shouldShowHomepage ? (
-          <div className='TitleSceneのpageContents'>
+          <div className={styles.pageContents}>
             <HomePage />
           </div>
         ) : null}
@@ -115,7 +112,7 @@ const TitleScene = () => {
       <Toolbar
         items={toolbarItems({ hasSeenChangelog, showAbout, viewChangelog })}
       />
-      <div className='TitleSceneのcurtain' />
+      <div className={styles.curtain} />
       <ModalPopup
         visible={changelogModalVisible}
         onBackdropClick={() => toggleChangelogModal()}

@@ -1,5 +1,3 @@
-import './MusicSelectScene.scss'
-
 import type { Chart, Song } from '@bemuse/collection-model/types.js'
 import CustomBMS from '@bemuse/components/CustomBMS.js'
 import OptionsView from '@bemuse/components/options/Options.js'
@@ -14,7 +12,6 @@ import { SceneManagerContext } from '@bemuse/scene-manager/index.js'
 import ModalPopup from '@bemuse/ui/ModalPopup.js'
 import Scene from '@bemuse/ui/Scene.js'
 import SceneHeading from '@bemuse/ui/SceneHeading.js'
-import c from 'classnames'
 import { type ChangeEvent, type MouseEvent, useContext, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createSelector, createStructuredSelector } from 'reselect'
@@ -38,6 +35,7 @@ import * as MusicSelectionIO from '../io/MusicSelectionIO.js'
 import { hasPendingArchiveToLoad } from '../PreloadedCustomBMS.js'
 import MusicInfo from './MusicInfo.js'
 import MusicList from './MusicList.js'
+import styles from './MusicSelectScene.module.scss'
 import RageQuitPopup from './RageQuitPopup.js'
 import SongPreviewer from './SongPreviewer.js'
 import Toolbar, { item, spacer } from './Toolbar.js'
@@ -75,10 +73,7 @@ const UnofficialDisclaimer = ({
 }: {
   handleUnofficialClick: () => void
 }) => (
-  <div
-    className='MusicSelectSceneのunofficialLabel'
-    onClick={handleUnofficialClick}
-  >
+  <div className={styles.unofficialLabel} onClick={handleUnofficialClick}>
     <b>Disclaimer:</b> Unofficial Server
   </div>
 )
@@ -88,33 +83,27 @@ const Main = ({
   inSong,
   handleOptionsOpen,
   handleSongSelect,
-  handleMusicListTouch,
+  handleSongDeselect,
   handleChartClick,
 }: {
   musicSelect: MusicSelect
   inSong: boolean
   handleOptionsOpen: () => void
   handleSongSelect: (song: Song, chart?: Chart) => void
-  handleMusicListTouch: () => void
+  handleSongDeselect: () => void
   handleChartClick: (chart: Chart, e: MouseEvent) => void
 }) => {
   if (musicSelect.loading) {
-    return <div className='MusicSelectSceneのloading'>Loading…</div>
+    return <div className={styles.loading}>Loading…</div>
   }
   if (musicSelect.error) {
-    return (
-      <div className='MusicSelectSceneのloading'>Cannot load collection!</div>
-    )
+    return <div className={styles.loading}>Cannot load collection!</div>
   }
   if (musicSelect.groups.length === 0) {
-    return <div className='MusicSelectSceneのloading'>No songs found!</div>
+    return <div className={styles.loading}>No songs found!</div>
   }
   return (
-    <div
-      className={c('MusicSelectSceneのmain', {
-        'is-in-song': inSong,
-      })}
-    >
+    <div className={styles.main} data-in-song={inSong}>
       <MusicList
         groups={musicSelect.groups}
         highlight={musicSelect.highlight}
@@ -122,7 +111,7 @@ const Main = ({
         selectedChart={musicSelect.chart}
         playMode={musicSelect.playMode}
         onSelect={handleSongSelect}
-        onTouch={handleMusicListTouch}
+        onDeselect={handleSongDeselect}
       />
       <MusicInfo
         song={musicSelect.song}
@@ -270,7 +259,7 @@ const MusicSelectScene = () => {
     setInSong(true)
   }
 
-  const handleMusicListTouch = () => {
+  const handleSongDeselect = () => {
     setInSong(false)
   }
 
@@ -286,13 +275,13 @@ const MusicSelectScene = () => {
   }
 
   return (
-    <Scene className='MusicSelectScene' onDragEnter={showCustomBMSModal}>
-      <SceneHeading>
+    <Scene className={styles.scene} onDragEnter={showCustomBMSModal}>
+      <SceneHeading className={styles.heading}>
         Select Music
         <input
           type='text'
           placeholder='Filter…'
-          className='MusicSelectSceneのsearch'
+          className={styles.search}
           onChange={handleFilter}
           value={musicSelect.filterText}
         />
@@ -309,7 +298,7 @@ const MusicSelectScene = () => {
         inSong={inSong}
         handleOptionsOpen={showOptions}
         handleChartClick={handleChartClick}
-        handleMusicListTouch={handleMusicListTouch}
+        handleSongDeselect={handleSongDeselect}
         handleSongSelect={handleSongSelect}
       />
 
@@ -332,7 +321,7 @@ const MusicSelectScene = () => {
         visible={customBMSModalVisible}
         onBackdropClick={hideCustomBMSModal}
       >
-        <div className='MusicSelectSceneのcustomBms'>
+        <div className={styles.customBms}>
           <CustomBMS onSongLoaded={hideCustomBMSModal} />
         </div>
       </ModalPopup>

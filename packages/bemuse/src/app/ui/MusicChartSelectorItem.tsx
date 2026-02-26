@@ -1,8 +1,7 @@
-import './MusicChartSelectorItem.scss'
-
 import { Icon } from '@bemuse/fa/index.js'
 import type { Chart } from '@mikuroxina/bemuse-types'
-import c from 'classnames'
+
+import styles from './MusicChartSelectorItem.module.scss'
 
 const Text = ({
   isTutorial,
@@ -15,9 +14,7 @@ const Text = ({
     const gameMode = chart.keys === '5K' ? '5 keys' : '7 keys'
     return <>{`Start Tutorial (${gameMode})`}</>
   }
-  return (
-    <span className='MusicChartSelectorItemのlevel'>{chart.info.level}</span>
-  )
+  return <span className={styles.level}>{chart.info.level}</span>
 }
 
 export interface MusicChartSelectorItemProps {
@@ -39,21 +36,19 @@ const MusicChartSelectorItem = ({
     onChartClick(chart, e)
   }
 
-  const classes = c('MusicChartSelectorItem', {
-    'is-active': isSelected,
-    'is-replayable': isReplayable,
-    'is-tutorial': isTutorial,
-    'is-insane': chart.info.difficulty >= 5,
-    'is-5keys': chart.keys === '5K',
-  })
   return (
     <li
-      className={classes}
+      className={styles.selectorItem}
       onClick={handleClick}
+      data-active={isSelected}
+      data-tutorial={isTutorial}
+      data-replayable={isReplayable}
+      data-keys={chart.keys}
+      data-insane={chart.info.difficulty >= 5}
       data-testid={isSelected ? 'play-selected-chart' : undefined}
     >
       <Text isTutorial={isTutorial} chart={chart} />
-      <span className='MusicChartSelectorItemのplay'>
+      <span className={styles.play}>
         <Icon name='play' />
       </span>
     </li>

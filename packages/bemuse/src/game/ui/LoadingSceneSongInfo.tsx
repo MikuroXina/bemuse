@@ -1,6 +1,6 @@
-import './LoadingSceneSongInfo.scss'
-
 import { isTitleDisplayMode } from '@bemuse/flags/index.js'
+
+import styles from './LoadingSceneSongInfo.module.scss'
 
 export interface LoadingSceneSongInfoProps {
   song: {
@@ -15,19 +15,19 @@ export interface LoadingSceneSongInfoProps {
 }
 
 const LoadingSceneSongInfo = ({ song }: LoadingSceneSongInfoProps) => (
-  <div className='LoadingSceneSongInfo'>
-    <div className='LoadingSceneSongInfoのgenre'>{song.genre}</div>
-    <div className='LoadingSceneSongInfoのtitle'>{song.title}</div>
+  <div className={styles.container}>
+    <div className={styles.genre}>{song.genre}</div>
+    <div className={styles.title}>{song.title}</div>
     {!isTitleDisplayMode()
       ? song.subtitles.map((text) => (
-          <div key={text} className='LoadingSceneSongInfoのsubtitle'>
+          <div key={text} className={styles.subtitle}>
             {text}
           </div>
         ))
       : null}
-    <div className='LoadingSceneSongInfoのartist'>{song.artist}</div>
+    <div className={styles.artist}>{song.artist}</div>
     {song.subartists.map((text) => (
-      <div key={text} className='LoadingSceneSongInfoのsubartist'>
+      <div key={text} className={styles.subartist}>
         {text}
       </div>
     ))}

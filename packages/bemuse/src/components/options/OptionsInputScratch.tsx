@@ -1,6 +1,4 @@
-import './OptionsInputScratch.scss'
-
-import c from 'classnames'
+import styles from './OptionsInputScratch.module.scss'
 
 export interface OptionsInputScratchProps {
   text: readonly [string, string]
@@ -9,11 +7,6 @@ export interface OptionsInputScratchProps {
   onEdit: (text: string) => void
 }
 
-const keyClass = (editIndex: number, index: number) =>
-  c('OptionsInputScratchのkey', {
-    'is-editing': editIndex === index,
-  })
-
 const OptionsInputScratch = ({
   text,
   editIndex,
@@ -21,18 +14,21 @@ const OptionsInputScratch = ({
   onEdit,
 }: OptionsInputScratchProps) => (
   <div
-    className={c('OptionsInputScratch', {
-      'is-editing': isEditing,
-    })}
+    className={styles.container}
+    data-editing={isEditing}
     onClick={() => onEdit('SC')}
   >
     <svg viewBox='-100 -100 200 200'>
-      <path d={star()} className='OptionsInputScratchのstar' />
+      <path d={star()} className={styles.star} />
     </svg>
-    <div className='OptionsInputScratchのtext'>
-      <div className={keyClass(editIndex, 0)}>{text[0]}</div>
-      <div className='OptionsInputScratchのkeySeparator'>or</div>
-      <div className={keyClass(editIndex, 1)}>{text[1]}</div>
+    <div className={styles.text}>
+      <div className={styles.key} data-editing={editIndex === 0}>
+        {text[0]}
+      </div>
+      <div className={styles.keySeparator}>or</div>
+      <div className={styles.key} data-editing={editIndex === 1}>
+        {text[1]}
+      </div>
     </div>
   </div>
 )

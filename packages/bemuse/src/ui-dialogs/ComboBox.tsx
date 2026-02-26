@@ -1,8 +1,8 @@
-import './ComboBox.scss'
-
 import { useCombobox } from 'downshift'
 import fuzzysort from 'fuzzysort'
 import { useState } from 'react'
+
+import styles from './ComboBox.module.scss'
 
 export type ComboBoxItem = {
   label: string
@@ -52,14 +52,14 @@ export function ComboBox<T extends ComboBoxItem>(props: {
   })
 
   return (
-    <div className='ComboBox'>
+    <div className={styles.container}>
       <label hidden {...getLabelProps()}>
         Choose an element:
       </label>
-      <div {...getComboboxProps()} className='ComboBoxのsearch'>
-        <input {...getInputProps()} className='ComboBoxのinput' />
+      <div {...getComboboxProps()} className={styles.search}>
+        <input {...getInputProps()} className={styles.input} />
       </div>
-      <ul {...getMenuProps()} className='ComboBoxのmenu'>
+      <ul {...getMenuProps()} className={styles.menu}>
         {isOpen &&
           inputItems.map((item, index) => (
             <li

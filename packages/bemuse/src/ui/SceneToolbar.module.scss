@@ -1,0 +1,39 @@
+@use '@bemuse/ui/common.scss';
+
+.container {
+  background: rgba(black, 0.7);
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 0.5rem;
+  font-size: 1rem;
+
+  > a,
+  > span {
+    display: block;
+    padding: 0.8ex 1.3ex;
+  }
+  > a {
+    color: rgba(white, 0.8);
+    text-decoration: none;
+    background: rgba(black, 0);
+    transition:
+      0.1s background,
+      0.1s color;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(black, 0.5);
+      color: white;
+    }
+  }
+  > a[data-position='right'] {
+    float: right;
+  }
+  > span {
+    color: rgba(white, 0.6);
+  }
+}
+
+.spacer {
+  flex: 1;
+}

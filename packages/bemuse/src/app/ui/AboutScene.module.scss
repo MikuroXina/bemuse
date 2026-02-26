@@ -1,0 +1,68 @@
+@use '@bemuse/ui/common.scss';
+
+.scene {
+  @include common.scene-background(url(../../ui/images/bg/c.jpg));
+
+  > section {
+    @include common.scrolling-y;
+    @include common.full-screen;
+    padding: 10rem 3.85rem 3em;
+    background: rgba(black, 0.64);
+    font-size: 17px;
+  }
+  @media (orientation: landscape) {
+    > section {
+      overflow-y: hidden;
+      right: 5vw;
+      left: 5vw;
+      padding-left: 2vw;
+      padding-right: 2vw;
+      display: flex;
+    }
+    > section > article {
+      @include common.scrolling-y;
+      width: 50%;
+      height: 100%;
+      box-sizing: border-box;
+      padding: 0 1em 0;
+    }
+  }
+
+  h2 {
+    font-size: 1.5em;
+    text-align: center;
+    text-shadow: 1px 1px 0 rgba(black, 0.3);
+  }
+  p {
+    text-align: justify;
+    text-shadow: 1px 1px 0 rgba(black, 0.3);
+  }
+  a {
+    color: #ffa;
+  }
+}
+
+.heading {
+  z-index: 10;
+}
+
+.logo {
+  text-align: center;
+  img {
+    max-width: 80%;
+  }
+}
+
+.djbm {
+  text-align: center;
+  img {
+    width: 64%;
+    max-width: 215px;
+  }
+}
+
+.teamList {
+  list-style: none;
+  padding-left: 1ex;
+  margin-top: 0;
+}

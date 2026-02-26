@@ -15,7 +15,7 @@ const OptionsCheckbox = ({
     <span className='OptionsCheckbox'>
       <label>
         <input type='checkbox' checked={checked} onChange={onToggle} />
-        <span className='OptionosCheckboxのレーベル'>{children}</span>
+        <span>{children}</span>
       </label>
     </span>
   )

@@ -1,0 +1,140 @@
+@use '@bemuse/ui/common.scss';
+
+.scene {
+  background: #415067 url('./images/bg-title.placeholder.png') 50% 90% no-repeat;
+  background-size: cover;
+}
+
+.image {
+  background: url('./images/bg-title.jpg') 50% 90% no-repeat;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.page {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+}
+
+.pageTitle {
+  position: relative;
+  height: 100%;
+}
+
+.pageContents {
+  background: white;
+  color: #353433;
+}
+
+.logo {
+  position: absolute;
+  top: 32%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  background-size: contain;
+  animation: 0.8s fade-in;
+
+  @media (min-width: 640px) {
+    width: calc(30vw + 288px);
+  }
+
+  & > img {
+    width: 100%;
+    display: block;
+  }
+}
+
+.tagline {
+  font-size: 1.5rem;
+  font-style: italic;
+  text-align: center;
+  font-weight: 300;
+  opacity: 0.5;
+}
+
+.curtain {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: black;
+  animation: 0.8s fade-out;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.enter {
+  position: absolute;
+  top: 70%;
+  left: 0;
+  right: 0;
+  transform: translate(0, -50%);
+  animation: 0.8s y-fade-in;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+
+  & > a {
+    color: rgba(black, 0.9);
+    font-size: 3rem;
+    background: rgba(#fff, 0.8);
+    padding: 0.5ex 1.2ex;
+    border-radius: 2em;
+    display: block;
+    text-decoration: none;
+    transform: scale(1);
+    transition:
+      0.1s transform,
+      0.1s background;
+
+    &:hover {
+      background: rgba(#fff, 1);
+      transform: scale(1.1);
+    }
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(0, -1rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes y-fade-in {
+  0% {
+    opacity: 0;
+    transform: translate(0%, -50%) translate(0, -1em);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0%, -50%);
+  }
+}

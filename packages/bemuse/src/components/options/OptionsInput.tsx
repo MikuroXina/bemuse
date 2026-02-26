@@ -1,7 +1,4 @@
-import './OptionsInput.scss'
-
 import OmniInput, { getName, key川 } from '@bemuse/omni-input/index.js'
-import c from 'classnames'
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createSelector } from 'reselect'
@@ -19,6 +16,7 @@ import {
 import type { AppState } from '../../redux/ReduxState.js'
 import OptionsButton from './OptionsButton.js'
 import OptionsCheckbox from './OptionsCheckbox.js'
+import styles from './OptionsInput.module.scss'
 import OptionsInputField from './OptionsInputField.js'
 import OptionsInputKeys from './OptionsInputKeys.js'
 import OptionsInputScratch from './OptionsInputScratch.js'
@@ -114,9 +112,6 @@ const OptionsInput = () => {
     }
   }, [editing])
 
-  const className = c('OptionsInputのbinding', {
-    'is-reverse': scratch === 'right',
-  })
   const editIndex = (editing: string | null) => {
     if (editing === 'SC') {
       return 0
@@ -127,11 +122,11 @@ const OptionsInput = () => {
     return -1
   }
   return (
-    <div className='OptionsInput'>
-      <div className={className}>
+    <div className={styles.input}>
+      <div className={styles.binding} data-scratch={scratch}>
         {scratch !== 'off' ? (
-          <div className='OptionsInputのzone is-scratch'>
-            <div className='OptionsInputのcontrol'>
+          <div className={styles.zone}>
+            <div className={styles.control}>
               <OptionsInputScratch
                 text={[texts['SC'], texts['SC2']]}
                 isEditing={editing === 'SC' || editing === 'SC2'}
@@ -139,11 +134,11 @@ const OptionsInput = () => {
                 onEdit={handleEdit}
               />
             </div>
-            <div className='OptionsInputのtitle'>Scratch</div>
+            <div className={styles.title}>Scratch</div>
           </div>
         ) : null}
-        <div className='OptionsInputのzone'>
-          <div className='OptionsInputのcontrol'>
+        <div className={styles.zone}>
+          <div className={styles.control}>
             <OptionsInputKeys
               keyboardMode={scratch === 'off'}
               texts={texts}
@@ -151,11 +146,11 @@ const OptionsInput = () => {
               onEdit={handleEdit}
             />
           </div>
-          <div className='OptionsInputのtitle'>Keys</div>
+          <div className={styles.title}>Keys</div>
         </div>
       </div>
-      <div className='OptionsInputのgamepad'>
-        <div className='OptionsInputのgroup'>
+      <div className={styles.gamepad}>
+        <div className={styles.group}>
           <label>Continuous Axis</label>
           <OptionsCheckbox
             checked={isContinuous}
@@ -165,21 +160,32 @@ const OptionsInput = () => {
             }}
           />
         </div>
-        <div className='OptionsInputのgroup'>
+        <div className={styles.group}>
           <label>Sensitivity</label>
-          <div className='OptionsInputのsensitivity'>
-            <span className='OptionsInputのminus'>
-              <OptionsButton onClick={handleMinusButtonClick}>-</OptionsButton>
+          <div className={styles.sensitivity}>
+            <span>
+              <OptionsButton
+                className={styles.minus}
+                onClick={handleMinusButtonClick}
+              >
+                -
+              </OptionsButton>
             </span>
             <OptionsInputField
+              className={styles.inputField}
               parse={(str) => parseInt(str, 10) - 1}
               stringify={(value) => String(value + 1)}
               validator={/^\d+$/}
               value={sensitivity}
               onChange={handleSensitivityChange}
             />
-            <span className='OptionsInputのplus'>
-              <OptionsButton onClick={handlePlusButtonClick}>+</OptionsButton>
+            <span>
+              <OptionsButton
+                className={styles.plus}
+                onClick={handlePlusButtonClick}
+              >
+                +
+              </OptionsButton>
             </span>
           </div>
         </div>

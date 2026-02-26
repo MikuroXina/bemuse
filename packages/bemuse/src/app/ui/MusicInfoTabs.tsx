@@ -1,13 +1,11 @@
-import './MusicInfoTabs.scss'
-
 import type { Chart, Song } from '@bemuse/collection-model/types.js'
 import RankingContainer from '@bemuse/components/ranking/RankingContainer.js'
 import { Icon } from '@bemuse/fa/index.js'
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
-import c from 'classnames'
 import { useState } from 'react'
 
 import MusicInfoTabInformation from './MusicInfoTabInformation.js'
+import styles from './MusicInfoTabs.module.scss'
 import MusicInfoTabStats from './MusicInfoTabStats.js'
 
 export interface MusicInfoTabsProps {
@@ -29,12 +27,7 @@ const MusicInfoTab = ({
   onClick: () => void
 }) => {
   return (
-    <li
-      className={c('MusicInfoTabsのtab', {
-        'is-active': isActive,
-      })}
-      onClick={onClick}
-    >
+    <li className={styles.tab} onClick={onClick} data-active={isActive}>
       {title}
     </li>
   )
@@ -67,10 +60,10 @@ const MusicInfoTabs = (props: MusicInfoTabsProps) => {
   const [selectedTab, setSelectedTab] = useState(0)
   const onClick = (index: number) => () => setSelectedTab(index)
   return (
-    <section className='MusicInfoTabs'>
-      <ul className='MusicInfoTabsのtabs'>
+    <section className={styles.bg}>
+      <ul className={styles.tabs}>
         <li
-          className='MusicInfoTabsのoptions'
+          className={styles.options}
           onClick={props.onOptions}
           data-testid='options-button'
         >
@@ -85,11 +78,7 @@ const MusicInfoTabs = (props: MusicInfoTabsProps) => {
           />
         ))}
       </ul>
-      <div
-        className={c('MusicInfoTabsのpanel', {
-          'is-without-padding': selectedTab === 1,
-        })}
-      >
+      <div className={styles.panel} data-selected={selectedTab}>
         <MusicInfoPanel selectedTab={selectedTab} {...props} />
       </div>
     </section>

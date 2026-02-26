@@ -1,13 +1,11 @@
-import './OptionsPlayerGraphics.scss'
-
 import * as touch3d from '@bemuse/game/display/touch3d.js'
-import c from 'classnames'
 import type { ReactNode } from 'react'
 
 import type {
   PanelPlacement,
   ScratchPosition,
 } from '../../app/entities/Options.js'
+import styles from './OptionsPlayerGraphics.module.scss'
 
 const PANEL_PATH = (function () {
   const x = 48
@@ -100,41 +98,21 @@ export const Scratch = ({
         {[0, 1, 2, 3, 4, 5, 6].map((i) => {
           const rect = linesRect(i)
           return (
-            <rect
-              key={i}
-              className='OptionsPlayerGraphicsのline'
-              {...rect}
-              rx={2}
-              ry={2}
-            />
+            <rect key={i} className={styles.line} {...rect} rx={2} ry={2} />
           )
         })}
       </g>
       {sx && (
         <circle
-          className='OptionsPlayerGraphicsのline'
+          className={styles.line}
           cx={sx}
           cy='42'
           r='8'
           style={{ fill: 'rgba(255,255,255,0.1)' }}
         />
       )}
-      {gx && (
-        <line
-          className='OptionsPlayerGraphicsのline'
-          x1={gx}
-          x2={gx}
-          y1='1'
-          y2='53'
-        />
-      )}
-      <line
-        className='OptionsPlayerGraphicsのline'
-        x1='1'
-        x2='95'
-        y1='29'
-        y2='29'
-      />
+      {gx && <line className={styles.line} x1={gx} x2={gx} y1='1' y2='53' />}
+      <line className={styles.line} x1='1' x2='95' y1='29' y2='29' />
     </OptionsPlayerGraphicsContainer>
   )
 }
@@ -157,14 +135,14 @@ export const Panel = ({
     <OptionsPlayerGraphicsContainer active={active}>
       {value === '3d' ? (
         <path
-          className='OptionsPlayerGraphicsのline'
+          className={styles.line}
           d={PANEL_3D_PATH}
           style={{ fill: 'rgba(255,255,255,0.1)' }}
         />
       ) : (
         <g transform={'translate(' + tx + ' 0)'}>
           <path
-            className='OptionsPlayerGraphicsのline'
+            className={styles.line}
             d={PANEL_PATH}
             style={{ fill: 'rgba(255,255,255,0.1)' }}
           />
@@ -182,11 +160,7 @@ const OptionsPlayerGraphicsContainer = ({
   children: ReactNode
 }) => {
   return (
-    <div
-      className={c('OptionsPlayerGraphics', {
-        'is-active': active,
-      })}
-    >
+    <div className={styles.container} data-active={active}>
       <svg width='96' height='54'>
         {children}
       </svg>

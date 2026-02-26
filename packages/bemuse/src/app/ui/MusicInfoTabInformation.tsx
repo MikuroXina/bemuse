@@ -1,11 +1,10 @@
-import './MusicInfoTabInformation.scss'
-
 import type { Song } from '@bemuse/collection-model/types.js'
 import Markdown from '@bemuse/ui/Markdown.js'
 import YouTube from '@bemuse/ui/YouTube.js'
 import { memo } from 'react'
 
 import { useReadme } from '../io/ReadmeIO.js'
+import styles from './MusicInfoTabInformation.module.scss'
 
 export interface MusicInfoTabInformationProps {
   song: Song
@@ -41,7 +40,7 @@ const Buttons = ({ song }: MusicInfoTabInformationProps) => {
   if (buttons.length === 0) {
     return null
   } else {
-    return <p className='MusicInfoTabInformationのbuttons'>{buttons}</p>
+    return <p className={styles.buttons}>{buttons}</p>
   }
 }
 
@@ -58,16 +57,16 @@ const MusicInfoTabInformation = ({ song }: MusicInfoTabInformationProps) => {
   const readme = useReadme(song)
 
   return (
-    <div className='MusicInfoTabInformation'>
+    <div className={styles.tabInfo}>
       <Buttons song={song} />
-      <p className='MusicInfoTabInformationのartist'>
+      <p className={styles.artist}>
         <span>Artist:</span>
         <strong>
           <Link text={song.artist} url={song.artist_url} />
         </strong>
       </p>
       {song.youtube_url ? <YouTube url={song.youtube_url} /> : null}
-      <section className='MusicInfoTabInformationのreadme'>
+      <section className={styles.readme}>
         <Markdown source={readme} />
       </section>
     </div>

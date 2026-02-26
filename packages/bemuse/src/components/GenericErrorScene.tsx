@@ -1,10 +1,9 @@
-import './GenericErrorScene.scss'
-
 import ModalPopup from '@bemuse/ui/ModalPopup.js'
 import Panel from '@bemuse/ui/Panel.js'
 import Scene from '@bemuse/ui/Scene.js'
 import { useMemo } from 'react'
 
+import styles from './GenericErrorScene.module.scss'
 import OptionsButton from './options/OptionsButton.js'
 
 export default function GenericErrorScene(props: {
@@ -28,15 +27,11 @@ export default function GenericErrorScene(props: {
     ].join('\n')
   }, [error, preamble])
   return (
-    <Scene className='GenericErrorScene'>
+    <Scene className={styles.scene}>
       <ModalPopup>
         <Panel title='Error'>
-          <div className='GenericErrorSceneのwrapper'>
-            <textarea
-              className='GenericErrorSceneのstack'
-              value={details}
-              readOnly
-            />
+          <div className={styles.wrapper}>
+            <textarea className={styles.stack} value={details} readOnly />
 
             <div style={{ textAlign: 'right' }}>
               <OptionsButton

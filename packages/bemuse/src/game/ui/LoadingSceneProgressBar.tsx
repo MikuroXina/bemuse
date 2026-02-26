@@ -1,12 +1,12 @@
-import './LoadingSceneProgressBar.scss'
+import styles from './LoadingSceneProgressBar.module.scss'
 
 export interface LoadingSceneProgressBarProps {
   width: string | number
 }
 
 const LoadingSceneProgressBar = ({ width }: LoadingSceneProgressBarProps) => (
-  <div className='LoadingSceneProgressBar'>
-    <div className='LoadingSceneProgressBarのbar' style={{ width }} />
+  <div className={styles.container}>
+    <div className={styles.bar} style={{ width }} />
   </div>
 )
 

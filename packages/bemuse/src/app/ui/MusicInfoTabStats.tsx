@@ -1,11 +1,10 @@
-import './MusicInfoTabStats.scss'
-
 import { Icon } from '@bemuse/fa/index.js'
 import { useCurrentUser } from '@bemuse/online/hooks.js'
 import { formattedAccuracyForRecord } from '@bemuse/rules/accuracy.js'
 import type { ReactNode } from 'react'
 
 import formatTime from '../../utils/formatTime.js'
+import styles from './MusicInfoTabStats.module.scss'
 import { usePersonalRecord } from './usePersonalRecord.js'
 
 export interface PartialChart {
@@ -29,7 +28,7 @@ const WhenNotLoading = ({
 
 const Message = ({ show }: { show: boolean }) =>
   show ? (
-    <div className='MusicInfoTabStatsのmessage'>
+    <div className={styles.message}>
       Please log in or create an account to save your play statistics.
     </div>
   ) : null
@@ -38,9 +37,9 @@ const MusicInfoTabStats = ({ chart }: MusicInfoTabStatsProps) => {
   const user = useCurrentUser()
   const [loading, record] = usePersonalRecord(chart)
   return (
-    <div className='MusicInfoTabStats'>
+    <div className={styles.tabStats}>
       <Message show={!user} />
-      <dl className='MusicInfoTabStatsのcolumn is-left'>
+      <dl className={`${styles.column} ${styles.left}`}>
         <dt>Notes</dt>
         <dd>{chart.noteCount}</dd>
         <dt>BPM</dt>
@@ -54,7 +53,7 @@ const MusicInfoTabStats = ({ chart }: MusicInfoTabStatsProps) => {
           </WhenNotLoading>
         </dd>
       </dl>
-      <dl className='MusicInfoTabStatsのcolumn is-right'>
+      <dl className={`${styles.column} ${styles.right}`}>
         <dt>Best Score</dt>
         <dd data-testid='stats-best-score'>
           <WhenNotLoading loading={loading}>

@@ -1,6 +1,6 @@
-import './TipContainer.scss'
-
 import type { ReactNode } from 'react'
+
+import styles from './TipContainer.module.scss'
 
 const TipContainer = ({
   children,
@@ -11,11 +11,11 @@ const TipContainer = ({
   tip?: ReactNode
   tipVisible?: boolean
 }) => (
-  <div className='TipContainer'>
-    <div className='TipContainerのchildren'>{children}</div>
+  <div className={styles.container}>
+    <div>{children}</div>
     {tipVisible ? (
-      <span className='TipContainerのbubble'>
-        <span className='TipContainerのbubbleContent'>{tip}</span>
+      <span className={styles.bubble}>
+        <span className={styles.bubbleContent}>{tip}</span>
       </span>
     ) : null}
   </div>

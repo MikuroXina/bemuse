@@ -1,4 +1,4 @@
-import './ErrorDialog.scss'
+import styles from './ErrorDialog.module.scss'
 
 export interface ErrorDialogProps {
   onClose: () => void
@@ -18,12 +18,12 @@ export default function ErrorDialog({
   err,
 }: ErrorDialogProps) {
   return (
-    <div className='ErrorDialog'>
+    <div className={styles.dialog}>
       <h1>An error has occured!</h1>
       <p>{message}</p>
-      {url && <p className='ErrorDialogのwhere'>{`${url}:${line}:${col}`}</p>}
+      {url && <p className={styles.where}>{`${url}:${line}:${col}`}</p>}
       <pre>{err ? err.stack : 'No stack trace available'}</pre>
-      <div className='ErrorDialogのclose' onClick={onClose}>
+      <div className={styles.close} onClick={onClose}>
         &times;
       </div>
     </div>

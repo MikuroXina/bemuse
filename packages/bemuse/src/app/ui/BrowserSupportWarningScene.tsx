@@ -1,5 +1,3 @@
-import './BrowserSupportWarningScene.scss'
-
 import OptionsButton from '@bemuse/components/options/OptionsButton.js'
 import {
   type ReactScene,
@@ -9,6 +7,7 @@ import Scene from '@bemuse/ui/Scene.js'
 import { useContext } from 'react'
 
 import { SUPPORTED } from '../browser-support.js'
+import styles from './BrowserSupportWarningScene.module.scss'
 
 const BrowserSupportWarningScene = ({
   next,
@@ -22,7 +21,7 @@ const BrowserSupportWarningScene = ({
   }
 
   return (
-    <Scene className='BrowserSupportWarningScene'>
+    <Scene className={styles.scene}>
       <h1>Warning: Unsupported Browser</h1>
       <p>
         It seems that you are using an unsupported browser.
@@ -40,7 +39,7 @@ const BrowserSupportWarningScene = ({
       <p>
         <OptionsButton onClick={handleContinue}>Continue Anyway</OptionsButton>
       </p>
-      <p className='BrowserSupportWarningSceneのuserAgent'>
+      <p className={styles.userAgent}>
         <strong>User agent:</strong> {navigator.userAgent}
       </p>
     </Scene>

@@ -1,5 +1,3 @@
-import './ResultDeltasView.scss'
-
 import { timegate } from '@bemuse/game/judgments.js'
 import Panel from '@bemuse/ui/Panel.js'
 import _ from 'lodash'
@@ -9,6 +7,7 @@ import type { ReactNode } from 'react'
 import variance from 'variance'
 
 import getNonMissedDeltas from '../../app/interactors/getNonMissedDeltas.js'
+import styles from './ResultDeltasView.module.scss'
 
 const ms = (delta: number) => `${(delta * 1000).toFixed(1)} ms`
 
@@ -67,26 +66,26 @@ const ResultDeltasView = ({ deltas }: ResultDeltasViewProps) => {
   const max = _(stats).map('count').max() ?? 0
   const height = (value: number) => Math.ceil((value / Math.max(max, 1)) * 128)
   return (
-    <div className='ResultDeltasView'>
+    <div className={styles.container}>
       <Panel title='Accuracy Data'>
-        <div className='ResultDeltasViewのcontent'>
-          <div className='ResultDeltasViewのhistogram'>
+        <div className={styles.content}>
+          <div className={styles.histogram}>
             {stats.map(({ bucket, count }) => (
               <div
                 key={bucket}
-                className='ResultDeltasViewのhistogramBar'
+                className={styles.histogramBar}
                 data-bucket={bucket}
                 style={{ height: height(count) }}
               />
             ))}
           </div>
-          <div className='ResultDeltasViewのnumber is-early'>
+          <div className={`${styles.number} is-early`}>
             <strong>{earlyCount}</strong> EARLY
           </div>
-          <div className='ResultDeltasViewのnumber is-late'>
+          <div className={`${styles.number} is-late`}>
             <strong>{lateCount}</strong> LATE
           </div>
-          <table className='ResultDeltasViewのinfo'>
+          <table className={styles.info}>
             <tbody>
               <Row text='Mean:' data={mean(nonMissDeltas)} />
               <Row

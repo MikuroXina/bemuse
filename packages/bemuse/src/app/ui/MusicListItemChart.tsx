@@ -2,7 +2,6 @@ import './MusicListItemChart.scss'
 
 import { getGrade } from '@bemuse/rules/grade.js'
 import type { Chart } from '@mikuroxina/bemuse-types'
-import c from 'classnames'
 import type { MouseEvent } from 'react'
 
 import { usePersonalRecord } from './usePersonalRecord.js'
@@ -29,16 +28,16 @@ const MusicListItemChart = ({
     }
   }
 
-  const className = c('MusicListItemChart', {
-    'is-played': played,
-    'is-selected': selected,
-    'is-grade': !!grade,
-  })
   return (
-    <div className={className} onClick={handleClick} data-md5={chart.md5}>
-      <span className='MusicListItemChartのtext'>
-        {isLoading ? '…' : grade || chart.info.level}
-      </span>
+    <div
+      className='MusicListItemChart'
+      onClick={handleClick}
+      data-md5={chart.md5}
+      data-played={played}
+      data-selected={selected}
+      data-grade={!!grade}
+    >
+      <span>{isLoading ? '…' : grade || chart.info.level}</span>
     </div>
   )
 }

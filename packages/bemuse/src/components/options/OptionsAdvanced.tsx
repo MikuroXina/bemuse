@@ -1,10 +1,9 @@
-import './OptionsAdvanced.scss'
-
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import * as Options from '../../app/entities/Options.js'
 import { selectOptions } from '../../redux/ReduxState.js'
+import styles from './OptionsAdvanced.module.scss'
 import OptionsButton from './OptionsButton.js'
 import OptionsInputField from './OptionsInputField.js'
 
@@ -50,11 +49,12 @@ const OptionsAdvanced = () => {
   useLatency(handleAudioInputLatencyChange)
 
   return (
-    <div className='OptionsAdvanced'>
-      <div className='OptionsAdvancedのgroup'>
+    <div className={styles.advanced}>
+      <div className={styles.group}>
         <label>Latency</label>
-        <div className='OptionsAdvancedのgroupItem'>
+        <div className={styles.groupItem}>
           <OptionsInputField
+            className={styles.field}
             value={Options.audioInputLatency(options)}
             parse={parseLatency}
             stringify={stringifyLatency}

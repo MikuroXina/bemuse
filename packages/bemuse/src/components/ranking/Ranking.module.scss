@@ -1,0 +1,26 @@
+@use '@bemuse/ui/common.scss';
+
+.container {
+  color: #111;
+
+  /** TODO: Create a LinkButton component */
+  & a {
+    cursor: pointer;
+  }
+}
+
+.title {
+  padding: 0.4em 1em 0;
+  font-weight: bold;
+}
+.error {
+  color: #d55;
+}
+.errorRetry {
+  font-weight: normal;
+  color: #369;
+  text-decoration: none;
+}
+.errorDescription {
+  color: #888;
+}

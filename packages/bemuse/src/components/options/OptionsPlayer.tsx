@@ -1,5 +1,3 @@
-import './OptionsPlayer.scss'
-
 import type { ReactNode } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -20,6 +18,7 @@ import { type AppState, selectOptions } from '../../redux/ReduxState.js'
 import OptionsButton from './OptionsButton.js'
 import OptionsCheckbox from './OptionsCheckbox.js'
 import OptionsInputField from './OptionsInputField.js'
+import styles from './OptionsPlayer.module.scss'
 import { Panel, Scratch } from './OptionsPlayerGraphics.js'
 import { OptionsPlayerSelector } from './OptionsPlayerSelector.js'
 import OptionsSpeed from './OptionsSpeed.js'
@@ -46,7 +45,7 @@ const SettingRow = <T,>({
   return (
     <OptionsPlayer.Row label={label} hidden={!visible}>
       {control}
-      {!!help && <div className='OptionsPlayerのhelp'>{help}</div>}
+      {!!help && <div className={styles.help}>{help}</div>}
     </OptionsPlayer.Row>
   )
 }
@@ -55,7 +54,7 @@ const OptionsPlayer = ({ onClose }: { onClose?: () => void }) => {
   const dispatch = useDispatch()
 
   return (
-    <div className='OptionsPlayer'>
+    <div className={styles.container}>
       <SettingRow
         selector={speed}
         label='Speed'
@@ -160,7 +159,7 @@ const OptionsPlayer = ({ onClose }: { onClose?: () => void }) => {
               }
               style={{ width: '5em' }}
             />
-            <span className='OptionsPlayerのhint'>%</span>
+            <span className={styles.hint}>%</span>
           </>
         )}
       />
@@ -176,7 +175,7 @@ const OptionsPlayer = ({ onClose }: { onClose?: () => void }) => {
             }
           >
             Enable background animations{' '}
-            <span className='OptionsPlayerのhint'>(720p, alpha)</span>
+            <span className={styles.hint}>(720p, alpha)</span>
           </OptionsCheckbox>
         )}
       />
@@ -192,7 +191,7 @@ const OptionsPlayer = ({ onClose }: { onClose?: () => void }) => {
             }
           >
             Maintain absolute note velocity{' '}
-            <span className='OptionsPlayerのhint'>(advanced)</span>
+            <span className={styles.hint}>(advanced)</span>
           </OptionsCheckbox>
         )}
       />
@@ -206,7 +205,7 @@ const OptionsPlayer = ({ onClose }: { onClose?: () => void }) => {
             onToggle={() => dispatch(optionsSlice.actions.TOGGLE_GAUGE())}
           >
             Show expert gauge{' '}
-            <span className='OptionsPlayerのhint'>(experimental)</span>
+            <span className={styles.hint}>(experimental)</span>
           </OptionsCheckbox>
         )}
       />
@@ -224,7 +223,7 @@ const OptionsPlayer = ({ onClose }: { onClose?: () => void }) => {
         )}
       />
 
-      <div className='OptionsPlayerのbuttons'>
+      <div className={styles.buttons}>
         <OptionsButton onClick={onClose}>Save & Exit</OptionsButton>
       </div>
     </div>
@@ -242,7 +241,7 @@ const OptionsPlayerRow = ({
   label,
   children,
 }: OptionsPlayerRowProps) => (
-  <div className='OptionsPlayerのrow' style={{ display: hidden ? 'none' : '' }}>
+  <div className={styles.row} data-hidden={hidden}>
     <label>{label}</label>
     <div>{children}</div>
   </div>

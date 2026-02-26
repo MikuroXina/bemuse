@@ -1,5 +1,3 @@
-import './AuthenticationForm.scss'
-
 import OptionsButton from '@bemuse/components/options/OptionsButton.js'
 import {
   type InputEvent,
@@ -7,6 +5,8 @@ import {
   type MouseEvent,
   useRef,
 } from 'react'
+
+import styles from './AuthenticationForm.module.scss'
 
 export interface AuthenticationFormData {
   username: string
@@ -45,37 +45,37 @@ const AuthenticationForm = ({ onSubmit, mode }: AuthenticationFormProps) => {
 
   return (
     <form
-      className='AuthenticationForm'
+      className={styles.container}
       onKeyDown={preventPropagate}
       onKeyUp={preventPropagate}
       onBeforeInput={preventPropagate}
     >
-      <div className='AuthenticationFormのgroup'>
+      <div className={styles.group}>
         <label>
-          <span className='AuthenticationFormのlabel'>Username</span>
-          <span className='AuthenticationFormのcontrol'>
+          <span className={styles.label}>Username</span>
+          <span className={styles.control}>
             <input type='text' defaultValue='' ref={usernameRef} />
           </span>
         </label>
         <label hidden={mode !== 'signUp'}>
-          <span className='AuthenticationFormのlabel'>Email</span>
-          <span className='AuthenticationFormのcontrol'>
+          <span className={styles.label}>Email</span>
+          <span className={styles.control}>
             <input type='email' defaultValue='' ref={emailRef} />
           </span>
         </label>
         <label>
-          <span className='AuthenticationFormのlabel'>Password</span>
-          <span className='AuthenticationFormのcontrol'>
+          <span className={styles.label}>Password</span>
+          <span className={styles.control}>
             <input type='password' defaultValue='' ref={passwordRef} />
           </span>
         </label>
         <label hidden={mode !== 'signUp'}>
-          <span className='AuthenticationFormのlabel'>Confirm Password</span>
-          <span className='AuthenticationFormのcontrol'>
+          <span className={styles.label}>Confirm Password</span>
+          <span className={styles.control}>
             <input type='password' defaultValue='' ref={passwordConfirmRef} />
           </span>
         </label>
-        <div className='AuthenticationFormのbuttons'>
+        <div className={styles.buttons}>
           <OptionsButton onClick={onButtonClick}>
             {mode === 'signUp' ? 'Sign Me Up' : 'Log In'}
           </OptionsButton>

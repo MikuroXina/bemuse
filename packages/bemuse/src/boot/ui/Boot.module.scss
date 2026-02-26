@@ -1,0 +1,66 @@
+@use '@bemuse/ui/common.scss';
+
+.boot {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &[data-hidden='true'] {
+    display: none;
+  }
+}
+
+.content {
+  animation: 0.5s boot--in cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.dj {
+  width: 64px;
+  height: 64px;
+  background: url(../../ui/images/loading/dj.png) center no-repeat;
+  background-size: contain;
+  animation: 2s boot--dj--spin linear infinite;
+  margin: 0 auto 0.5em;
+}
+
+.text {
+  text-align: center;
+  font-size: 16px;
+  color: #8b8685;
+  animation: 1s boot--text--pulse linear infinite;
+}
+
+@keyframes boot--dj--spin {
+  from {
+    transform: perspective(480px) rotateY(0deg);
+  }
+  to {
+    transform: perspective(480px) rotateY(-360deg);
+  }
+}
+
+@keyframes boot--text--pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  0% {
+    opacity: 1;
+  }
+}
+
+@keyframes boot--in {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
