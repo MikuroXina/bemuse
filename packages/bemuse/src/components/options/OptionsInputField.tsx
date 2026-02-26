@@ -28,7 +28,14 @@ const OptionsInputField = <T,>(
   props: OptionsInputFieldProps<T> &
     Omit<ComponentProps<'input'>, keyof OptionsInputFieldProps<T>>
 ) => {
-  const { stringify, parse, onChange, validator, value: defaultValue } = props
+  const {
+    stringify,
+    parse,
+    onChange,
+    validator,
+    value: defaultValue,
+    className,
+  } = props
   const [value, setValue] = useState(stringify(defaultValue))
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -57,7 +64,7 @@ const OptionsInputField = <T,>(
       value={value}
       onChange={handleInputChange}
       onBlur={handleInputBlur}
-      className='OptionsInputField'
+      className={`OptionsInputField ${className}`}
     />
   )
 }

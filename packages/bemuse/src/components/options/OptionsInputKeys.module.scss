@@ -7,7 +7,7 @@
 
   &[data-arrangement='bm'] {
     width: 240px;
-    .OptionsInputKey {
+    & > .keys > .key {
       width: 25%;
       &[data-n='1'],
       &[data-n='3'],
@@ -45,7 +45,7 @@
   }
   &[data-arrangement='kb'] {
     width: 420px;
-    .OptionsInputKey {
+    & > .keys > .key {
       width: math.div(100%, 7);
       top: 0%;
       &[data-n='1'] {

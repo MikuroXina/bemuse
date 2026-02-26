@@ -10,7 +10,7 @@ export interface OptionsProps {
 }
 
 const Options = ({ onClose }: OptionsProps) => (
-  <div className={styles.option}>
+  <div className={styles.container}>
     <div className={styles.second}>
       <Panel className={styles.panel} title='Player Settings'>
         <OptionsPlayer onClose={onClose} />
