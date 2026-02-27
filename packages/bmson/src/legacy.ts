@@ -14,7 +14,7 @@ export interface LegacyBmson {
 }
 
 export function barLinesForBmson(bmson: LegacyBmson) {
-  const lines = bmson.lines
+  const lines = bmson.lines ?? []
   return lines.map(({ y }) => beatForLoc(y)).sort((a, b) => a - b)
 }
 
