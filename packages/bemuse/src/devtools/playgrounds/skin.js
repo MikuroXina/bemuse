@@ -6,10 +6,7 @@ import * as Scintillator from '@bemuse/scintillator'
 import MAIN from '@bemuse/utils/main-element'
 import { fromBMSChart } from '@mikuroxina/bemuse-notechart/lib/loader/BMSNotechartLoader'
 import { Compiler } from '@mikuroxina/bms'
-import $ from 'jquery'
 
-// TODO [#628]: Convert the `main` method to async function (instead of using `co`) in src/devtools/playgrounds/skin.js
-// See issue #575 for more details.
 export async function main() {
   const chart = Compiler.compile(`
     #TITLE ทดสอบ Bemuse
@@ -93,7 +90,7 @@ function showCanvas(view) {
 
   MAIN.appendChild(view)
   resize()
-  $(window).on('resize', resize)
+  window.addEventListener('resize', resize)
 
   function resize() {
     const scale = Math.min(
