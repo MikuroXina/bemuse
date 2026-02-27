@@ -1,0 +1,56 @@
+@use '@bemuse/ui/common.scss';
+
+.listItem {
+  @include common.soft-shadow;
+
+  background: rgba(#fff, 0.9);
+  border: 5px solid rgba(#fff, 0);
+  border-radius: 0.8rem;
+  color: black;
+  padding: 0.6rem 0.8rem;
+  position: relative;
+  cursor: pointer;
+
+  &[data-active='true'] {
+    background: rgba(#fff, 0.95);
+    border: 5px solid rgba(#000, 0.2);
+  }
+}
+
+.infoTop::after {
+  clear: both;
+  display: block;
+  content: '';
+}
+
+.infoBottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 0.5ex;
+  float: left;
+}
+
+.charts {
+  float: right;
+}
+
+.genre {
+  opacity: 0.6;
+}
+
+.tutorial {
+  font-size: 2.5em;
+  font-weight: bold;
+}
+
+.highlight {
+  background: #ffa;
+  color: #a00;
+}

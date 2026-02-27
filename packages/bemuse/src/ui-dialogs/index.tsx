@@ -1,5 +1,3 @@
-import './index.scss'
-
 import Button from '@bemuse/ui/Button.js'
 import Panel from '@bemuse/ui/Panel.js'
 import VBox from '@bemuse/ui/VBox.js'
@@ -9,6 +7,7 @@ import type { ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
 
 import { ComboBox } from './ComboBox.js'
+import styles from './index.module.scss'
 
 export async function showAlert(title: string, message: ReactNode) {
   await registerActiveModal(
@@ -23,8 +22,8 @@ export async function showAlert(title: string, message: ReactNode) {
       }
       const popup = (
         <AlertDialog.Root open>
-          <AlertDialog.Overlay className='AlertDialogのoverlay' />
-          <AlertDialog.Content className='AlertDialogのcontent'>
+          <AlertDialog.Overlay className={styles.overlay} />
+          <AlertDialog.Content className={styles.content}>
             <Panel title={<AlertDialog.Title>{title}</AlertDialog.Title>}>
               <VBox padding='1em' gap='0.75em'>
                 <AlertDialog.Description>{message}</AlertDialog.Description>
@@ -61,8 +60,8 @@ export async function showQuickPick<T extends QuickPickItem>(
       }
       const popup = (
         <AlertDialog.Root open>
-          <AlertDialog.Overlay className='AlertDialogのoverlay' />
-          <AlertDialog.Content className='AlertDialogのcontent'>
+          <AlertDialog.Overlay className={styles.overlay} />
+          <AlertDialog.Content className={styles.content}>
             <Panel
               title={<AlertDialog.Title>{options.title}</AlertDialog.Title>}
             >

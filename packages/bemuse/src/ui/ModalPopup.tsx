@@ -1,7 +1,6 @@
-import './ModalPopup.scss'
-
 import type { MouseEvent, ReactNode } from 'react'
 
+import styles from './ModalPopup.module.scss'
 import WarpContainer from './WarpContainer.js'
 
 export interface ModalPopupProps {
@@ -18,11 +17,11 @@ const ModalPopup = ({
   if (visible === false) return null
   return (
     <WarpContainer>
-      <div className='ModalPopup' onClick={onBackdropClick}>
-        <div className='ModalPopupのscroller'>
-          <div className='ModalPopupのcontentsContainer'>
+      <div className={styles.container} onClick={onBackdropClick}>
+        <div className={styles.scroller}>
+          <div className={styles.contentsContainer}>
             <div
-              className='ModalPopupのcontents'
+              className={styles.contents}
               onClick={(e) => e.stopPropagation()}
             >
               {children}

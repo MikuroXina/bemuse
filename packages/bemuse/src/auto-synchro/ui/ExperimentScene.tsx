@@ -1,9 +1,7 @@
-import './ExperimentScene.scss'
-
-import c from 'classnames'
+import { type Subject, useSubject } from '@bemuse/utils/subject.js'
 import type { MouseEventHandler } from 'react'
-import { useObservable } from 'react-rx'
-import { Observable } from 'rxjs'
+
+import styles from './ExperimentScene.module.scss'
 
 export type ExperimentState =
   | {
@@ -28,20 +26,16 @@ const initialState = {
 } as const
 
 export interface ExperimentSceneProps {
-  stateStream: Observable<ExperimentState>
+  stateSubject: Subject<ExperimentState>
   onStart?: MouseEventHandler<HTMLButtonElement>
 }
 
 const ExperimentScene = (props: ExperimentSceneProps) => {
-  const state = useObservable(props.stateStream, initialState)
+  const state = useSubject(props.stateSubject, initialState)
   return (
-    <div
-      className={c('ExperimentScene', {
-        'is-finished': state.type === 'finished',
-      })}
-    >
-      <div className='ExperimentSceneのwrapper'>
-        <div className='ExperimentSceneのwrapperInner'>
+    <div className={styles.scene} data-type={state.type}>
+      <div className={styles.wrapper}>
+        <div className={styles.wrapperInner}>
           <Contents state={state} onStart={props.onStart} />
         </div>
       </div>
@@ -56,15 +50,15 @@ const Ready = ({
 }: {
   onStart?: MouseEventHandler<HTMLButtonElement>
 }) => (
-  <div className='ExperimentSceneのready'>
-    <button className='ExperimentSceneのbutton' onClick={onStart}>
+  <div>
+    <button className={styles.button} onClick={onStart}>
       Start Calibration
     </button>
   </div>
 )
 
 const Message = ({ text }: { text: string }) => (
-  <div className='ExperimentSceneのmessage'>{text}</div>
+  <div className={styles.message}>{text}</div>
 )
 
 const Contents = ({
@@ -89,7 +83,7 @@ const Contents = ({
     WebkitTransform: transform,
   }
   return (
-    <div className='ExperimentSceneのcollection'>
+    <div>
       <Message
         text={
           finished
@@ -97,8 +91,8 @@ const Contents = ({
             : 'Please press the space bar when you hear the kick drum.'
         }
       />
-      <div className='ExperimentSceneのprogress'>
-        <div className='ExperimentSceneのprogressBar' style={style} />
+      <div className={styles.progress}>
+        <div className={styles.progressBar} style={style} />
       </div>
     </div>
   )

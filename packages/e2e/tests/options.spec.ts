@@ -34,7 +34,14 @@ test('Speed can be increased', async ({ page }) => {
   await page.getByTestId('enter-game').click()
   await page.getByTestId('keyboard-mode').click()
   await page.getByTestId('options-button').click()
-  expect(await page.locator('.OptionsSpeed > input').inputValue()).toBe('1.0')
-  await page.locator('.OptionsSpeedのplus > button').click()
-  expect(await page.locator('.OptionsSpeed > input').inputValue()).toBe('1.5')
+  expect(
+    await page.getByTestId('options-speed').getByRole('textbox').inputValue()
+  ).toBe('1.0')
+  await page
+    .getByTestId('options-speed')
+    .getByRole('button', { name: '+' })
+    .click()
+  expect(
+    await page.getByTestId('options-speed').getByRole('textbox').inputValue()
+  ).toBe('1.5')
 })

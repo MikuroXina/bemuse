@@ -1,16 +1,14 @@
-import './AuthenticationPanel.scss'
-
 import djBemuse from '@bemuse/app/ui/about-scene/DJBM.png'
 import { OnlineContext } from '@bemuse/online/instance.js'
 import Flex from '@bemuse/ui/Flex.js'
 import Panel from '@bemuse/ui/Panel.js'
-import c from 'classnames'
 import { useContext, useState } from 'react'
 
 import AuthenticationForm, {
   type AuthenticationFormData,
   type AuthMode,
 } from './AuthenticationForm.js'
+import styles from './AuthenticationPanel.module.scss'
 
 export interface AuthenticationPanelProps {
   onFinish?: () => void
@@ -24,14 +22,10 @@ interface AuthState {
 const Message = ({ state }: { state: AuthState }) => {
   if (state.status === 'idle' || !state.message) return null
   return (
-    <div className={c('AuthenticationPanelのmessage', 'is-' + state.status)}>
+    <div className={styles.message} data-status={state.status}>
       {state.message}
     </div>
   )
-}
-
-const modeActiveClass = (targetMode: AuthMode, currentMode: AuthMode) => {
-  return targetMode === currentMode ? 'is-active' : ''
 }
 
 const AuthenticationPanel = ({ onFinish }: AuthenticationPanelProps) => {
@@ -125,43 +119,35 @@ const AuthenticationPanel = ({ onFinish }: AuthenticationPanelProps) => {
   }
 
   return (
-    <div className='AuthenticationPanel'>
-      <Panel title='Bemuse Online Ranking'>
-        <div className='AuthenticationPanelのlayout'>
-          <div className='AuthenticationPanelのtitle'>
-            <img src={djBemuse} alt='DJ Bemuse' />
-            <div className='AuthenticationPanelのidentification'>
-              Bemuse
-              <br />
-              Online
-              <br />
-              Ranking
-            </div>
-          </div>
-          <div className='AuthenticationPanelのcontent'>
-            <div className='AuthenticationPanelのmodeSwitcher'>
-              <a
-                onClick={onSwitchToLogin}
-                className={modeActiveClass('logIn', mode)}
-              >
-                Log In
-              </a>{' '}
-              &middot;{' '}
-              <a
-                onClick={onSwitchToSignUp}
-                className={modeActiveClass('signUp', mode)}
-              >
-                Create an Account
-              </a>
-            </div>
-            <Flex grow='2' />
-            <Message state={auth} />
-            <AuthenticationForm mode={mode} onSubmit={onSubmit} />
-            <Flex grow='3' />
+    <Panel title='Bemuse Online Ranking'>
+      <div className={styles.layout} data-testid='authentication-panel'>
+        <div className={styles.title}>
+          <img src={djBemuse} alt='DJ Bemuse' />
+          <div className={styles.identification}>
+            Bemuse
+            <br />
+            Online
+            <br />
+            Ranking
           </div>
         </div>
-      </Panel>
-    </div>
+        <div className={styles.content}>
+          <div className={styles.modeSwitcher}>
+            <a onClick={onSwitchToLogin} data-active={mode === 'logIn'}>
+              Log In
+            </a>{' '}
+            &middot;{' '}
+            <a onClick={onSwitchToSignUp} data-active={mode === 'signUp'}>
+              Create an Account
+            </a>
+          </div>
+          <Flex grow='2' />
+          <Message state={auth} />
+          <AuthenticationForm mode={mode} onSubmit={onSubmit} />
+          <Flex grow='3' />
+        </div>
+      </div>
+    </Panel>
   )
 }
 

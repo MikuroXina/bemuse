@@ -1,5 +1,3 @@
-import './ModeSelectScene.scss'
-
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
 import { SceneManagerContext } from '@bemuse/scene-manager/index.js'
 import Scene from '@bemuse/ui/Scene.js'
@@ -9,6 +7,7 @@ import { useContext, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { optionsSlice } from '../entities/Options.js'
+import styles from './ModeSelectScene.module.scss'
 import MusicSelectScene from './MusicSelectScene.js'
 
 function KBGraphics() {
@@ -41,12 +40,7 @@ function KBGraphics() {
     }
   }
   return (
-    <svg
-      width='96'
-      height='54'
-      viewBox='0 0 96 54'
-      className='ModeSelectSceneのgraphics'
-    >
+    <svg width='96' height='54' viewBox='0 0 96 54' className={styles.graphics}>
       {children}
     </svg>
   )
@@ -68,12 +62,7 @@ function BMGraphics() {
     )
   }
   return (
-    <svg
-      width='96'
-      height='54'
-      viewBox='0 0 96 54'
-      className='ModeSelectSceneのgraphics'
-    >
+    <svg width='96' height='54' viewBox='0 0 96 54' className={styles.graphics}>
       <circle cx='21' cy='27' r='16' />
       {children}
     </svg>
@@ -121,16 +110,16 @@ const ModeSelectScene = () => {
   }
 
   return (
-    <Scene className='ModeSelectScene'>
-      <SceneHeading>Select Mode</SceneHeading>
-      <div className='ModeSelectSceneのmain'>
+    <Scene className={styles.scene}>
+      <SceneHeading className={styles.heading}>Select Mode</SceneHeading>
+      <div className={styles.main}>
         <div
-          className='ModeSelectSceneのcontent'
+          className={styles.content}
           onTouchStart={() => setPlayDevice('touch')}
           onMouseDown={() => setPlayDevice('keyboard')}
         >
           <div
-            className='ModeSelectSceneのitem'
+            className={styles.item}
             onClick={handleKB}
             data-testid='keyboard-mode'
           >
@@ -143,7 +132,7 @@ const ModeSelectScene = () => {
             <p>This mode is similar to O2Jam.</p>
           </div>
           <div
-            className='ModeSelectSceneのitem'
+            className={styles.item}
             onClick={handleBM}
             data-testid='bms-mode'
           >

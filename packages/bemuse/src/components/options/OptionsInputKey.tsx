@@ -1,8 +1,7 @@
-import './OptionsInputKey.scss'
-
-import c from 'classnames'
+import styles from './OptionsInputKey.module.scss'
 
 export interface OptionsInputKeyProps {
+  className?: string
   text: string
   n: number
   isEditing: boolean
@@ -10,6 +9,7 @@ export interface OptionsInputKeyProps {
 }
 
 export const OptionsInputKey = ({
+  className = '',
   text,
   n,
   isEditing,
@@ -17,18 +17,17 @@ export const OptionsInputKey = ({
 }: OptionsInputKeyProps) => {
   return (
     <div
-      className='OptionsInputKey'
+      className={`${styles.key} ${className}`}
       data-testid='options-input-key'
       data-n={n}
       data-editing={isEditing ? 'true' : 'false'}
     >
       <div
-        className={c('OptionsInputKeyのcontents', {
-          'is-editing': isEditing,
-        })}
+        className={styles.contents}
         onClick={onEdit}
+        data-editing={isEditing}
       >
-        <div className='OptionsInputKeyのtext'>{text}</div>
+        <div className={styles.text}>{text}</div>
       </div>
     </div>
   )

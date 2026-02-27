@@ -1,10 +1,9 @@
-import './Ranking.scss'
-
 import type { RankingState } from '@bemuse/online/index.js'
 import { isWaiting } from '@bemuse/online/operations.js'
 import AuthenticationPopup from '@bemuse/online/ui/AuthenticationPopup.js'
 import { type ReactNode, useState } from 'react'
 
+import styles from './Ranking.module.scss'
 import RankingTable, { Message, Row } from './RankingTable.js'
 
 const Error = ({
@@ -16,15 +15,15 @@ const Error = ({
   error?: Error
   retry?: () => void
 }) => (
-  <span className='Rankingのerror'>
+  <span className={styles.error}>
     <strong>
       {text}{' '}
-      <a onClick={retry} className='RankingのerrorRetry'>
+      <a onClick={retry} className={styles.errorRetry}>
         (click to retry)
       </a>
     </strong>
     <br />
-    <span className='RankingのerrorDescription'>
+    <span className={styles.errorDescription}>
       {error && error.message ? '' + error.message : '(unknown error)'}
     </span>
   </span>
@@ -58,8 +57,8 @@ const Leaderboard = ({
     tableBody = <Message>No Data</Message>
   }
   return (
-    <div className='Rankingのleaderboard'>
-      <div className='Rankingのtitle'>Leaderboard</div>
+    <div className={styles.leaderboard} data-testid='ranking-leaderboard'>
+      <div className={styles.title}>Leaderboard</div>
       <RankingTable>{tableBody}</RankingTable>
     </div>
   )
@@ -101,8 +100,8 @@ const Yours = ({
     tableBody = <Message>No record. Let’s play!</Message>
   }
   return (
-    <div className='Rankingのyours'>
-      <div className='Rankingのtitle'>Your Ranking</div>
+    <div className={styles.yours} data-testid='ranking-yours'>
+      <div className={styles.title}>Your Ranking</div>
       <RankingTable>{tableBody}</RankingTable>
     </div>
   )
@@ -125,7 +124,7 @@ const Ranking = ({
   const hidePopup = () => setAuthenticationPopupVisible(false)
 
   return (
-    <div className='Ranking'>
+    <div className={styles.container} data-testid='ranking'>
       <AuthenticationPopup
         visible={authenticationPopupVisible}
         onFinish={hidePopup}

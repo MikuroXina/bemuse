@@ -1,5 +1,3 @@
-import './ResultTable.scss'
-
 import ModalPopup from '@bemuse/ui/ModalPopup.js'
 import RunningNumber from '@bemuse/ui/RunningNumber.js'
 import { useState } from 'react'
@@ -7,6 +5,7 @@ import { useState } from 'react'
 import type { Result } from '../../app/types.js'
 import FirstTimeTip from '../../app/ui/FirstTimeTip.js'
 import ResultDeltasView from './ResultDeltasView.js'
+import styles from './ResultTable.module.scss'
 
 const formatAccuracy = (value: number) => {
   return (value * 100).toFixed(2) + '%'
@@ -28,8 +27,8 @@ const ResultTable = ({ result }: ResultTableProps) => {
   }
 
   return (
-    <div className='ResultTable'>
-      <table className='ResultTableのtable'>
+    <div>
+      <table className={styles.table}>
         <tbody>
           <tr>
             <td>
@@ -63,7 +62,7 @@ const ResultTable = ({ result }: ResultTableProps) => {
           </tr>
         </tbody>
       </table>
-      <table className='ResultTableのtable'>
+      <table className={styles.table}>
         <tbody>
           <tr title={`Total combos: ${result['totalCombo']}`}>
             <td>
@@ -87,7 +86,7 @@ const ResultTable = ({ result }: ResultTableProps) => {
           </tr>
         </tbody>
       </table>
-      <table className='ResultTableのtable is-total'>
+      <table className={styles.table}>
         <tbody>
           <tr>
             <td>

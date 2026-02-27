@@ -1,8 +1,7 @@
-import './OptionsInputKeys.scss'
-
-import _ from 'lodash'
+import range from 'lodash/range'
 
 import OptionsInputKey from './OptionsInputKey.js'
+import styles from './OptionsInputKeys.module.scss'
 
 export interface OptionsInputKeysProps {
   texts: Record<string, string>
@@ -18,12 +17,13 @@ const OptionsInputKeys = ({
   keyboardMode,
 }: OptionsInputKeysProps) => (
   <div
-    className='OptionsInputKeys'
+    className={styles.container}
     data-arrangement={keyboardMode ? 'kb' : 'bm'}
   >
-    <div className='OptionsInputKeysのkeys'>
-      {_.range(1, 8).map((i) => (
+    <div className={styles.keys}>
+      {range(1, 8).map((i) => (
         <OptionsInputKey
+          className={styles.key}
           n={i}
           key={i}
           text={texts[i]}

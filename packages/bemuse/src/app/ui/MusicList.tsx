@@ -1,11 +1,10 @@
-import './MusicList.scss'
-
 import type { Song } from '@bemuse/collection-model/types.js'
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
 import type { Chart, SongMetadataInCollection } from '@mikuroxina/bemuse-types'
 import _ from 'lodash'
 import { useLayoutEffect, useRef } from 'react'
 
+import styles from './MusicList.module.scss'
 import MusicListItem from './MusicListItem.js'
 
 export interface ChartProps {
@@ -36,7 +35,7 @@ export interface MusicListProps {
     title: string
     songs: readonly SongMetadataInCollection[]
   }[]
-  onTouch: () => void
+  onDeselect: () => void
   onSelect: (song: Song, chart?: Chart) => void
   selectedSong: SongMetadataInCollection
   selectedChart: Chart
@@ -59,7 +58,7 @@ const getSelectedChart = (song: Song, selectedChartInProps: Chart) => {
 
 const MusicList = ({
   groups,
-  onTouch,
+  onDeselect,
   onSelect,
   selectedSong,
   selectedChart,
@@ -87,27 +86,30 @@ const MusicList = ({
 
   return (
     <ul
-      className='MusicList js-scrollable-view'
-      onTouchStart={onTouch}
+      className={styles.list}
+      onTouchStart={onDeselect}
+      onClick={onDeselect}
       ref={musicListRef}
     >
       {groups.map(({ title, songs }) => [
-        <li key={title} className='MusicListのgroupTitle'>
+        <li key={title} className={styles.groupTitle}>
           {title}
         </li>,
         songs.map((song) => (
-          <MusicListItem
-            key={song.id}
-            song={song}
-            selected={song.id === selectedSong.id}
-            selectedChart={getSelectedChart(song, selectedChart)}
-            playMode={playMode}
-            onSelect={(e, song, chart) => {
-              activeRectRef.current = e.currentTarget.getBoundingClientRect()
-              onSelect(song, chart)
-            }}
-            highlight={highlight}
-          />
+          <div key={song.id} className={styles.item}>
+            <MusicListItem
+              song={song}
+              selected={song.id === selectedSong.id}
+              selectedChart={getSelectedChart(song, selectedChart)}
+              playMode={playMode}
+              onSelect={(e, song, chart) => {
+                e.stopPropagation()
+                activeRectRef.current = e.currentTarget.getBoundingClientRect()
+                onSelect(song, chart)
+              }}
+              highlight={highlight}
+            />
+          </div>
         )),
       ])}
     </ul>

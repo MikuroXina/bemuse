@@ -1,12 +1,10 @@
-import './MusicListItem.scss'
-
 import type { Song } from '@bemuse/collection-model/types.js'
 import getPlayableCharts from '@bemuse/music-collection/getPlayableCharts.js'
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
 import type { Chart, SongMetadataInCollection } from '@mikuroxina/bemuse-types'
-import c from 'classnames'
 import { memo, type MouseEvent } from 'react'
 
+import styles from './MusicListItem.module.scss'
 import MusicListItemCharts from './MusicListItemCharts.js'
 
 export interface MusicListItemProps {
@@ -45,9 +43,15 @@ const Highlight = ({
   text: string
   highlight?: string
 }) => {
-  if (!highlight) return <>{text}</>
+  if (!highlight) {
+    return <>{text}</>
+  }
+
   const segments = text.toLowerCase().split(highlight.toLowerCase())
-  if (segments.length === 1) return <>{text}</>
+  if (segments.length === 1) {
+    return <>{text}</>
+  }
+
   const output = []
   let start = 0
   for (let i = 0; i < segments.length; i++) {
@@ -55,9 +59,7 @@ const Highlight = ({
     start += segments[i].length
     if (i !== segments.length - 1) {
       const highlightedText = text.substring(start, highlight.length)
-      output.push(
-        <span className='MusicListItemのhighlight'>{highlightedText}</span>
-      )
+      output.push(<span className={styles.highlight}>{highlightedText}</span>)
       start += highlight.length
     }
   }
@@ -74,38 +76,35 @@ const MusicListItem = (props: MusicListItemProps) => {
     onSelect(e, song, chart)
   }
 
-  const className = c('MusicListItem', {
-    'is-active': selected,
-    'js-active-song': selected,
-  })
   return (
     <li
-      className={className}
+      className={styles.listItem}
       onClick={handleClick}
+      data-active={selected}
       data-testid='music-list-item'
     >
       {song.tutorial ? (
-        <div className='MusicListItemのtutorial'>
-          <div className='MusicListItemのcharts'>
+        <div className={styles.tutorial}>
+          <div className={styles.charts}>
             <ChartList onClick={handleChartClick} {...props} />
           </div>
           Tutorial
         </div>
       ) : (
-        <div className='MusicListItemのinfo'>
-          <div className='MusicListItemのinfo-top'>
-            <div className='MusicListItemのtitle'>
+        <div>
+          <div className={styles.infoTop}>
+            <div className={styles.title}>
               <Highlight text={song.title} highlight={highlight} />
             </div>
-            <div className='MusicListItemのcharts'>
+            <div className={styles.charts}>
               <ChartList onClick={handleChartClick} {...props} />
             </div>
           </div>
-          <div className='MusicListItemのinfo-bottom'>
-            <div className='MusicListItemのartist'>
+          <div className={styles.infoBottom}>
+            <div className={styles.artist}>
               <Highlight text={song.artist} highlight={highlight} />
             </div>
-            <div className='MusicListItemのgenre'>
+            <div className={styles.genre}>
               <Highlight text={song.genre} highlight={highlight} />
             </div>
           </div>

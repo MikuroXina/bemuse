@@ -1,8 +1,5 @@
-import './CustomBMS.scss'
-
 import type { Song } from '@bemuse/collection-model/types.js'
 import Panel from '@bemuse/ui/Panel.js'
-import c from 'classnames'
 import { type DragEventHandler, useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
@@ -12,6 +9,7 @@ import {
   consumePendingArchiveURL,
   hasPendingArchiveToLoad,
 } from '../app/PreloadedCustomBMS.js'
+import styles from './CustomBMS.module.scss'
 
 export interface CustomBMSProps {
   onSongLoaded?: (song: Song) => void
@@ -70,24 +68,23 @@ const CustomBMS = ({ onSongLoaded }: CustomBMSProps) => {
   }
 
   return (
-    <Panel className='CustomBMS' title='Load Custom BMS'>
-      <div className='CustomBMSのwrapper'>
-        <div className='CustomBMSのinstruction'>
+    <Panel title='Load Custom BMS'>
+      <div className={styles.wrapper}>
+        <div className={styles.instruction}>
           Please drag and drop a BMS folder into the drop zone below.
         </div>
-        <div className='CustomBMSのremark'>
+        <div className={styles.remark}>
           This feature is only supported in Google Chrome and Firefox.
         </div>
-        <div className='CustomBMSのremark'>
+        <div className={styles.remark}>
           Please don’t play unauthorized / illegally obtained BMS files.
         </div>
-        <div className='CustomBMSのremark'>
+        <div className={styles.remark}>
           Experimental: You can paste IPFS path/URL here.
         </div>
         <div
-          className={c('CustomBMSのdropzone', {
-            'is-hover': hover,
-          })}
+          className={styles.dropzone}
+          data-hover={hover}
           onDragOver={handleDragOver}
           onDragEnter={handleDragEnter}
           onDragLeave={handleDragLeave}
@@ -96,22 +93,18 @@ const CustomBMS = ({ onSongLoaded }: CustomBMSProps) => {
           {log ? (
             <LogTextarea log={log} />
           ) : (
-            <div className='CustomBMSのdropzoneHint'>
+            <div className={styles.dropzoneHint}>
               Drop BMS folder here.
-              <input
-                type='file'
-                id='CustomBMSのdropzoneInput'
-                className='CustomBMSのdropzoneInput'
-                accept='.zip,.7z,.rar'
-                ref={dropzoneInput}
-                onChange={() => {
-                  handleFileSelect(dropzoneInput.current!.files![0])
-                }}
-              />
-              <label
-                htmlFor='CustomBMSのdropzoneInput'
-                className='CustomBMSのdropzoneInputLabel'
-              >
+              <label className={styles.dropzoneInputLabel}>
+                <input
+                  type='file'
+                  className={styles.dropzoneInput}
+                  accept='.zip,.7z,.rar'
+                  ref={dropzoneInput}
+                  onChange={() => {
+                    handleFileSelect(dropzoneInput.current!.files![0])
+                  }}
+                />
                 Select File on Device.
               </label>
             </div>
@@ -124,13 +117,13 @@ const CustomBMS = ({ onSongLoaded }: CustomBMSProps) => {
 
 const LogTextarea = ({ log }: { log: string[] }): JSX.Element => {
   return log.length ? (
-    <div className='CustomBMSのlog'>
+    <div className={styles.log}>
       {log.map((text, i) => (
         <p key={i}>{text}</p>
       ))}
     </div>
   ) : (
-    <div className='CustomBMSのlog'>
+    <div className={styles.log}>
       <p>Omachi kudasai...</p>
     </div>
   )

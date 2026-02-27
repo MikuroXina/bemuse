@@ -1,7 +1,6 @@
-import './MusicChartSelector.scss'
-
 import type { Chart, SongMetadata } from '@mikuroxina/bemuse-types'
 
+import styles from './MusicChartSelector.module.scss'
 import MusicChartSelectorItem, {
   type MusicChartSelectorItemProps,
 } from './MusicChartSelectorItem.js'
@@ -19,7 +18,7 @@ const MusicChartSelector = ({
   selectedChart,
   onChartClick,
 }: MusicChartSelectorProps) => (
-  <ul className='MusicChartSelector'>
+  <ul className={styles.container} data-tutorial={!!song.tutorial}>
     {charts.map((chart, index) => (
       <MusicChartSelectorItem
         key={index}

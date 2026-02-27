@@ -12,7 +12,7 @@ import {
 } from 'rxjs'
 
 import { AxisLogic } from './axis-logic.js'
-import getMidi川 from './midi.js'
+import getMidiStream from './midi.js'
 
 declare global {
   interface Navigator {
@@ -21,7 +21,7 @@ declare global {
 }
 
 export interface OmniInputOptions {
-  getMidi川?: () => Observable<MIDIMessageEvent>
+  getMidiStream?: () => Observable<MIDIMessageEvent>
   exclusive?: boolean
   continuous?: boolean
   sensitivity?: number
@@ -56,7 +56,7 @@ export class OmniInput {
     private readonly win: Window = window,
     options: OmniInputOptions = {}
   ) {
-    const midi川 = (options.getMidi川 || getMidi川)()
+    const midiStream = (options.getMidiStream || getMidiStream)()
     this.exclusive = !!options.exclusive
     this.continuousAxis = !!options.continuous
     this.setGamepadSensitivity(options.sensitivity ?? 3)
@@ -64,7 +64,7 @@ export class OmniInput {
     this.subscriptions = [
       fromEvent<KeyboardEvent>(win, 'keydown').subscribe(this.handleKeyDown),
       fromEvent<KeyboardEvent>(win, 'keyup').subscribe(this.handleKeyUp),
-      midi川.subscribe(this.handleMIDIMessage),
+      midiStream.subscribe(this.handleMIDIMessage),
     ]
   }
 
@@ -192,11 +192,11 @@ export class OmniInput {
 
 // Public: Returns a Bacon EventStream of keys pressed.
 //
-export function key川(
+export function keyStream(
   input = new OmniInput(),
   win: Window = window
 ): Observable<string> {
-  return _key川ForUpdate川(
+  return _keyStreamForUpdateStream(
     new Observable<KeyState>((subscriber) => {
       const handle = win.setInterval(() => {
         subscriber.next(input.update())
@@ -206,12 +206,12 @@ export function key川(
   )
 }
 
-export function _key川ForUpdate川(
-  update川: Observable<KeyState>
+export function _keyStreamForUpdateStream(
+  updateStream: Observable<KeyState>
 ): Observable<string> {
   return concat(
     of<string[]>([]),
-    update川.pipe(
+    updateStream.pipe(
       map((update) => Object.keys(update).filter((key) => update[key]))
     )
   )

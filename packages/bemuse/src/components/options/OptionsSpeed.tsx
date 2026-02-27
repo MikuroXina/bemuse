@@ -1,7 +1,6 @@
-import './OptionsSpeed.scss'
-
 import OptionsButton from './OptionsButton.js'
 import OptionsInputField from './OptionsInputField.js'
+import styles from './OptionsSpeed.module.scss'
 
 export interface OptionsSpeedProps {
   value: number
@@ -36,11 +35,17 @@ const OptionsSpeed = ({ value, onChange }: OptionsSpeedProps) => {
   }
 
   return (
-    <div className='OptionsSpeed'>
-      <span className='OptionsSpeedのminus'>
-        <OptionsButton onClick={handleMinusButtonClick}>-</OptionsButton>
+    <div data-testid='options-speed'>
+      <span className={styles.minus}>
+        <OptionsButton
+          className={styles.button}
+          onClick={handleMinusButtonClick}
+        >
+          -
+        </OptionsButton>
       </span>
       <OptionsInputField
+        className={styles.field}
         key={value}
         value={value}
         parse={parseSpeed}
@@ -48,8 +53,13 @@ const OptionsSpeed = ({ value, onChange }: OptionsSpeedProps) => {
         validator={/^\d+(?:\.\d)?$/}
         onChange={handleSpeedInputChange}
       />
-      <span className='OptionsSpeedのplus'>
-        <OptionsButton onClick={handlePlusButtonClick}>+</OptionsButton>
+      <span className={styles.plus}>
+        <OptionsButton
+          className={styles.button}
+          onClick={handlePlusButtonClick}
+        >
+          +
+        </OptionsButton>
       </span>
     </div>
   )

@@ -69,27 +69,29 @@ test('Gameplay smoke test', async ({ page }, testInfo) => {
     const BemuseTestMode = anyWindow.BemuseTestMode
     BemuseTestMode.unpause()
   })
-  await expect(page.locator('.ResultScene')).toBeVisible()
-  await expect(page.locator('.Rankingのyours')).toHaveText(/create an account/)
-  await expect(page.locator('.Rankingのleaderboard')).toHaveText(/No Data/)
+  await expect(page.getByTestId('result-scene')).toBeVisible()
+  await expect(page.getByTestId('ranking-yours')).toHaveText(
+    /create an account/
+  )
+  await expect(page.getByTestId('ranking-leaderboard')).toHaveText(/No Data/)
 
-  await page.locator('.Rankingのyours').getByText('log in').click()
+  await page.getByTestId('ranking-yours').getByText('log in').click()
   await page
-    .locator('.AuthenticationPanel')
+    .getByTestId('authentication-panel')
     .getByRole('textbox', { name: 'Username' })
     .fill('Playwright')
   await page
-    .locator('.AuthenticationPanel')
+    .getByTestId('authentication-panel')
     .getByRole('textbox', { name: 'Password' })
     .fill('hunter2')
   await takeScreenshot(page, testInfo, 'Authentication')
   await page
-    .locator('.AuthenticationPanel')
+    .getByTestId('authentication-panel')
     .getByRole('button', { name: 'Log In' })
     .click()
 
-  await expect(page.locator('.Rankingのyours')).toHaveText(/Playwright/)
-  await expect(page.locator('.Rankingのleaderboard')).toHaveText(/Playwright/)
+  await expect(page.getByTestId('ranking-yours')).toHaveText(/Playwright/)
+  await expect(page.getByTestId('ranking-leaderboard')).toHaveText(/Playwright/)
 
   await takeScreenshot(page, testInfo, 'Result')
 
@@ -98,7 +100,7 @@ test('Gameplay smoke test', async ({ page }, testInfo) => {
   await expect(page.getByTestId('stats-best-score')).toHaveText('524305')
 
   await page.getByText('Ranking').click()
-  await expect(page.locator('.Ranking')).toContainText('524305')
+  await expect(page.getByTestId('ranking')).toContainText('524305')
 })
 
 test.skip('works offline', async ({ page }) => {

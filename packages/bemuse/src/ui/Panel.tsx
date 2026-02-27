@@ -1,6 +1,6 @@
-import './Panel.scss'
-
 import type { ReactNode } from 'react'
+
+import styles from './Panel.module.scss'
 
 export interface PanelProps {
   className?: string
@@ -9,9 +9,9 @@ export interface PanelProps {
 }
 
 const Panel = ({ className, title, children }: PanelProps) => (
-  <div className={`Panel ${className}`}>
-    <div className='Panelのtitle'>{title}</div>
-    <div className='Panelのcontent'>{children}</div>
+  <div className={`${styles.container} ${className}`}>
+    <div className={styles.title}>{title}</div>
+    <div>{children}</div>
   </div>
 )
 

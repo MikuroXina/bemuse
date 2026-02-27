@@ -1,0 +1,35 @@
+@use '@bemuse/ui/common.scss';
+
+.container {
+  width: 100%;
+  border-spacing: 0;
+
+  td {
+    padding: 0.36em 0.5em;
+    border-bottom: 1px solid rgba(black, 0.1);
+  }
+}
+
+.rank {
+  width: 2em;
+  text-align: right;
+}
+
+.name {
+  padding-left: 1em;
+}
+
+.score {
+  width: 6em;
+  text-align: right;
+}
+
+.accuracy {
+  width: 5em;
+  text-align: right;
+  padding-right: 1em;
+}
+
+.message {
+  text-align: center;
+}

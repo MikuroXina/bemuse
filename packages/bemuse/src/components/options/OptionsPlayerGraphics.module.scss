@@ -1,0 +1,25 @@
+@use '@bemuse/ui/common.scss';
+
+.container {
+  border: 1px solid #8b8685;
+  display: inline-block;
+  vertical-align: top;
+
+  &[data-active='true'] {
+    border: 1px solid #bef;
+    outline: 1px solid #bef;
+  }
+  & svg {
+    display: block;
+  }
+}
+
+.line {
+  fill: none;
+  stroke: #8b8685;
+  stroke-width: 1;
+}
+
+.container[data-active='true'] .line {
+  stroke: #a9a8a7;
+}

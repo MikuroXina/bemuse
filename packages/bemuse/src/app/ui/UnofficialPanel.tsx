@@ -1,16 +1,16 @@
-import './UnofficialPanel.scss'
-
 import OptionsButton from '@bemuse/components/options/OptionsButton.js'
 import DialogContent, { Buttons } from '@bemuse/ui/DialogContent.js'
 import Panel from '@bemuse/ui/Panel.js'
+
+import styles from './UnofficialPanel.module.scss'
 
 export interface UnofficialPanelProps {
   onClose: () => void
 }
 
 const UnofficialPanel = ({ onClose }: UnofficialPanelProps) => (
-  <div style={{ maxWidth: '30em' }}>
-    <Panel title='Unofficial Music Server'>
+  <div className={styles.container}>
+    <Panel className={styles.panel} title='Unofficial Music Server'>
       <DialogContent>
         <p>
           You are now playing in an <strong>unofficial music server</strong>.

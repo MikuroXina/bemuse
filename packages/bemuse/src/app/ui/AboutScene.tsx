@@ -1,5 +1,3 @@
-import './AboutScene.scss'
-
 import { SceneManagerContext } from '@bemuse/scene-manager/index.js'
 import Scene from '@bemuse/ui/Scene.js'
 import SceneHeading from '@bemuse/ui/SceneHeading.js'
@@ -7,6 +5,7 @@ import SceneToolbar from '@bemuse/ui/SceneToolbar.js'
 import { useContext, useEffect, useState } from 'react'
 
 import djBm from './about-scene/DJBM.png'
+import styles from './AboutScene.module.scss'
 
 const Artists = ({ artists }: { artists: { name: string; url: string }[] }) => {
   if (artists.length === 0) {
@@ -42,11 +41,11 @@ const AboutScene = () => {
   }
 
   return (
-    <Scene className='AboutScene'>
-      <SceneHeading>About</SceneHeading>
+    <Scene className={styles.scene}>
+      <SceneHeading className={styles.heading}>About</SceneHeading>
       <section>
         <article>
-          <div className='AboutSceneのlogo'>
+          <div className={styles.logo}>
             <img src='/res/logo.png' alt='Bemuse' />
           </div>
           <p>
@@ -65,14 +64,14 @@ const AboutScene = () => {
             Affero General Public License, version 3. The source code is
             available on <a href='https://github.com/bemusic/bemuse'>GitHub</a>.
           </p>
-          <div className='AboutSceneのdjbm'>
+          <div className={styles.djbm}>
             <img src={djBm} alt='DJ Bemuse' />
           </div>
         </article>
         <article>
           <h2>Credits and Acknowledgements</h2>
           <strong>Development Team</strong>
-          <ul className='AboutSceneのteamList'>
+          <ul className={styles.teamList}>
             <li>
               <a href='https://github.com/dtinth'>@dtinth</a> (Thai
               Pangsakulyanont)
@@ -81,10 +80,13 @@ const AboutScene = () => {
               <a href='https://github.com/Nachanok'>@Nachanok</a> (Nachanok
               Suktarachan)
             </li>
+            <li>
+              <a href='https://github.com/MikuroXina'>@MikuroXina</a>
+            </li>
           </ul>
 
           <strong>Project Advisor</strong>
-          <ul className='AboutSceneのteamList'>
+          <ul className={styles.teamList}>
             <li>
               <a href='https://github.com/jittat'>@jittat</a> (Asst.Prof.Dr.
               Jittat Fakcharoenphol)

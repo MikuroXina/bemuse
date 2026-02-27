@@ -27,14 +27,17 @@ export type DataStore<T> = Immutable.Map<string, Operation<T>>
 export const initialState = <T>(): DataStore<T> =>
   Immutable.Map<string, Operation<T>>()
 
-export function store川<T>(
-  action川: Observable<Action<T>>
+export function storeStream<T>(
+  actionStream: Observable<Action<T>>
 ): Observable<DataStore<T>> {
-  return action川.pipe(scan(reduce, initialState()))
+  return actionStream.pipe(scan(reduce, initialState()))
 }
 
-export function item川<T>(state川: Observable<DataStore<T>>, id: string) {
-  return state川.pipe(map((state) => get(state, id))).pipe(distinct())
+export function itemStream<T>(
+  stateStream: Observable<DataStore<T>>,
+  id: string
+) {
+  return stateStream.pipe(map((state) => get(state, id))).pipe(distinct())
 }
 
 export function reduce<T>(

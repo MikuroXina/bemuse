@@ -1,9 +1,8 @@
-import './BemusePreviewer.scss'
-
 import { showAlert, showQuickPick } from '@bemuse/ui-dialogs/index.js'
 import _ from 'lodash'
 import { useEffect, useReducer, useRef, useState } from 'react'
 
+import styles from './BemusePreviewer.module.scss'
 import {
   createNullNotechartPreview,
   type NotechartPreview,
@@ -99,8 +98,8 @@ export const BemusePreviewer = () => {
   }
 
   return (
-    <div className='BemusePreviewer' tabIndex={0} ref={div}>
-      <div className='BemusePreviewerのheader'>
+    <div className={styles.container} tabIndex={0} ref={div}>
+      <div className={styles.header}>
         <h1>
           <a
             href='https://bemuse.pages.dev/project/docs/previewer.html'
@@ -111,7 +110,7 @@ export const BemusePreviewer = () => {
           </a>
         </h1>
       </div>
-      <div className='BemusePreviewerのmain'>
+      <div className={styles.main}>
         <PreviewCanvas
           notechartPreview={notechartPreview}
           previewState={previewState}
@@ -127,9 +126,7 @@ export const BemusePreviewer = () => {
           onReload={onReload}
         />
       </div>
-      {loading != null ? (
-        <div className='BemusePreviewerのloading'>{loading}</div>
-      ) : null}
+      {loading != null ? <div className={styles.loading}>{loading}</div> : null}
     </div>
   )
 }

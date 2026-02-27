@@ -1,5 +1,5 @@
+import { Subject } from '@bemuse/utils/subject.js'
 import { createRoot } from 'react-dom/client'
-import { Subject } from 'rxjs'
 
 import * as Music from './music/index.js'
 import ExperimentScene, { type ExperimentState } from './ui/ExperimentScene.js'
@@ -8,11 +8,11 @@ export async function main(bootContext: {
   setStatus: (status: string) => void
 }) {
   bootContext.setStatus('Loading song')
-  const state口 = new Subject<ExperimentState>()
+  const stateSubject = new Subject<ExperimentState>()
 
   const scene = (
     <ExperimentScene
-      stateStream={state口.asObservable()}
+      stateSubject={stateSubject}
       onStart={() => {
         play()
         postMessage({ type: 'calibration-started' })
@@ -49,25 +49,29 @@ export async function main(bootContext: {
   const music = await Music.load()
   const bound = 56
   const samples: Music.SampleRecord[] = []
-  state口.next({ type: 'ready' })
+  stateSubject.dispatch({ type: 'ready' })
   const play = () => {
-    state口.next({ type: 'started' })
+    stateSubject.dispatch({ type: 'started' })
     const remote = music({
       a() {
         const latency = Math.max(0, getLatency(samples))
-        state口.next({ type: 'finished', latency, numSamples: samples.length })
+        stateSubject.dispatch({
+          type: 'finished',
+          latency,
+          numSamples: samples.length,
+        })
         postMessage({ latency: latency })
-        state口.complete()
+        stateSubject.dispose()
       },
     })
     const tap = () => {
       samples.push(remote.getSample())
       remote.progress(Math.min(1, samples.length / bound))
       if (samples.length >= bound) remote.ok()
-      state口.next({ type: 'listening', numSamples: samples.length })
+      stateSubject.dispatch({ type: 'listening', numSamples: samples.length })
     }
     setTimeout(() => {
-      state口.next({ type: 'listening', numSamples: 0 })
+      stateSubject.dispatch({ type: 'listening', numSamples: 0 })
       window.addEventListener('keydown', (e) => {
         if (e.code !== 'Space') return
         e.preventDefault()

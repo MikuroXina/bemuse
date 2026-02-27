@@ -1,18 +1,19 @@
-import './LoadingSceneProgress.scss'
-
 import { Observable } from '@bemuse/utils/observable.js'
 import { useEffect, useState } from 'react'
 
+import styles from './LoadingSceneProgress.module.scss'
 import LoadingSceneProgressBar from './LoadingSceneProgressBar.js'
 
 const Item = ({ text, progressText, progress }: TaskItem) => {
   const width = Math.round(progress * 100 || 0).toString() + '%'
   const extra = progressText ? ` (${progressText})` : ''
   return (
-    <div key={text} className='LoadingSceneProgressのitem'>
-      <LoadingSceneProgressBar width={width} />
+    <div key={text}>
+      <div className={styles.progressBar}>
+        <LoadingSceneProgressBar width={width} />
+      </div>
       {text}
-      <span className='LoadingSceneProgressのextra'>{extra}</span>
+      <span className={styles.extra}>{extra}</span>
     </div>
   )
 }
@@ -41,7 +42,7 @@ const LoadingSceneProgress = ({ tasks }: LoadingSceneProgressProps) => {
   }, [])
 
   return (
-    <div className='LoadingSceneProgress'>
+    <div className={styles.container}>
       {tasks.value?.map((task) => (
         <Item key={task.text} {...task} />
       ))}

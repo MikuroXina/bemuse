@@ -4,7 +4,7 @@ test('Can sign up', async ({ page }) => {
   await page.goto('/?flags=fake-scoreboard,skip-to-music-select')
   await page.getByText('Log In / Create an Account').click()
   await page
-    .locator('.AuthenticationPanel')
+    .getByTestId('authentication-panel')
     .getByText('Create an Account')
     .click()
 
@@ -21,7 +21,7 @@ test('Cannot sign up if duplicate account', async ({ page }) => {
   await page.goto('/?flags=fake-scoreboard,skip-to-music-select')
   await page.getByText('Log In / Create an Account').click()
   await page
-    .locator('.AuthenticationPanel')
+    .getByTestId('authentication-panel')
     .getByText('Create an Account')
     .click()
 
@@ -31,7 +31,7 @@ test('Cannot sign up if duplicate account', async ({ page }) => {
   await page.getByLabel('Confirm Password').first().fill('h@cKm3Bemuse!')
   await page.getByRole('button', { name: 'Sign Me Up' }).click()
 
-  await expect(page.locator('.AuthenticationPanel')).toContainText(
+  await expect(page.getByTestId('authentication-panel')).toContainText(
     'Username already taken'
   )
 })
@@ -48,10 +48,10 @@ test('Can submit score to improve', async ({ page }) => {
   await page.goto(
     '/?mode=playground&playground=playgrounds/result&flags=fake-scoreboard'
   )
-  await expect(page.locator('.Ranking')).toContainText('111111')
+  await expect(page.getByTestId('ranking')).toContainText('111111')
   await logInFromRankingTable(page, 'tester')
-  await expect(page.locator('.Ranking')).not.toContainText('111111')
-  await expect(page.locator('.Ranking')).toContainText('222222')
+  await expect(page.getByTestId('ranking')).not.toContainText('111111')
+  await expect(page.getByTestId('ranking')).toContainText('222222')
 })
 
 test('Keeps highest score', async ({ page }) => {
@@ -59,13 +59,13 @@ test('Keeps highest score', async ({ page }) => {
     '/?mode=playground&playground=playgrounds/result&flags=fake-scoreboard'
   )
   const testerOldScore = '111111'
-  await expect(page.locator('.Ranking')).toContainText(testerOldScore)
+  await expect(page.getByTestId('ranking')).toContainText(testerOldScore)
 
   await logInFromRankingTable(page, 'tester')
 
-  await expect(page.locator('.Ranking')).toContainText('555554')
+  await expect(page.getByTestId('ranking')).toContainText('555554')
   const testerHighScore = '543210'
-  await expect(page.locator('.Ranking')).toContainText(testerHighScore)
+  await expect(page.getByTestId('ranking')).toContainText(testerHighScore)
 })
 
 test('Clears data when switching user', async ({ page }) => {
@@ -74,27 +74,27 @@ test('Clears data when switching user', async ({ page }) => {
     '.MusicListItemChart[data-md5="fb3dab834591381a5b8188bc2dc9c4b7"]'
   )
   await chart.click()
-  await expect(chart).not.toHaveClass(/is-played/)
+  await expect(chart).not.toHaveAttribute('data-played', 'true')
 
   await test.step('Log in as tester - stats should show', async () => {
     await logIn(page, 'tester')
-    await expect(chart).toHaveClass(/is-played/)
+    await expect(chart).toHaveAttribute('data-played', 'true')
     await expect(chart).toContainText('S')
     await expect(page.getByTestId('stats-best-score')).toContainText('543210')
     await page.getByText('Ranking').click()
-    await expect(page.locator('.Rankingのyours')).toContainText('543210')
+    await expect(page.getByTestId('ranking-yours')).toContainText('543210')
   })
 
   await test.step('Log out - stats should vanish', async () => {
     await logOut(page)
-    await expect(chart).not.toHaveClass(/is-played/)
+    await expect(chart).not.toHaveAttribute('data-played', 'true')
     await expect(page.getByText('Log In / Create an Account')).toBeVisible()
-    await expect(page.locator('.Rankingのyours')).not.toContainText('543210')
+    await expect(page.getByTestId('ranking-yours')).not.toContainText('543210')
   })
 
   await test.step('Log in as tester2 - stats should show', async () => {
     await logIn(page, 'tester2')
-    await expect(page.locator('.Rankingのyours')).toContainText('123456')
+    await expect(page.getByTestId('ranking-yours')).toContainText('123456')
     await page.getByText('Stats').click()
     await expect(page.getByTestId('stats-best-score')).toContainText('123456')
   })

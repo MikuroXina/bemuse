@@ -1,0 +1,27 @@
+@use '@bemuse/ui/common.scss';
+
+.button {
+  @include common.input-button-zindex(21);
+
+  width: 2em;
+}
+
+.minus .button {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.plus .button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-left: -1px;
+}
+
+.field {
+  @include common.input-button-zindex(20);
+
+  text-align: center;
+  width: 3em;
+  border-radius: 0;
+  margin-left: -1px;
+}

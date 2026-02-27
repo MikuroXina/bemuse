@@ -1,0 +1,131 @@
+@use '@bemuse/ui/common.scss';
+
+.container {
+  @include common.main-bg;
+}
+
+.info {
+  position: absolute;
+  top: 40%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.LoadingSceneSongInfo {
+  animation: loading-scene--loading-scene-song-info--animation 1s ease;
+}
+
+.LoadingSceneProgress {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  animation: loading-scene--eyecatch-fade 0.8s;
+}
+
+.flash {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+
+  background: white;
+  animation: loading-scene--flash-animation 0.8s ease-out;
+}
+
+.cover {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+
+  background: black;
+}
+
+.is-exiting .container {
+  .info {
+    animation: loading-scene--info-exit 0.3s linear;
+  }
+  .flash {
+    animation: loading-scene--flash-exit 0.3s ease;
+  }
+  .cover {
+    animation: loading-scene--cover-exit 0.3s linear;
+    opacity: 1;
+  }
+}
+
+@keyframes loading-scene--eyecatch-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes loading-scene--loading-scene-song-info--animation {
+  0% {
+    transform: scale(1.5, 0.02);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+@keyframes loading-scene--info-exit {
+  0% {
+    transform: translateY(-50%) scale(1, 1);
+  }
+  100% {
+    transform: translateY(-50%) scale(2, 2);
+  }
+}
+
+@keyframes loading-scene--cover-exit {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes loading-scene--flash-animation {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes loading-scene--flash-exit {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}

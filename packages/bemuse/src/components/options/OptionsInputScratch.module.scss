@@ -1,0 +1,50 @@
+@use '@bemuse/ui/common.scss';
+@use 'options-input-common';
+
+$color: #faa;
+
+.container {
+  width: 160px;
+  height: 160px;
+  background: rgba(#000, 0.1);
+  border-radius: 200px;
+  position: relative;
+
+  @include options-input-common.options-input-button($color);
+
+  & > svg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.star {
+  fill: rgba($color, 0.2);
+}
+
+.text {
+  @include options-input-common.options-input-button--text;
+
+  text-align: center;
+}
+
+.keySeparator {
+  font-size: 0.8em;
+  margin: 0.25ex 0;
+
+  &::before,
+  &::after {
+    content: '—';
+    margin: 0 0.25em;
+  }
+}
+
+.container[data-editing='true'] .key:not([data-editing='true']),
+.container[data-editing='true'] .keySeparator:not([data-editing='true']) {
+  opacity: 0.2;
+}

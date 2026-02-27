@@ -1,7 +1,6 @@
-import './Options.scss'
-
 import Panel from '@bemuse/ui/Panel.js'
 
+import styles from './Options.module.scss'
 import OptionsAdvanced from './OptionsAdvanced.js'
 import OptionsInput from './OptionsInput.js'
 import OptionsPlayer from './OptionsPlayer.js'
@@ -11,17 +10,17 @@ export interface OptionsProps {
 }
 
 const Options = ({ onClose }: OptionsProps) => (
-  <div className='Options'>
-    <div className='Optionsのa'>
-      <Panel title='Player Settings'>
+  <div className={styles.container}>
+    <div className={styles.second}>
+      <Panel className={styles.panel} title='Player Settings'>
         <OptionsPlayer onClose={onClose} />
       </Panel>
     </div>
-    <div className='Optionsのb'>
-      <Panel title='Input Settings'>
+    <div className={styles.first}>
+      <Panel className={styles.panel} title='Input Settings'>
         <OptionsInput />
       </Panel>
-      <Panel title='Advanced Settings'>
+      <Panel className={styles.panel} title='Advanced Settings'>
         <OptionsAdvanced />
       </Panel>
     </div>

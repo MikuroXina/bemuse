@@ -1,9 +1,8 @@
-import './PreviewInfo.scss'
-
 import { type ReactNode, useMemo } from 'react'
 
 import { BarDot } from './BarDot.js'
 import type { MeasureInfo, NotechartPreview } from './NotechartPreview.js'
+import styles from './PreviewInfo.module.scss'
 import type { PreviewState } from './PreviewState.js'
 
 export interface PreviewInfo {
@@ -38,7 +37,7 @@ export const PreviewInfo = (props: PreviewInfo) => {
 
   const keyHints = useMemo(
     () => (
-      <p className='PreviewInfoのkeyHints'>
+      <p className={styles.keyHints}>
         <kbd>Space</kbd> Play/Pause
         <br />
         <kbd>Up/Down/Left/Right/,/.</kbd> Seek
@@ -54,7 +53,7 @@ export const PreviewInfo = (props: PreviewInfo) => {
   )
 
   return (
-    <div className='PreviewInfo'>
+    <div className={styles.container}>
       <h2>{preview.name}</h2>
       <p>{preview.description}</p>
       <table>

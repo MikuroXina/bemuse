@@ -14,15 +14,16 @@
   font-size: 1rem;
   color: rgba(#000, 0.6);
   text-align: center;
-  &.is-played {
+
+  &[data-played='true'] {
     background: rgba(#000, 0.3);
     color: white;
     border-color: transparent;
   }
-  &.is-grade {
+  &[data-grade='true'] {
     font-weight: bold;
   }
-  &.is-selected {
+  &[data-selected='true'] {
     box-shadow: inset 0 0 0.4rem rgba(white, 0.5);
     border-width: 2px;
   }

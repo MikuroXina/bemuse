@@ -1,10 +1,9 @@
-import './LoadingScene.scss'
-
 import Scene from '@bemuse/ui/Scene.js'
 import type { ChartInfo } from '@mikuroxina/bemuse-types'
 import delay from 'delay'
 import { useEffect, useRef } from 'react'
 
+import styles from './LoadingScene.module.scss'
 import LoadingSceneProgress, { type Tasks } from './LoadingSceneProgress.js'
 import LoadingSceneSongInfo from './LoadingSceneSongInfo.js'
 
@@ -39,14 +38,14 @@ const LoadingScene = ({
   }, [])
 
   return (
-    <Scene className='LoadingScene' ref={sceneRef}>
-      <div className='LoadingSceneのimage' ref={eyecatchRef} />
-      <div className='LoadingSceneのinfo'>
+    <Scene className={styles.container} ref={sceneRef}>
+      <div className={styles.image} ref={eyecatchRef} />
+      <div className={styles.info}>
         <LoadingSceneSongInfo song={song} />
       </div>
       <LoadingSceneProgress tasks={tasks} />
-      <div className='LoadingSceneのflash' />
-      <div className='LoadingSceneのcover' />
+      <div className={styles.flash} />
+      <div className={styles.cover} />
     </Scene>
   )
 }

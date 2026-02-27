@@ -1,0 +1,20 @@
+@use '@bemuse/ui/common.scss';
+
+.container {
+  display: flex;
+}
+
+.label {
+  text-align: center;
+  color: #8b8685;
+}
+
+.item[data-active='true'] .label {
+  color: #bef;
+}
+.item:not([data-active='true']) {
+  cursor: pointer;
+}
+.item:not(:first-child) {
+  margin-left: 1ex;
+}
