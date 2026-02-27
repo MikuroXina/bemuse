@@ -1,15 +1,7 @@
+import type { Subject } from '@bemuse/utils/subject.js'
 import keycode from 'keycode'
 import _ from 'lodash'
-import {
-  concat,
-  concatMap,
-  fromEvent,
-  map,
-  Observable,
-  of,
-  pairwise,
-  Subscription,
-} from 'rxjs'
+import { useEffect, useState } from 'react'
 
 import { AxisLogic } from './axis-logic.js'
 import getMidiStream from './midi.js'
@@ -21,7 +13,7 @@ declare global {
 }
 
 export interface OmniInputOptions {
-  getMidiStream?: () => Observable<MIDIMessageEvent>
+  getMidiStream?: () => Subject<MIDIMessageEvent>
   exclusive?: boolean
   continuous?: boolean
   sensitivity?: number
@@ -56,16 +48,14 @@ export class OmniInput {
     private readonly win: Window = window,
     options: OmniInputOptions = {}
   ) {
-    const midiStream = (options.getMidiStream || getMidiStream)()
+    this.midiStream = (options.getMidiStream || getMidiStream)()
     this.exclusive = !!options.exclusive
     this.continuousAxis = !!options.continuous
     this.setGamepadSensitivity(options.sensitivity ?? 3)
 
-    this.subscriptions = [
-      fromEvent<KeyboardEvent>(win, 'keydown').subscribe(this.handleKeyDown),
-      fromEvent<KeyboardEvent>(win, 'keyup').subscribe(this.handleKeyUp),
-      midiStream.subscribe(this.handleMIDIMessage),
-    ]
+    win.addEventListener('keydown', this.handleKeyDown)
+    win.addEventListener('keyup', this.handleKeyUp)
+    this.midiStream.on(this.handleMIDIMessage)
   }
 
   private readonly exclusive: boolean
@@ -76,7 +66,7 @@ export class OmniInput {
   private status: KeyState = {}
   private axis: Record<string, AxisLogic> = {}
 
-  private readonly subscriptions: readonly Subscription[]
+  private readonly midiStream: Subject<MIDIMessageEvent>
 
   // TODO: `which` should be replaced with `KeyboardEvent.code`, but this migration will affects the system entirely.
   private handleKeyDown = (e: KeyboardEvent) => {
@@ -184,40 +174,31 @@ export class OmniInput {
   }
 
   dispose() {
-    for (const subscription of this.subscriptions) {
-      subscription.unsubscribe()
-    }
+    this.midiStream.off(this.handleMIDIMessage)
+    this.win.removeEventListener('keyup', this.handleKeyUp)
+    this.win.removeEventListener('keydown', this.handleKeyDown)
+  }
+
+  [Symbol.dispose]() {
+    this.dispose()
   }
 }
 
-// Public: Returns a Bacon EventStream of keys pressed.
-//
-export function keyStream(
-  input = new OmniInput(),
+export const useKeyState = (
+  options: OmniInputOptions = {},
   win: Window = window
-): Observable<string> {
-  return _keyStreamForUpdateStream(
-    new Observable<KeyState>((subscriber) => {
-      const handle = win.setInterval(() => {
-        subscriber.next(input.update())
-      }, 16)
-      return () => win.clearInterval(handle)
-    })
-  )
-}
-
-export function _keyStreamForUpdateStream(
-  updateStream: Observable<KeyState>
-): Observable<string> {
-  return concat(
-    of<string[]>([]),
-    updateStream.pipe(
-      map((update) => Object.keys(update).filter((key) => update[key]))
-    )
-  )
-    .pipe(pairwise())
-    .pipe(map(([previous, current]) => _.difference(current, previous)))
-    .pipe(concatMap((array) => of(...array)))
+): KeyState => {
+  const [keyState, setKeyState] = useState<KeyState>({})
+  useEffect(() => {
+    const input = new OmniInput(win, options)
+    const timer = win.setInterval(() => {
+      setKeyState(input.update())
+    }, 16)
+    return () => {
+      win.clearInterval(timer)
+    }
+  }, [])
+  return keyState
 }
 
 export default OmniInput

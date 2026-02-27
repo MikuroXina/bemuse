@@ -1,13 +1,4 @@
-import {
-  catchError,
-  concatMap,
-  EMPTY,
-  from,
-  fromEvent,
-  Observable,
-  tap,
-} from 'rxjs'
-import type { EventListenerObject } from 'rxjs/internal/observable/fromEvent'
+import { Subject } from '@bemuse/utils/subject'
 
 declare global {
   interface Navigator {
@@ -30,18 +21,12 @@ declare global {
 
     addEventListener(
       type: 'midimessage',
-      listener:
-        | ((evt: MIDIMessageEvent) => void)
-        | EventListenerObject<MIDIMessageEvent>
-        | null,
+      listener: ((evt: MIDIMessageEvent) => void) | null,
       options?: boolean | AddEventListenerOptions
     ): void
     removeEventListener(
       type: 'midimessage',
-      listener:
-        | ((evt: MIDIMessageEvent) => void)
-        | EventListenerObject<MIDIMessageEvent>
-        | null,
+      listener: ((evt: MIDIMessageEvent) => void) | null,
       options?: EventListenerOptions | boolean
     ): void
   }
@@ -62,20 +47,6 @@ declare global {
   }
 }
 
-function observeMidiAccess(access: MIDIAccess) {
-  return new Observable<MIDIPort>((subscriber) => {
-    for (const port of (access.inputs as Map<string, MIDIInput>).values()) {
-      subscriber.next(port)
-    }
-    for (const port of (access.outputs as Map<string, MIDIOutput>).values()) {
-      subscriber.next(port)
-    }
-    access.onstatechange = (e) => {
-      subscriber.next(e.port!)
-    }
-  })
-}
-
 function requestMIDIAccess() {
   if (!navigator.requestMIDIAccess) {
     return Promise.reject(new Error('MIDI is not supported'))
@@ -83,22 +54,24 @@ function requestMIDIAccess() {
   return navigator.requestMIDIAccess()
 }
 
-export function getMidiStream(): Observable<MIDIMessageEvent> {
-  return from(requestMIDIAccess())
-    .pipe(concatMap(observeMidiAccess))
-    .pipe(
-      catchError((e: Error) => {
-        console.warn('MIDI Error:', e.stack)
-        return EMPTY
+export function getMidiStream(): Subject<MIDIMessageEvent> {
+  const subject = new Subject<MIDIMessageEvent>()
+  void (async () => {
+    let access: MIDIAccess
+    try {
+      access = await requestMIDIAccess()
+    } catch {
+      return
+    }
+    for (const inputPort of (
+      access.inputs as Map<string, MIDIInput>
+    ).values()) {
+      inputPort.addEventListener('midimessage', (event) => {
+        subject.dispatch(event)
       })
-    )
-    .pipe(concatMap(messageStreamForPort))
-    .pipe(tap((message) => console.log('messageforport', message)))
-}
-
-function messageStreamForPort(port: MIDIPort): Observable<MIDIMessageEvent> {
-  if (port.type !== 'input') return EMPTY
-  return fromEvent<MIDIMessageEvent>(port as MIDIInput, 'midimessage')
+    }
+  })()
+  return subject
 }
 
 export default getMidiStream
