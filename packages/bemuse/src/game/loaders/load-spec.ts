@@ -1,5 +1,6 @@
 import type { Progress } from '@bemuse/progress/Progress.js'
 import type { IResource, IResources } from '@bemuse/resources/types.js'
+import type { DisplayMode } from '@bemuse/scintillator/index.js'
 import type { ChartInfo } from '@mikuroxina/bemuse-types'
 
 import type { GamePlayerOptionsInput } from '../game.js'
@@ -16,7 +17,7 @@ export type LoadSpec = {
   bms: IResource
   metadata: ChartInfo
   songId?: string
-  displayMode?: 'touch3d' | 'normal'
+  displayMode?: DisplayMode
   backImageUrl?: string
   eyecatchImageUrl?: string
   videoUrl?: string

@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js'
 
-import Expression from '../../expression'
+import { compileExpression } from '../../expression/index.js'
 import SkinNode from '../lib/base'
 import Instance from '../lib/instance'
 import Animation from './animation'
@@ -24,7 +24,7 @@ export class DisplayObject extends SkinNode {
     for (const property of properties) {
       const code = $el.attr(property.name) || property.default
       if (!code) continue
-      const expression = new Expression(code)
+      const expression = compileExpression(code)
       const getter = this._animation.prop(property.name, expression)
       this._bindings.push({
         getter: getter,

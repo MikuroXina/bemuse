@@ -3,20 +3,18 @@
  * image "url."
  */
 export class Resources {
-  constructor() {
-    this._map = {}
-  }
+  _map: Record<string, string> = {}
 
-  add(src, url) {
+  add(src: string, url: string): void {
     this._map[src] = url
   }
 
-  get(src) {
+  get(src: string): string {
     if (!(src in this._map)) throw new Error('Not registered: ' + src)
     return this._map[src]
   }
 
-  get urls() {
+  get urls(): string[] {
     return Object.values(this._map)
   }
 }

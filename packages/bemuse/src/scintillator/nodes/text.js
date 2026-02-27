@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js'
 
-import Expression from '../expression'
+import { compileExpression } from '../expression/index.js'
 import DisplayObject from './concerns/display-object'
 import SkinNode from './lib/base'
 import Instance from './lib/instance'
@@ -9,7 +9,7 @@ export class TextNode extends SkinNode {
   compile(compiler, $el) {
     this.font = $el.attr('font')
     this.text = $el.attr('text')
-    this.data = new Expression($el.attr('data') || '0')
+    this.data = compileExpression($el.attr('data') || '0')
     this.display = DisplayObject.compile(compiler, $el)
     this.ttf = !$el.attr('font-src')
     this.fill = $el.attr('fill')
