@@ -83,7 +83,7 @@ function requestMIDIAccess() {
   return navigator.requestMIDIAccess()
 }
 
-export function getMidi川(): Observable<MIDIMessageEvent> {
+export function getMidiStream(): Observable<MIDIMessageEvent> {
   return from(requestMIDIAccess())
     .pipe(concatMap(observeMidiAccess))
     .pipe(
@@ -92,13 +92,13 @@ export function getMidi川(): Observable<MIDIMessageEvent> {
         return EMPTY
       })
     )
-    .pipe(concatMap(message川ForPort))
+    .pipe(concatMap(messageStreamForPort))
     .pipe(tap((message) => console.log('messageforport', message)))
 }
 
-function message川ForPort(port: MIDIPort): Observable<MIDIMessageEvent> {
+function messageStreamForPort(port: MIDIPort): Observable<MIDIMessageEvent> {
   if (port.type !== 'input') return EMPTY
   return fromEvent<MIDIMessageEvent>(port as MIDIInput, 'midimessage')
 }
 
-export default getMidi川
+export default getMidiStream

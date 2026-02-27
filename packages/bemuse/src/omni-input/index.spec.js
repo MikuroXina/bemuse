@@ -3,7 +3,12 @@ import assert from 'power-assert'
 import { Subject } from 'rxjs'
 import { afterEach, beforeEach, describe, it } from 'vitest'
 
-import { _key川ForUpdate川, getName, key川, OmniInput } from './index.js'
+import {
+  _keyStreamForUpdateStream,
+  getName,
+  keyStream,
+  OmniInput,
+} from './index.js'
 
 function fakeWindow() {
   const events = new EventEmitter()
@@ -49,7 +54,7 @@ describe('OmniInput', function () {
     window = fakeWindow()
     const midiSubject = new Subject()
     input = new OmniInput(window, {
-      getMidi川: () => midiSubject,
+      getMidiStream: () => midiSubject,
     })
     midi = (...args) => {
       midiSubject.next({
@@ -146,10 +151,10 @@ describe('OmniInput', function () {
     })
   })
 
-  describe('key川', function () {
+  describe('keyStream', function () {
     it('should return events', function () {
       let last
-      const subscription = key川(input, window).subscribe(
+      const subscription = keyStream(input, window).subscribe(
         (value) => (last = value)
       )
 
@@ -161,21 +166,21 @@ describe('OmniInput', function () {
     })
   })
 
-  describe('_key川ForUpdate川', function () {
+  describe('_keyStreamForUpdateStream', function () {
     it('should emit new keys', function () {
-      const 口 = new Subject()
+      const subject = new Subject()
       const events = []
-      const subscription = _key川ForUpdate川(口).subscribe((value) =>
-        events.push(value)
+      const subscription = _keyStreamForUpdateStream(subject).subscribe(
+        (value) => events.push(value)
       )
-      口.next({ 32: true })
-      口.next({ 32: true })
-      口.next({ 32: false })
-      口.next({ 32: true })
-      口.next({ 33: true })
-      口.next({ 32: true })
-      口.next({ 32: true, 35: true })
-      口.next({ 31: true, 35: true })
+      subject.next({ 32: true })
+      subject.next({ 32: true })
+      subject.next({ 32: false })
+      subject.next({ 32: true })
+      subject.next({ 33: true })
+      subject.next({ 32: true })
+      subject.next({ 32: true, 35: true })
+      subject.next({ 31: true, 35: true })
       assert.deepEqual(events, ['32', '32', '33', '32', '35', '31'])
       subscription.unsubscribe()
     })

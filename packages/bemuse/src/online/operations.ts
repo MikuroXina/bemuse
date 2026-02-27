@@ -66,7 +66,7 @@ export function outcomeOfPromise<T>(
   return Promise.resolve(promise).then(completed, error)
 }
 
-export function operation川FromPromise<T>(
+export function operationStreamFromPromise<T>(
   promise: PromiseLike<T>
 ): Observable<Operation<T>> {
   return from(outcomeOfPromise(promise)).pipe(startWith(loading()))

@@ -1,4 +1,4 @@
-import OmniInput, { getName, key川 } from '@bemuse/omni-input/index.js'
+import OmniInput, { getName, keyStream } from '@bemuse/omni-input/index.js'
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createSelector } from 'reselect'
@@ -100,7 +100,7 @@ const OptionsInput = () => {
       continuous: isContinuous,
     })
     omniInput.current = input
-    const subscription = key川(input)
+    const subscription = keyStream(input)
       .pipe(throttleTime(16))
       .pipe(tap((key) => console.log('a', key)))
       .subscribe(handleKey)

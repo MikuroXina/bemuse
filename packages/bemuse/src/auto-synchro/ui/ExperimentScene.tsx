@@ -1,6 +1,5 @@
+import { type Subject, useSubject } from '@bemuse/utils/subject.js'
 import type { MouseEventHandler } from 'react'
-import { useObservable } from 'react-rx'
-import { Observable } from 'rxjs'
 
 import styles from './ExperimentScene.module.scss'
 
@@ -27,12 +26,12 @@ const initialState = {
 } as const
 
 export interface ExperimentSceneProps {
-  stateStream: Observable<ExperimentState>
+  stateSubject: Subject<ExperimentState>
   onStart?: MouseEventHandler<HTMLButtonElement>
 }
 
 const ExperimentScene = (props: ExperimentSceneProps) => {
-  const state = useObservable(props.stateStream, initialState)
+  const state = useSubject(props.stateSubject, initialState)
   return (
     <div className={styles.scene} data-type={state.type}>
       <div className={styles.wrapper}>

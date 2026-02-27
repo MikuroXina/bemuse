@@ -91,10 +91,10 @@ function tests(onlineServiceOptions) {
       beforeEach(async () => {
         online = createOnline()
       })
-      describe('user川', function () {
+      describe('userStream', function () {
         it('should be null', async () => {
           await new Promise((resolve) =>
-            online.user川.pipe(first()).subscribe((user) => {
+            online.userStream.pipe(first()).subscribe((user) => {
               assert(user === null)
               resolve()
             })
@@ -108,19 +108,19 @@ function tests(onlineServiceOptions) {
       beforeAll(function () {
         online = createOnline()
       })
-      describe('user川', function () {
+      describe('userStream', function () {
         it('should change to signed-up user, and also start with it', async function () {
           const info = createAccountInfo()
 
           await online.signUp(info)
 
           const user = await firstValueFrom(
-            online.user川.pipe(filter((u) => !!u))
+            online.userStream.pipe(filter((u) => !!u))
           )
           expect(user.username).to.equal(info.username)
 
           const firstUser = await firstValueFrom(
-            createOnline().user川.pipe(filter((u) => !!u))
+            createOnline().userStream.pipe(filter((u) => !!u))
           )
           expect(firstUser.username).to.equal(info.username)
         })
@@ -138,11 +138,11 @@ function tests(onlineServiceOptions) {
         return online.logIn(info)
       })
       describe('when log out', function () {
-        it('should change user川 back to null', async function () {
+        it('should change userStream back to null', async function () {
           online.logOut()
 
           const user = await firstValueFrom(
-            online.user川.pipe(filter((u) => !u)).pipe(first())
+            online.userStream.pipe(filter((u) => !u)).pipe(first())
           )
 
           assert(user === null)
@@ -321,7 +321,7 @@ function tests(onlineServiceOptions) {
         })
 
         function when(predicate) {
-          return firstValueFrom(ranking.state川.pipe(filter(predicate)))
+          return firstValueFrom(ranking.stateStream.pipe(filter(predicate)))
         }
 
         step('should have scoreboard loading status', function () {
