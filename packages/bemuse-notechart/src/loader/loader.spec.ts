@@ -9,14 +9,14 @@ describe('NotechartLoader', function () {
   describe('with BMS file', function () {
     it('should be able to read', async function () {
       const loader = new NotechartLoader()
-      const buffer = Buffer.from(`#TITLE meow`)
+      const buffer = new TextEncoder().encode(`#TITLE meow`)
 
       const notechart = await loader.load(buffer, { name: 'wow.bms' }, options)
       expect(notechart.songInfo.title).to.equal('meow')
     })
     it('also reads judge rank', async function () {
       const loader = new NotechartLoader()
-      const buffer = Buffer.from(`#RANK 1`)
+      const buffer = new TextEncoder().encode(`#RANK 1`)
 
       const notechart = await loader.load(buffer, { name: 'wow.bms' }, options)
       expect(notechart.expertJudgmentWindow[0]).to.equal(15)
@@ -24,7 +24,7 @@ describe('NotechartLoader', function () {
     })
     it('loads landmine objects', async function () {
       const loader = new NotechartLoader()
-      const buffer = Buffer.from(`#001D2:010203`)
+      const buffer = new TextEncoder().encode(`#001D2:010203`)
 
       const notechart = await loader.load(buffer, { name: 'wow.bms' }, options)
       expect(notechart.landmines.length).to.equal(3)
@@ -37,7 +37,7 @@ describe('NotechartLoader', function () {
       const data = {
         info: { title: 'Running Out' },
       }
-      const buffer = Buffer.from(JSON.stringify(data))
+      const buffer = new TextEncoder().encode(JSON.stringify(data))
 
       const notechart = await loader.load(
         buffer,
@@ -51,7 +51,7 @@ describe('NotechartLoader', function () {
       const data = {
         info: { title: 'Running Out', judge_rank: 200 },
       }
-      const buffer = Buffer.from(JSON.stringify(data))
+      const buffer = new TextEncoder().encode(JSON.stringify(data))
 
       const notechart = await loader.load(
         buffer,

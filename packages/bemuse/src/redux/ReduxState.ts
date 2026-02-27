@@ -19,7 +19,6 @@ import type {
 } from '@mikuroxina/bemuse-types'
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { enableMapSet } from 'immer'
-import _ from 'lodash'
 import { createSelector } from 'reselect'
 
 import * as Collections from '../app/entities/Collections.js'
@@ -212,7 +211,7 @@ export const { selectGroups, selectSongs } = (() => {
       })
   )
   const selectSongs = createSelector(selectGroups, (groups) =>
-    _(groups).map('songs').flatten().value()
+    groups.map(({ songs }) => songs).flat()
   )
   return { selectGroups, selectSongs }
 })()

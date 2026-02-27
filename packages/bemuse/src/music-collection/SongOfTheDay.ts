@@ -1,5 +1,4 @@
 import type { Song } from '@bemuse/collection-model/types.js'
-import _ from 'lodash'
 import hash from 'object-hash'
 
 export class SongOfTheDay {
@@ -10,10 +9,19 @@ export class SongOfTheDay {
       return
     }
 
-    const sorted = _.sortBy(
-      songs.filter((s) => !s.custom && !s.tutorial),
-      (s) => hash(s.id)
-    )
+    const sorted = songs
+      .filter((s) => !s.custom && !s.tutorial)
+      .sort((a, b) => {
+        const aHash = hash(a.id)
+        const bHash = hash(b.id)
+        if (aHash < bHash) {
+          return -1
+        }
+        if (aHash > bHash) {
+          return 1
+        }
+        return 0
+      })
     this.ids = new Set(sorted.slice(0, 3).map((s) => s.id))
   }
 

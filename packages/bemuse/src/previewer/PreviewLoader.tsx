@@ -3,7 +3,7 @@ import { showAlert } from '@bemuse/ui-dialogs/index.js'
 import { NotechartLoader } from '@mikuroxina/bemuse-notechart/lib/loader/index.js'
 import ObjectID from 'bson-objectid'
 import { get, set } from 'idb-keyval'
-import _ from 'lodash'
+import once from 'lodash/once'
 import pMap from 'p-map'
 
 import { createNotechartPreview } from './NotechartPreview.js'
@@ -15,7 +15,7 @@ interface UserData {
 }
 
 const PREVIEWER_FS_HANDLE_KEYVAL_KEY = 'previewer-fs-handle'
-const getSamplingMaster = _.once(() => {
+const getSamplingMaster = once(() => {
   const samplingMaster = new SamplingMaster()
   // http://qiita.com/dtinth/items/1200681c517a3fb26357
   const DEFAULT_REPLAYGAIN = -12.2 // dB

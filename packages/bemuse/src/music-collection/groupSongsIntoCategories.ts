@@ -1,5 +1,5 @@
 import type { Song } from '@bemuse/collection-model/types.js'
-import _ from 'lodash'
+import orderBy from 'lodash/orderBy'
 
 import { SongOfTheDay } from './SongOfTheDay.js'
 
@@ -49,7 +49,7 @@ export function groupSongsIntoCategories(
   }
   for (const { input, output } of groups) {
     if (input.sort) {
-      output.songs = _.orderBy(
+      output.songs = orderBy(
         output.songs,
         [input.sort],
         [input.reverse ? 'desc' : 'asc']
@@ -58,10 +58,9 @@ export function groupSongsIntoCategories(
       output.songs.reverse()
     }
   }
-  return _(groups)
-    .map('output')
+  return groups
+    .map(({ output }) => output)
     .filter((group) => group.songs.length > 0)
-    .value()
 }
 
 export default groupSongsIntoCategories

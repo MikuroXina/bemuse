@@ -17,7 +17,6 @@ import {
   songInfoForBmson,
 } from '@mikuroxina/bmson'
 import invariant from 'invariant'
-import _ from 'lodash'
 import assign from 'object-assign'
 import pMap from 'p-map'
 
@@ -196,15 +195,15 @@ export async function getSongInfo(
     },
     { concurrency: 2 }
   )
-  const charts = _.flatten(results)
+  const charts = results.flat()
   if (charts.length === 0) {
     warnings.push('No usable charts found!')
   }
   const song: Partial<OutputSongInfo> = {
-    title: common(charts, _.property('info.title')),
-    artist: common(charts, _.property('info.artist')),
-    genre: common(charts, _.property('info.genre')),
-    bpm: median(charts, _.property('bpm.median')),
+    title: common(charts, (item) => item.info.title),
+    artist: common(charts, (item) => item.info.artist),
+    genre: common(charts, (item) => item.info.genre),
+    bpm: median(charts, (item) => item.bpm.median),
   }
   assign(song, getSongVideoFromCharts(charts))
   assign(song, extra)
@@ -215,7 +214,7 @@ export async function getSongInfo(
 
 function getSongVideoFromCharts(charts: OutputFileInfo[]): OutputSongInfoVideo {
   const result: OutputSongInfoVideo = {}
-  const chart = _.find(charts, 'bga')
+  const chart = charts.find((chart) => chart.bga)
   if (chart) {
     result.video_file = chart.bga!.file
     result.video_offset = chart.bga!.offset
@@ -246,6 +245,6 @@ function common<T>(array: T[], f: (item: T) => string) {
 }
 
 function median<T>(array: T[], f: (item: T) => number) {
-  const arr = _(array).map(f).sortBy().value()
+  const arr = array.map(f).toSorted((a, b) => a - b)
   return arr[Math.floor(arr.length / 2)]
 }

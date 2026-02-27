@@ -1,6 +1,6 @@
 import Progress from '@bemuse/progress'
 import Observable from '@bemuse/utils/observable'
-import { throttle } from 'lodash'
+import throttle from 'lodash/throttle'
 
 export function start(callback) {
   const tasks = {}

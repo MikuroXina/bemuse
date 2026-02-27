@@ -1,6 +1,5 @@
 import * as BMS from '@mikuroxina/bms'
 import invariant from 'invariant'
-import _ from 'lodash'
 
 import type {
   GameEvent,
@@ -250,7 +249,7 @@ export class Notechart {
     bmsNotes: BMS.BMSNote[],
     playerOptions: Partial<PlayerOptions>
   ) {
-    let chain = _.chain(bmsNotes)
+    let chain = bmsNotes
     const keys = getKeys(bmsNotes)
     if (playerOptions.scratch === 'off') {
       chain = chain.map((note: BMS.BMSNote) => {
@@ -284,7 +283,7 @@ export class Notechart {
         chain = chain.map(shiftNote(2))
       }
     }
-    return chain.value()
+    return chain
   }
 
   _generatePlayableNotesFromBMS(bmsNotes: BMS.BMSNote[]) {

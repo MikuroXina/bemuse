@@ -6,7 +6,7 @@ import chalk from 'chalk'
 import json from 'format-json'
 import { glob } from 'glob'
 import yaml from 'js-yaml'
-import _ from 'lodash'
+import sortBy from 'lodash/sortBy'
 
 const { readFile, writeFile, stat: fileStat } = fs.promises
 
@@ -59,7 +59,9 @@ export async function index(path, { recursive }) {
   }
 
   const songs = []
-  const maxDirLength = _(Array.from(dirs.keys())).map('length').max()
+  const maxDirLength = Array.from(dirs.keys())
+    .map(({ length }) => length)
+    .reduce((prev, curr) => Math.max(prev, curr), 0)
   for (const [dir, files] of dirs) {
     const filesToParse = []
 
@@ -77,9 +79,8 @@ export async function index(path, { recursive }) {
     song.id = dir
     song.path = dir
 
-    const levels = _(song.charts)
-      .sortBy((chart) => chart.info.level)
-      .map((chart) => {
+    const levels = sortBy(song.charts, (chart) => chart.info.level).map(
+      (chart) => {
         const colors = {
           '5K': chalk.gray,
           '7K': chalk.green,
@@ -88,10 +89,11 @@ export async function index(path, { recursive }) {
         }
         const ch = colors[chart.keys] ?? chalk.inverse
         return ch(chart.info.level)
-      })
+      }
+    )
     console.log(
-      chalk.dim(_.padEnd(dir, maxDirLength)),
-      chalk.yellow(_.padStart(Math.round(song.bpm) + 'bpm', 7)),
+      chalk.dim(dir.padEnd(maxDirLength)),
+      chalk.yellow(`${Math.round(song.bpm)}bpm`.padStart(7)),
       chalk.cyan('[' + song.genre + ']'),
       song.artist + '-' + song.title,
       levels.join(' '),

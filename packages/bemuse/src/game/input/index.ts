@@ -1,5 +1,4 @@
 import bench from '@bemuse/debug/benchmark.jsx'
-import _ from 'lodash'
 
 import Control from './control.js'
 
@@ -57,7 +56,7 @@ export class GameInput {
       get: bench.wrap(name, function () {
         const out = plugin.get()
         const diff = []
-        for (const key of _.union(_.keys(out), _.keys(state))) {
+        for (const key of [...Object.keys(out), ...Object.keys(state)]) {
           const last = +state[key] || 0
           const current = +out[key] || 0
           if (last !== current) diff.push([key, current])

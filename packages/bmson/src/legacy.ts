@@ -1,5 +1,4 @@
 import * as BMS from '@mikuroxina/bms'
-import _ from 'lodash'
 
 import type { Note, SoundChannel } from './types.js'
 import * as utils from './utils.js'
@@ -15,11 +14,8 @@ export interface LegacyBmson {
 }
 
 export function barLinesForBmson(bmson: LegacyBmson) {
-  const lines = bmson.lines
-  return _(lines)
-    .map(({ y }) => beatForLoc(y))
-    .sortBy()
-    .value()
+  const lines = bmson.lines ?? []
+  return lines.map(({ y }) => beatForLoc(y)).sort((a, b) => a - b)
 }
 
 export function timingInfoForBmson(bmson: LegacyBmson): utils.TimingInfo {

@@ -1,6 +1,6 @@
 import type { GameNote } from '@mikuroxina/bemuse-notechart/lib/types.js'
 import invariant from 'invariant'
-import _ from 'lodash'
+import minBy from 'lodash/minBy.js'
 
 import Control from '../input/control.js'
 import GameInput from '../input/index.js'
@@ -80,7 +80,7 @@ export class PlayerState {
   public input: Map<string, Control> = new Map()
 
   private _columns: string[]
-  private _noteBufferByColumn: _.Dictionary<NoteBuffer>
+  private _noteBufferByColumn: Record<string, NoteBuffer>
   private _noteResult: Map<GameNote, NoteResult>
   private _duration: number
   private _judge: IJudge
@@ -90,11 +90,22 @@ export class PlayerState {
 
   constructor(public readonly player: Player) {
     this._columns = player.columns
-    this._noteBufferByColumn = _(player.notechart.notes)
-      .sortBy((n) => n.time)
-      .groupBy((n) => n.column)
-      .mapValues(noteBuffer(this))
-      .value()
+    this._noteBufferByColumn = Object.fromEntries(
+      Object.entries(
+        player.notechart.notes
+          .toSorted((a, b) => a.time - b.time)
+          .reduce((prev: Record<string, GameNote[]>, curr) => {
+            if (!prev[curr.column]) {
+              prev[curr.column] = []
+            }
+            prev[curr.column].push(curr)
+            return prev
+          }, {})
+      ).map(([key, value]): [string, NoteBuffer] => [
+        key,
+        noteBuffer(this)(value),
+      ])
+    )
     this._noteResult = new Map()
     this._duration = player.notechart.duration
     this._judge = getJudgeForNotechart(player.notechart, {
@@ -226,11 +237,11 @@ export class PlayerState {
   }
 
   _getClosestNote(notes: GameNote[]) {
-    return _.minBy(notes, (note) => Math.abs(this._gameTime - note.time))
+    return minBy(notes, (note) => Math.abs(this._gameTime - note.time))
   }
 
   _getFreestyleNote(notes: GameNote[]) {
-    return _.minBy(notes, (note) => {
+    return minBy(notes, (note) => {
       const distance = Math.abs(this._gameTime - note.time)
       const penalty = this._gameTime < note.time - 1 ? 1000000 : 0
       return distance + penalty

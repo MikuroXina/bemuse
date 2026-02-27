@@ -1,5 +1,4 @@
 import type { Notechart } from '@mikuroxina/bemuse-notechart'
-import _ from 'lodash'
 
 export enum Judgment {
   Missed = -1,
@@ -134,7 +133,8 @@ export const judgeTime = judgeTimeWith((t) => t.timegate)
 export const judgeEndTime = judgeTimeWith((t) => t.endTimegate)
 
 export function timegate(judgment: Judgment, judge = NORMAL_JUDGE) {
-  return _.find(judge.getTimegates(), { value: judgment })!.timegate
+  return judge.getTimegates().find((timegate) => timegate.value === judgment)!
+    .timegate
 }
 
 export function isBad(judgment: Judgment) {

@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 import * as DataStore from './data-store'
@@ -25,10 +24,8 @@ describe('Online DataStore', function () {
       it('should transition state of a record', function () {
         const action1 = DataStore.put('a', Operations.completed(1))
         const action2 = DataStore.put('b', Operations.completed(2))
-        const state = _()
-          .thru((state) => DataStore.reduce(state, action1))
-          .thru((state) => DataStore.reduce(state, action2))
-          .value()
+        const state1 = DataStore.reduce(undefined, action1)
+        const state = DataStore.reduce(state1, action2)
         expect(DataStore.get(state, 'a').value).to.equal(1)
         expect(DataStore.get(state, 'b').value).to.equal(2)
       })

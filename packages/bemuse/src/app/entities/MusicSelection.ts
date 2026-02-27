@@ -1,7 +1,7 @@
 import type { Chart, SongMetadataInCollection } from '@mikuroxina/bemuse-types'
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { type Draft, produce } from 'immer'
-import _ from 'lodash'
+import minBy from 'lodash/minBy'
 
 export interface MusicSelectionState {
   selectedSongId: string | null
@@ -18,22 +18,18 @@ export const initialState: MusicSelectionState = {
 // Queries
 export const selectedSongGivenSongs =
   (songs: SongMetadataInCollection[]) =>
-  (state: MusicSelectionState): SongMetadataInCollection => {
-    const song = _.find(songs, (item) => item.id === state.selectedSongId)
-    if (song) return song
-    return songs[0]
-  }
+  (state: MusicSelectionState): SongMetadataInCollection =>
+    songs.find((item) => item.id === state.selectedSongId) ?? songs[0]
+
 export const selectedChartGivenCharts =
   (charts: Chart[] = []) =>
   (state: MusicSelectionState): Chart => {
     // Workaround by https://github.com/DefinitelyTyped/DefinitelyTyped/issues/25758#issuecomment-580690247
-    const chart = _.find(charts, {
-      file: state.selectedChartId,
-    }) as Chart | undefined
+    const chart = charts.find((chart) => chart.file === state.selectedChartId)
     if (chart) {
       return chart
     }
-    return _.minBy(charts, (chart) =>
+    return minBy(charts, (chart) =>
       Math.abs(getChartLevel(chart) - state.selectedChartLevel)
     )!
   }

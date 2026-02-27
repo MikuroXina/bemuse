@@ -1,5 +1,5 @@
 import type { GameEvent, GameNote } from '@mikuroxina/bemuse-notechart'
-import _ from 'lodash'
+import sortBy from 'lodash/sortBy'
 
 export interface VisibleNote {
   note: GameNote
@@ -14,8 +14,8 @@ export interface VisibleBarLine {
 
 export class NoteArea {
   constructor(notes: readonly GameNote[], barLines: readonly GameEvent[]) {
-    this._notes = _.sortBy(notes, position)
-    this._barLines = _(barLines).map('position').sortBy().value()
+    this._notes = sortBy(notes, position)
+    this._barLines = barLines.map(position).sort((a, b) => a - b)
   }
 
   private _notes: GameNote[]

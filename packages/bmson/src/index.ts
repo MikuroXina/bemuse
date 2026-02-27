@@ -1,5 +1,5 @@
 import * as BMS from '@mikuroxina/bms'
-import _ from 'lodash'
+import sortBy from 'lodash/sortBy.js'
 
 import * as legacy from './legacy.js'
 import type { Bmson } from './types.js'
@@ -41,14 +41,11 @@ export function songInfoForBmson(bmson: PartialBmson): BMS.SongInfo {
 /**
  * Returns the barlines as an array of beats.
  */
-export function barLinesForBmson(bmson: Bmson | legacy.LegacyBmson) {
+export function barLinesForBmson(bmson: Bmson | legacy.LegacyBmson): number[] {
   if (!('version' in bmson)) return legacy.barLinesForBmson(bmson)
   const beatForPulse = beatForPulseForBmson(bmson)
-  const lines = bmson.lines
-  return _(lines)
-    .map(({ y }) => beatForPulse(y))
-    .sortBy()
-    .value()
+  const lines = bmson.lines ?? []
+  return lines.map(({ y }) => beatForPulse(y)).sort((a, b) => a - b)
 }
 
 /**
@@ -150,9 +147,9 @@ function notesDataAndKeysoundsDataForBmsonAndTiming(
   const soundChannels = soundChannelsForBmson(bmson)
   if (soundChannels) {
     for (const { name, notes: soundChannelNotes } of soundChannels) {
-      const sortedNotes = _.sortBy(soundChannelNotes, 'y')
+      const sortedNotes = sortBy(soundChannelNotes, 'y')
       const keysoundNumber = nextKeysoundNumber++
-      const keysoundId = _.padStart('' + keysoundNumber, 4, '0')
+      const keysoundId = keysoundNumber.toString().padStart(4, '0')
       const slices = utils.slicesForNotesAndTiming(soundChannelNotes, timing, {
         beatForPulse: beatForPulse,
       })

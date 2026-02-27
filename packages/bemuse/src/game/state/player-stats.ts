@@ -1,5 +1,4 @@
 import { Notechart } from '@mikuroxina/bemuse-notechart'
-import _ from 'lodash'
 
 import * as Judgments from '../judgments.js'
 
@@ -28,9 +27,9 @@ export class PlayerStats {
   private _log: { character: string; count: number }[]
 
   constructor(notechart: Notechart) {
-    this.totalCombo = _(notechart.notes)
+    this.totalCombo = notechart.notes
       .map((note) => notechart.info(note)!.combos)
-      .sum()
+      .reduce((prev, curr) => prev + curr, 0)
     this.totalNotes = notechart.notes.length
     this.combo = 0
     this.maxCombo = 0

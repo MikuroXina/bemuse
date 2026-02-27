@@ -1,5 +1,5 @@
 import {
-  getDefaultCustomFolderContext,
+  defaultCustomFolderContext,
   getSongsFromCustomFolders,
 } from '@bemuse/custom-folder/index.js'
 import {
@@ -63,7 +63,7 @@ function bootUp() {
   )
   store.dispatch(optionsSlice.actions.LOAD_FROM_STORAGE())
 
-  getSongsFromCustomFolders(getDefaultCustomFolderContext()).then((songs) => {
+  getSongsFromCustomFolders(defaultCustomFolderContext).then((songs) => {
     if (songs.length > 0) {
       store.dispatch(
         ReduxState.customSongsSlice.actions.CUSTOM_SONGS_LOADED({

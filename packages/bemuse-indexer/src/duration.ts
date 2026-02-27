@@ -1,7 +1,9 @@
 import * as BMS from '@mikuroxina/bms'
-import _ from 'lodash'
 
 export function getDuration(notes: BMS.Notes, timing: BMS.Timing) {
-  const maxBeat = _(notes.all()).map('beat').max() || 0
+  const maxBeat = notes
+    .all()
+    .map(({ beat }) => beat)
+    .reduce((prev, curr) => Math.max(prev, curr), 0)
   return timing.beatToSeconds(maxBeat)
 }

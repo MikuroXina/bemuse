@@ -6,7 +6,6 @@ import type {
   IResources,
 } from '@bemuse/resources/types.js'
 import { del, get, set } from 'idb-keyval'
-import _ from 'lodash'
 import pMemoize from 'p-memoize'
 
 import type {
@@ -47,9 +46,7 @@ export async function getCustomFolderState(context: CustomFolderContext) {
   return context.get(CUSTOM_FOLDER_KEYVAL_KEY)
 }
 
-export const getDefaultCustomFolderContext = _.once(
-  () => new CustomFolderContextImpl()
-)
+export const defaultCustomFolderContext = new CustomFolderContextImpl()
 
 export type CustomFolderScanIO = {
   log: (message: string) => void
@@ -384,10 +381,10 @@ class ChartFileScanner {
     private fast = false
   ) {
     this.existingMap = new Map(
-      _.map(this.previous, (file) => [JSON.stringify(file.path), file])
+      this.previous?.map((file) => [JSON.stringify(file.path), file])
     )
     this.existingFolderSet = new Set(
-      _.map(this.previous, (file) => JSON.stringify(file.path.slice(0, -1)))
+      this.previous?.map((file) => JSON.stringify(file.path.slice(0, -1)))
     )
   }
 
