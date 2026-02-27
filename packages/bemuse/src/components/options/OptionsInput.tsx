@@ -1,8 +1,8 @@
-import OmniInput, { getName, keyStream } from '@bemuse/omni-input/index.js'
+import OmniInput, { getName } from '@bemuse/omni-input/index.js'
+import difference from 'lodash/difference.js'
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createSelector } from 'reselect'
-import { tap, throttleTime } from 'rxjs'
 
 import {
   isContinuousAxisEnabled,
@@ -100,13 +100,18 @@ const OptionsInput = () => {
       continuous: isContinuous,
     })
     omniInput.current = input
-    const subscription = keyStream(input)
-      .pipe(throttleTime(16))
-      .pipe(tap((key) => console.log('a', key)))
-      .subscribe(handleKey)
+    let oldPushedKeys: string[] = []
+    const timer = setInterval(() => {
+      const state = input.update()
+      const pushedKeys = Object.keys(state).filter((key) => state[key])
+      for (const key of difference(pushedKeys, oldPushedKeys)) {
+        handleKey(key)
+      }
+      oldPushedKeys = pushedKeys
+    }, 16)
     window.addEventListener('keydown', handleKeyboardEvent, true)
     return () => {
-      subscription.unsubscribe()
+      clearInterval(timer)
       input.dispose()
       window.removeEventListener('keydown', handleKeyboardEvent, true)
     }

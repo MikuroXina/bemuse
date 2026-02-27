@@ -1,14 +1,9 @@
+import { Subject } from '@bemuse/utils/subject.js'
 import { EventEmitter } from 'events'
 import assert from 'power-assert'
-import { Subject } from 'rxjs'
 import { afterEach, beforeEach, describe, it } from 'vitest'
 
-import {
-  _keyStreamForUpdateStream,
-  getName,
-  keyStream,
-  OmniInput,
-} from './index.js'
+import { getName, OmniInput } from './index.js'
 
 function fakeWindow() {
   const events = new EventEmitter()
@@ -57,7 +52,7 @@ describe('OmniInput', function () {
       getMidiStream: () => midiSubject,
     })
     midi = (...args) => {
-      midiSubject.next({
+      midiSubject.dispatch({
         data: args,
         target: { id: '1234' },
       })
@@ -148,41 +143,6 @@ describe('OmniInput', function () {
       assert(getName('midi.1234.12.pitch.down').match(/Pitch-/))
       assert(getName('midi.1234.12.sustain').match(/Sustain/))
       assert(getName('midi.1234.12.mod').match(/Mod/))
-    })
-  })
-
-  describe('keyStream', function () {
-    it('should return events', function () {
-      let last
-      const subscription = keyStream(input, window).subscribe(
-        (value) => (last = value)
-      )
-
-      window.keydown(32)
-      window.tick()
-      assert(last === '32')
-
-      subscription.unsubscribe()
-    })
-  })
-
-  describe('_keyStreamForUpdateStream', function () {
-    it('should emit new keys', function () {
-      const subject = new Subject()
-      const events = []
-      const subscription = _keyStreamForUpdateStream(subject).subscribe(
-        (value) => events.push(value)
-      )
-      subject.next({ 32: true })
-      subject.next({ 32: true })
-      subject.next({ 32: false })
-      subject.next({ 32: true })
-      subject.next({ 33: true })
-      subject.next({ 32: true })
-      subject.next({ 32: true, 35: true })
-      subject.next({ 31: true, 35: true })
-      assert.deepEqual(events, ['32', '32', '33', '32', '35', '31'])
-      subscription.unsubscribe()
     })
   })
 })
