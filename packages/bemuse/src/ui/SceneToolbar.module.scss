@@ -1,6 +1,10 @@
 @use '@bemuse/ui/common.scss';
 
 .container {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
   background: rgba(black, 0.7);
   display: flex;
   flex-wrap: wrap;

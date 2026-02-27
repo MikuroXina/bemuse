@@ -47,7 +47,10 @@ const ResultExpertInfo = ({ deltas }: ResultExpertInfoProps) => {
         style={{ cursor: 'help' }}
         title='Average and standard deviation of your keypresses.'
       >
-        {formatOffset(stats.mean)} ± {formatDuration(stats.standardDeviation)}
+        {formatOffset(stats.mean)}{' '}
+        {Number.isNaN(stats.standardDeviation)
+          ? ''
+          : `± ${formatDuration(stats.standardDeviation)}`}
         ms
       </span>
     </span>
