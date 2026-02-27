@@ -1,6 +1,5 @@
 import './OptionsInputField.scss'
 
-import _ from 'lodash'
 import {
   type ChangeEvent,
   type ComponentProps,
@@ -53,13 +52,7 @@ const OptionsInputField = <T,>(
   }
   return (
     <input
-      {..._.omit(props, [
-        'stringify',
-        'parse',
-        'onChange',
-        'validator',
-        'value',
-      ])}
+      {...props}
       type='text'
       value={value}
       onChange={handleInputChange}

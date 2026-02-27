@@ -1,6 +1,6 @@
 import type { Subject } from '@bemuse/utils/subject.js'
 import keycode from 'keycode'
-import _ from 'lodash'
+import capitalize from 'lodash/capitalize'
 import { useEffect, useState } from 'react'
 
 import { AxisLogic } from './axis-logic.js'
@@ -207,7 +207,7 @@ const knownMidiIds = new Map<string, number>()
 
 export function getName(key: string): string {
   if (+key) {
-    return _.capitalize(keycode(+key))
+    return capitalize(keycode(+key))
   }
   {
     const match = key.match(/^gamepad\.(\d+)\.axis\.(\d+)\.(\w+)/)

@@ -1,18 +1,18 @@
 import {
   clearCustomFolder,
+  defaultCustomFolderContext,
   getCustomFolderState,
-  getDefaultCustomFolderContext,
   scanFolder,
   setCustomFolder,
 } from '@bemuse/custom-folder/index.js'
 import { queryClient } from '@bemuse/react-query/index.js'
 import { sceneRoot } from '@bemuse/utils/main-element.js'
-import _ from 'lodash'
+import throttle from 'lodash/throttle'
 import { useState } from 'react'
 import { QueryClientProvider, useQuery } from 'react-query'
 
 const CustomFolderTester = () => {
-  const context = getDefaultCustomFolderContext()
+  const context = defaultCustomFolderContext
   const { isLoading, error, data } = useQuery('customFolder', async () => {
     const result = await getCustomFolderState(context)
     return result
@@ -39,7 +39,7 @@ const CustomFolderTester = () => {
     try {
       await scanFolder(context, {
         log: console.log,
-        setStatus: _.throttle((text) => setStatus(text), 100),
+        setStatus: throttle((text) => setStatus(text), 100),
         updateState: (newState) => {
           queryClient.setQueryData('customFolder', newState)
         },

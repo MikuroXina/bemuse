@@ -6,7 +6,6 @@ import getPreviewResourceUrl from '@bemuse/music-collection/getPreviewResourceUr
 import groupSongsIntoCategories from '@bemuse/music-collection/groupSongsIntoCategories.js'
 import sortSongs from '@bemuse/music-collection/sortSongs.js'
 import MusicSelectPreviewer from '@bemuse/music-previewer/MusicSelectPreviewer.js'
-import _ from 'lodash'
 import { useState } from 'react'
 
 type Sorter = (songs: readonly Song[]) => {
@@ -20,7 +19,17 @@ const sorters: Record<string, Sorter> = {
   added: (songs: readonly Song[]) => [
     {
       title: 'Sorted by added date',
-      songs: _.reverse(_.sortBy(songs, getAdded)),
+      songs: songs.toSorted((a, b) => {
+        const aAdded = getAdded(a)
+        const bAdded = getAdded(b)
+        if (aAdded < bAdded) {
+          return 1
+        }
+        if (aAdded > bAdded) {
+          return -1
+        }
+        return 0
+      }),
     },
   ],
 }

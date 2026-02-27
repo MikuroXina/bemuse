@@ -1,7 +1,6 @@
 import type { Song } from '@bemuse/collection-model/types.js'
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
 import type { Chart, SongMetadataInCollection } from '@mikuroxina/bemuse-types'
-import _ from 'lodash'
 import { useLayoutEffect, useRef } from 'react'
 
 import styles from './MusicList.module.scss'
@@ -53,7 +52,7 @@ const getSelectedChart = (song: Song, selectedChartInProps: Chart) => {
   // If the song being rendered does not contain the selected chart, don’t
   // bother sending it in (just keep it as undefined).
   //
-  return _.find(song.charts, (chart) => chart === selectedChartInProps)
+  return song.charts.find((chart) => chart === selectedChartInProps)
 }
 
 const MusicList = ({

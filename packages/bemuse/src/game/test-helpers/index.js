@@ -1,10 +1,10 @@
 import { fromBMSChart } from '@mikuroxina/bemuse-notechart/lib/loader/BMSNotechartLoader.js'
 import { Compiler } from '@mikuroxina/bms'
-import _ from 'lodash'
+import tap from 'lodash/tap'
 
 import Player from '../player.js'
 
-export const tap = _.tap
+export { tap }
 
 export function chart(code = '') {
   return Compiler.compile(code).chart

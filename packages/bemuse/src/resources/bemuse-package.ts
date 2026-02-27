@@ -1,7 +1,7 @@
 import Progress from '@bemuse/progress/index.js'
 import * as ProgressUtils from '@bemuse/progress/utils.js'
 import readBlob from '@bemuse/utils/read-blob.js'
-import _ from 'lodash'
+import once from 'lodash/once'
 import throat from 'throat'
 
 import type { IResource, IResources } from './types.js'
@@ -71,19 +71,19 @@ export class BemusePackageResources implements IResources {
     )
   }
 
-  private _getMetadata = _.once(async () => {
+  private _getMetadata = once(async () => {
     const file = await this._base.file(this._metadataFilename)
     const data = await file.read()
     const text = await new Blob([data]).text()
     return JSON.parse(text) as MetadataFileJSON
   })
 
-  private _getRefs = _.once(async () => {
+  private _getRefs = once(async () => {
     const metadata = await this._getMetadata()
     return metadata.refs.map((spec) => new Ref(this, spec))
   })
 
-  private _getFileMap = _.once(async () => {
+  private _getFileMap = once(async () => {
     const metadata = await this._getMetadata()
     const files = new Map<string, BemusePackFileEntry>()
     for (const file of metadata.files) {

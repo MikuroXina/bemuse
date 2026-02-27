@@ -1,5 +1,4 @@
 import * as BMS from '@mikuroxina/bms'
-import _ from 'lodash'
 
 import Notechart from '../index.js'
 import type {
@@ -52,7 +51,9 @@ function getJudgmentWindowFromBMS(bms: BMS.BMSChart): ExpertJudgmentWindow {
 }
 
 function generateBarLinesFromBMS(bmsNotes: BMS.BMSNote[], bms: BMS.BMSChart) {
-  const max = _.max(bmsNotes.map((note) => note.endBeat || note.beat)) || 0
+  const max = bmsNotes
+    .map((note) => note.endBeat || note.beat)
+    .reduce((prev, curr) => Math.max(prev, curr), 0)
   const barLines = [0]
   let currentBeat = 0
   let currentMeasure = 0

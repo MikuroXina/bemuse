@@ -1,5 +1,4 @@
 import * as BMS from '@mikuroxina/bms'
-import _ from 'lodash'
 
 import type { Note } from './types.js'
 
@@ -57,7 +56,7 @@ export function slicesForNotesAndTiming(
   let tʹ: number
   let lastAdded: SoundSlice | undefined
 
-  for (const y of _.sortBy([...all])) {
+  for (const y of [...all].sort((a, b) => a - b)) {
     const t = timing.beatToSeconds(beatForPulse(y))
     if (soundTime === null || restart.has(y)) {
       soundTime = 0

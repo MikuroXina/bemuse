@@ -1,7 +1,6 @@
 import context from '@bemuse/audio-context/index.js'
 import SamplingMaster, { Sample } from '@bemuse/sampling-master/index.js'
 import download from '@bemuse/utils/download.js'
-import _ from 'lodash'
 
 import bgmFile from './data/bgm.ogg'
 import introFile from './data/intro.ogg'
@@ -31,7 +30,7 @@ export async function load() {
     download(ASSET_URLS[name])
       .as('arraybuffer')
       .then((buf) => master.sample(buf))
-  const samples = _.fromPairs(
+  const samples = Object.fromEntries(
     await Promise.all(
       (Object.keys(ASSET_URLS) as readonly AssetKey[]).map(async (name) => {
         const sampleObj = await sample(name)

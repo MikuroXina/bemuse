@@ -1,14 +1,18 @@
 import * as BMS from '@mikuroxina/bms'
-import _ from 'lodash'
 
 export function getBpmInfo(notes: BMS.Notes, timing: BMS.Timing) {
-  const maxBeat = _(notes.all()).map('beat').max() || 0
-  const beats = _(timing.getEventBeats())
-    .concat([0, maxBeat])
-    .sortBy()
-    .uniq()
-    .filter((beat) => beat! <= maxBeat)
-    .value()
+  const maxBeat = notes
+    .all()
+    .map(({ beat }) => beat)
+    .reduce((prev, curr) => Math.max(prev, curr), 0)
+  const beats = [
+    ...new Set(
+      timing
+        .getEventBeats()
+        .concat([0, maxBeat])
+        .toSorted((a, b) => a - b)
+    ).values(),
+  ].filter((beat) => beat! <= maxBeat)
   const data: [number, number][] = []
   for (let i = 0; i + 1 < beats.length; i++) {
     const length =
@@ -26,8 +30,8 @@ export function getBpmInfo(notes: BMS.Notes, timing: BMS.Timing) {
 }
 
 function percentile(data: [number, number][]) {
-  data = _.sortBy(data, 0)
-  const total = _.sumBy(data, '1')
+  data = data.toSorted((a, b) => a[0] - b[0])
+  const total = data.reduce((acc, curr) => acc + curr[1], 0)
   return (percentileNo: number) => {
     let current = 0
     for (let i = 0; i < data.length; i++) {

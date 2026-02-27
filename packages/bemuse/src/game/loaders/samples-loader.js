@@ -1,7 +1,6 @@
 import defaultKeysoundCache from '@bemuse/keysound-cache'
 import { EXTRA_FORMATTER } from '@bemuse/progress/formatters'
 import * as ProgressUtils from '@bemuse/progress/utils'
-import _ from 'lodash'
 import pMap from 'p-map'
 
 export class SamplesLoader {
@@ -22,7 +21,7 @@ export class SamplesLoader {
       })
     if (decodeProgress) decodeProgress.formatter = EXTRA_FORMATTER
     return pMap(files, load, { concurrency: 64 }).then((arr) =>
-      _(arr).filter().fromPairs().value()
+      Object.fromEntries(arr.filter((value) => !!value))
     )
   }
 

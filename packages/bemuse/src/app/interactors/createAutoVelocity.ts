@@ -1,5 +1,7 @@
 import invariant from 'invariant'
-import _ from 'lodash'
+import minBy from 'lodash/minBy'
+import range from 'lodash/range'
+
 type VelocityControllerOptions = {
   enabled: boolean
   initialSpeed: number
@@ -61,8 +63,8 @@ function autoVelocity({
 }): VelocityController {
   const visiblePortion = 1 - Math.abs(laneCover)
   const nominalSpeedLeadTime = ((60000 * 5) / songBPM) * visiblePortion
-  const initialSpeed = _.minBy(
-    _.range(1, 999).map((x) => x / 10),
+  const initialSpeed = minBy(
+    range(1, 999).map((x) => x / 10),
     (speed) => Math.abs(desiredLeadTime - nominalSpeedLeadTime / speed)
   )!
   return {

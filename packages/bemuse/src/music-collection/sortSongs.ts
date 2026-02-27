@@ -1,17 +1,17 @@
 import type { Song } from '@bemuse/collection-model/types.js'
-import _ from 'lodash'
+import orderBy from 'lodash/orderBy'
 
 import isChartPlayable from './isChartPlayable.js'
 
 export function sortSongs(songs: readonly Song[]) {
-  return _.orderBy(songs, [
+  return orderBy(songs, [
     (song) => {
-      return _(song.charts)
+      return song.charts
         .filter(isChartPlayable)
         .filter((chart) => chart.info.difficulty < 5)
         .filter((chart) => chart.info.level > 0)
         .map((chart) => chart.info.level)
-        .min()
+        .reduce((prev, curr) => Math.min(prev, curr), Infinity)
     },
     (song) => song.bpm,
     (song) => song.title.toLowerCase(),

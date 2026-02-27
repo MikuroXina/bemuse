@@ -1,5 +1,3 @@
-import _ from 'lodash'
-
 /**
  * The resources class contains a mapping from an image "src" to the resolved
  * image "url."
@@ -19,7 +17,7 @@ export class Resources {
   }
 
   get urls() {
-    return _.values(this._map)
+    return Object.values(this._map)
   }
 }
 

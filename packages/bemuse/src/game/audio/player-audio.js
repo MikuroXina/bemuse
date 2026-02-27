@@ -1,10 +1,10 @@
-import _ from 'lodash'
+import sortBy from 'lodash/sortBy'
 
 import { isBad } from '../judgments'
 import WaveFactory from './wave-factory'
 
 function autoplayer(array) {
-  array = _.sortBy(array, 'time')
+  array = sortBy(array, 'time')
   let i = 0
   return {
     next(time) {

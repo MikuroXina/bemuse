@@ -9,7 +9,9 @@ import type {
   Notechart,
   SoundedEvent,
 } from '@mikuroxina/bemuse-notechart'
-import _ from 'lodash'
+import minBy from 'lodash/minBy'
+import sortBy from 'lodash/sortBy'
+import sortedLastIndex from 'lodash/sortedLastIndex'
 
 export interface NotechartPreview {
   /**
@@ -143,12 +145,12 @@ class BemuseNotechartPreview implements NotechartPreview {
     private _soundGroup: SoundGroup,
     private _samples: PreviewSoundSample[]
   ) {
-    this._sortedGameNotes = _.sortBy(this._notechart.notes, (e) => e.position)
-    this._sortedGameLandmines = _.sortBy(
+    this._sortedGameNotes = sortBy(this._notechart.notes, (e) => e.position)
+    this._sortedGameLandmines = sortBy(
       this._notechart.landmines,
       (e) => e.position
     )
-    this._sortedSoundEvents = _.sortBy(
+    this._sortedSoundEvents = sortBy(
       [...this._notechart.notes, ...this._notechart.autos],
       (e) => e.time
     )
@@ -263,7 +265,7 @@ class BemuseNotechartPreview implements NotechartPreview {
 
   getMeasureJumpTarget(currentTime: number, direction: number): number {
     const beat = this._secondsToBeat(currentTime)
-    const closestBarLine = _.minBy(this._notechart.barLines, (b) =>
+    const closestBarLine = minBy(this._notechart.barLines, (b) =>
       Math.abs(b.beat - beat)
     )
     if (!closestBarLine) {
@@ -421,20 +423,19 @@ class ComboPreviewer {
   private _events: number[]
 
   constructor(notes: GameNote[]) {
-    this._events = _.sortBy(
-      _.flatMap(notes, (note) => {
+    this._events = notes
+      .flatMap((note) => {
         if (note.end) {
           return [note.time, note.end.time]
         } else {
           return [note.time]
         }
-      }),
-      _.identity
-    )
+      })
+      .sort((a, b) => a - b)
   }
 
   getComboInfo(time: number): ComboInfo | null {
-    const index = _.sortedLastIndex(this._events, time)
+    const index = sortedLastIndex(this._events, time)
     if (index === 0) {
       return null
     }

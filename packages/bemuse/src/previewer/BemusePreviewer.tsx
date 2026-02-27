@@ -1,5 +1,5 @@
 import { showAlert, showQuickPick } from '@bemuse/ui-dialogs/index.js'
-import _ from 'lodash'
+import throttle from 'lodash/throttle'
 import { useEffect, useReducer, useRef, useState } from 'react'
 
 import styles from './BemusePreviewer.module.scss'
@@ -39,7 +39,7 @@ export const BemusePreviewer = () => {
 
   const reload = () => {
     setLoading('Loading...')
-    const setLoadingDebounced = _.throttle(setLoading, 100)
+    const setLoadingDebounced = throttle(setLoading, 100)
     loadPreview({
       log: (message) => {
         setLoadingDebounced((x) => (x != null ? message : x))

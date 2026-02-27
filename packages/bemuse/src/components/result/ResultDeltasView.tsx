@@ -1,6 +1,6 @@
 import { timegate } from '@bemuse/game/judgments.js'
 import Panel from '@bemuse/ui/Panel.js'
-import _ from 'lodash'
+import range from 'lodash/range'
 import mean from 'mean'
 import median from 'median'
 import type { ReactNode } from 'react'
@@ -12,10 +12,12 @@ import styles from './ResultDeltasView.module.scss'
 const ms = (delta: number) => `${(delta * 1000).toFixed(1)} ms`
 
 const group = (deltas: readonly number[]) =>
-  _(deltas)
+  deltas
     .map((delta) => Math.floor(delta * 100))
-    .countBy((bucket) => bucket)
-    .value()
+    .reduce((prev: Record<number, number>, curr) => {
+      prev[curr] = prev[curr] ? prev[curr] + 1 : 0
+      return prev
+    }, {})
 
 const Row = ({
   text,
@@ -59,11 +61,13 @@ const ResultDeltasView = ({ deltas }: ResultDeltasViewProps) => {
   const earlyCount = offDeltas.filter((delta) => delta < 0).length
   const lateCount = offDeltas.filter((delta) => delta > 0).length
   const groups = group(deltas)
-  const stats = _.range(-20, 20).map((bucket) => ({
+  const stats = range(-20, 20).map((bucket) => ({
     bucket,
     count: groups[bucket] || 0,
   }))
-  const max = _(stats).map('count').max() ?? 0
+  const max = stats
+    .map(({ count }) => count)
+    .reduce((prev, curr) => Math.max(prev, curr), 0)
   const height = (value: number) => Math.ceil((value / Math.max(max, 1)) * 128)
   return (
     <div className={styles.container}>

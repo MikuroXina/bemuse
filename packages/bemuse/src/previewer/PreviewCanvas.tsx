@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 import type { NotechartPreview } from './NotechartPreview.js'
@@ -49,7 +48,7 @@ class PreviewLayout {
       return noteColumn(sprites.white, c)
     })
     this.totalWidth = nextX
-    this.columnMapping = _.fromPairs(
+    this.columnMapping = Object.fromEntries(
       this.columns.filter((c) => c.column != null).map((c) => [c.column, c])
     )
   }
