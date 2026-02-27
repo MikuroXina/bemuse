@@ -1,5 +1,4 @@
 import Immutable from 'immutable'
-import { distinct, map, Observable, scan } from 'rxjs'
 
 import { INITIAL_OPERATION_STATE, type Operation } from './operations.js'
 
@@ -26,19 +25,6 @@ export type DataStore<T> = Immutable.Map<string, Operation<T>>
 
 export const initialState = <T>(): DataStore<T> =>
   Immutable.Map<string, Operation<T>>()
-
-export function storeStream<T>(
-  actionStream: Observable<Action<T>>
-): Observable<DataStore<T>> {
-  return actionStream.pipe(scan(reduce, initialState()))
-}
-
-export function itemStream<T>(
-  stateStream: Observable<DataStore<T>>,
-  id: string
-) {
-  return stateStream.pipe(map((state) => get(state, id))).pipe(distinct())
-}
 
 export function reduce<T>(
   state: DataStore<T> = initialState(),

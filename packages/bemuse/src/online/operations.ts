@@ -1,5 +1,3 @@
-import { from, Observable, startWith } from 'rxjs'
-
 export type Pending = {
   status: 'pending'
 }
@@ -64,10 +62,4 @@ export function outcomeOfPromise<T>(
   promise: PromiseLike<T>
 ): Promise<Operation<T>> {
   return Promise.resolve(promise).then(completed, error)
-}
-
-export function operationStreamFromPromise<T>(
-  promise: PromiseLike<T>
-): Observable<Operation<T>> {
-  return from(outcomeOfPromise(promise)).pipe(startWith(loading()))
 }
