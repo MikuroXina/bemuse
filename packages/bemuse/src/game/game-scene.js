@@ -1,13 +1,11 @@
-import $ from 'jquery'
-
 export default function GameScene(display) {
   return function (container) {
     const handler = () => false
-    $(window).on('touchstart', handler)
+    window.addEventListener('touchstart', handler)
     showCanvas(display, container)
     return {
       teardown() {
-        $(window).off('touchstart', handler)
+        window.removeEventListener('touchstart', handler)
       },
     }
   }
@@ -26,7 +24,7 @@ function showCanvas(display, container) {
   }
 
   resize()
-  $(window).on('resize', resize)
+  window.addEventListener('resize', resize)
 
   function resize() {
     const scale = Math.min(

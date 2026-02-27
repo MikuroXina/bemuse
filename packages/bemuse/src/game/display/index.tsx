@@ -4,7 +4,6 @@ import type { PanelPlacement } from '@bemuse/app/entities/Options.js'
 import { shouldDisableFullScreen } from '@bemuse/flags/index.js'
 import { Context } from '@bemuse/scintillator/index.js'
 import type { InfoPanelPosition } from '@bemuse/scintillator/skin.js'
-import $ from 'jquery'
 import type { ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
 import screenfull from 'screenfull'
@@ -183,22 +182,26 @@ export class GameDisplay {
     panelPlacement: PanelPlacement
     infoPanelPosition: InfoPanelPosition
   }) {
-    const $wrapper = $('<div class="game-display"></div>')
-      .attr('data-panel-placement', panelPlacement)
-      .attr('data-info-panel-position', infoPanelPosition)
-      .append('<div class="game-display--bg js-back-image"></div>')
-      .append(this.view)
+    const wrapper = document.createElement('div')
+    wrapper.className = 'game-display'
+    wrapper.setAttribute('data-panel-placement', panelPlacement)
+    wrapper.setAttribute('data-info-panel-position', infoPanelPosition)
+
+    const displayBackground = document.createElement('div')
+    displayBackground.classList.add('game-display--bg', 'js-back-image')
+    wrapper.append(displayBackground, this.view)
     if (backgroundImagePromise) {
       Promise.resolve(backgroundImagePromise).then((image) =>
-        $wrapper.find('.js-back-image').append(image)
+        wrapper.querySelector('.js-back-image')?.append(image)
       )
     }
     if (video) {
       this._video = video.element
       this._videoOffset = video.offset
-      $(video.element).addClass('game-display--video-bg').appendTo($wrapper)
+      video.element.classList.add('game-display--video-bg')
+      wrapper.append(video.element)
     }
-    return $wrapper[0]
+    return wrapper
   }
 
   private _createTouchEscapeButton() {
