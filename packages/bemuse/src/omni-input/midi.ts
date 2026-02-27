@@ -57,7 +57,12 @@ function requestMIDIAccess() {
 export function getMidiStream(): Subject<MIDIMessageEvent> {
   const subject = new Subject<MIDIMessageEvent>()
   void (async () => {
-    const access = await requestMIDIAccess()
+    let access: MIDIAccess
+    try {
+      access = await requestMIDIAccess()
+    } catch {
+      return
+    }
     for (const inputPort of (
       access.inputs as Map<string, MIDIInput>
     ).values()) {
