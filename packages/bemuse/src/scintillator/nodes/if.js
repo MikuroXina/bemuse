@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js'
 
-import Expression from '../expression'
+import { compileExpression } from '../expression/index.js'
 import SkinNode from './lib/base'
 import Instance from './lib/instance'
 
@@ -13,7 +13,7 @@ export class IfNode extends SkinNode {
       )
     }
     this.child = children[0]
-    this.key = new Expression($el.attr('key'))
+    this.key = compileExpression($el.attr('key'))
     this.value = String($el.attr('value'))
   }
 

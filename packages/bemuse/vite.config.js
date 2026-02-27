@@ -4,7 +4,6 @@ import { resolve } from 'node:path'
 
 import react from '@vitejs/plugin-react'
 import { playwright } from '@vitest/browser-playwright'
-import peggy from 'rollup-plugin-peggy'
 import { defineConfig } from 'vite'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import { VitePWA } from 'vite-plugin-pwa'
@@ -73,7 +72,6 @@ export default defineConfig({
   plugins: [
     ...commonPlugins,
     tsconfigPaths(),
-    peggy(),
     react(),
     VitePWA({
       registerType: 'autoUpdate',

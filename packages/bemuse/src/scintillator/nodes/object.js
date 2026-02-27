@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js'
 
-import Expression from '../expression'
+import { compileExpression } from '../expression/index.js'
 import SkinNode from './lib/base'
 import Instance from './lib/instance'
 
@@ -71,7 +71,7 @@ export class ObjectNode extends SkinNode {
       )
     }
     this.pool = +$el.attr('pool') || 1
-    this.key = new Expression($el.attr('key'))
+    this.key = compileExpression($el.attr('key'))
   }
 
   instantiate(context, container) {
