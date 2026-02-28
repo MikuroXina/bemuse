@@ -215,7 +215,7 @@ importers:
         version: 3.5.34
       '@types/lodash':
         specifier: ^4.17.23
-        version: 4.17.23
+        version: 4.17.24
       '@types/markdown-it':
         specifier: ^12.2.3
         version: 12.2.3
@@ -396,7 +396,7 @@ importers:
         version: 2.2.37
       '@types/lodash':
         specifier: ^4.14.176
-        version: 4.17.23
+        version: 4.17.24
       '@types/node':
         specifier: ^24.10.13
         version: 24.10.13
@@ -442,7 +442,7 @@ importers:
         version: 2.2.37
       '@types/lodash':
         specifier: ^4.14.176
-        version: 4.17.23
+        version: 4.17.24
       '@types/node':
         specifier: ^25.3.0
         version: 25.3.0
@@ -637,7 +637,7 @@ importers:
         version: link:../eslint-config-bemuse
       '@types/lodash':
         specifier: ^4.14.176
-        version: 4.17.23
+        version: 4.17.24
       '@types/power-assert':
         specifier: ^1.5.0
         version: 1.5.12
@@ -3396,8 +3396,8 @@ packages:
   '@types/lodash.values@4.3.9':
     resolution: {integrity: sha512-IJ20OEfqNwm3k8ENwoM3q0yOs4UMpgtD4GqxB4lwBHToGthHWqhyh5DdSgQjioocz0QK2SSBkJfCq95ZTV8BTw==}
 
-  '@types/lodash@4.17.23':
-    resolution: {integrity: sha512-RDvF6wTulMPjrNdCoYRC8gNR880JNGT8uB+REUpC2Ns4pRqQJhGz90wh7rgdXDPpCczF3VGktDuFGVnz8zP7HA==}
+  '@types/lodash@4.17.24':
+    resolution: {integrity: sha512-gIW7lQLZbue7lRSWEFql49QJJWThrTFFeIMJdp3eH4tKoxm1OvEPg02rm4wCCSHS0cL3/Fizimb35b7k8atwsQ==}
 
   '@types/markdown-it@12.2.3':
     resolution: {integrity: sha512-GKMHFfv3458yYy+v/N8gjufHO6MSZKCOXpZc5GXIWWy8uldwfmPn98vp81gZ5f9SVw8YYBctgfJ22a2d7AOMeQ==}
@@ -14589,21 +14589,21 @@ snapshots:
 
   '@types/lodash.assign@4.2.9':
     dependencies:
-      '@types/lodash': 4.17.23
+      '@types/lodash': 4.17.24
 
   '@types/lodash.map@4.6.13':
     dependencies:
-      '@types/lodash': 4.17.23
+      '@types/lodash': 4.17.24
 
   '@types/lodash.uniq@4.5.9':
     dependencies:
-      '@types/lodash': 4.17.23
+      '@types/lodash': 4.17.24
 
   '@types/lodash.values@4.3.9':
     dependencies:
-      '@types/lodash': 4.17.23
+      '@types/lodash': 4.17.24
 
-  '@types/lodash@4.17.23': {}
+  '@types/lodash@4.17.24': {}
 
   '@types/markdown-it@12.2.3':
     dependencies:
