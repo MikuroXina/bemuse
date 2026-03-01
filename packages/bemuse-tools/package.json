@@ -1,6 +1,6 @@
 {
   "name": "@mikuroxina/bemuse-tools",
-  "version": "52.0.0",
+  "version": "52.0.1",
   "description": "bemuse-tools: Tools for Bemuse",
   "files": [
     "src",

@@ -1,6 +1,6 @@
 {
   "name": "@mikuroxina/bemuse-notechart",
-  "version": "52.0.0",
+  "version": "52.0.1",
   "description": "Bemuse notechart data structure, supports BMS and bmsons.",
   "type": "module",
   "main": "lib/index.js",
