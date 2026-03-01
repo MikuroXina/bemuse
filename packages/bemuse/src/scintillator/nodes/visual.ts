@@ -157,70 +157,38 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
       }
       const particleSpriteElement = element.children.item(0)!
       const texture = await buildTexture(particleSpriteElement)
-      const currentParticles = new Map<string, Particle>()
-      const handlers = new Map<
-        string,
-        ((env: Record<string, unknown>) => void)[]
-      >()
       ctx.stateSubject.on((env) => {
         const extracted = objectsExpr(env)
-        const objectsToRender = Array.isArray(extracted)
-          ? (extracted as {
-              key: string
-              [otherKey: string]: unknown
-            }[])
-          : []
-        const currentKeys = new Set(currentParticles.keys())
-        const newKeys = new Set(objectsToRender.map(({ key }) => key))
-
-        // dead
-        const dead = currentKeys.difference(newKeys)
-        for (const k of dead) {
-          ;(container as ParticleContainer).removeParticle(
-            currentParticles.get(k)!
-          )
-          for (const handler of handlers.get(k)!) {
-            ctx.stateSubject.off(handler)
-          }
-          currentParticles.delete(k)
+        if (!Array.isArray(extracted)) {
+          return
         }
-
-        // spawn
-        const spawned = newKeys.difference(currentKeys)
-        for (const k of spawned) {
+        ;(container as ParticleContainer).removeParticles()
+        const particles = extracted as {
+          key: string
+          [otherKey: string]: unknown
+        }[]
+        for (const { key, ...particleEnv } of particles) {
           const particle = new Particle(texture)
           ;(container as ParticleContainer).addParticle(particle)
+          let alphaMemo = 1
           const updaters = updatersFor(
             {
               x: (val) => (particle.x = val as number),
               y: (val) => (particle.y = val as number),
               'scale-x': (val) => (particle.scaleX = val as number),
               'scale-y': (val) => (particle.scaleY = val as number),
-              alpha: (val) => (particle.alpha = val as number),
+              alpha: (val) => (particle.alpha = alphaMemo = val as number),
               width: (val) =>
                 (particle.scaleX = (val as number) / texture.width),
               height: (val) =>
                 (particle.scaleY = (val as number) / texture.height),
-              visible: (val) => (particle.alpha = val ? 1 : 0),
+              visible: (val) => (particle.alpha = val ? alphaMemo : 0),
             },
             particleSpriteElement
-          ).map((updater) => (env: Record<string, unknown>): void => {
-            const targetProps = (
-              objectsExpr(env) as {
-                key: string
-                [otherKey: string]: unknown
-              }[]
-            ).find(({ key }) => key === k)
-            if (targetProps !== undefined) {
-              updater(targetProps)
-            }
-          })
+          )
           for (const updater of updaters) {
-            updater(env)
-            ctx.stateSubject.on(updater)
+            updater(particleEnv)
           }
-          handlers.set(k, updaters)
-          currentParticles.set(k, particle)
         }
       })
       break
