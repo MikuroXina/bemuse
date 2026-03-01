@@ -1,10 +1,10 @@
 {
-  "packages/bemuse-indexer": "52.0.0",
-  "packages/bemuse-notechart": "52.0.0",
-  "packages/bemuse-tools": "52.0.0",
+  "packages/bemuse-indexer": "52.0.1",
+  "packages/bemuse-notechart": "52.0.1",
+  "packages/bemuse-tools": "52.0.1",
   "packages/bemuse-types": "52.0.0",
   "packages/bms": "52.0.0",
-  "packages/bmson": "52.0.0",
+  "packages/bmson": "52.0.1",
   "packages/eslint-config-bemuse": "52.0.0",
   "packages/monetizer": "52.0.0"
 }

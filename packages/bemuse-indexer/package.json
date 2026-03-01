@@ -1,6 +1,6 @@
 {
   "name": "@mikuroxina/bemuse-indexer",
-  "version": "52.0.0",
+  "version": "52.0.1",
   "description": "Parse and index BMS notecharts",
   "type": "module",
   "main": "lib/index.js",
