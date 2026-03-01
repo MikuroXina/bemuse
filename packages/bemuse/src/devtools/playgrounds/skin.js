@@ -48,7 +48,7 @@ export async function main() {
   )
 
   const context = new Scintillator.Context(skin)
-  const display = new GameDisplay({ game, skin, context })
+  const display = new GameDisplay({ game, scintillator: skin, context })
   const state = new GameState(game)
   const input = new GameInput()
   const started = new Date().getTime()

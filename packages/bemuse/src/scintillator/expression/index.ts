@@ -127,6 +127,7 @@ const val: Parser<Expression> = (input) =>
     if (typeof got === 'number') {
       const literalExpr: Expression = () => got
       literalExpr.constant = true
+      literalExpr.toString = () => got.toString()
       return literalExpr
     }
 
@@ -140,6 +141,12 @@ const val: Parser<Expression> = (input) =>
       return got[0][0] === '(' ? got[1](env) : !got[1](env)
     }
     variableExpr.constant = false
+    variableExpr.toString = (): string =>
+      typeof got === 'string'
+        ? got
+        : got[0][0] === '('
+          ? `(${got[1].toString()})`
+          : `!${got[1].toString()}`
     return variableExpr
   })(input)
 
@@ -171,6 +178,11 @@ const mulDiv: Parser<Expression> = map(
       rhs(env)
     )
   mulDivExpr.constant = false
+  mulDivExpr.toString = () =>
+    lhs.reduce(
+      (prev: string, [curr, _, op]) => `${curr.toString()} ${op} ${prev}`,
+      rhs.toString()
+    )
   return mulDivExpr
 })
 
@@ -195,6 +207,11 @@ const addSub: Parser<Expression> = map(
       rhs(env)
     )
   addSubDyn.constant = false
+  addSubDyn.toString = () =>
+    lhs.reduce(
+      (prev: string, [curr, _, op]) => `${curr.toString()} ${op} ${prev}`,
+      rhs.toString()
+    )
   return addSubDyn
 })
 
@@ -208,6 +225,11 @@ const logicalAnd: Parser<Expression> = map(
   const logicalAndDyn: Expression = (env) =>
     lhs.reduce((prev, [curr]) => curr(env) && prev, rhs(env))
   logicalAndDyn.constant = false
+  logicalAndDyn.toString = () =>
+    lhs.reduce(
+      (prev: string, [curr]) => `${curr.toString()} && ${prev}`,
+      rhs.toString()
+    )
   return logicalAndDyn
 })
 
@@ -224,6 +246,11 @@ const logicalOr: Parser<Expression> = map(
   const logicalOrDyn: Expression = (env) =>
     lhs.reduce((prev, [curr]) => prev || curr(env), rhs(env))
   logicalOrDyn.constant = false
+  logicalOrDyn.toString = () =>
+    lhs.reduce(
+      (prev: string, [curr]) => `${curr.toString()} || ${prev}`,
+      rhs.toString()
+    )
   return logicalOrDyn
 })
 
@@ -234,6 +261,7 @@ const log = debug('scintillator:expression')
 export interface Expression {
   constant: boolean;
   (env: Record<string, unknown>): unknown
+  toString(): string
 }
 
 export function compileExpression(text: string): Expression {

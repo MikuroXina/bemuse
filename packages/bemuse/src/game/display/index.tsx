@@ -2,7 +2,7 @@ import './game-display.scss'
 
 import type { PanelPlacement } from '@bemuse/app/entities/Options.js'
 import { shouldDisableFullScreen } from '@bemuse/flags/index.js'
-import { Context } from '@bemuse/scintillator/index.js'
+import type { Scintillator } from '@bemuse/scintillator/index.js'
 import type { InfoPanelPosition } from '@bemuse/scintillator/skin.js'
 import type { ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
@@ -23,22 +23,21 @@ export interface Video {
 export class GameDisplay {
   constructor({
     game,
-    context,
+    scintillator,
     backgroundImagePromise,
     video,
   }: {
     game: Game
-    context: Context
+    scintillator: Scintillator
     backgroundImagePromise: LoadImagePromise
     video: Video | null
   }) {
     this._game = game
-    this._context = context
-    const skinData = context.skinData
+    this._scintillator = scintillator
     this._players = new Map(
       game.players.map((player) => [
         player,
-        new PlayerDisplay(player, skinData),
+        new PlayerDisplay(player, scintillator.skin.displayMode),
       ])
     )
     this._stateful = {}
@@ -46,7 +45,7 @@ export class GameDisplay {
       backgroundImagePromise,
       video,
       panelPlacement: game.players[0].options.placement,
-      infoPanelPosition: skinData.infoPanelPosition,
+      infoPanelPosition: scintillator.skin.infoPanelPosition,
     })
     this._createTouchEscapeButton()
     this._createFullScreenButton()
@@ -54,7 +53,7 @@ export class GameDisplay {
   }
 
   private _game: Game
-  private _context: Context
+  private _scintillator: Scintillator
   private _players: Map<Player, PlayerDisplay>
   private _stateful: Record<string, string | number>
 
@@ -91,15 +90,15 @@ export class GameDisplay {
     this._duration = player.notechart.duration
   }
 
-  destroy() {
-    this._context.destroy()
-  }
+  destroy() {}
 
   update(gameTime: number, gameState: GameState) {
     const time = (new Date().getTime() - this._started) / 1000
     const data = this._getData(time, gameTime, gameState)
     this._updateStatefulData(time, gameState)
-    this._context.render(Object.assign({}, this._stateful, data))
+    this._scintillator.stateSubject.dispatch(
+      Object.assign({}, this._stateful, data)
+    )
     this._synchronizeVideo(gameTime)
     this._synchronizeTutorialEscapeHint(gameTime)
   }
@@ -242,12 +241,12 @@ export class GameDisplay {
     )
   }
 
-  get context() {
-    return this._context
+  get context(): Scintillator {
+    return this._scintillator
   }
 
-  get view() {
-    return this._context.view
+  get view(): HTMLElement {
+    return this._scintillator.app.canvas
   }
 
   get wrapper() {

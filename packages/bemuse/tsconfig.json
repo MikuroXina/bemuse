@@ -3,7 +3,8 @@
   "include": ["src/**/*", "types/**/*"],
   "exclude": ["node_modules", "website/node_modules"],
   "compilerOptions": {
-    "target": "ES2024",
+    "target": "ESNext",
+    "lib": ["ESNext", "DOM"],
     "useDefineForClassFields": true,
     "module": "es2022",
     "moduleResolution": "bundler",

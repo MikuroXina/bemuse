@@ -1,3 +1,5 @@
+import type { DisplayMode } from '@bemuse/scintillator/skin.js'
+
 import { breaksCombo, type JudgedJudgment, MISSED } from '../judgments.js'
 import Player, {
   type PlayerOptionsPlacement,
@@ -21,7 +23,7 @@ interface PlayerData {
 export class PlayerDisplay {
   constructor(
     private readonly player: Player,
-    skinData: TODO
+    displayMode: DisplayMode
   ) {
     this._currentSpeed = 1
     this._noteArea = new NoteArea(
@@ -37,7 +39,7 @@ export class PlayerDisplay {
       lane_press: Math.max(0, player.options.laneCover),
     } as const
     this._gauge = getGauge(player.options.gauge)
-    this._touch3dMode = skinData.displayMode === 'touch3d'
+    this._touch3dMode = displayMode === 'touch3d'
   }
 
   private _currentSpeed: number
