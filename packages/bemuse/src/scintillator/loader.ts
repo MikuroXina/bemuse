@@ -4,7 +4,6 @@ import debug from 'debug'
 import { Application, Assets, Container } from 'pixi.js'
 
 import { root } from './nodes/root.js'
-import Resources from './resources.js'
 import type { Skin } from './skin.js'
 
 const log = debug('scintillator:loader')
@@ -24,7 +23,6 @@ export async function load(
   const xml = await loadXml(xmlPath)
 
   // scan all images
-  const resources = new Resources()
   const paths = new Set<string>()
   for (const element of Array.from(xml.querySelectorAll('[image]'))) {
     paths.add(element.getAttribute('image')!)
@@ -32,24 +30,25 @@ export async function load(
   for (const element of Array.from(xml.querySelectorAll('[font-src]'))) {
     paths.add(element.getAttribute('font-src')!)
   }
-  const base = new URL(xmlPath, 'file://')
+  const base = new URL(xmlPath, location.href)
+  const pathUrls: { path: string; url: string }[] = []
   for (const path of paths) {
     const assetUrl = new URL(path, base)
     if (assetUrl.protocol === 'file:') {
       const { pathname, search, hash } = assetUrl
-      resources.add(path, pathname + search + hash)
+      pathUrls.push({ path, url: pathname + search + hash })
     } else {
-      resources.add(path, assetUrl.toString())
+      pathUrls.push({ path, url: assetUrl.toString() })
     }
   }
 
   // preload all images + progress reporting
-  await preloadResources(resources, progress)
+  await loadResources(pathUrls, progress)
 
   // compile the skin
   log('compiling')
   const stateSubject = new Subject<Record<string, unknown>>()
-  const rootItems = await root(xml, resources, stateSubject)
+  const rootItems = await root(xml, stateSubject)
   return { ...rootItems, stateSubject }
 }
 
@@ -60,18 +59,24 @@ async function loadXml(xmlUrl: string): Promise<Element> {
     .documentElement as Element
 }
 
-async function preloadResources(
-  resources: Resources,
+async function loadResources(
+  pathUrls: readonly { path: string; url: string }[],
   progress?: Progress
 ): Promise<void> {
   log('loading resources')
-  const urls = resources.urls
-  for (let i = 0; i < urls.length; ++i) {
+  await Assets.init({
+    texturePreference: {
+      resolution: window.devicePixelRatio,
+      format: ['avif', 'webp', 'png'],
+    },
+  })
+
+  for (let i = 0; i < pathUrls.length; ++i) {
     await Assets.load({
-      alias: urls[i],
-      src: urls[i],
+      alias: pathUrls[i].path,
+      src: pathUrls[i].url,
     })
-    progress?.report(i + 1, resources.urls.length)
+    progress?.report(i + 1, pathUrls.length)
   }
   log('resources finished loading')
 }

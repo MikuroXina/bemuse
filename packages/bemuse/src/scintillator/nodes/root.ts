@@ -1,7 +1,6 @@
 import type { Subject } from '@bemuse/utils/subject.js'
 import { Application, Container } from 'pixi.js'
 
-import type Resources from '../resources.js'
 import {
   isDisplayMode,
   isInfoPanelPosition,
@@ -13,7 +12,6 @@ import { visual } from './visual.js'
 
 export const root = async (
   element: Element,
-  resources: Resources,
   stateSubject: Subject<Record<string, unknown>>
 ): Promise<{
   app: Application
@@ -28,7 +26,9 @@ export const root = async (
   const height = parseInt(element.getAttribute('height') ?? '', 10)
 
   await app.init({
-    backgroundColor: 0x090807,
+    width,
+    height,
+    backgroundAlpha: 0,
   })
 
   const defs: Record<string, SkinNode> = {}
@@ -48,7 +48,7 @@ export const root = async (
       }
       defs[id] = visual(defBody)
     } else {
-      const sub = visual(child)({ defs, refs, resources, stateSubject })
+      const sub = await visual(child)({ defs, refs, stateSubject })
       if (sub !== null) {
         app.stage.addChild(sub)
       }

@@ -1,9 +1,9 @@
 import keytime, { type Property, type Timeline } from 'keytime'
 import {
+  Assets,
   BitmapText,
   Container,
   Graphics,
-  ImageSource,
   Particle,
   ParticleContainer,
   Sprite,
@@ -12,7 +12,6 @@ import {
 } from 'pixi.js'
 
 import { compileExpression } from '../expression/index.js'
-import type Resources from '../resources.js'
 import type { Context, SkinNodeComponent } from './index.js'
 import { parseFrame } from './lib/utils.js'
 
@@ -29,24 +28,23 @@ const containerAccessors = (
   visible: (val) => (container.visible = val as boolean),
 })
 
-export const visual: SkinNodeComponent = (element) => (ctx) => {
-  if (element.nodeName === 'use') {
-    const def = element.getAttribute('def')
-    if (!def) {
-      throw new Error('expected def attribute on use')
-    }
-    if (!Object.hasOwn(ctx.defs, def)) {
-      throw new Error(`undefined referencing node: ${def}`)
-    }
-    return ctx.defs[def](ctx)
-  }
-
+export const visual: SkinNodeComponent = (element) => async (ctx) => {
   let container: Container
   switch (element.nodeName) {
+    case 'use': {
+      const def = element.getAttribute('def')
+      if (!def) {
+        throw new Error('expected def attribute on use')
+      }
+      if (!Object.hasOwn(ctx.defs, def)) {
+        throw new Error(`undefined referencing node: ${def}`)
+      }
+      return ctx.defs[def](ctx)
+    }
     case 'group': {
       container = new Container()
       const maskFrame = parseFrame(element.getAttribute('mask') ?? '')
-      if (maskFrame) {
+      if (maskFrame != null) {
         const maskShape = new Graphics().rect(
           maskFrame.x,
           maskFrame.y,
@@ -55,7 +53,7 @@ export const visual: SkinNodeComponent = (element) => (ctx) => {
         )
         container.mask = maskShape
       }
-      const subs = visuals(element.children, ctx)
+      const subs = await visuals(element.children, ctx)
       if (subs.length !== 0) {
         container.addChild(...subs)
       }
@@ -68,8 +66,10 @@ export const visual: SkinNodeComponent = (element) => (ctx) => {
       if (key == null || matchValue == null) {
         throw new Error('expected if node has key and value attribute')
       }
+      container.label = `if (${key} === '${matchValue}')`
+
       const keyExpr = compileExpression(key)
-      const subs = visuals(element.children, ctx)
+      const subs = await visuals(element.children, ctx)
       let state = false
       ctx.stateSubject.on((env) => {
         const newState = keyExpr(env) === matchValue
@@ -86,7 +86,8 @@ export const visual: SkinNodeComponent = (element) => (ctx) => {
       break
     }
     case 'sprite': {
-      container = new Sprite(buildTexture(element, ctx.resources))
+      container = new Sprite(await buildTexture(element))
+      container.label = element.getAttribute('image')!
       break
     }
     case 'text': {
@@ -112,6 +113,7 @@ export const visual: SkinNodeComponent = (element) => (ctx) => {
               fontFamily,
             },
           })
+      container.label = data.toString()
 
       ctx.stateSubject.on((env) => {
         const target = data(env)
@@ -132,12 +134,13 @@ export const visual: SkinNodeComponent = (element) => (ctx) => {
           alpha: true,
         },
       })
+      container.label = key
 
       if (element.children.length !== 1) {
         throw new Error('expected exactly one child')
       }
       const particleSpriteElement = element.children.item(0)!
-      const texture = buildTexture(particleSpriteElement, ctx.resources)
+      const texture = await buildTexture(particleSpriteElement)
       const currentParticles = new Map<string, Particle>()
       const handlers = new Map<
         string,
@@ -303,40 +306,31 @@ function updatersFor(
   return handlers
 }
 
-function buildTexture(element: Element, resources: Resources): Texture {
+async function buildTexture(element: Element): Promise<Texture> {
   const image = element.getAttribute('image')
   if (image == null) {
     throw new Error('expected element has image attribute')
   }
-  const url = resources.get(image)
-  const resource = new Image()
-  resource.src = url
-
-  const source = new ImageSource({
-    resource,
-    scaleMode: 'nearest',
-  })
-  const frame = parseFrame(element.getAttribute('frame') ?? '') ?? undefined
   const anchorX = Number(element.getAttribute('anchor-x') ?? '0')
   const anchorY = Number(element.getAttribute('anchor-y') ?? '0')
-  return new Texture({
-    source,
-    frame,
-    defaultAnchor: {
-      x: anchorX,
-      y: anchorY,
+
+  return await Assets.load<Texture>({
+    alias: image,
+    data: {
+      scaleMode: 'nearest',
+      defaultAnchor: { x: anchorX, y: anchorY },
     },
   })
 }
 
-export const visuals = (
+export const visuals = async (
   children: HTMLCollection,
   ctx: Context
-): Container[] => {
+): Promise<Container[]> => {
   const ret: Container[] = []
   for (let i = 0; i < children.length; ++i) {
     const child = children.item(i)!
-    const sub = visual(child)(ctx)
+    const sub = await visual(child)(ctx)
     if (sub !== null) {
       ret.push(sub)
     }
