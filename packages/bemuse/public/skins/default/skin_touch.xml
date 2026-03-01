@@ -4,8 +4,8 @@
     <group id="dxbuttons">
           <group x="72" y="160">
             <sprite image="Touch/Buttons/Normal.png" x="0" y="0" ref="p1_1"></sprite>
-            <text x="75" y="32" text="Score" align="center" font="InfoSmall" font-src="Fonts/InfoSmall.fnt"></text>
-            <text x="75" y="56" text="%s" align="center" data="p1_score" font="ScoreNumberSmall" font-src="Fonts/ScoreNumberSmall.fnt"></text>
+            <text x="75" y="32" text="Score" align="center" font-family="InfoSmall" font-src="Fonts/InfoSmall.fnt"></text>
+            <text x="75" y="56" text="%s" align="center" data="p1_score" font-family="ScoreNumberSmall" font-src="Fonts/ScoreNumberSmall.fnt"></text>
             <sprite image="Touch/Buttons/Active.png" x="-1" y="-1" alpha="p1_1_active"></sprite>
           </group>
           <group x="151" y="20">
@@ -14,8 +14,8 @@
           </group>
           <group x="230" y="160">
             <sprite image="Touch/Buttons/Normal.png" x="0" y="0" ref="p1_3"></sprite>
-            <text x="75" y="32" text="Accuracy" align="center" font="InfoSmall" font-src="Fonts/InfoSmall.fnt"></text>
-            <text x="75" y="56" text="%s" align="center" data="p1_stat_acc" font="ScoreNumberSmall" font-src="Fonts/ScoreNumberSmall.fnt"></text>
+            <text x="75" y="32" text="Accuracy" align="center" font-family="InfoSmall" font-src="Fonts/InfoSmall.fnt"></text>
+            <text x="75" y="56" text="%s" align="center" data="p1_stat_acc" font-family="ScoreNumberSmall" font-src="Fonts/ScoreNumberSmall.fnt"></text>
             <sprite image="Touch/Buttons/Active.png" x="-1" y="-1" alpha="p1_3_active"></sprite>
           </group>
           <group x="309" y="20">
@@ -24,8 +24,8 @@
           </group>
           <group x="388" y="160">
             <sprite image="Touch/Buttons/Normal.png" x="0" y="0" ref="p1_5"></sprite>
-            <text x="75" y="32" text="Time" align="center" font="InfoSmall" font-src="Fonts/InfoSmall.fnt"></text>
-            <text x="75" y="56" text="%s" align="center" data="song_time" font="ScoreNumberSmall" font-src="Fonts/ScoreNumberSmall.fnt"></text>
+            <text x="75" y="32" text="Time" align="center" font-family="InfoSmall" font-src="Fonts/InfoSmall.fnt"></text>
+            <text x="75" y="56" text="%s" align="center" data="song_time" font-family="ScoreNumberSmall" font-src="Fonts/ScoreNumberSmall.fnt"></text>
             <sprite image="Touch/Buttons/Active.png" x="-1" y="-1" alpha="p1_5_active"></sprite>
           </group>
           <group x="467" y="20">
@@ -34,8 +34,8 @@
           </group>
           <group x="546" y="160">
             <sprite image="Touch/Buttons/Normal.png" x="0" y="0" ref="p1_7"></sprite>
-            <text x="75" y="32" text="Speed" align="center" font="InfoSmall" font-src="Fonts/InfoSmall.fnt"></text>
-            <text x="75" y="56" text="%s" align="center" data="p1_speed" font="ScoreNumberSmall" font-src="Fonts/ScoreNumberSmall.fnt"></text>
+            <text x="75" y="32" text="Speed" align="center" font-family="InfoSmall" font-src="Fonts/InfoSmall.fnt"></text>
+            <text x="75" y="56" text="%s" align="center" data="p1_speed" font-family="ScoreNumberSmall" font-src="Fonts/ScoreNumberSmall.fnt"></text>
             <sprite image="Touch/Buttons/Active.png" x="-1" y="-1" alpha="p1_7_active"></sprite>
           </group>
     </group>
@@ -1944,8 +1944,8 @@
               <animation on="p1_judge_missed">
                 <keyframe t="0" alpha="0"></keyframe>
               </animation>
-              <text x="141" align="center" font="BemuseDefault-Meticulous" font-src="Fonts/BemuseDefault-Meticulous.fnt" text="*%s" data="p1_combo"></text>
-              <text x="141" align="center" font="BemuseDefault-MeticulousGlow" font-src="Fonts/BemuseDefault-MeticulousGlow.fnt" text="*%s" data="p1_combo" alpha="1 - ((t * 10) % 1)" blend="screen"></text>
+              <text x="141" align="center" font-family="BemuseDefault-Meticulous" font-src="Fonts/BemuseDefault-Meticulous.fnt" text="*%s" data="p1_combo"></text>
+              <text x="141" align="center" font-family="BemuseDefault-MeticulousGlow" font-src="Fonts/BemuseDefault-MeticulousGlow.fnt" text="*%s" data="p1_combo" alpha="1 - ((t * 10) % 1)" blend="screen"></text>
             </group>
             <group alpha="0">
               <animation on="p1_judge_1">
@@ -1966,7 +1966,7 @@
               <animation on="p1_judge_missed">
                 <keyframe t="0" alpha="0"></keyframe>
               </animation>
-              <text x="141" align="center" font="BemuseDefault-Precise" font-src="Fonts/BemuseDefault-Precise.fnt" text="*%s" data="p1_combo"></text>
+              <text x="141" align="center" font-family="BemuseDefault-Precise" font-src="Fonts/BemuseDefault-Precise.fnt" text="*%s" data="p1_combo"></text>
             </group>
             <group alpha="0">
               <animation on="p1_judge_1">
@@ -1987,7 +1987,7 @@
               <animation on="p1_judge_missed">
                 <keyframe t="0" alpha="0"></keyframe>
               </animation>
-              <text x="141" align="center" font="BemuseDefault-Good" font-src="Fonts/BemuseDefault-Good.fnt" text="*%s" data="p1_combo"></text>
+              <text x="141" align="center" font-family="BemuseDefault-Good" font-src="Fonts/BemuseDefault-Good.fnt" text="*%s" data="p1_combo"></text>
             </group>
             <group alpha="0">
               <animation on="p1_judge_1">
@@ -2008,7 +2008,7 @@
               <animation on="p1_judge_missed">
                 <keyframe t="0" alpha="0"></keyframe>
               </animation>
-              <text x="141" align="center" font="BemuseDefault-Other" font-src="Fonts/BemuseDefault-Other.fnt" text="1"></text>
+              <text x="141" align="center" font-family="BemuseDefault-Other" font-src="Fonts/BemuseDefault-Other.fnt" text="1"></text>
             </group>
             <group alpha="0">
               <animation on="p1_judge_1">
@@ -2029,7 +2029,7 @@
                 <keyframe t="0.6" alpha="1"></keyframe>
                 <keyframe t="1" alpha="0"></keyframe>
               </animation>
-              <text x="141" align="center" font="BemuseDefault-Other" font-src="Fonts/BemuseDefault-Other.fnt" text="0"></text>
+              <text x="141" align="center" font-family="BemuseDefault-Other" font-src="Fonts/BemuseDefault-Other.fnt" text="0"></text>
             </group>
           </group>
           <group y="440">

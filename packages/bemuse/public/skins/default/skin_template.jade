@@ -35,7 +35,7 @@ include _lib/common
       sprite(image='NotePanel/Right.png' x='0' y='0')
       group(x='42' y='0')
         use(def='note-area')
-        
+
   // info panel
   group(y='616')
     animation
@@ -43,18 +43,18 @@ include _lib/common
       keyframe(t='0.3' y='616' ease='quadOut')
     sprite(image='InfoPanel/Background.png')
     sprite(image='InfoPanel/Template.png' y='1')
-    text(x='176' y='22' text='%s' data='p1_score' font='ScoreNumber' font-src='Fonts/ScoreNumber.fnt' align='right')
-    text(x='636' y='22' text='%s' data='p1_bpm' font='BPMNumber' font-src='Fonts/BPMNumber.fnt' align='center')
-    text(x='824' y='33' alpha='0.8' text='%s' data='song_title' font='bold 16px Roboto' fill='white' align='left')
-    text(x='824' y='55' alpha='0.6' text='%s' data='song_artist' font='13px Roboto' fill='white' align='left')
-    text(x='824' y='70' alpha='0.6' text='%s' data='song_time' font='13px Roboto' fill='white' align='left')
-    text(x='260' y='29' text='%s' data='p1_stat_1' font='StatNumber' font-src='Fonts/StatNumber.fnt' align='right')
-    text(x='260' y='47' text='%s' data='p1_stat_2' font='StatNumber' font-src='Fonts/StatNumber.fnt' align='right')
-    text(x='260' y='65' text='%s' data='p1_stat_3' font='StatNumber' font-src='Fonts/StatNumber.fnt' align='right')
-    text(x='387' y='29' text='%s' data='p1_stat_4' font='StatNumber' font-src='Fonts/StatNumber.fnt' align='right')
-    text(x='387' y='47' text='%s' data='p1_stat_missed' font='StatNumber' font-src='Fonts/StatNumber.fnt' align='right')
-    text(x='387' y='65' text='%s' data='p1_stat_acc' font='StatNumber' font-src='Fonts/StatNumber.fnt' align='right')
-    text(x='1160' y='22' text='%s' data='p1_speed' font='ScoreNumber' font-src='Fonts/ScoreNumber.fnt' align='left')
+    text(x='176' y='22' text='%s' data='p1_score' font-family='ScoreNumber' font-src='Fonts/ScoreNumber.fnt' align='right')
+    text(x='636' y='22' text='%s' data='p1_bpm' font-family='BPMNumber' font-src='Fonts/BPMNumber.fnt' align='center')
+    text(x='824' y='33' alpha='0.8' text='%s' data='song_title' font-weight='bold' font-size='16px' font-family='Roboto' fill='white' align='left')
+    text(x='824' y='55' alpha='0.6' text='%s' data='song_artist' font-size='13px' font-family='Roboto' fill='white' align='left')
+    text(x='824' y='70' alpha='0.6' text='%s' data='song_time' font-size='13px' font-family='Roboto' fill='white' align='left')
+    text(x='260' y='29' text='%s' data='p1_stat_1' font-family='StatNumber' font-src='Fonts/StatNumber.fnt' align='right')
+    text(x='260' y='47' text='%s' data='p1_stat_2' font-family='StatNumber' font-src='Fonts/StatNumber.fnt' align='right')
+    text(x='260' y='65' text='%s' data='p1_stat_3' font-family='StatNumber' font-src='Fonts/StatNumber.fnt' align='right')
+    text(x='387' y='29' text='%s' data='p1_stat_4' font-family='StatNumber' font-src='Fonts/StatNumber.fnt' align='right')
+    text(x='387' y='47' text='%s' data='p1_stat_missed' font-family='StatNumber' font-src='Fonts/StatNumber.fnt' align='right')
+    text(x='387' y='65' text='%s' data='p1_stat_acc' font-family='StatNumber' font-src='Fonts/StatNumber.fnt' align='right')
+    text(x='1160' y='22' text='%s' data='p1_speed' font-family='ScoreNumber' font-src='Fonts/ScoreNumber.fnt' align='left')
 
   // tutorial
   +tutorial(width=1280)
@@ -63,7 +63,7 @@ include _lib/common
 
   - var width = 768
   - var height = 928
-  
+
   defs
     group(id='dxbuttons')
       mixin button(i, row, n)
@@ -80,27 +80,27 @@ include _lib/common
           sprite(image='Touch/Buttons/Active.png' x='-1' y='-1' alpha='p1_' + n + '_active')
       +button(-3, 1, 1)
         text(x='75' y='32' text='Score' align='center'
-              font='InfoSmall' font-src='Fonts/InfoSmall.fnt')
+              font-family='InfoSmall' font-src='Fonts/InfoSmall.fnt')
         text(x='75' y='56' text='%s' align='center' data='p1_score'
-              font='ScoreNumberSmall' font-src='Fonts/ScoreNumberSmall.fnt')
+              font-family='ScoreNumberSmall' font-src='Fonts/ScoreNumberSmall.fnt')
       +button(-2, 0, 2)
       +button(-1, 1, 3)
         text(x='75' y='32' text='Accuracy' align='center'
-              font='InfoSmall' font-src='Fonts/InfoSmall.fnt')
+              font-family='InfoSmall' font-src='Fonts/InfoSmall.fnt')
         text(x='75' y='56' text='%s' align='center' data='p1_stat_acc'
-              font='ScoreNumberSmall' font-src='Fonts/ScoreNumberSmall.fnt')
+              font-family='ScoreNumberSmall' font-src='Fonts/ScoreNumberSmall.fnt')
       +button( 0, 0, 4)
       +button( 1, 1, 5)
         text(x='75' y='32' text='Time' align='center'
-              font='InfoSmall' font-src='Fonts/InfoSmall.fnt')
+              font-family='InfoSmall' font-src='Fonts/InfoSmall.fnt')
         text(x='75' y='56' text='%s' align='center' data='song_time'
-              font='ScoreNumberSmall' font-src='Fonts/ScoreNumberSmall.fnt')
+              font-family='ScoreNumberSmall' font-src='Fonts/ScoreNumberSmall.fnt')
       +button( 2, 0, 6)
       +button( 3, 1, 7)
         text(x='75' y='32' text='Speed' align='center'
-              font='InfoSmall' font-src='Fonts/InfoSmall.fnt')
+              font-family='InfoSmall' font-src='Fonts/InfoSmall.fnt')
         text(x='75' y='56' text='%s' align='center' data='p1_speed'
-              font='ScoreNumberSmall' font-src='Fonts/ScoreNumberSmall.fnt')
+              font-family='ScoreNumberSmall' font-src='Fonts/ScoreNumberSmall.fnt')
 
   // note panel
   group(x=(width / 2 - 185))
@@ -155,18 +155,18 @@ include _lib/common
       keyframe(t='0.3' y='-12' ease='quadOut')
     sprite(image='InfoPanel/Background.png')
     sprite(image='InfoPanel/Template.png' y='1')
-    text(x='176' y='22' text='%s' data='p1_score' font='ScoreNumber' font-src='Fonts/ScoreNumber.fnt' align='right')
-    text(x='824' y='33' alpha='0.8' text='%s' data='song_title' font='bold 16px Roboto' fill='white' align='left')
-    text(x='824' y='55' alpha='0.6' text='%s' data='song_artist' font='13px Roboto' fill='white' align='left')
-    text(x='824' y='70' alpha='0.6' text='%s' data='song_time' font='13px Roboto' fill='white' align='left')
-    text(x='1160' y='22' text='%s' data='p1_speed' font='ScoreNumber' font-src='Fonts/ScoreNumber.fnt' align='left')
-    text(x='1099' y='34' text='%s' data='p1_bpm' font='StatNumber' font-src='Fonts/StatNumber.fnt' align='left')
-    text(x='260' y='29' text='%s' data='p1_stat_1' font='StatNumber' font-src='Fonts/StatNumber.fnt' align='right')
-    text(x='260' y='47' text='%s' data='p1_stat_2' font='StatNumber' font-src='Fonts/StatNumber.fnt' align='right')
-    text(x='260' y='65' text='%s' data='p1_stat_3' font='StatNumber' font-src='Fonts/StatNumber.fnt' align='right')
-    text(x='387' y='29' text='%s' data='p1_stat_4' font='StatNumber' font-src='Fonts/StatNumber.fnt' align='right')
-    text(x='387' y='47' text='%s' data='p1_stat_missed' font='StatNumber' font-src='Fonts/StatNumber.fnt' align='right')
-    text(x='387' y='65' text='%s' data='p1_stat_acc' font='StatNumber' font-src='Fonts/StatNumber.fnt' align='right')
+    text(x='176' y='22' text='%s' data='p1_score' font-family='ScoreNumber' font-src='Fonts/ScoreNumber.fnt' align='right')
+    text(x='824' y='33' alpha='0.8' text='%s' data='song_title' font-weight='bold' font-size='16px' font-family='Roboto' fill='white' align='left')
+    text(x='824' y='55' alpha='0.6' text='%s' data='song_artist' font-size='13px' font-family='Roboto' fill='white' align='left')
+    text(x='824' y='70' alpha='0.6' text='%s' data='song_time' font-size='13px' font-family='Roboto' fill='white' align='left')
+    text(x='1160' y='22' text='%s' data='p1_speed' font-family='ScoreNumber' font-src='Fonts/ScoreNumber.fnt' align='left')
+    text(x='1099' y='34' text='%s' data='p1_bpm' font-family='StatNumber' font-src='Fonts/StatNumber.fnt' align='left')
+    text(x='260' y='29' text='%s' data='p1_stat_1' font-family='StatNumber' font-src='Fonts/StatNumber.fnt' align='right')
+    text(x='260' y='47' text='%s' data='p1_stat_2' font-family='StatNumber' font-src='Fonts/StatNumber.fnt' align='right')
+    text(x='260' y='65' text='%s' data='p1_stat_3' font-family='StatNumber' font-src='Fonts/StatNumber.fnt' align='right')
+    text(x='387' y='29' text='%s' data='p1_stat_4' font-family='StatNumber' font-src='Fonts/StatNumber.fnt' align='right')
+    text(x='387' y='47' text='%s' data='p1_stat_missed' font-family='StatNumber' font-src='Fonts/StatNumber.fnt' align='right')
+    text(x='387' y='65' text='%s' data='p1_stat_acc' font-family='StatNumber' font-src='Fonts/StatNumber.fnt' align='right')
 
   mixin my-note(column, file)
     sprite(image=('Touch3DMode/Highlight' + column + '.png') blend='screen')

@@ -8,6 +8,8 @@ import {
   ParticleContainer,
   Sprite,
   Text,
+  type TextStyleAlign,
+  type TextStyleFontWeight,
   Texture,
 } from 'pixi.js'
 
@@ -91,7 +93,9 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
       break
     }
     case 'text': {
-      const fontFamily = element.getAttribute('font') ?? undefined
+      const fontFamily = element.getAttribute('font-family') ?? undefined
+      const fontWeight = element.getAttribute('font-weight') ?? undefined
+      const fontSize = element.getAttribute('font-size') ?? undefined
       const text = element.getAttribute('text') ?? ''
       const data = compileExpression(element.getAttribute('data') || '0')
       const ttf = !element.getAttribute('font-src')
@@ -104,13 +108,26 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
             text,
             style: {
               fontFamily,
+              fontWeight: fontWeight as TextStyleFontWeight | undefined,
+              fontSize,
               fill,
+              align: align as TextStyleAlign | undefined,
+            },
+            anchor: {
+              x: xRelativePos,
+              y: 0,
             },
           })
         : new BitmapText({
             text,
             style: {
               fontFamily,
+              fontSize,
+              align: align as TextStyleAlign | undefined,
+            },
+            anchor: {
+              x: xRelativePos,
+              y: 0,
             },
           })
       container.label = data.toString()
@@ -118,7 +135,6 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
       ctx.stateSubject.on((env) => {
         const target = data(env)
         ;(container as Text).text = text.replace('%s', target as string)
-        container.x = container.width * -xRelativePos
       })
       break
     }
@@ -234,7 +250,7 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
     ctx.refs.get(ref)!.add(container)
   }
   for (const animation of Array.from(
-    element.getElementsByTagName('animation')
+    element.querySelectorAll(':scope > animation')
   )) {
     const condition = animation.getAttribute('on')
     const timeExpr = compileExpression(element.getAttribute('t') ?? 't')
@@ -259,7 +275,7 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
 const parseAnimation = (animation: Element): Timeline<Property[]> => {
   const keyframeDefs: Map<string, Property> = new Map()
   for (const keyframe of Array.from(
-    animation.getElementsByTagName('keyframe')
+    animation.querySelectorAll(':scope > keyframe')
   )) {
     const t = keyframe.getAttribute('t')
     if (t == null) {
@@ -298,10 +314,15 @@ function updatersFor(
       continue
     }
     const expr = compileExpression(exprCode)
-    const handler = (env: Record<string, unknown>) => {
-      accessors[name](expr(env))
+    if (expr.constant) {
+      // if expr is a constant, the updater is unnecessary
+      accessors[name](expr({}))
+    } else {
+      const handler = (env: Record<string, unknown>) => {
+        accessors[name](expr(env))
+      }
+      handlers.push(handler)
     }
-    handlers.push(handler)
   }
   return handlers
 }

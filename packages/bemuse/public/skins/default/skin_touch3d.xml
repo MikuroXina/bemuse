@@ -7,18 +7,18 @@
     </animation>
     <sprite image="InfoPanel/Background.png"></sprite>
     <sprite image="InfoPanel/Template.png" y="1"></sprite>
-    <text x="176" y="22" text="%s" data="p1_score" font="ScoreNumber" font-src="Fonts/ScoreNumber.fnt" align="right"></text>
-    <text x="824" y="33" alpha="0.8" text="%s" data="song_title" font="bold 16px Roboto" fill="white" align="left"></text>
-    <text x="824" y="55" alpha="0.6" text="%s" data="song_artist" font="13px Roboto" fill="white" align="left"></text>
-    <text x="824" y="70" alpha="0.6" text="%s" data="song_time" font="13px Roboto" fill="white" align="left"></text>
-    <text x="1160" y="22" text="%s" data="p1_speed" font="ScoreNumber" font-src="Fonts/ScoreNumber.fnt" align="left"></text>
-    <text x="1099" y="34" text="%s" data="p1_bpm" font="StatNumber" font-src="Fonts/StatNumber.fnt" align="left"></text>
-    <text x="260" y="29" text="%s" data="p1_stat_1" font="StatNumber" font-src="Fonts/StatNumber.fnt" align="right"></text>
-    <text x="260" y="47" text="%s" data="p1_stat_2" font="StatNumber" font-src="Fonts/StatNumber.fnt" align="right"></text>
-    <text x="260" y="65" text="%s" data="p1_stat_3" font="StatNumber" font-src="Fonts/StatNumber.fnt" align="right"></text>
-    <text x="387" y="29" text="%s" data="p1_stat_4" font="StatNumber" font-src="Fonts/StatNumber.fnt" align="right"></text>
-    <text x="387" y="47" text="%s" data="p1_stat_missed" font="StatNumber" font-src="Fonts/StatNumber.fnt" align="right"></text>
-    <text x="387" y="65" text="%s" data="p1_stat_acc" font="StatNumber" font-src="Fonts/StatNumber.fnt" align="right"></text>
+    <text x="176" y="22" text="%s" data="p1_score" font-family="ScoreNumber" font-src="Fonts/ScoreNumber.fnt" align="right"></text>
+    <text x="824" y="33" alpha="0.8" text="%s" data="song_title" font-weight="bold" font-size="16px" font-family="Roboto" fill="white" align="left"></text>
+    <text x="824" y="55" alpha="0.6" text="%s" data="song_artist" font-size="13px" font-family="Roboto" fill="white" align="left"></text>
+    <text x="824" y="70" alpha="0.6" text="%s" data="song_time" font-size="13px" font-family="Roboto" fill="white" align="left"></text>
+    <text x="1160" y="22" text="%s" data="p1_speed" font-family="ScoreNumber" font-src="Fonts/ScoreNumber.fnt" align="left"></text>
+    <text x="1099" y="34" text="%s" data="p1_bpm" font-family="StatNumber" font-src="Fonts/StatNumber.fnt" align="left"></text>
+    <text x="260" y="29" text="%s" data="p1_stat_1" font-family="StatNumber" font-src="Fonts/StatNumber.fnt" align="right"></text>
+    <text x="260" y="47" text="%s" data="p1_stat_2" font-family="StatNumber" font-src="Fonts/StatNumber.fnt" align="right"></text>
+    <text x="260" y="65" text="%s" data="p1_stat_3" font-family="StatNumber" font-src="Fonts/StatNumber.fnt" align="right"></text>
+    <text x="387" y="29" text="%s" data="p1_stat_4" font-family="StatNumber" font-src="Fonts/StatNumber.fnt" align="right"></text>
+    <text x="387" y="47" text="%s" data="p1_stat_missed" font-family="StatNumber" font-src="Fonts/StatNumber.fnt" align="right"></text>
+    <text x="387" y="65" text="%s" data="p1_stat_acc" font-family="StatNumber" font-src="Fonts/StatNumber.fnt" align="right"></text>
   </group>
   <group>
     <animation>
@@ -274,8 +274,8 @@
         <animation on="p1_judge_missed">
           <keyframe t="0" alpha="0"></keyframe>
         </animation>
-        <text x="141" align="center" font="BemuseDefault-Meticulous" font-src="Fonts/BemuseDefault-Meticulous.fnt" text="*%s" data="p1_combo"></text>
-        <text x="141" align="center" font="BemuseDefault-MeticulousGlow" font-src="Fonts/BemuseDefault-MeticulousGlow.fnt" text="*%s" data="p1_combo" alpha="1 - ((t * 10) % 1)" blend="screen"></text>
+        <text x="141" align="center" font-family="BemuseDefault-Meticulous" font-src="Fonts/BemuseDefault-Meticulous.fnt" text="*%s" data="p1_combo"></text>
+        <text x="141" align="center" font-family="BemuseDefault-MeticulousGlow" font-src="Fonts/BemuseDefault-MeticulousGlow.fnt" text="*%s" data="p1_combo" alpha="1 - ((t * 10) % 1)" blend="screen"></text>
       </group>
       <group alpha="0">
         <animation on="p1_judge_1">
@@ -296,7 +296,7 @@
         <animation on="p1_judge_missed">
           <keyframe t="0" alpha="0"></keyframe>
         </animation>
-        <text x="141" align="center" font="BemuseDefault-Precise" font-src="Fonts/BemuseDefault-Precise.fnt" text="*%s" data="p1_combo"></text>
+        <text x="141" align="center" font-family="BemuseDefault-Precise" font-src="Fonts/BemuseDefault-Precise.fnt" text="*%s" data="p1_combo"></text>
       </group>
       <group alpha="0">
         <animation on="p1_judge_1">
@@ -317,7 +317,7 @@
         <animation on="p1_judge_missed">
           <keyframe t="0" alpha="0"></keyframe>
         </animation>
-        <text x="141" align="center" font="BemuseDefault-Good" font-src="Fonts/BemuseDefault-Good.fnt" text="*%s" data="p1_combo"></text>
+        <text x="141" align="center" font-family="BemuseDefault-Good" font-src="Fonts/BemuseDefault-Good.fnt" text="*%s" data="p1_combo"></text>
       </group>
       <group alpha="0">
         <animation on="p1_judge_1">
@@ -338,7 +338,7 @@
         <animation on="p1_judge_missed">
           <keyframe t="0" alpha="0"></keyframe>
         </animation>
-        <text x="141" align="center" font="BemuseDefault-Other" font-src="Fonts/BemuseDefault-Other.fnt" text="1"></text>
+        <text x="141" align="center" font-family="BemuseDefault-Other" font-src="Fonts/BemuseDefault-Other.fnt" text="1"></text>
       </group>
       <group alpha="0">
         <animation on="p1_judge_1">
@@ -359,7 +359,7 @@
           <keyframe t="0.6" alpha="1"></keyframe>
           <keyframe t="1" alpha="0"></keyframe>
         </animation>
-        <text x="141" align="center" font="BemuseDefault-Other" font-src="Fonts/BemuseDefault-Other.fnt" text="0"></text>
+        <text x="141" align="center" font-family="BemuseDefault-Other" font-src="Fonts/BemuseDefault-Other.fnt" text="0"></text>
       </group>
     </group>
     <group y="440">
