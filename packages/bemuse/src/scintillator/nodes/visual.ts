@@ -162,7 +162,7 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
         (env) => objectsExpr(env),
         (extracted) => {
           if (!Array.isArray(extracted)) {
-            return
+            extracted = []
           }
 
           const particles = extracted as {
@@ -191,9 +191,10 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
               particle = prevParticles.get(nowKey)!
             } else {
               if (pool.length === 0) {
-                pool.push(newSprite())
+                particle = newSprite()
+              } else {
+                particle = pool.pop()!
               }
-              particle = pool.pop()!
               prevParticles.set(nowKey, particle)
               container.addChild(particle)
             }
