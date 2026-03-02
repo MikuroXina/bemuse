@@ -355,11 +355,14 @@ async function buildTexture(element: Element): Promise<Texture> {
   }
 
   const texture = await Assets.load<Texture>(image)
-  const frame = parseFrame(element.getAttribute('frame') ?? '')
-  if (frame == null) {
-    return texture
-  }
-  return new Texture({ source: texture.source, frame })
+  const frame = parseFrame(element.getAttribute('frame') ?? '') ?? undefined
+  const anchorX = Number(element.getAttribute('anchor-x') ?? '0')
+  const anchorY = Number(element.getAttribute('anchor-y') ?? '0')
+  return new Texture({
+    source: texture.source,
+    frame,
+    defaultAnchor: { x: anchorX, y: anchorY },
+  })
 }
 
 export const visuals = async (
