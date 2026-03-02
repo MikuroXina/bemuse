@@ -274,8 +274,8 @@
         <animation on="p1_judge_missed">
           <keyframe t="0" alpha="0"></keyframe>
         </animation>
-        <text x="141" align="center" font-family="BemuseDefault-Meticulous" font-src="Fonts/BemuseDefault-Meticulous.fnt" text="*%s" data="p1_combo"></text>
-        <text x="141" align="center" font-family="BemuseDefault-MeticulousGlow" font-src="Fonts/BemuseDefault-MeticulousGlow.fnt" text="*%s" data="p1_combo" alpha="1 - ((t * 10) % 1)" blend="screen"></text>
+        <text x="141" align="center" font-family="BemuseDefault-Meticulous" font-size="40px" font-src="Fonts/BemuseDefault-Meticulous.fnt" text="*%s" data="p1_combo"></text>
+        <text x="141" align="center" font-family="BemuseDefault-MeticulousGlow" font-size="40px" font-src="Fonts/BemuseDefault-MeticulousGlow.fnt" text="*%s" data="p1_combo" alpha="1 - ((t * 10) % 1)" blend="screen"></text>
       </group>
       <group alpha="0">
         <animation on="p1_judge_1">
@@ -296,7 +296,7 @@
         <animation on="p1_judge_missed">
           <keyframe t="0" alpha="0"></keyframe>
         </animation>
-        <text x="141" align="center" font-family="BemuseDefault-Precise" font-src="Fonts/BemuseDefault-Precise.fnt" text="*%s" data="p1_combo"></text>
+        <text x="141" align="center" font-family="BemuseDefault-Precise" font-size="40px" font-src="Fonts/BemuseDefault-Precise.fnt" text="*%s" data="p1_combo"></text>
       </group>
       <group alpha="0">
         <animation on="p1_judge_1">
@@ -317,7 +317,7 @@
         <animation on="p1_judge_missed">
           <keyframe t="0" alpha="0"></keyframe>
         </animation>
-        <text x="141" align="center" font-family="BemuseDefault-Good" font-src="Fonts/BemuseDefault-Good.fnt" text="*%s" data="p1_combo"></text>
+        <text x="141" align="center" font-family="BemuseDefault-Good" font-size="40px" font-src="Fonts/BemuseDefault-Good.fnt" text="*%s" data="p1_combo"></text>
       </group>
       <group alpha="0">
         <animation on="p1_judge_1">
@@ -338,7 +338,7 @@
         <animation on="p1_judge_missed">
           <keyframe t="0" alpha="0"></keyframe>
         </animation>
-        <text x="141" align="center" font-family="BemuseDefault-Other" font-src="Fonts/BemuseDefault-Other.fnt" text="1"></text>
+        <text x="141" align="center" font-family="BemuseDefault-Other" font-size="40px" font-src="Fonts/BemuseDefault-Other.fnt" text="1"></text>
       </group>
       <group alpha="0">
         <animation on="p1_judge_1">
@@ -359,7 +359,7 @@
           <keyframe t="0.6" alpha="1"></keyframe>
           <keyframe t="1" alpha="0"></keyframe>
         </animation>
-        <text x="141" align="center" font-family="BemuseDefault-Other" font-src="Fonts/BemuseDefault-Other.fnt" text="0"></text>
+        <text x="141" align="center" font-family="BemuseDefault-Other" font-size="40px" font-src="Fonts/BemuseDefault-Other.fnt" text="0"></text>
       </group>
     </group>
     <group y="440">
