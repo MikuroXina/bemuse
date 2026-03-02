@@ -90,7 +90,6 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
       const fontWeight = element.getAttribute('font-weight') ?? undefined
       const fontSize = element.getAttribute('font-size') ?? undefined
       const text = element.getAttribute('text') ?? ''
-      const data = compileExpression(element.getAttribute('data') || '0')
       const ttf = !element.getAttribute('font-src')
       const fill = element.getAttribute('fill') ?? undefined
       const align = element.getAttribute('align')
@@ -123,14 +122,20 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
               y: 0,
             },
           })
-      container.label = data.toString()
 
-      ctx.stateSubject.on(
-        (env) => data(env) as string,
-        (target) => {
-          ;(container as Text).text = text.replace('%s', target as string)
-        }
-      )
+      const data = element.getAttribute('data')
+      if (data == null) {
+        container.label = text
+      } else {
+        container.label = data.toString()
+        const dataExpr = compileExpression(data)
+        ctx.stateSubject.on(
+          (env) => dataExpr(env) as string,
+          (target) => {
+            ;(container as Text).text = text.replace('%s', target as string)
+          }
+        )
+      }
       break
     }
     case 'object': {
@@ -245,33 +250,43 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
     }
     ctx.refs.get(ref)!.add(container)
   }
+
+  const timelines = new Map<string, Timeline<Property[]>>()
+  const timeExpr = compileExpression(element.getAttribute('t') ?? 't')
   for (const animation of Array.from(
     element.querySelectorAll(':scope > animation')
   )) {
     const condition = animation.getAttribute('on')
-    const timeExpr = compileExpression(element.getAttribute('t') ?? 't')
     const timeline = parseAnimation(animation)
-    ctx.stateSubject.on(
-      (env) =>
-        [
-          timeExpr(env) as number,
-          condition == null ? 0 : (env[condition] as number),
-          (condition ?? '') in env,
-        ] as const,
-      ([time, eventStartTime, eventOccurred]) => {
-        if (condition !== null && !eventOccurred) {
-          return
-        }
-        const elapsed = time - eventStartTime
-        const animated = timeline.values(elapsed)
-        for (const [key, accessor] of Object.entries(accessors)) {
-          if (animated[key] !== undefined) {
-            accessor(animated[key])
-          }
+    timelines.set(condition ?? '', timeline)
+  }
+  ctx.stateSubject.on(
+    (env) =>
+      [
+        timeExpr(env) as number,
+        [...timelines.keys()]
+          .filter((key) => key === '' || key in env)
+          .reduce<[number, string]>(
+            ([prev, event], currEvent) => {
+              const curr = (env[currEvent] as number | undefined) ?? 0
+              return prev < curr ? [curr, currEvent] : [prev, event]
+            },
+            [0, '']
+          ),
+      ] as const,
+    ([time, [eventStartTime, eventKey]]) => {
+      if (!timelines.has(eventKey)) {
+        return
+      }
+      const elapsed = time - eventStartTime
+      const animated = timelines.get(eventKey)!.values(elapsed)
+      for (const [key, accessor] of Object.entries(accessors)) {
+        if (animated[key] !== undefined) {
+          accessor(animated[key])
         }
       }
-    )
-  }
+    }
+  )
   return container
 }
 
