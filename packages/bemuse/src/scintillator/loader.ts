@@ -1,3 +1,5 @@
+import 'pixi.js/text-bitmap'
+
 import type Progress from '@bemuse/progress'
 import debug from 'debug'
 import { Application, Assets, Container } from 'pixi.js'
