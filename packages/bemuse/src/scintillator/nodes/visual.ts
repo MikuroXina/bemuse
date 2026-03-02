@@ -45,12 +45,10 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
       container = new Container()
       const maskFrame = parseFrame(element.getAttribute('mask') ?? '')
       if (maskFrame != null) {
-        const maskShape = new Graphics().rect(
-          maskFrame.x,
-          maskFrame.y,
-          maskFrame.width,
-          maskFrame.height
-        )
+        const maskShape = new Graphics()
+          .rect(maskFrame.x, maskFrame.y, maskFrame.width, maskFrame.height)
+          .fill(0xffffff)
+        container.addChild(maskShape)
         container.mask = maskShape
       }
       const subs = await visuals(element.children, ctx)
@@ -238,6 +236,7 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
   } else {
     throw new Error(`invalid blend mode: ${blendMode}`)
   }
+
   const ref = element.getAttribute('ref')
   if (ref !== null) {
     if (!ctx.refs.has(ref)) {
@@ -339,7 +338,12 @@ async function buildTexture(element: Element): Promise<Texture> {
     throw new Error('expected element has image attribute')
   }
 
-  return Assets.load<Texture>(image)
+  const texture = await Assets.load<Texture>(image)
+  const frame = parseFrame(element.getAttribute('frame') ?? '')
+  if (frame == null) {
+    return texture
+  }
+  return new Texture({ source: texture.source, frame })
 }
 
 export const visuals = async (
