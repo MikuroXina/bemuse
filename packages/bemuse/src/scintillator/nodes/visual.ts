@@ -4,8 +4,6 @@ import {
   BitmapText,
   Container,
   Graphics,
-  Particle,
-  ParticleContainer,
   Sprite,
   Text,
   type TextStyleAlign,
@@ -72,19 +70,16 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
 
       const keyExpr = compileExpression(key)
       const subs = await visuals(element.children, ctx)
-      let state = false
-      ctx.stateSubject.on((env) => {
-        const newState = keyExpr(env) === matchValue
-        if (state === newState) {
-          return
+      ctx.stateSubject.on(
+        (env) => (keyExpr(env) === matchValue) as boolean,
+        (state) => {
+          if (state) {
+            container.addChild(...subs)
+          } else {
+            container.removeChild(...subs)
+          }
         }
-        state = newState
-        if (state) {
-          container.addChild(...subs)
-        } else {
-          container.removeChild(...subs)
-        }
-      })
+      )
       break
     }
     case 'sprite': {
@@ -132,10 +127,12 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
           })
       container.label = data.toString()
 
-      ctx.stateSubject.on((env) => {
-        const target = data(env)
-        ;(container as Text).text = text.replace('%s', target as string)
-      })
+      ctx.stateSubject.on(
+        (env) => data(env) as string,
+        (target) => {
+          ;(container as Text).text = text.replace('%s', target as string)
+        }
+      )
       break
     }
     case 'object': {
@@ -143,54 +140,85 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
       if (key == null) {
         throw new Error('expected element has key attribute')
       }
+      const poolLen = parseInt(element.getAttribute('pool') ?? '0', 10)
       const objectsExpr = compileExpression(key)
-      container = new ParticleContainer({
-        dynamicProperties: {
-          position: true,
-          alpha: true,
-        },
-      })
+      container = new Container()
       container.label = key
 
       if (element.children.length !== 1) {
         throw new Error('expected exactly one child')
       }
       const particleSpriteElement = element.children.item(0)!
+      const blendMode = particleSpriteElement.getAttribute('blend') ?? 'normal'
       const texture = await buildTexture(particleSpriteElement)
-      ctx.stateSubject.on((env) => {
-        const extracted = objectsExpr(env)
-        if (!Array.isArray(extracted)) {
-          return
+      const newSprite = () => {
+        const sprite = new Sprite(texture)
+        if (blendMode === 'normal' || blendMode === 'screen') {
+          sprite.blendMode = blendMode
         }
-        ;(container as ParticleContainer).removeParticles()
-        const particles = extracted as {
-          key: string
-          [otherKey: string]: unknown
-        }[]
-        for (const { key, ...particleEnv } of particles) {
-          const particle = new Particle(texture)
-          ;(container as ParticleContainer).addParticle(particle)
-          let alphaMemo = 1
-          const updaters = updatersFor(
-            {
-              x: (val) => (particle.x = val as number),
-              y: (val) => (particle.y = val as number),
-              'scale-x': (val) => (particle.scaleX = val as number),
-              'scale-y': (val) => (particle.scaleY = val as number),
-              alpha: (val) => (particle.alpha = alphaMemo = val as number),
-              width: (val) =>
-                (particle.scaleX = (val as number) / texture.width),
-              height: (val) =>
-                (particle.scaleY = (val as number) / texture.height),
-              visible: (val) => (particle.alpha = val ? alphaMemo : 0),
-            },
-            particleSpriteElement
+        return sprite
+      }
+      const pool = [...new Array(poolLen)].map(newSprite)
+      const prevParticles = new Map<string, Sprite>()
+      ctx.stateSubject.on(
+        (env) => objectsExpr(env),
+        (extracted) => {
+          if (!Array.isArray(extracted)) {
+            return
+          }
+
+          const particles = extracted as {
+            key: string
+            [otherKey: string]: unknown
+          }[]
+          const particlesMap = new Map(
+            particles.map(({ key, ...others }) => [key, others])
           )
-          for (const updater of updaters) {
-            updater(particleEnv)
+          const keysToDelete: string[] = []
+          for (const prevKey of prevParticles.keys()) {
+            if (!particlesMap.has(prevKey)) {
+              keysToDelete.push(prevKey)
+            }
+          }
+          for (const toDelete of keysToDelete) {
+            const deleting = prevParticles.get(toDelete)!
+            prevParticles.delete(toDelete)
+            pool.push(deleting)
+            container.removeChild(deleting)
+          }
+
+          for (const [nowKey, nowEnv] of particlesMap.entries()) {
+            let particle: Sprite
+            if (prevParticles.has(nowKey)) {
+              particle = prevParticles.get(nowKey)!
+            } else {
+              if (pool.length === 0) {
+                pool.push(newSprite())
+              }
+              particle = pool.pop()!
+              prevParticles.set(nowKey, particle)
+              container.addChild(particle)
+            }
+
+            const updaters = updatersFor(
+              {
+                x: (val) => (particle.x = val as number),
+                y: (val) => (particle.y = val as number),
+                'scale-x': (val) => (particle.scale.x = val as number),
+                'scale-y': (val) => (particle.scale.y = val as number),
+                alpha: (val) => (particle.alpha = val as number),
+                width: (val) => (particle.width = val as number),
+                height: (val) => (particle.height = val as number),
+                visible: (val) => (particle.visible = val as boolean),
+              },
+              particleSpriteElement
+            )
+            for (const [selector, updater] of updaters) {
+              updater(selector(nowEnv))
+            }
           }
         }
-      })
+      )
       break
     }
     case 'animation':
@@ -200,8 +228,8 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
     }
   }
   const accessors = containerAccessors(container)
-  for (const updater of updatersFor(accessors, element)) {
-    ctx.stateSubject.on(updater)
+  for (const [selector, updater] of updatersFor(accessors, element)) {
+    ctx.stateSubject.on(selector, updater)
   }
 
   const blendMode = element.getAttribute('blend') ?? 'normal'
@@ -223,19 +251,26 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
     const condition = animation.getAttribute('on')
     const timeExpr = compileExpression(element.getAttribute('t') ?? 't')
     const timeline = parseAnimation(animation)
-    ctx.stateSubject.on((env) => {
-      if (condition !== null && !(condition in env)) {
-        return
-      }
-      const eventStartTime = condition == null ? 0 : (env[condition] as number)
-      const time = (timeExpr(env) as number) - eventStartTime
-      const animated = timeline.values(time)
-      for (const [key, accessor] of Object.entries(accessors)) {
-        if (animated[key] !== undefined) {
-          accessor(animated[key])
+    ctx.stateSubject.on(
+      (env) =>
+        [
+          timeExpr(env) as number,
+          condition == null ? 0 : (env[condition] as number),
+          (condition ?? '') in env,
+        ] as const,
+      ([time, eventStartTime, eventOccurred]) => {
+        if (condition !== null && !eventOccurred) {
+          return
+        }
+        const elapsed = time - eventStartTime
+        const animated = timeline.values(elapsed)
+        for (const [key, accessor] of Object.entries(accessors)) {
+          if (animated[key] !== undefined) {
+            accessor(animated[key])
+          }
         }
       }
-    })
+    )
   }
   return container
 }
@@ -274,8 +309,14 @@ const parseAnimation = (animation: Element): Timeline<Property[]> => {
 function updatersFor(
   accessors: Record<string, (value: unknown) => void>,
   element: Element
-): ((env: Record<string, unknown>) => void)[] {
-  const handlers: ((env: Record<string, unknown>) => void)[] = []
+): [
+  selector: (env: Record<string, unknown>) => unknown,
+  updater: (env: unknown) => void,
+][] {
+  const handlers: [
+    selector: (env: Record<string, unknown>) => unknown,
+    updater: (env: unknown) => void,
+  ][] = []
   for (const name of Object.keys(accessors)) {
     const exprCode = element.getAttribute(name)
     if (exprCode == null) {
@@ -286,10 +327,7 @@ function updatersFor(
       // if expr is a constant, the updater is unnecessary
       accessors[name](expr({}))
     } else {
-      const handler = (env: Record<string, unknown>) => {
-        accessors[name](expr(env))
-      }
-      handlers.push(handler)
+      handlers.push([expr, accessors[name]])
     }
   }
   return handlers
@@ -300,16 +338,8 @@ async function buildTexture(element: Element): Promise<Texture> {
   if (image == null) {
     throw new Error('expected element has image attribute')
   }
-  const anchorX = Number(element.getAttribute('anchor-x') ?? '0')
-  const anchorY = Number(element.getAttribute('anchor-y') ?? '0')
 
-  return await Assets.load<Texture>({
-    alias: image,
-    data: {
-      scaleMode: 'nearest',
-      defaultAnchor: { x: anchorX, y: anchorY },
-    },
-  })
+  return Assets.load<Texture>(image)
 }
 
 export const visuals = async (

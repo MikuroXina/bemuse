@@ -1,8 +1,8 @@
 import type Progress from '@bemuse/progress'
-import { Subject } from '@bemuse/utils/subject.js'
 import debug from 'debug'
 import { Application, Assets, Container } from 'pixi.js'
 
+import { SelectorSubject } from './nodes/index.js'
 import { root } from './nodes/root.js'
 import type { Skin } from './skin.js'
 
@@ -11,7 +11,7 @@ const log = debug('scintillator:loader')
 export interface Scintillator {
   app: Application
   skin: Skin
-  stateSubject: Subject<Record<string, unknown>>
+  stateSubject: SelectorSubject
   refs: Map<string, Set<Container>>
 }
 
@@ -31,23 +31,18 @@ export async function load(
     paths.add(element.getAttribute('font-src')!)
   }
   const base = new URL(xmlPath, location.href)
-  const pathUrls: { path: string; url: string }[] = []
-  for (const path of paths) {
-    const assetUrl = new URL(path, base)
-    if (assetUrl.protocol === 'file:') {
-      const { pathname, search, hash } = assetUrl
-      pathUrls.push({ path, url: pathname + search + hash })
-    } else {
-      pathUrls.push({ path, url: assetUrl.toString() })
-    }
-  }
+  const baseStr = base.toString()
 
   // preload all images + progress reporting
-  await loadResources(pathUrls, progress)
+  await loadResources(
+    baseStr.substring(0, baseStr.lastIndexOf('/')),
+    [...paths],
+    progress
+  )
 
   // compile the skin
   log('compiling')
-  const stateSubject = new Subject<Record<string, unknown>>()
+  const stateSubject = new SelectorSubject()
   const rootItems = await root(xml, stateSubject)
   return { ...rootItems, stateSubject }
 }
@@ -60,23 +55,14 @@ async function loadXml(xmlUrl: string): Promise<Element> {
 }
 
 async function loadResources(
-  pathUrls: readonly { path: string; url: string }[],
+  basePath: string,
+  paths: readonly string[],
   progress?: Progress
 ): Promise<void> {
   log('loading resources')
-  await Assets.init({
-    texturePreference: {
-      resolution: window.devicePixelRatio,
-      format: ['avif', 'webp', 'png'],
-    },
+  await Assets.init({ basePath })
+  await Assets.load(paths, (ratio) => {
+    progress?.report(ratio, 1.0)
   })
-
-  for (let i = 0; i < pathUrls.length; ++i) {
-    await Assets.load({
-      alias: pathUrls[i].path,
-      src: pathUrls[i].url,
-    })
-    progress?.report(i + 1, pathUrls.length)
-  }
   log('resources finished loading')
 }

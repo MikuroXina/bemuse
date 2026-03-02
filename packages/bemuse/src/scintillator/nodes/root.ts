@@ -1,4 +1,3 @@
-import type { Subject } from '@bemuse/utils/subject.js'
 import { Application, Container } from 'pixi.js'
 
 import {
@@ -7,12 +6,12 @@ import {
   isInputDevice,
   type Skin,
 } from '../skin.js'
-import type { SkinNode } from './index.js'
+import type { SelectorSubject, SkinNode } from './index.js'
 import { visual } from './visual.js'
 
 export const root = async (
   element: Element,
-  stateSubject: Subject<Record<string, unknown>>
+  stateSubject: SelectorSubject
 ): Promise<{
   app: Application
   skin: Skin
@@ -26,9 +25,11 @@ export const root = async (
   const height = parseInt(element.getAttribute('height') ?? '', 10)
 
   await app.init({
+    hello: true,
     width,
     height,
     backgroundAlpha: 0,
+    preference: 'webgpu',
   })
 
   const defs: Record<string, SkinNode> = {}
