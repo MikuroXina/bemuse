@@ -123,7 +123,6 @@ export default defineConfig({
       '@mikuroxina/bemuse-indexer',
       'fastclick',
       'node:util',
-      'pixi.js/text-bitmap',
       'redux',
       'vite-plugin-node-polyfills/shims/buffer',
       'vite-plugin-node-polyfills/shims/global',
