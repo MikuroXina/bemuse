@@ -1,4 +1,4 @@
-import type { Container, ParticleContainer, Sprite, Text } from 'pixi.js'
+import type { Container, Sprite, Text } from 'pixi.js'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 import { load, type Scintillator } from './index.js'
@@ -94,8 +94,8 @@ describe('Scintillator', function () {
       const stage = actual.app.stage
 
       actual.stateSubject.dispatch({})
-      const text = stage.children[0]
-      expect(text.x).to.be.lessThan(0)
+      const text = stage.children[0] as Text
+      expect(text.anchor.x).toStrictEqual(0.5)
 
       actual.app.destroy()
     })
@@ -133,13 +133,13 @@ describe('Scintillator', function () {
     it('should display children', async function () {
       const actual = await load(fixture('expr_object.xml'))
       const stage = actual.app.stage
-      const container = stage.children[0] as ParticleContainer
+      const container = stage.children[0]
 
       actual.stateSubject.dispatch({ notes: [] })
-      expect(container.particleChildren).to.have.length(0)
+      expect(container.children).to.have.length(0)
 
       actual.stateSubject.dispatch({ notes: [{ key: 'a', y: 20 }] })
-      expect(container.particleChildren).to.have.length(1)
+      expect(container.children).to.have.length(1)
 
       actual.stateSubject.dispatch({
         notes: [
@@ -147,36 +147,36 @@ describe('Scintillator', function () {
           { key: 'b', y: 10 },
         ],
       })
-      expect(container.particleChildren).to.have.length(2)
+      expect(container.children).to.have.length(2)
 
       actual.stateSubject.dispatch({ notes: [{ key: 'b', y: 10 }] })
-      expect(container.particleChildren).to.have.length(1)
+      expect(container.children).to.have.length(1)
 
       actual.app.destroy()
     })
     it('should update same array with content changed', async function () {
       const actual = await load(fixture('expr_object.xml'))
       const stage = actual.app.stage
-      const container = stage.children[0] as ParticleContainer
-      const notes: { key: string; y: number }[] = []
+      const container = stage.children[0]
+      let notes: { key: string; y: number }[] = []
 
       actual.stateSubject.dispatch({ notes })
-      expect(container.particleChildren).to.have.length(0)
+      expect(container.children).to.have.length(0)
 
-      notes.push({ key: 'a', y: 20 })
+      notes = [...notes, { key: 'a', y: 20 }]
       actual.stateSubject.dispatch({ notes })
-      expect(container.particleChildren).to.have.length(1)
+      expect(container.children).to.have.length(1)
 
       actual.app.destroy()
     })
     it('should let children get value from item', async function () {
       const actual = await load(fixture('expr_object_var.xml'))
       const stage = actual.app.stage
-      const container = stage.children[0] as ParticleContainer
+      const container = stage.children[0]
 
       actual.stateSubject.dispatch({ notes: [] })
       actual.stateSubject.dispatch({ notes: [{ key: 'a', y: 20 }] })
-      expect(container.particleChildren[0].y).to.equal(20)
+      expect(container.children[0].y).to.equal(20)
 
       actual.stateSubject.dispatch({
         notes: [
@@ -184,10 +184,10 @@ describe('Scintillator', function () {
           { key: 'b', y: 10 },
         ],
       })
-      expect(container.particleChildren[0].y).to.equal(20)
+      expect(container.children[0].y).to.equal(20)
 
       actual.stateSubject.dispatch({ notes: [{ key: 'b', y: 10 }] })
-      expect(container.particleChildren[0].y).to.equal(10)
+      expect(container.children[0].y).to.equal(10)
 
       actual.app.destroy()
     })

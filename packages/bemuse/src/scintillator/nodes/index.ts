@@ -46,12 +46,11 @@ export class SelectorSubject {
 }
 
 function easyDeepEqual(left: unknown, right: unknown): boolean {
-  if (
-    Array.isArray(left) &&
-    Array.isArray(right) &&
-    left.length === right.length
-  ) {
-    return left.every((l, i) => easyDeepEqual(l, right[i]))
+  if (Array.isArray(left) && Array.isArray(right)) {
+    return (
+      left.length === right.length &&
+      left.every((l, i) => easyDeepEqual(l, right[i]))
+    )
   }
   if (
     typeof left === 'object' &&
