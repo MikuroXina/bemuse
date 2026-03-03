@@ -87,15 +87,15 @@ export interface OptionsDraft {
     scratch: ScratchPosition
     input: {
       keyboard: {
-        1: number
-        2: number
-        3: number
-        4: number
-        5: number
-        6: number
-        7: number
-        SC: number
-        SC2: number
+        '1': string
+        '2': string
+        '3': string
+        '4': string
+        '5': string
+        '6': string
+        '7': string
+        SC: string
+        SC2: string
       }
     }
   }[]
