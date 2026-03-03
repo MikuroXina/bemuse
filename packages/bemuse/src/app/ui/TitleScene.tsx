@@ -95,7 +95,7 @@ const TitleScene = () => {
         <div className={styles.pageTitle}>
           <div className={styles.logo}>
             <div className={styles.tagline}>online, web-based rhythm game</div>
-            <img src={logo} fetchPriority='high' />
+            <img src={logo} />
           </div>
           <div className={styles.enter}>
             <a onClick={enterGame} data-testid='enter-game'>
