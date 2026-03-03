@@ -55,11 +55,15 @@ const Highlight = ({
   const output = []
   let start = 0
   for (let i = 0; i < segments.length; i++) {
-    output.push(text.substring(start, segments[i].length))
+    output.push(text.slice(start, start + segments[i].length))
     start += segments[i].length
     if (i !== segments.length - 1) {
-      const highlightedText = text.substring(start, highlight.length)
-      output.push(<span className={styles.highlight}>{highlightedText}</span>)
+      const highlightedText = text.slice(start, start + highlight.length)
+      output.push(
+        <span key={i} className={styles.highlight}>
+          {highlightedText}
+        </span>
+      )
       start += highlight.length
     }
   }
