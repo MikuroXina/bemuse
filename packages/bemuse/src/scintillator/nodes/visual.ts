@@ -64,7 +64,7 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
       if (key == null || matchValue == null) {
         throw new Error('expected if node has key and value attribute')
       }
-      container.label = `if (${key} === '${matchValue}')`
+      container.label = `(${key} = '${matchValue}')`
 
       const keyExpr = compileExpression(key)
       const subs = await visuals(element.children, ctx)
@@ -231,6 +231,9 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
       throw new Error(`unexpected node name: ${element.nodeName}`)
     }
   }
+
+  container.label = `${element.nodeName} ${container.label ?? ''}`
+
   const accessors = containerAccessors(container)
   for (const [selector, updater] of updatersFor(accessors, element)) {
     ctx.stateSubject.on(selector, updater)
