@@ -174,23 +174,16 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
             key: string
             [otherKey: string]: unknown
           }[]
-          const particlesMap = new Map(
-            particles.map(({ key, ...others }) => [key, others])
-          )
-          const keysToDelete: string[] = []
+          const particlesKeys = new Set(particles.map(({ key }) => key))
           for (const prevKey of prevParticles.keys()) {
-            if (!particlesMap.has(prevKey)) {
-              keysToDelete.push(prevKey)
+            if (!particlesKeys.has(prevKey)) {
+              const deleting = prevParticles.get(prevKey)!
+              prevParticles.delete(prevKey)
+              pool.push(deleting)
+              container.removeChild(deleting)
             }
           }
-          for (const toDelete of keysToDelete) {
-            const deleting = prevParticles.get(toDelete)!
-            prevParticles.delete(toDelete)
-            pool.push(deleting)
-            container.removeChild(deleting)
-          }
-
-          for (const [nowKey, nowEnv] of particlesMap.entries()) {
+          for (const { key: nowKey, ...nowEnv } of particles) {
             let particle: Sprite
             if (prevParticles.has(nowKey)) {
               particle = prevParticles.get(nowKey)!
