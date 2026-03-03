@@ -1,8 +1,8 @@
 import keysoundCache from '@bemuse/keysound-cache/index.js'
 import Progress from '@bemuse/progress/index.js'
-import { atomic } from '@bemuse/progress/utils.js'
 import { resolveRelativeResources } from '@bemuse/resources/resolveRelativeResource.js'
 import SamplingMaster from '@bemuse/sampling-master/index.js'
+import type { Scintillator } from '@bemuse/scintillator/index.js'
 import type { Notechart, PlayerOptions } from '@mikuroxina/bemuse-notechart'
 import { NotechartLoader } from '@mikuroxina/bemuse-notechart/lib/loader/index.js'
 
@@ -16,9 +16,7 @@ import * as Multitasker from './multitasker.js'
 import SamplesLoader from './samples-loader.js'
 
 type Tasks = {
-  Scintillator: TODO
-  Skin: TODO
-  SkinContext: TODO
+  Skin: Scintillator
   Notechart: Notechart
   EyecatchImage: HTMLImageElement
   BackgroundImage: HTMLImageElement
@@ -37,32 +35,15 @@ export function load(spec: LoadSpec) {
   const songId = spec.songId
 
   return Multitasker.start<Tasks, GameController>(function (task, run) {
-    task('Scintillator', 'Loading game engine', [], function (progress) {
-      return atomic(progress, import('@bemuse/scintillator/index.js'))
+    task('Skin', 'Loading skin', [], async function (progress) {
+      const mod = await import('@bemuse/scintillator/index.js')
+      return mod.load(
+        mod.getSkinUrl({
+          displayMode: spec.displayMode,
+        }),
+        progress
+      )
     })
-
-    task(
-      'Skin',
-      'Loading skin',
-      ['Scintillator'],
-      function (Scintillator, progress) {
-        return Scintillator.load(
-          Scintillator.getSkinUrl({
-            displayMode: spec.displayMode,
-          }),
-          progress
-        )
-      }
-    )
-
-    task(
-      'SkinContext',
-      null,
-      ['Scintillator', 'Skin'],
-      function (Scintillator, skin) {
-        return new Scintillator.Context(skin, { touchEventTarget: window })
-      }
-    )
 
     if (assets.progress) {
       if (assets.progress.current) {
@@ -175,11 +156,11 @@ export function load(spec: LoadSpec) {
     task(
       'GameDisplay',
       null,
-      ['Game', 'SkinContext', 'Video'],
-      async (game, context, video) => {
+      ['Game', 'Skin', 'Video'],
+      async (game, skin, video) => {
         return new GameDisplay({
           game,
-          context,
+          scintillator: skin,
           backgroundImagePromise: run('BackgroundImage'),
           video,
         })

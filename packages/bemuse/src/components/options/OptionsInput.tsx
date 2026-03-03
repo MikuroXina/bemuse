@@ -27,13 +27,10 @@ const selectKeyboardMapping = createSelector(
 )
 
 const selectKeyboardMappingTexts = (
-  mapping: Record<string, number>
+  mapping: Record<string, string>
 ): Record<string, string> =>
   Object.fromEntries(
-    Object.entries(mapping).map(([key, value]) => [
-      key,
-      getName(value.toString()),
-    ])
+    Object.entries(mapping).map(([key, value]) => [key, getName(value)])
   )
 
 const extractState = createSelector(

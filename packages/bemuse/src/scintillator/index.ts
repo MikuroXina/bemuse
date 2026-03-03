@@ -1,9 +1,7 @@
-import { Context } from './context'
-import { load } from './loader'
+import { load, type Scintillator } from './loader'
+import type { DisplayMode } from './skin'
 
-export { Context, load }
-
-export type DisplayMode = 'touch3d' | 'normal'
+export { type DisplayMode, load, type Scintillator }
 
 export function getSkinUrl({
   displayMode,

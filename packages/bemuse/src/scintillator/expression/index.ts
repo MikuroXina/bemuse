@@ -127,6 +127,7 @@ const val: Parser<Expression> = (input) =>
     if (typeof got === 'number') {
       const literalExpr: Expression = () => got
       literalExpr.constant = true
+      literalExpr.toString = () => got.toString()
       return literalExpr
     }
 
@@ -140,90 +141,116 @@ const val: Parser<Expression> = (input) =>
       return got[0][0] === '(' ? got[1](env) : !got[1](env)
     }
     variableExpr.constant = false
+    variableExpr.toString = (): string =>
+      typeof got === 'string'
+        ? got
+        : got[0][0] === '('
+          ? `(${got[1].toString()})`
+          : `!${got[1].toString()}`
     return variableExpr
   })(input)
 
 const mulDiv: Parser<Expression> = map(
   seq(
+    val,
     repeat(
       seq4(
-        val,
         whitespaces0,
         alt3(literal('*'), literal('/'), literal('%')),
-        whitespaces0
+        whitespaces0,
+        val
       )
-    ),
-    val
+    )
   )
 )(([lhs, rhs]): Expression => {
-  if (lhs.length === 0) {
-    return rhs
+  if (rhs.length === 0) {
+    return lhs
   }
 
   const mulDivExpr: Expression = (env) =>
-    lhs.reduce(
-      (prev, [curr, _, op]) =>
+    rhs.reduce(
+      (prev, [, op, , curr]) =>
         op === '*'
-          ? (curr(env) as number) * (prev as number)
+          ? (prev as number) * (curr(env) as number)
           : op === '/'
-            ? (curr(env) as number) / (prev as number)
-            : (curr(env) as number) % (prev as number),
-      rhs(env)
+            ? (prev as number) / (curr(env) as number)
+            : (prev as number) % (curr(env) as number),
+      lhs(env)
     )
   mulDivExpr.constant = false
+  mulDivExpr.toString = () =>
+    rhs.reduce(
+      (prev: string, [, op, , curr]) => `${prev} ${op} ${curr.toString()}`,
+      lhs.toString()
+    )
   return mulDivExpr
 })
 
 const addSub: Parser<Expression> = map(
   seq(
+    mulDiv,
     repeat(
-      seq4(mulDiv, whitespaces0, alt(literal('+'), literal('-')), whitespaces0)
-    ),
-    mulDiv
+      seq4(whitespaces0, alt(literal('+'), literal('-')), whitespaces0, mulDiv)
+    )
   )
 )(([lhs, rhs]): Expression => {
-  if (lhs.length === 0) {
-    return rhs
+  if (rhs.length === 0) {
+    return lhs
   }
 
   const addSubDyn: Expression = (env) =>
-    lhs.reduce(
-      (prev, [curr, _, op]) =>
+    rhs.reduce(
+      (prev, [, op, , curr]) =>
         op === '+'
-          ? (curr(env) as number) + (prev as number)
-          : (curr(env) as number) - (prev as number),
-      rhs(env)
+          ? (prev as number) + (curr(env) as number)
+          : (prev as number) - (curr(env) as number),
+      lhs(env)
     )
   addSubDyn.constant = false
+  addSubDyn.toString = () =>
+    rhs.reduce(
+      (prev: string, [, op, , curr]) => `${prev} ${op} ${curr.toString()}`,
+      lhs.toString()
+    )
   return addSubDyn
 })
 
 const logicalAnd: Parser<Expression> = map(
-  seq(repeat(seq4(addSub, whitespaces0, literal('&&'), whitespaces0)), addSub)
+  seq(addSub, repeat(seq4(whitespaces0, literal('&&'), whitespaces0, addSub)))
 )(([lhs, rhs]): Expression => {
-  if (lhs.length === 0) {
-    return rhs
+  if (rhs.length === 0) {
+    return lhs
   }
 
   const logicalAndDyn: Expression = (env) =>
-    lhs.reduce((prev, [curr]) => curr(env) && prev, rhs(env))
+    rhs.reduce((prev, [, , , curr]) => prev && curr(env), lhs(env))
   logicalAndDyn.constant = false
+  logicalAndDyn.toString = () =>
+    rhs.reduce(
+      (prev: string, [, , , curr]) => `${prev} && ${curr.toString()}`,
+      lhs.toString()
+    )
   return logicalAndDyn
 })
 
 const logicalOr: Parser<Expression> = map(
   seq(
-    repeat(seq4(logicalAnd, whitespaces0, literal('||'), whitespaces0)),
-    logicalAnd
+    logicalAnd,
+    repeat(seq4(whitespaces0, literal('||'), whitespaces0, logicalAnd))
   )
 )(([lhs, rhs]): Expression => {
-  if (lhs.length === 0) {
-    return rhs
+  if (rhs.length === 0) {
+    return lhs
   }
 
   const logicalOrDyn: Expression = (env) =>
-    lhs.reduce((prev, [curr]) => prev || curr(env), rhs(env))
+    rhs.reduce((prev, [, , , curr]) => prev || curr(env), lhs(env))
   logicalOrDyn.constant = false
+  logicalOrDyn.toString = () =>
+    rhs.reduce(
+      (prev: string, [, , , curr]) => `${prev} || ${curr.toString()}`,
+      lhs.toString()
+    )
   return logicalOrDyn
 })
 
@@ -234,6 +261,7 @@ const log = debug('scintillator:expression')
 export interface Expression {
   constant: boolean;
   (env: Record<string, unknown>): unknown
+  toString(): string
 }
 
 export function compileExpression(text: string): Expression {

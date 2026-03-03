@@ -45,7 +45,7 @@ export async function main() {
   }
 
   const getSong = async function (): Promise<LoadSpec> {
-    const kbm = (query.keyboard || '').split(',').map((x: string) => +x)
+    const kbm = (query.keyboard || '').split(',')
     const options: OptionsDraft = {
       url: query.bms || '/music/[snack]dddd/dddd_sph.bme',
       game: {
@@ -59,15 +59,15 @@ export async function main() {
           scratch: isScratchPosition(query.scratch) ? query.scratch : 'left',
           input: {
             keyboard: {
-              1: kbm[0] || 83,
-              2: kbm[1] || 68,
-              3: kbm[2] || 70,
-              4: kbm[3] || 32,
-              5: kbm[4] || 74,
-              6: kbm[5] || 75,
-              7: kbm[6] || 76,
-              SC: kbm[7] || 65,
-              SC2: kbm[8] || 16,
+              '1': kbm[0] ?? 'KeyS',
+              '2': kbm[1] ?? 'KeyD',
+              '3': kbm[2] ?? 'KeyF',
+              '4': kbm[3] ?? 'Space',
+              '5': kbm[4] ?? 'KeyJ',
+              '6': kbm[5] ?? 'KeyK',
+              '7': kbm[6] ?? 'KeyL',
+              SC: kbm[7] ?? 'ShiftLeft',
+              SC2: kbm[8] ?? 'KeyA',
             },
           },
         },

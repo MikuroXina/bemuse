@@ -15,6 +15,62 @@ const BUTTONS = [
 
 window.BEMUSE_TOUCH_STATS = []
 
+function setupInputController(skin, view) {
+  let mouse = null
+  let touches = []
+  const onMouse = (e) => {
+    mouse = e
+  }
+  const onUpdateMouse = (e) => {
+    mouse = mouse && e
+  }
+  const onNoMouse = () => {
+    mouse = null
+  }
+  const onTouch = (e) => {
+    touches = [...e.touches]
+  }
+  const touchTarget = view
+  const width = skin.width
+  const height = skin.height
+  touchTarget.addEventListener('mousedown', onMouse, false)
+  touchTarget.addEventListener('mousemove', onUpdateMouse, false)
+  touchTarget.addEventListener('mouseup', onNoMouse, false)
+  touchTarget.addEventListener('touchstart', onTouch, false)
+  touchTarget.addEventListener('touchmove', onTouch, false)
+  touchTarget.addEventListener('touchend', onTouch, false)
+  const teardown = () => {
+    touchTarget.removeEventListener('mousedown', onMouse, false)
+    touchTarget.removeEventListener('mousemove', onUpdateMouse, false)
+    touchTarget.removeEventListener('mouseup', onNoMouse, false)
+    touchTarget.removeEventListener('touchstart', onTouch, false)
+    touchTarget.removeEventListener('touchmove', onTouch, false)
+    touchTarget.removeEventListener('touchend', onTouch, false)
+  }
+  return {
+    get: () => {
+      const output = []
+      const rect = view.getBoundingClientRect()
+      if (mouse) {
+        output.push(point('mouse', mouse, rect))
+      }
+      for (let i = 0; i < touches.length; i++) {
+        const touch = touches[i]
+        output.push(point('touch' + touch.identifier, touch, rect))
+      }
+      return output
+    },
+    teardown,
+  }
+  function point(id, p, rect) {
+    return {
+      x: ((p.clientX - rect.left) / rect.width) * width,
+      y: ((p.clientY - rect.top) / rect.height) * height,
+      id: id,
+    }
+  }
+}
+
 function StatsRecorder() {
   const stats = []
   window.BEMUSE_TOUCH_STATS.push(stats)
@@ -34,18 +90,17 @@ function StatsRecorder() {
 
 export function TouchPlugin(context) {
   let scratchStartY = null
-  let scratchY = null
-  const getInput = bench.wrap('input:touch:I', _getInput)
   const getScratch = bench.wrap('input:touch:SC', _getScratch)
   const getButton = bench.wrap('input:touch:B', _getButton)
   const getPinch = bench.wrap('input:touch:P', _getPinch)
   const statsRecorder = new StatsRecorder()
-  const touch3dMode = context.skinData.displayMode === 'touch3d'
+  const touch3dMode = context.skin.displayMode === 'touch3d'
   const pinchThreshold = touch3dMode ? touch3d.getRow(0.8).y : 550
+  const inputController = setupInputController(context.skin, context.app.canvas)
   return {
     name: 'TouchPlugin',
     get() {
-      const input = getInput()
+      const input = inputController.get()
       const output = {}
       if (bench.enabled) bench.stats['input:touch:n'] = '' + input.length
       statsRecorder.record(input)
@@ -64,6 +119,7 @@ export function TouchPlugin(context) {
     },
     destroy() {
       statsRecorder.done()
+      inputController.teardown()
     },
   }
   function _expand(rectangle, amount = 4) {
@@ -74,14 +130,11 @@ export function TouchPlugin(context) {
     newRect.height += amount * 2
     return newRect
   }
-  function _getInput() {
-    return context.input
-  }
   function _getButton(input, button) {
-    const objects = context.refs[button]
+    const objects = context.refs.get(button)
     if (objects) {
       for (const object of objects) {
-        const bounds = _expand(object.getBounds())
+        const bounds = _expand(object.getBounds().rectangle)
         for (const p of input) {
           if (bounds.contains(p.x, p.y)) return 1
         }
@@ -90,12 +143,12 @@ export function TouchPlugin(context) {
     return 0
   }
   function _getScratch(input) {
-    const objects = context.refs['p1_SC']
+    const objects = context.refs.get('p1_SC')
     if (!objects) return 0
-    scratchY = null
+    let scratchY = null
     for (const p of input) {
       for (const object of objects) {
-        if (_expand(object.getBounds(), 32).contains(p.x, p.y)) {
+        if (_expand(object.getBounds().rectangle, 32).contains(p.x, p.y)) {
           scratchY = p.y
           break
         }

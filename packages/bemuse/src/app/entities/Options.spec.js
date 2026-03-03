@@ -36,14 +36,13 @@ describe('Options', () => {
         .when(update(actions.CHANGE_PLAY_MODE({ mode: 'KB' })))
         .then(Options.keyboardMapping, (mapping) => {
           // KB mode, 4th button is space.
-          expect(mapping['4']).toStrictEqual(32)
+          expect(mapping['4']).toStrictEqual('Space')
         })
 
       given(Options.initialState)
         .when(update(actions.CHANGE_PLAY_MODE({ mode: 'BM' })))
         .then(Options.keyboardMapping, (mapping) => {
-          // BM mode, 4th button is D.
-          expect(mapping['4']).toStrictEqual(68)
+          expect(mapping['4']).toStrictEqual('KeyD')
         })
     })
     describe('key setting progression (in options screen)', () => {

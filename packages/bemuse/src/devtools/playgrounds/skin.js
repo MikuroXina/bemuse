@@ -47,8 +47,7 @@ export async function main() {
     })
   )
 
-  const context = new Scintillator.Context(skin)
-  const display = new GameDisplay({ game, skin, context })
+  const display = new GameDisplay({ game, scintillator: skin })
   const state = new GameState(game)
   const input = new GameInput()
   const started = new Date().getTime()
@@ -79,7 +78,7 @@ export async function main() {
     requestAnimationFrame(f)
   })
 
-  showCanvas(context.view)
+  showCanvas(skin.app.canvas)
 }
 
 function showCanvas(view) {

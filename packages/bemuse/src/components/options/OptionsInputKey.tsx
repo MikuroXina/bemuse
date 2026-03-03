@@ -20,7 +20,7 @@ export const OptionsInputKey = ({
       className={`${styles.key} ${className}`}
       data-testid='options-input-key'
       data-n={n}
-      data-editing={isEditing ? 'true' : 'false'}
+      data-editing={isEditing}
     >
       <div
         className={styles.contents}

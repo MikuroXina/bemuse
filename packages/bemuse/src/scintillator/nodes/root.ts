@@ -1,0 +1,76 @@
+import { Application, Container } from 'pixi.js'
+
+import {
+  isDisplayMode,
+  isInfoPanelPosition,
+  isInputDevice,
+  type Skin,
+} from '../skin.js'
+import type { SelectorSubject, SkinNode } from './index.js'
+import { visual } from './visual.js'
+
+export const root = async (
+  element: Element,
+  stateSubject: SelectorSubject
+): Promise<{
+  app: Application
+  skin: Skin
+  refs: Map<string, Set<Container>>
+}> => {
+  if (element.nodeName !== 'skin') {
+    throw new Error('expected skin node')
+  }
+  const app = new Application()
+  const width = parseInt(element.getAttribute('width') ?? '', 10)
+  const height = parseInt(element.getAttribute('height') ?? '', 10)
+
+  await app.init({
+    hello: true,
+    width,
+    height,
+    backgroundAlpha: 0,
+    preference: 'webgpu',
+  })
+
+  const defs: Record<string, SkinNode> = {}
+  const refs = new Map<string, Set<Container>>()
+  for (const child of Array.from(element.children)) {
+    if (child.nodeName === 'defs') {
+      const defBody = child.children.item(0)
+      if (defBody === null) {
+        throw new Error('expected body element in defs')
+      }
+      const id = defBody.getAttribute('id')
+      if (!id) {
+        throw new Error('expected id attribute on defs')
+      }
+      if (id in defs) {
+        throw new Error(`defs had duplicated id ${id}`)
+      }
+      defs[id] = visual(defBody)
+    } else {
+      const sub = await visual(child)({ defs, refs, stateSubject })
+      if (sub !== null) {
+        app.stage.addChild(sub)
+      }
+    }
+  }
+  const mainInputDevice = element.getAttribute('data-main-input-device')
+  const displayMode = element.getAttribute('data-display-mode')
+  const infoPanelPosition = element.getAttribute('data-info-panel-position')
+  return {
+    app,
+    skin: {
+      width,
+      height,
+      mainInputDevice: isInputDevice(mainInputDevice)
+        ? mainInputDevice
+        : 'keyboard',
+      displayMode: isDisplayMode(displayMode) ? displayMode : 'normal',
+      infoPanelPosition: isInfoPanelPosition(infoPanelPosition)
+        ? infoPanelPosition
+        : 'bottom',
+    },
+    refs,
+  }
+}

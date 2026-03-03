@@ -111,6 +111,4 @@ function getFirstScene() {
   return scene
 }
 
-Object.assign(window, {
-  BemuseTestMode,
-})
+;(window as unknown as Record<string, unknown>).BemuseTestMode = BemuseTestMode
