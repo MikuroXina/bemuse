@@ -1,7 +1,8 @@
-import meticulousFont from '@bemuse/../public/skins/default/Fonts/BemuseDefault-Meticulous.fnt'
-import otherFont from '@bemuse/../public/skins/default/Fonts/BemuseDefault-Other.fnt'
 import MAIN from '@bemuse/utils/main-element'
 import { Application, Assets, autoDetectRenderer, BitmapText } from 'pixi.js'
+
+import meticulousFont from '/skins/default/Fonts/BemuseDefault-Meticulous.fnt?url'
+import otherFont from '/skins/default/Fonts/BemuseDefault-Other.fnt?url'
 
 export async function main() {
   await autoDetectRenderer({
@@ -15,16 +16,23 @@ export async function main() {
   })
 
   const urls = [meticulousFont, otherFont]
+  console.dir({ urls })
   await Assets.load(urls)
 
   const text = new BitmapText({
     text: '*1234567890',
-    font: 'BemuseDefault-Meticulous',
+    style: {
+      fontFamily: 'BemuseDefault-Meticulous',
+      fontSize: '40px',
+    },
   })
   app.stage.addChild(text)
   const text2 = new BitmapText({
     text: '01',
-    font: 'BemuseDefault-Other',
+    style: {
+      fontFamily: 'BemuseDefault-Other',
+      fontSize: '40px',
+    },
   })
   text2.y = 100
   app.stage.addChild(text2)
