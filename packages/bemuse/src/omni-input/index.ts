@@ -68,14 +68,13 @@ export class OmniInput {
 
   private readonly midiStream: Subject<MIDIMessageEvent>
 
-  // TODO: `which` should be replaced with `KeyboardEvent.code`, but this migration will affects the system entirely.
   private handleKeyDown = (e: KeyboardEvent) => {
-    this.status[`${e.which}`] = true
+    this.status[e.code] = true
     if (this.exclusive) e.preventDefault()
   }
 
   private handleKeyUp = (e: KeyboardEvent) => {
-    this.status[`${e.which}`] = false
+    this.status[e.code] = false
   }
 
   private handleMIDIMessage = (e: MIDIMessageEvent) => {
@@ -196,6 +195,7 @@ export const useKeyState = (
     }, 16)
     return () => {
       win.clearInterval(timer)
+      input.dispose()
     }
   }, [])
   return keyState
@@ -260,5 +260,8 @@ export function getName(key: string): string {
       if (rest[0] === 'mod') return 'Mod'
     }
   }
-  return `${String(key).replace(/\./g, ' ')}?`
+  if (key.startsWith('Key')) {
+    return key.slice('Key'.length)
+  }
+  return `${String(key).replace(/\./g, ' ')}`
 }

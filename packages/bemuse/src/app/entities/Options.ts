@@ -12,23 +12,23 @@ export const initialState: OptionsState = {
   'player.P1.mode': 'KB',
 
   // Keyboard mapping
-  'input.P1.keyboard.BM.SC': '16',
-  'input.P1.keyboard.BM.SC2': '65',
-  'input.P1.keyboard.BM.1': '90',
-  'input.P1.keyboard.BM.2': '83',
-  'input.P1.keyboard.BM.3': '88',
-  'input.P1.keyboard.BM.4': '68',
-  'input.P1.keyboard.BM.5': '67',
-  'input.P1.keyboard.BM.6': '70',
-  'input.P1.keyboard.BM.7': '86',
+  'input.P1.keyboard.BM.SC': 'ShiftLeft',
+  'input.P1.keyboard.BM.SC2': 'KeyA',
+  'input.P1.keyboard.BM.1': 'KeyZ',
+  'input.P1.keyboard.BM.2': 'KeyS',
+  'input.P1.keyboard.BM.3': 'KeyX',
+  'input.P1.keyboard.BM.4': 'KeyD',
+  'input.P1.keyboard.BM.5': 'KeyC',
+  'input.P1.keyboard.BM.6': 'KeyF',
+  'input.P1.keyboard.BM.7': 'KeyV',
 
-  'input.P1.keyboard.KB.1': '83',
-  'input.P1.keyboard.KB.2': '68',
-  'input.P1.keyboard.KB.3': '70',
-  'input.P1.keyboard.KB.4': '32',
-  'input.P1.keyboard.KB.5': '74',
-  'input.P1.keyboard.KB.6': '75',
-  'input.P1.keyboard.KB.7': '76',
+  'input.P1.keyboard.KB.1': 'KeyS',
+  'input.P1.keyboard.KB.2': 'KeyD',
+  'input.P1.keyboard.KB.3': 'KeyF',
+  'input.P1.keyboard.KB.4': 'Space',
+  'input.P1.keyboard.KB.5': 'KeyJ',
+  'input.P1.keyboard.KB.6': 'KeyK',
+  'input.P1.keyboard.KB.7': 'KeyL',
 
   // Note speed
   'player.P1.speed': '1.0',
@@ -155,10 +155,12 @@ export const getGauge = (state: OptionsState): Gauge =>
 
 // Queries
 export const keyboardMapping = (state: OptionsState) => {
-  const mapping: Record<string, number> = {}
+  const mapping: Record<string, string> = {}
   for (const control of ['1', '2', '3', '4', '5', '6', '7', 'SC', 'SC2']) {
     const key = 'input.P1.keyboard.' + playMode(state) + '.' + control
-    mapping[control] = parseInt(state[key], 10) || 0
+    if (Object.hasOwn(state, key)) {
+      mapping[control] = state[key] ?? ''
+    }
   }
   return mapping
 }

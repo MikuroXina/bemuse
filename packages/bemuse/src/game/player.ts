@@ -12,7 +12,7 @@ export type PlayerControlKeys =
   | 'SC'
   | 'SC2'
 
-export type PlayerControlKeysMap = Record<PlayerControlKeys, number>
+export type PlayerControlKeysMap = Record<PlayerControlKeys, string>
 
 export type PlayerOptionsPlacement = 'left' | 'center' | 'right' | '3d'
 

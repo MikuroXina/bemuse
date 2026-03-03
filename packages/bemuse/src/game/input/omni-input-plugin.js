@@ -22,21 +22,21 @@ function OmniInputPlugin(game) {
       const data = input.update()
 
       const result = {
-        p1_1: data[kbm['1'] || '83'],
-        p1_2: data[kbm['2'] || '68'],
-        p1_3: data[kbm['3'] || '70'],
-        p1_4: data[kbm['4'] || '32'],
-        p1_5: data[kbm['5'] || '74'],
-        p1_6: data[kbm['6'] || '75'],
-        p1_7: data[kbm['7'] || '76'],
+        p1_1: data[kbm['1'] ?? 'KeyS'],
+        p1_2: data[kbm['2'] ?? 'KeyD'],
+        p1_3: data[kbm['3'] ?? 'KeyF'],
+        p1_4: data[kbm['4'] ?? 'Space'],
+        p1_5: data[kbm['5'] ?? 'KeyJ'],
+        p1_6: data[kbm['6'] ?? 'KeyK'],
+        p1_7: data[kbm['7'] ?? 'KeyL'],
         p1_SC: scratch.combine(
-          data[kbm['SC'] || '65'],
-          data[kbm['SC2'] || '16']
+          data[kbm['SC'] || 'KeyA'],
+          data[kbm['SC2'] || 'ShiftLeft']
         ),
-        p1_speedup: data[38],
-        p1_speeddown: data[40],
-        start: data[13] || (isBtn9Free && data['gamepad.0.button.9']),
-        select: data[18] || (isBtn8Free && data['gamepad.0.button.8']),
+        p1_speedup: data['ArrowUp'],
+        p1_speeddown: data['ArrowDown'],
+        start: data['Enter'] || (isBtn9Free && data['gamepad.0.button.9']),
+        select: data['AltLeft'] || (isBtn8Free && data['gamepad.0.button.8']),
       }
       if (result['start'] || result['select']) {
         if (
