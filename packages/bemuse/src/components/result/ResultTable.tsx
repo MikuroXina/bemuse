@@ -71,7 +71,7 @@ const ResultTable = ({ result }: ResultTableProps) => {
             <th>Max Combo</th>
           </tr>
           <tr>
-            <td onClick={handleViewDeltas} className='is-clickable'>
+            <td onClick={handleViewDeltas} className={styles.isClickable}>
               <FirstTimeTip
                 featureKey='deltas'
                 tip='View detailed accuracy data'
