@@ -15,4 +15,8 @@ describe('Scintillator Expression', function () {
     const f = compileExpression('-1.25')
     expect(f({})).toStrictEqual(-1.25)
   })
+  it('y and height', function () {
+    const f = compileExpression('((y+height)*550)+4-12')
+    expect(f({ y: 7, height: 11 })).toStrictEqual((7 + 11) * 550 + 4 - 12)
+  })
 })
