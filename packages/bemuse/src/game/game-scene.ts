@@ -1,5 +1,9 @@
-export default function GameScene(display) {
-  return function (container) {
+import type { ReactScene } from '@bemuse/scene-manager'
+
+import type GameDisplay from './display'
+
+export default function GameScene(display: GameDisplay): ReactScene {
+  return function (container: Element) {
     const handler = () => false
     window.addEventListener('touchstart', handler)
     showCanvas(display, container)
@@ -11,9 +15,9 @@ export default function GameScene(display) {
   }
 }
 
-function showCanvas(display, container) {
-  const { view, wrapper } = display
-  const { width, height } = view
+function showCanvas(display: GameDisplay, container: Element) {
+  const { view, wrapper, context } = display
+  const { width, height } = context.skin
   container.appendChild(wrapper)
   container.addEventListener('touchstart', disableContextMenu)
   function disableContextMenu() {

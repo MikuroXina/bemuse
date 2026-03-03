@@ -2,8 +2,7 @@ import keysoundCache from '@bemuse/keysound-cache/index.js'
 import Progress from '@bemuse/progress/index.js'
 import { resolveRelativeResources } from '@bemuse/resources/resolveRelativeResource.js'
 import SamplingMaster from '@bemuse/sampling-master/index.js'
-import type { Scintillator } from '@bemuse/scintillator/index.js'
-import type { Notechart, PlayerOptions } from '@mikuroxina/bemuse-notechart'
+import type { PlayerOptions } from '@mikuroxina/bemuse-notechart'
 import { NotechartLoader } from '@mikuroxina/bemuse-notechart/lib/loader/index.js'
 
 import GameAudio from '../audio/index.js'
@@ -12,30 +11,18 @@ import Game from '../game.js'
 import GameController from '../game-controller.js'
 import type { LoadSpec } from './load-spec.js'
 import loadImage from './loadImage.js'
-import * as Multitasker from './multitasker.js'
+import { begin } from './multitasker.js'
 import SamplesLoader from './samples-loader.js'
-
-type Tasks = {
-  Skin: Scintillator
-  Notechart: Notechart
-  EyecatchImage: HTMLImageElement
-  BackgroundImage: HTMLImageElement
-  SamplingMaster: SamplingMaster
-  Video: { element: HTMLVideoElement; offset: number } | null
-  Game: Game
-  GameDisplay: GameDisplay
-  Samples: TODO
-  GameAudio: GameAudio
-  GameController: GameController
-}
 
 export function load(spec: LoadSpec) {
   const assets = spec.assets
   const bms = spec.bms
   const songId = spec.songId
 
-  return Multitasker.start<Tasks, GameController>(function (task, run) {
-    task('Skin', 'Loading skin', [], async function (progress) {
+  const container1 = begin().task(
+    'Skin',
+    [],
+    async (_, progress) => {
       const mod = await import('@bemuse/scintillator/index.js')
       return mod.load(
         mod.getSkinUrl({
@@ -43,65 +30,86 @@ export function load(spec: LoadSpec) {
         }),
         progress
       )
-    })
-
-    if (assets.progress) {
-      if (assets.progress.current) {
-        task.bar('Loading package', assets.progress.current)
-      }
-      if (assets.progress.all) {
-        task.bar('Loading song packages', assets.progress.all)
-      }
-    }
-
-    task('Notechart', 'Loading ' + spec.bms.name, [], async (progress) => {
-      const loader = new NotechartLoader()
-      const arraybuffer = await bms.read(progress)
-      return loader.load(
-        arraybuffer,
-        spec.bms,
-        spec.options.players[0] as PlayerOptions
+    },
+    'Loading skin'
+  )
+  let container2 = container1
+  if (assets.progress) {
+    if (assets.progress.current) {
+      container2 = container1.pushMessage(
+        '_package',
+        'Loading package',
+        assets.progress.current
       )
-    })
-
-    task('EyecatchImage', null, ['Notechart'], function (notechart) {
-      if (spec.eyecatchImageUrl) {
-        const [base, filename] = resolveRelativeResources(
-          assets,
-          spec.eyecatchImageUrl
+    }
+    if (assets.progress.all) {
+      container2 = container1.pushMessage(
+        '_package',
+        'Loading song packages',
+        assets.progress.all
+      )
+    }
+  }
+  const container3 = container2
+    .task(
+      'Notechart',
+      [],
+      async (_, progress) => {
+        const loader = new NotechartLoader()
+        const arraybuffer = await bms.read(progress)
+        return loader.load(
+          arraybuffer,
+          spec.bms,
+          spec.options.players[0] as PlayerOptions
         )
-        return loadImage(base, filename)
+      },
+      `Loading ${spec.bms.name}`
+    )
+    .task('EyecatchImage', ['Notechart'], async ({ Notechart }) => {
+      try {
+        if (spec.eyecatchImageUrl) {
+          const [base, filename] = resolveRelativeResources(
+            assets,
+            spec.eyecatchImageUrl
+          )
+          return await loadImage(base, filename)
+        }
+        return await loadImage(assets, Notechart.eyecatchImage)
+      } catch {
+        return null
       }
-      return loadImage(assets, notechart.eyecatchImage)
     })
-
-    task('BackgroundImage', null, ['Notechart'], function (notechart) {
-      if (spec.backImageUrl) {
-        const [base, filename] = resolveRelativeResources(
-          assets,
-          spec.backImageUrl
-        )
-        return loadImage(base, filename)
+    .task('BackgroundImage', ['Notechart'], async ({ Notechart }) => {
+      try {
+        if (spec.backImageUrl) {
+          const [base, filename] = resolveRelativeResources(
+            assets,
+            spec.backImageUrl
+          )
+          return await loadImage(base, filename)
+        }
+        return await loadImage(assets, Notechart.backgroundImage)
+      } catch {
+        return null
       }
-      return loadImage(assets, notechart.backgroundImage)
     })
 
-    const audioLoadProgress = new Progress()
-    const audioDecodeProgress = new Progress()
-
-    task.bar('Loading audio', audioLoadProgress)
-    task.bar('Decoding audio', audioDecodeProgress)
-
-    task('SamplingMaster', null, [], async () => {
-      return new SamplingMaster()
-    })
-
-    task(
+  const audioLoadProgress = new Progress()
+  const audioDecodeProgress = new Progress()
+  return container3
+    .pushMessage('_loadAudio', 'Loading audio', audioLoadProgress)
+    .pushMessage('_decodeAudio', 'Decoding audio', audioDecodeProgress)
+    .task('SamplingMaster', [], async () => new SamplingMaster())
+    .task(
       'Video',
-      spec.videoUrl ? 'Loading video' : null,
       ['Notechart'],
-      async function (_notechart, progress) {
-        if (!spec.videoUrl) return Promise.resolve(null)
+      async (
+        _,
+        progress
+      ): Promise<{ element: HTMLVideoElement; offset: number } | null> => {
+        if (!spec.videoUrl) {
+          return null
+        }
         let videoUrl = spec.videoUrl
         if (!videoUrl.includes('://')) {
           // This is a relative URL, we need to load from assets.
@@ -146,55 +154,52 @@ export function load(spec: LoadSpec) {
             resolve(null)
           }
         })
-      }
+      },
+      spec.videoUrl ? 'Loading video' : undefined
     )
-
-    task('Game', null, ['Notechart'], async (notechart) => {
-      return new Game([notechart], spec.options)
-    })
-
-    task(
+    .task(
+      'Game',
+      ['Notechart'],
+      async ({ Notechart }) => new Game([Notechart], spec.options)
+    )
+    .task(
       'GameDisplay',
-      null,
-      ['Game', 'Skin', 'Video'],
-      async (game, skin, video) => {
-        return new GameDisplay({
-          game,
-          scintillator: skin,
-          backgroundImagePromise: run('BackgroundImage'),
-          video,
+      ['Game', 'Skin', 'Video', 'BackgroundImage'],
+      async ({ Game, Skin, Video, BackgroundImage }) =>
+        new GameDisplay({
+          game: Game,
+          scintillator: Skin,
+          backgroundImage: BackgroundImage ?? undefined,
+          video: Video,
         })
-      }
     )
-
-    task('Samples', null, ['SamplingMaster', 'Game'], function (master, game) {
-      keysoundCache.receiveSongId(songId)
-      const samplesLoader = new SamplesLoader(assets, master)
+    .task('Samples', ['SamplingMaster', 'Game'], ({ SamplingMaster, Game }) => {
+      keysoundCache.receiveSongId(songId ?? '')
+      const samplesLoader = new SamplesLoader(assets, SamplingMaster)
       return samplesLoader.loadFiles(
-        game.samples,
+        Game.samples,
         audioLoadProgress,
         audioDecodeProgress
       )
     })
-
-    task(
+    .task(
       'GameAudio',
-      null,
       ['Game', 'Samples', 'SamplingMaster'],
-      async (game, samples, master) => {
-        return new GameAudio({ game, samples, master })
-      }
+      async ({ Game, Samples, SamplingMaster }) =>
+        new GameAudio({
+          game: Game,
+          samples: Samples,
+          master: SamplingMaster,
+        })
     )
-
-    task(
+    .task(
       'GameController',
-      null,
       ['Game', 'GameDisplay', 'GameAudio'],
-      async (game, display, audio) => {
-        return new GameController({ game, display, audio })
-      }
+      async ({ Game, GameDisplay, GameAudio }) =>
+        new GameController({
+          game: Game,
+          display: GameDisplay,
+          audio: GameAudio,
+        })
     )
-
-    return run('GameController')
-  })
 }

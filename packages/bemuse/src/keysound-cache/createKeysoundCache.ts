@@ -1,26 +1,28 @@
 import invariant from 'invariant'
 
-export function createKeysoundCache() {
-  const map = new Map()
-  let _lastSongId
+import type { KeysoundCache } from './index.js'
+
+export function createKeysoundCache(): KeysoundCache {
+  const map = new Map<string, AudioBuffer>()
+  let _lastSongId: string | undefined
   return {
-    receiveSongId(nextSongId) {
+    receiveSongId(nextSongId: string): void {
       if (_lastSongId !== nextSongId) {
         _lastSongId = nextSongId
         map.clear()
       }
     },
-    isEmpty() {
+    isEmpty(): boolean {
       return map.size === 0
     },
-    isCached(soundName) {
+    isCached(soundName: string): boolean {
       return map.has(soundName)
     },
-    cache(soundName, audioBuffer) {
+    cache(soundName: string, audioBuffer: AudioBuffer): void {
       invariant(_lastSongId, 'Expected current song to be set.')
       map.set(soundName, audioBuffer)
     },
-    get(soundName) {
+    get(soundName: string): AudioBuffer | undefined {
       return map.get(soundName)
     },
   }

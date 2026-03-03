@@ -1,4 +1,6 @@
-import now from '@bemuse/utils/now'
+import now from '@bemuse/utils/now.js'
+
+import type GameAudio from './audio/index.js'
 
 // The game clock provides a high-accuracy time source for the game.
 //
@@ -12,12 +14,15 @@ import now from '@bemuse/utils/now'
 // and the audio time to compute a high-precision-and-accuracy time.
 //
 export class Clock {
-  constructor(audio) {
+  private _context: AudioContext
+  private readonly _offset: number[] = []
+  private _sum = 0
+  time = 0
+
+  constructor(audio: GameAudio) {
     audio.unmute() // kick start the currentTime of audio context
 
     this._context = audio.context
-    this._offset = []
-    this._sum = 0
     this.update()
   }
 
@@ -28,7 +33,7 @@ export class Clock {
     this._offset.push(delta)
     this._sum += delta
     while (this._offset.length > 60) {
-      this._sum -= this._offset.shift()
+      this._sum -= this._offset.shift()!
     }
 
     // The clock's time value, in seconds.

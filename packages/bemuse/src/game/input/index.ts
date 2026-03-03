@@ -7,7 +7,7 @@ type GameInputPluginInternalInstance = {
   destroy(): void
 }
 
-interface IGameInputPlugin {
+export interface IGameInputPlugin {
   name: string
   get(): { [key: string]: number }
   destroy?(): void

@@ -96,11 +96,11 @@ export async function main() {
   const loadSpec = await getSong()
 
   const GameLoader = await import('./loaders/game-loader.js')
-  const { tasks, promise } = GameLoader.load(loadSpec)
+  const runner = GameLoader.load(loadSpec)
   await sceneManager.display(
-    <LoadingScene tasks={tasks} song={loadSpec.metadata} />
+    <LoadingScene tasks={runner.taskItems} song={loadSpec.metadata} />
   )
-  const controller = await promise
+  const controller = await runner.run('GameController')
   await sceneManager.display(GameScene(controller.display))
   controller.start()
 }

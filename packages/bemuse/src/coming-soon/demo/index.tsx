@@ -175,7 +175,7 @@ function play(
           return
         }
         sampler.innerHTML = `<span>[${note.keysound}]</span>`
-        const instance = sample.play()
+        const instance = sample.play(0)
         sampler.scrollTop = sampler.scrollHeight
         instance.onstop = function () {
           sampler.children.item(0)?.classList.add('is-off')

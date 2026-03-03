@@ -1,8 +1,10 @@
 import { OmniInput } from '@bemuse/omni-input'
 
+import type Game from '../game'
+import type { IGameInputPlugin } from '.'
 import { DualInput } from './dual-input'
 
-function OmniInputPlugin(game) {
+function OmniInputPlugin(game: Game): IGameInputPlugin {
   const input = new OmniInput(window, {
     exclusive: true,
     continuous: game.players[0].options.input.continuous,
@@ -36,9 +38,11 @@ function OmniInputPlugin(game) {
         p1_speedup: data['ArrowUp'] ? 1 : 0,
         p1_speeddown: data['ArrowDown'] ? 1 : 0,
         start:
-          data['Enter'] ?? ((isBtn9Free && data['gamepad.0.button.9']) || 0),
+          (data['Enter'] ?? (isBtn9Free && data['gamepad.0.button.9'])) ? 1 : 0,
         select:
-          data['AltLeft'] ?? ((isBtn8Free && data['gamepad.0.button.8']) || 0),
+          (data['AltLeft'] ?? (isBtn8Free && data['gamepad.0.button.8']))
+            ? 1
+            : 0,
       }
       if (result['start'] || result['select']) {
         if (

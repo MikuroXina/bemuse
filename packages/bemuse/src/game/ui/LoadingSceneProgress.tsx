@@ -1,6 +1,6 @@
-import { Observable } from '@bemuse/utils/observable.js'
 import { useEffect, useState } from 'react'
 
+import type { TaskItem } from '../loaders/multitasker'
 import styles from './LoadingSceneProgress.module.scss'
 import LoadingSceneProgressBar from './LoadingSceneProgressBar.js'
 
@@ -18,32 +18,28 @@ const Item = ({ text, progressText, progress }: TaskItem) => {
   )
 }
 
-export interface TaskItem {
-  text: string
-  progressText: string
-  progress: number
-}
-
-export type Tasks = Observable<TaskItem[]>
+export type Tasks = () => TaskItem[]
 
 export interface LoadingSceneProgressProps {
   tasks: Tasks
 }
 
 const LoadingSceneProgress = ({ tasks }: LoadingSceneProgressProps) => {
-  const [, updater] = useState(false)
-  const forceUpdate = () => updater((flag) => !flag)
-
+  const [taskItems, setTaskItems] = useState<TaskItem[]>([])
   useEffect(() => {
-    const unsubscribe = tasks.watch(forceUpdate)
-    return () => {
-      unsubscribe()
+    let id = requestAnimationFrame(updateTasks)
+    function updateTasks() {
+      setTaskItems(tasks())
+      id = requestAnimationFrame(updateTasks)
     }
-  }, [])
+    return () => {
+      cancelAnimationFrame(id)
+    }
+  }, [tasks])
 
   return (
     <div className={styles.container}>
-      {tasks.value?.map((task) => (
+      {taskItems.map((task) => (
         <Item key={task.text} {...task} />
       ))}
     </div>

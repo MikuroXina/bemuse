@@ -10,7 +10,6 @@ import screenfull from 'screenfull'
 
 import formatTime from '../../utils/formatTime.js'
 import Game from '../game.js'
-import type { LoadImagePromise } from '../loaders/loadImage.js'
 import Player from '../player.js'
 import GameState from '../state/index.js'
 import PlayerDisplay from './player-display.js'
@@ -24,12 +23,12 @@ class GameDisplay {
   constructor({
     game,
     scintillator,
-    backgroundImagePromise,
+    backgroundImage,
     video,
   }: {
     game: Game
     scintillator: Scintillator
-    backgroundImagePromise: LoadImagePromise
+    backgroundImage?: HTMLImageElement
     video: Video | null
   }) {
     this._game = game
@@ -42,7 +41,7 @@ class GameDisplay {
     )
     this._stateful = {}
     this._wrapper = this._createWrapper({
-      backgroundImagePromise,
+      backgroundImage,
       video,
       panelPlacement: game.players[0].options.placement,
       infoPanelPosition: scintillator.skin.infoPanelPosition,
@@ -125,7 +124,7 @@ class GameDisplay {
     }
   }
 
-  private _getData(
+  _getData(
     time: number,
     gameTime: number,
     gameState: GameState
@@ -171,12 +170,12 @@ class GameDisplay {
   }
 
   private _createWrapper({
-    backgroundImagePromise,
+    backgroundImage,
     video,
     panelPlacement,
     infoPanelPosition,
   }: {
-    backgroundImagePromise: LoadImagePromise
+    backgroundImage?: HTMLImageElement
     video: Video | null
     panelPlacement: PanelPlacement
     infoPanelPosition: InfoPanelPosition
@@ -189,10 +188,8 @@ class GameDisplay {
     const displayBackground = document.createElement('div')
     displayBackground.classList.add('game-display--bg', 'js-back-image')
     wrapper.append(displayBackground, this.view)
-    if (backgroundImagePromise) {
-      Promise.resolve(backgroundImagePromise).then((image) =>
-        wrapper.querySelector('.js-back-image')?.append(image)
-      )
+    if (backgroundImage) {
+      wrapper.querySelector('.js-back-image')?.append(backgroundImage)
     }
     if (video) {
       this._video = video.element
