@@ -1,5 +1,3 @@
-import './RunningNumber.scss'
-
 import now from '@bemuse/utils/now.js'
 import { useEffect, useRef } from 'react'
 
@@ -18,7 +16,7 @@ const RunningNumber = ({ formatter, value }: RunningNumberProps) => {
 
     const node = nodeRef.current
     const text = document.createTextNode('')
-    node?.appendChild(text)
+    node?.replaceChildren(text)
     text.nodeValue = getText(0)
     const started = now()
     const interval = setInterval(() => {
@@ -32,7 +30,7 @@ const RunningNumber = ({ formatter, value }: RunningNumberProps) => {
     return () => {
       clearInterval(interval)
     }
-  }, [])
+  }, [value])
 
   return <span ref={nodeRef} className='RunningNumber' />
 }
