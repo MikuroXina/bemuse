@@ -20,7 +20,7 @@ export interface Video {
   offset: number
 }
 
-export class GameDisplay {
+class GameDisplay {
   constructor({
     game,
     scintillator,
