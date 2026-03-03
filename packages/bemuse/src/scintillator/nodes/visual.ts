@@ -97,7 +97,6 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
 
       container = ttf
         ? new Text({
-            text,
             style: {
               fontFamily,
               fontWeight: fontWeight as TextStyleFontWeight | undefined,
@@ -111,7 +110,6 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
             },
           })
         : new BitmapText({
-            text,
             style: {
               fontFamily,
               fontSize,
@@ -125,6 +123,7 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
 
       const data = element.getAttribute('data')
       if (data == null) {
+        ;(container as Text).text = text
         container.label = text
       } else {
         container.label = data.toString()
