@@ -78,7 +78,7 @@ export async function main() {
     requestAnimationFrame(f)
   })
 
-  showCanvas(context.view)
+  showCanvas(skin.app.canvas)
 }
 
 function showCanvas(view) {
