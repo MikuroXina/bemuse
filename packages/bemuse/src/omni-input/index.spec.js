@@ -23,11 +23,11 @@ function fakeWindow() {
     clearInterval(callback) {
       events.removeListener('timeout', callback)
     },
-    keydown(keyCode) {
-      events.emit('keydown', { which: keyCode, preventDefault: noop })
+    keydown(code) {
+      events.emit('keydown', { code, preventDefault: noop })
     },
-    keyup(keyCode) {
-      events.emit('keyup', { which: keyCode, preventDefault: noop })
+    keyup(code) {
+      events.emit('keyup', { code, preventDefault: noop })
     },
     tick() {
       events.emit('timeout')
@@ -75,10 +75,10 @@ describe('OmniInput', function () {
 
   describe('keyboard', function () {
     it('recognizes input', function () {
-      window.keydown(32)
-      assert(input.update()['32'])
-      window.keyup(32)
-      assert(!input.update()['32'])
+      window.keydown('Space')
+      assert(input.update()['Space'])
+      window.keyup('Space')
+      assert(!input.update()['Space'])
     })
     it('returns the key name', function () {
       assert(getName('32') === 'Space')
