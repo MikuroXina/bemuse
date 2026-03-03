@@ -358,6 +358,7 @@ async function buildTexture(element: Element): Promise<Texture> {
   }
 
   const texture = await Assets.load<Texture>(image)
+  texture.source.scaleMode = 'nearest'
   const frame = parseFrame(element.getAttribute('frame') ?? '') ?? undefined
   const anchorX = Number(element.getAttribute('anchor-x') ?? '0')
   const anchorY = Number(element.getAttribute('anchor-y') ?? '0')
