@@ -34,6 +34,7 @@ const OptionsInputField = <T,>(
     validator,
     value: defaultValue,
     className,
+    ...others
   } = props
   const [value, setValue] = useState(stringify(defaultValue))
 
@@ -52,7 +53,7 @@ const OptionsInputField = <T,>(
   }
   return (
     <input
-      {...props}
+      {...others}
       type='text'
       value={value}
       onChange={handleInputChange}
