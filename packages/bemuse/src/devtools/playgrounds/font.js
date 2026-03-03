@@ -1,30 +1,33 @@
 import meticulousFont from '@bemuse/../public/skins/default/Fonts/BemuseDefault-Meticulous.fnt'
 import otherFont from '@bemuse/../public/skins/default/Fonts/BemuseDefault-Other.fnt'
 import MAIN from '@bemuse/utils/main-element'
-import * as PIXI from 'pixi.js'
+import { Application, Assets, autoDetectRenderer, BitmapText } from 'pixi.js'
 
-export function main() {
-  const renderer = PIXI.autoDetectRenderer(640, 480)
-  const stage = new PIXI.Stage(0x8b8685)
-  const loader = new PIXI.loaders.Loader()
-  const urls = [meticulousFont, otherFont]
-  for (const url of urls) loader.add(url, url)
-  loader.load(() => {
-    const text = new PIXI.BitmapText('*1234567890', {
-      font: 'BemuseDefault-Meticulous',
-    })
-    stage.addChild(text)
-    const text2 = new PIXI.BitmapText('01', {
-      font: 'BemuseDefault-Other',
-    })
-    text2.y = 100
-    stage.addChild(text2)
-    render()
-    console.log('Ok')
+export async function main() {
+  await autoDetectRenderer({
+    width: 640,
+    height: 480,
   })
-  function render() {
-    renderer.render(stage)
-  }
-  MAIN.appendChild(renderer.view)
-  render()
+
+  const app = new Application()
+  await app.init({
+    backgroundColor: 0x8b8685,
+  })
+
+  const urls = [meticulousFont, otherFont]
+  await Assets.load(urls)
+
+  const text = new BitmapText({
+    text: '*1234567890',
+    font: 'BemuseDefault-Meticulous',
+  })
+  app.stage.addChild(text)
+  const text2 = new BitmapText({
+    text: '01',
+    font: 'BemuseDefault-Other',
+  })
+  text2.y = 100
+  app.stage.addChild(text2)
+
+  MAIN.appendChild(app.canvas)
 }
