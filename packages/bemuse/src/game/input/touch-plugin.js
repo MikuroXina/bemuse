@@ -28,7 +28,7 @@ function setupInputController(skin, view) {
     mouse = null
   }
   const onTouch = (e) => {
-    touches = [].slice.call(e.touches)
+    touches = [...e.touches]
   }
   const touchTarget = view
   const width = skin.width
@@ -90,7 +90,6 @@ function StatsRecorder() {
 
 export function TouchPlugin(context) {
   let scratchStartY = null
-  let scratchY = null
   const getScratch = bench.wrap('input:touch:SC', _getScratch)
   const getButton = bench.wrap('input:touch:B', _getButton)
   const getPinch = bench.wrap('input:touch:P', _getPinch)
@@ -132,10 +131,10 @@ export function TouchPlugin(context) {
     return newRect
   }
   function _getButton(input, button) {
-    const objects = context.refs[button]
+    const objects = context.refs.get(button)
     if (objects) {
       for (const object of objects) {
-        const bounds = _expand(object.getBounds())
+        const bounds = _expand(object.getBounds().rectangle)
         for (const p of input) {
           if (bounds.contains(p.x, p.y)) return 1
         }
@@ -144,12 +143,12 @@ export function TouchPlugin(context) {
     return 0
   }
   function _getScratch(input) {
-    const objects = context.refs['p1_SC']
+    const objects = context.refs.get('p1_SC')
     if (!objects) return 0
-    scratchY = null
+    let scratchY = null
     for (const p of input) {
       for (const object of objects) {
-        if (_expand(object.getBounds(), 32).contains(p.x, p.y)) {
+        if (_expand(object.getBounds().rectangle, 32).contains(p.x, p.y)) {
           scratchY = p.y
           break
         }

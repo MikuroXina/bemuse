@@ -18,8 +18,7 @@ export class GameInput {
   private _plugins: GameInputPluginInternalInstance[] = []
   update() {
     const changes = new Map()
-    for (const [name, control] of this._controls) {
-      void name
+    for (const control of this._controls.values()) {
       control.changed = false
     }
     for (const plugin of this._plugins) {
@@ -55,11 +54,13 @@ export class GameInput {
     this._plugins.push({
       get: bench.wrap(name, function () {
         const out = plugin.get()
-        const diff = []
+        const diff: [string, number][] = []
         for (const key of [...Object.keys(out), ...Object.keys(state)]) {
-          const last = +state[key] || 0
-          const current = +out[key] || 0
-          if (last !== current) diff.push([key, current])
+          const last = state[key] ?? 0
+          const current = out[key] ?? 0
+          if (last !== current) {
+            diff.push([key, current])
+          }
           state[key] = current
         }
         return diff
