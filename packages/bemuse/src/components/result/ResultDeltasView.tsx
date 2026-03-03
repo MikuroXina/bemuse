@@ -15,7 +15,7 @@ const group = (deltas: readonly number[]) =>
   deltas
     .map((delta) => Math.floor(delta * 100))
     .reduce((prev: Record<number, number>, curr) => {
-      prev[curr] = prev[curr] ? prev[curr] + 1 : 0
+      prev[curr] = curr in prev ? prev[curr] + 1 : 0
       return prev
     }, {})
 
@@ -83,10 +83,10 @@ const ResultDeltasView = ({ deltas }: ResultDeltasViewProps) => {
               />
             ))}
           </div>
-          <div className={`${styles.number} is-early`}>
+          <div className={`${styles.number} ${styles.isEarly}`}>
             <strong>{earlyCount}</strong> EARLY
           </div>
-          <div className={`${styles.number} is-late`}>
+          <div className={`${styles.number} ${styles.isLate}`}>
             <strong>{lateCount}</strong> LATE
           </div>
           <table className={styles.info}>

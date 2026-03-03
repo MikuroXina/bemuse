@@ -91,12 +91,12 @@ $meticulous-color: #6e6;
     display: block;
     line-height: 1;
   }
-  &.is-early {
+  &.isEarly {
     left: 16px;
     text-align: left;
     color: color.adjust($early-color, $lightness: 10%);
   }
-  &.is-late {
+  &.isLate {
     right: 16px;
     text-align: right;
     color: color.adjust($late-color, $lightness: 10%);
