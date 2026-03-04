@@ -320,6 +320,6 @@ export function unmuteAudio(ctx: AudioContext = defaultAudioContext): void {
   })
 }
 
-function resumeContext(ctx: AudioContext): Promise<void> {
-  return ctx.resume()
+async function resumeContext(ctx: AudioContext): Promise<void> {
+  return await ctx.resume()
 }
