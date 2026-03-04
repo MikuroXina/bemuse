@@ -60,6 +60,7 @@
   let indexingCharts = $state(false);
   let indexStatus = $state("");
   async function indexCharts() {
+    console.dir({ checkingState });
     indexingCharts = true;
     try {
       if (typeof checkingState !== "object" || checkingState === null) {
@@ -216,9 +217,7 @@
     }
   }
 
-  Object.assign(window, { convertAudioFiles, indexCharts });
-
-  let checkingSong = false;
+  let checkingSong = $state(false);
   let readme = $state("");
   let soundAssets: SoundAssetsMetadata | null = $state(null);
   let songMeta: SongMetadata | null = $state(null);
@@ -321,7 +320,6 @@
       } catch (error) {
         previewCreated = false;
       }
-    } catch {
     } finally {
       checkingSong = false;
     }
@@ -456,8 +454,10 @@
               folder.
             </div>
             <ui5-table>
-              <ui5-table-column slot="columns"> Name </ui5-table-column>
-              <ui5-table-column slot="columns"> Size </ui5-table-column>
+              <ui5-table-header-row slot="headerRow">
+                <ui5-table-header-cell> Name </ui5-table-header-cell>
+                <ui5-table-header-cell> Size </ui5-table-header-cell>
+              </ui5-table-header-row>
               {#each soundAssets.refs as ref}
                 <ui5-table-row>
                   <ui5-table-cell>{ref.path}</ui5-table-cell>
@@ -508,12 +508,14 @@
           </ui5-card-header>
 
           <ui5-table no-data-text="No Data">
-            <ui5-table-column slot="columns">Filename</ui5-table-column>
-            <ui5-table-column slot="columns">Title</ui5-table-column>
-            <ui5-table-column slot="columns">Artist</ui5-table-column>
-            <ui5-table-column slot="columns">Genre</ui5-table-column>
-            <ui5-table-column slot="columns">Level</ui5-table-column>
-            <ui5-table-column slot="columns">Difficulty</ui5-table-column>
+            <ui5-table-header-row slot="headerRow">
+              <ui5-table-header-cell>Filename</ui5-table-header-cell>
+              <ui5-table-header-cell>Title</ui5-table-header-cell>
+              <ui5-table-header-cell>Artist</ui5-table-header-cell>
+              <ui5-table-header-cell>Genre</ui5-table-header-cell>
+              <ui5-table-header-cell>Level</ui5-table-header-cell>
+              <ui5-table-header-cell>Difficulty</ui5-table-header-cell>
+            </ui5-table-header-row>
             {#each charts as chart}
               <ui5-table-row>
                 <ui5-table-cell>

@@ -249,11 +249,13 @@
             no-data-text="No URLs."
             sticky-column-header="true"
           >
-            <ui5-table-column slot="columns">URL</ui5-table-column>
-            <ui5-table-column slot="columns">Added</ui5-table-column>
-            <ui5-table-column slot="columns" style="width: 12rem"
-              >Status</ui5-table-column
-            >
+            <ui5-table-header-row slot="headerRow">
+              <ui5-table-header-cell>URL</ui5-table-header-cell>
+              <ui5-table-header-cell>Added</ui5-table-header-cell>
+              <ui5-table-header-cell style="width: 12rem"
+                >Status</ui5-table-header-cell
+              >
+            </ui5-table-header-row>
             {#each data.urls as entry (entry.url)}
               <ui5-table-row data-entry-url={entry.url}>
                 <ui5-table-cell>{entry.url}</ui5-table-cell>
@@ -300,10 +302,12 @@
       <ui5-card>
         <ui5-card-header slot="header" title-text="Songs"></ui5-card-header>
         <ui5-table class="demo-table" id="table">
-          <ui5-table-column slot="columns"> Added </ui5-table-column>
-          <ui5-table-column slot="columns"> Genre </ui5-table-column>
-          <ui5-table-column slot="columns"> Title </ui5-table-column>
-          <ui5-table-column slot="columns"> Artist </ui5-table-column>
+          <ui5-table-header-row slot="headerRow">
+            <ui5-table-header-cell> Added </ui5-table-header-cell>
+            <ui5-table-header-cell> Genre </ui5-table-header-cell>
+            <ui5-table-header-cell> Title </ui5-table-header-cell>
+            <ui5-table-header-cell> Artist </ui5-table-header-cell>
+          </ui5-table-header-row>
           {#each sortSongs(data.songs) as song (song.id)}
             <ui5-table-row>
               <ui5-table-cell>

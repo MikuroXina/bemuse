@@ -29,6 +29,7 @@ export async function indexChartFilesFromDirectory(
       console.error(error);
     }
   }
+  console.dir({ inputs });
   io.setStatus("Indexing charts...");
   const result = await getSongInfo(inputs, {
     onProgress: (processed, total, name) => {
