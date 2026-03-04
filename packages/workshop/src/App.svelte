@@ -58,7 +58,8 @@
     convertStatus = "Indexing...";
     try {
       if (typeof checkingState !== "object" || checkingState === null) {
-        throw new Error("No directory selected");
+        console.log("No directory selected");
+        return;
       }
       await convertAudioFilesInDirectory(checkingState.directoryHandle, {
         setStatus: (status: string) => {
@@ -80,7 +81,8 @@
     indexingCharts = true;
     try {
       if (typeof checkingState !== "object" || checkingState === null) {
-        throw new Error("No directory selected");
+        console.log("No directory selected");
+        return;
       }
       await indexChartFilesFromDirectory(checkingState.directoryHandle, {
         setStatus: (status: string) => {
@@ -105,7 +107,8 @@
         checkingState === null ||
         soundAssets === null
       ) {
-        throw new Error("No directory selected");
+        console.log("No directory selected");
+        return;
       }
       const chartFilename: string = chartSelector.selectedOption.dataset.chart;
       await renderSongInDirectory(
@@ -129,7 +132,8 @@
     creatingPreview = true;
     try {
       if (typeof checkingState !== "object" || checkingState === null) {
-        throw new Error("No directory selected");
+        console.log("No directory selected");
+        return;
       }
       createPreviewStatus = "Creating preview...";
       const startTime = parseFloat(previewStartTimeInput.value) || 0;
@@ -148,7 +152,8 @@
 
   async function setVideoOffset(offset: number) {
     if (typeof checkingState !== "object" || checkingState === null) {
-      throw new Error("No directory selected");
+      console.log("No directory selected");
+      return;
     }
     await updateSongFile(checkingState.directoryHandle, (song) => ({
       ...song,
@@ -162,7 +167,8 @@
     scanningVisualFiles = true;
     try {
       if (typeof checkingState !== "object" || checkingState === null) {
-        throw new Error("No directory selected");
+        console.log("No directory selected");
+        return;
       }
 
       const bemuseDataDir =
@@ -212,7 +218,8 @@
   ) {
     try {
       if (typeof checkingState !== "object" || checkingState === null) {
-        throw new Error("No directory selected");
+        console.log("No directory selected");
+        return;
       }
       const { directoryHandle } = checkingState;
       await updateSongFile(directoryHandle, update);
@@ -445,7 +452,7 @@
         onclick={recheck}
       ></ui5-button>
     </ui5-bar>
-    <ui5-tabcontainer class="full-width" show-overflow fixed>
+    <ui5-tabcontainer class="full-width" fixed>
       <ui5-tab text="Overview" selected icon="activities">
         <ui5-list class="full-width">
           {#each checkItems as item}
