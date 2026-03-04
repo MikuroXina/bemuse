@@ -7,7 +7,7 @@ import { playwright } from "@vitest/browser-playwright";
 export default defineConfig({
   plugins: [
     nodePolyfills({
-      include: ["buffer"],
+      include: ["buffer", "crypto", "path"],
       protocolImports: true,
     }),
     svelte(),
