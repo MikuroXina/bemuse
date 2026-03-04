@@ -167,8 +167,8 @@ async function getReplayGain(buf: AudioBuffer) {
     }
     return replayGain;
   } finally {
-    ffmpeg.unmount("ch0.f32");
-    ffmpeg.unmount("ch1.f32");
+    ffmpeg.deleteFile("ch0.f32");
+    ffmpeg.deleteFile("ch1.f32");
   }
 }
 
@@ -210,9 +210,9 @@ async function convertToOgg(buf: AudioBuffer, replayGain: number) {
     const ogg = await ffmpeg.readFile("song.ogg");
     return ogg as Uint8Array<ArrayBuffer>;
   } finally {
-    ffmpeg.unmount("ch0.f32");
-    ffmpeg.unmount("ch1.f32");
-    ffmpeg.unmount("song.ogg");
+    ffmpeg.deleteFile("ch0.f32");
+    ffmpeg.deleteFile("ch1.f32");
+    ffmpeg.deleteFile("song.ogg");
   }
 }
 

@@ -1,7 +1,7 @@
 import type { IndexingInputFile } from "@mikuroxina/bemuse-indexer/lib/types";
 import { updateSongFile } from "./SongFile";
-import { SongWorkshopLibs } from "./SongWorkshopLibs";
 import { getSongInfo } from "@mikuroxina/bemuse-indexer/lib";
+import { Buffer } from "buffer";
 
 export type IndexIO = {
   setStatus: (status: string) => void;
@@ -19,7 +19,7 @@ export async function indexChartFilesFromDirectory(
         const fileHandle = handle;
         const file = await (fileHandle as FileSystemFileHandle).getFile();
         const fileContents = await file.arrayBuffer();
-        const buffer = SongWorkshopLibs.buffer.Buffer.from(fileContents);
+        const buffer = Buffer.from(fileContents);
         inputs.push({
           name,
           data: buffer,

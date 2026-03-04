@@ -2,8 +2,6 @@
   import { Reader, type BMSChart } from "@mikuroxina/bms";
   import pMemoize from "p-memoize";
 
-  import { onMount } from "svelte";
-  import { getSelectedDirectory } from "./DirectorySelection";
   import RenoteEditor from "./RenoteEditor.svelte";
   import { renoteBms } from "./RenoterCore";
   import { SoundPlayer } from "./RenoterSound";
@@ -27,8 +25,10 @@
 
   async function check() {
     state = "checking";
-    const dir = await getSelectedDirectory();
-    if (!dir) {
+    let dir;
+    try {
+      dir = await window.showDirectoryPicker({ mode: "readwrite" });
+    } catch (e) {
       state = { message: "No directory selected." };
       return;
     }
@@ -56,10 +56,6 @@
       state = { message: (error as Error).message };
     }
   }
-
-  onMount(() => {
-    check();
-  });
 
   const getSample = pMemoize(async (soundFileSrc: string) => {
     if (!soundFileSrc) {
@@ -129,6 +125,9 @@
 </script>
 
 <main>
+  <ui5-button design="Emphasized" onclick={check}
+    >Choose a song folder</ui5-button
+  >
   <ui5-shellbar id="shellbar" primary-title="Bemuse Renoter"></ui5-shellbar>
   {#if state === "checking"}
     <div style="padding: 1rem;">

@@ -1,6 +1,5 @@
 import { FFmpeg, type LogEvent } from "@ffmpeg/ffmpeg";
 import { toBlobURL } from "@ffmpeg/util";
-import pMemoize from "p-memoize";
 
 export const createFFmpegInstance = async (): Promise<FFmpeg> => {
   const ffmpeg = new FFmpeg();
@@ -26,8 +25,6 @@ export const createFFmpegInstance = async (): Promise<FFmpeg> => {
   return ffmpeg;
 };
 
-export const getFFmpegInstance = pMemoize(createFFmpegInstance);
 Object.assign(window, {
   createFfmpegInstance: createFFmpegInstance,
-  getFfmpegInstance: getFFmpegInstance,
 });

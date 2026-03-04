@@ -1,13 +1,7 @@
 <script lang="ts">
   import memoizeOne from "memoize-one";
-  import { onMount } from "svelte";
   import { convertAudioFilesInDirectory } from "./audio";
   import { indexChartFilesFromDirectory } from "./ChartIndexing";
-  import {
-    getSelectedDirectory,
-    setSelectedDirectory,
-    unsetSelectedDirectory,
-  } from "./DirectorySelection";
   import ImagePreview from "./ImagePreview.svelte";
   import MetadataEditor from "./MetadataEditor.svelte";
   import {
@@ -21,34 +15,22 @@
   import VideoSynchronizer from "./VideoSynchronizer.svelte";
   import type { SongMetadata } from "@mikuroxina/bemuse-types";
 
-  let checkingState:
-    | "checking"
-    | null
-    | { directoryHandle: FileSystemDirectoryHandle } = $state("checking");
+  let checkingState: null | { directoryHandle: FileSystemDirectoryHandle } =
+    $state(null);
 
   async function chooseDirectory() {
-    const dir = await window.showDirectoryPicker();
-    await setSelectedDirectory(dir);
-    await check();
+    try {
+      const dir = await window.showDirectoryPicker({ mode: "readwrite" });
+      checkingState = { directoryHandle: dir };
+      await recheck();
+    } catch (e) {
+      console.error(e);
+      checkingState = null;
+    }
   }
 
   async function closeDirectory() {
-    try {
-      await unsetSelectedDirectory();
-    } finally {
-      location.reload();
-    }
-  }
-
-  async function check() {
-    checkingState = "checking";
-    const dir = await getSelectedDirectory();
-    if (!dir) {
-      checkingState = null;
-    } else {
-      checkingState = { directoryHandle: dir };
-    }
-    await recheck();
+    location.reload();
   }
 
   let convertingAudioFiles = $state(false);
@@ -265,8 +247,10 @@
         return;
       }
       const { directoryHandle } = checkingState;
-      const bemuseDataDirPromise =
-        directoryHandle.getDirectoryHandle("bemuse-data");
+      const bemuseDataDir = await directoryHandle.getDirectoryHandle(
+        "bemuse-data",
+        { create: true },
+      );
       const handle = await getSongFileHandleFromDirectory(directoryHandle, {
         create: false,
       });
@@ -276,7 +260,6 @@
       const songJsonPromise = JSON.parse(text);
 
       try {
-        const bemuseDataDir = await bemuseDataDirPromise;
         const metadata = await bemuseDataDir
           .getDirectoryHandle("sound")
           .then((d) => d.getFileHandle("metadata.json"));
@@ -315,7 +298,6 @@
       }
 
       try {
-        const bemuseDataDir = await bemuseDataDirPromise;
         const songFile = await bemuseDataDir
           .getFileHandle("song.ogg")
           .then((f) => f.getFile());
@@ -325,7 +307,6 @@
       }
 
       try {
-        const bemuseDataDir = await bemuseDataDirPromise;
         const songFile = await bemuseDataDir
           .getFileHandle("preview.mp3")
           .then((f) => f.getFile());
@@ -340,6 +321,7 @@
       } catch (error) {
         previewCreated = false;
       }
+    } catch {
     } finally {
       checkingSong = false;
     }
@@ -419,20 +401,12 @@
         : "";
     return `BPM: ${f(bpm.init)}${soflan}`;
   }
-
-  onMount(() => {
-    check();
-  });
 </script>
 
 <main>
   <ui5-shellbar id="shellbar" primary-title="Bemuse Custom Song Workshop"
   ></ui5-shellbar>
-  {#if checkingState === "checking"}
-    <div style="text-align: center; padding: 1rem;">
-      <ui5-busy-indicator active size="Large"></ui5-busy-indicator>
-    </div>
-  {:else if !checkingState}
+  {#if !checkingState}
     <ui5-illustrated-message
       name="NoData"
       title-text="Please choose a song folder to get started"

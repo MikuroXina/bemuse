@@ -1,7 +1,7 @@
 import { fetchFile } from "@ffmpeg/util";
 import { BemusePackage } from "./BemusePackage";
 import { hashBlob } from "./BlobHashing";
-import { getFFmpegInstance } from "./ffmpegCore";
+import { createFFmpegInstance } from "./ffmpegCore";
 import type { SoundAssetsMetadata } from "./types";
 
 type ConvertIO = {
@@ -15,12 +15,17 @@ export async function convertAudioFilesInDirectory(
 ) {
   let i = 1;
   io.setStatus("Loading ffmpeg core (~16 MB, please wait)…");
-  const ffmpeg = await getFFmpegInstance();
+  let ffmpeg = await createFFmpegInstance();
   io.setStatus("Getting ready to convert files.");
   const soundAssets: SoundAsset[] = [];
   for await (const [name, handle] of dir) {
     if (handle.kind === "file" && /\.(?:mp3|wav|ogg)$/i.test(name)) {
       const num = i++;
+      if (num % 30 === 29) {
+        // hack to deal with memory leaking of ffmpeg.wasm
+        ffmpeg.terminate();
+        ffmpeg = await createFFmpegInstance();
+      }
       try {
         const file = await (handle as FileSystemFileHandle).getFile();
         if (file.size === 0) {
@@ -32,6 +37,7 @@ export async function convertAudioFilesInDirectory(
         const outFileName = "out_" + num + ".ogg";
         ffmpeg.writeFile(inFileName, inBuffer);
         try {
+          let exitCode = -1;
           try {
             const args = [
               "-i",
@@ -46,12 +52,16 @@ export async function convertAudioFilesInDirectory(
               "1",
               outFileName,
             ];
-            await ffmpeg.exec(["-hide_banner", ...args]);
+            exitCode = await ffmpeg.exec(["-hide_banner", ...args]);
           } catch (e) {
             console.log(e);
           }
+          if (exitCode !== 0) {
+            console.error("conversion failed");
+            continue;
+          }
           const outBuffer = await ffmpeg.readFile(outFileName);
-          ffmpeg.unmount(outFileName);
+          ffmpeg.deleteFile(outFileName);
           console.log(name, inBuffer.length, "=>", outBuffer.length);
           soundAssets.push({
             name: name.substring(0, name.length - 4) + ".ogg",
@@ -60,13 +70,13 @@ export async function convertAudioFilesInDirectory(
           });
           io.setStatus(`Converted sound asset #${num}: ${name}`);
         } finally {
-          ffmpeg.unmount(inFileName);
+          ffmpeg.deleteFile(inFileName);
         }
       } catch (error) {
         io.writeWarning(`Error converting ${name}: ${error}`);
         console.error(error);
       }
-      await new Promise(requestAnimationFrame);
+      await new Promise((resolve) => requestIdleCallback(resolve));
     }
   }
   soundAssets.sort((a, b) => {

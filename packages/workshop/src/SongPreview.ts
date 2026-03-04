@@ -86,8 +86,8 @@ async function convertToMp3(buf: AudioBuffer) {
     const mp3 = await ffmpeg.readFile("preview.mp3");
     return mp3 as Uint8Array<ArrayBuffer>;
   } finally {
-    ffmpeg.unmount("ch0.f32");
-    ffmpeg.unmount("ch1.f32");
-    ffmpeg.unmount("preview.mp3");
+    ffmpeg.deleteFile("ch0.f32");
+    ffmpeg.deleteFile("ch1.f32");
+    ffmpeg.deleteFile("preview.mp3");
   }
 }
