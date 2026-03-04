@@ -60,7 +60,6 @@
   let indexingCharts = $state(false);
   let indexStatus = $state("");
   async function indexCharts() {
-    console.dir({ checkingState });
     indexingCharts = true;
     try {
       if (typeof checkingState !== "object" || checkingState === null) {
@@ -250,13 +249,35 @@
         "bemuse-data",
         { create: true },
       );
-      const handle = await getSongFileHandleFromDirectory(directoryHandle, {
-        create: false,
-      });
+      let handle: FileSystemFileHandle;
+      try {
+        handle = await getSongFileHandleFromDirectory(directoryHandle, {
+          create: false,
+        });
+      } catch {
+        console.log("song file not found");
+        // create and write a new song file
+        handle = await getSongFileHandleFromDirectory(directoryHandle, {
+          create: true,
+        });
+        const writable = await handle.createWritable();
+        const newSong: SongMetadata = {
+          title: "",
+          artist: "",
+          genre: "",
+          bpm: 120,
+          artist_url: "",
+          replaygain: "-0.00 dB",
+          charts: [],
+          readme: "",
+        };
+        await writable.write(JSON.stringify(newSong, null, 2));
+        await writable.close();
+      }
       const file = await handle.getFile();
       const text = await file.text();
       console.dir({ text });
-      const songJsonPromise = JSON.parse(text);
+      const songJson = JSON.parse(text);
 
       try {
         const metadata = await bemuseDataDir
@@ -272,7 +293,6 @@
       }
 
       try {
-        const songJson = await songJsonPromise;
         songMeta = songJson;
         charts = songJson.charts;
       } catch (error) {
@@ -290,7 +310,6 @@
       }
 
       try {
-        const songJson = await songJsonPromise;
         replayGain = songJson.replaygain;
       } catch (error) {
         replayGain = undefined;
@@ -315,7 +334,6 @@
       }
 
       try {
-        const songJson = await songJsonPromise;
         previewCreated = !!songJson.preview_url;
       } catch (error) {
         previewCreated = false;
@@ -517,7 +535,7 @@
               <ui5-table-header-cell>Difficulty</ui5-table-header-cell>
             </ui5-table-header-row>
             {#each charts as chart}
-              <ui5-table-row>
+              <ui5-table-row row-key={chart.md5}>
                 <ui5-table-cell>
                   {chart.file}
                   <small style="display: block">
