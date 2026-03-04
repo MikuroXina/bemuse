@@ -18,6 +18,8 @@ import "@ui5/webcomponents/dist/Select";
 import "@ui5/webcomponents/dist/TabContainer";
 import "@ui5/webcomponents/dist/Tab";
 import "@ui5/webcomponents/dist/Table";
+import "@ui5/webcomponents/dist/TableHeaderCell";
+import "@ui5/webcomponents/dist/TableHeaderRow";
 import "@ui5/webcomponents/dist/TableRow";
 import "@ui5/webcomponents/dist/TableCell";
 import "@ui5/webcomponents/dist/TextArea";
