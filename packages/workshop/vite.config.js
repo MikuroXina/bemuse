@@ -2,6 +2,9 @@ import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
 import { playwright } from "@vitest/browser-playwright";
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -10,8 +13,36 @@ export default defineConfig({
       include: ["buffer", "crypto", "os", "path", "stream", "util"],
       protocolImports: true,
     }),
+    {
+      name: "vite-plugin-node-polyfills:shims-resolver",
+      resolveId(source) {
+        const res =
+          /^vite-plugin-node-polyfills\/shims\/(?<shim>buffer|global|process)/.exec(
+            source,
+          );
+        if (res && res.groups) {
+          const { shim } = res.groups;
+          const id = require
+            .resolve(`vite-plugin-node-polyfills/shims/${shim}`)
+            .replace("file://", "");
+          return {
+            id,
+            external: false,
+          };
+        }
+        return null;
+      },
+    },
     svelte(),
   ],
+  build: {
+    commonjsOptions: {
+      include: [/node_modules/],
+    },
+    dynamicImportVarsOptions: {
+      errorWhenNoFilesFound: true,
+    },
+  },
   optimizeDeps: {
     include: [
       "lodash",
