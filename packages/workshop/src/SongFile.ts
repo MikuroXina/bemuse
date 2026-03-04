@@ -11,15 +11,18 @@ export async function updateSongFile(
   directoryHandle: FileSystemDirectoryHandle,
   updater: (song: SongMetadata) => SongMetadata,
 ) {
-  const data = await getSongFileHandleFromDirectory(directoryHandle, {
-    create: false,
-  })
-    .then((handle) => handle.getFile())
-    .then(async (file) => JSON.parse(await file.text()))
-    .catch((e) => {
-      console.warn("Failed to read initial data", e);
-      return {};
+  let data;
+  try {
+    const handle = await getSongFileHandleFromDirectory(directoryHandle, {
+      create: false,
     });
+    const file = await handle.getFile();
+    const text = await file.text();
+    data = JSON.parse(text);
+  } catch (e) {
+    console.warn("Failed to read initial data", e);
+    return {};
+  }
 
   const newData = updater(data);
 
@@ -31,8 +34,8 @@ export async function updateSongFile(
   await writable.close();
 }
 
-export function validateSong(song: Song) {
-  const problems = [];
+export function validateSong(song: SongMetadata) {
+  const problems: { keys: string[]; message: string }[] = [];
   const report = (message: string, ...keys: string[]) =>
     problems.push({ keys, message });
 
@@ -88,7 +91,7 @@ export function validateSong(song: Song) {
   return problems;
 }
 
-export function getMetadataStatus(song: Song | null) {
+export function getMetadataStatus(song: SongMetadata | null) {
   if (!song) {
     return { ok: false, infoText: "Metadata file has not been created yet." };
   }
