@@ -10,7 +10,7 @@ import LoadingSceneSongInfo from './LoadingSceneSongInfo.js'
 export interface LoadingSceneProps {
   song: ChartInfo
   tasks: Tasks
-  eyecatchImagePromise?: PromiseLike<HTMLImageElement>
+  eyecatchImagePromise?: PromiseLike<HTMLImageElement | null>
   registerTeardownCallback?: (callback: () => void) => void
 }
 
@@ -26,7 +26,9 @@ const LoadingScene = ({
   useEffect(() => {
     if (eyecatchImagePromise) {
       eyecatchImagePromise.then((image) => {
-        eyecatchRef.current?.appendChild(image)
+        if (image) {
+          eyecatchRef.current?.appendChild(image)
+        }
       })
     }
     if (registerTeardownCallback) {

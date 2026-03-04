@@ -7,7 +7,7 @@ export const FADE_LENGTH = 0.001
 
 const dummyAudioTag = document.createElement('audio')
 // Checks whether an audio format is supported.
-export function canPlay(type) {
+export function canPlay(type: string): boolean {
   // We have a Vorbis audio decoder!
   if (type === 'audio/ogg; codecs="vorbis"') return true
   return dummyAudioTag.canPlayType(type) === 'probably'
@@ -23,11 +23,15 @@ const needsVorbisDecoder = !dummyAudioTag.canPlayType(
 // - Decoding audio from an ArrayBuffer or Blob (resulting in a "Sample").
 // - Playing the `Sample` and managing its lifecycle.
 export class SamplingMaster {
-  constructor(audioContext) {
-    this._audioContext = audioContext || defaultAudioContext
-    this._samples = []
-    this._groups = []
-    this._instances = new Set()
+  private _samples: Sample[] = []
+  private readonly _groups: SoundGroup[] = []
+  private readonly _instances = new Set<PlayInstance>()
+  private readonly _destination: AudioDestinationNode
+  private _destroyed = false
+
+  constructor(
+    private readonly _audioContext: AudioContext = defaultAudioContext
+  ) {
     this._destination = this._audioContext.destination
   }
 
@@ -60,42 +64,40 @@ export class SamplingMaster {
     this._destroyed = true
     for (const sample of this._samples) sample.destroy()
     for (const instance of this._instances) instance.destroy()
-    this._samples = null
-    this._instances = null
+    this._samples = []
+    this._instances.clear()
   }
 
   // Decodes the audio data from a Blob or an ArrayBuffer.
   // Returns an AudioBuffer which can be re-used in other sampling masters.
-  decode(blobOrArrayBuffer) {
-    return this._coerceToArrayBuffer(blobOrArrayBuffer).then((arrayBuffer) =>
-      this._decodeAudio(arrayBuffer)
-    )
+  async decode(blobOrArrayBuffer: Blob | ArrayBuffer): Promise<AudioBuffer> {
+    const arrayBuffer = await this._coerceToArrayBuffer(blobOrArrayBuffer)
+    return this._decodeAudio(arrayBuffer)
   }
 
   // Creates a `Sample` from a Blob or an ArrayBuffer or an AudioBuffer.
-  sample(blobOrArrayBufferOrAudioBuffer) {
-    const audioBufferPromise = (() => {
-      if (blobOrArrayBufferOrAudioBuffer.numberOfChannels) {
-        return Promise.resolve(blobOrArrayBufferOrAudioBuffer)
-      } else {
-        return this.decode(blobOrArrayBufferOrAudioBuffer)
-      }
-    })()
-    return audioBufferPromise.then((audioBuffer) => {
-      if (this._destroyed) throw new Error('SamplingMaster already destroyed!')
-      const sample = new Sample(this, audioBuffer)
-      this._samples.push(sample)
-      return sample
-    })
+  async sample(
+    blobOrArrayBufferOrAudioBuffer: Blob | ArrayBuffer | AudioBuffer
+  ): Promise<Sample> {
+    const audioBuffer =
+      'numberOfChannels' in blobOrArrayBufferOrAudioBuffer
+        ? blobOrArrayBufferOrAudioBuffer
+        : await this.decode(blobOrArrayBufferOrAudioBuffer)
+    if (this._destroyed) throw new Error('SamplingMaster already destroyed!')
+    const sample = new Sample(this, audioBuffer)
+    this._samples.push(sample)
+    return sample
   }
 
-  group(options) {
+  group(options: SoundGroupOptions): SoundGroup {
     const group = new SoundGroup(this, options)
     this._groups.push(group)
     return group
   }
 
-  _coerceToArrayBuffer(blobOrArrayBuffer) {
+  _coerceToArrayBuffer(
+    blobOrArrayBuffer: Blob | ArrayBuffer
+  ): Promise<ArrayBuffer> {
     if (blobOrArrayBuffer instanceof ArrayBuffer) {
       return Promise.resolve(blobOrArrayBuffer)
     } else {
@@ -103,7 +105,7 @@ export class SamplingMaster {
     }
   }
 
-  _decodeAudio(arrayBuffer) {
+  _decodeAudio(arrayBuffer: ArrayBuffer): Promise<AudioBuffer> {
     return new Promise((resolve, reject) => {
       if (needsVorbisDecoder && arrayBuffer.byteLength > 4) {
         const view = new Uint8Array(arrayBuffer, 0, 4)
@@ -128,30 +130,38 @@ export class SamplingMaster {
     })
   }
 
-  _startPlaying(instance) {
+  _startPlaying(instance: PlayInstance) {
     this._instances.add(instance)
   }
 
-  _stoppedPlaying(instance) {
+  _stoppedPlaying(instance: PlayInstance) {
     this._instances.delete(instance)
   }
 }
 
+export interface SoundGroupOptions {
+  volume?: number
+}
+
 // Sound group
 export class SoundGroup {
-  constructor(samplingMaster, { volume } = {}) {
-    this._master = samplingMaster
+  private _gain: GainNode | null
+
+  constructor(
+    private readonly _master: SamplingMaster,
+    { volume }: SoundGroupOptions = {}
+  ) {
     this._gain = this._master.audioContext.createGain()
     if (volume != null) this._gain.gain.value = volume
     this._gain.connect(this._master.destination)
   }
 
-  get destination() {
+  get destination(): GainNode | null {
     return this._gain
   }
 
   destroy() {
-    this._gain.disconnect()
+    this._gain?.disconnect()
     this._gain = null
   }
 }
@@ -161,13 +171,18 @@ export class SoundGroup {
 // You don't invoke this constructor directly; it is invoked by
 // `SamplingMaster#create`.
 export class Sample {
-  constructor(samplingMaster, /** @type {AudioBuffer} */ audioBuffer) {
+  private _master: SamplingMaster | null
+  private _buffer: AudioBuffer | null
+  constructor(samplingMaster: SamplingMaster, audioBuffer: AudioBuffer) {
     this._master = samplingMaster
     this._buffer = audioBuffer
   }
 
   // Plays the sample and returns the new PlayInstance.
-  play(delay, options) {
+  play(delay: number, options: PlayInstanceOptions = {}): PlayInstance {
+    if (this._master == null || this._buffer == null) {
+      throw new Error('Sample was destroyed')
+    }
     return new PlayInstance(this._master, this._buffer, delay, options)
   }
 
@@ -177,9 +192,16 @@ export class Sample {
     this._buffer = null
   }
 
-  get duration() {
-    return this._buffer.duration
+  get duration(): number {
+    return this._buffer?.duration ?? 0
   }
+}
+
+export interface PlayInstanceOptions {
+  node?: AudioNode
+  group?: SoundGroup
+  start?: number
+  end?: number
 }
 
 // When a `Sample` is played, a PlayInstance is created.
@@ -188,31 +210,38 @@ export class Sample {
 //
 // You don't invoke this constructor directly; it is invoked by `Sample#play`.
 export class PlayInstance {
-  onstop
-  constructor(samplingMaster, buffer, delay, options = {}) {
-    delay = delay || 0
-    this._master = samplingMaster
+  private _source: AudioBufferSourceNode | null
+  private _gain: GainNode | null
+  TEST_node: GainNode
 
+  onstop: () => void = () => {}
+
+  constructor(
+    private readonly master: SamplingMaster,
+    buffer: AudioBuffer,
+    delay = 0,
+    options: PlayInstanceOptions = {}
+  ) {
     // Connect all the stuff...
-    const context = samplingMaster.audioContext
+    const context = master.audioContext
     const source = context.createBufferSource()
     source.buffer = buffer
     source.onended = () => this.stop()
     const gain = context.createGain()
     source.connect(gain)
     const destination =
-      options.node ||
-      (options.group && options.group.destination) ||
-      samplingMaster.destination
+      options.node ??
+      (options.group && options.group.destination) ??
+      master.destination
     gain.connect(destination)
     this._source = source
     this._gain = this.TEST_node = gain
 
     // Start the sound.
     const startTime = !delay ? 0 : Math.max(0, context.currentTime + delay)
-    const startOffset = options.start || 0
+    const startOffset = options.start ?? 0
     const fadeIn = startOffset > 0
-    let fadeOutAt = false
+    let fadeOutAt: undefined | number
     if (fadeIn) {
       gain.gain.setValueAtTime(0, 0)
     }
@@ -230,11 +259,11 @@ export class PlayInstance {
         context.currentTime + delay + FADE_LENGTH
       )
     }
-    if (fadeOutAt !== false) {
+    if (fadeOutAt != null) {
       gain.gain.setValueAtTime(1, fadeOutAt)
       gain.gain.linearRampToValueAtTime(0, fadeOutAt + FADE_LENGTH)
     }
-    this._master._startPlaying(this)
+    this.master._startPlaying(this)
   }
 
   // Stops the sample and disconnects the underlying Web Audio nodes.
@@ -242,11 +271,11 @@ export class PlayInstance {
     if (!this._source) return
     this._source.stop(0)
     this._source.disconnect()
-    this._gain.disconnect()
+    this._gain?.disconnect()
     this._source = null
     this._gain = null
-    this._master._stoppedPlaying(this)
-    if (this.onstop) this.onstop()
+    this.master._stoppedPlaying(this)
+    this.onstop()
   }
 
   // Makes this PlayInstance sound off-pitch, as a result of badly hitting
@@ -275,7 +304,7 @@ export default SamplingMaster
  *
  * @param {AudioContext} ctx The AudioContext to be unmuted.
  */
-export function unmuteAudio(ctx = defaultAudioContext) {
+export function unmuteAudio(ctx: AudioContext = defaultAudioContext): void {
   // Perform some strange magic to unmute the audio on iOS devices.
   // This code doesn’t make sense at all, you know.
   const gain = ctx.createGain()
@@ -291,6 +320,6 @@ export function unmuteAudio(ctx = defaultAudioContext) {
   })
 }
 
-async function resumeContext(ctx) {
-  return ctx.resume()
+async function resumeContext(ctx: AudioContext): Promise<void> {
+  return await ctx.resume()
 }

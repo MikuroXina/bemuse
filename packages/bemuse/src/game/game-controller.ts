@@ -1,17 +1,45 @@
 import * as BemuseTestMode from '@bemuse/debug/BemuseTestMode'
 import bench from '@bemuse/debug/benchmark'
 
-import Clock from './clock'
-import GameTimer from './game-timer'
-import GameInput from './input'
-import OmniInputPlugin from './input/omni-input-plugin'
-import TouchPlugin from './input/touch-plugin'
-import GameState from './state'
+import type GameAudio from './audio/index.js'
+import Clock from './clock.js'
+import type GameDisplay from './display/index.js'
+import type Game from './game.js'
+import GameTimer from './game-timer.js'
+import GameInput from './input/index.js'
+import OmniInputPlugin from './input/omni-input-plugin.js'
+import TouchPlugin from './input/touch-plugin.js'
+import GameState from './state/index.js'
+
+export type GameExitInfo =
+  | { finished: true; replay?: never }
+  | { finished: false; replay: boolean }
 
 // The GameController takes care of communications between each game
 // component, and takes care of the Game loop.
 export class GameController {
-  constructor({ game, display, audio }) {
+  private readonly _audioInputLatency: number
+  private readonly _game: Game
+  private readonly _display: GameDisplay
+  private readonly _audio: GameAudio
+  private readonly _clock: Clock
+  private readonly _input: GameInput
+  private readonly _timer: GameTimer
+  private readonly _state: GameState
+  private readonly _promise: Promise<GameExitInfo>
+  private _resolvePromise: ((info: GameExitInfo) => void) | undefined
+  private _latestGameTime: number | undefined
+  private _endGameLoop: () => void = () => {}
+
+  constructor({
+    game,
+    display,
+    audio,
+  }: {
+    game: Game
+    display: GameDisplay
+    audio: GameAudio
+  }) {
     this._audioInputLatency = game.options.audioInputLatency
     this._game = game
     this._display = display
@@ -55,8 +83,8 @@ export class GameController {
   start() {
     this._handleEscape()
     this._display.start()
-    this._input.use(new OmniInputPlugin(this._game))
-    this._input.use(new TouchPlugin(this._display.context))
+    this._input.use(OmniInputPlugin(this._game))
+    this._input.use(TouchPlugin(this._display.context))
     let stopped = false
     const frame = () => {
       if (stopped) return
@@ -69,14 +97,12 @@ export class GameController {
 
   // Exits the game when escape is pressed.
   _handleEscape() {
-    const onKeyDown = (e) => {
-      const ESCAPE_KEY = 27
-      const F1_KEY = 112
-      if (e.keyCode === ESCAPE_KEY) {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.code === 'Escape') {
         e.preventDefault()
         e.stopPropagation()
         this._quitGame()
-      } else if (e.keyCode === F1_KEY) {
+      } else if (e.code === 'F1') {
         e.preventDefault()
         e.stopPropagation()
         this._replayGame()
@@ -89,11 +115,11 @@ export class GameController {
   }
 
   _quitGame() {
-    this._resolvePromise({ finished: false, replay: false })
+    this._resolvePromise?.({ finished: false, replay: false })
   }
 
   _replayGame() {
-    this._resolvePromise({ finished: false, replay: true })
+    this._resolvePromise?.({ finished: false, replay: true })
   }
 
   // Destroy the game.
@@ -142,7 +168,7 @@ export class GameController {
     this._display.update(t - A, this._state)
     if (this._state.finished && this._resolvePromise) {
       this._resolvePromise({ finished: true })
-      this._resolvePromise = null
+      this._resolvePromise = undefined
     }
   }
 
@@ -154,10 +180,14 @@ export class GameController {
     bench.benchmark('audio_update', this._audio, 'update')
     bench.benchmark('display_update', this._display, 'update')
     bench.benchmark('display_compute', this._display, '_getData')
-    bench.benchmark('display_push', this._display._context._instance, 'push')
+    bench.benchmark(
+      'display_push',
+      this._display.context.stateSubject,
+      'dispatch'
+    )
     bench.benchmark(
       'display_render',
-      this._display._context._renderer,
+      this._display.context.app.renderer,
       'render'
     )
   }

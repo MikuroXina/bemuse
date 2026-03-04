@@ -1,20 +1,28 @@
-import now from '@bemuse/utils/now'
+import now from '@bemuse/utils/now.js'
+
+import type Clock from './clock.js'
+import type GameInput from './input/index.js'
 
 // The game timer keeps track of song progression in-game.
 // This class should be tied to the AudioContext.
 //
 export class GameTimer {
-  constructor(clock, input) {
-    this._clock = clock
-    this._input = input
+  private _now: () => number
+  private _lastRecordedTimeSinceStart = 0
+  private _pauseAtTimerValue = Infinity
+  private _unpausedTimeSinceStart = 0
+  private _unpausedTimerValue = 0
+
+  time = 0
+  startTime: number | null = null
+  readyFraction = 0
+  gettingStarted = false
+
+  constructor(
+    private readonly clock: Clock,
+    private readonly input: GameInput
+  ) {
     this._now = now.synchronized()
-    this._lastRecordedTimeSinceStart = 0
-    this.startTime = null
-    this._pauseAtTimerValue = Infinity
-    this._unpausedTimeSinceStart = 0
-    this._unpausedTimerValue = 0
-    this.readyFraction = 0
-    this.gettingStarted = false
   }
 
   // True if the game is started, false otherwise.
@@ -31,11 +39,11 @@ export class GameTimer {
 
   _checkStartGame() {
     if (this.started) return
-    if (this._input.get('start').value) {
+    if (this.input.get('start').value) {
       this.gettingStarted = true
     }
-    if (this.gettingStarted && !this._input.get('start').value) {
-      this.startTime = this._clock.time + this._getWait()
+    if (this.gettingStarted && !this.input.get('start').value) {
+      this.startTime = this.clock.time + this._getWait()
     }
     if (!this.started) {
       // The number in range 0...1 representing the progression in this second.
@@ -59,7 +67,7 @@ export class GameTimer {
     // after 1 second, the timer approaches 0 seconds at normal speed.
     // This is accomplished using some magic formula ;).
     //
-    let delta = this.startTime === null ? 0 : this._clock.time - this.startTime
+    let delta = this.startTime === null ? 0 : this.clock.time - this.startTime
     if (delta < 0) delta = 0
     if (delta < 1) {
       return (Math.pow(delta, 6) - 1) / 6 - 1 / 30
@@ -73,7 +81,7 @@ export class GameTimer {
     }
   }
 
-  pauseAt(timerValueToPause) {
+  pauseAt(timerValueToPause: number) {
     if (
       this._unpausedTimerValue +
         (this._lastRecordedTimeSinceStart - this._unpausedTimeSinceStart) >=

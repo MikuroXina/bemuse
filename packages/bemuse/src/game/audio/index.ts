@@ -1,7 +1,24 @@
-import PlayerAudio from './player-audio'
+import type { Sample, SamplingMaster } from '@bemuse/sampling-master/index.js'
+
+import type Game from '../game.js'
+import type Player from '../player.js'
+import type GameState from '../state/index.js'
+import PlayerAudio from './player-audio.js'
 
 export class GameAudio {
-  constructor({ game, samples, master }) {
+  private readonly _master: SamplingMaster
+  private readonly _context: AudioContext
+  private readonly _players: Map<Player, PlayerAudio>
+
+  constructor({
+    game,
+    samples,
+    master,
+  }: {
+    game: Game
+    samples: Record<string, Sample>
+    master: SamplingMaster
+  }) {
     const volume = game.options.soundVolume
     this._master = master
     this._context = master.audioContext
@@ -25,7 +42,7 @@ export class GameAudio {
     return this._context
   }
 
-  update(t, state) {
+  update(t: number, state: GameState) {
     for (const [player, playerAudio] of this._players) {
       playerAudio.update(t, state.player(player))
     }

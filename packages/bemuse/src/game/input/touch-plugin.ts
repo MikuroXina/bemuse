@@ -1,6 +1,10 @@
 import bench from '@bemuse/debug/benchmark'
+import type { Scintillator } from '@bemuse/scintillator'
+import type { Skin } from '@bemuse/scintillator/skin'
+import type { Rectangle } from 'pixi.js'
 
 import * as touch3d from '../display/touch3d'
+import type { IGameInputPlugin } from '.'
 
 const BUTTONS = [
   'p1_1',
@@ -13,22 +17,28 @@ const BUTTONS = [
   'start',
 ]
 
-window.BEMUSE_TOUCH_STATS = []
+const BEMUSE_TOUCH_STATS: { x: number; y: number }[][] = []
 
-function setupInputController(skin, view) {
-  let mouse = null
-  let touches = []
-  const onMouse = (e) => {
+interface Input {
+  x: number
+  y: number
+  id: string
+}
+
+function setupInputController(skin: Skin, view: HTMLElement) {
+  let mouse: MouseEvent | null = null
+  let touches: Touch[] = []
+  const onMouse = (e: MouseEvent) => {
     mouse = e
   }
-  const onUpdateMouse = (e) => {
+  const onUpdateMouse = (e: MouseEvent) => {
     mouse = mouse && e
   }
   const onNoMouse = () => {
     mouse = null
   }
-  const onTouch = (e) => {
-    touches = [...e.touches]
+  const onTouch = (e: TouchEvent) => {
+    touches = Array.from(e.touches)
   }
   const touchTarget = view
   const width = skin.width
@@ -49,7 +59,7 @@ function setupInputController(skin, view) {
   }
   return {
     get: () => {
-      const output = []
+      const output: Input[] = []
       const rect = view.getBoundingClientRect()
       if (mouse) {
         output.push(point('mouse', mouse, rect))
@@ -62,7 +72,7 @@ function setupInputController(skin, view) {
     },
     teardown,
   }
-  function point(id, p, rect) {
+  function point(id: string, p: MouseEvent | Touch, rect: DOMRect): Input {
     return {
       x: ((p.clientX - rect.left) / rect.width) * width,
       y: ((p.clientY - rect.top) / rect.height) * height,
@@ -72,28 +82,28 @@ function setupInputController(skin, view) {
 }
 
 function StatsRecorder() {
-  const stats = []
-  window.BEMUSE_TOUCH_STATS.push(stats)
+  const stats: { x: number; y: number }[] = []
+  BEMUSE_TOUCH_STATS.push(stats)
   return {
-    record(input) {
+    record(input: Input[]) {
       for (const { x, y } of input) {
         stats.push({ x: Math.round(x), y: Math.round(y) })
       }
     },
     done() {
       if (stats.length) {
-        localStorage['_stats_touch'] = JSON.stringify(window.BEMUSE_TOUCH_STATS)
+        localStorage['_stats_touch'] = JSON.stringify(BEMUSE_TOUCH_STATS)
       }
     },
   }
 }
 
-export function TouchPlugin(context) {
-  let scratchStartY = null
+export function TouchPlugin(context: Scintillator): IGameInputPlugin {
+  let scratchStartY: number | null = null
   const getScratch = bench.wrap('input:touch:SC', _getScratch)
   const getButton = bench.wrap('input:touch:B', _getButton)
   const getPinch = bench.wrap('input:touch:P', _getPinch)
-  const statsRecorder = new StatsRecorder()
+  const statsRecorder = StatsRecorder()
   const touch3dMode = context.skin.displayMode === 'touch3d'
   const pinchThreshold = touch3dMode ? touch3d.getRow(0.8).y : 550
   const inputController = setupInputController(context.skin, context.app.canvas)
@@ -101,8 +111,7 @@ export function TouchPlugin(context) {
     name: 'TouchPlugin',
     get() {
       const input = inputController.get()
-      const output = {}
-      if (bench.enabled) bench.stats['input:touch:n'] = '' + input.length
+      const output: Record<string, number> = {}
       statsRecorder.record(input)
       output['p1_SC'] = getScratch(input)
       for (const button of BUTTONS) {
@@ -122,7 +131,7 @@ export function TouchPlugin(context) {
       inputController.teardown()
     },
   }
-  function _expand(rectangle, amount = 4) {
+  function _expand(rectangle: Rectangle, amount = 4) {
     const newRect = rectangle.clone()
     newRect.x -= amount
     newRect.y -= amount
@@ -130,7 +139,7 @@ export function TouchPlugin(context) {
     newRect.height += amount * 2
     return newRect
   }
-  function _getButton(input, button) {
+  function _getButton(input: Input[], button: string) {
     const objects = context.refs.get(button)
     if (objects) {
       for (const object of objects) {
@@ -142,7 +151,7 @@ export function TouchPlugin(context) {
     }
     return 0
   }
-  function _getScratch(input) {
+  function _getScratch(input: Input[]) {
     const objects = context.refs.get('p1_SC')
     if (!objects) return 0
     let scratchY = null
@@ -175,7 +184,7 @@ export function TouchPlugin(context) {
         ? 1
         : 0
   }
-  function _getPinch(input) {
+  function _getPinch(input: Input[]) {
     let a = null
     let b = null
     for (const p of input) {

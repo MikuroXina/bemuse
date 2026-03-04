@@ -155,18 +155,19 @@ async function launchGame(
     setCurrentWork('loading the game')
     Log.info(`Loading game: ${describeChart(chart)}`)
     const GameLoader = await import('@bemuse/game/loaders/game-loader.js')
-    const loader = GameLoader.load(loadSpec as LoadSpec)
-    const { tasks, promise } = loader
-    promise.catch((err: unknown) => {
-      Log.error(err)
-    })
+    const runner = GameLoader.load(loadSpec as LoadSpec)
+    for (const task of Object.values(runner.currentTasks)) {
+      task.catch((err: unknown) => {
+        Log.error(err)
+      })
+    }
 
     // display loading scene
     const loadingScene = (
       <LoadingScene
-        tasks={tasks}
+        tasks={runner.taskItems}
         song={chart.info}
-        eyecatchImagePromise={loader.get('EyecatchImage')}
+        eyecatchImagePromise={runner.run('EyecatchImage')}
       />
     )
     await sceneDisplayContext.showScene(loadingScene)
@@ -175,7 +176,7 @@ async function launchGame(
     if (isTitleDisplayMode()) return
 
     // wait for game to load and display the game
-    const controller = await promise
+    const controller = await runner.run('GameController')
     setCurrentWork('running the game')
     await sceneDisplayContext.showScene(GameScene(controller.display))
     controller.start()
@@ -195,7 +196,7 @@ async function launchGame(
     loadSpec.options.players[0].speed = playerSpeed
 
     // display evaluation
-    let replay
+    let replay: boolean
     if (state.finished) {
       setCurrentWork('showing game results')
       const exitResult = await showResult(
@@ -207,7 +208,7 @@ async function launchGame(
       replay = exitResult.replay
     } else {
       setCurrentWork('exiting the game')
-      replay = playResult.replay
+      replay = playResult.replay as boolean
       if (!replay) {
         if (song.tutorial && controller.latestGameTime! > 96) onRagequitted()
       }
