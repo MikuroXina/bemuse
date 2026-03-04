@@ -14,18 +14,20 @@
   import type { SoundAssetsMetadata } from "./types";
   import VideoSynchronizer from "./VideoSynchronizer.svelte";
   import type { SongMetadata } from "@mikuroxina/bemuse-types";
+  import type Input from "@ui5/webcomponents/Input.js";
+  import type Select from "@ui5/webcomponents/Select.js";
 
-  let checkingState: null | { directoryHandle: FileSystemDirectoryHandle } =
+  let usingDir: null | { directoryHandle: FileSystemDirectoryHandle } =
     $state(null);
 
   async function chooseDirectory() {
     try {
       const dir = await window.showDirectoryPicker({ mode: "readwrite" });
-      checkingState = { directoryHandle: dir };
-      await recheck();
+      await recheck(dir);
+      usingDir = { directoryHandle: dir };
     } catch (e) {
       console.error(e);
-      checkingState = null;
+      usingDir = null;
     }
   }
 
@@ -36,14 +38,15 @@
   let convertingAudioFiles = $state(false);
   let convertStatus = $state("");
   async function convertAudioFiles() {
+    if (usingDir === null) {
+      console.log("No directory selected");
+      return;
+    }
+
     convertingAudioFiles = true;
     convertStatus = "Indexing...";
     try {
-      if (typeof checkingState !== "object" || checkingState === null) {
-        console.log("No directory selected");
-        return;
-      }
-      await convertAudioFilesInDirectory(checkingState.directoryHandle, {
+      await convertAudioFilesInDirectory(usingDir.directoryHandle, {
         setStatus: (status: string) => {
           convertStatus = status;
         },
@@ -53,20 +56,21 @@
       });
     } finally {
       convertingAudioFiles = false;
-      recheck();
+      await recheck(usingDir.directoryHandle);
     }
   }
 
   let indexingCharts = $state(false);
   let indexStatus = $state("");
   async function indexCharts() {
+    if (usingDir === null) {
+      console.log("No directory selected");
+      return;
+    }
+
     indexingCharts = true;
     try {
-      if (typeof checkingState !== "object" || checkingState === null) {
-        console.log("No directory selected");
-        return;
-      }
-      await indexChartFilesFromDirectory(checkingState.directoryHandle, {
+      await indexChartFilesFromDirectory(usingDir.directoryHandle, {
         setStatus: (status: string) => {
           indexStatus = status;
         },
@@ -74,27 +78,24 @@
       indexStatus = "Finished indexing charts.";
     } finally {
       indexingCharts = false;
-      recheck();
+      await recheck(usingDir.directoryHandle);
     }
   }
 
   let renderingSong = $state(false);
-  let chartSelector: any;
+  let chartSelector: Select | undefined = $state();
   let renderStatus = $state("");
   async function renderSong() {
+    if (usingDir === null || soundAssets === null) {
+      console.log("No directory selected");
+      return;
+    }
     renderingSong = true;
     try {
-      if (
-        typeof checkingState !== "object" ||
-        checkingState === null ||
-        soundAssets === null
-      ) {
-        console.log("No directory selected");
-        return;
-      }
-      const chartFilename: string = chartSelector.selectedOption.dataset.chart;
+      const chartFilename: string =
+        chartSelector?.selectedOption?.dataset.chart ?? "";
       await renderSongInDirectory(
-        checkingState.directoryHandle,
+        usingDir.directoryHandle,
         chartFilename,
         soundAssets,
         (message: string) => {
@@ -103,24 +104,24 @@
       );
     } finally {
       renderingSong = false;
-      recheck();
+      await recheck(usingDir.directoryHandle);
     }
   }
 
-  let previewStartTimeInput: any;
+  let previewStartTimeInput: Input | undefined = $state();
   let creatingPreview = $state(false);
   let createPreviewStatus = $state("");
   async function createPreview() {
+    if (usingDir === null) {
+      console.log("No directory selected");
+      return;
+    }
     creatingPreview = true;
     try {
-      if (typeof checkingState !== "object" || checkingState === null) {
-        console.log("No directory selected");
-        return;
-      }
       createPreviewStatus = "Creating preview...";
-      const startTime = parseFloat(previewStartTimeInput.value) || 0;
+      const startTime = parseFloat(previewStartTimeInput?.value ?? "0");
       await createPreviewForDirectory(
-        checkingState.directoryHandle,
+        usingDir.directoryHandle,
         startTime,
         (text) => {
           createPreviewStatus = text;
@@ -128,33 +129,32 @@
       );
     } finally {
       creatingPreview = false;
-      recheck();
+      await recheck(usingDir.directoryHandle);
     }
   }
 
   async function setVideoOffset(offset: number) {
-    if (typeof checkingState !== "object" || checkingState === null) {
+    if (usingDir === null) {
       console.log("No directory selected");
       return;
     }
-    await updateSongFile(checkingState.directoryHandle, (song) => ({
+    await updateSongFile(usingDir.directoryHandle, (song) => ({
       ...song,
       video_offset: offset,
     }));
-    recheck();
+    await recheck(usingDir.directoryHandle);
   }
 
   let scanningVisualFiles = $state(false);
   async function scanVisualFiles() {
+    if (usingDir === null) {
+      console.log("No directory selected");
+      return;
+    }
     scanningVisualFiles = true;
     try {
-      if (typeof checkingState !== "object" || checkingState === null) {
-        console.log("No directory selected");
-        return;
-      }
-
       const bemuseDataDir =
-        await checkingState.directoryHandle.getDirectoryHandle("bemuse-data");
+        await usingDir.directoryHandle.getDirectoryHandle("bemuse-data");
       const scan = async (paths: string[]): Promise<string | undefined> => {
         // Return the first file that exists.
         for (const path of paths) {
@@ -178,7 +178,7 @@
         eyecatchImageFile,
         bgaFile,
       });
-      await updateSongFile(checkingState.directoryHandle, (song) => {
+      await updateSongFile(usingDir.directoryHandle, (song) => {
         const toUrl = (file: string | undefined) =>
           file ? `bemuse-data/${file}` : undefined;
         return {
@@ -190,7 +190,7 @@
       });
     } finally {
       scanningVisualFiles = false;
-      recheck();
+      await recheck(usingDir.directoryHandle);
     }
   }
 
@@ -198,12 +198,12 @@
     update: (song: SongMetadata) => SongMetadata,
     readmeContents: string,
   ) {
+    if (usingDir === null) {
+      console.log("No directory selected");
+      return;
+    }
     try {
-      if (typeof checkingState !== "object" || checkingState === null) {
-        console.log("No directory selected");
-        return;
-      }
-      const { directoryHandle } = checkingState;
+      const { directoryHandle } = usingDir;
       await updateSongFile(directoryHandle, update);
       const readmeHandle = await directoryHandle.getFileHandle("README.md", {
         create: true,
@@ -212,11 +212,10 @@
       await writable.write(readmeContents);
       await writable.close();
     } finally {
-      recheck();
+      await recheck(usingDir.directoryHandle);
     }
   }
 
-  let checkingSong = $state(false);
   let readme = $state("");
   let soundAssets: SoundAssetsMetadata | null = $state(null);
   let songMeta: SongMetadata | null = $state(null);
@@ -237,110 +236,90 @@
       next[0]?.lastModified === prev[0]?.lastModified,
   );
 
-  async function recheck() {
-    checkingSong = true;
+  async function recheck(directoryHandle: FileSystemDirectoryHandle) {
+    const bemuseDataDir = await directoryHandle.getDirectoryHandle(
+      "bemuse-data",
+      { create: true },
+    );
+    let handle: FileSystemFileHandle;
     try {
-      if (typeof checkingState !== "object" || checkingState === null) {
-        console.log("No directory selected");
-        return;
-      }
-      const { directoryHandle } = checkingState;
-      const bemuseDataDir = await directoryHandle.getDirectoryHandle(
-        "bemuse-data",
-        { create: true },
-      );
-      let handle: FileSystemFileHandle;
-      try {
-        handle = await getSongFileHandleFromDirectory(directoryHandle, {
-          create: false,
-        });
-      } catch {
-        console.log("song file not found");
-        // create and write a new song file
-        handle = await getSongFileHandleFromDirectory(directoryHandle, {
-          create: true,
-        });
-        const writable = await handle.createWritable();
-        const newSong: SongMetadata = {
-          title: "",
-          artist: "",
-          genre: "",
-          bpm: 120,
-          artist_url: "",
-          replaygain: "-0.00 dB",
-          charts: [],
-          readme: "",
-        };
-        await writable.write(JSON.stringify(newSong, null, 2));
-        await writable.close();
-      }
-      const file = await handle.getFile();
-      const text = await file.text();
-      console.dir({ text });
-      const songJson = JSON.parse(text);
-
-      try {
-        const metadata = await bemuseDataDir
-          .getDirectoryHandle("sound")
-          .then((d) => d.getFileHandle("metadata.json"));
-        const metadataFile = await metadata.getFile();
-        const metadatatext = await metadataFile.text();
-        console.dir({ metadatatext });
-        const metadataJson = JSON.parse(metadatatext);
-        soundAssets = metadataJson;
-      } catch (error) {
-        soundAssets = null;
-      }
-
-      try {
-        songMeta = songJson;
-        charts = songJson.charts;
-      } catch (error) {
-        songMeta = null;
-        charts = [];
-      }
-
-      try {
-        const readmeHandle = await directoryHandle.getFileHandle("README.md");
-        readme = await readmeHandle.getFile().then((f) => f.text());
-        console.log(readme);
-      } catch (error) {
-        console.error(error);
-        readme = "";
-      }
-
-      try {
-        replayGain = songJson.replaygain;
-      } catch (error) {
-        replayGain = undefined;
-      }
-
-      try {
-        const songFile = await bemuseDataDir
-          .getFileHandle("song.ogg")
-          .then((f) => f.getFile());
-        songOgg = getSongOgg(songFile);
-      } catch (error) {
-        songOgg = undefined;
-      }
-
-      try {
-        const songFile = await bemuseDataDir
-          .getFileHandle("preview.mp3")
-          .then((f) => f.getFile());
-        previewMp3 = getPreviewMp3(songFile);
-      } catch (error) {
-        previewMp3 = undefined;
-      }
-
-      try {
-        previewCreated = !!songJson.preview_url;
-      } catch (error) {
-        previewCreated = false;
-      }
-    } finally {
-      checkingSong = false;
+      handle = await getSongFileHandleFromDirectory(directoryHandle, {
+        create: false,
+      });
+    } catch {
+      console.log("song file not found");
+      // create and write a new song file
+      handle = await getSongFileHandleFromDirectory(directoryHandle, {
+        create: true,
+      });
+      const writable = await handle.createWritable();
+      const newSong: SongMetadata = {
+        title: "",
+        artist: "",
+        genre: "",
+        bpm: 120,
+        artist_url: "",
+        replaygain: "-0.00 dB",
+        charts: [],
+        readme: "",
+      };
+      await writable.write(JSON.stringify(newSong, null, 2));
+      await writable.close();
     }
+    const file = await handle.getFile();
+    const text = await file.text();
+    const songJson = JSON.parse(text);
+
+    try {
+      const metadata = await bemuseDataDir
+        .getDirectoryHandle("sound")
+        .then((d) => d.getFileHandle("metadata.json"));
+      const metadataFile = await metadata.getFile();
+      const metadatatext = await metadataFile.text();
+      const metadataJson = JSON.parse(metadatatext);
+      soundAssets = metadataJson;
+    } catch (error) {
+      soundAssets = null;
+    }
+
+    try {
+      songMeta = songJson;
+      charts = songJson.charts;
+    } catch (error) {
+      songMeta = null;
+      charts = [];
+    }
+
+    try {
+      const readmeHandle = await directoryHandle.getFileHandle("README.md");
+      readme = await readmeHandle.getFile().then((f) => f.text());
+      console.log(readme);
+    } catch (error) {
+      console.log("README.md not found", error);
+      readme = "";
+    }
+
+    replayGain = songJson.replaygain;
+
+    try {
+      const songFile = await bemuseDataDir
+        .getFileHandle("song.ogg")
+        .then((f) => f.getFile());
+      songOgg = getSongOgg(songFile);
+    } catch (error) {
+      songOgg = undefined;
+    }
+
+    try {
+      const songFile = await bemuseDataDir
+        .getFileHandle("preview.mp3")
+        .then((f) => f.getFile());
+      previewMp3 = getPreviewMp3(songFile);
+    } catch (error) {
+      previewMp3 = undefined;
+    }
+
+    previewCreated = !!songJson.preview_url;
   }
 
   function formatSize(bytes: number) {
@@ -422,7 +401,7 @@
 <main>
   <ui5-shellbar id="shellbar" primary-title="Bemuse Custom Song Workshop"
   ></ui5-shellbar>
-  {#if !checkingState}
+  {#if !usingDir}
     <ui5-illustrated-message
       name="NoData"
       title-text="Please choose a song folder to get started"
@@ -434,7 +413,7 @@
     </ui5-illustrated-message>
   {:else}
     <ui5-bar design="Subheader">
-      <ui5-label>{checkingState.directoryHandle.name}</ui5-label>
+      <ui5-label>{usingDir.directoryHandle.name}</ui5-label>
       <ui5-button
         icon="synchronize"
         title="Refresh"
@@ -518,7 +497,10 @@
           >
             <ui5-button
               slot="action"
-              onclick={indexCharts}
+              onclick={() => {
+                console.log("hi");
+                indexCharts();
+              }}
               disabled={indexingCharts}
             >
               Scan charts
@@ -656,7 +638,7 @@
           </div>
         </ui5-card>
 
-        {#if songMeta && checkingState && typeof checkingState === "object"}
+        {#if songMeta && usingDir && typeof usingDir === "object"}
           <div
             style="display: flex; margin-top: 1rem; gap: 1rem; align-items: flex-start"
           >
@@ -665,7 +647,7 @@
                 <ui5-card-header slot="header" title-text="Eyecatch image"
                 ></ui5-card-header>
                 <ImagePreview
-                  directoryHandle={checkingState.directoryHandle}
+                  directoryHandle={usingDir.directoryHandle}
                   path={songMeta.eyecatch_image_url}
                 />
               </ui5-card>
@@ -673,7 +655,7 @@
                 <ui5-card-header slot="header" title-text="Background image"
                 ></ui5-card-header>
                 <ImagePreview
-                  directoryHandle={checkingState.directoryHandle}
+                  directoryHandle={usingDir.directoryHandle}
                   path={songMeta.back_image_url}
                 />
               </ui5-card>
@@ -686,7 +668,7 @@
                   {#if songMeta.video_url}
                     {#if songOgg}
                       <VideoSynchronizer
-                        directoryHandle={checkingState.directoryHandle}
+                        directoryHandle={usingDir.directoryHandle}
                         videoPath={songMeta.video_url}
                         videoOffset={Number(songMeta.video_offset)}
                         {setVideoOffset}
@@ -708,7 +690,7 @@
     </ui5-tabcontainer>
     <ui5-bar design="Footer">
       <ui5-label slot="startContent">
-        Current folder: {checkingState.directoryHandle.name}
+        Current folder: {usingDir.directoryHandle.name}
       </ui5-label>
       <ui5-button design="Negative" slot="endContent" onclick={closeDirectory}>
         Close folder
