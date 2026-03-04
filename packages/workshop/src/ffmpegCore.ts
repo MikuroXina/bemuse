@@ -8,7 +8,7 @@ export const createFFmpegInstance = async (): Promise<FFmpeg> => {
     console.log(message);
   });
 
-  const baseUrl = "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.15/dist/esm/";
+  const baseUrl = "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/esm/";
   const coreUrl = await toBlobURL(
     `${baseUrl}ffmpeg-core.js`,
     "text/javascript",
