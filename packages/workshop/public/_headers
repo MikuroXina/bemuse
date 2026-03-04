@@ -1,0 +1,3 @@
+/ffmpeg-core-st/ffmpeg-core.wasm
+  cache-control: public
+  cache-control: max-age=86400
