@@ -27,6 +27,7 @@
       "dependencies": [
         "../bemuse-indexer:build",
         "../bemuse-notechart:build",
+        "../bemuse-types:build",
         "../monetizer:build",
         "../bms:build",
         "../bmson:build"

@@ -20,6 +20,7 @@
     "build": {
       "command": "tsc -b",
       "dependencies": [
+        "../bemuse-types:build",
         "../bms:build",
         "../bmson:build"
       ]
