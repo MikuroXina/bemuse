@@ -23,12 +23,12 @@
     "@sveltejs/vite-plugin-svelte": "^6.2.4",
     "@tsconfig/svelte": "^5.0.8",
     "@types/chroma-js": "^2.1.3",
-    "@types/crypto-js": "^4.0.2",
     "@types/lodash": "^4.14.175",
     "@types/markdown-it": "^12.2.3",
     "@types/node": "^24.11.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^18.3.7",
+    "@types/spark-md5": "^3.0.5",
     "@types/wicg-file-system-access": "^2020.9.4",
     "@vitest/browser-playwright": "^4.0.18",
     "playwright": "^1.58.2",
@@ -52,7 +52,6 @@
     "axios": "^0.23.0",
     "buffer": "^6.0.3",
     "chroma-js": "^2.1.2",
-    "crypto-js": "^4.1.1",
     "isbot": "^5.1.35",
     "lodash": "^4.17.21",
     "markdown-it": "^12.2.0",
@@ -63,6 +62,8 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router": "^7.13.1",
-    "valibot": "^1.2.0"
+    "spark-md5": "^3.0.2",
+    "valibot": "^1.2.0",
+    "vite-plugin-node-polyfills": "^0.25.0"
   }
 }

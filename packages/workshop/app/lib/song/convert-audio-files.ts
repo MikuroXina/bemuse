@@ -1,7 +1,7 @@
+import SparkMD5 from "spark-md5";
 import type { Action } from "./reducer";
 import { fetchFile } from "@ffmpeg/util";
 import { BemusePackage } from "../bemuse-package";
-import { hashBlob } from "../blob-hashing";
 import { createFFmpegInstance } from "../ffmpeg-core";
 import type { SoundAssetsMetadata } from "../types";
 
@@ -151,7 +151,8 @@ export async function convertAudioFiles(usingDir: FileSystemDirectoryHandle, dis
       const refs: SoundAssetsMetadata["refs"] = [];
       for (const [i, pack] of this.packs.entries()) {
         const blob = pack.toBlob();
-        const hash = await hashBlob(blob);
+        const buf = await blob.arrayBuffer();
+        const hash = SparkMD5.ArrayBuffer.hash(buf);
         const fileName = "oggs." + i + "." + hash.substring(0, 8) + ".bemuse";
         const file = await dir.getFileHandle(fileName, { create: true });
         const writable = await file.createWritable();
