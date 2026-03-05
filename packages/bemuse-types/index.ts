@@ -105,7 +105,7 @@ export const songMetadataSchema = v.object({
   /** Whether this song is exclusive to Bemuse (not published elsewhere). */
   exclusive: v.optional(v.boolean()),
   /** The URL to the bemuse pack assets file. If undefined, defaults to `assets/metadata.json`. To use real files, must be explicitly set to `null`. */
-  bemusepack_url: v.nullable(v.optional(v.string(), 'assets/metadata.json')),
+  bemusepack_url: v.optional(v.nullable(v.string()), 'assets/metadata.json'),
 })
 export type SongMetadata = v.InferOutput<typeof songMetadataSchema>
 
