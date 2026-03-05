@@ -1,5 +1,3 @@
-import { extname } from 'node:path'
-
 import {
   BMSChart,
   BMSNote,
@@ -50,7 +48,7 @@ interface FileIndexBasis {
 }
 
 interface ExtensionHandler {
-  (source: Buffer, meta: InputMeta): Promise<FileIndexBasis>
+  (source: ArrayBuffer, meta: InputMeta): Promise<FileIndexBasis>
 }
 interface ExtensionMap {
   [extname: string]: ExtensionHandler
@@ -94,7 +92,7 @@ _extensions['.bmson'] = async function (source) {
 }
 
 export async function getFileInfo(
-  data: Buffer,
+  data: ArrayBuffer,
   meta: InputMeta,
   options?: { extensions?: ExtensionMap }
 ): Promise<OutputFileInfo> {
@@ -103,9 +101,10 @@ export async function getFileInfo(
 
   const extensions = options.extensions || _extensions
   const extension =
-    extensions[extname(meta.name).toLowerCase()] || extensions['.bms']
+    extensions[meta.name.split('.').pop()?.toLowerCase() ?? ''] ||
+    extensions['.bms']
 
-  const md5 = meta.md5 || SparkMD5.ArrayBuffer.hash(data.buffer as ArrayBuffer)
+  const md5 = meta.md5 || SparkMD5.ArrayBuffer.hash(data)
 
   const basis = await extension(data, meta)
   invariant(basis.info, 'basis.info must be a BMS.SongInfo')
@@ -163,7 +162,7 @@ export async function getSongInfo(
     files.map(async (file): Promise<OutputChart[]> => {
       const name = file.name
       const fileData = file.data
-      const md5Hash = SparkMD5.ArrayBuffer.hash(fileData.buffer as ArrayBuffer)
+      const md5Hash = SparkMD5.ArrayBuffer.hash(fileData)
       try {
         const cached = await Promise.resolve(cache && cache.get(md5Hash))
         if (cached) {

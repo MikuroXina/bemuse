@@ -32,20 +32,20 @@ export function read(
  * Like `read(buffer)`, but this is the asynchronous version.
  */
 export function readAsync(
-  buffer: Buffer,
+  buffer: ArrayBuffer,
   options: ReaderOptions | null
 ): Promise<string>
 /**
  * Like `read(buffer)`, but this is the asynchronous version.
  */
-export function readAsync(buffer: Buffer): Promise<string>
+export function readAsync(buffer: ArrayBuffer): Promise<string>
 export function readAsync(
-  buffer: Buffer,
+  buffer: ArrayBuffer,
   options?: ReaderOptions | null
 ): Promise<string> {
   return new Promise(function (resolve, reject) {
     try {
-      resolve(read(buffer, options))
+      resolve(read(new Uint8Array(buffer), options))
     } catch (e) {
       reject(e)
     }

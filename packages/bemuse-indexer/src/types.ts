@@ -9,7 +9,7 @@ export type Keys = 'empty' | '14K' | '10K' | '7K' | '5K'
 
 export interface IndexingInputFile {
   name: string
-  data: Buffer
+  data: ArrayBuffer
 }
 
 export type { BGAInfo, BPMInfo, OutputChart }
