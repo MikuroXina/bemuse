@@ -1,44 +1,12 @@
 import { defineConfig } from "vite";
-import { svelte } from "@sveltejs/vite-plugin-svelte";
-import { nodePolyfills } from "vite-plugin-node-polyfills";
+import { reactRouter } from "@react-router/dev/vite";
 import { playwright } from "@vitest/browser-playwright";
-import { createRequire } from "module";
+import tsconfigPaths from "vite-tsconfig-paths";
 
-const require = createRequire(import.meta.url);
-
-// https://vitejs.dev/config/
+// @ts-check
 export default defineConfig({
-  plugins: [
-    nodePolyfills({
-      include: ["buffer", "crypto", "os", "path", "stream", "util"],
-      protocolImports: true,
-    }),
-    {
-      name: "vite-plugin-node-polyfills:shims-resolver",
-      resolveId(source) {
-        const res =
-          /^vite-plugin-node-polyfills\/shims\/(?<shim>buffer|global|process)/.exec(
-            source,
-          );
-        if (res && res.groups) {
-          const { shim } = res.groups;
-          const id = require
-            .resolve(`vite-plugin-node-polyfills/shims/${shim}`)
-            .replace("file://", "");
-          return {
-            id,
-            external: false,
-          };
-        }
-        return null;
-      },
-    },
-    svelte(),
-  ],
+  plugins: [reactRouter(), tsconfigPaths()],
   build: {
-    commonjsOptions: {
-      include: [/node_modules/],
-    },
     dynamicImportVarsOptions: {
       errorWhenNoFilesFound: true,
     },
@@ -46,41 +14,48 @@ export default defineConfig({
   optimizeDeps: {
     include: [
       "lodash",
-      "vite-plugin-node-polyfills/shims/buffer",
-      "vite-plugin-node-polyfills/shims/global",
-      "vite-plugin-node-polyfills/shims/process",
-      "@ui5/webcomponents/dist/Button",
-      "@ui5/webcomponents/dist/BusyIndicator",
-      "@ui5/webcomponents/dist/Card",
-      "@ui5/webcomponents/dist/CardHeader",
-      "@ui5/webcomponents/dist/DatePicker",
-      "@ui5/webcomponents/dist/Dialog",
-      "@ui5/webcomponents/dist/Input",
-      "@ui5/webcomponents/dist/MessageStrip",
-      "@ui5/webcomponents/dist/Option",
-      "@ui5/webcomponents/dist/Select",
-      "@ui5/webcomponents/dist/TabContainer",
-      "@ui5/webcomponents/dist/Tab",
-      "@ui5/webcomponents/dist/Table",
-      "@ui5/webcomponents/dist/TableColumn",
-      "@ui5/webcomponents/dist/TableRow",
-      "@ui5/webcomponents/dist/TableCell",
-      "@ui5/webcomponents/dist/TextArea",
-      "@ui5/webcomponents/dist/Tree",
-      "@ui5/webcomponents/dist/TreeItem",
-      "@ui5/webcomponents-fiori/dist/Bar",
+      "@ui5/webcomponents-react/Bar",
+      "@ui5/webcomponents-react/Button",
+      "@ui5/webcomponents-react/BusyIndicator",
+      "@ui5/webcomponents-react/Card",
+      "@ui5/webcomponents-react/CardHeader",
+      "@ui5/webcomponents-react/DatePicker",
+      "@ui5/webcomponents-react/Dialog",
+      "@ui5/webcomponents-react/IllustratedMessage",
+      "@ui5/webcomponents-react/Input",
+      "@ui5/webcomponents-react/Label",
+      "@ui5/webcomponents-react/List",
+      "@ui5/webcomponents-react/ListItemStandard",
+      "@ui5/webcomponents-react/MessageStrip",
+      "@ui5/webcomponents-react/Option",
+      "@ui5/webcomponents-react/ProductSwitch",
+      "@ui5/webcomponents-react/ProductSwitchItem",
+      "@ui5/webcomponents-react/Select",
+      "@ui5/webcomponents-react/ShellBar",
+      "@ui5/webcomponents-react/TabContainer",
+      "@ui5/webcomponents-react/Tab",
+      "@ui5/webcomponents-react/Table",
+      "@ui5/webcomponents-react/TableHeaderRow",
+      "@ui5/webcomponents-react/TableHeaderCell",
+      "@ui5/webcomponents-react/TableRow",
+      "@ui5/webcomponents-react/TableCell",
+      "@ui5/webcomponents-react/TextArea",
+      "@ui5/webcomponents-react/ThemeProvider",
+      "@ui5/webcomponents-react/Tree",
+      "@ui5/webcomponents-react/TreeItem",
       "@ui5/webcomponents-fiori/dist/ProductSwitch",
       "@ui5/webcomponents-fiori/dist/ProductSwitchItem",
       "@ui5/webcomponents-fiori/dist/ShellBar",
       "@ui5/webcomponents-fiori/dist/illustrations/NoData",
       "@ui5/webcomponents-fiori/dist/IllustratedMessage",
       "@ui5/webcomponents-icons/dist/AllIcons",
+      "@ui5/webcomponents-icons/dist/save.js",
       "axios",
       "memoize-one",
-      "idb-keyval",
       "markdown-it",
       "minimatch",
       "chroma-js",
+      "valibot",
     ],
     exclude: ["@ffmpeg/ffmpeg", "@ffmpeg/util"],
   },
