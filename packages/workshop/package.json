@@ -13,7 +13,10 @@
     "build": {
       "command": "react-router build",
       "dependencies": [
-        "../bemuse-types:build"
+        "../bemuse-types:build",
+        "../bemuse-indexer:build",
+        "../bemuse-notechart:build",
+        "../bms:build"
       ]
     }
   },

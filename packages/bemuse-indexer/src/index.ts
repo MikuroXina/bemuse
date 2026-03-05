@@ -1,4 +1,3 @@
-import { createHash } from 'node:crypto'
 import { extname } from 'node:path'
 
 import {
@@ -19,6 +18,7 @@ import {
 import invariant from 'invariant'
 import assign from 'object-assign'
 import pMap from 'p-map'
+import SparkMD5 from 'spark-md5'
 
 import { getBmsBga } from './bms-bga.js'
 import { getBmsonBga } from './bmson-bga.js'
@@ -106,13 +106,7 @@ export async function getFileInfo(
   const extension =
     extensions[extname(meta.name).toLowerCase()] || extensions['.bms']
 
-  const md5 =
-    meta.md5 ||
-    (function () {
-      const hash = createHash('md5')
-      hash.update(data)
-      return hash.digest('hex')
-    })()
+  const md5 = meta.md5 || SparkMD5.ArrayBuffer.hash(data.buffer as ArrayBuffer)
 
   const basis = await extension(data, meta)
   invariant(basis.info, 'basis.info must be a BMS.SongInfo')
@@ -171,9 +165,7 @@ export async function getSongInfo(
     async function (file): Promise<OutputChart[]> {
       const name = file.name
       const fileData = file.data
-      const hash = createHash('md5')
-      hash.update(fileData)
-      const md5Hash = hash.digest('hex')
+      const md5Hash = SparkMD5.ArrayBuffer.hash(fileData.buffer as ArrayBuffer)
       try {
         const cached = await Promise.resolve(cache && cache.get(md5Hash))
         if (cached) {
