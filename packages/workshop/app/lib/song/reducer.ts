@@ -35,6 +35,7 @@ export const initialState: State = {
 
 const reducers = {
   OPEN: (state: State, dir: FileSystemDirectoryHandle) => ({...state, usingDir: dir}),
+  CLOSE: (_state: State, _: never[]) => initialState,
   START_EXTRACT: (state: State, _: never[]) => ({...state, extractProgress: ["processing", "Loading your BMS package"] }),
   DONE_EXTRACT: (state: State, props: {
     soundAssets: SoundAssetsMetadata | null,
@@ -43,7 +44,8 @@ const reducers = {
     songOgg: string | null,
     previewMp3: string | null,
   }) => ({ ...state, ...props, extractProgress: ["awaiting"] }),
-  CLOSE: (_state: State, _: never[]) => initialState,
+  START_CONVERT_AUDIO_FILES: (state: State, status: string) => ({...state, convertProgress: ["processing", status]}),
+  DONE_CONVERT_AUDIO_FILES: (state: State, _: never[]) => ({...state, convertProgress: ["awaiting"]})
 } as const satisfies Record<string, (state: State, action: any) => State>;
 
 type Reducers = typeof reducers;

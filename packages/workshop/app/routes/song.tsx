@@ -28,6 +28,7 @@ import { MetadataEditor } from "~/components/metadata-editor";
 import { BusyIndicator } from "@ui5/webcomponents-react/BusyIndicator";
 import { choose } from "~/lib/song/choose";
 import { useExtract } from "~/lib/song/extract";
+import { convertAudioFiles } from "~/lib/song/convert-audio-files";
 
 function formatSize(bytes: number) {
   return (bytes / 1048576).toFixed(2) + " MB";
@@ -98,7 +99,6 @@ export default function Song() {
     },
   ];
 
-  async function convertAudioFiles() {}
   async function indexCharts() {}
   async function renderSong() {}
   async function createPreview() {}
@@ -188,7 +188,7 @@ export default function Song() {
               <CardHeader slot="header" titleText="Optimize sound assets" />
               <div style={{ padding: "1rem" }}>
                 <Button
-                  onClick={convertAudioFiles}
+                  onClick={() => convertAudioFiles(usingDir, dispatch)}
                   disabled={convertProgress[0] === "processing"}
                 >
                   Optimize sound assets
