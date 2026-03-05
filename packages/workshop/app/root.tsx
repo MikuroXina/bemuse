@@ -1,6 +1,3 @@
-import "@ui5/webcomponents-icons/dist/AllIcons.js";
-import "@ui5/webcomponents-fiori/dist/illustrations/NoData.js";
-
 import {
   isRouteErrorResponse,
   Links,

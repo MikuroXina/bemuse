@@ -7,7 +7,6 @@ import type { SongMetadata } from "@mikuroxina/bemuse-types";
 import { TextArea } from "@ui5/webcomponents-react/TextArea";
 import { DatePicker } from "@ui5/webcomponents-react/DatePicker";
 import { Button } from "@ui5/webcomponents-react/Button";
-import save from "@ui5/webcomponents-icons/dist/save.js";
 import { Markdown } from "./markdown";
 
 export interface MetadataEditorProps {

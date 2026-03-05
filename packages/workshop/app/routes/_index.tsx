@@ -1,3 +1,7 @@
+import "@ui5/webcomponents-icons/factory.js";
+import "@ui5/webcomponents-icons/shelf.js";
+import "@ui5/webcomponents-icons/edit.js";
+
 import { ProductSwitch } from "@ui5/webcomponents-react/ProductSwitch";
 import { ProductSwitchItem } from "@ui5/webcomponents-react/ProductSwitchItem";
 

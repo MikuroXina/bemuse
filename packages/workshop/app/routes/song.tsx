@@ -1,3 +1,14 @@
+import "@ui5/webcomponents-icons/activities.js";
+import "@ui5/webcomponents-icons/alert.js";
+import "@ui5/webcomponents-icons/attachment-audio.js";
+import "@ui5/webcomponents-icons/attachment-video.js";
+import "@ui5/webcomponents-icons/full-stacked-column-chart.js";
+import "@ui5/webcomponents-icons/information.js";
+import "@ui5/webcomponents-icons/media-play.js";
+import "@ui5/webcomponents-icons/message-success.js";
+import "@ui5/webcomponents-icons/synchronize.js";
+import "@ui5/webcomponents-fiori/illustrations/NoData.js";
+
 import { TabContainer } from "@ui5/webcomponents-react/TabContainer";
 import { Label } from "@ui5/webcomponents-react/Label";
 import { Bar } from "@ui5/webcomponents-react/Bar";

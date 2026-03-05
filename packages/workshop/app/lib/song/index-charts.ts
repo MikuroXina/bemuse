@@ -2,7 +2,6 @@ import type { IndexingInputFile } from "@mikuroxina/bemuse-indexer/lib/types";
 import type { Action } from "./reducer";
 import { getSongInfo } from "@mikuroxina/bemuse-indexer/lib";
 import { updateSongFile } from "../song-file";
-import { Buffer } from "node:buffer"
 
 export async function indexCharts(usingDir: FileSystemDirectoryHandle, dispatch: (action: Action) => void): Promise<void> {
   dispatch(["START_INDEX_CHARTS", ""])
@@ -33,10 +32,9 @@ async function indexChartFilesFromDirectory(
         const fileHandle = handle;
         const file = await (fileHandle as FileSystemFileHandle).getFile();
         const fileContents = await file.arrayBuffer();
-        const buffer = Buffer.from(fileContents);
         inputs.push({
           name,
-          data: buffer,
+          data: fileContents,
         });
       }
     } catch (error) {
