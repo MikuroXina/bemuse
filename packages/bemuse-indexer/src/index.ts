@@ -17,7 +17,6 @@ import {
 } from '@mikuroxina/bmson'
 import invariant from 'invariant'
 import assign from 'object-assign'
-import pMap from 'p-map'
 import SparkMD5 from 'spark-md5'
 
 import { getBmsBga } from './bms-bga.js'
@@ -160,9 +159,8 @@ export async function getSongInfo(
     }
   let processed = 0
   const doGetFileInfo = options.getFileInfo || getFileInfo
-  const results = await pMap(
-    files,
-    async function (file): Promise<OutputChart[]> {
+  const results = await Promise.all(
+    files.map(async (file): Promise<OutputChart[]> => {
       const name = file.name
       const fileData = file.data
       const md5Hash = SparkMD5.ArrayBuffer.hash(fileData.buffer as ArrayBuffer)
@@ -184,8 +182,7 @@ export async function getSongInfo(
         processed += 1
         report(processed, files.length, name)
       }
-    },
-    { concurrency: 2 }
+    })
   )
   const charts = results.flat()
   if (charts.length === 0) {

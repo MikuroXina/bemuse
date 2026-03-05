@@ -59,6 +59,7 @@
   "homepage": "https://github.com/bemusic/bms-js",
   "devDependencies": {
     "@cucumber/cucumber": "^12.6.0",
+    "@mikuroxina/eslint-config-bemuse": "workspace:*",
     "@types/invariant": "^2.2.30",
     "@types/lodash.assign": "^4.2.4",
     "@types/lodash.map": "^4.6.13",
@@ -67,7 +68,6 @@
     "@types/node": "24",
     "@vitest/coverage-v8": "^4.0.18",
     "eslint": "^9.0.0",
-    "@mikuroxina/eslint-config-bemuse": "workspace:*",
     "gulp": "^4.0.2",
     "hide-stack-frames-from": "^1.0.0",
     "lazy-property": "^1.0.0",
@@ -79,7 +79,6 @@
   "dependencies": {
     "chardet": "^2.1.1",
     "data-structure": "^1.2.0",
-    "iconv-lite": "^0.4.24",
     "invariant": "^2.2.4",
     "lodash.assign": "^4.2.0",
     "lodash.map": "^4.6.0",
