@@ -4,13 +4,9 @@ import { fetchFile } from "@ffmpeg/util";
 import { BemusePackage } from "../bemuse-package";
 import { createFFmpegInstance } from "../ffmpeg-core";
 import type { SoundAssetsMetadata } from "../types";
+import { extract } from "./extract";
 
 export async function convertAudioFiles(usingDir: FileSystemDirectoryHandle, dispatch: (action: Action) => void) {
-    if (usingDir === null) {
-      console.log("No directory selected");
-      return;
-    }
-
     dispatch(["START_CONVERT_AUDIO_FILES", "Indexing..."])
     try {
       await convertAudioFilesInDirectory(usingDir, {
@@ -21,6 +17,7 @@ export async function convertAudioFiles(usingDir: FileSystemDirectoryHandle, dis
           console.warn(warning);
         },
       });
+      await extract(usingDir ,dispatch)
     } finally {
       dispatch(["DONE_CONVERT_AUDIO_FILES", []])
     }

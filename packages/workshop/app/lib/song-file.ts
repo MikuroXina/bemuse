@@ -11,7 +11,7 @@ export async function getSongFileHandleFromDirectory(
 export async function updateSongFile(
   directoryHandle: FileSystemDirectoryHandle,
   updater: (song: SongMetadata) => SongMetadata,
-) {
+): Promise<void> {
   let data: SongMetadata
   try {
     const handle = await getSongFileHandleFromDirectory(directoryHandle, {
@@ -23,7 +23,7 @@ export async function updateSongFile(
     data = parse(songMetadataSchema, parsed)
   } catch (e) {
     console.warn("Failed to read initial data", e);
-    return {};
+    return;
   }
 
   const newData = updater(data);

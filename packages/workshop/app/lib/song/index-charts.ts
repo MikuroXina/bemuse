@@ -2,15 +2,17 @@ import type { IndexingInputFile } from "@mikuroxina/bemuse-indexer/lib/types";
 import type { Action } from "./reducer";
 import { getSongInfo } from "@mikuroxina/bemuse-indexer/lib";
 import { updateSongFile } from "../song-file";
+import { extract } from "./extract";
 
 export async function indexCharts(usingDir: FileSystemDirectoryHandle, dispatch: (action: Action) => void): Promise<void> {
-  dispatch(["START_INDEX_CHARTS", ""])
+    dispatch(["START_INDEX_CHARTS", ""])
     try {
       await indexChartFilesFromDirectory(usingDir, {
         setStatus: (status: string) => {
           dispatch(["START_INDEX_CHARTS", status])
         },
       });
+      await extract(usingDir, dispatch)
     } finally {
       dispatch(["DONE_INDEX_CHARTS", []])
     }

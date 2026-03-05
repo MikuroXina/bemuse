@@ -38,7 +38,6 @@ import { VideoSynchronizer } from "~/components/video-synchronizer";
 import { MetadataEditor } from "~/components/metadata-editor";
 import { BusyIndicator } from "@ui5/webcomponents-react/BusyIndicator";
 import { choose } from "~/lib/song/choose";
-import { useExtract } from "~/lib/song/extract";
 import { convertAudioFiles } from "~/lib/song/convert-audio-files";
 import { indexCharts } from "~/lib/song/index-charts";
 
@@ -60,7 +59,6 @@ export default function Song() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const chartSelector = useRef<SelectDomRef | null>(null);
   const previewStartTimeInput = useRef<InputDomRef | null>(null);
-  useExtract(state.usingDir, dispatch);
 
   const {
     usingDir,

@@ -17,13 +17,7 @@ import memoizeOne from "memoize-one";
       next[0]?.lastModified === prev[0]?.lastModified,
   );
 
-export const useExtract = (usingDir: FileSystemDirectoryHandle | null, dispatch: (action: Action) => void) => {
-  useEffect(() => {
-    const aborter = new AbortController();
-    (async () => {
-      if (!usingDir || aborter.signal.aborted) {
-        return;
-      }
+export async function extract(usingDir: FileSystemDirectoryHandle, dispatch: (action: Action) => void): Promise<void>  {
       const bemuseDataDir = await usingDir.getDirectoryHandle("bemuse-data", {
         create: true,
       });
@@ -103,10 +97,6 @@ export const useExtract = (usingDir: FileSystemDirectoryHandle | null, dispatch:
         previewMp3 = null;
       }
 
-      if (aborter.signal.aborted) {
-        return;
-      }
-
       dispatch(["DONE_EXTRACT", {
         soundAssets,
 songMeta,
@@ -114,9 +104,4 @@ readme,
 songOgg,
 previewMp3
       }])
-    })();
-    return () => {
-      aborter.abort()
     }
-  }, [usingDir]);
-}
