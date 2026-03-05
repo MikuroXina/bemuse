@@ -1,4 +1,7 @@
-import { songMetadataSchema, type SongMetadata } from "@mikuroxina/bemuse-types";
+import {
+  songMetadataSchema,
+  type SongMetadata,
+} from "@mikuroxina/bemuse-types";
 import { parse } from "valibot";
 
 export async function getSongFileHandleFromDirectory(
@@ -12,7 +15,7 @@ export async function updateSongFile(
   directoryHandle: FileSystemDirectoryHandle,
   updater: (song: SongMetadata) => SongMetadata,
 ): Promise<void> {
-  let data: SongMetadata
+  let data: SongMetadata;
   try {
     const handle = await getSongFileHandleFromDirectory(directoryHandle, {
       create: false,
@@ -20,7 +23,7 @@ export async function updateSongFile(
     const file = await handle.getFile();
     const text = await file.text();
     const parsed = JSON.parse(text);
-    data = parse(songMetadataSchema, parsed)
+    data = parse(songMetadataSchema, parsed);
   } catch (e) {
     console.warn("Failed to read initial data", e);
     return;

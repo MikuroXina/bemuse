@@ -1,21 +1,23 @@
-import type { SongMetadata } from "@mikuroxina/bemuse-types"
-import type { SoundAssetsMetadata } from "~/lib/types"
+import type { SongMetadata } from "@mikuroxina/bemuse-types";
+import type { SoundAssetsMetadata } from "~/lib/types";
 
-export type SubsystemProgress = [state: 'awaiting'] | [state: 'processing', message: string]
+export type SubsystemProgress =
+  | [state: "awaiting"]
+  | [state: "processing", message: string];
 
 export interface State {
-  usingDir: FileSystemDirectoryHandle | null
-  soundAssets: SoundAssetsMetadata | null
-  songMeta: SongMetadata | null
+  usingDir: FileSystemDirectoryHandle | null;
+  soundAssets: SoundAssetsMetadata | null;
+  songMeta: SongMetadata | null;
   songOgg: string | null;
-  previewMp3: string | null
-  readme: string
-  extractProgress: SubsystemProgress
-  convertProgress: SubsystemProgress
-  indexProgress: SubsystemProgress
-  renderProgress: SubsystemProgress
-  createPreviewProgress: SubsystemProgress
-  scanVisualFilesProgress : SubsystemProgress
+  previewMp3: string | null;
+  readme: string;
+  extractProgress: SubsystemProgress;
+  convertProgress: SubsystemProgress;
+  indexProgress: SubsystemProgress;
+  renderProgress: SubsystemProgress;
+  createPreviewProgress: SubsystemProgress;
+  scanVisualFilesProgress: SubsystemProgress;
 }
 
 export const initialState: State = {
@@ -27,33 +29,54 @@ export const initialState: State = {
   readme: "",
   extractProgress: ["awaiting"],
   convertProgress: ["awaiting"],
-  indexProgress:["awaiting"],
-  renderProgress:["awaiting"],
-  createPreviewProgress:["awaiting"],
+  indexProgress: ["awaiting"],
+  renderProgress: ["awaiting"],
+  createPreviewProgress: ["awaiting"],
   scanVisualFilesProgress: ["awaiting"],
-}
+};
 
 const reducers = {
-  OPEN: (state: State, dir: FileSystemDirectoryHandle) => ({...state, usingDir: dir}),
+  OPEN: (state: State, dir: FileSystemDirectoryHandle) => ({
+    ...state,
+    usingDir: dir,
+  }),
   CLOSE: (_state: State, _: never[]) => initialState,
-  START_EXTRACT: (state: State, _: never[]) => ({...state, extractProgress: ["processing", "Loading your BMS package"] }),
-  DONE_EXTRACT: (state: State, props: {
-    soundAssets: SoundAssetsMetadata | null,
-    songMeta: SongMetadata | null,
-    readme: string,
-    songOgg: string | null,
-    previewMp3: string | null,
-  }) => ({ ...state, ...props, extractProgress: ["awaiting"] }),
-  START_CONVERT_AUDIO_FILES: (state: State, status: string) => ({...state, convertProgress: ["processing", status]}),
-  DONE_CONVERT_AUDIO_FILES: (state: State, _: never[]) => ({...state, convertProgress: ["awaiting"]}),
-  START_INDEX_CHARTS: (state: State, status: string) => ({...state, indexProgress: ["processing", status]}),
-  DONE_INDEX_CHARTS: (state: State, _: never[]) => ({...state, indexProgress: ["awaiting"]}),
+  START_EXTRACT: (state: State, _: never[]) => ({
+    ...state,
+    extractProgress: ["processing", "Loading your BMS package"],
+  }),
+  DONE_EXTRACT: (
+    state: State,
+    props: {
+      soundAssets: SoundAssetsMetadata | null;
+      songMeta: SongMetadata | null;
+      readme: string;
+      songOgg: string | null;
+      previewMp3: string | null;
+    },
+  ) => ({ ...state, ...props, extractProgress: ["awaiting"] }),
+  START_CONVERT_AUDIO_FILES: (state: State, status: string) => ({
+    ...state,
+    convertProgress: ["processing", status],
+  }),
+  DONE_CONVERT_AUDIO_FILES: (state: State, _: never[]) => ({
+    ...state,
+    convertProgress: ["awaiting"],
+  }),
+  START_INDEX_CHARTS: (state: State, status: string) => ({
+    ...state,
+    indexProgress: ["processing", status],
+  }),
+  DONE_INDEX_CHARTS: (state: State, _: never[]) => ({
+    ...state,
+    indexProgress: ["awaiting"],
+  }),
 } as const satisfies Record<string, (state: State, action: any) => State>;
 
 type Reducers = typeof reducers;
 type Payload<K extends keyof Reducers> = Reducers[K] extends (
   state: State,
-  action: infer A
+  action: infer A,
 ) => State
   ? A
   : never;
@@ -64,7 +87,5 @@ export type Action = {
 
 export type Dispatcher = (action: Action) => void;
 
-export const reducer = (
-  state: State,
-  [kind, payload]: Action,
-): State => reducers[kind](state, payload as Payload<typeof kind>);
+export const reducer = (state: State, [kind, payload]: Action): State =>
+  reducers[kind](state, payload as Payload<typeof kind>);
