@@ -45,7 +45,9 @@ const reducers = {
     previewMp3: string | null,
   }) => ({ ...state, ...props, extractProgress: ["awaiting"] }),
   START_CONVERT_AUDIO_FILES: (state: State, status: string) => ({...state, convertProgress: ["processing", status]}),
-  DONE_CONVERT_AUDIO_FILES: (state: State, _: never[]) => ({...state, convertProgress: ["awaiting"]})
+  DONE_CONVERT_AUDIO_FILES: (state: State, _: never[]) => ({...state, convertProgress: ["awaiting"]}),
+  START_INDEX_CHARTS: (state: State, status: string) => ({...state, indexProgress: ["processing", status]}),
+  DONE_INDEX_CHARTS: (state: State, _: never[]) => ({...state, indexProgress: ["awaiting"]}),
 } as const satisfies Record<string, (state: State, action: any) => State>;
 
 type Reducers = typeof reducers;

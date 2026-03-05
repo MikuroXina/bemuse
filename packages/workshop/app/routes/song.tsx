@@ -29,6 +29,7 @@ import { BusyIndicator } from "@ui5/webcomponents-react/BusyIndicator";
 import { choose } from "~/lib/song/choose";
 import { useExtract } from "~/lib/song/extract";
 import { convertAudioFiles } from "~/lib/song/convert-audio-files";
+import { indexCharts } from "~/lib/song/index-charts";
 
 function formatSize(bytes: number) {
   return (bytes / 1048576).toFixed(2) + " MB";
@@ -99,7 +100,6 @@ export default function Song() {
     },
   ];
 
-  async function indexCharts() {}
   async function renderSong() {}
   async function createPreview() {}
   async function saveMetadata() {}
@@ -214,7 +214,7 @@ export default function Song() {
             >
               <Button
                 slot="action"
-                onClick={indexCharts}
+                onClick={() => indexCharts(usingDir, dispatch)}
                 disabled={indexProgress[0] === "processing"}
               >
                 Scan charts
