@@ -66,7 +66,6 @@ export default function Server() {
       )
     }
   }
-  function closeServer() {}
 
   if (!serverFile) {
     return (
@@ -185,7 +184,11 @@ export default function Server() {
 
       <Bar design='Footer'>
         <Label slot='startContent'>Current file: {serverFile.name}</Label>
-        <Button design='Negative' slot='endContent' onClick={closeServer}>
+        <Button
+          design='Negative'
+          slot='endContent'
+          onClick={() => dispatch(['CLOSE', []])}
+        >
           Close folder
         </Button>
       </Bar>
