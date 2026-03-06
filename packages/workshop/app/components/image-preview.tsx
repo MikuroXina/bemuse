@@ -17,7 +17,7 @@ export const ImagePreview = ({ directoryHandle, path }: ImagePreviewProps) => {
       ) : imageUrl ? (
         <img src={imageUrl} style={{ maxWidth: '100%' }} alt={path} />
       ) : (
-        'Loading'
+        'Not found'
       )}
     </div>
   )
