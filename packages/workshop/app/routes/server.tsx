@@ -52,6 +52,12 @@ function statusProps(status: Status): StatusProps {
   return { text: '', status: 'None' }
 }
 
+const StatusCell = ({ status, text }: StatusProps) => (
+  <span data-status={status} className='url-status-text'>
+    {text}
+  </span>
+)
+
 export default function Server() {
   const [state, dispatch] = useReducer(reducer, initialState)
   const { serverFile, data, scanStatus } = state
@@ -129,12 +135,7 @@ export default function Server() {
                     {entry.added ? entry.added : '(from metadata)'}
                   </TableCell>
                   <TableCell>
-                    <span
-                      data-status={statusProps(scanStatus[entry.url]).status}
-                      className='url-status-text'
-                    >
-                      {statusProps(scanStatus[entry.url]).text}
-                    </span>
+                    <StatusCell {...statusProps(scanStatus[entry.url])} />
                   </TableCell>
                 </TableRow>
               ))}
