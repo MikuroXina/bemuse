@@ -38,6 +38,7 @@ import { VideoSynchronizer } from '~/components/video-synchronizer'
 import { choose } from '~/lib/song/choose'
 import { convertAudioFiles } from '~/lib/song/convert-audio-files'
 import { createPreview } from '~/lib/song/create-preview'
+import { extract } from '~/lib/song/extract'
 import { indexCharts } from '~/lib/song/index-charts'
 import { initialState, reducer } from '~/lib/song/reducer'
 import { renderSong } from '~/lib/song/render'
@@ -115,7 +116,6 @@ export default function Song() {
   ]
 
   async function setVideoOffset() {}
-  async function recheck() {}
 
   if (!usingDir) {
     return (
@@ -148,7 +148,7 @@ export default function Song() {
           icon='synchronize'
           title='Refresh'
           slot='endContent'
-          onClick={recheck}
+          onClick={() => extract(usingDir, dispatch)}
         ></Button>
       </Bar>
       <TabContainer className='full-width'>
