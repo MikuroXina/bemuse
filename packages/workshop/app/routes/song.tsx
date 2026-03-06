@@ -44,6 +44,7 @@ import { initialState, reducer } from '~/lib/song/reducer'
 import { renderSong } from '~/lib/song/render'
 import { saveMetadata } from '~/lib/song/save-metadata'
 import { scanVisual } from '~/lib/song/scan-visual'
+import { setVideoOffset } from '~/lib/song/set-video-offset'
 import { getMetadataStatus } from '~/lib/song-file'
 import type { SoundAssetsMetadata } from '~/lib/types'
 
@@ -114,8 +115,6 @@ export default function Song() {
       infoText: metadataStatus.infoText,
     },
   ]
-
-  async function setVideoOffset() {}
 
   if (!usingDir) {
     return (
@@ -441,8 +440,10 @@ export default function Song() {
                         <VideoSynchronizer
                           directoryHandle={usingDir}
                           videoPath={songMeta.video_url}
-                          videoOffset={Number(songMeta.video_offset)}
-                          setVideoOffset={setVideoOffset}
+                          videoOffset={Number(songMeta.video_offset ?? '0')}
+                          setVideoOffset={(offset) =>
+                            setVideoOffset(usingDir, offset, dispatch)
+                          }
                           songOgg={songOgg}
                         />
                       ) : (
