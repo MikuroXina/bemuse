@@ -1,32 +1,32 @@
-import { useEffect, useState } from "react";
-import { resolveFileFromPath } from "../resolve-file";
+import { useEffect, useState } from 'react'
+import { resolveFileFromPath } from '../resolve-file'
 
 export const useFileObjectUrl = (
   directoryHandle: FileSystemDirectoryHandle,
-  path?: string,
+  path?: string
 ): [objectUrl: string | null, error: Error | null] => {
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [error, setError] = useState<Error | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null)
+  const [error, setError] = useState<Error | null>(null)
   useEffect(() => {
     if (!path) {
-      return;
+      return
     }
-    const aborter = new AbortController();
+    const aborter = new AbortController()
     async function fetchImage(path: string) {
-      const fileHandle = await resolveFileFromPath(directoryHandle, path);
-      const file = await fileHandle.getFile();
-      const newUrl = URL.createObjectURL(file);
+      const fileHandle = await resolveFileFromPath(directoryHandle, path)
+      const file = await fileHandle.getFile()
+      const newUrl = URL.createObjectURL(file)
       if (aborter.signal.aborted) {
-        return;
+        return
       }
-      setImageUrl(newUrl);
+      setImageUrl(newUrl)
     }
     fetchImage(path).catch((e) => {
-      setError(e);
-    });
+      setError(e)
+    })
     return () => {
-      aborter.abort();
-    };
-  }, [directoryHandle, path]);
-  return [imageUrl, error];
-};
+      aborter.abort()
+    }
+  }, [directoryHandle, path])
+  return [imageUrl, error]
+}

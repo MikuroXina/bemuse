@@ -1,64 +1,65 @@
-import "@ui5/webcomponents-icons/activities.js";
-import "@ui5/webcomponents-icons/alert.js";
-import "@ui5/webcomponents-icons/attachment-audio.js";
-import "@ui5/webcomponents-icons/attachment-video.js";
-import "@ui5/webcomponents-icons/full-stacked-column-chart.js";
-import "@ui5/webcomponents-icons/information.js";
-import "@ui5/webcomponents-icons/media-play.js";
-import "@ui5/webcomponents-icons/message-success.js";
-import "@ui5/webcomponents-icons/synchronize.js";
-import "@ui5/webcomponents-fiori/illustrations/NoData.js";
+import '@ui5/webcomponents-icons/activities.js'
+import '@ui5/webcomponents-icons/alert.js'
+import '@ui5/webcomponents-icons/attachment-audio.js'
+import '@ui5/webcomponents-icons/attachment-video.js'
+import '@ui5/webcomponents-icons/full-stacked-column-chart.js'
+import '@ui5/webcomponents-icons/information.js'
+import '@ui5/webcomponents-icons/media-play.js'
+import '@ui5/webcomponents-icons/message-success.js'
+import '@ui5/webcomponents-icons/synchronize.js'
+import '@ui5/webcomponents-fiori/illustrations/NoData.js'
 
-import { TabContainer } from "@ui5/webcomponents-react/TabContainer";
-import { Label } from "@ui5/webcomponents-react/Label";
-import { Bar } from "@ui5/webcomponents-react/Bar";
-import { Button } from "@ui5/webcomponents-react/Button";
-import { IllustratedMessage } from "@ui5/webcomponents-react/IllustratedMessage";
-import { ShellBar } from "@ui5/webcomponents-react/ShellBar";
-import { Tab } from "@ui5/webcomponents-react/Tab";
-import { useReducer, useRef } from "react";
-import { List } from "@ui5/webcomponents-react/List";
-import { Card } from "@ui5/webcomponents-react/Card";
-import { TableHeaderCell } from "@ui5/webcomponents-react/TableHeaderCell";
-import { TableHeaderRow } from "@ui5/webcomponents-react/TableHeaderRow";
-import { TableCell } from "@ui5/webcomponents-react/TableCell";
-import { TableRow } from "@ui5/webcomponents-react/TableRow";
-import { Table } from "@ui5/webcomponents-react/Table";
-import { CardHeader } from "@ui5/webcomponents-react/CardHeader";
-import { ListItemStandard } from "@ui5/webcomponents-react/ListItemStandard";
-import { Select, type SelectDomRef } from "@ui5/webcomponents-react/Select";
-import { Option } from "@ui5/webcomponents-react/Option";
-import { Input, type InputDomRef } from "@ui5/webcomponents-react/Input";
-import type { Chart } from "@mikuroxina/bemuse-types";
-import { initialState, reducer } from "~/lib/song/reducer";
-import type { SoundAssetsMetadata } from "~/lib/types";
-import { getMetadataStatus } from "~/lib/song-file";
-import { ImagePreview } from "~/components/image-preview";
-import { VideoSynchronizer } from "~/components/video-synchronizer";
-import { MetadataEditor } from "~/components/metadata-editor";
-import { BusyIndicator } from "@ui5/webcomponents-react/BusyIndicator";
-import { choose } from "~/lib/song/choose";
-import { convertAudioFiles } from "~/lib/song/convert-audio-files";
-import { indexCharts } from "~/lib/song/index-charts";
+import { TabContainer } from '@ui5/webcomponents-react/TabContainer'
+import { Label } from '@ui5/webcomponents-react/Label'
+import { Bar } from '@ui5/webcomponents-react/Bar'
+import { Button } from '@ui5/webcomponents-react/Button'
+import { IllustratedMessage } from '@ui5/webcomponents-react/IllustratedMessage'
+import { ShellBar } from '@ui5/webcomponents-react/ShellBar'
+import { Tab } from '@ui5/webcomponents-react/Tab'
+import { useReducer, useRef } from 'react'
+import { List } from '@ui5/webcomponents-react/List'
+import { Card } from '@ui5/webcomponents-react/Card'
+import { TableHeaderCell } from '@ui5/webcomponents-react/TableHeaderCell'
+import { TableHeaderRow } from '@ui5/webcomponents-react/TableHeaderRow'
+import { TableCell } from '@ui5/webcomponents-react/TableCell'
+import { TableRow } from '@ui5/webcomponents-react/TableRow'
+import { Table } from '@ui5/webcomponents-react/Table'
+import { CardHeader } from '@ui5/webcomponents-react/CardHeader'
+import { ListItemStandard } from '@ui5/webcomponents-react/ListItemStandard'
+import { Select, type SelectDomRef } from '@ui5/webcomponents-react/Select'
+import { Option } from '@ui5/webcomponents-react/Option'
+import { Input, type InputDomRef } from '@ui5/webcomponents-react/Input'
+import type { Chart } from '@mikuroxina/bemuse-types'
+import { initialState, reducer } from '~/lib/song/reducer'
+import type { SoundAssetsMetadata } from '~/lib/types'
+import { getMetadataStatus } from '~/lib/song-file'
+import { ImagePreview } from '~/components/image-preview'
+import { VideoSynchronizer } from '~/components/video-synchronizer'
+import { MetadataEditor } from '~/components/metadata-editor'
+import { BusyIndicator } from '@ui5/webcomponents-react/BusyIndicator'
+import { choose } from '~/lib/song/choose'
+import { convertAudioFiles } from '~/lib/song/convert-audio-files'
+import { indexCharts } from '~/lib/song/index-charts'
+import { renderSong } from '~/lib/song/render'
 
 function formatSize(bytes: number) {
-  return (bytes / 1048576).toFixed(2) + " MB";
+  return (bytes / 1048576).toFixed(2) + ' MB'
 }
 
 function totalSize(soundAssets: SoundAssetsMetadata) {
   return soundAssets.refs.reduce((acc, ref) => {
-    return acc + ref.size;
-  }, 0);
+    return acc + ref.size
+  }, 0)
 }
 
 function ChartExtra({}: { chart: Chart }) {
-  return null;
+  return null
 }
 
 export default function Song() {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const chartSelector = useRef<SelectDomRef | null>(null);
-  const previewStartTimeInput = useRef<InputDomRef | null>(null);
+  const [state, dispatch] = useReducer(reducer, initialState)
+  const chartSelector = useRef<SelectDomRef | null>(null)
+  const previewStartTimeInput = useRef<InputDomRef | null>(null)
 
   const {
     usingDir,
@@ -73,43 +74,42 @@ export default function Song() {
     renderProgress,
     createPreviewProgress,
     scanVisualFilesProgress: scanningVisualFilesProgress,
-  } = state;
-  const metadataStatus = getMetadataStatus(songMeta);
-  const previewCreated = !!previewMp3;
+  } = state
+  const metadataStatus = getMetadataStatus(songMeta)
+  const previewCreated = !!previewMp3
   const checkItems = [
     {
-      label: "Optimize sound assets",
+      label: 'Optimize sound assets',
       description:
-        "Sound assets should be optimized for smaller size and faster delivery.",
+        'Sound assets should be optimized for smaller size and faster delivery.',
       ok: !!soundAssets,
       infoText: soundAssets
         ? `Already optimized — ${formatSize(totalSize(soundAssets))}`
-        : "No sound assets found",
+        : 'No sound assets found',
     },
     {
-      label: "Scan chart files",
+      label: 'Scan chart files',
       description:
-        "Scan the chart files to update the available charts in the song.",
+        'Scan the chart files to update the available charts in the song.',
       ok: songMeta?.charts.length ?? 0 > 0,
-      infoText: songMeta?.charts.length + " chart files found",
+      infoText: songMeta?.charts.length + ' chart files found',
     },
     {
-      label: "Song preview",
-      description: "Create a 30-second preview of the song.",
+      label: 'Song preview',
+      description: 'Create a 30-second preview of the song.',
       ok: previewCreated,
       infoText: previewCreated
-        ? "Preview already created"
-        : "No preview file found",
+        ? 'Preview already created'
+        : 'No preview file found',
     },
     {
-      label: "Song metadata",
-      description: "Set up song metadata.",
+      label: 'Song metadata',
+      description: 'Set up song metadata.',
       ok: metadataStatus.ok,
       infoText: metadataStatus.infoText,
     },
-  ];
+  ]
 
-  async function renderSong() {}
   async function createPreview() {}
   async function saveMetadata() {}
   async function scanVisualFiles() {}
@@ -120,46 +120,46 @@ export default function Song() {
   if (!usingDir) {
     return (
       <IllustratedMessage
-        name="NoData"
-        titleText="Please choose a song folder to get started"
-        subtitleText="Required Chromium-based browsers to open your folder"
+        name='NoData'
+        titleText='Please choose a song folder to get started'
+        subtitleText='Required Chromium-based browsers to open your folder'
       >
-        <Button design="Emphasized" onClick={() => choose(dispatch)}>
+        <Button design='Emphasized' onClick={() => choose(dispatch)}>
           Choose a song folder
         </Button>
       </IllustratedMessage>
-    );
+    )
   }
-  if (choosingProgress[0] === "processing") {
+  if (choosingProgress[0] === 'processing') {
     return (
       <main>
-        <ShellBar id="shellbar" primaryTitle="Bemuse Custom Song Workshop" />
-        <div style={{ textAlign: "center", padding: "1rem;" }}>
-          <BusyIndicator size="L" />
+        <ShellBar id='shellbar' primaryTitle='Bemuse Custom Song Workshop' />
+        <div style={{ textAlign: 'center', padding: '1rem;' }}>
+          <BusyIndicator size='L' />
         </div>
       </main>
-    );
+    )
   }
   return (
     <>
-      <Bar design="Subheader">
+      <Bar design='Subheader'>
         <Label>{usingDir.name}</Label>
         <Button
-          icon="synchronize"
-          title="Refresh"
-          slot="endContent"
+          icon='synchronize'
+          title='Refresh'
+          slot='endContent'
           onClick={recheck}
         ></Button>
       </Bar>
-      <TabContainer className="full-width">
-        <Tab text="Overview" selected icon="activities">
-          <List className="full-width">
+      <TabContainer className='full-width'>
+        <Tab text='Overview' selected icon='activities'>
+          <List className='full-width'>
             {checkItems.map((item) => (
               <ListItemStandard
-                icon={item.ok ? "message-success" : "alert"}
-                description={item.description || "…"}
-                additionalText={item.infoText || ""}
-                additionalTextState={item.ok ? "Positive" : "Negative"}
+                icon={item.ok ? 'message-success' : 'alert'}
+                description={item.description || '…'}
+                additionalText={item.infoText || ''}
+                additionalTextState={item.ok ? 'Positive' : 'Negative'}
               >
                 {item.label}
               </ListItemStandard>
@@ -168,19 +168,19 @@ export default function Song() {
         </Tab>
 
         <Tab
-          text="Sound assets"
-          icon="attachment-audio"
-          style={{ padding: "1rem" }}
+          text='Sound assets'
+          icon='attachment-audio'
+          style={{ padding: '1rem' }}
         >
           {soundAssets ? (
             <Card>
-              <CardHeader slot="header" titleText="Sound assets" />
-              <div style={{ padding: "1rem" }}>
+              <CardHeader slot='header' titleText='Sound assets' />
+              <div style={{ padding: '1rem' }}>
                 Sound assets found. To regenerate, delete the
                 “bemuse-data/sound” folder.
               </div>
               <Table>
-                <TableHeaderRow slot="headerRow">
+                <TableHeaderRow slot='headerRow'>
                   <TableHeaderCell> Name </TableHeaderCell>
                   <TableHeaderCell> Size </TableHeaderCell>
                 </TableHeaderRow>
@@ -194,11 +194,11 @@ export default function Song() {
             </Card>
           ) : (
             <Card>
-              <CardHeader slot="header" titleText="Optimize sound assets" />
-              <div style={{ padding: "1rem" }}>
+              <CardHeader slot='header' titleText='Optimize sound assets' />
+              <div style={{ padding: '1rem' }}>
                 <Button
                   onClick={() => convertAudioFiles(usingDir, dispatch)}
-                  disabled={convertProgress[0] === "processing"}
+                  disabled={convertProgress[0] === 'processing'}
                 >
                   Optimize sound assets
                 </Button>
@@ -211,27 +211,27 @@ export default function Song() {
         </Tab>
 
         <Tab
-          text="Charts"
-          icon="full-stacked-column-chart"
-          style={{ padding: "1rem" }}
+          text='Charts'
+          icon='full-stacked-column-chart'
+          style={{ padding: '1rem' }}
         >
           <Card>
             <CardHeader
-              slot="header"
-              titleText="Charts"
+              slot='header'
+              titleText='Charts'
               subtitleText={indexProgress[1]}
             >
               <Button
-                slot="action"
+                slot='action'
                 onClick={() => indexCharts(usingDir, dispatch)}
-                disabled={indexProgress[0] === "processing"}
+                disabled={indexProgress[0] === 'processing'}
               >
                 Scan charts
               </Button>
             </CardHeader>
 
-            <Table noDataText="No Data">
-              <TableHeaderRow slot="headerRow">
+            <Table noDataText='No Data'>
+              <TableHeaderRow slot='headerRow'>
                 <TableHeaderCell>Filename</TableHeaderCell>
                 <TableHeaderCell>Title</TableHeaderCell>
                 <TableHeaderCell>Artist</TableHeaderCell>
@@ -243,20 +243,20 @@ export default function Song() {
                 <TableRow key={chart.md5} rowKey={chart.md5}>
                   <TableCell>
                     {chart.file}
-                    <small style={{ display: "block" }}>
+                    <small style={{ display: 'block' }}>
                       <ChartExtra chart={chart} />
                     </small>
                   </TableCell>
                   <TableCell>
                     {chart.info.title}
                     {chart.info.subtitles.map((t) => (
-                      <small style={{ display: "block" }}>{t}</small>
+                      <small style={{ display: 'block' }}>{t}</small>
                     ))}
                   </TableCell>
                   <TableCell>
                     {chart.info.artist}
                     {chart.info.subartists.map((t) => (
-                      <small style={{ display: "block" }}>{t}</small>
+                      <small style={{ display: 'block' }}>{t}</small>
                     ))}
                   </TableCell>
                   <TableCell>{chart.info.genre}</TableCell>
@@ -268,15 +268,15 @@ export default function Song() {
           </Card>
         </Tab>
 
-        <Tab text="Preview" icon="media-play" style={{ padding: "1rem" }}>
+        <Tab text='Preview' icon='media-play' style={{ padding: '1rem' }}>
           <Card>
-            <CardHeader slot="header" titleText="Render song"></CardHeader>
+            <CardHeader slot='header' titleText='Render song'></CardHeader>
             <div
               style={{
-                padding: "1rem",
-                display: "flex",
-                gap: "1rem",
-                alignItems: "center",
+                padding: '1rem',
+                display: 'flex',
+                gap: '1rem',
+                alignItems: 'center',
               }}
             >
               {(songMeta?.charts.length ?? 0 > 0) && soundAssets ? (
@@ -287,8 +287,14 @@ export default function Song() {
                     ))}
                   </Select>
                   <Button
-                    onClick={renderSong}
-                    disabled={renderProgress[0] === "processing"}
+                    onClick={() => {
+                      const file =
+                        chartSelector?.current?.selectedOption?.dataset['chart']
+                      if (file) {
+                        renderSong(usingDir, soundAssets, file, dispatch)
+                      }
+                    }}
+                    disabled={renderProgress[0] === 'processing'}
                   >
                     Render song
                   </Button>
@@ -303,10 +309,10 @@ export default function Song() {
             {songMeta?.replaygain && songOgg && (
               <div
                 style={{
-                  padding: "0 1rem 1rem",
-                  display: "flex",
-                  gap: "1rem",
-                  alignItems: "center",
+                  padding: '0 1rem 1rem',
+                  display: 'flex',
+                  gap: '1rem',
+                  alignItems: 'center',
                 }}
               >
                 <audio controls src={songOgg}></audio>
@@ -315,24 +321,24 @@ export default function Song() {
             )}
           </Card>
           {songMeta?.replaygain && songOgg && (
-            <Card style={{ marginTop: "1rem" }}>
-              <CardHeader slot="header" titleText="Create song preview" />
+            <Card style={{ marginTop: '1rem' }}>
+              <CardHeader slot='header' titleText='Create song preview' />
               <div
                 style={{
-                  padding: "1rem",
-                  display: "flex",
-                  gap: "1rem",
-                  alignItems: "center",
+                  padding: '1rem',
+                  display: 'flex',
+                  gap: '1rem',
+                  alignItems: 'center',
                 }}
               >
                 <Input
-                  placeholder="Start time in seconds"
+                  placeholder='Start time in seconds'
                   ref={previewStartTimeInput}
-                  value={songMeta?.preview_start?.toString() ?? ""}
+                  value={songMeta?.preview_start?.toString() ?? ''}
                 ></Input>
                 <Button
                   onClick={createPreview}
-                  disabled={createPreviewProgress[0] === "processing"}
+                  disabled={createPreviewProgress[0] === 'processing'}
                 >
                   Create song preview
                 </Button>
@@ -341,10 +347,10 @@ export default function Song() {
               {previewMp3 && (
                 <div
                   style={{
-                    padding: "0 1rem 1rem",
-                    display: "flex",
-                    gap: "1rem",
-                    alignItems: "center",
+                    padding: '0 1rem 1rem',
+                    display: 'flex',
+                    gap: '1rem',
+                    alignItems: 'center',
                   }}
                 >
                   <audio controls src={previewMp3}></audio>
@@ -354,7 +360,7 @@ export default function Song() {
           )}
         </Tab>
 
-        <Tab text="Metadata" icon="information" style={{ padding: "1rem" }}>
+        <Tab text='Metadata' icon='information' style={{ padding: '1rem' }}>
           {songMeta ? (
             <MetadataEditor
               songMeta={songMeta}
@@ -366,18 +372,18 @@ export default function Song() {
           )}
         </Tab>
 
-        <Tab text="Visuals" icon="attachment-video" style={{ padding: "1rem" }}>
+        <Tab text='Visuals' icon='attachment-video' style={{ padding: '1rem' }}>
           <Card>
-            <CardHeader slot="header" titleText="Scan image and BGA files" />
-            <div style={{ padding: "1rem" }}>
+            <CardHeader slot='header' titleText='Scan image and BGA files' />
+            <div style={{ padding: '1rem' }}>
               <Button
                 onClick={scanVisualFiles}
-                disabled={scanningVisualFilesProgress[0] === "processing"}
+                disabled={scanningVisualFilesProgress[0] === 'processing'}
               >
                 Scan
               </Button>
             </div>
-            <div style={{ padding: "0 1rem 1rem" }}>
+            <div style={{ padding: '0 1rem 1rem' }}>
               Expecting files in these locations:
               <ul>
                 <li>bemuse-data/back_image.(jpg/png)</li>
@@ -387,35 +393,35 @@ export default function Song() {
             </div>
           </Card>
 
-          {songMeta && usingDir && typeof usingDir === "object" && (
+          {songMeta && usingDir && typeof usingDir === 'object' && (
             <div
               style={{
-                display: "flex",
-                marginTop: "1rem",
-                gap: "1rem",
-                alignItems: "flex-start",
+                display: 'flex',
+                marginTop: '1rem',
+                gap: '1rem',
+                alignItems: 'flex-start',
               }}
             >
-              <div style={{ width: "50%", flex: "1" }}>
+              <div style={{ width: '50%', flex: '1' }}>
                 <Card>
-                  <CardHeader slot="header" titleText="Eyecatch image" />
+                  <CardHeader slot='header' titleText='Eyecatch image' />
                   <ImagePreview
                     directoryHandle={usingDir}
                     path={songMeta.eyecatch_image_url}
                   />
                 </Card>
-                <Card style={{ marginTop: "1rem" }}>
-                  <CardHeader slot="header" titleText="Background image" />
+                <Card style={{ marginTop: '1rem' }}>
+                  <CardHeader slot='header' titleText='Background image' />
                   <ImagePreview
                     directoryHandle={usingDir}
                     path={songMeta.back_image_url}
                   />
                 </Card>
               </div>
-              <div style={{ width: "50%", flex: "1" }}>
+              <div style={{ width: '50%', flex: '1' }}>
                 <Card>
-                  <CardHeader slot="header" titleText="BGA" />
-                  <div style={{ padding: "1rem" }}>
+                  <CardHeader slot='header' titleText='BGA' />
+                  <div style={{ padding: '1rem' }}>
                     {songMeta.video_url ? (
                       songOgg ? (
                         <VideoSynchronizer
@@ -441,12 +447,12 @@ export default function Song() {
           )}
         </Tab>
       </TabContainer>
-      <Bar design="Footer">
-        <Label slot="startContent">Current folder: {usingDir.name}</Label>
-        <Button design="Negative" slot="endContent" onClick={close}>
+      <Bar design='Footer'>
+        <Label slot='startContent'>Current folder: {usingDir.name}</Label>
+        <Button design='Negative' slot='endContent' onClick={close}>
           Close folder
         </Button>
       </Bar>
     </>
-  );
+  )
 }

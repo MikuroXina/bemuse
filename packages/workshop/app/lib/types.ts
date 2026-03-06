@@ -1,11 +1,11 @@
 export interface SoundAssetsMetadata {
   refs: {
-    path: string;
-    hash: string;
-    size: number;
-  }[];
+    path: string
+    hash: string
+    size: number
+  }[]
   files: {
-    name: string;
-    ref: [number, number, number];
-  }[];
+    name: string
+    ref: [number, number, number]
+  }[]
 }
