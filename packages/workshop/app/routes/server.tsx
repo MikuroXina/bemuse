@@ -11,8 +11,9 @@ import { TableHeaderRow } from '@ui5/webcomponents-react/TableHeaderRow'
 import { TableRow } from '@ui5/webcomponents-react/TableRow'
 import { TableSelectionMulti } from '@ui5/webcomponents-react/TableSelectionMulti'
 import { TextArea } from '@ui5/webcomponents-react/TextArea'
-import { useReducer } from 'react'
+import { type SubmitEvent, useReducer } from 'react'
 
+import { addUrls } from '~/lib/server/add-urls'
 import { chooseServerFile } from '~/lib/server/choose'
 import { newServerFile } from '~/lib/server/new-file'
 import { initialState, reducer, type Status } from '~/lib/server/reducer'
@@ -55,7 +56,16 @@ export default function Server() {
   const [state, dispatch] = useReducer(reducer, initialState)
   const { serverFile, data, scanStatus } = state
 
-  function addUrls() {}
+  function onSubmitAddUrls(e: SubmitEvent<HTMLFormElement>) {
+    e.preventDefault()
+    if (serverFile) {
+      addUrls(
+        (e.target.elements.namedItem('urls') as HTMLTextAreaElement).value,
+        serverFile,
+        data
+      )
+    }
+  }
   function closeServer() {}
 
   if (!serverFile) {
@@ -131,7 +141,7 @@ export default function Server() {
               ))}
             </Table>
           </div>
-          <form onSubmit={addUrls} style={{ padding: '1rem' }}>
+          <form onSubmit={onSubmitAddUrls} style={{ padding: '1rem' }}>
             <strong>Add URL</strong>
             <div>
               <TextArea
