@@ -3,10 +3,15 @@ import chroma from 'chroma-js'
 import memoize from 'lodash/memoize'
 import { minimatch } from 'minimatch'
 
-import type { ObjectRow, RenoteData } from './types'
+import {
+  type Channel,
+  channels,
+  type ObjectRow,
+  type RenoteData,
+  type TimeKey,
+} from '../../lib/renoter/types'
 
 export const PX_PER_BEAT = 64
-const channels = ['SC', 'K1', 'K2', 'K3', 'K4', 'K5', 'K6', 'K7']
 
 export interface RenoterLayout {
   groupColumns: {
@@ -16,21 +21,27 @@ export interface RenoterLayout {
   getGroupColor(groupIndex: number): string
   getNextGroupIndex(currentGroupIndex: number): number
   getPreviousGroupIndex(currentGroupIndex: number): number
-  getRowByTimeKey(timeKey: string): ObjectRow
-  getRowAbove(currentTimeKey: string, currentGroupIndex: number): ObjectRow
-  getRowBelow(currentTimeKey: string, currentGroupIndex: number): ObjectRow
+  getRowByTimeKey(timeKey: TimeKey): ObjectRow
+  getRowAbove(
+    currentTimeKey: TimeKey,
+    currentGroupIndex: number
+  ): ObjectRow | undefined
+  getRowBelow(
+    currentTimeKey: TimeKey,
+    currentGroupIndex: number
+  ): ObjectRow | undefined
   getGroupIndex(object: BMSObject): number
   getX(row: ObjectRow, object: BMSObject): number
-  getNoteX(channel: string): number
+  getNoteX(channel: Channel): number
 }
 
 export function calculateLayout(
   objectRows: ObjectRow[],
-  groups: RenoteData['groups'],
+  groups: NonNullable<RenoteData['groups']>,
   keysounds: Keysounds
 ): RenoterLayout {
   const initializeGroupViewModel = () => ({ size: 1, x: 0 })
-  const timeKeyToIndex = new Map<string, number>()
+  const timeKeyToIndex = new Map<TimeKey, number>()
   const groupViewModels = [
     ...groups.map(() => initializeGroupViewModel()),
     initializeGroupViewModel(),
@@ -47,13 +58,13 @@ export function calculateLayout(
     return groups.length
   })
   const getGroupIndexFromValue = (value: string) => {
-    return getGroupIndexFromKeysound(keysounds.get(value))
+    return getGroupIndexFromKeysound(keysounds.get(value)!)
   }
 
   // Calculate group size
   for (const [i, row] of objectRows.entries()) {
     timeKeyToIndex.set(row.timeKey, i)
-    const getUsedSizeByGroupIndex = memoize((groupIndex: number) => ({
+    const getUsedSizeByGroupIndex = memoize((_groupIndex: number) => ({
       size: 0,
     }))
     for (const object of row.objects) {
@@ -77,7 +88,7 @@ export function calculateLayout(
   const getRowLayout = memoize(
     (row: ObjectRow) => {
       const xMap = new Map<BMSObject, number>()
-      const xAllocator = memoize((groupIndex: number) => ({ nextX: 0 }))
+      const xAllocator = memoize((_groupIndex: number) => ({ nextX: 0 }))
       for (const object of row.objects.values()) {
         const groupIndex = getGroupIndexFromValue(object.value)
         const x = groupViewModels[groupIndex].x + xAllocator(groupIndex).nextX++
@@ -90,7 +101,7 @@ export function calculateLayout(
     (row: ObjectRow) => row.timeKey
   )
   const searchRow = (
-    currentTimeKey: string,
+    currentTimeKey: TimeKey,
     currentGroupIndex: number,
     direction: number
   ) => {
@@ -126,12 +137,11 @@ export function calculateLayout(
       chroma
         .lch(85, 100, ((groupIndex + 1) * 360) / groupViewModels.length)
         .hex(),
-
-    getRowByTimeKey: (timeKey) => objectRows[timeKeyToIndex.get(timeKey)],
-    getRowAbove: (currentTimeKey: string, currentGroupIndex: number) => {
+    getRowByTimeKey: (timeKey) => objectRows[timeKeyToIndex.get(timeKey)!],
+    getRowAbove: (currentTimeKey: TimeKey, currentGroupIndex: number) => {
       return searchRow(currentTimeKey, currentGroupIndex, -1)
     },
-    getRowBelow: (currentTimeKey: string, currentGroupIndex: number) => {
+    getRowBelow: (currentTimeKey: TimeKey, currentGroupIndex: number) => {
       return searchRow(currentTimeKey, currentGroupIndex, 1)
     },
   }

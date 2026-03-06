@@ -43,7 +43,7 @@
     inset -1px 0px 0 #0006;
 }
 
-.objectRow-text {
+.objectRowText {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -61,6 +61,6 @@
   background: #0f0;
   opacity: 0;
 }
-.row.is-selected .line {
+.row[data-selected='true'] .line {
   opacity: 1;
 }

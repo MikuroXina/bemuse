@@ -1,8 +1,10 @@
 import type { BMSObject } from '@mikuroxina/bms'
-import { useEffect } from 'react'
+import { type MouseEvent as ReactMouseEvent, useEffect, useRef } from 'react'
+
+import type { Channel, ObjectRow } from '~/lib/renoter/types'
 
 import { PX_PER_BEAT, type RenoterLayout } from './layout'
-import type { ObjectRow } from './types'
+import styles from './row.module.css'
 
 export interface RenoterRowProps {
   row: ObjectRow
@@ -10,19 +12,19 @@ export interface RenoterRowProps {
   selected: boolean
   selectedColumnIndex: number
   newNotes: Record<
-    string,
+    Channel,
     {
       value: string
       length?: number
     }
   >
-  setlength: (params: {
+  setLength: (params: {
     row: ObjectRow
-    channel: string
+    channel: Channel
     length: number
   }) => void
-  notemouseenter?: (object: BMSObject) => void
-  notemouseleave?: (object: BMSObject) => void
+  noteMouseEnter?: (object: BMSObject) => void
+  noteMouseLeave?: (object: BMSObject) => void
 }
 
 export const RenoterRow = ({
@@ -31,9 +33,9 @@ export const RenoterRow = ({
   selected,
   selectedColumnIndex,
   newNotes,
-  setlength,
-  notemouseenter,
-  notemouseleave,
+  setLength,
+  noteMouseEnter,
+  noteMouseLeave,
 }: RenoterRowProps) => {
   const notedObjects = Object.entries(newNotes || []).flatMap(
     ([channel, info]) => {
@@ -43,7 +45,7 @@ export const RenoterRow = ({
       }
       return [
         {
-          channel,
+          channel: channel as Channel,
           object: matchingObject,
           length: info.length || 0,
         },
@@ -51,24 +53,24 @@ export const RenoterRow = ({
     }
   )
 
-  let dragging:
+  const dragging = useRef<
     | {
         startY: number
         startLength: number
-        channel: string
+        channel: Channel
       }
     | undefined
+  >(undefined)
 
   function onMouseDown(
-    e: MouseEvent,
-    channel: string,
-    object: BMSObject,
+    e: ReactMouseEvent<HTMLDivElement>,
+    channel: Channel,
     startLength: number
   ) {
     if (e.button !== 0) {
       return
     }
-    dragging = {
+    dragging.current = {
       startY: e.clientY,
       startLength,
       channel,
@@ -77,26 +79,27 @@ export const RenoterRow = ({
   }
 
   function onMouseMove(e: MouseEvent) {
-    if (!dragging) {
+    if (!dragging.current) {
       return
     }
-    const delta = e.clientY - dragging.startY
+    const delta = e.clientY - dragging.current.startY
     const newLength = Math.max(
       0,
-      dragging.startLength - Math.round((delta / PX_PER_BEAT) * 4) * (240 / 4)
+      dragging.current.startLength -
+        Math.round((delta / PX_PER_BEAT) * 4) * (240 / 4)
     )
-    setlength({
+    setLength({
       row,
-      channel: dragging.channel,
+      channel: dragging.current.channel,
       length: newLength,
     })
     e.preventDefault()
   }
   function onMouseUp(e: MouseEvent) {
-    if (!dragging) {
+    if (!dragging.current) {
       return
     }
-    dragging = undefined
+    dragging.current = undefined
     e.preventDefault()
   }
 
@@ -110,27 +113,27 @@ export const RenoterRow = ({
   }, [])
 
   return (
-    <div className='row' class:is-selected={selected}>
-      <div className='line'></div>
-      <div className='objectRow-text'>{row.timeKey.split(':')[1]}</div>
+    <div className={styles.row} data-selected={selected}>
+      <div className={styles.line}></div>
+      <div className={styles.objectRowText}>{row.timeKey.split(':')[1]}</div>
       {notedObjects.map(({ object, channel, length }) => (
         <div
-          className='obj'
+          className={styles.obj}
           key={channel}
           data-channel={channel}
           style={{
             transform: `translateX(${layout.getNoteX(channel)}px)`,
             '--group-color': layout.getGroupColor(layout.getGroupIndex(object)),
           }}
-          onMouseDown={(e) => onMouseDown(e, channel, object, length)}
-          onMouseEnter={() => notemouseenter?.(object)}
-          onMouseLeave={() => notemouseleave?.(object)}
+          onMouseDown={(e) => onMouseDown(e, channel, length)}
+          onMouseEnter={() => noteMouseEnter?.(object)}
+          onMouseLeave={() => noteMouseLeave?.(object)}
         >
           {object.value}
 
           {length > 0 && (
             <div
-              className='ln'
+              className={styles.ln}
               style={{ '--ln-length': `${(length * PX_PER_BEAT) / 240}px` }}
             >
               {object.value}
@@ -140,17 +143,15 @@ export const RenoterRow = ({
       ))}
       {row.objects.map((object, i) => (
         <div
-          className='obj'
+          className={styles.obj}
           key={i}
-          class:is-selectable={
-            layout.getGroupIndex(object) === selectedColumnIndex
-          }
+          data-selectable={layout.getGroupIndex(object) === selectedColumnIndex}
           style={{
             transform: `translateX(${layout.getX(row, object)}px)`,
             '--group-color': layout.getGroupColor(layout.getGroupIndex(object)),
           }}
-          onMouseEnter={() => notemouseenter?.(object)}
-          onMouseLeave={() => notemouseleave?.(object)}
+          onMouseEnter={() => noteMouseEnter?.(object)}
+          onMouseLeave={() => noteMouseLeave?.(object)}
         >
           {object.value}
         </div>

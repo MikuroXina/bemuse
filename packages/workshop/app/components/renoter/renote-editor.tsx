@@ -4,15 +4,22 @@ import { Tree } from '@ui5/webcomponents-react/Tree'
 import { TreeItem } from '@ui5/webcomponents-react/TreeItem'
 import memoize from 'lodash/memoize'
 import sortedIndexBy from 'lodash/sortedIndexBy'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import {
+  type KeyboardEvent,
+  type MouseEvent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 
+import type { Channel, ObjectRow, RenoteData } from '../../lib/renoter/types'
 import { calculateLayout, PX_PER_BEAT } from './layout'
 import { RenoterRow } from './row'
-import type { ObjectRow, RenoteData } from './types'
 
 export interface RenoteEditorProps {
   previewSound: (sound?: string) => void
-  save: (params: Pick<RenoteData, 'newNotes' | 'groups'>) => void
+  save: (detail: Pick<RenoteData, 'newNotes' | 'groups'>) => void
   chart: BMSChart
   data: RenoteData
 }
@@ -100,10 +107,7 @@ export const RenoteEditor = ({
         row = {
           y,
           objects: [],
-          timeKey: [
-            o.measure,
-            Math.round(o.fraction * 960 * (beatsThisMeasure / 4)),
-          ].join(':'),
+          timeKey: `${o.measure}:${Math.round(o.fraction * 960 * (beatsThisMeasure / 4))}`,
         }
         rows.push(row)
         map[y] = row
@@ -129,7 +133,7 @@ export const RenoteEditor = ({
     previewSound(keysound)
   }
 
-  function onMouseMove(e: MouseEvent) {
+  function onMouseMove(e: MouseEvent<HTMLDivElement>) {
     const rect = scroller.current?.getBoundingClientRect()
     if (rect && scroller.current && e.shiftKey) {
       const x = e.clientX - rect.left + scroller.current.scrollLeft
@@ -154,7 +158,7 @@ export const RenoteEditor = ({
     }
   }
 
-  function onKeyDown(e: KeyboardEvent) {
+  function onKeyDown(e: KeyboardEvent<HTMLDivElement>) {
     if (e.key === 's' && (e.ctrlKey || e.metaKey)) {
       e.preventDefault()
       console.log('Save!!!')
@@ -230,7 +234,7 @@ export const RenoteEditor = ({
       }
     }
   }
-  function toggleChannel(channel: string) {
+  function toggleChannel(channel: Channel) {
     const row = layout.getRowByTimeKey(selectedTimeKey)
     if (!row) {
       return
@@ -284,7 +288,11 @@ export const RenoteEditor = ({
     }
     setSelectedTimeKey(row.timeKey)
   }
-  function onSetLength(e: { row: ObjectRow; channel: string; length: number }) {
+  function onSetLength(e: {
+    row: ObjectRow
+    channel: Channel
+    length: number
+  }) {
     const { row, channel, length } = e
     if (newNotes[row.timeKey] && newNotes[row.timeKey][channel]) {
       newNotes[row.timeKey] = {
@@ -351,8 +359,8 @@ export const RenoteEditor = ({
                   layout={layout}
                   selectedColumnIndex={selectedGroupIndex}
                   newNotes={newNotes[row.timeKey]}
-                  notemouseenter={onNoteHover}
-                  setlength={onSetLength}
+                  noteMouseEnter={onNoteHover}
+                  setLength={onSetLength}
                 />
               </div>
             ))}
