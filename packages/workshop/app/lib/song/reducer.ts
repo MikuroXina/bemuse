@@ -79,6 +79,14 @@ const reducers = {
     ...state,
     renderProgress: ['awaiting'],
   }),
+  START_CREATE_PREVIEW: (state: State, status: string) => ({
+    ...state,
+    createPreviewProgress: ['processing', status],
+  }),
+  DONE_CREATE_PREVIEW: (state: State, _: never[]) => ({
+    ...state,
+    createPreviewProgress: ['awaiting'],
+  }),
 } as const satisfies Record<string, (state: State, action: any) => State>
 
 type Reducers = typeof reducers

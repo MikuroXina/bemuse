@@ -37,6 +37,7 @@ import { MetadataEditor } from '~/components/metadata-editor'
 import { VideoSynchronizer } from '~/components/video-synchronizer'
 import { choose } from '~/lib/song/choose'
 import { convertAudioFiles } from '~/lib/song/convert-audio-files'
+import { createPreview } from '~/lib/song/create-preview'
 import { indexCharts } from '~/lib/song/index-charts'
 import { initialState, reducer } from '~/lib/song/reducer'
 import { renderSong } from '~/lib/song/render'
@@ -111,7 +112,6 @@ export default function Song() {
     },
   ]
 
-  async function createPreview() {}
   async function saveMetadata() {}
   async function scanVisualFiles() {}
   async function setVideoOffset() {}
@@ -345,7 +345,12 @@ export default function Song() {
                   value={songMeta?.preview_start?.toString() ?? ''}
                 ></Input>
                 <Button
-                  onClick={createPreview}
+                  onClick={() => {
+                    const startTime = parseFloat(
+                      previewStartTimeInput?.current?.value ?? '0'
+                    )
+                    createPreview(usingDir, startTime, dispatch)
+                  }}
                   disabled={createPreviewProgress[0] === 'processing'}
                 >
                   Create song preview
