@@ -21,6 +21,7 @@ export async function renderSong(
       chartFilename,
       soundAssets,
       (message: string) => {
+        console.log(message)
         dispatch(['START_RENDER', message])
       }
     )
@@ -244,10 +245,15 @@ async function prepareFfmpeg(buf: AudioBuffer) {
   const ffmpeg = await createFFmpegInstance()
   for (let i = 0; i < 2; i++) {
     const channel = buf.getChannelData(i)
-    ffmpeg.writeFile(
-      `ch${i}.f32`,
-      new Uint8Array(channel.buffer, channel.byteOffset, channel.byteLength)
+    const view = new Uint8Array(
+      channel.buffer,
+      channel.byteOffset,
+      channel.byteLength
     )
+    const cloned = new ArrayBuffer(view.byteLength)
+    const clonedView = new Uint8Array(cloned)
+    clonedView.set(view)
+    await ffmpeg.writeFile(`ch${i}.f32`, clonedView)
   }
   return ffmpeg
 }
