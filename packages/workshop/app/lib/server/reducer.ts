@@ -24,6 +24,14 @@ const reducers = {
     serverFile: null,
     data: { songs: [], urls: [] },
   }),
+  SET_STATUS: (state: State, [url, status]: [string, Status]) => ({
+    ...state,
+    scanStatus: { ...state.scanStatus, [url]: status },
+  }),
+  CLEAR_ALL_STATUS: (state: State, _: never[]) => ({
+    ...state,
+    scanStatus: {},
+  }),
 } as const satisfies Record<string, (state: State, action: any) => State>
 
 type Reducers = typeof reducers

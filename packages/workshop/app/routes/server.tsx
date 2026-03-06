@@ -16,6 +16,7 @@ import { useReducer } from 'react'
 import { chooseServerFile } from '~/lib/server/choose'
 import { newServerFile } from '~/lib/server/new-file'
 import { initialState, reducer, type Status } from '~/lib/server/reducer'
+import { scanSongs } from '~/lib/server/scan-songs'
 
 interface StatusProps {
   text: string
@@ -54,7 +55,6 @@ export default function Server() {
   const [state, dispatch] = useReducer(reducer, initialState)
   const { serverFile, data, scanStatus } = state
 
-  function scanSongs() {}
   function addUrls() {}
   function closeServer() {}
 
@@ -86,10 +86,20 @@ export default function Server() {
         <Label>{serverFile.name}</Label>
       </Bar>
 
-      <div style={{ padding: '1rem' }} className='ui5-content-density-compact'>
+      <div
+        style={{
+          display: 'grid',
+          padding: '1rem',
+          gap: '1rem',
+          gridTemplateColumns: 'repeat(auto-fit,minmax(min(480px,100%),1fr))',
+        }}
+      >
         <Card>
           <CardHeader slot='header' title-text='URLs'>
-            <Button slot='action' onClick={scanSongs}>
+            <Button
+              slot='action'
+              onClick={() => scanSongs(serverFile, data, dispatch)}
+            >
               Update data
             </Button>
           </CardHeader>
@@ -137,12 +147,9 @@ export default function Server() {
             </div>
           </form>
         </Card>
-      </div>
-
-      <div style={{ padding: '0 1rem 1rem' }}>
         <Card>
           <CardHeader slot='header' title-text='Songs'></CardHeader>
-          <Table class='demo-table' id='table'>
+          <Table className='demo-table' id='table'>
             <TableHeaderRow slot='headerRow'>
               <TableHeaderCell> Added </TableHeaderCell>
               <TableHeaderCell> Genre </TableHeaderCell>
@@ -167,9 +174,7 @@ export default function Server() {
       </div>
 
       <Bar design='Footer'>
-        <Label slot='startContent'>
-          Current file: {serverFile.serverFile.name}
-        </Label>
+        <Label slot='startContent'>Current file: {serverFile.name}</Label>
         <Button design='Negative' slot='endContent' onClick={closeServer}>
           Close folder
         </Button>
