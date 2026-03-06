@@ -13,18 +13,14 @@ import { TableSelectionMulti } from '@ui5/webcomponents-react/TableSelectionMult
 import { TextArea } from '@ui5/webcomponents-react/TextArea'
 import { type SubmitEvent, useReducer } from 'react'
 
+import { StatusCell, type StatusCellProps } from '~/components/status-cell'
 import { addUrls } from '~/lib/server/add-urls'
 import { chooseServerFile } from '~/lib/server/choose'
 import { newServerFile } from '~/lib/server/new-file'
 import { initialState, reducer, type Status } from '~/lib/server/reducer'
 import { scanSongs } from '~/lib/server/scan-songs'
 
-interface StatusProps {
-  text: string
-  status: string
-}
-
-function statusProps(status: Status): StatusProps {
+function statusProps(status: Status): StatusCellProps {
   if (status === 'scanning') {
     return {
       text: 'Scanning...',
@@ -51,12 +47,6 @@ function statusProps(status: Status): StatusProps {
   }
   return { text: '', status: 'None' }
 }
-
-const StatusCell = ({ status, text }: StatusProps) => (
-  <span data-status={status} className='url-status-text'>
-    {text}
-  </span>
-)
 
 export default function Server() {
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -193,21 +183,6 @@ export default function Server() {
           Close folder
         </Button>
       </Bar>
-
-      <style>{`
-        .url-status-text[data-status='Information'] {
-          color: var(--sapInformationColor);
-        }
-        .url-status-text[data-status='Error'] {
-          color: var(--sapErrorColor);
-        }
-        .url-status-text[data-status='Warning'] {
-          color: var(--sapWarningColor);
-        }
-        .url-status-text[data-status='Success'] {
-          color: var(--sapSuccessColor);
-        }
-      `}</style>
     </>
   )
 }
