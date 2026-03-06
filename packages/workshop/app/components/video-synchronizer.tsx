@@ -1,5 +1,5 @@
 import { Button } from '@ui5/webcomponents-react/Button'
-import { Fragment, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 import { useFileObjectUrl } from '~/lib/hooks/file-object-url'
 
@@ -22,7 +22,6 @@ export const VideoSynchronizer = ({
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const canceled = useRef(false)
-  const [resetCount, setResetCount] = useState(0)
   const [previewing, setPreviewing] = useState(false)
 
   function startPreview() {
@@ -43,8 +42,13 @@ export const VideoSynchronizer = ({
     setPreviewing(true)
   }
   function resetPreview() {
+    const video = videoRef.current
+    video?.pause()
+
+    const audio = audioRef.current
+    audio?.pause()
+
     canceled.current = true
-    setResetCount((count) => count + 1)
     setPreviewing(false)
   }
   async function setOffset() {
@@ -78,7 +82,7 @@ export const VideoSynchronizer = ({
     return 'Not specified'
   }
   return (
-    <Fragment key={resetCount}>
+    <>
       <video
         src={videoUrl}
         preload='auto'
@@ -101,6 +105,6 @@ export const VideoSynchronizer = ({
           </Button>
         </>
       )}
-    </Fragment>
+    </>
   )
 }
