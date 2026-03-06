@@ -115,7 +115,6 @@ export default function Song() {
   ]
 
   async function setVideoOffset() {}
-  async function close() {}
   async function recheck() {}
 
   if (!usingDir) {
@@ -464,7 +463,11 @@ export default function Song() {
       </TabContainer>
       <Bar design='Footer'>
         <Label slot='startContent'>Current folder: {usingDir.name}</Label>
-        <Button design='Negative' slot='endContent' onClick={close}>
+        <Button
+          design='Negative'
+          slot='endContent'
+          onClick={() => dispatch(['CLOSE', []])}
+        >
           Close folder
         </Button>
       </Bar>
