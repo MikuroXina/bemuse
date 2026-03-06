@@ -1,17 +1,22 @@
-import type { SongMetadata } from '@mikuroxina/bemuse-types'
+import * as v from 'valibot'
+import { songMetadataSchema } from '@mikuroxina/bemuse-types'
 
-export interface ServerFile {
-  urls: UrlEntry[]
-  songs: SongEntry[]
-}
+export const urlEntrySchema = v.object({
+  url: v.string(),
+  added: v.optional(v.string()),
+  title: v.optional(v.string()),
+})
+export type UrlEntry = v.InferOutput<typeof urlEntrySchema>
 
-export interface UrlEntry {
-  url: string
-  added?: string
-  title?: string
-}
+export const songEntrySchema = v.object({
+  ...songMetadataSchema.entries,
+  id: v.string(),
+  path: v.string(),
+})
+export type SongEntry = v.InferOutput<typeof songEntrySchema>
 
-export interface SongEntry extends SongMetadata {
-  id: string
-  path: string
-}
+export const serverFileSchema = v.object({
+  urls: v.array(urlEntrySchema),
+  songs: v.array(songEntrySchema),
+})
+export type ServerFile = v.InferOutput<typeof serverFileSchema>

@@ -11,31 +11,57 @@ import { TableHeaderRow } from '@ui5/webcomponents-react/TableHeaderRow'
 import { TableRow } from '@ui5/webcomponents-react/TableRow'
 import { TableSelectionMulti } from '@ui5/webcomponents-react/TableSelectionMulti'
 import { TextArea } from '@ui5/webcomponents-react/TextArea'
+import { useReducer } from 'react'
 
-import type { ServerFile } from '~/lib/server/server-file'
+import { chooseServerFile } from '~/lib/server/choose'
+import { newServerFile } from '~/lib/server/new-file'
+import { initialState, reducer, type Status } from '~/lib/server/reducer'
+import type { SongEntry } from '~/lib/server/server-file'
 
-function statusProps() {}
+interface StatusProps {
+  text: string
+  status: string
+}
 
-function sortSongs() {}
+function statusProps(status: Status): StatusProps {
+  if (status === 'scanning') {
+    return {
+      text: 'Scanning...',
+      status: 'Information',
+    }
+  }
+  if (status === 'skipped') {
+    return {
+      text: 'Skipped',
+      status: 'Success',
+    }
+  }
+  if (status === 'error') {
+    return {
+      text: 'Error',
+      status: 'Error',
+    }
+  }
+  if (status === 'completed') {
+    return {
+      text: 'Completed',
+      status: 'Success',
+    }
+  }
+  return { text: '', status: 'None' }
+}
+
+function sortSongs(songs: SongEntry[]): SongEntry[] {}
 
 export default function Server() {
-  const checkState = null
-  const data: ServerFile = {
-    urls: [],
-    songs: [],
-  }
-  const scanStatus: Record<
-    string,
-    'scanning' | 'error' | 'completed' | 'skipped'
-  > = {}
+  const [state, dispatch] = useReducer(reducer, initialState)
+  const { serverFile, data, scanStatus } = state
 
-  function chooseServerFile() {}
-  function newServerFile() {}
   function scanSongs() {}
   function addUrls() {}
   function closeServer() {}
 
-  if (!checkState) {
+  if (!serverFile) {
     return (
       <IllustratedMessage
         name='NoData'
@@ -43,10 +69,13 @@ export default function Server() {
         subtitle-text='Open or create a server file'
       >
         <div style={{ display: 'flex', gap: '16px' }}>
-          <Button design='Emphasized' onClick={chooseServerFile}>
+          <Button
+            design='Emphasized'
+            onClick={() => chooseServerFile(dispatch)}
+          >
             Open a server file
           </Button>
-          <Button design='Emphasized' onClick={newServerFile}>
+          <Button design='Emphasized' onClick={() => newServerFile(dispatch)}>
             Create a new server file
           </Button>
         </div>
@@ -57,7 +86,7 @@ export default function Server() {
   return (
     <>
       <Bar design='Subheader'>
-        <Label>{checkState.serverFile.name}</Label>
+        <Label>{serverFile.name}</Label>
       </Bar>
 
       <div style={{ padding: '1rem' }} className='ui5-content-density-compact'>
@@ -142,7 +171,7 @@ export default function Server() {
 
       <Bar design='Footer'>
         <Label slot='startContent'>
-          Current file: {checkState.serverFile.name}
+          Current file: {serverFile.serverFile.name}
         </Label>
         <Button design='Negative' slot='endContent' onClick={closeServer}>
           Close folder
