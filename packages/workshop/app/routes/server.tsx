@@ -16,7 +16,6 @@ import { useReducer } from 'react'
 import { chooseServerFile } from '~/lib/server/choose'
 import { newServerFile } from '~/lib/server/new-file'
 import { initialState, reducer, type Status } from '~/lib/server/reducer'
-import type { SongEntry } from '~/lib/server/server-file'
 
 interface StatusProps {
   text: string
@@ -50,8 +49,6 @@ function statusProps(status: Status): StatusProps {
   }
   return { text: '', status: 'None' }
 }
-
-function sortSongs(songs: SongEntry[]): SongEntry[] {}
 
 export default function Server() {
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -152,7 +149,7 @@ export default function Server() {
               <TableHeaderCell> Title </TableHeaderCell>
               <TableHeaderCell> Artist </TableHeaderCell>
             </TableHeaderRow>
-            {sortSongs(data.songs).map((song) => (
+            {data.songs.map((song) => (
               <TableRow key={song.id} rowKey={song.id}>
                 <TableCell>
                   {song.initial
