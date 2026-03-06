@@ -1,3 +1,6 @@
+import { Button } from '@ui5/webcomponents-react/Button'
+import { ShellBar } from '@ui5/webcomponents-react/ShellBar'
+import { ThemeProvider } from '@ui5/webcomponents-react/ThemeProvider'
 import {
   isRouteErrorResponse,
   Links,
@@ -6,10 +9,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from 'react-router'
+
 import type { Route } from './+types/root'
-import { ThemeProvider } from '@ui5/webcomponents-react/ThemeProvider'
-import { ShellBar } from '@ui5/webcomponents-react/ShellBar'
-import { Button } from '@ui5/webcomponents-react/Button'
 import styles from './root.module.css'
 
 export function Layout({ children }: { children: React.ReactNode }) {

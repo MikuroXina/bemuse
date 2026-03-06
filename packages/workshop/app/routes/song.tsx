@@ -9,38 +9,39 @@ import '@ui5/webcomponents-icons/message-success.js'
 import '@ui5/webcomponents-icons/synchronize.js'
 import '@ui5/webcomponents-fiori/illustrations/NoData.js'
 
-import { TabContainer } from '@ui5/webcomponents-react/TabContainer'
-import { Label } from '@ui5/webcomponents-react/Label'
+import type { Chart } from '@mikuroxina/bemuse-types'
 import { Bar } from '@ui5/webcomponents-react/Bar'
+import { BusyIndicator } from '@ui5/webcomponents-react/BusyIndicator'
 import { Button } from '@ui5/webcomponents-react/Button'
+import { Card } from '@ui5/webcomponents-react/Card'
+import { CardHeader } from '@ui5/webcomponents-react/CardHeader'
 import { IllustratedMessage } from '@ui5/webcomponents-react/IllustratedMessage'
+import { Input, type InputDomRef } from '@ui5/webcomponents-react/Input'
+import { Label } from '@ui5/webcomponents-react/Label'
+import { List } from '@ui5/webcomponents-react/List'
+import { ListItemStandard } from '@ui5/webcomponents-react/ListItemStandard'
+import { Option } from '@ui5/webcomponents-react/Option'
+import { Select, type SelectDomRef } from '@ui5/webcomponents-react/Select'
 import { ShellBar } from '@ui5/webcomponents-react/ShellBar'
 import { Tab } from '@ui5/webcomponents-react/Tab'
-import { useReducer, useRef } from 'react'
-import { List } from '@ui5/webcomponents-react/List'
-import { Card } from '@ui5/webcomponents-react/Card'
+import { TabContainer } from '@ui5/webcomponents-react/TabContainer'
+import { Table } from '@ui5/webcomponents-react/Table'
+import { TableCell } from '@ui5/webcomponents-react/TableCell'
 import { TableHeaderCell } from '@ui5/webcomponents-react/TableHeaderCell'
 import { TableHeaderRow } from '@ui5/webcomponents-react/TableHeaderRow'
-import { TableCell } from '@ui5/webcomponents-react/TableCell'
 import { TableRow } from '@ui5/webcomponents-react/TableRow'
-import { Table } from '@ui5/webcomponents-react/Table'
-import { CardHeader } from '@ui5/webcomponents-react/CardHeader'
-import { ListItemStandard } from '@ui5/webcomponents-react/ListItemStandard'
-import { Select, type SelectDomRef } from '@ui5/webcomponents-react/Select'
-import { Option } from '@ui5/webcomponents-react/Option'
-import { Input, type InputDomRef } from '@ui5/webcomponents-react/Input'
-import type { Chart } from '@mikuroxina/bemuse-types'
-import { initialState, reducer } from '~/lib/song/reducer'
-import type { SoundAssetsMetadata } from '~/lib/types'
-import { getMetadataStatus } from '~/lib/song-file'
+import { useReducer, useRef } from 'react'
+
 import { ImagePreview } from '~/components/image-preview'
-import { VideoSynchronizer } from '~/components/video-synchronizer'
 import { MetadataEditor } from '~/components/metadata-editor'
-import { BusyIndicator } from '@ui5/webcomponents-react/BusyIndicator'
+import { VideoSynchronizer } from '~/components/video-synchronizer'
 import { choose } from '~/lib/song/choose'
 import { convertAudioFiles } from '~/lib/song/convert-audio-files'
 import { indexCharts } from '~/lib/song/index-charts'
+import { initialState, reducer } from '~/lib/song/reducer'
 import { renderSong } from '~/lib/song/render'
+import { getMetadataStatus } from '~/lib/song-file'
+import type { SoundAssetsMetadata } from '~/lib/types'
 
 function formatSize(bytes: number) {
   return (bytes / 1048576).toFixed(2) + ' MB'
@@ -52,7 +53,7 @@ function totalSize(soundAssets: SoundAssetsMetadata) {
   }, 0)
 }
 
-function ChartExtra({}: { chart: Chart }) {
+function ChartExtra({ chart: _chart }: { chart: Chart }) {
   return null
 }
 
@@ -156,6 +157,7 @@ export default function Song() {
           <List className='full-width'>
             {checkItems.map((item) => (
               <ListItemStandard
+                key={item.label}
                 icon={item.ok ? 'message-success' : 'alert'}
                 description={item.description || '…'}
                 additionalText={item.infoText || ''}
@@ -250,13 +252,17 @@ export default function Song() {
                   <TableCell>
                     {chart.info.title}
                     {chart.info.subtitles.map((t) => (
-                      <small style={{ display: 'block' }}>{t}</small>
+                      <small key={t} style={{ display: 'block' }}>
+                        {t}
+                      </small>
                     ))}
                   </TableCell>
                   <TableCell>
                     {chart.info.artist}
                     {chart.info.subartists.map((t) => (
-                      <small style={{ display: 'block' }}>{t}</small>
+                      <small key={t} style={{ display: 'block' }}>
+                        {t}
+                      </small>
                     ))}
                   </TableCell>
                   <TableCell>{chart.info.genre}</TableCell>
@@ -283,7 +289,9 @@ export default function Song() {
                 <>
                   <Select ref={chartSelector}>
                     {songMeta?.charts.map((chart) => (
-                      <Option data-chart={chart.file}>{chart.file}</Option>
+                      <Option key={chart.md5} data-chart={chart.file}>
+                        {chart.file}
+                      </Option>
                     ))}
                   </Select>
                   <Button

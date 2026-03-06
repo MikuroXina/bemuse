@@ -1,5 +1,6 @@
 import { Button } from '@ui5/webcomponents-react/Button'
 import { Fragment, useRef, useState } from 'react'
+
 import { useFileObjectUrl } from '~/lib/hooks/file-object-url'
 
 export interface VideoSynchronizerProps {

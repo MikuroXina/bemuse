@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite'
 import { reactRouter } from '@react-router/dev/vite'
 import { playwright } from '@vitest/browser-playwright'
+import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 // @ts-check
