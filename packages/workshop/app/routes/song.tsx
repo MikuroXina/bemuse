@@ -41,6 +41,7 @@ import { createPreview } from '~/lib/song/create-preview'
 import { indexCharts } from '~/lib/song/index-charts'
 import { initialState, reducer } from '~/lib/song/reducer'
 import { renderSong } from '~/lib/song/render'
+import { saveMetadata } from '~/lib/song/save-metadata'
 import { getMetadataStatus } from '~/lib/song-file'
 import type { SoundAssetsMetadata } from '~/lib/types'
 
@@ -112,7 +113,6 @@ export default function Song() {
     },
   ]
 
-  async function saveMetadata() {}
   async function scanVisualFiles() {}
   async function setVideoOffset() {}
   async function close() {}
@@ -377,7 +377,9 @@ export default function Song() {
           {songMeta ? (
             <MetadataEditor
               songMeta={songMeta}
-              onSave={saveMetadata}
+              onSave={(updater, readmeContents) =>
+                saveMetadata(usingDir, updater, readmeContents)
+              }
               readme={readme}
             />
           ) : (
