@@ -42,6 +42,7 @@ import { indexCharts } from '~/lib/song/index-charts'
 import { initialState, reducer } from '~/lib/song/reducer'
 import { renderSong } from '~/lib/song/render'
 import { saveMetadata } from '~/lib/song/save-metadata'
+import { scanVisual } from '~/lib/song/scan-visual'
 import { getMetadataStatus } from '~/lib/song-file'
 import type { SoundAssetsMetadata } from '~/lib/types'
 
@@ -76,7 +77,7 @@ export default function Song() {
     indexProgress,
     renderProgress,
     createPreviewProgress,
-    scanVisualFilesProgress: scanningVisualFilesProgress,
+    scanVisualProgress: scanningVisualFilesProgress,
   } = state
   const metadataStatus = getMetadataStatus(songMeta)
   const previewCreated = !!previewMp3
@@ -113,7 +114,6 @@ export default function Song() {
     },
   ]
 
-  async function scanVisualFiles() {}
   async function setVideoOffset() {}
   async function close() {}
   async function recheck() {}
@@ -392,7 +392,7 @@ export default function Song() {
             <CardHeader slot='header' titleText='Scan image and BGA files' />
             <div style={{ padding: '1rem' }}>
               <Button
-                onClick={scanVisualFiles}
+                onClick={() => scanVisual(usingDir, dispatch)}
                 disabled={scanningVisualFilesProgress[0] === 'processing'}
               >
                 Scan

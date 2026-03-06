@@ -17,7 +17,7 @@ export interface State {
   indexProgress: SubsystemProgress
   renderProgress: SubsystemProgress
   createPreviewProgress: SubsystemProgress
-  scanVisualFilesProgress: SubsystemProgress
+  scanVisualProgress: SubsystemProgress
 }
 
 export const initialState: State = {
@@ -32,7 +32,7 @@ export const initialState: State = {
   indexProgress: ['awaiting'],
   renderProgress: ['awaiting'],
   createPreviewProgress: ['awaiting'],
-  scanVisualFilesProgress: ['awaiting'],
+  scanVisualProgress: ['awaiting'],
 }
 
 const reducers = {
@@ -86,6 +86,14 @@ const reducers = {
   DONE_CREATE_PREVIEW: (state: State, _: never[]) => ({
     ...state,
     createPreviewProgress: ['awaiting'],
+  }),
+  START_SCAN_VISUAL: (state: State, status: string) => ({
+    ...state,
+    scanVisualProgress: ['processing', status],
+  }),
+  DONE_SCAN_VISUAL: (state: State, _: never[]) => ({
+    ...state,
+    scanVisualProgress: ['awaiting'],
   }),
 } as const satisfies Record<string, (state: State, action: any) => State>
 
