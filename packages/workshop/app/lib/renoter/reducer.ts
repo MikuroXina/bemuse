@@ -7,11 +7,16 @@ export type State =
       message: string
     }
   | {
-      type: 'OPEN'
-      data: RenoteData
+      type: 'OPEN_DIR'
       directoryHandle: FileSystemDirectoryHandle
-      renoteHandle: FileSystemFileHandle
-      fileHandle: FileSystemFileHandle
+      bmsFileNames: string[]
+    }
+  | {
+      type: 'OPEN_CHART'
+      directoryHandle: FileSystemDirectoryHandle
+      renoteChartHandle: FileSystemFileHandle
+      renoteData: RenoteData
+      chartHandle: FileSystemFileHandle
       chart: BMSChart
       chartData: ArrayBuffer
     }
@@ -23,18 +28,31 @@ export const initialState: State = { type: 'CLOSED' }
 const reducers = {
   ERROR: (_: State, message: string) => ({ type: 'ERROR', message }),
   START_LOAD: (_state: State, _: never[]) => ({ type: 'LOADING' }),
-  OPEN: (
+  OPEN_DIR: (
     _: State,
     props: {
-      data: RenoteData
       directoryHandle: FileSystemDirectoryHandle
-      renoteHandle: FileSystemFileHandle
-      fileHandle: FileSystemFileHandle
+      bmsFileNames: string[]
+    }
+  ) => ({ type: 'OPEN_DIR', ...props }),
+  CLOSE_DIR: (_state: State, _: never[]) => ({ type: 'CLOSED' }),
+  OPEN_CHART: (
+    state: State,
+    props: {
+      renoteChartHandle: FileSystemFileHandle
+      renoteData: RenoteData
+      chartHandle: FileSystemFileHandle
       chart: BMSChart
       chartData: ArrayBuffer
     }
-  ) => ({ type: 'OPEN', ...props }),
-  CLOSE: (_state: State, _: never[]) => ({ type: 'CLOSED' }),
+  ) =>
+    state.type === 'OPEN_DIR'
+      ? { ...state, ...props, type: 'OPEN_CHART' }
+      : { type: 'ERROR', message: 'directory not open' },
+  CLOSE_CHART: (state: State, bmsFileNames: string[]) =>
+    state.type === 'OPEN_CHART'
+      ? { ...state, bmsFileNames, type: 'OPEN_DIR' }
+      : { type: 'ERROR', message: 'bms not open' },
 } as const satisfies Record<string, (state: State, action: any) => State>
 
 type Reducers = typeof reducers

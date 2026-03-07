@@ -50,6 +50,7 @@ export const notesMapSchema = v.record(
 export type NotesMap = v.InferOutput<typeof notesMapSchema>
 
 export const renoteDataSchema = v.object({
+  version: v.literal('1.0.0'),
   source: v.string(),
   suffix: v.optional(v.string()),
   replace: v.optional(v.record(v.string(), v.string())),

@@ -2,23 +2,23 @@ import { renoteBms } from './core'
 import type { RenoteData } from './types'
 
 export async function save({
-  renoteSource,
-  renoteHandle,
-  data,
   directoryHandle,
+  renoteChartHandle,
+  renoteData,
+  chartFileName,
   chartData,
   detail,
 }: {
-  renoteSource: string
-  renoteHandle: FileSystemFileHandle
-  data: RenoteData
   directoryHandle: FileSystemDirectoryHandle
+  renoteChartHandle: FileSystemFileHandle
+  renoteData: RenoteData
+  chartFileName: string
   chartData: ArrayBuffer
   detail: Pick<RenoteData, 'newNotes' | 'groups'>
 }): Promise<void> {
-  const handle = renoteHandle
+  const handle = renoteChartHandle
   const newData: RenoteData = {
-    ...data,
+    ...renoteData,
     newNotes: detail.newNotes,
     groups: detail.groups,
   }
@@ -28,7 +28,7 @@ export async function save({
     await writable.close()
   }
   const bmsHandle = await directoryHandle.getFileHandle(
-    renoteSource + '_renote' + (newData.suffix || '.bms'),
+    `${chartFileName}.renote.bms`,
     { create: true }
   )
   {

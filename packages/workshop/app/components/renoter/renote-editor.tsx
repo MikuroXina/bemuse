@@ -37,7 +37,7 @@ export const RenoteEditor = ({
   previewSound,
   save,
   chart,
-  data,
+  data: data,
 }: RenoteEditorProps) => {
   const newNotes = data.newNotes ?? {}
   const groups = data.groups ?? []
