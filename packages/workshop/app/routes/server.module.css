@@ -1,0 +1,24 @@
+.buttonGroup {
+  display: flex;
+  gap: 16px;
+}
+
+.autoBreakCards {
+  display: grid;
+  padding: 1rem;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(480px, 100%), 1fr));
+}
+
+.cardBody {
+  overflow: auto;
+  max-height: 64vh;
+}
+
+.mainHeaderCell {
+  width: 12rem;
+}
+
+.primaryActionButton {
+  text-align: right;
+}

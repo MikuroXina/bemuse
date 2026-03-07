@@ -4,6 +4,7 @@ import { Card } from '@ui5/webcomponents-react/Card'
 import { CardHeader } from '@ui5/webcomponents-react/CardHeader'
 import { IllustratedMessage } from '@ui5/webcomponents-react/IllustratedMessage'
 import { Label } from '@ui5/webcomponents-react/Label'
+import { Panel } from '@ui5/webcomponents-react/Panel'
 import { Table } from '@ui5/webcomponents-react/Table'
 import { TableCell } from '@ui5/webcomponents-react/TableCell'
 import { TableHeaderCell } from '@ui5/webcomponents-react/TableHeaderCell'
@@ -19,6 +20,8 @@ import { chooseServerFile } from '~/lib/server/choose'
 import { newServerFile } from '~/lib/server/new-file'
 import { initialState, reducer, type Status } from '~/lib/server/reducer'
 import { scanSongs } from '~/lib/server/scan-songs'
+
+import styles from './server.module.css'
 
 function statusProps(status: Status): StatusCellProps {
   if (status === 'scanning') {
@@ -70,7 +73,7 @@ export default function Server() {
         title-text='No server file selected'
         subtitle-text='Open or create a server file'
       >
-        <div style={{ display: 'flex', gap: '16px' }}>
+        <div className={styles.buttonGroup}>
           <Button
             design='Emphasized'
             onClick={() => chooseServerFile(dispatch)}
@@ -90,15 +93,7 @@ export default function Server() {
       <Bar design='Subheader'>
         <Label>{serverFile.name}</Label>
       </Bar>
-
-      <div
-        style={{
-          display: 'grid',
-          padding: '1rem',
-          gap: '1rem',
-          gridTemplateColumns: 'repeat(auto-fit,minmax(min(480px,100%),1fr))',
-        }}
-      >
+      <div className={styles.autoBreakCards}>
         <Card>
           <CardHeader slot='header' title-text='URLs'>
             <Button
@@ -108,13 +103,13 @@ export default function Server() {
               Update data
             </Button>
           </CardHeader>
-          <div style={{ overflow: 'auto', maxHeight: '64vh' }}>
+          <div className={styles.cardBody}>
             <Table no-data-text='No URLs.' sticky-column-header='true'>
               <TableSelectionMulti slot='features' />
               <TableHeaderRow slot='headerRow'>
                 <TableHeaderCell>URL</TableHeaderCell>
                 <TableHeaderCell>Added</TableHeaderCell>
-                <TableHeaderCell style={{ width: '12rem' }}>
+                <TableHeaderCell className={styles.mainHeaderCell}>
                   Status
                 </TableHeaderCell>
               </TableHeaderRow>
@@ -131,21 +126,22 @@ export default function Server() {
               ))}
             </Table>
           </div>
-          <form onSubmit={onSubmitAddUrls} style={{ padding: '1rem' }}>
-            <strong>Add URL</strong>
-            <div>
-              <TextArea
-                placeholder='Enter URLs (one per line)'
-                name='urls'
-              ></TextArea>
-            </div>
-            <div style={{ textAlign: 'right' }}>
-              <Button design='Emphasized' type='Submit'>
-                {' '}
-                Add{' '}
-              </Button>
-            </div>
-          </form>
+          <Panel>
+            <form onSubmit={onSubmitAddUrls}>
+              <strong>Add URL</strong>
+              <div>
+                <TextArea
+                  placeholder='Enter URLs (one per line)'
+                  name='urls'
+                ></TextArea>
+              </div>
+              <div className={styles.primaryActionButton}>
+                <Button design='Emphasized' type='Submit'>
+                  Add
+                </Button>
+              </div>
+            </form>
+          </Panel>
         </Card>
         <Card>
           <CardHeader slot='header' title-text='Songs'></CardHeader>

@@ -1,6 +1,7 @@
 import { Button } from '@ui5/webcomponents-react/Button'
 import { MessageStrip } from '@ui5/webcomponents-react/MessageStrip'
 import { Option } from '@ui5/webcomponents-react/Option'
+import { Panel } from '@ui5/webcomponents-react/Panel'
 import { Select } from '@ui5/webcomponents-react/Select'
 import { useReducer } from 'react'
 
@@ -48,33 +49,33 @@ export default function Renoter() {
 
   if (state.type === 'CLOSED') {
     return (
-      <Button design='Emphasized' onClick={onClickOpenDir}>
-        Choose a song folder
-      </Button>
+      <Panel>
+        <Button design='Emphasized' onClick={onClickOpenDir}>
+          Choose a song folder
+        </Button>
+      </Panel>
     )
   }
   if (state.type === 'LOADING') {
     return (
-      <div style={{ padding: '1rem' }}>
+      <Panel>
         <MessageStrip design='Information'>Checking...</MessageStrip>
-      </div>
+      </Panel>
     )
   }
   if (state.type === 'ERROR') {
     return (
-      <>
+      <Panel>
         <Button design='Emphasized' onClick={onClickOpenDir}>
           Choose a song folder
         </Button>
-        <div style={{ padding: '1rem' }}>
-          <MessageStrip design='Negative'>{state.message}</MessageStrip>
-        </div>
-      </>
+        <MessageStrip design='Negative'>{state.message}</MessageStrip>
+      </Panel>
     )
   }
   if (state.type === 'OPEN_DIR') {
     return (
-      <>
+      <Panel>
         <form
           onSubmit={(e) => {
             e.preventDefault()
@@ -94,7 +95,7 @@ export default function Renoter() {
         <Button design='Negative' onClick={onClickCloseDir}>
           Close folder
         </Button>
-      </>
+      </Panel>
     )
   }
   return (

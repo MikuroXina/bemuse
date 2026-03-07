@@ -48,6 +48,8 @@ import { setVideoOffset } from '~/lib/song/set-video-offset'
 import { getMetadataStatus } from '~/lib/song-file'
 import type { SoundAssetsMetadata } from '~/lib/types'
 
+import styles from './song.module.css'
+
 function formatSize(bytes: number) {
   return (bytes / 1048576).toFixed(2) + ' MB'
 }
@@ -58,9 +60,32 @@ function totalSize(soundAssets: SoundAssetsMetadata) {
   }, 0)
 }
 
-function ChartExtra({ chart: _chart }: { chart: Chart }) {
-  return null
+function formatDuration(seconds: number) {
+  seconds = Math.ceil(seconds)
+  return (
+    Math.floor(seconds / 60) + ':' + (seconds % 60).toString().padStart(2, '0')
+  )
 }
+
+function formatBpm(bpm: {
+  init: number
+  min: number
+  median: number
+  max: number
+}) {
+  const f = (n: number) => n.toFixed(2).replace(/0+$/, '').replace(/\.$/, '')
+  const softLanding =
+    bpm.min != bpm.max ? ` [${f(bpm.min)}/${f(bpm.median)}/${f(bpm.max)}]` : ''
+  return `BPM: ${f(bpm.init)}${softLanding}`
+}
+
+const ChartExtra = ({ chart }: { chart: Chart }) =>
+  [
+    chart.keys + (chart.scratch ? '+' : ''),
+    formatDuration(chart.duration),
+    chart.noteCount + ' notes',
+    formatBpm(chart.bpm),
+  ].join(' / ')
 
 export default function Song() {
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -131,12 +156,12 @@ export default function Song() {
   }
   if (choosingProgress[0] === 'processing') {
     return (
-      <main>
+      <>
         <ShellBar id='shellbar' primaryTitle='Bemuse Custom Song Workshop' />
-        <div style={{ textAlign: 'center', padding: '1rem;' }}>
+        <div className={styles.center}>
           <BusyIndicator size='L' />
         </div>
-      </main>
+      </>
     )
   }
   return (
@@ -148,7 +173,7 @@ export default function Song() {
           title='Refresh'
           slot='endContent'
           onClick={() => extract(usingDir, dispatch)}
-        ></Button>
+        />
       </Bar>
       <TabContainer className='full-width'>
         <Tab text='Overview' selected icon='activities'>
@@ -167,15 +192,11 @@ export default function Song() {
           </List>
         </Tab>
 
-        <Tab
-          text='Sound assets'
-          icon='attachment-audio'
-          style={{ padding: '1rem' }}
-        >
+        <Tab text='Sound assets' icon='attachment-audio'>
           {soundAssets ? (
             <Card>
               <CardHeader slot='header' titleText='Sound assets' />
-              <div style={{ padding: '1rem' }}>
+              <div className={styles.cardBody}>
                 Sound assets found. To regenerate, delete the
                 “bemuse-data/sound” folder.
               </div>
@@ -195,7 +216,7 @@ export default function Song() {
           ) : (
             <Card>
               <CardHeader slot='header' titleText='Optimize sound assets' />
-              <div style={{ padding: '1rem' }}>
+              <div className={styles.cardBody}>
                 <Button
                   onClick={() => convertAudioFiles(usingDir, dispatch)}
                   disabled={convertProgress[0] === 'processing'}
@@ -210,11 +231,7 @@ export default function Song() {
           )}
         </Tab>
 
-        <Tab
-          text='Charts'
-          icon='full-stacked-column-chart'
-          style={{ padding: '1rem' }}
-        >
+        <Tab text='Charts' icon='full-stacked-column-chart'>
           <Card>
             <CardHeader
               slot='header'
@@ -243,14 +260,14 @@ export default function Song() {
                 <TableRow key={chart.md5} rowKey={chart.md5}>
                   <TableCell>
                     {chart.file}
-                    <small style={{ display: 'block' }}>
+                    <small className={styles.smallTip}>
                       <ChartExtra chart={chart} />
                     </small>
                   </TableCell>
                   <TableCell>
                     {chart.info.title}
                     {chart.info.subtitles.map((t) => (
-                      <small key={t} style={{ display: 'block' }}>
+                      <small className={styles.smallTip} key={t}>
                         {t}
                       </small>
                     ))}
@@ -258,7 +275,7 @@ export default function Song() {
                   <TableCell>
                     {chart.info.artist}
                     {chart.info.subartists.map((t) => (
-                      <small key={t} style={{ display: 'block' }}>
+                      <small className={styles.smallTip} key={t}>
                         {t}
                       </small>
                     ))}
@@ -272,106 +289,86 @@ export default function Song() {
           </Card>
         </Tab>
 
-        <Tab text='Preview' icon='media-play' style={{ padding: '1rem' }}>
-          <Card>
-            <CardHeader slot='header' titleText='Render song'></CardHeader>
-            <div
-              style={{
-                padding: '1rem',
-                display: 'flex',
-                gap: '1rem',
-                alignItems: 'center',
-              }}
-            >
-              {(songMeta?.charts.length ?? 0 > 0) && soundAssets ? (
-                <>
-                  <Select ref={chartSelector}>
-                    {songMeta?.charts.map((chart) => (
-                      <Option key={chart.md5} data-chart={chart.file}>
-                        {chart.file}
-                      </Option>
-                    ))}
-                  </Select>
-                  <Button
-                    onClick={() => {
-                      const file =
-                        chartSelector?.current?.selectedOption?.dataset['chart']
-                      if (file) {
-                        renderSong(usingDir, soundAssets, file, dispatch)
-                      }
-                    }}
-                    disabled={renderProgress[0] === 'processing'}
-                  >
-                    Render song
-                  </Button>
-                  <Label>{renderProgress[1]}</Label>
-                </>
-              ) : (
-                <Label>
-                  Please optimize sound assets and scan charts first.
-                </Label>
-              )}
-            </div>
-            {songMeta?.replaygain && songOgg && (
-              <div
-                style={{
-                  padding: '0 1rem 1rem',
-                  display: 'flex',
-                  gap: '1rem',
-                  alignItems: 'center',
-                }}
-              >
-                <audio controls src={songOgg}></audio>
-                <Label>ReplayGain: {songMeta.replaygain}</Label>
-              </div>
-            )}
-          </Card>
-          {songMeta?.replaygain && songOgg && (
-            <Card style={{ marginTop: '1rem' }}>
-              <CardHeader slot='header' titleText='Create song preview' />
-              <div
-                style={{
-                  padding: '1rem',
-                  display: 'flex',
-                  gap: '1rem',
-                  alignItems: 'center',
-                }}
-              >
-                <Input
-                  placeholder='Start time in seconds'
-                  ref={previewStartTimeInput}
-                  value={songMeta?.preview_start?.toString() ?? ''}
-                ></Input>
-                <Button
-                  onClick={() => {
-                    const startTime = parseFloat(
-                      previewStartTimeInput?.current?.value ?? '0'
-                    )
-                    createPreview(usingDir, startTime, dispatch)
-                  }}
-                  disabled={createPreviewProgress[0] === 'processing'}
-                >
-                  Create song preview
-                </Button>
-                <Label>{createPreviewProgress[1]}</Label>
-              </div>
-              {previewMp3 && (
-                <div
-                  style={{
-                    padding: '0 1rem 1rem',
-                    display: 'flex',
-                    gap: '1rem',
-                    alignItems: 'center',
-                  }}
-                >
-                  <audio controls src={previewMp3}></audio>
+        <Tab text='Preview' icon='media-play'>
+          <div className={styles.cardGroup}>
+            <Card>
+              <CardHeader slot='header' titleText='Render song' />
+              <div className={styles.cardBody}>
+                <div className={styles.cardBodySection}>
+                  {(songMeta?.charts.length ?? 0 > 0) && soundAssets ? (
+                    <>
+                      <Select ref={chartSelector}>
+                        {songMeta?.charts.map((chart) => (
+                          <Option key={chart.md5} data-chart={chart.file}>
+                            {chart.file}
+                          </Option>
+                        ))}
+                      </Select>
+                      <Button
+                        onClick={() => {
+                          const file =
+                            chartSelector?.current?.selectedOption?.dataset[
+                              'chart'
+                            ]
+                          if (file) {
+                            renderSong(usingDir, soundAssets, file, dispatch)
+                          }
+                        }}
+                        disabled={renderProgress[0] === 'processing'}
+                      >
+                        Render song
+                      </Button>
+                      <Label>{renderProgress[1]}</Label>
+                    </>
+                  ) : (
+                    <Label>
+                      Please optimize sound assets and scan charts first.
+                    </Label>
+                  )}
                 </div>
-              )}
+                {songMeta?.replaygain && songOgg && (
+                  <div className={styles.cardBodySection}>
+                    <audio controls src={songOgg}></audio>
+                    <Label>ReplayGain: {songMeta.replaygain}</Label>
+                  </div>
+                )}
+              </div>
             </Card>
-          )}
+            {songMeta?.replaygain && songOgg && (
+              <Card>
+                <CardHeader slot='header' titleText='Create song preview' />
+                <div className={styles.cardBody}>
+                  <div className={styles.cardBodySection}>
+                    <Input
+                      placeholder='Start time in seconds'
+                      ref={previewStartTimeInput}
+                      value={songMeta?.preview_start?.toString() ?? ''}
+                    ></Input>
+                    <Button
+                      onClick={() => {
+                        const startTime = parseFloat(
+                          previewStartTimeInput?.current?.value ?? '0'
+                        )
+                        createPreview(usingDir, startTime, dispatch)
+                      }}
+                      disabled={createPreviewProgress[0] === 'processing'}
+                    >
+                      Create song preview
+                    </Button>
+                    <Label>{createPreviewProgress[1]}</Label>
+                  </div>
+                  {previewMp3 && (
+                    <div className={styles.cardBodySection}>
+                      <audio controls src={previewMp3}></audio>
+                    </div>
+                  )}
+                </div>
+              </Card>
+            )}
+          </div>
         </Tab>
 
-        <Tab text='Metadata' icon='information' style={{ padding: '1rem' }}>
+        <Tab text='Metadata' icon='information'>
           {songMeta ? (
             <MetadataEditor
               songMeta={songMeta}
@@ -385,37 +382,32 @@ export default function Song() {
           )}
         </Tab>
 
-        <Tab text='Visuals' icon='attachment-video' style={{ padding: '1rem' }}>
+        <Tab text='Visuals' icon='attachment-video'>
           <Card>
             <CardHeader slot='header' titleText='Scan image and BGA files' />
-            <div style={{ padding: '1rem' }}>
-              <Button
-                onClick={() => scanVisual(usingDir, dispatch)}
-                disabled={scanningVisualFilesProgress[0] === 'processing'}
-              >
-                Scan
-              </Button>
-            </div>
-            <div style={{ padding: '0 1rem 1rem' }}>
-              Expecting files in these locations:
-              <ul>
-                <li>bemuse-data/back_image.(jpg/png)</li>
-                <li>bemuse-data/eyecatch_image.(jpg/png)</li>
-                <li>bemuse-data/bga.(webm/mp4)</li>
-              </ul>
+            <div className={styles.cardBody}>
+              <div>
+                <Button
+                  onClick={() => scanVisual(usingDir, dispatch)}
+                  disabled={scanningVisualFilesProgress[0] === 'processing'}
+                >
+                  Scan
+                </Button>
+              </div>
+              <div>
+                Expecting files in these locations:
+                <ul>
+                  <li>bemuse-data/back_image.(jpg/png)</li>
+                  <li>bemuse-data/eyecatch_image.(jpg/png)</li>
+                  <li>bemuse-data/bga.(webm/mp4)</li>
+                </ul>
+              </div>
             </div>
           </Card>
 
-          {songMeta && usingDir && typeof usingDir === 'object' && (
-            <div
-              style={{
-                display: 'flex',
-                marginTop: '1rem',
-                gap: '1rem',
-                alignItems: 'flex-start',
-              }}
-            >
-              <div style={{ width: '50%', flex: '1' }}>
+          {songMeta && usingDir && (
+            <div className={styles.autoBreakCards}>
+              <div className={styles.cardGroup}>
                 <Card>
                   <CardHeader slot='header' titleText='Eyecatch image' />
                   <ImagePreview
@@ -423,7 +415,7 @@ export default function Song() {
                     path={songMeta.eyecatch_image_url}
                   />
                 </Card>
-                <Card style={{ marginTop: '1rem' }}>
+                <Card>
                   <CardHeader slot='header' titleText='Background image' />
                   <ImagePreview
                     directoryHandle={usingDir}
@@ -431,10 +423,10 @@ export default function Song() {
                   />
                 </Card>
               </div>
-              <div style={{ width: '50%', flex: '1' }}>
+              <div>
                 <Card>
                   <CardHeader slot='header' titleText='BGA' />
-                  <div style={{ padding: '1rem' }}>
+                  <div className={styles.cardBody}>
                     {songMeta.video_url ? (
                       songOgg ? (
                         <VideoSynchronizer
