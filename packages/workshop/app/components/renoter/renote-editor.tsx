@@ -319,6 +319,7 @@ export const RenoteEditor = ({
         display: 'flex',
         gap: '1rem',
         height: 'calc(100vh - 80px)',
+        userSelect: 'none',
       }}
     >
       <div
