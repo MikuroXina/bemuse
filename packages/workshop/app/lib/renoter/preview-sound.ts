@@ -5,14 +5,14 @@ export async function previewSound(
   directoryHandle: FileSystemDirectoryHandle,
   soundFileSrc: string
 ): Promise<void> {
-  const buf = await getSample(directoryHandle, soundFileSrc)
+  const buf = await getSample(soundFileSrc, directoryHandle)
   if (buf) {
     SoundPlayer.getInstance().play(Promise.resolve(buf))
   }
 }
 
 const getSample = pMemoize(
-  async (directoryHandle: FileSystemDirectoryHandle, soundFileSrc: string) => {
+  async (soundFileSrc: string, directoryHandle: FileSystemDirectoryHandle) => {
     const soundFilesToTry = [
       soundFileSrc,
       soundFileSrc.replace(/\.\w\w\w$/, '.wav'),
