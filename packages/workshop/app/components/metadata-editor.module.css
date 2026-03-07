@@ -26,3 +26,7 @@
 .indent {
   margin-left: 2rem;
 }
+
+.flowStack > :not(:first-child) {
+  padding-top: 1rem;
+}

@@ -28,6 +28,7 @@ import { RenoterRow } from './row'
 export interface RenoteEditorProps {
   previewSound: (sound?: string) => void
   save: (detail: Pick<RenoteData, 'newNotes' | 'groups'>) => void
+  close: () => void
   chart: BMSChart
   data: RenoteData
 }
@@ -38,6 +39,7 @@ const BOTTOM_PX = 32
 export const RenoteEditor = ({
   previewSound,
   save,
+  close,
   chart,
   data,
 }: RenoteEditorProps) => {
@@ -57,11 +59,17 @@ export const RenoteEditor = ({
     (measure: number, fraction: number) => `${measure}-${fraction}`
   )
 
-  const maxMeasure =
-    chart.objects.all().reduce((a, o) => Math.max(a, o.measure), 0) + 1
-  const maxTime = chart.objects
-    .all()
-    .reduce((a, o) => Math.max(a, toBeat(o.measure, o.fraction)), 0)
+  const maxMeasure = useMemo(
+    () => chart.objects.all().reduce((a, o) => Math.max(a, o.measure), 0) + 1,
+    [chart]
+  )
+  const maxTime = useMemo(
+    () =>
+      chart.objects
+        .all()
+        .reduce((a, o) => Math.max(a, toBeat(o.measure, o.fraction)), 0),
+    [chart]
+  )
   const canvasHeight = maxTime * PX_PER_BEAT + VIEWPORT_PADDING_PX
   const keysounds = Keysounds.fromBMSChart(chart)
   const measureLines = [...new Array(maxMeasure)].map((_, i) => ({
@@ -321,32 +329,20 @@ export const RenoteEditor = ({
   }
 
   return (
-    <div
-      style={{
-        padding: '1rem',
-        display: 'flex',
-        gap: '1rem',
-        height: 'calc(100vh - 80px)',
-        userSelect: 'none',
-      }}
-    >
-      <div
-        style={{
-          flex: '1',
-          position: 'relative',
-          background: '#000',
-          color: '#0f0',
-        }}
-      >
+    <div className={styles.container}>
+      <div className={styles.previewArea}>
         <div
-          style={{ position: 'absolute', inset: '0', overflow: 'auto' }}
+          className={styles.scrollable}
           ref={scroller}
           onScroll={onScroll}
           onMouseMove={onMouseMove}
           onKeyDown={onKeyDown}
           tabIndex={0}
         >
-          <div style={{ height: `${canvasHeight}px`, position: 'relative' }}>
+          <div
+            className={styles.objectsContainer}
+            style={{ height: `${canvasHeight}px` }}
+          >
             {layout.groupColumns.map(({ x, width }, index) => (
               <div
                 className={styles.col}
@@ -388,37 +384,35 @@ export const RenoteEditor = ({
           </div>
         </div>
       </div>
-      <div
-        style={{ flex: 'none', width: '256px', position: 'relative' }}
-        className='ui5-content-density-compact'
-      >
-        <div style={{ position: 'absolute', inset: '0', overflow: 'auto' }}>
-          <MessageStrip design='Information' hide-close-button>
-            notes: {totalNotes}
-          </MessageStrip>
-          <MessageStrip design='Information' hide-close-button>
-            {info}
-          </MessageStrip>
-          <Tree selectionMode='Single'>
-            {groups.map((group, i) => (
-              <TreeItem expanded key={i} text={`Group ${i + 1}`}>
-                {group.patterns.map((pattern) => (
-                  <TreeItem key={pattern} text={pattern} />
-                ))}
-              </TreeItem>
-            ))}
-          </Tree>
-          <p>
-            {viewport[0]} ~ {viewport[1]}
-          </p>
-          <Button onClick={onClickSave}>Save (Cmd/Ctrl + S)</Button>
-          <ul>
-            <li>Shift + Click Note - Select Group</li>
-            <li>↑ - Go to Next Group</li>
-            <li>↓ - Go to Previous Group</li>
-            <li>A/Z/S/X/D/C/F/V - Cycle Channel Assignment</li>
-          </ul>
-        </div>
+      <div className={styles.rightPanel}>
+        <Button design='Negative' onClick={close}>
+          Close
+        </Button>
+        <MessageStrip design='Information' hide-close-button>
+          notes: {totalNotes}
+        </MessageStrip>
+        <MessageStrip design='Information' hide-close-button>
+          {info}
+        </MessageStrip>
+        <Tree selectionMode='Single'>
+          {groups.map((group, i) => (
+            <TreeItem expanded key={i} text={`Group ${i + 1}`}>
+              {group.patterns.map((pattern) => (
+                <TreeItem key={pattern} text={pattern} />
+              ))}
+            </TreeItem>
+          ))}
+        </Tree>
+        <p>
+          {viewport[0]} ~ {viewport[1]}
+        </p>
+        <Button onClick={onClickSave}>Save (Cmd/Ctrl + S)</Button>
+        <ul>
+          <li>Shift + Click Note - Select Group</li>
+          <li>↑ - Go to Next Group</li>
+          <li>↓ - Go to Previous Group</li>
+          <li>A/Z/S/X/D/C/F/V - Cycle Channel Assignment</li>
+        </ul>
       </div>
     </div>
   )

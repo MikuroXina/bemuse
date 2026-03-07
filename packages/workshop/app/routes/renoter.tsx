@@ -98,16 +98,12 @@ export default function Renoter() {
     )
   }
   return (
-    <>
-      <RenoteEditor
-        data={state.renoteData}
-        chart={state.chart}
-        previewSound={onPreviewSound}
-        save={onSave}
-      />
-      <Button design='Negative' onClick={onClickCloseChart}>
-        Close chart
-      </Button>
-    </>
+    <RenoteEditor
+      data={state.renoteData}
+      chart={state.chart}
+      previewSound={onPreviewSound}
+      save={onSave}
+      close={onClickCloseChart}
+    />
   )
 }

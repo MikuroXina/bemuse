@@ -1,3 +1,28 @@
+.container {
+  padding: 1rem;
+  display: flex;
+  gap: 1rem;
+  height: calc(100vh - 80px);
+  user-select: none;
+}
+
+.previewArea {
+  flex: 1;
+  position: relative;
+  background: #000;
+  color: #0f0;
+}
+
+.scrollable {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+}
+
+.objectsContainer {
+  position: relative;
+}
+
 .measure {
   position: absolute;
   left: 0;
@@ -6,24 +31,34 @@
   margin-top: -1px;
   background: #333;
 }
+
 .measureText {
   position: absolute;
   bottom: 0;
   left: 0;
   color: #666;
 }
+
 .objectRow {
   position: absolute;
   left: 0;
   right: 0;
   height: 0px;
 }
+
 .col {
   position: absolute;
   top: 0;
   bottom: 0;
   background: #111;
 }
+
 .col[data-selected='true'] {
   background: #222;
+}
+
+.rightPanel {
+  flex: none;
+  width: 256px;
+  position: relative;
 }

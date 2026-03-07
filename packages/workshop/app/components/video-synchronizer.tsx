@@ -3,6 +3,8 @@ import { useRef, useState } from 'react'
 
 import { useFileObjectUrl } from '~/lib/hooks/file-object-url'
 
+import styles from './video-synchronizer.module.css'
+
 export interface VideoSynchronizerProps {
   directoryHandle: FileSystemDirectoryHandle
   songOgg: string
@@ -86,7 +88,7 @@ export const VideoSynchronizer = ({
       <video
         src={videoUrl}
         preload='auto'
-        style={{ width: '100%' }}
+        className={styles.fullWidth}
         muted
         ref={videoRef}
       />

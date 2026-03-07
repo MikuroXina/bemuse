@@ -186,7 +186,7 @@ export const MetadataEditor = ({
           </div>
         </Card>
       </div>
-      <div>
+      <div className={styles.flowStack}>
         <Card>
           <CardHeader slot='header' titleText='Metadata checklist' />
           <div className={styles.cardBody}>
@@ -205,7 +205,7 @@ export const MetadataEditor = ({
             )}
           </div>
         </Card>
-        <Card style={{ marginTop: '1rem' }}>
+        <Card>
           <CardHeader slot='header' titleText='Song description' />
           <div className={styles.cardBody}>
             {readme ? (
