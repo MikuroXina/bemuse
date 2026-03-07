@@ -36,17 +36,16 @@ export interface ObjectRow {
   timeKey: TimeKey
 }
 
+export const notesMapEntrySchema = v.object({
+  /** Keysound ID to use */
+  value: v.string(),
+  /** Length of the note, where 1 quarter note = 240 */
+  length: v.optional(v.number()),
+})
+export type NotesMapEntry = v.InferOutput<typeof notesMapEntrySchema>
 export const notesMapSchema = v.record(
   timeKeySchema,
-  v.record(
-    channelSchema,
-    v.object({
-      /** Keysound ID to use */
-      value: v.string(),
-      /** Length of the note, where 1 quarter note = 240 */
-      length: v.optional(v.number()),
-    })
-  )
+  v.record(channelSchema, notesMapEntrySchema)
 )
 export type NotesMap = v.InferOutput<typeof notesMapSchema>
 

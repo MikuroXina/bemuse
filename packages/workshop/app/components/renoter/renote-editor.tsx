@@ -13,7 +13,13 @@ import {
   useState,
 } from 'react'
 
-import type { Channel, ObjectRow, RenoteData } from '../../lib/renoter/types'
+import type {
+  Channel,
+  NotesMapEntry,
+  ObjectRow,
+  RenoteData,
+  TimeKey,
+} from '../../lib/renoter/types'
 import { calculateLayout, PX_PER_BEAT } from './layout'
 import { RenoterRow } from './row'
 
@@ -37,7 +43,7 @@ export const RenoteEditor = ({
   const groups = data.groups ?? []
 
   const [info, setInfo] = useState('Hover to see sound file')
-  const [selectedTimeKey, setSelectedTimeKey] = useState('')
+  const [selectedTimeKey, setSelectedTimeKey] = useState<TimeKey>('0:0')
   const [selectedGroupIndex, setSelectedGroupIndex] = useState(0)
   const [viewport, setViewport] = useState<[number, number]>([0, 0])
   const scroller = useRef<HTMLDivElement>(null)
@@ -66,7 +72,10 @@ export const RenoteEditor = ({
 
   const totalNotes = useMemo(
     () =>
-      Object.values(newNotes).reduce((a, x) => a + Object.keys(x).length, 0),
+      Object.values(newNotes).reduce(
+        (a, x) => a + Object.keys(x as Record<Channel, unknown>).length,
+        0
+      ),
     [newNotes]
   )
 
@@ -294,10 +303,10 @@ export const RenoteEditor = ({
     length: number
   }) {
     const { row, channel, length } = e
-    if (newNotes[row.timeKey] && newNotes[row.timeKey][channel]) {
+    if (newNotes[row.timeKey] && newNotes[row.timeKey]![channel]) {
       newNotes[row.timeKey] = {
         ...newNotes[row.timeKey],
-        [channel]: { ...newNotes[row.timeKey][channel], length },
+        [channel]: { ...newNotes[row.timeKey]![channel], length },
       }
     }
   }
@@ -358,7 +367,9 @@ export const RenoteEditor = ({
                   row={row}
                   layout={layout}
                   selectedColumnIndex={selectedGroupIndex}
-                  newNotes={newNotes[row.timeKey]}
+                  newNotes={
+                    newNotes[row.timeKey] as Record<Channel, NotesMapEntry>
+                  }
                   noteMouseEnter={onNoteHover}
                   setLength={onSetLength}
                 />

@@ -1,7 +1,7 @@
 import type { BMSObject } from '@mikuroxina/bms'
 import { type MouseEvent as ReactMouseEvent, useEffect, useRef } from 'react'
 
-import type { Channel, ObjectRow } from '~/lib/renoter/types'
+import type { Channel, NotesMapEntry, ObjectRow } from '~/lib/renoter/types'
 
 import { PX_PER_BEAT, type RenoterLayout } from './layout'
 import styles from './row.module.css'
@@ -11,13 +11,7 @@ export interface RenoterRowProps {
   layout: RenoterLayout
   selected: boolean
   selectedColumnIndex: number
-  newNotes: Record<
-    Channel,
-    {
-      value: string
-      length?: number
-    }
-  >
+  newNotes: Record<Channel, NotesMapEntry>
   setLength: (params: {
     row: ObjectRow
     channel: Channel
