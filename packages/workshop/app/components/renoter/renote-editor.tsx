@@ -39,11 +39,11 @@ export const RenoteEditor = ({
   previewSound,
   save,
   chart,
-  data: data,
+  data,
 }: RenoteEditorProps) => {
-  const newNotes = data.newNotes ?? {}
   const groups = data.groups ?? []
 
+  const [newNotes, setNewNotes] = useState(data.newNotes ?? {})
   const [info, setInfo] = useState('Hover to see sound file')
   const [selectedTimeKey, setSelectedTimeKey] = useState<TimeKey>('0:0')
   const [selectedGroupIndex, setSelectedGroupIndex] = useState(0)
@@ -244,9 +244,6 @@ export const RenoteEditor = ({
         toggleChannel('K7')
         break
       }
-      default: {
-        console.warn('Unhandled key', e.key)
-      }
     }
   }
   function toggleChannel(channel: Channel) {
@@ -281,7 +278,10 @@ export const RenoteEditor = ({
       const keysound = keysounds.get(nextNewNotesOnThisRow[channel].value)
       previewSound(keysound)
     }
-    newNotes[row.timeKey] = nextNewNotesOnThisRow
+    setNewNotes((newNotes) => ({
+      ...newNotes,
+      [row.timeKey]: nextNewNotesOnThisRow,
+    }))
   }
   function goToRow(row: ObjectRow | undefined) {
     const scrollerElem = scroller.current
@@ -310,10 +310,13 @@ export const RenoteEditor = ({
   }) {
     const { row, channel, length } = e
     if (newNotes[row.timeKey] && newNotes[row.timeKey]![channel]) {
-      newNotes[row.timeKey] = {
-        ...newNotes[row.timeKey],
-        [channel]: { ...newNotes[row.timeKey]![channel], length },
-      }
+      setNewNotes((newNotes) => ({
+        ...newNotes,
+        [row.timeKey]: {
+          ...newNotes[row.timeKey],
+          [channel]: { ...newNotes[row.timeKey]![channel], length },
+        },
+      }))
     }
   }
 
@@ -409,6 +412,12 @@ export const RenoteEditor = ({
             {viewport[0]} ~ {viewport[1]}
           </p>
           <Button onClick={onClickSave}>Save (Cmd/Ctrl + S)</Button>
+          <ul>
+            <li>Shift + Click Note - Select Group</li>
+            <li>↑ - Go to Next Group</li>
+            <li>↓ - Go to Previous Group</li>
+            <li>A/Z/S/X/D/C/F/V - Cycle Channel Assignment</li>
+          </ul>
         </div>
       </div>
     </div>
