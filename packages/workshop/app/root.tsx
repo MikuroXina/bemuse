@@ -1,6 +1,7 @@
 import { Button } from '@ui5/webcomponents-react/Button'
 import { ShellBar } from '@ui5/webcomponents-react/ShellBar'
 import { ThemeProvider } from '@ui5/webcomponents-react/ThemeProvider'
+import type { ReactNode } from 'react'
 import {
   isRouteErrorResponse,
   Links,
@@ -13,7 +14,7 @@ import {
 import type { Route } from './+types/root'
 import styles from './root.module.css'
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang='en'>
       <head>
