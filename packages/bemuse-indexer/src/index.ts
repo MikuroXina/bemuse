@@ -53,56 +53,53 @@ interface ExtensionHandler {
 interface ExtensionMap {
   [extname: string]: ExtensionHandler
 }
-const _extensions: ExtensionMap = {}
+const _extensions: ExtensionMap = {
+  bms: async function (source, meta) {
+    const options = Reader.getReaderOptionsFromFilename(meta.name)
+    const str = await Reader.readAsync(source, options)
+    const chart = Compiler.compile(str).chart
+    const info = SongInfo.fromBMSChart(chart)
+    const notes = Notes.fromBMSChart(chart)
+    const timing = Timing.fromBMSChart(chart)
+    return {
+      info: info,
+      notes: notes,
+      timing: timing,
+      scratch: hasScratch(chart),
+      keys: getKeys(chart),
+      bga: getBmsBga(chart, { timing }),
+    }
+  },
+  bmson: async function (source) {
+    const string = new TextDecoder('utf-8').decode(source)
+    const object = JSON.parse(string)
+    const info = songInfoForBmson(object)
+    const ms = musicalScoreForBmson(object)
+    const notes = ms.notes
+    const timing = ms.timing
+    const bga = getBmsonBga(object, { timing: timing })
+    return {
+      info: info,
+      notes: notes,
+      timing: timing,
+      scratch: bmsonHasScratch(object),
+      keys: keysForBmson(object),
+      bga: bga,
+    }
+  },
+}
 export { _extensions as extensions }
-
-_extensions['.bms'] = async function (source, meta) {
-  const options = Reader.getReaderOptionsFromFilename(meta.name)
-  const str = await Reader.readAsync(source, options)
-  const chart = Compiler.compile(str).chart
-  const info = SongInfo.fromBMSChart(chart)
-  const notes = Notes.fromBMSChart(chart)
-  const timing = Timing.fromBMSChart(chart)
-  return {
-    info: info,
-    notes: notes,
-    timing: timing,
-    scratch: hasScratch(chart),
-    keys: getKeys(chart),
-    bga: getBmsBga(chart, { timing }),
-  }
-}
-
-_extensions['.bmson'] = async function (source) {
-  const string = Buffer.from(source).toString('utf8')
-  const object = JSON.parse(string)
-  const info = songInfoForBmson(object)
-  const ms = musicalScoreForBmson(object)
-  const notes = ms.notes
-  const timing = ms.timing
-  const bga = getBmsonBga(object, { timing: timing })
-  return {
-    info: info,
-    notes: notes,
-    timing: timing,
-    scratch: bmsonHasScratch(object),
-    keys: keysForBmson(object),
-    bga: bga,
-  }
-}
 
 export async function getFileInfo(
   data: ArrayBuffer,
   meta: InputMeta,
-  options?: { extensions?: ExtensionMap }
+  options: { extensions?: ExtensionMap } = {}
 ): Promise<OutputFileInfo> {
-  options = options || {}
   invariant(typeof meta.name === 'string', 'meta.name must be a string')
 
-  const extensions = options.extensions || _extensions
-  const extension =
-    extensions[meta.name.split('.').pop()?.toLowerCase() ?? ''] ||
-    extensions['.bms']
+  const extensions = options.extensions ?? _extensions
+  const nameExt = meta.name.split('.').pop()?.toLowerCase()
+  const extension = (nameExt && extensions[nameExt]) || extensions['bms']
 
   const md5 = meta.md5 || SparkMD5.ArrayBuffer.hash(data)
 
@@ -148,13 +145,11 @@ export async function getSongInfo(
   const warnings: string[] = []
   const cache = options.cache || undefined
   const extra = options.extra || {}
-  const report = options.onProgress || function () {}
+  const report = options.onProgress || function reportFallback() {}
   const onError =
     options.onError ||
-    function (e, name) {
-      if (global.console && console.error) {
-        console.error('Error while parsing ' + name, e)
-      }
+    function onErrorFallback(e, name) {
+      console.error('Error while parsing ' + name, e)
     }
   let processed = 0
   const doGetFileInfo = options.getFileInfo || getFileInfo

@@ -5,7 +5,9 @@ import type { BPMInfo, OutputSongInfo } from './types.js'
 
 describe('getFileInfo (bms)', function () {
   function info(source: string) {
-    return indexer.getFileInfo(Buffer.from(source), { name: 'meow.bms' })
+    return indexer.getFileInfo(new TextEncoder().encode(source).buffer, {
+      name: 'meow.bms',
+    })
   }
 
   describe('.md5', function () {
@@ -145,7 +147,9 @@ describe('getFileInfo (bms)', function () {
 describe('getFileInfo (bmson)', function () {
   function info(bmson: unknown) {
     const source = JSON.stringify(bmson)
-    return indexer.getFileInfo(Buffer.from(source), { name: 'meow.bmson' })
+    return indexer.getFileInfo(new TextEncoder().encode(source).buffer, {
+      name: 'meow.bmson',
+    })
   }
 
   describe('.info', function () {
@@ -186,33 +190,33 @@ describe('getSongInfo', function () {
     const files = [
       {
         name: '01.bms',
-        data: Buffer.from(
+        data: new TextEncoder().encode(
           '#TITLE meow [NORMAL]\n' +
             '#ARTIST lol\n' +
             '#PLAYLEVEL 5\n' +
             '#BPM 123\n' +
             '#00111:1111'
-        ),
+        ).buffer,
       },
       {
         name: '02.bms',
-        data: Buffer.from(
+        data: new TextEncoder().encode(
           '#TITLE meow [HYPER]\n' +
             '#ARTIST lol\n' +
             '#PLAYLEVEL 7\n' +
             '#BPM 123\n' +
             '#00111:1111'
-        ),
+        ).buffer,
       },
       {
         name: '03.bms',
-        data: Buffer.from(
+        data: new TextEncoder().encode(
           '#TITLE meow [ANOTHER]\n' +
             '#ARTIST lol\n' +
             '#PLAYLEVEL 12\n' +
             '#BPM 123\n' +
             '#00111:1111'
-        ),
+        ).buffer,
       },
     ]
 
