@@ -43,7 +43,7 @@ async function requestReadmeForUrl(
   } catch (e) {
     dispatch(
       currentSongReadmeSlice.actions.README_LOADING_ERRORED({
-        url: song.readme,
+        url: song.readme ?? '',
       })
     )
     throw e
