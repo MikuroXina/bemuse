@@ -1,5 +1,4 @@
-import { Reader } from '@mikuroxina/bms'
-import { SongWorkshopLibs } from 'src/SongWorkshopLibs'
+import { Compiler, Reader } from '@mikuroxina/bms'
 import type { Action } from './reducer'
 import type { RenoteData } from './types'
 
@@ -23,7 +22,7 @@ export async function open(
     const chartFile = await chartHandle.getFile()
     const chartData = await chartFile.arrayBuffer()
     const chartText = await Reader.readAsync(chartData)
-    const { chart } = SongWorkshopLibs.bms.Compiler.compile(chartText)
+    const { chart } = Compiler.compile(chartText)
     console.log(chart)
     dispatch([
       'OPEN',

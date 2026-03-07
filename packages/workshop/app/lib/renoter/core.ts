@@ -1,8 +1,14 @@
 import memoize from 'lodash/memoize'
 import keyBy from 'lodash/keyBy'
-import type { RenoteData } from '../../../src/RenoterTypes'
+import type {
+  Channel,
+  NotesMap,
+  NotesMapEntry,
+  RenoteData,
+  TimeKey,
+} from './types'
 
-type RenoteInput = Pick<RenoteData, 'newNotes' | 'replace' | 'add'>
+export type RenoteInput = Pick<RenoteData, 'newNotes' | 'replace' | 'add'>
 
 export async function renoteBms(
   bms: Uint8Array,
@@ -57,10 +63,15 @@ export async function renoteBms(
   // Move notes to new channels
   const newNotesWriter = new NewNotesWriter()
   let unmatchedNotes = 0
-  for (const [timeKey, overrides] of Object.entries(data.newNotes || {})) {
+  for (const [timeKey, overrides] of Object.entries(
+    (data.newNotes ?? {}) as NotesMap
+  ) as [TimeKey, Record<Channel, NotesMap>][]) {
     const [measure, tick] = timeKey.split(':').map((x) => parseInt(x, 10))
     const measureSize = timeSignatureByMeasure(measure).size
-    for (const [channel, { value, length }] of Object.entries(overrides)) {
+    for (const [channel, { value, length }] of Object.entries(overrides) as [
+      Channel,
+      NotesMapEntry,
+    ][]) {
       const linesOnThisMeasure = bmsLinesByMeasure(measure)
       let found = false
       for (const line of linesOnThisMeasure) {
