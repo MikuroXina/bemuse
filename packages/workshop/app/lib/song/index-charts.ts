@@ -21,7 +21,7 @@ export async function indexCharts(
   }
 }
 
-type IndexIO = {
+interface IndexIO {
   setStatus: (status: string) => void
 }
 
