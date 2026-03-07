@@ -1,15 +1,8 @@
-import { Buffer } from 'node:buffer'
-
 import * as BMS from '@mikuroxina/bms'
 
 import type { PlayerOptions } from '../types.js'
 import * as BMSNotechartLoader from './BMSNotechartLoader.js'
 import * as BmsonNotechartLoader from './BmsonNotechartLoader.js'
-
-const coerceToBuffer = (bufferOrArrayBuffer: Buffer | ArrayBuffer) =>
-  Buffer.isBuffer(bufferOrArrayBuffer)
-    ? bufferOrArrayBuffer
-    : Buffer.from(new Uint8Array(bufferOrArrayBuffer))
 
 interface NotechartLoaderResource {
   name: string
@@ -17,7 +10,7 @@ interface NotechartLoaderResource {
 
 export class NotechartLoader {
   load(
-    arraybuffer: Buffer | ArrayBuffer,
+    arraybuffer: ArrayBuffer,
     resource: NotechartLoaderResource,
     options: PlayerOptions
   ) {
@@ -29,13 +22,12 @@ export class NotechartLoader {
   }
 
   async loadBMS(
-    arraybuffer: Buffer | ArrayBuffer,
+    arrayBuffer: ArrayBuffer,
     resource: NotechartLoaderResource,
     options: PlayerOptions
   ) {
-    const buffer = coerceToBuffer(arraybuffer)
     const readerOptions = BMS.Reader.getReaderOptionsFromFilename(resource.name)
-    const source = await BMS.Reader.readAsync(buffer, readerOptions)
+    const source = await BMS.Reader.readAsync(arrayBuffer, readerOptions)
     const compileResult = BMS.Compiler.compile(source)
     const chart = compileResult.chart
     const notechart = BMSNotechartLoader.fromBMSChart(chart, options)
@@ -43,12 +35,11 @@ export class NotechartLoader {
   }
 
   async loadBmson(
-    arraybuffer: Buffer | ArrayBuffer,
+    arrayBuffer: ArrayBuffer,
     resource: NotechartLoaderResource,
     options: PlayerOptions
   ) {
-    const buffer = coerceToBuffer(arraybuffer)
-    const source = buffer.toString('utf-8')
+    const source = new TextDecoder('utf-8').decode(arrayBuffer)
     return BmsonNotechartLoader.load(source, options)
   }
 }

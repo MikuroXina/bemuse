@@ -5,16 +5,23 @@
   "author": "dtinth <dtinth@spacet.me>",
   "license": "MIT",
   "files": [
-    "index.d.ts"
+    "dist/index.d.ts",
+    "dist/index.d.ts.map",
+    "dist/index.js",
+    "dist/index.js.map"
   ],
-  "types": "./index.d.ts",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "tsc --noEmit index.d.ts",
+    "build": "tsc -p .",
+    "test": "tsc -p . --noEmit",
     "lint": "eslint ."
   },
   "devDependencies": {
+    "@mikuroxina/eslint-config-bemuse": "workspace:*",
     "eslint": "^9.0.0",
-    "typescript": "^5.9.3",
-    "@mikuroxina/eslint-config-bemuse": "workspace:*"
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "valibot": "^1.2.0"
   }
 }

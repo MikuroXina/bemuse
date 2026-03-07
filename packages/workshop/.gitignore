@@ -1,0 +1,9 @@
+/node_modules/
+/dist/
+/.vscode/
+.DS_Store
+*.log
+
+# react-router built
+.react-router/
+build/

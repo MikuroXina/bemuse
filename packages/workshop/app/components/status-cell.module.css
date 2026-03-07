@@ -1,0 +1,12 @@
+.text[data-status='Information'] {
+  color: var(--sapInformationColor);
+}
+.text[data-status='Error'] {
+  color: var(--sapErrorColor);
+}
+.text[data-status='Warning'] {
+  color: var(--sapWarningColor);
+}
+.text[data-status='Success'] {
+  color: var(--sapSuccessColor);
+}

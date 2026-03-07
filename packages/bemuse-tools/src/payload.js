@@ -1,4 +1,4 @@
-import { createHash } from 'node:crypto'
+import SparkMD5 from 'spark-md5'
 
 export class Payload {
   constructor() {
@@ -14,11 +14,11 @@ export class Payload {
   }
 
   get hash() {
-    const hash = createHash('md5')
+    const hasher = new SparkMD5.ArrayBuffer()
     for (const buffer of this.buffers) {
-      hash.update(buffer)
+      hasher.append(buffer.buffer)
     }
-    return hash.digest('hex')
+    return hasher.end()
   }
 }
 

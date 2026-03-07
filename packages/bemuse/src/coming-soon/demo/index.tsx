@@ -1,7 +1,5 @@
 import './style.scss'
 
-import { Buffer } from 'node:buffer'
-
 import ctx from '@bemuse/audio-context/index.js'
 import DndResources from '@bemuse/resources/dnd-resources.js'
 import SamplingMaster, { Sample } from '@bemuse/sampling-master/index.js'
@@ -107,8 +105,7 @@ async function loadPlayContext(
 
   const loadedFile = await loader.file(bmsFile)
   const arraybuffer = await loadedFile.read()
-  const buffer = Buffer.from(new Uint8Array(arraybuffer))
-  const text = await Reader.readAsync(buffer)
+  const text = await Reader.readAsync(arraybuffer)
   const chart = Compiler.compile(text).chart
   const timing = Timing.fromBMSChart(chart)
   const notes = Notes.fromBMSChart(chart)

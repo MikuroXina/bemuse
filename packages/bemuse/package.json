@@ -27,6 +27,7 @@
       "dependencies": [
         "../bemuse-indexer:build",
         "../bemuse-notechart:build",
+        "../bemuse-types:build",
         "../monetizer:build",
         "../bms:build",
         "../bmson:build"
@@ -36,7 +37,8 @@
       "command": "gulp pre-deploy",
       "dependencies": [
         "build",
-        "../website:build"
+        "../website:build",
+        "../workshop:build"
       ]
     },
     "test": {

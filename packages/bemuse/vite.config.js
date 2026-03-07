@@ -80,7 +80,7 @@ export default defineConfig({
         type: 'module',
       },
       workbox: {
-        navigateFallbackDenylist: [/^\/project\//],
+        navigateFallbackDenylist: [/^\/project\//, /^\/workshop\//],
       },
     }),
   ],

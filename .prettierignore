@@ -2,6 +2,7 @@
 **/public/**/*
 **/vendor/**/*
 **/lib/**/*
+!packages/workshop/app/lib/**/*
 **/dist/**/*
 **/build/**/*
 **/coverage/**/*

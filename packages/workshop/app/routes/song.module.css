@@ -1,0 +1,32 @@
+.center {
+  text-align: center;
+  padding: 1rem;
+}
+
+.cardBody {
+  padding: 1rem;
+  & > :not(:first-child) {
+    padding-top: 1rem;
+  }
+}
+
+.cardBodySection {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.smallTip {
+  display: block;
+}
+
+.autoBreakCards {
+  display: grid;
+  padding-top: 1rem;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(480px, 100%), 1fr));
+}
+
+.cardGroup > :not(:first-child) {
+  padding-top: 1rem;
+}
