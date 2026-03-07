@@ -82,7 +82,7 @@ export const songMetadataSchema = v.object({
   /** ID for https://bmssearch.net/ */
   bmssearch_id: v.optional(v.union([v.number(), v.string()])),
   /** Relative or absolute URL to the README markdown file. */
-  readme: v.string(),
+  readme: v.optional(v.string()),
   /** Charts */
   charts: v.array(chartSchema),
   /** Warnings generating while indexing */
