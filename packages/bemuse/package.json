@@ -37,7 +37,8 @@
       "command": "gulp pre-deploy",
       "dependencies": [
         "build",
-        "../website:build"
+        "../website:build",
+        "../workshop:build"
       ]
     },
     "test": {
