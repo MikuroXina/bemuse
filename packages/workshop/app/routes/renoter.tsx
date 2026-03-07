@@ -89,7 +89,7 @@ export default function Renoter() {
               <Option key={chart}>{chart}</Option>
             ))}
           </Select>
-          <Button type='Submit'>Close folder</Button>
+          <Button type='Submit'>Open chart</Button>
         </form>
         <Button design='Negative' onClick={onClickCloseDir}>
           Close folder
