@@ -7,22 +7,10 @@
 // - The selectors can be used to query data from the store.
 //
 
-import filterSongs from '@bemuse/music-collection/filterSongs.js'
-import getPlayableCharts from '@bemuse/music-collection/getPlayableCharts.js'
-import groupSongsIntoCategories from '@bemuse/music-collection/groupSongsIntoCategories.js'
-import preprocessCollection from '@bemuse/music-collection/preprocessCollection.js'
-import sortSongs from '@bemuse/music-collection/sortSongs.js'
-import type {
-  Chart,
-  MusicServerIndex,
-  SongMetadataInCollection,
-} from '@mikuroxina/bemuse-types'
+import type { SongMetadataInCollection } from '@mikuroxina/bemuse-types'
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { enableMapSet } from 'immer'
-import { createSelector } from 'reselect'
 
-import * as Collections from '../app/entities/Collections.js'
-import * as LoadState from '../app/entities/LoadState.js'
 import * as MusicSearchText from '../app/entities/MusicSearchText.js'
 import * as MusicSelection from '../app/entities/MusicSelection.js'
 import * as Options from '../app/entities/Options.js'
@@ -30,9 +18,7 @@ import * as Options from '../app/entities/Options.js'
 enableMapSet()
 
 export interface AppState {
-  collections: Map<string, LoadState.LoadState<MusicServerIndex>>
   customSongs: SongMetadataInCollection[]
-  currentCollection: string
   musicSearchText: MusicSearchText.MusicSearchTextState
   musicSelection: MusicSelection.MusicSelectionState
   options: Options.OptionsState
@@ -41,32 +27,6 @@ export interface AppState {
 }
 
 // Slice
-export const collectionsSlice = createSlice({
-  name: 'collections',
-  initialState: new Map<string, LoadState.LoadState<MusicServerIndex>>(),
-  reducers: {
-    COLLECTION_LOADING_BEGAN: (
-      state,
-      { payload: { url } }: PayloadAction<{ url: string }>
-    ) => {
-      state.set(url, LoadState.initLoading())
-    },
-    COLLECTION_LOADING_ERRORED: (
-      state,
-      { payload: { url, error } }: PayloadAction<{ url: string; error: Error }>
-    ) => {
-      state.set(url, LoadState.errorWithReason(error)())
-    },
-    COLLECTION_LOADED: (
-      state,
-      {
-        payload: { url, data },
-      }: PayloadAction<{ url: string; data: MusicServerIndex }>
-    ) => {
-      state.set(url, LoadState.completeWithValue(data)())
-    },
-  },
-})
 export const customSongsSlice = createSlice({
   name: 'customSongs',
   initialState: [] as SongMetadataInCollection[],
@@ -81,16 +41,6 @@ export const customSongsSlice = createSlice({
         payload: { songs },
       }: PayloadAction<{ songs: SongMetadataInCollection[] }>
     ) => songs,
-  },
-})
-export const currentCollectionSlice = createSlice({
-  name: 'currentCollection',
-  initialState: '',
-  reducers: {
-    COLLECTION_LOADING_BEGAN: (
-      state,
-      { payload: { url } }: PayloadAction<{ url: string }>
-    ) => (state === '' ? url : state),
   },
 })
 export const currentSongReadmeSlice = createSlice({
@@ -119,9 +69,7 @@ export const rageQuitSlice = createSlice({
 
 // Reducer
 export const reducer = {
-  collections: collectionsSlice.reducer,
   customSongs: customSongsSlice.reducer,
-  currentCollection: currentCollectionSlice.reducer,
   musicSearchText: MusicSearchText.musicSearchTextSlice.reducer,
   musicSelection: MusicSelection.musicSelectionSlice.reducer,
   options: Options.optionsSlice.reducer,
@@ -130,39 +78,7 @@ export const reducer = {
 }
 
 // Selectors
-export const selectCurrentCollectionUrl = (state: AppState) =>
-  state.currentCollection
-
-export const selectCurrentCollection = createSelector(
-  (state: AppState) => state.collections,
-  selectCurrentCollectionUrl,
-  (collections, currentCollection): LoadState.LoadState<MusicServerIndex> => {
-    const index =
-      Collections.getCollectionByUrl<MusicServerIndex>(currentCollection)(
-        collections
-      )
-    if (!index) {
-      throw new Error(
-        `${currentCollection} is selected but not started to load yet`
-      )
-    }
-    return index
-  }
-)
-
-export const selectIsCurrentCollectionLoading = (state: AppState) =>
-  LoadState.isLoading(selectCurrentCollection(state))
-
-export const selectCurrentCorrectionLoadError = (state: AppState) =>
-  LoadState.error(selectCurrentCollection(state))
-
-export const selectRawCurrentCollectionValue = (state: AppState) =>
-  LoadState.value(selectCurrentCollection(state))
-
-export const selectCurrentCollectionValue = createSelector(
-  selectRawCurrentCollectionValue,
-  (collection) => collection && preprocessCollection(collection)
-)
+export const selectCustomSongs = (state: AppState) => state.customSongs
 
 export const selectSearchInputText = (state: AppState) =>
   MusicSearchText.inputText(state.musicSearchText)
@@ -170,70 +86,7 @@ export const selectSearchInputText = (state: AppState) =>
 export const selectSearchText = (state: AppState) =>
   MusicSearchText.searchText(state.musicSearchText)
 
-export const { selectGroups, selectSongs } = (() => {
-  const selectSongListFromCurrentCollection = createSelector(
-    selectCurrentCollectionValue,
-    (collectionData) => (collectionData && collectionData.songs) || []
-  )
-  const selectSongList = createSelector(
-    selectSongListFromCurrentCollection,
-    (state: AppState) => state.customSongs,
-    (songList, customSongs) => [...customSongs, ...songList]
-  )
-  const selectSortedSongList = createSelector(selectSongList, (songList) =>
-    sortSongs(songList)
-  )
-  const selectFilteredSongList = createSelector(
-    selectSortedSongList,
-    selectSearchText,
-    (songList, searchText) => filterSongs(songList, searchText)
-  )
-  const selectSongOfTheDayEnabled = createSelector(
-    selectCurrentCollectionValue,
-    (collectionData) => collectionData && collectionData.songOfTheDayEnabled
-  )
-  const selectGroups = createSelector(
-    selectFilteredSongList,
-    selectSongOfTheDayEnabled,
-    (songs, songOfTheDayEnabled) =>
-      groupSongsIntoCategories(songs, {
-        songOfTheDayEnabled,
-      })
-  )
-  const selectSongs = createSelector(selectGroups, (groups) =>
-    groups.map(({ songs }) => songs).flat()
-  )
-  return { selectGroups, selectSongs }
-})()
-
-export const {
-  selectSelectedSong,
-  selectChartsForSelectedSong,
-  selectSelectedChart,
-} = (() => {
-  const selectMusicSelection = (state: AppState) => state.musicSelection
-  const selectSelectedSong = createSelector(
-    selectMusicSelection,
-    selectSongs,
-    (musicSelection, songs) =>
-      MusicSelection.selectedSongGivenSongs(songs)(musicSelection)
-  )
-  const selectChartsForSelectedSong = createSelector(
-    selectSelectedSong,
-    (song) => getPlayableCharts((song && song.charts) || [])
-  )
-  const selectSelectedChart = createSelector(
-    selectMusicSelection,
-    selectChartsForSelectedSong,
-    (musicSelection, charts): Chart =>
-      MusicSelection.selectedChartGivenCharts(charts)(musicSelection)
-  )
-  return {
-    selectSelectedSong,
-    selectChartsForSelectedSong,
-    selectSelectedChart,
-  }
-})()
+export const selectMusicSelection = (state: AppState) => state.musicSelection
 
 export const selectReadmeTextForSelectedSong = (state: AppState) =>
   state.currentSongReadme

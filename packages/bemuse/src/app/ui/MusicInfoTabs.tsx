@@ -13,6 +13,7 @@ export interface MusicInfoTabsProps {
   onOptions: () => void
   playMode: MappingMode
   song: Song
+  serverUrl: string
 }
 
 const TABS = ['Stats', 'Ranking', 'Information'] as const
@@ -38,11 +39,13 @@ const MusicInfoPanel = ({
   song,
   chart,
   playMode,
+  serverUrl,
 }: {
   selectedTab: keyof typeof TABS
   song: Song
   chart: Chart
   playMode: MappingMode
+  serverUrl: string
 }) => {
   switch (selectedTab) {
     case 0:
@@ -50,7 +53,7 @@ const MusicInfoPanel = ({
     case 1:
       return <RankingContainer chart={chart} playMode={playMode} />
     case 2:
-      return <MusicInfoTabInformation song={song} />
+      return <MusicInfoTabInformation serverUrl={serverUrl} song={song} />
     default:
       return <>Unknown tab</>
   }

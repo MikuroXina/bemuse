@@ -1,5 +1,8 @@
+import preprocessCollection, {
+  type Preprocessed,
+} from '@bemuse/music-collection/preprocessCollection'
 import type { MusicServerIndex } from '@mikuroxina/bemuse-types'
-import { useQuery, type UseQueryResult } from 'react-query'
+import { useQuery, type UseQueryResult } from '@tanstack/react-query'
 
 export const OFFICIAL_SERVER_URL = 'https://music4.bemuse.ninja/server'
 
@@ -32,9 +35,13 @@ async function load(serverUrl: string): Promise<MusicServerIndex> {
 
 export function useCollection(
   serverUrl: string
-): UseQueryResult<MusicServerIndex, Error> {
+): UseQueryResult<Preprocessed, Error> {
   return useQuery({
     queryKey: ['collection', serverUrl],
-    queryFn: ({ queryKey: [, url] }) => load(url),
+    queryFn: async ({ queryKey: [, url] }) => {
+      const index = await load(url)
+      return preprocessCollection(index)
+    },
+    staleTime: Infinity,
   })
 }

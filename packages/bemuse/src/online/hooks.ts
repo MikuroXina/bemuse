@@ -6,7 +6,7 @@ import {
   useQuery,
   useQueryClient,
   type UseQueryResult,
-} from 'react-query'
+} from '@tanstack/react-query'
 
 import type {
   ScoreboardDataEntry,

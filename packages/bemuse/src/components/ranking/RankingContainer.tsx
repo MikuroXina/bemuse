@@ -17,8 +17,8 @@ import {
 } from '@bemuse/online/operations.js'
 import type { ScoreCount } from '@bemuse/rules/accuracy.js'
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
+import type { UseMutationResult, UseQueryResult } from '@tanstack/react-query'
 import { useEffect, useRef } from 'react'
-import type { UseMutationResult, UseQueryResult } from 'react-query'
 
 import type { Result } from '../../app/types.js'
 import Ranking from './Ranking.js'
@@ -91,7 +91,7 @@ export const NewRankingContainer = ({
 function operationFromResult<T, TError, TVariables>(
   result: UseMutationResult<T, TError, TVariables> | UseQueryResult<T, TError>
 ): Operation<T> {
-  if (result.isLoading) {
+  if (result.isPending) {
     return loading()
   }
   if (result.isError) {

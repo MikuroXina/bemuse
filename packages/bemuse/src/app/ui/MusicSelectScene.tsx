@@ -2,37 +2,51 @@ import type { Chart, Song } from '@bemuse/collection-model/types.js'
 import CustomBMS from '@bemuse/components/CustomBMS.js'
 import OptionsView from '@bemuse/components/options/Options.js'
 import { shouldShowOptions } from '@bemuse/flags/index.js'
-import { OFFICIAL_SERVER_URL } from '@bemuse/music-collection/index.js'
+import filterSongs from '@bemuse/music-collection/filterSongs.js'
+import getPlayableCharts from '@bemuse/music-collection/getPlayableCharts.js'
+import groupSongsIntoCategories from '@bemuse/music-collection/groupSongsIntoCategories.js'
+import sortSongs from '@bemuse/music-collection/sortSongs.js'
 import { useCurrentUser } from '@bemuse/online/hooks.js'
 import Online, { type UserInfo } from '@bemuse/online/index.js'
 import { OnlineContext } from '@bemuse/online/instance.js'
 import AuthenticationPopup from '@bemuse/online/ui/AuthenticationPopup.js'
+import { OFFICIAL_SERVER_URL, useCollection } from '@bemuse/query/collection.js'
 import { SceneManagerContext } from '@bemuse/scene-manager/index.js'
 import ModalPopup from '@bemuse/ui/ModalPopup.js'
 import Scene from '@bemuse/ui/Scene.js'
 import SceneHeading from '@bemuse/ui/SceneHeading.js'
-import { type ChangeEvent, type MouseEvent, useContext, useState } from 'react'
+import type { SongMetadataInCollection } from '@mikuroxina/bemuse-types'
+import {
+  type ChangeEvent,
+  type MouseEvent,
+  useContext,
+  useMemo,
+  useState,
+} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createSelector, createStructuredSelector } from 'reselect'
+import { createStructuredSelector } from 'reselect'
 
 import {
   customSongsSlice,
-  selectChartsForSelectedSong,
-  selectCurrentCollectionUrl,
-  selectCurrentCorrectionLoadError,
-  selectGroups,
-  selectIsCurrentCollectionLoading,
+  selectCustomSongs,
+  selectMusicSelection,
   selectOptions,
   selectPlayMode,
   selectSearchInputText,
   selectSearchText,
-  selectSelectedChart,
-  selectSelectedSong,
 } from '../../redux/ReduxState.js'
+import { searchText } from '../entities/MusicSearchText.js'
+import {
+  musicSelectionSlice,
+  selectedChartGivenCharts,
+  selectedSongGivenSongs,
+} from '../entities/MusicSelection.js'
 import * as Options from '../entities/Options.js'
+import findMatchingSong from '../interactors/findMatchingSong.js'
 import * as MusicSearchIO from '../io/MusicSearchIO.js'
 import * as MusicSelectionIO from '../io/MusicSelectionIO.js'
 import { hasPendingArchiveToLoad } from '../PreloadedCustomBMS.js'
+import { getInitiallySelectedSong, getMusicServer } from '../query-flags.js'
 import MusicInfo from './MusicInfo.js'
 import MusicList from './MusicList.js'
 import styles from './MusicSelectScene.module.scss'
@@ -41,31 +55,11 @@ import SongPreviewer from './SongPreviewer.js'
 import Toolbar, { item, spacer } from './Toolbar.js'
 import UnofficialPanel from './UnofficialPanel.js'
 
-const selectMusicSelectState = (() => {
-  const selectLegacyServerObjectForCurrentCollection = createSelector(
-    selectCurrentCollectionUrl,
-    (url) => ({ url })
-  )
-
-  const selectIsCurrentCollectionUnofficial = createSelector(
-    selectCurrentCollectionUrl,
-    (url) => url !== OFFICIAL_SERVER_URL
-  )
-
-  return createStructuredSelector({
-    loading: selectIsCurrentCollectionLoading,
-    error: selectCurrentCorrectionLoadError,
-    server: selectLegacyServerObjectForCurrentCollection,
-    groups: selectGroups,
-    song: selectSelectedSong,
-    charts: selectChartsForSelectedSong,
-    chart: selectSelectedChart,
-    filterText: selectSearchInputText,
-    highlight: selectSearchText,
-    unofficial: selectIsCurrentCollectionUnofficial,
-    playMode: selectPlayMode,
-  })
-})()
+const selectMusicSelectState = createStructuredSelector({
+  filterText: selectSearchInputText,
+  highlight: selectSearchText,
+  playMode: selectPlayMode,
+})
 type MusicSelect = ReturnType<typeof selectMusicSelectState>
 
 const UnofficialDisclaimer = ({
@@ -79,48 +73,115 @@ const UnofficialDisclaimer = ({
 )
 
 const Main = ({
+  serverUrl,
   musicSelect,
   inSong,
   handleOptionsOpen,
   handleSongSelect,
   handleSongDeselect,
-  handleChartClick,
 }: {
+  serverUrl: string
   musicSelect: MusicSelect
   inSong: boolean
   handleOptionsOpen: () => void
   handleSongSelect: (song: Song, chart?: Chart) => void
   handleSongDeselect: () => void
-  handleChartClick: (chart: Chart, e: MouseEvent) => void
 }) => {
-  if (musicSelect.loading) {
+  const dispatch = useDispatch()
+  const sceneManager = useContext(SceneManagerContext)
+  const musicSelection = useSelector(selectMusicSelection)
+  const customSongs = useSelector(selectCustomSongs)
+  const collectionRes = useCollection(serverUrl)
+  const options = useSelector(selectOptions)
+  const musicPreviewEnabled = Options.isPreviewEnabled(options)
+
+  const [songs, selectGroups] = useMemo(() => {
+    if (collectionRes.data == null) {
+      return [[], []]
+    }
+
+    const collectionData = collectionRes.data
+    const allSongs = customSongs.concat(collectionData.songs)
+    const songList = sortSongs(allSongs)
+    const selectFilteredSongList = filterSongs(songList, searchText)
+    const songOfTheDayEnabled = collectionData.songOfTheDayEnabled
+    const selectGroups = groupSongsIntoCategories(selectFilteredSongList, {
+      songOfTheDayEnabled,
+    })
+
+    const initiallySelectedSong = getInitiallySelectedSong()
+    if (initiallySelectedSong) {
+      const matchingSong = findMatchingSong({
+        songs: allSongs,
+        getTitle: (song: SongMetadataInCollection) => song.title,
+        title: initiallySelectedSong,
+      })
+      if (matchingSong) {
+        dispatch(
+          musicSelectionSlice.actions.MUSIC_SONG_SELECTED({
+            songId: matchingSong.id,
+          })
+        )
+      }
+    }
+
+    return [allSongs, selectGroups]
+  }, [collectionRes.data])
+
+  const selectedSong = selectedSongGivenSongs(songs)(musicSelection)
+  const selectedSongCharts = getPlayableCharts(selectedSong.charts)
+  const selectedChart =
+    selectedChartGivenCharts(selectedSongCharts)(musicSelection)
+
+  function onClickChart(chart: Chart, e: MouseEvent) {
+    if (selectedChart.md5 === chart.md5) {
+      MusicSelectionIO.launchGame({
+        server: { url: serverUrl },
+        song: selectedSong,
+        chart: selectedChart,
+        dispatch,
+        options,
+        sceneManager,
+        autoplayEnabled: e.altKey,
+      })
+    } else {
+      handleSongSelect(selectedSong, chart)
+    }
+  }
+
+  if (collectionRes.isLoading || collectionRes.isPending) {
     return <div className={styles.loading}>Loading…</div>
   }
-  if (musicSelect.error) {
+  if (collectionRes.isError) {
     return <div className={styles.loading}>Cannot load collection!</div>
   }
-  if (musicSelect.groups.length === 0) {
+
+  if (selectGroups.length === 0) {
     return <div className={styles.loading}>No songs found!</div>
   }
   return (
     <div className={styles.main} data-in-song={inSong}>
       <MusicList
-        groups={musicSelect.groups}
+        groups={selectGroups}
         highlight={musicSelect.highlight}
-        selectedSong={musicSelect.song}
-        selectedChart={musicSelect.chart}
+        selectedSong={selectedSong}
+        selectedChart={selectedChart}
         playMode={musicSelect.playMode}
         onSelect={handleSongSelect}
         onDeselect={handleSongDeselect}
       />
       <MusicInfo
-        song={musicSelect.song}
-        chart={musicSelect.chart}
-        charts={musicSelect.charts}
+        song={selectedSong}
+        chart={selectedChart}
+        charts={selectedSongCharts}
         playMode={musicSelect.playMode}
-        onChartClick={handleChartClick}
+        onChartClick={onClickChart}
         onOptions={handleOptionsOpen}
+        serverUrl={serverUrl}
       />
+      {musicPreviewEnabled && (
+        <SongPreviewer song={selectedSong} serverUrl={serverUrl} />
+      )}
     </div>
   )
 }
@@ -183,11 +244,10 @@ const getToolbarItems = ({
 }
 
 const MusicSelectScene = () => {
+  const serverUrl: string = getMusicServer() || OFFICIAL_SERVER_URL
+
   const sceneManager = useContext(SceneManagerContext)
   const musicSelect = useSelector(selectMusicSelectState)
-  const collectionUrl = useSelector(selectCurrentCollectionUrl)
-  const options = useSelector(selectOptions)
-  const musicPreviewEnabled = Options.isPreviewEnabled(options)
 
   const [optionsVisible, setOptionsVisible] = useState(shouldShowOptions())
   const [customBMSModalVisible, setCustomBMSModalVisible] = useState(
@@ -212,16 +272,6 @@ const MusicSelectScene = () => {
     MusicSelectionIO.selectSong(song, dispatch)
   const onFilterTextChange = (text: string) =>
     MusicSearchIO.handleSearchTextType(text, dispatch)
-  const onLaunchGame = (extraOptions: { autoplayEnabled: boolean }) =>
-    MusicSelectionIO.launchGame({
-      server: musicSelect.server,
-      song: musicSelect.song,
-      chart: musicSelect.chart,
-      dispatch,
-      options,
-      sceneManager,
-      ...extraOptions,
-    })
 
   const showUnofficialDisclaimer = () => {
     setUnofficialDisclaimerVisible(true)
@@ -267,16 +317,6 @@ const MusicSelectScene = () => {
     setInSong(false)
   }
 
-  const handleChartClick = (chart: Chart, e: MouseEvent) => {
-    if (musicSelect.chart.md5 === chart.md5) {
-      onLaunchGame({
-        autoplayEnabled: e.altKey,
-      })
-    } else {
-      onSelectChart(musicSelect.song, chart)
-    }
-  }
-
   return (
     <Scene className={styles.scene} onDragEnter={showCustomBMSModal}>
       <SceneHeading className={styles.heading}>
@@ -290,17 +330,17 @@ const MusicSelectScene = () => {
         />
       </SceneHeading>
 
-      {musicSelect.unofficial ? (
+      {serverUrl !== OFFICIAL_SERVER_URL && (
         <UnofficialDisclaimer
           handleUnofficialClick={showUnofficialDisclaimer}
         />
-      ) : null}
+      )}
 
       <Main
+        serverUrl={serverUrl}
         musicSelect={musicSelect}
         inSong={inSong}
         handleOptionsOpen={showOptions}
-        handleChartClick={handleChartClick}
         handleSongDeselect={handleSongDeselect}
         handleSongSelect={handleSongSelect}
       />
@@ -343,10 +383,6 @@ const MusicSelectScene = () => {
       />
 
       <RageQuitPopup />
-
-      {musicPreviewEnabled && (
-        <SongPreviewer song={musicSelect.song} serverUrl={collectionUrl} />
-      )}
     </Scene>
   )
 }
