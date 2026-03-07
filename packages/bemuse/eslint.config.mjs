@@ -1,7 +1,9 @@
 import bemuseConfig from '@mikuroxina/eslint-config-bemuse'
+import pluginQuery from '@tanstack/eslint-plugin-query'
 
 export default [
   ...bemuseConfig,
+  ...pluginQuery.configs['flat/recommended'],
   {
     ignores: ['dev-dist/'],
   },
