@@ -21,6 +21,7 @@ import type {
   TimeKey,
 } from '../../lib/renoter/types'
 import { calculateLayout, PX_PER_BEAT } from './layout'
+import styles from './renote-editor.module.css'
 import { RenoterRow } from './row'
 
 export interface RenoteEditorProps {
@@ -339,7 +340,7 @@ export const RenoteEditor = ({
           <div style={{ height: `${canvasHeight}px`, position: 'relative' }}>
             {layout.groupColumns.map(({ x, width }, index) => (
               <div
-                className='col'
+                className={styles.col}
                 key={index}
                 data-selected={selectedGroupIndex === index}
                 style={{ left: `${x}px`, width: `${width}px` }}
@@ -348,10 +349,10 @@ export const RenoteEditor = ({
             {measureLines.map((measure) => (
               <div
                 key={measure.number}
-                className='measure'
+                className={styles.measure}
                 style={{ top: `${measure.y}px` }}
               >
-                <div className='measure-text'>
+                <div className={styles.measureText}>
                   #{measure.number.toString().padStart(3, '0')}
                 </div>
               </div>
@@ -359,7 +360,7 @@ export const RenoteEditor = ({
             {visibleObjectRows.map((row) => (
               <div
                 key={row.y}
-                className='objectRow'
+                className={styles.objectRow}
                 style={{ top: `${row.y}px` }}
               >
                 <RenoterRow
@@ -398,7 +399,7 @@ export const RenoteEditor = ({
               </TreeItem>
             ))}
           </Tree>
-          {viewport}
+          {viewport[0]} ~ {viewport[1]}
         </div>
       </div>
     </div>
