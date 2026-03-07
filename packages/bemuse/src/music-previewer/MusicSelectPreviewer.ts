@@ -1,14 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-import * as MusicPreviewer from './index.js'
-
-MusicPreviewer.preload()
+import { MusicPreviewer } from './index.js'
 
 export interface MusicSelectPreviewerProps {
   url: string | null
 }
 
 const MusicSelectPreviewer = ({ url }: MusicSelectPreviewerProps) => {
+  const previewerRef = useRef<MusicPreviewer | null>(null)
   const [pausedForCalibration, setPausedForCalibration] = useState(false)
   useEffect(() => {
     const handleMessage = ({ data }: MessageEvent) => {
@@ -21,18 +20,27 @@ const MusicSelectPreviewer = ({ url }: MusicSelectPreviewerProps) => {
     }
     addEventListener('message', handleMessage)
     return () => {
-      MusicPreviewer.disable()
+      previewerRef.current?.disable()
       removeEventListener('message', handleMessage)
     }
   }, [])
   useEffect(() => {
     if (pausedForCalibration) {
-      MusicPreviewer.disable()
+      previewerRef.current?.disable()
     } else {
-      MusicPreviewer.enable()
+      previewerRef.current?.enable()
     }
-    MusicPreviewer.preview(url)
-  }, [url, pausedForCalibration])
+  }, [pausedForCalibration])
+  useEffect(() => {
+    if (url) {
+      previewerRef.current?.preview(url)
+      previewerRef.current?.go()
+    }
+  }, [url])
+
+  if (previewerRef.current === null) {
+    previewerRef.current = new MusicPreviewer()
+  }
 
   return null
 }

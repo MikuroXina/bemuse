@@ -34,7 +34,12 @@ export class CustomSongResources implements ICustomSongResources {
   private _files: PromiseLike<FileEntry[]>
   public setLoggingFunction = this._logging.setLoggingFunction
 
-  constructor(provider: CustomResourceProvider) {
+  constructor(
+    provider: CustomResourceProvider,
+    public readonly initialLog: readonly string[] = [
+      'Examining selected items...',
+    ]
+  ) {
     this._files = Promise.resolve(provider.getFiles(this._logging.log)).then(
       (files) => unarchiveIfNeeded(files, this._logging.log)
     )

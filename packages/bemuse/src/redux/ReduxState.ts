@@ -31,7 +31,6 @@ enableMapSet()
 
 export interface AppState {
   collections: Map<string, LoadState.LoadState<MusicServerIndex>>
-  customSongLoadState: LoadState.LoadState<undefined>
   customSongs: SongMetadataInCollection[]
   currentCollection: string
   musicSearchText: MusicSearchText.MusicSearchTextState
@@ -66,14 +65,6 @@ export const collectionsSlice = createSlice({
     ) => {
       state.set(url, LoadState.completeWithValue(data)())
     },
-  },
-})
-export const customSongLoadStateSlice = createSlice({
-  name: 'customSongLoadState',
-  initialState: LoadState.initCompletedWithValue(undefined),
-  reducers: {
-    CUSTOM_SONG_LOAD_STARTED: () => LoadState.beginLoading<undefined>()(),
-    CUSTOM_SONG_LOADED: () => LoadState.completeWithValue(undefined)(),
   },
 })
 export const customSongsSlice = createSlice({
@@ -129,7 +120,6 @@ export const rageQuitSlice = createSlice({
 // Reducer
 export const reducer = {
   collections: collectionsSlice.reducer,
-  customSongLoadState: customSongLoadStateSlice.reducer,
   customSongs: customSongsSlice.reducer,
   currentCollection: currentCollectionSlice.reducer,
   musicSearchText: MusicSearchText.musicSearchTextSlice.reducer,

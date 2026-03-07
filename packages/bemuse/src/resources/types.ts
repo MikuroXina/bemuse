@@ -7,6 +7,7 @@ export interface IResources {
 
 export interface ICustomSongResources extends IResources {
   readonly fileList: Promise<string[]>
+  readonly initialLog: readonly string[]
 }
 
 export interface IResource {

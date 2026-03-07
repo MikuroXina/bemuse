@@ -3,7 +3,6 @@ import CustomBMS from '@bemuse/components/CustomBMS.js'
 import OptionsView from '@bemuse/components/options/Options.js'
 import { shouldShowOptions } from '@bemuse/flags/index.js'
 import { OFFICIAL_SERVER_URL } from '@bemuse/music-collection/index.js'
-import * as MusicPreviewer from '@bemuse/music-previewer/index.js'
 import { useCurrentUser } from '@bemuse/online/hooks.js'
 import Online, { type UserInfo } from '@bemuse/online/index.js'
 import { OnlineContext } from '@bemuse/online/instance.js'
@@ -17,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createSelector, createStructuredSelector } from 'reselect'
 
 import {
+  customSongsSlice,
   selectChartsForSelectedSong,
   selectCurrentCollectionUrl,
   selectCurrentCorrectionLoadError,
@@ -235,6 +235,10 @@ const MusicSelectScene = () => {
   const hideCustomBMSModal = () => {
     setCustomBMSModalVisible(false)
   }
+  const onSongLoaded = (song: Song) => {
+    dispatch(customSongsSlice.actions.CUSTOM_SONG_LOADED({ song }))
+    hideCustomBMSModal()
+  }
   const handleFilter = (e: ChangeEvent<HTMLInputElement>) => {
     onFilterTextChange(e.target.value)
   }
@@ -265,7 +269,6 @@ const MusicSelectScene = () => {
 
   const handleChartClick = (chart: Chart, e: MouseEvent) => {
     if (musicSelect.chart.md5 === chart.md5) {
-      MusicPreviewer.go()
       onLaunchGame({
         autoplayEnabled: e.altKey,
       })
@@ -322,7 +325,7 @@ const MusicSelectScene = () => {
         onBackdropClick={hideCustomBMSModal}
       >
         <div className={styles.customBms}>
-          <CustomBMS onSongLoaded={hideCustomBMSModal} />
+          <CustomBMS onSongLoaded={onSongLoaded} />
         </div>
       </ModalPopup>
 
