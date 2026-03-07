@@ -58,7 +58,7 @@ export const songMetadataSchema = v.object({
   /** Artist’s canonical name */
   alias_of: v.optional(v.string()),
   /** Artist’s website */
-  artist_url: v.string(),
+  artist_url: v.optional(v.string()),
   /** BMS entry website (e.g. event venue page) */
   bms_url: v.optional(v.string()),
   /** Song website (e.g. soundcloud) */
