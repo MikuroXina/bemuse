@@ -98,7 +98,7 @@ export default function Song() {
       description:
         'Scan the chart files to update the available charts in the song.',
       ok: songMeta?.charts.length ?? 0 > 0,
-      infoText: songMeta?.charts.length + ' chart files found',
+      infoText: (songMeta?.charts.length ?? 'No') + ' chart files found',
     },
     {
       label: 'Song preview',
