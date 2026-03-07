@@ -63,7 +63,7 @@ application at this URL:
 
 <div style={{textAlign: 'center', fontSize: '2em'}}>
 
-**[https://song-workshop.bemuse.ninja/](https://song-workshop.bemuse.ninja/)**
+**[https://bemuse.pages.dev/workshop/](https://bemuse.pages.dev/workshop/)**
 
 </div>
 
