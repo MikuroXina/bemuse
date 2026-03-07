@@ -44,6 +44,9 @@ const toolbarItems = ({
   item('Docs', {
     href: '/project/',
   }),
+  item('Workshop', {
+    href: '/workshop/',
+  }),
   item(<Version />, {
     onClick: viewChangelog,
     tip: 'What’s new?',
