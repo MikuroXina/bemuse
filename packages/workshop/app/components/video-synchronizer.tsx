@@ -84,7 +84,7 @@ export const VideoSynchronizer = ({
     return 'Not specified'
   }
   return (
-    <>
+    <div>
       <video
         src={videoUrl}
         preload='auto'
@@ -107,6 +107,6 @@ export const VideoSynchronizer = ({
           </Button>
         </>
       )}
-    </>
+    </div>
   )
 }
