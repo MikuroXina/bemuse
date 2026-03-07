@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "react-router dev",
     "build": "wireit",
-    "check": "react-router typegen && eslint . && tsc",
+    "typegen": "react-router typegen",
+    "check": "wireit",
     "format": "prettier --write .",
     "test": "vitest run"
   },
@@ -17,7 +18,14 @@
         "../bemuse-types:build",
         "../bemuse-indexer:build",
         "../bemuse-notechart:build",
-        "../bms:build"
+        "../bms:build",
+        "typegen"
+      ]
+    },
+    "check": {
+      "command": "eslint . && tsc",
+      "dependencies": [
+        "typegen"
       ]
     }
   },
