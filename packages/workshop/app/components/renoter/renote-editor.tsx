@@ -408,7 +408,7 @@ export const RenoteEditor = ({
         </p>
         <Button onClick={onClickSave}>Save (Cmd/Ctrl + S)</Button>
         <ul>
-          <li>Shift + Click Note - Select Group</li>
+          <li>Hold Shift + Hover Note - Select Group</li>
           <li>↑ - Go to Next Group</li>
           <li>↓ - Go to Previous Group</li>
           <li>A/Z/S/X/D/C/F/V - Cycle Channel Assignment</li>
