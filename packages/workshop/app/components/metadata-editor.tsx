@@ -79,11 +79,11 @@ export const MetadataEditor = ({
   }
 
   return (
-    <div style={{ display: 'flex; gap: 2rem' }}>
-      <div style={{ flex: '50% 1 1' }}>
+    <div className={styles.container}>
+      <div>
         <Card>
           <CardHeader slot='header' titleText='Edit song metadata' />
-          <div style={{ padding: '1rem' }}>
+          <div className={styles.cardBody}>
             <form onSubmit={onSubmit}>
               <p>
                 <Label for='song_genre'>Song genre</Label>
@@ -100,7 +100,7 @@ export const MetadataEditor = ({
                 <br />
                 <Input
                   id='song_url'
-                  style={{ width: '32em' }}
+                  className={styles.largeInput}
                   value={songUrl}
                   placeholder='e.g. SoundCloud'
                 />
@@ -110,7 +110,7 @@ export const MetadataEditor = ({
                 <br />
                 <Input
                   id='bms_url'
-                  style={{ width: '32em' }}
+                  className={styles.largeInput}
                   value={bmsUrl}
                   placeholder='e.g. event venue entry page'
                 />
@@ -120,7 +120,7 @@ export const MetadataEditor = ({
                 <br />
                 <Input
                   id='youtube_url'
-                  style={{ width: '32em' }}
+                  className={styles.largeInput}
                   value={youtubeUrl}
                   placeholder=''
                 />
@@ -130,7 +130,7 @@ export const MetadataEditor = ({
                 <br />
                 <Input
                   id='long_url'
-                  style={{ width: '32em' }}
+                  className={styles.largeInput}
                   value={longUrl}
                   placeholder='e.g. SoundCloud for extended version of this song'
                 />
@@ -140,7 +140,7 @@ export const MetadataEditor = ({
                 <br />
                 <Input
                   id='bmssearch_id'
-                  style={{ width: '8em' }}
+                  className={styles.smallInput}
                   value={(bmssearchId ?? '').toString()}
                 />
               </p>
@@ -154,7 +154,7 @@ export const MetadataEditor = ({
                 <br />
                 <Input
                   id='artist_url'
-                  style={{ width: '32em' }}
+                  className={styles.largeInput}
                   value={songArtistUrl}
                   placeholder='e.g. website, SoundCloud, Twitter'
                 />
@@ -179,17 +179,17 @@ export const MetadataEditor = ({
                   value={readme}
                 />
               </p>
-              <div style={{ textAlign: 'right' }}>
+              <div className={styles.submitButton}>
                 <Button type='Submit'> Save song metadata </Button>
               </div>
             </form>
           </div>
         </Card>
       </div>
-      <div style={{ flex: '50% 1 1' }}>
+      <div>
         <Card>
           <CardHeader slot='header' titleText='Metadata checklist' />
-          <div style={{ padding: '1rem' }}>
+          <div className={styles.cardBody}>
             {warnings && warnings.length > 0 ? (
               <ul>
                 {warnings.map((warning) =>
@@ -207,7 +207,7 @@ export const MetadataEditor = ({
         </Card>
         <Card style={{ marginTop: '1rem' }}>
           <CardHeader slot='header' titleText='Song description' />
-          <div style={{ padding: '1rem' }}>
+          <div className={styles.cardBody}>
             {readme ? (
               <Markdown source={readme} />
             ) : (

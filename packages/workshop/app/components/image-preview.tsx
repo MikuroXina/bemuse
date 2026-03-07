@@ -1,5 +1,7 @@
 import { useFileObjectUrl } from '~/lib/hooks/file-object-url'
 
+import styles from './image-preview.module.css'
+
 export interface ImagePreviewProps {
   directoryHandle: FileSystemDirectoryHandle
   path: string | undefined
@@ -9,13 +11,13 @@ export const ImagePreview = ({ directoryHandle, path }: ImagePreviewProps) => {
   const [imageUrl, error] = useFileObjectUrl(directoryHandle, path)
 
   return (
-    <div style={{ padding: '1rem' }}>
+    <div className={styles.container}>
       {error ? (
         <>
           Unable to load {path}: {error}
         </>
       ) : imageUrl ? (
-        <img src={imageUrl} style={{ maxWidth: '100%' }} alt={path} />
+        <img src={imageUrl} className={styles.image} alt={path} />
       ) : (
         'Not found'
       )}
