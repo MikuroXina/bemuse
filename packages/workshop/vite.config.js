@@ -7,6 +7,7 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 export default defineConfig({
   plugins: [tsconfigPaths(), reactRouter()],
   build: {
+    assetsDir: './workshop/assets/',
     commonjsOptions: {
       include: [/node_modules/],
     },
