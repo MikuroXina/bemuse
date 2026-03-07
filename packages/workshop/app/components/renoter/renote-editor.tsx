@@ -1,4 +1,5 @@
 import { type BMSChart, type BMSObject, Keysounds } from '@mikuroxina/bms'
+import { Button } from '@ui5/webcomponents-react/Button'
 import { MessageStrip } from '@ui5/webcomponents-react/MessageStrip'
 import { Tree } from '@ui5/webcomponents-react/Tree'
 import { TreeItem } from '@ui5/webcomponents-react/TreeItem'
@@ -137,6 +138,14 @@ export const RenoteEditor = ({
     return things.filter((t) => t.y >= range[0] && t.y <= range[1])
   }
 
+  function onClickSave() {
+    console.log('Save!!!')
+    save({
+      newNotes,
+      groups,
+    })
+  }
+
   function onNoteHover(e: BMSObject) {
     const keysound = keysounds.get(e.value)
     setInfo(`${e.value}: ${keysound}`)
@@ -171,11 +180,7 @@ export const RenoteEditor = ({
   function onKeyDown(e: KeyboardEvent<HTMLDivElement>) {
     if (e.key === 's' && (e.ctrlKey || e.metaKey)) {
       e.preventDefault()
-      console.log('Save!!!')
-      save({
-        newNotes,
-        groups,
-      })
+      onClickSave()
       return
     }
     switch (e.key) {
@@ -400,7 +405,10 @@ export const RenoteEditor = ({
               </TreeItem>
             ))}
           </Tree>
-          {viewport[0]} ~ {viewport[1]}
+          <p>
+            {viewport[0]} ~ {viewport[1]}
+          </p>
+          <Button onClick={onClickSave}>Save (Cmd/Ctrl + S)</Button>
         </div>
       </div>
     </div>
