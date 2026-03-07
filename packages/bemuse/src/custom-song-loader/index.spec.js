@@ -4,7 +4,7 @@ import { loadSongFromResources } from './index.js'
 
 describe('SongLoader', function () {
   function buffer(text) {
-    return Promise.resolve(Buffer.from(text).buffer)
+    return Promise.resolve(new TextEncoder().encode(text).buffer)
   }
 
   function createResources(files) {
