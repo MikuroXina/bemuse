@@ -215,7 +215,7 @@ importers:
         version: 2.2.37
       '@types/jquery':
         specifier: ^3.5.33
-        version: 3.5.33
+        version: 3.5.34
       '@types/lodash':
         specifier: ^4.17.23
         version: 4.17.24
@@ -3671,8 +3671,8 @@ packages:
   '@types/istanbul-reports@3.0.4':
     resolution: {integrity: sha512-pk2B1NWalF9toCRu6gjBzR69syFjP4Od8WRAX+0mmf9lAjCRicLOWc+ZrxZHx/0XRjotgkF9t6iaMJ+aXcOdZQ==}
 
-  '@types/jquery@3.5.33':
-    resolution: {integrity: sha512-SeyVJXlCZpEki5F0ghuYe+L+PprQta6nRZqhONt9F13dWBtR/ftoaIbdRQ7cis7womE+X2LKhsDdDtkkDhJS6g==}
+  '@types/jquery@3.5.34':
+    resolution: {integrity: sha512-3m3939S3erqmTLJANS/uy0B6V7BorKx7RorcGZVjZ62dF5PAGbKEDZK1CuLtKombJkFA2T1jl8LAIIs7IV6gBQ==}
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
@@ -15251,7 +15251,7 @@ snapshots:
     dependencies:
       '@types/istanbul-lib-report': 3.0.3
 
-  '@types/jquery@3.5.33':
+  '@types/jquery@3.5.34':
     dependencies:
       '@types/sizzle': 2.3.10
 
@@ -15315,7 +15315,7 @@ snapshots:
 
   '@types/openui5@1.144.0':
     dependencies:
-      '@types/jquery': 3.5.33
+      '@types/jquery': 3.5.34
       '@types/qunit': 2.19.13
 
   '@types/parse-json@4.0.2': {}
