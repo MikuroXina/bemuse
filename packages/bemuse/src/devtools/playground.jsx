@@ -1,6 +1,8 @@
 import { sceneRoot } from '@bemuse/utils/main-element.js'
 import query from '@bemuse/utils/query.js'
 
+import styles from "./playground.module.css"
+
 const playgrounds = import.meta.glob('./playgrounds/*.{js,jsx}');
 const availablePlaygrounds = {}
 for (const key of Object.keys(playgrounds)) {
@@ -9,7 +11,6 @@ for (const key of Object.keys(playgrounds)) {
 }
 
 const DefaultPlayground = () => {
-  const linkStyle = { color: '#abc' }
   return (
     <div>
       <h1>Bemuse Playground</h1>
@@ -17,7 +18,7 @@ const DefaultPlayground = () => {
       <ul>
         {Object.keys(availablePlaygrounds).map((key) => (
           <li key={key}>
-            <a style={linkStyle} href={'?mode=playground&playground=' + key}>
+            <a className={styles.playgroundLink} href={'?mode=playground&playground=' + key}>
               {key}
             </a>
           </li>

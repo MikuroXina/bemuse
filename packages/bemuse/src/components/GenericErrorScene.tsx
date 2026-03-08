@@ -32,8 +32,7 @@ export default function GenericErrorScene(props: {
         <Panel title='Error'>
           <div className={styles.wrapper}>
             <textarea className={styles.stack} value={details} readOnly />
-
-            <div style={{ textAlign: 'right' }}>
+            <div className={styles.primaryActionRow}>
               <OptionsButton
                 onClick={() => {
                   onContinue()

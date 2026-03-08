@@ -7,6 +7,7 @@ import OptionsButton from '@bemuse/components/options/OptionsButton.js'
 import { useDispatch, useSelector } from 'react-redux'
 
 import * as ReduxState from '../../redux/ReduxState.js'
+import styles from './RageQuitPopup.module.css'
 
 function RageQuitPopup() {
   const dispatch = useDispatch()
@@ -16,7 +17,7 @@ function RageQuitPopup() {
 
   return (
     <ModalPopup visible={visible} onBackdropClick={onClose}>
-      <div style={{ maxWidth: '30em' }}>
+      <div className={styles.smallPanel}>
         <Panel title='You just rage-quitted!'>
           <DialogContent>
             <p>I hope you enjoyed the tutorial ^_^</p>

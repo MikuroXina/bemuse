@@ -104,11 +104,10 @@ export const Scratch = ({
       </g>
       {sx && (
         <circle
-          className={styles.line}
+          className={`${styles.line} ${styles.transparentBlack}`}
           cx={sx}
           cy='42'
           r='8'
-          style={{ fill: 'rgba(255,255,255,0.1)' }}
         />
       )}
       {gx && <line className={styles.line} x1={gx} x2={gx} y1='1' y2='53' />}
@@ -135,16 +134,14 @@ export const Panel = ({
     <OptionsPlayerGraphicsContainer active={active}>
       {value === '3d' ? (
         <path
-          className={styles.line}
+          className={`${styles.line} ${styles.transparentBlack}`}
           d={PANEL_3D_PATH}
-          style={{ fill: 'rgba(255,255,255,0.1)' }}
         />
       ) : (
         <g transform={'translate(' + tx + ' 0)'}>
           <path
-            className={styles.line}
+            className={`${styles.line} ${styles.transparentBlack}`}
             d={PANEL_PATH}
-            style={{ fill: 'rgba(255,255,255,0.1)' }}
           />
         </g>
       )}

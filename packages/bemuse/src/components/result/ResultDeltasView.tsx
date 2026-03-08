@@ -79,7 +79,7 @@ const ResultDeltasView = ({ deltas }: ResultDeltasViewProps) => {
                 key={bucket}
                 className={styles.histogramBar}
                 data-bucket={bucket}
-                style={{ height: height(count) }}
+                style={{ '--height': `${height(count)}px` }}
               />
             ))}
           </div>

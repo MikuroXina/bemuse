@@ -89,7 +89,7 @@ const OptionsPlayer = ({ onClose }: { onClose?: () => void }) => {
             onChange={(leadTime) =>
               dispatch(optionsSlice.actions.CHANGE_LEAD_TIME({ leadTime }))
             }
-            style={{ width: '5em' }}
+            className={styles.largeInput}
           />
         )}
         help={
@@ -157,7 +157,7 @@ const OptionsPlayer = ({ onClose }: { onClose?: () => void }) => {
               onChange={(laneCover) =>
                 dispatch(optionsSlice.actions.CHANGE_LANE_COVER({ laneCover }))
               }
-              style={{ width: '5em' }}
+              className={styles.largeInput}
             />
             <span className={styles.hint}>%</span>
           </>

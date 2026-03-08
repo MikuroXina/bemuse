@@ -8,6 +8,8 @@ import sortSongs from '@bemuse/music-collection/sortSongs.js'
 import MusicSelectPreviewer from '@bemuse/music-previewer/MusicSelectPreviewer.js'
 import { useState } from 'react'
 
+import styles from './MusicTable.module.css'
+
 type Sorter = (songs: readonly Song[]) => {
   title: string
   songs: Song[]
@@ -89,16 +91,7 @@ const SongWarnings = ({ song }: { song: Song }) => {
       {problems.map((problem, index) => (
         <div key={index}>
           {problem.keys.map((key) => (
-            <code
-              key={key}
-              style={{
-                fontFamily: 'Ubuntu Mono',
-                marginRight: '2',
-                padding: 3,
-                fontSize: '0.8em',
-                background: '#755',
-              }}
-            >
+            <code key={key} className={styles.warning}>
               {key}
             </code>
           ))}
@@ -124,14 +117,14 @@ const SongRow = ({
           prompt('', `vim '${song.id}/README.md'`)
         }}
       >
-        <code style={{ fontFamily: 'Ubuntu Mono' }}>{song.id}</code>
+        <code className={styles.songId}>{song.id}</code>
       </strong>
       <br />
-      <span style={{ color: '#8b8685' }}>{song.added}</span>
+      <span className={styles.subLabel}>{song.added}</span>
     </td>
-    <td style={{ textAlign: 'center', background: '#353433' }}>
+    <td className={styles.songInfo}>
       <span
-        style={{ color: '#8b8685' }}
+        className={styles.subLabel}
         onClick={async () => {
           const previewUrl = await getPreviewResourceUrl(song, url)
           setPreviewUrl(previewUrl)
@@ -237,7 +230,7 @@ const Table = ({
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
 
   return (
-    <table style={{ borderSpacing: 4 }}>
+    <table className={styles.table}>
       <thead>
         <tr>
           <th colSpan={4}>
@@ -269,7 +262,7 @@ const Table = ({
 }
 
 const Message = ({ text }: { text: string }) => (
-  <div style={{ textAlign: 'center' }}>{text}</div>
+  <div className={styles.message}>{text}</div>
 )
 
 export interface MusicTableProps {

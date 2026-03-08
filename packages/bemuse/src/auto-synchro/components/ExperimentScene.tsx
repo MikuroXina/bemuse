@@ -77,11 +77,6 @@ const Contents = ({
 
   const finished = state.type === 'finished'
   const scale = finished ? 1 : easeOut(Math.min(1, state.numSamples / 84))
-  const transform = `scaleX(${scale})`
-  const style = {
-    transform: transform,
-    WebkitTransform: transform,
-  }
   return (
     <div>
       <Message
@@ -92,7 +87,12 @@ const Contents = ({
         }
       />
       <div className={styles.progress}>
-        <div className={styles.progressBar} style={style} />
+        <div
+          className={styles.progressBar}
+          style={{
+            '--scale': scale,
+          }}
+        />
       </div>
     </div>
   )

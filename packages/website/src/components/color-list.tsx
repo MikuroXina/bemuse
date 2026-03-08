@@ -12,10 +12,8 @@ export const ColorList = ({ colors }: { colors: readonly ColorDef[] }) => (
       <li key={color.id} className={styles.item}>
         <strong
           className={styles.name}
-          style={{
-            background: color.color,
-            color: color.dark ? 'white' : 'black',
-          }}
+          data-dark={color.dark}
+          style={{ background: color.color }}
         >
           {color.id}
         </strong>

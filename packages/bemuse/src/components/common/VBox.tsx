@@ -1,15 +1,13 @@
 import type { ReactNode } from 'react'
 
-interface VBoxProps {
-  padding?: string | number
-  gap?: string | number
+import styles from './VBox.module.css'
+
+export interface VBoxProps {
   children?: ReactNode
 }
 
-const VBox = ({ children, padding, gap }: VBoxProps) => (
-  <div style={{ display: 'flex', flexDirection: 'column', padding, gap }}>
-    {children}
-  </div>
+const VBox = ({ children }: VBoxProps) => (
+  <div className={styles.container}>{children}</div>
 )
 
 export default VBox

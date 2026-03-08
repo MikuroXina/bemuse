@@ -4,6 +4,7 @@ import { createSelector, createStructuredSelector } from 'reselect'
 import variance from 'variance'
 
 import getNonMissedDeltas from '../../app/interactors/getNonMissedDeltas.js'
+import styles from './ResultExpertInfo.module.css'
 
 const getStats = (() => {
   const selectMean = createSelector(getNonMissedDeltas, (deltas) =>
@@ -44,7 +45,7 @@ const ResultExpertInfo = ({ deltas }: ResultExpertInfoProps) => {
   return (
     <span>
       <span
-        style={{ cursor: 'help' }}
+        className={styles.helpLabel}
         title='Average and standard deviation of your keypresses.'
       >
         {formatOffset(stats.mean)}{' '}

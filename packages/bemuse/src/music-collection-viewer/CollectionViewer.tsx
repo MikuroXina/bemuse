@@ -1,6 +1,7 @@
 import { OFFICIAL_SERVER_URL, useCollection } from '@bemuse/query/collection.js'
 import query from '@bemuse/utils/query.js'
 
+import styles from './CollectionViewer.module.css'
 import MusicTable from './MusicTable.js'
 
 export const CollectionViewer = () => {
@@ -9,15 +10,15 @@ export const CollectionViewer = () => {
 
   return (
     <div>
-      <header style={{ textAlign: 'center' }}>
+      <header className={styles.header}>
         <h1>Bemuse collection viewer</h1>
         <div>
           {url}
           <br />
-          {status}
+          {res.status}
         </div>
       </header>
-      <div style={{ padding: 20 }}>
+      <div className={styles.table}>
         <MusicTable
           data={res.data ?? null}
           url={url}

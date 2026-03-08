@@ -23,3 +23,7 @@
 .container[data-active='true'] .line {
   stroke: #a9a8a7;
 }
+
+.transparentBlack {
+  fill: rgba(255, 255, 255, 0.1);
+}

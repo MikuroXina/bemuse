@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 import type { NotechartPreview } from './NotechartPreview.js'
+import styles from './PreviewCanvas.module.css'
 import type { PreviewState } from './PreviewState.js'
 
 export type PreviewColumn = {
@@ -206,9 +207,7 @@ export const PreviewCanvas = (props: PreviewCanvas) => {
       ref={canvasRef}
       width={width}
       height={height}
-      style={{
-        imageRendering: 'pixelated',
-      }}
+      className={styles.pixelated}
     />
   )
 }

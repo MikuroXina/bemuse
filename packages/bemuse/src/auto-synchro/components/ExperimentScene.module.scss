@@ -33,6 +33,7 @@
   background: #8b8685;
   transition: 0.5s transform linear;
   transform-origin: left;
+  transform: scaleX(var(--scale));
 }
 
 .scene[data-type='finished'] .wrapper {
