@@ -1,6 +1,6 @@
 import { isTitleDisplayMode } from '@bemuse/flags/index.js'
 
-import styles from './LoadingSceneSongInfo.module.scss'
+import styles from './loading-scene-song-info.module.scss'
 
 export interface LoadingSceneSongInfoProps {
   song: {

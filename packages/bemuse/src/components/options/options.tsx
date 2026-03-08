@@ -1,9 +1,9 @@
-import Panel from '@bemuse/components/common/Panel.js'
+import Panel from '@bemuse/components/common/panel.js'
 
-import styles from './Options.module.scss'
-import OptionsAdvanced from './OptionsAdvanced.js'
-import OptionsInput from './OptionsInput.js'
-import OptionsPlayer from './OptionsPlayer.js'
+import styles from './options.module.scss'
+import OptionsAdvanced from './options-advanced.js'
+import OptionsInput from './options-input.js'
+import OptionsPlayer from './options-player.js'
 
 export interface OptionsProps {
   onClose?: () => void

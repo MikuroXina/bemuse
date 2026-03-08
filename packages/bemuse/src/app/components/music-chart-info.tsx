@@ -1,6 +1,6 @@
 import type { Chart } from '@mikuroxina/bemuse-types'
 
-import styles from './MusicChartInfo.module.scss'
+import styles from './music-chart-info.module.scss'
 
 const MusicChartInfo = ({ info }: Pick<Chart, 'info'>) => (
   <section className={styles.info}>

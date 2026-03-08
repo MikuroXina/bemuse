@@ -3,9 +3,9 @@ import { useCurrentUser } from '@bemuse/online/hooks.js'
 import { formattedAccuracyForRecord } from '@bemuse/rules/accuracy.js'
 import type { ReactNode } from 'react'
 
-import formatTime from '../../utils/formatTime.js'
-import styles from './MusicInfoTabStats.module.scss'
-import { usePersonalRecord } from './usePersonalRecord.js'
+import formatTime from '../../utils/format-time.js'
+import styles from './music-info-tab-stats.module.scss'
+import { usePersonalRecord } from './use-personal-record.js'
 
 export interface PartialChart {
   md5: string

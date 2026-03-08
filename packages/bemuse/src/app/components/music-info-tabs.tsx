@@ -1,12 +1,12 @@
 import type { Chart, Song } from '@bemuse/collection-model/types.js'
-import RankingContainer from '@bemuse/components/ranking/RankingContainer.js'
+import RankingContainer from '@bemuse/components/ranking/ranking-container.js'
 import { Icon } from '@bemuse/fa/index.js'
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
 import { useState } from 'react'
 
-import MusicInfoTabInformation from './MusicInfoTabInformation.js'
-import styles from './MusicInfoTabs.module.scss'
-import MusicInfoTabStats from './MusicInfoTabStats.js'
+import MusicInfoTabInformation from './music-info-tab-information.js'
+import MusicInfoTabStats from './music-info-tab-stats.js'
+import styles from './music-info-tabs.module.scss'
 
 export interface MusicInfoTabsProps {
   chart: Chart

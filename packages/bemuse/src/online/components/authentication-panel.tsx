@@ -1,13 +1,13 @@
 import djBemuse from '@bemuse/app/components/about-scene/DJBM.png'
-import Panel from '@bemuse/components/common/Panel.js'
+import Panel from '@bemuse/components/common/panel.js'
 import { OnlineContext } from '@bemuse/online/instance.js'
 import { useContext, useState } from 'react'
 
 import AuthenticationForm, {
   type AuthenticationFormData,
   type AuthMode,
-} from './AuthenticationForm.js'
-import styles from './AuthenticationPanel.module.scss'
+} from './authentication-form.js'
+import styles from './authentication-panel.module.scss'
 
 export interface AuthenticationPanelProps {
   onFinish?: () => void

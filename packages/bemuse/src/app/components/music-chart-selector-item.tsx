@@ -1,7 +1,7 @@
 import { Icon } from '@bemuse/fa/index.js'
 import type { Chart } from '@mikuroxina/bemuse-types'
 
-import styles from './MusicChartSelectorItem.module.scss'
+import styles from './music-chart-selector-item.module.scss'
 
 const Text = ({
   isTutorial,

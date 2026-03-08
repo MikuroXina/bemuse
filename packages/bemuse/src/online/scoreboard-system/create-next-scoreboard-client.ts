@@ -1,7 +1,7 @@
 import axios from 'axios'
 import invariant from 'invariant'
 
-import type { ScoreboardClient, ScoreboardRow } from './ScoreboardClient.js'
+import type { ScoreboardClient, ScoreboardRow } from './scoreboard-client.js'
 
 export interface CreateScoreboardClientOptions {
   /**

@@ -1,7 +1,7 @@
 import type { AnyAction, Middleware } from 'redux'
 
-import { initialState, optionsSlice } from '../app/entities/Options.js'
-import type { AppState } from './ReduxState.js'
+import { initialState, optionsSlice } from '../app/entities/options.js'
+import type { AppState } from './redux-state.js'
 
 export const optionsStorageMiddleware =
   (

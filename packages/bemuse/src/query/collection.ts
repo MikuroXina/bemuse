@@ -1,6 +1,6 @@
 import preprocessCollection, {
   type Preprocessed,
-} from '@bemuse/music-collection/preprocessCollection'
+} from '@bemuse/music-collection/preprocess-collection'
 import type { MusicServerIndex } from '@mikuroxina/bemuse-types'
 import { useQuery, type UseQueryResult } from '@tanstack/react-query'
 

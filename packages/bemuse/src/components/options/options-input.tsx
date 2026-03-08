@@ -12,14 +12,14 @@ import {
   playMode,
   scratchPosition,
   sensitivity,
-} from '../../app/entities/Options.js'
-import type { AppState } from '../../redux/ReduxState.js'
-import OptionsButton from './OptionsButton.js'
-import OptionsCheckbox from './OptionsCheckbox.js'
-import styles from './OptionsInput.module.scss'
-import OptionsInputField from './OptionsInputField.js'
-import OptionsInputKeys from './OptionsInputKeys.js'
-import OptionsInputScratch from './OptionsInputScratch.js'
+} from '../../app/entities/options.js'
+import type { AppState } from '../../redux/redux-state.js'
+import OptionsButton from './options-button.js'
+import OptionsCheckbox from './options-checkbox.js'
+import styles from './options-input.module.scss'
+import OptionsInputField from './options-input-field.js'
+import OptionsInputKeys from './options-input-keys.js'
+import OptionsInputScratch from './options-input-scratch.js'
 
 const selectKeyboardMapping = createSelector(
   (state: AppState) => state.options,

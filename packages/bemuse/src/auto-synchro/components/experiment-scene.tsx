@@ -1,7 +1,7 @@
 import { type Subject, useSubject } from '@bemuse/utils/subject.js'
 import type { MouseEventHandler } from 'react'
 
-import styles from './ExperimentScene.module.scss'
+import styles from './experiment-scene.module.scss'
 
 export type ExperimentState =
   | {

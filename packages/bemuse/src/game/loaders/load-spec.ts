@@ -1,4 +1,4 @@
-import type { Progress } from '@bemuse/progress/Progress.js'
+import type { Progress } from '@bemuse/progress/progress.js'
 import type { IResource, IResources } from '@bemuse/resources/types.js'
 import type { DisplayMode } from '@bemuse/scintillator/index.js'
 import type { ChartInfo } from '@mikuroxina/bemuse-types'

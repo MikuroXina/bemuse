@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-import styles from './SceneToolbar.module.scss'
+import styles from './scene-toolbar.module.scss'
 
 export const SceneToolbar = ({ children }: { children?: ReactNode }) => (
   <div className={styles.container}>{children}</div>

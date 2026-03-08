@@ -3,8 +3,8 @@ import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
 import type { Chart, SongMetadataInCollection } from '@mikuroxina/bemuse-types'
 import { useLayoutEffect, useRef } from 'react'
 
-import styles from './MusicList.module.scss'
-import MusicListItem from './MusicListItem.js'
+import styles from './music-list.module.scss'
+import MusicListItem from './music-list-item.js'
 
 export interface ChartProps {
   bpm: {

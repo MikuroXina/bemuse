@@ -2,7 +2,7 @@ import { usePersonalRecordsByMd5Query } from '@bemuse/online/hooks.js'
 import type { ScoreboardDataRecord } from '@bemuse/online/index.js'
 import { useSelector } from 'react-redux'
 
-import * as ReduxState from '../../redux/ReduxState.js'
+import * as ReduxState from '../../redux/redux-state.js'
 
 export interface PartialChart {
   md5: string

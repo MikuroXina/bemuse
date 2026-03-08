@@ -1,9 +1,9 @@
 import type { Chart, SongMetadata } from '@mikuroxina/bemuse-types'
 
-import styles from './MusicChartSelector.module.scss'
+import styles from './music-chart-selector.module.scss'
 import MusicChartSelectorItem, {
   type MusicChartSelectorItemProps,
-} from './MusicChartSelectorItem.js'
+} from './music-chart-selector-item.js'
 
 export interface MusicChartSelectorProps {
   charts: readonly Chart[]

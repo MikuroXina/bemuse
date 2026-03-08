@@ -1,5 +1,5 @@
 import type { Song } from '@bemuse/collection-model/types.js'
-import Panel from '@bemuse/components/common/Panel.js'
+import Panel from '@bemuse/components/common/panel.js'
 import { loadSongFromResources } from '@bemuse/custom-song-loader/index.js'
 import type { ICustomSongResources } from '@bemuse/resources/types.js'
 import { type DragEventHandler, useEffect, useState } from 'react'
@@ -9,12 +9,12 @@ import {
   handleCustomSongFileSelect,
   handleCustomSongFolderDrop,
   handleCustomSongURLLoad,
-} from '../app/io/CustomSongsIO.js'
+} from '../app/io/custom-songs-io.js'
 import {
   consumePendingArchiveURL,
   hasPendingArchiveToLoad,
-} from '../app/PreloadedCustomBMS.js'
-import styles from './CustomBMS.module.scss'
+} from '../app/preloaded-custom-bms.js'
+import styles from './custom-bms.module.scss'
 
 export interface CustomBMSProps {
   onSongLoaded?: (song: Song) => void

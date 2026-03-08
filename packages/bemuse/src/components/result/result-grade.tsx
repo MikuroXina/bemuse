@@ -1,4 +1,4 @@
-import styles from './ResultGrade.module.scss'
+import styles from './result-grade.module.scss'
 
 const ResultGrade = ({ grade }: { grade: string }) => (
   <div className={styles.container}>

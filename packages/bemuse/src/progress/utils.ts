@@ -1,6 +1,6 @@
 import { BYTES_FORMATTER } from '@bemuse/progress/formatters.js'
 
-import { Progress } from './Progress.js'
+import { Progress } from './progress.js'
 
 /**
  * Returns a callback that, when called,

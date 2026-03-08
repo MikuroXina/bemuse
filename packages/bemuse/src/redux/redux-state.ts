@@ -11,9 +11,9 @@ import type { SongMetadataInCollection } from '@mikuroxina/bemuse-types'
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { enableMapSet } from 'immer'
 
-import * as MusicSearchText from '../app/entities/MusicSearchText.js'
-import * as MusicSelection from '../app/entities/MusicSelection.js'
-import * as Options from '../app/entities/Options.js'
+import * as MusicSearchText from '../app/entities/music-search-text.js'
+import * as MusicSelection from '../app/entities/music-selection.js'
+import * as Options from '../app/entities/options.js'
 
 enableMapSet()
 

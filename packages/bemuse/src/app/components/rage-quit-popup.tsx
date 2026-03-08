@@ -1,13 +1,13 @@
 import DialogContent, {
   Buttons,
-} from '@bemuse/components/common/DialogContent.js'
-import ModalPopup from '@bemuse/components/common/ModalPopup.js'
-import Panel from '@bemuse/components/common/Panel.js'
-import OptionsButton from '@bemuse/components/options/OptionsButton.js'
+} from '@bemuse/components/common/dialog-content.js'
+import ModalPopup from '@bemuse/components/common/modal-popup.js'
+import Panel from '@bemuse/components/common/panel.js'
+import OptionsButton from '@bemuse/components/options/options-button.js'
 import { useDispatch, useSelector } from 'react-redux'
 
-import * as ReduxState from '../../redux/ReduxState.js'
-import styles from './RageQuitPopup.module.css'
+import * as ReduxState from '../../redux/redux-state.js'
+import styles from './rage-quit-popup.module.css'
 
 function RageQuitPopup() {
   const dispatch = useDispatch()

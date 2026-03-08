@@ -1,4 +1,4 @@
-import Panel from '@bemuse/components/common/Panel.js'
+import Panel from '@bemuse/components/common/panel.js'
 import { timegate } from '@bemuse/game/judgments.js'
 import range from 'lodash/range'
 import mean from 'mean'
@@ -6,8 +6,8 @@ import median from 'median'
 import type { ReactNode } from 'react'
 import variance from 'variance'
 
-import getNonMissedDeltas from '../../app/interactors/getNonMissedDeltas.js'
-import styles from './ResultDeltasView.module.scss'
+import getNonMissedDeltas from '../../app/interactors/get-non-missed-deltas.js'
+import styles from './result-deltas-view.module.scss'
 
 const ms = (delta: number) => `${(delta * 1000).toFixed(1)} ms`
 

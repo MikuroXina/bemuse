@@ -2,7 +2,7 @@ import assert from 'assert'
 import { given, shouldEqual } from 'circumstance'
 import { describe, expect, it } from 'vitest'
 
-import * as Options from './Options'
+import * as Options from './options'
 
 const update = (action) => (state) =>
   Options.optionsSlice.reducer(state, action)

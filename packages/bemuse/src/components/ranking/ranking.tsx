@@ -1,10 +1,10 @@
-import AuthenticationPopup from '@bemuse/online/components/AuthenticationPopup.js'
+import AuthenticationPopup from '@bemuse/online/components/authentication-popup.js'
 import type { RankingState } from '@bemuse/online/index.js'
 import { isWaiting } from '@bemuse/online/operations.js'
 import { type ReactNode, useState } from 'react'
 
-import styles from './Ranking.module.scss'
-import RankingTable, { Message, Row } from './RankingTable.js'
+import styles from './ranking.module.scss'
+import RankingTable, { Message, Row } from './ranking-table.js'
 
 const Error = ({
   text,

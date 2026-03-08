@@ -1,7 +1,7 @@
 import { given, shouldEqual } from 'circumstance'
 import { describe, it } from 'vitest'
 
-import * as MusicSelection from './MusicSelection'
+import * as MusicSelection from './music-selection'
 
 describe('MusicSelection', function () {
   it('allows selecting song', () =>

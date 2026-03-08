@@ -7,7 +7,7 @@ import type {
   ScoreboardClient,
   ScoreboardEntry,
   ScoreboardRow,
-} from './ScoreboardClient.js'
+} from './scoreboard-client.js'
 
 interface Submission {
   md5: string

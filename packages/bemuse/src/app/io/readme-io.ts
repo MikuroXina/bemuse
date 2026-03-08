@@ -1,5 +1,5 @@
 import type { Song } from '@bemuse/collection-model/types.js'
-import { getSongResources } from '@bemuse/music-collection/getSongResources.js'
+import { getSongResources } from '@bemuse/music-collection/get-song-resources.js'
 import { useEffect, useState } from 'react'
 
 export function useReadme(serverUrl: string, song: Song): string | null {

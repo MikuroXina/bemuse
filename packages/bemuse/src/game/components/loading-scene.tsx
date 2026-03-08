@@ -1,11 +1,11 @@
-import Scene from '@bemuse/components/common/Scene.js'
+import Scene from '@bemuse/components/common/scene.js'
 import type { ChartInfo } from '@mikuroxina/bemuse-types'
 import delay from 'delay'
 import { useEffect, useRef } from 'react'
 
-import styles from './LoadingScene.module.scss'
-import LoadingSceneProgress, { type Tasks } from './LoadingSceneProgress.js'
-import LoadingSceneSongInfo from './LoadingSceneSongInfo.js'
+import styles from './loading-scene.module.scss'
+import LoadingSceneProgress, { type Tasks } from './loading-scene-progress.js'
+import LoadingSceneSongInfo from './loading-scene-song-info.js'
 
 export interface LoadingSceneProps {
   song: ChartInfo

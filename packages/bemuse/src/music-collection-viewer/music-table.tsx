@@ -1,14 +1,14 @@
 import { inspect } from 'node:util'
 
 import type { Song } from '@bemuse/collection-model/types.js'
-import getPlayableCharts from '@bemuse/music-collection/getPlayableCharts.js'
-import getPreviewResourceUrl from '@bemuse/music-collection/getPreviewResourceUrl.js'
-import groupSongsIntoCategories from '@bemuse/music-collection/groupSongsIntoCategories.js'
-import sortSongs from '@bemuse/music-collection/sortSongs.js'
+import getPlayableCharts from '@bemuse/music-collection/get-playable-charts.js'
+import getPreviewResourceUrl from '@bemuse/music-collection/get-preview-resource-url.js'
+import groupSongsIntoCategories from '@bemuse/music-collection/group-songs-into-categories.js'
+import sortSongs from '@bemuse/music-collection/sort-songs.js'
 import { useMusicPreviewer } from '@bemuse/music-previewer/hook.js'
 import { useState } from 'react'
 
-import styles from './MusicTable.module.css'
+import styles from './music-table.module.css'
 
 type Sorter = (songs: readonly Song[]) => {
   title: string

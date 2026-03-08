@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 
-import { Progress } from './Progress.js'
+import { Progress } from './progress.js'
 
 describe('Progress', function () {
   describe('#watch', function () {

@@ -4,7 +4,7 @@ import {
 } from '@bemuse/rules/accuracy.js'
 import type { ReactNode } from 'react'
 
-import styles from './RankingTable.module.scss'
+import styles from './ranking-table.module.scss'
 
 const RankingTable = ({ children }: { children: ReactNode }) => (
   <table className={styles.container}>

@@ -1,23 +1,23 @@
-import Scene from '@bemuse/components/common/Scene.js'
-import SceneHeading from '@bemuse/components/common/SceneHeading.js'
+import Scene from '@bemuse/components/common/scene.js'
+import SceneHeading from '@bemuse/components/common/scene-heading.js'
 import SceneToolbar, {
   SceneToolbarSpacer,
-} from '@bemuse/components/common/SceneToolbar.js'
-import RankingContainer from '@bemuse/components/ranking/RankingContainer.js'
+} from '@bemuse/components/common/scene-toolbar.js'
+import RankingContainer from '@bemuse/components/ranking/ranking-container.js'
 import { Icon } from '@bemuse/fa/index.js'
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
 import type { Chart } from '@mikuroxina/bemuse-types'
 import type { MouseEvent } from 'react'
 
-import FirstTimeTip from '../../app/components/FirstTimeTip.js'
-import MusicChartInfo from '../../app/components/MusicChartInfo.js'
-import MusicChartSelectorItem from '../../app/components/MusicChartSelectorItem.js'
+import FirstTimeTip from '../../app/components/first-time-tip.js'
+import MusicChartInfo from '../../app/components/music-chart-info.js'
+import MusicChartSelectorItem from '../../app/components/music-chart-selector-item.js'
 import * as QueryFlags from '../../app/query-flags.js'
 import type { Result } from '../../app/types.js'
-import ResultExpertInfo from './ResultExpertInfo.js'
-import ResultGrade from './ResultGrade.js'
-import styles from './ResultScene.module.scss'
-import ResultTable from './ResultTable.js'
+import ResultExpertInfo from './result-expert-info.js'
+import ResultGrade from './result-grade.js'
+import styles from './result-scene.module.scss'
+import ResultTable from './result-table.js'
 
 const getTweetLink = ({ chart, result }: { chart: Chart; result: Result }) => {
   const title = chart.info.title

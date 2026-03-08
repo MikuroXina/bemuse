@@ -6,7 +6,7 @@ import { get, set } from 'idb-keyval'
 import once from 'lodash/once'
 import pMap from 'p-map'
 
-import { createNotechartPreview } from './NotechartPreview.js'
+import { createNotechartPreview } from './notechart-preview.js'
 
 interface UserData {
   directory: FileSystemDirectoryHandle

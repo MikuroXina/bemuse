@@ -1,6 +1,6 @@
 import { buildName, version } from '@bemuse/utils/build-define.js'
 
-import styles from './Boot.module.scss'
+import styles from './boot.module.scss'
 
 export interface BootProps {
   hidden?: boolean

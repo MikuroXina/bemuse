@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-import styles from './Panel.module.scss'
+import styles from './panel.module.scss'
 
 export interface PanelProps {
   className?: string

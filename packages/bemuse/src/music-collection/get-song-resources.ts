@@ -1,6 +1,6 @@
 import type { Song } from '@bemuse/collection-model/types.js'
 import BemusePackageResources from '@bemuse/resources/bemuse-package.js'
-import { resolveRelativeResources } from '@bemuse/resources/resolveRelativeResource.js'
+import { resolveRelativeResources } from '@bemuse/resources/resolve-relative-resource.js'
 import type { IResources } from '@bemuse/resources/types.js'
 import { URLResources } from '@bemuse/resources/url.js'
 

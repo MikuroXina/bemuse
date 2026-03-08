@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 
-import type { NotechartPreview } from './NotechartPreview.js'
-import styles from './PreviewCanvas.module.css'
-import type { PreviewState } from './PreviewState.js'
+import type { NotechartPreview } from './notechart-preview.js'
+import styles from './preview-canvas.module.css'
+import type { PreviewState } from './preview-state.js'
 
 export type PreviewColumn = {
   x: number

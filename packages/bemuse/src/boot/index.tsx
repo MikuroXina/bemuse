@@ -11,8 +11,8 @@ import attachFastClick from 'fastclick'
 import { createRoot } from 'react-dom/client'
 
 import query from '../utils/query.js'
-import Boot from './components/Boot.js'
-import ErrorDialog from './components/ErrorDialog.js'
+import Boot from './components/boot.js'
+import ErrorDialog from './components/error-dialog.js'
 import loadModule, { type Module } from './loader.js'
 
 let booted = false

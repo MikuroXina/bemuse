@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-import styles from './Page.module.scss'
+import styles from './page.module.scss'
 
 export const Page = ({ children }: { children: ReactNode }) => (
   <div className={styles.container}>

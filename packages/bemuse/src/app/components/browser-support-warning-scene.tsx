@@ -1,5 +1,5 @@
-import Scene from '@bemuse/components/common/Scene.js'
-import OptionsButton from '@bemuse/components/options/OptionsButton.js'
+import Scene from '@bemuse/components/common/scene.js'
+import OptionsButton from '@bemuse/components/options/options-button.js'
 import {
   type ReactScene,
   SceneManagerContext,
@@ -7,7 +7,7 @@ import {
 import { useContext } from 'react'
 
 import { SUPPORTED } from '../browser-support.js'
-import styles from './BrowserSupportWarningScene.module.scss'
+import styles from './browser-support-warning-scene.module.scss'
 
 const BrowserSupportWarningScene = ({
   next,

@@ -1,7 +1,7 @@
 import { given, shouldEqual } from 'circumstance'
 import { describe, it } from 'vitest'
 
-import * as MusicSearchText from './MusicSearchText'
+import * as MusicSearchText from './music-search-text'
 
 describe('MusicSearchText', function () {
   it('is initially blank', () =>

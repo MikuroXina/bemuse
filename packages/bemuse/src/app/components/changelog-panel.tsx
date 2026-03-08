@@ -1,8 +1,8 @@
-import Markdown from '@bemuse/components/common/Markdown.js'
-import Panel from '@bemuse/components/common/Panel.js'
+import Markdown from '@bemuse/components/common/markdown.js'
+import Panel from '@bemuse/components/common/panel.js'
 import { useEffect, useState } from 'react'
 
-import styles from './ChangelogPanel.module.scss'
+import styles from './changelog-panel.module.scss'
 
 type Status =
   | { state: 'loading' }

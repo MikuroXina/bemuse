@@ -1,14 +1,14 @@
-import Scene from '@bemuse/components/common/Scene.js'
-import SceneHeading from '@bemuse/components/common/SceneHeading.js'
-import SceneToolbar from '@bemuse/components/common/SceneToolbar.js'
+import Scene from '@bemuse/components/common/scene.js'
+import SceneHeading from '@bemuse/components/common/scene-heading.js'
+import SceneToolbar from '@bemuse/components/common/scene-toolbar.js'
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
 import { SceneManagerContext } from '@bemuse/scene-manager/index.js'
 import { useContext, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { optionsSlice } from '../entities/Options.js'
-import styles from './ModeSelectScene.module.scss'
-import MusicSelectScene from './MusicSelectScene.js'
+import { optionsSlice } from '../entities/options.js'
+import styles from './mode-select-scene.module.scss'
+import MusicSelectScene from './music-select-scene.js'
 
 function KBGraphics() {
   const children = []

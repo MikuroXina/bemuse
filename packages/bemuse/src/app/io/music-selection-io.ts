@@ -3,13 +3,13 @@ import { SceneManager } from '@bemuse/scene-manager/index.js'
 import type { SongMetadataInCollection } from '@mikuroxina/bemuse-types'
 import type { AnyAction, Dispatch } from 'redux'
 
-import { rageQuitSlice } from '../../redux/ReduxState.js'
-import type { ChartProps } from '../components/MusicList.js'
+import { rageQuitSlice } from '../../redux/redux-state.js'
+import type { ChartProps } from '../components/music-list.js'
 import {
   getChartLevel,
   musicSelectionSlice,
-} from '../entities/MusicSelection.js'
-import { optionsSlice, type OptionsState } from '../entities/Options.js'
+} from '../entities/music-selection.js'
+import { optionsSlice, type OptionsState } from '../entities/options.js'
 import { launch } from '../game-launcher.js'
 
 export function selectSong(

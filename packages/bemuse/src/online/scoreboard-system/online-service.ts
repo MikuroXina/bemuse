@@ -1,4 +1,4 @@
-import { isTestModeEnabled } from '@bemuse/debug/BemuseTestMode.js'
+import { isTestModeEnabled } from '@bemuse/debug/bemuse-test-mode.js'
 
 import type {
   ChangePasswordInfo,
@@ -9,9 +9,9 @@ import type {
   SignUpInfo,
 } from '../index.js'
 import type { RecordLevel } from '../level.js'
-import { createFakeScoreboardClient } from './createFakeScoreboardClient.js'
-import { createNextScoreboardClient } from './createNextScoreboardClient.js'
-import type { ScoreboardClient, ScoreboardRow } from './ScoreboardClient.js'
+import { createFakeScoreboardClient } from './create-fake-scoreboard-client.js'
+import { createNextScoreboardClient } from './create-next-scoreboard-client.js'
+import type { ScoreboardClient, ScoreboardRow } from './scoreboard-client.js'
 
 export interface OnlineServiceOptions {
   fake?: boolean

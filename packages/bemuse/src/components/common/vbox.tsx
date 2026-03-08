@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-import styles from './VBox.module.css'
+import styles from './vbox.module.css'
 
 export interface VBoxProps {
   children?: ReactNode

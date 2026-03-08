@@ -1,7 +1,7 @@
 import MAIN from '@bemuse/utils/main-element'
 import { createRoot } from 'react-dom/client'
 
-import CollectionViewer from './CollectionViewer'
+import CollectionViewer from './collection-viewer'
 
 export function main() {
   if (MAIN) {

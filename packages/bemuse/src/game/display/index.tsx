@@ -1,6 +1,6 @@
 import './game-display.scss'
 
-import type { PanelPlacement } from '@bemuse/app/entities/Options.js'
+import type { PanelPlacement } from '@bemuse/app/entities/options.js'
 import { shouldDisableFullScreen } from '@bemuse/flags/index.js'
 import type { Scintillator } from '@bemuse/scintillator/index.js'
 import type { InfoPanelPosition } from '@bemuse/scintillator/skin.js'
@@ -8,7 +8,7 @@ import type { ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
 import screenfull from 'screenfull'
 
-import formatTime from '../../utils/formatTime.js'
+import formatTime from '../../utils/format-time.js'
 import Game from '../game.js'
 import Player from '../player.js'
 import GameState from '../state/index.js'

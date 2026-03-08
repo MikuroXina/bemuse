@@ -2,26 +2,26 @@ import { showAlert, showQuickPick } from '@bemuse/components/dialog/index.js'
 import throttle from 'lodash/throttle'
 import { useEffect, useReducer, useRef, useState } from 'react'
 
-import styles from './BemusePreviewer.module.scss'
+import styles from './bemuse-previewer.module.scss'
 import {
   createNullNotechartPreview,
   type NotechartPreview,
   type NotechartPreviewPlayer,
-} from './NotechartPreview.js'
-import { PreviewCanvas } from './PreviewCanvas.js'
-import { PreviewFileDropHandler } from './PreviewFileDropHandler.js'
-import { PreviewInfo } from './PreviewInfo.js'
-import { PreviewKeyHandler } from './PreviewKeyHandler.js'
+} from './notechart-preview.js'
+import { PreviewCanvas } from './preview-canvas.js'
+import { PreviewFileDropHandler } from './preview-file-drop-handler.js'
+import { PreviewInfo } from './preview-info.js'
+import { PreviewKeyHandler } from './preview-key-handler.js'
 import {
   getSavedPreviewInfo,
   loadPreview,
   setPreview,
-} from './PreviewLoader.js'
+} from './preview-loader.js'
 import {
   type PreviewAction,
   type PreviewState,
   previewStateReducer,
-} from './PreviewState.js'
+} from './preview-state.js'
 
 export const BemusePreviewer = () => {
   const div = useRef<HTMLDivElement>(null)

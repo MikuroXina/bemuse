@@ -4,7 +4,7 @@ import { getGrade } from '@bemuse/rules/grade.js'
 import type { Chart } from '@mikuroxina/bemuse-types'
 import type { MouseEvent } from 'react'
 
-import { usePersonalRecord } from './usePersonalRecord.js'
+import { usePersonalRecord } from './use-personal-record.js'
 
 export interface MusicListItemChartProps {
   chart: Chart

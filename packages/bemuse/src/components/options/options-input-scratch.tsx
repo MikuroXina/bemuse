@@ -1,4 +1,4 @@
-import styles from './OptionsInputScratch.module.scss'
+import styles from './options-input-scratch.module.scss'
 
 export interface OptionsInputScratchProps {
   text: readonly [string, string]

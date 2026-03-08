@@ -1,9 +1,9 @@
-import './MusicListItemCharts.scss'
+import './music-list-item-charts.scss'
 
 import type { Chart } from '@mikuroxina/bemuse-types'
 import type { MouseEvent } from 'react'
 
-import MusicListItemChart from './MusicListItemChart.js'
+import MusicListItemChart from './music-list-item-chart.js'
 
 export interface MusicListItemChartsProps {
   charts: readonly Chart[]

@@ -1,7 +1,7 @@
 import type { Chart } from '@mikuroxina/bemuse-types'
 import orderBy from 'lodash/orderBy'
 
-import isChartPlayable from './isChartPlayable.js'
+import isChartPlayable from './is-chart-playable.js'
 
 export function getPlayableCharts(charts: readonly Chart[]): Chart[] {
   return orderBy(charts.filter(isChartPlayable), [

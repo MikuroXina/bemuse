@@ -13,15 +13,15 @@ import {
   panelPlacement,
   scratchPosition,
   speed,
-} from '../../app/entities/Options.js'
-import { type AppState, selectOptions } from '../../redux/ReduxState.js'
-import OptionsButton from './OptionsButton.js'
-import OptionsCheckbox from './OptionsCheckbox.js'
-import OptionsInputField from './OptionsInputField.js'
-import styles from './OptionsPlayer.module.scss'
-import { Panel, Scratch } from './OptionsPlayerGraphics.js'
-import { OptionsPlayerSelector } from './OptionsPlayerSelector.js'
-import OptionsSpeed from './OptionsSpeed.js'
+} from '../../app/entities/options.js'
+import { type AppState, selectOptions } from '../../redux/redux-state.js'
+import OptionsButton from './options-button.js'
+import OptionsCheckbox from './options-checkbox.js'
+import OptionsInputField from './options-input-field.js'
+import styles from './options-player.module.scss'
+import { Panel, Scratch } from './options-player-graphics.js'
+import { OptionsPlayerSelector } from './options-player-selector.js'
+import OptionsSpeed from './options-speed.js'
 
 interface SettingRowProps<T> {
   selector: (options: OptionsState) => T

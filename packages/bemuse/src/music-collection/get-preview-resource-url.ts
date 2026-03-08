@@ -1,6 +1,6 @@
 import type { Song } from '@bemuse/collection-model/types.js'
 
-import { getSongResources } from './getSongResources.js'
+import { getSongResources } from './get-song-resources.js'
 
 export default async function getPreviewResourceUrl(
   song: Song,

@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 
 import ExperimentScene, {
   type ExperimentState,
-} from './components/ExperimentScene.js'
+} from './components/experiment-scene.js'
 import * as Music from './music/index.js'
 
 export async function main(bootContext: {

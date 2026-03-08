@@ -1,10 +1,10 @@
 import type { Song } from '@bemuse/collection-model/types.js'
-import Markdown from '@bemuse/components/common/Markdown.js'
-import YouTube from '@bemuse/components/common/YouTube.js'
+import Markdown from '@bemuse/components/common/markdown.js'
+import YouTube from '@bemuse/components/common/you-tube.js'
 import { memo } from 'react'
 
-import { useReadme } from '../io/ReadmeIO.js'
-import styles from './MusicInfoTabInformation.module.scss'
+import { useReadme } from '../io/readme-io.js'
+import styles from './music-info-tab-information.module.scss'
 
 export interface MusicInfoTabInformationProps {
   serverUrl: string

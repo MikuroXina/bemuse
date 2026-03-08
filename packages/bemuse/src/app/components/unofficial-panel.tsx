@@ -1,10 +1,10 @@
 import DialogContent, {
   Buttons,
-} from '@bemuse/components/common/DialogContent.js'
-import Panel from '@bemuse/components/common/Panel.js'
-import OptionsButton from '@bemuse/components/options/OptionsButton.js'
+} from '@bemuse/components/common/dialog-content.js'
+import Panel from '@bemuse/components/common/panel.js'
+import OptionsButton from '@bemuse/components/options/options-button.js'
 
-import styles from './UnofficialPanel.module.scss'
+import styles from './unofficial-panel.module.scss'
 
 export interface UnofficialPanelProps {
   onClose: () => void

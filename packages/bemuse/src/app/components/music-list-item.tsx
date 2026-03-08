@@ -1,11 +1,11 @@
 import type { Song } from '@bemuse/collection-model/types.js'
-import getPlayableCharts from '@bemuse/music-collection/getPlayableCharts.js'
+import getPlayableCharts from '@bemuse/music-collection/get-playable-charts.js'
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
 import type { Chart, SongMetadataInCollection } from '@mikuroxina/bemuse-types'
 import { memo, type MouseEvent } from 'react'
 
-import styles from './MusicListItem.module.scss'
-import MusicListItemCharts from './MusicListItemCharts.js'
+import styles from './music-list-item.module.scss'
+import MusicListItemCharts from './music-list-item-charts.js'
 
 export interface MusicListItemProps {
   song: SongMetadataInCollection

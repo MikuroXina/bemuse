@@ -1,4 +1,4 @@
-import styles from './ErrorDialog.module.scss'
+import styles from './error-dialog.module.scss'
 
 export interface ErrorDialogProps {
   onClose: () => void

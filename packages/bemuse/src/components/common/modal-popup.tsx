@@ -1,7 +1,7 @@
 import type { MouseEvent, ReactNode } from 'react'
 
-import styles from './ModalPopup.module.scss'
-import WarpContainer from './WarpContainer.js'
+import styles from './modal-popup.module.scss'
+import WarpContainer from './warp-container.js'
 
 export interface ModalPopupProps {
   visible?: boolean

@@ -2,7 +2,7 @@ import { useCombobox } from 'downshift'
 import fuzzysort from 'fuzzysort'
 import { useState } from 'react'
 
-import styles from './ComboBox.module.scss'
+import styles from './combo-box.module.scss'
 
 export type ComboBoxItem = {
   label: string

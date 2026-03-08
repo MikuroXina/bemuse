@@ -3,7 +3,7 @@ import './GameShellScene.scss'
 import type {
   PanelPlacement,
   ScratchPosition,
-} from '@bemuse/app/entities/Options.js'
+} from '@bemuse/app/entities/options.js'
 import DndResources from '@bemuse/resources/dnd-resources.js'
 import type { IResource, IResources } from '@bemuse/resources/types.js'
 import c from 'classnames'

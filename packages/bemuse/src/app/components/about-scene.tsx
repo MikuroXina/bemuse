@@ -1,11 +1,11 @@
-import Scene from '@bemuse/components/common/Scene.js'
-import SceneHeading from '@bemuse/components/common/SceneHeading.js'
-import SceneToolbar from '@bemuse/components/common/SceneToolbar.js'
+import Scene from '@bemuse/components/common/scene.js'
+import SceneHeading from '@bemuse/components/common/scene-heading.js'
+import SceneToolbar from '@bemuse/components/common/scene-toolbar.js'
 import { SceneManagerContext } from '@bemuse/scene-manager/index.js'
 import { useContext, useEffect, useState } from 'react'
 
+import styles from './about-scene.module.scss'
 import djBm from './about-scene/DJBM.png'
-import styles from './AboutScene.module.scss'
 
 const Artists = ({ artists }: { artists: { name: string; url: string }[] }) => {
   if (artists.length === 0) {

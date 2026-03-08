@@ -1,4 +1,4 @@
-import OptionsButton from '@bemuse/components/options/OptionsButton.js'
+import OptionsButton from '@bemuse/components/options/options-button.js'
 import {
   type InputEvent,
   type KeyboardEvent,
@@ -6,7 +6,7 @@ import {
   useRef,
 } from 'react'
 
-import styles from './AuthenticationForm.module.scss'
+import styles from './authentication-form.module.scss'
 
 export interface AuthenticationFormData {
   username: string

@@ -1,9 +1,9 @@
 import { isModalActive } from '@bemuse/components/dialog/index.js'
-import { useLatest } from '@bemuse/utils/useLatest.js'
+import { useLatest } from '@bemuse/utils/use-latest.js'
 import { useEffect } from 'react'
 
-import type { NotechartPreview } from './NotechartPreview.js'
-import type { PreviewAction } from './PreviewState.js'
+import type { NotechartPreview } from './notechart-preview.js'
+import type { PreviewAction } from './preview-state.js'
 
 let rememberedMeasureNumber: number | null = null
 

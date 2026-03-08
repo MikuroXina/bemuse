@@ -1,6 +1,6 @@
 import { Archive, type FileRecord } from 'libarchive.js/main.js'
 
-import { addUnprefixed } from './addUnprefixed.js'
+import { addUnprefixed } from './add-unprefixed.js'
 import type { FileEntry } from './types.js'
 
 Archive.init({

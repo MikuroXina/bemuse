@@ -1,4 +1,4 @@
-import styles from './OptionsInputKey.module.scss'
+import styles from './options-input-key.module.scss'
 
 export interface OptionsInputKeyProps {
   className?: string

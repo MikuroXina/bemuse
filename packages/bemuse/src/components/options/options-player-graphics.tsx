@@ -4,8 +4,8 @@ import type { ReactNode } from 'react'
 import type {
   PanelPlacement,
   ScratchPosition,
-} from '../../app/entities/Options.js'
-import styles from './OptionsPlayerGraphics.module.scss'
+} from '../../app/entities/options.js'
+import styles from './options-player-graphics.module.scss'
 
 const PANEL_PATH = (function () {
   const x = 48

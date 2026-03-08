@@ -1,4 +1,4 @@
 // !! avoid external dependencies since this is used in boot script!
 
-import { Progress } from './Progress.js'
+import { Progress } from './progress.js'
 export default Progress

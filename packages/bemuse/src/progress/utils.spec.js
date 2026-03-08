@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { Progress } from './Progress.js'
+import { Progress } from './progress.js'
 import * as ProgressUtils from './utils.js'
 
 describe('ProgressUtils', function () {

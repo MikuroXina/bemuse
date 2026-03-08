@@ -21,7 +21,7 @@ import type { UseMutationResult, UseQueryResult } from '@tanstack/react-query'
 import { useEffect, useRef } from 'react'
 
 import type { Result } from '../../app/types.js'
-import Ranking from './Ranking.js'
+import Ranking from './ranking.js'
 
 export interface RankingContainerProps {
   chart: { md5: string }

@@ -1,4 +1,4 @@
-import styles from './LoadingSceneProgressBar.module.scss'
+import styles from './loading-scene-progress-bar.module.scss'
 
 export interface LoadingSceneProgressBarProps {
   width: string | number

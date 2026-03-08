@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
 import type { TaskItem } from '../loaders/multitasker'
-import styles from './LoadingSceneProgress.module.scss'
-import LoadingSceneProgressBar from './LoadingSceneProgressBar.js'
+import styles from './loading-scene-progress.module.scss'
+import LoadingSceneProgressBar from './loading-scene-progress-bar.js'
 
 const Item = ({ text, progressText, progress }: TaskItem) => {
   const width = Math.round(progress * 100 || 0).toString() + '%'

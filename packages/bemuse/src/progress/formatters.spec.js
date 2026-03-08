@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import * as Formatters from './formatters'
-import { Progress } from './Progress'
+import { Progress } from './progress'
 
 describe('ProgressFormatters', function () {
   describe('BYTES_FORMATTER', function () {

@@ -1,8 +1,8 @@
 import { configureStore as createStore } from '@reduxjs/toolkit'
 import { compose, type Middleware } from 'redux'
 
-import { optionsStorageMiddleware } from './optionsStorageMiddleware.js'
-import { reducer } from './ReduxState.js'
+import { optionsStorageMiddleware } from './options-storage-middleware.js'
+import { reducer } from './redux-state.js'
 
 declare global {
   interface Window {

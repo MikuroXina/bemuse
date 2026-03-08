@@ -1,11 +1,11 @@
-import ModalPopup from '@bemuse/components/common/ModalPopup.js'
-import RunningNumber from '@bemuse/components/common/RunningNumber.js'
+import ModalPopup from '@bemuse/components/common/modal-popup.js'
+import RunningNumber from '@bemuse/components/common/running-number.js'
 import { useState } from 'react'
 
-import FirstTimeTip from '../../app/components/FirstTimeTip.js'
+import FirstTimeTip from '../../app/components/first-time-tip.js'
 import type { Result } from '../../app/types.js'
-import ResultDeltasView from './ResultDeltasView.js'
-import styles from './ResultTable.module.scss'
+import ResultDeltasView from './result-deltas-view.js'
+import styles from './result-table.module.scss'
 
 const formatAccuracy = (value: number) => {
   return (value * 100).toFixed(2) + '%'

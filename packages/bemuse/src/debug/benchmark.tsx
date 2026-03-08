@@ -2,7 +2,7 @@
 import now from '@bemuse/utils/now.js'
 import { createRoot } from 'react-dom/client'
 
-import BenchmarkPanel from '../devtools/components/BenchmarkPanel.js'
+import BenchmarkPanel from '../devtools/components/benchmark-panel.js'
 import { shouldEnableBenchmark } from '../devtools/query-flags.js'
 
 export class Stat {

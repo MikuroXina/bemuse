@@ -1,6 +1,6 @@
-import OptionsButton from './OptionsButton.js'
-import OptionsInputField from './OptionsInputField.js'
-import styles from './OptionsSpeed.module.scss'
+import OptionsButton from './options-button.js'
+import OptionsInputField from './options-input-field.js'
+import styles from './options-speed.module.scss'
 
 export interface OptionsSpeedProps {
   value: number

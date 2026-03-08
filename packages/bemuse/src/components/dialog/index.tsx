@@ -1,12 +1,12 @@
-import Button from '@bemuse/components/common/Button.js'
-import Panel from '@bemuse/components/common/Panel.js'
-import VBox from '@bemuse/components/common/VBox.js'
+import Button from '@bemuse/components/common/button.js'
+import Panel from '@bemuse/components/common/panel.js'
+import VBox from '@bemuse/components/common/vbox.js'
 import WARP from '@bemuse/utils/warp-element.js'
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
 import type { ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
 
-import { ComboBox } from './ComboBox.js'
+import { ComboBox } from './combo-box.js'
 import styles from './index.module.scss'
 
 export async function showAlert(title: string, message: ReactNode) {

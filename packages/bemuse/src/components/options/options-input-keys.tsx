@@ -1,7 +1,7 @@
 import range from 'lodash/range'
 
-import OptionsInputKey from './OptionsInputKey.js'
-import styles from './OptionsInputKeys.module.scss'
+import OptionsInputKey from './options-input-key.js'
+import styles from './options-input-keys.module.scss'
 
 export interface OptionsInputKeysProps {
   texts: Record<string, string>

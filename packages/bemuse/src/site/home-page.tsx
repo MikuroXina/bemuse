@@ -1,4 +1,4 @@
-import Page, { Heading } from './Page.js'
+import Page, { Heading } from './page.js'
 
 export const HomePage = () => {
   return (

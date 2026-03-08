@@ -1,9 +1,9 @@
 import { type ReactNode, useMemo } from 'react'
 
-import { BarDot } from './BarDot.js'
-import type { MeasureInfo, NotechartPreview } from './NotechartPreview.js'
-import styles from './PreviewInfo.module.scss'
-import type { PreviewState } from './PreviewState.js'
+import { BarDot } from './bar-dot.js'
+import type { MeasureInfo, NotechartPreview } from './notechart-preview.js'
+import styles from './preview-info.module.scss'
+import type { PreviewState } from './preview-state.js'
 
 export interface PreviewInfo {
   notechartPreview: NotechartPreview

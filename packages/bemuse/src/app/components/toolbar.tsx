@@ -1,4 +1,4 @@
-import TipContainer from '@bemuse/components/common/TipContainer.js'
+import TipContainer from '@bemuse/components/common/tip-container.js'
 import { Icon } from '@bemuse/fa/index.js'
 import {
   Fragment,
@@ -8,8 +8,8 @@ import {
   useState,
 } from 'react'
 
-import FirstTimeTip from './FirstTimeTip.js'
-import styles from './Toolbar.module.scss'
+import FirstTimeTip from './first-time-tip.js'
+import styles from './toolbar.module.scss'
 
 export interface ToolbarItemProps {
   type: 'item'

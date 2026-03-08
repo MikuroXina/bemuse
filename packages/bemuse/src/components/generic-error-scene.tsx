@@ -1,10 +1,10 @@
-import ModalPopup from '@bemuse/components/common/ModalPopup.js'
-import Panel from '@bemuse/components/common/Panel.js'
-import Scene from '@bemuse/components/common/Scene.js'
+import ModalPopup from '@bemuse/components/common/modal-popup.js'
+import Panel from '@bemuse/components/common/panel.js'
+import Scene from '@bemuse/components/common/scene.js'
 import { useMemo } from 'react'
 
-import styles from './GenericErrorScene.module.scss'
-import OptionsButton from './options/OptionsButton.js'
+import styles from './generic-error-scene.module.scss'
+import OptionsButton from './options/options-button.js'
 
 export default function GenericErrorScene(props: {
   preamble: string
