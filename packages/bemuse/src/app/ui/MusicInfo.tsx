@@ -15,6 +15,7 @@ export interface MusicInfoProps {
   onOptions: () => void
   playMode: MappingMode
   song: Song
+  serverUrl: string
 }
 
 const MusicInfo = (props: MusicInfoProps) => (

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { getServerIndexFileUrl } from './index.js'
+import { getServerIndexFileUrl } from './collection.js'
 
 describe('getServerIndexFileUrl', () => {
   it('adds index.json', () => {

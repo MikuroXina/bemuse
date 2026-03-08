@@ -1,5 +1,5 @@
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
-import type { QueryKey } from 'react-query'
+import type { QueryKey } from '@tanstack/react-query'
 
 export const rootQueryKey: QueryKey = ['online']
 

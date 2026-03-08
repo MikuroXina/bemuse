@@ -1,12 +1,12 @@
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
-import { useContext } from 'react'
 import {
   useMutation,
   type UseMutationResult,
   useQuery,
   useQueryClient,
   type UseQueryResult,
-} from 'react-query'
+} from '@tanstack/react-query'
+import { useContext } from 'react'
 
 import type {
   ScoreboardDataEntry,

@@ -7,10 +7,11 @@ import { useReadme } from '../io/ReadmeIO.js'
 import styles from './MusicInfoTabInformation.module.scss'
 
 export interface MusicInfoTabInformationProps {
+  serverUrl: string
   song: Song
 }
 
-const Buttons = ({ song }: MusicInfoTabInformationProps) => {
+const Buttons = ({ song }: { song: Song }) => {
   const buttons = []
   if (song.bms_url) {
     buttons.push(<Link text='Download BMS' url={song.bms_url} />)
@@ -53,8 +54,11 @@ const Link = ({ text, url }: { text: string; url?: string }) =>
     <>{text}</>
   )
 
-const MusicInfoTabInformation = ({ song }: MusicInfoTabInformationProps) => {
-  const readme = useReadme(song)
+const MusicInfoTabInformation = ({
+  serverUrl,
+  song,
+}: MusicInfoTabInformationProps) => {
+  const readme = useReadme(serverUrl, song)
 
   return (
     <div className={styles.tabInfo}>

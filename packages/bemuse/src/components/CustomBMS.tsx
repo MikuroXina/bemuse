@@ -1,10 +1,15 @@
 import type { Song } from '@bemuse/collection-model/types.js'
+import { loadSongFromResources } from '@bemuse/custom-song-loader/index.js'
+import type { ICustomSongResources } from '@bemuse/resources/types.js'
 import Panel from '@bemuse/ui/Panel.js'
-import { type DragEventHandler, useEffect, useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { type DragEventHandler, useEffect, useState } from 'react'
 
-import { useCustomSongLoaderLog } from '../app/CustomSongs.js'
-import * as CustomSongsIO from '../app/io/CustomSongsIO.js'
+import {
+  handleClipboardPaste,
+  handleCustomSongFileSelect,
+  handleCustomSongFolderDrop,
+  handleCustomSongURLLoad,
+} from '../app/io/CustomSongsIO.js'
 import {
   consumePendingArchiveURL,
   hasPendingArchiveToLoad,
@@ -16,34 +21,46 @@ export interface CustomBMSProps {
 }
 
 const CustomBMS = ({ onSongLoaded }: CustomBMSProps) => {
-  const log = useCustomSongLoaderLog()
+  const [log, setLog] = useState<readonly string[]>([])
   const [hover, setHover] = useState(false)
-  const dropzoneInput = useRef<HTMLInputElement>(null)
 
-  const dispatch = useDispatch()
-
-  const onFileDrop = CustomSongsIO.handleCustomSongFolderDrop(dispatch)
-  const loadFromURL = CustomSongsIO.handleCustomSongURLLoad(dispatch)
-  const onFileSelect = CustomSongsIO.handleCustomSongFileSelect(dispatch)
+  async function onLoadResources(resources: ICustomSongResources) {
+    if (!onSongLoaded) {
+      return
+    }
+    try {
+      const song = await loadSongFromResources(resources, {
+        onMessage: (message) => setLog((log) => [...log, message]),
+      })
+      song.id = '__custom_' + Date.now()
+      song.custom = true
+      if (song && song.charts && song.charts.length) {
+        onSongLoaded(song)
+        return
+      }
+      throw new Error('there are no charts in song')
+    } catch (e) {
+      console.error(e)
+    } finally {
+      setLog([])
+    }
+  }
 
   useEffect(() => {
-    const onPaste = CustomSongsIO.handleClipboardPaste(dispatch)
-    const handlePaste = async (e: Event) => {
-      const song = await onPaste(e as ClipboardEvent)
-      if (song) {
-        if (onSongLoaded) onSongLoaded(song)
+    const handlePaste = (e: ClipboardEvent) => {
+      const resources = handleClipboardPaste(e)
+      if (resources) {
+        onLoadResources(resources)
       }
     }
     window.addEventListener('paste', handlePaste)
     if (hasPendingArchiveToLoad()) {
-      loadFromURL(consumePendingArchiveURL()!).then((song) => {
-        if (song && onSongLoaded) onSongLoaded(song)
-      })
+      onLoadResources(handleCustomSongURLLoad(consumePendingArchiveURL()!))
     }
     return () => {
       window.removeEventListener('paste', handlePaste)
     }
-  }, [dispatch])
+  }, [])
 
   const handleDragEnter: DragEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault()
@@ -59,12 +76,10 @@ const CustomBMS = ({ onSongLoaded }: CustomBMSProps) => {
   const handleDrop: DragEventHandler<HTMLDivElement> = (e) => {
     setHover(false)
     e.preventDefault()
-    onFileDrop(e.nativeEvent).then((song) => {
-      if (song && onSongLoaded) onSongLoaded(song)
-    })
+    onLoadResources(handleCustomSongFolderDrop(e.nativeEvent))
   }
   const handleFileSelect = (file: File) => {
-    onFileSelect(file)
+    onLoadResources(handleCustomSongFileSelect(file))
   }
 
   return (
@@ -90,24 +105,23 @@ const CustomBMS = ({ onSongLoaded }: CustomBMSProps) => {
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
         >
-          {log ? (
-            <LogTextarea log={log} />
-          ) : (
+          {log.length === 0 ? (
             <div className={styles.dropzoneHint}>
               Drop BMS folder here.
               <label className={styles.dropzoneInputLabel}>
                 <input
                   type='file'
                   className={styles.dropzoneInput}
-                  accept='.zip,.7z,.rar'
-                  ref={dropzoneInput}
-                  onChange={() => {
-                    handleFileSelect(dropzoneInput.current!.files![0])
+                  accept='.zip,.7z,.rar,.bms,.bml,.bme,.bmson'
+                  onChange={(e) => {
+                    handleFileSelect(e.target.files![0])
                   }}
                 />
                 Select File on Device.
               </label>
             </div>
+          ) : (
+            <LogTextarea log={log} />
           )}
         </div>
       </div>
@@ -115,18 +129,12 @@ const CustomBMS = ({ onSongLoaded }: CustomBMSProps) => {
   )
 }
 
-const LogTextarea = ({ log }: { log: string[] }): JSX.Element => {
-  return log.length ? (
-    <div className={styles.log}>
-      {log.map((text, i) => (
-        <p key={i}>{text}</p>
-      ))}
-    </div>
-  ) : (
-    <div className={styles.log}>
-      <p>Omachi kudasai...</p>
-    </div>
-  )
-}
+const LogTextarea = ({ log }: { log: readonly string[] }): JSX.Element => (
+  <div className={styles.log}>
+    {log.map((text, i) => (
+      <p key={i}>{text}</p>
+    ))}
+  </div>
+)
 
 export default CustomBMS

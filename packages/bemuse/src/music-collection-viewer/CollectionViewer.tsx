@@ -1,28 +1,11 @@
-import { load, OFFICIAL_SERVER_URL } from '@bemuse/music-collection/index.js'
-import preprocessCollection from '@bemuse/music-collection/preprocessCollection.js'
+import { OFFICIAL_SERVER_URL, useCollection } from '@bemuse/query/collection.js'
 import query from '@bemuse/utils/query.js'
-import type { MusicServerIndex } from '@mikuroxina/bemuse-types'
-import { useEffect, useState } from 'react'
 
 import MusicTable from './MusicTable.js'
 
 export const CollectionViewer = () => {
-  const [status, setStatus] = useState('Loading')
-  const [data, setData] = useState<MusicServerIndex | null>(null)
-
   const url = query.server || OFFICIAL_SERVER_URL
-
-  useEffect(() => {
-    load(url).then(
-      (result) => {
-        setStatus('Load completed')
-        setData(result)
-      },
-      (e: Error) => {
-        setStatus('Load error: ' + e)
-      }
-    )
-  }, [])
+  const res = useCollection(url)
 
   return (
     <div>
@@ -36,7 +19,7 @@ export const CollectionViewer = () => {
       </header>
       <div style={{ padding: 20 }}>
         <MusicTable
-          data={data && preprocessCollection(data)}
+          data={res.data ?? null}
           url={url}
           initialSort={query.sort}
         />

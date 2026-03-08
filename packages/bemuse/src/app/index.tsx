@@ -1,13 +1,8 @@
 import {
-  defaultCustomFolderContext,
-  getSongsFromCustomFolders,
-} from '@bemuse/custom-folder/index.js'
-import {
   isQueryFlagEnabled,
   shouldShowAbout,
   shouldShowModeSelect,
 } from '@bemuse/flags/index.js'
-import { OFFICIAL_SERVER_URL } from '@bemuse/music-collection/index.js'
 import {
   SceneManager,
   SceneManagerContext,
@@ -18,15 +13,10 @@ import { Provider } from 'react-redux'
 
 import * as BemuseTestMode from '../debug/BemuseTestMode.js'
 import configureStore from '../redux/configureStore.js'
-import * as ReduxState from '../redux/ReduxState.js'
 import { isBrowserSupported } from './browser-support.js'
 import { musicSearchTextSlice } from './entities/MusicSearchText.js'
 import { optionsSlice } from './entities/Options.js'
-import {
-  getInitialGrepString,
-  getMusicServer,
-  getTimeSynchroServer,
-} from './query-flags.js'
+import { getInitialGrepString, getTimeSynchroServer } from './query-flags.js'
 import AboutScene from './ui/AboutScene.js'
 import BrowserSupportWarningScene from './ui/BrowserSupportWarningScene.js'
 import ModeSelectScene from './ui/ModeSelectScene.js'
@@ -52,26 +42,11 @@ if (import.meta.hot) {
 
 function bootUp() {
   store.dispatch(
-    ReduxState.collectionsSlice.actions.COLLECTION_LOADING_BEGAN({
-      url: getMusicServer() || OFFICIAL_SERVER_URL,
-    })
-  )
-  store.dispatch(
     musicSearchTextSlice.actions.MUSIC_SEARCH_TEXT_INITIALIZED({
       text: getInitialGrepString() ?? '',
     })
   )
   store.dispatch(optionsSlice.actions.LOAD_FROM_STORAGE())
-
-  getSongsFromCustomFolders(defaultCustomFolderContext).then((songs) => {
-    if (songs.length > 0) {
-      store.dispatch(
-        ReduxState.customSongsSlice.actions.CUSTOM_SONGS_LOADED({
-          songs,
-        })
-      )
-    }
-  })
 }
 
 export function main() {

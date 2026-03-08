@@ -23,9 +23,12 @@ export class DndResources
   implements ICustomSongResources
 {
   constructor(event: DragEvent) {
-    super({
-      getFiles: (log) => getFilesFromEvent(event, log),
-    })
+    super(
+      {
+        getFiles: (log) => getFilesFromEvent(event, log),
+      },
+      ['Examining dropped items...']
+    )
   }
 }
 

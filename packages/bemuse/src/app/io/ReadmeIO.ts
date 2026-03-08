@@ -1,53 +1,30 @@
 import type { Song } from '@bemuse/collection-model/types.js'
 import { getSongResources } from '@bemuse/music-collection/getSongResources.js'
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import type { AnyAction, Dispatch } from 'redux'
 
-import {
-  currentSongReadmeSlice,
-  selectCurrentCollectionUrl,
-} from '../../redux/ReduxState.js'
-
-export function useReadme(song: Song): string | null {
-  const dispatch = useDispatch()
+export function useReadme(serverUrl: string, song: Song): string | null {
   const [readme, setReadme] = useState<string | null>(null)
-  const collectionUrl = useSelector(selectCurrentCollectionUrl)
 
   useEffect(() => {
-    requestReadmeForUrl(collectionUrl, song, dispatch)
-      .then(setReadme)
-      .catch(console.error)
-  }, [collectionUrl, song])
+    requestReadmeForUrl(serverUrl, song).then(setReadme).catch(console.error)
+  }, [serverUrl, song])
 
   return readme
 }
 
 async function requestReadmeForUrl(
   serverUrl: string,
-  song: Song,
-  dispatch: Dispatch<AnyAction>
+  song: Song
 ): Promise<string> {
-  dispatch(currentSongReadmeSlice.actions.README_LOADING_STARTED())
-  try {
-    const resources = getSongResources(song, serverUrl)
-    const readme = song.readme
-      ? await resources.baseResources
-          .file(song.readme)
-          .then((f) => f.read())
-          .then((ab) => new Blob([ab], { type: 'text/plain' }).text())
-      : ''
-    const text = stripFrontMatter(readme)
-    dispatch(currentSongReadmeSlice.actions.README_LOADED({ text }))
-    return text
-  } catch (e) {
-    dispatch(
-      currentSongReadmeSlice.actions.README_LOADING_ERRORED({
-        url: song.readme ?? '',
-      })
-    )
-    throw e
+  if (!song.readme) {
+    return ''
   }
+  const resources = getSongResources(song, serverUrl)
+  const file = await resources.baseResources.file(song.readme)
+  const buffer = await file.read()
+  const readme = await new Blob([buffer], { type: 'text/plain' }).text()
+  const text = stripFrontMatter(readme)
+  return text
 }
 
 function stripFrontMatter(text: string) {
