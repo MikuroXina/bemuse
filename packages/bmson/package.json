@@ -1,6 +1,6 @@
 {
   "name": "@mikuroxina/bmson",
-  "version": "52.0.0",
+  "version": "52.0.1",
   "description": "BMSON support for Bemuse",
   "type": "module",
   "main": "./lib/index.js",
