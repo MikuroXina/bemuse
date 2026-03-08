@@ -4,8 +4,8 @@
 // We need this file to load as soon as possible, therefore,
 // we minimize the amount of third-party dependencies.
 
-import '../ui/fonts.scss'
-import '../ui/global.scss'
+import '../components/common/fonts.scss'
+import '../components/common/global.scss'
 
 import attachFastClick from 'fastclick'
 import { createRoot } from 'react-dom/client'

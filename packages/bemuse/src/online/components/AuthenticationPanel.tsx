@@ -1,4 +1,4 @@
-import djBemuse from '@bemuse/app/ui/about-scene/DJBM.png'
+import djBemuse from '@bemuse/app/components/about-scene/DJBM.png'
 import Panel from '@bemuse/components/common/Panel.js'
 import { OnlineContext } from '@bemuse/online/instance.js'
 import { useContext, useState } from 'react'

@@ -1,6 +1,6 @@
 @use 'sass:color';
 @use 'sass:string';
-@use '@bemuse/ui/common.scss';
+@use '@bemuse/components/common/common.scss';
 
 .selectorItem {
   list-style: none;

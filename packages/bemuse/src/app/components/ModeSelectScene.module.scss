@@ -1,6 +1,6 @@
 @use 'sass:color';
 @use 'sass:math';
-@use '@bemuse/ui/common.scss';
+@use '@bemuse/components/common/common.scss';
 
 .scene {
   background: #415067 url(./images/bg-title.jpg) 50% 90% no-repeat;
