@@ -22,7 +22,6 @@ export interface AppState {
   musicSearchText: MusicSearchText.MusicSearchTextState
   musicSelection: MusicSelection.MusicSelectionState
   options: Options.OptionsState
-  currentSongReadme: string
   rageQuit: boolean
 }
 
@@ -43,21 +42,6 @@ export const customSongsSlice = createSlice({
     ) => songs,
   },
 })
-export const currentSongReadmeSlice = createSlice({
-  name: 'currentSongReadme',
-  initialState: 'Omachi kudasai…',
-  reducers: {
-    README_LOADING_STARTED: () => 'Omachi kudasai…',
-    README_LOADING_ERRORED: (
-      _state,
-      { payload: { url } }: PayloadAction<{ url: string }>
-    ) => 'Cannot download ' + url,
-    README_LOADED: (
-      _state,
-      { payload: { text } }: PayloadAction<{ text: string }>
-    ) => text,
-  },
-})
 export const rageQuitSlice = createSlice({
   name: 'rageQuit',
   initialState: false,
@@ -73,7 +57,6 @@ export const reducer = {
   musicSearchText: MusicSearchText.musicSearchTextSlice.reducer,
   musicSelection: MusicSelection.musicSelectionSlice.reducer,
   options: Options.optionsSlice.reducer,
-  currentSongReadme: currentSongReadmeSlice.reducer,
   rageQuit: rageQuitSlice.reducer,
 }
 
@@ -87,9 +70,6 @@ export const selectSearchText = (state: AppState) =>
   MusicSearchText.searchText(state.musicSearchText)
 
 export const selectMusicSelection = (state: AppState) => state.musicSelection
-
-export const selectReadmeTextForSelectedSong = (state: AppState) =>
-  state.currentSongReadme
 
 export const selectOptions = (state: AppState) => state.options
 
