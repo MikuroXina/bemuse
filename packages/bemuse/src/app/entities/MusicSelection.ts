@@ -18,7 +18,7 @@ export const initialState: MusicSelectionState = {
 // Queries
 export const selectedSongGivenSongs =
   (songs: SongMetadataInCollection[]) =>
-  (state: MusicSelectionState): SongMetadataInCollection =>
+  (state: MusicSelectionState): SongMetadataInCollection | undefined =>
     songs.find((item) => item.id === state.selectedSongId) ?? songs[0]
 
 export const selectedChartGivenCharts =

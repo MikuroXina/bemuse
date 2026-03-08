@@ -2,11 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { MusicPreviewer } from './index.js'
 
-export interface MusicSelectPreviewerProps {
-  url: string | null
-}
-
-const MusicSelectPreviewer = ({ url }: MusicSelectPreviewerProps) => {
+export const useMusicPreviewer = () => {
   const previewerRef = useRef<MusicPreviewer | null>(null)
   const [pausedForCalibration, setPausedForCalibration] = useState(false)
   useEffect(() => {
@@ -31,18 +27,10 @@ const MusicSelectPreviewer = ({ url }: MusicSelectPreviewerProps) => {
       previewerRef.current?.enable()
     }
   }, [pausedForCalibration])
-  useEffect(() => {
-    if (url) {
-      previewerRef.current?.preview(url)
-      previewerRef.current?.go()
-    }
-  }, [url])
 
   if (previewerRef.current === null) {
     previewerRef.current = new MusicPreviewer()
   }
 
-  return null
+  return previewerRef.current
 }
-
-export default MusicSelectPreviewer

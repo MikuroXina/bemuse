@@ -7,8 +7,10 @@ import OptionsView from '@bemuse/components/options/Options.js'
 import { shouldShowOptions } from '@bemuse/flags/index.js'
 import filterSongs from '@bemuse/music-collection/filterSongs.js'
 import getPlayableCharts from '@bemuse/music-collection/getPlayableCharts.js'
+import getPreviewResourceUrl from '@bemuse/music-collection/getPreviewResourceUrl.js'
 import groupSongsIntoCategories from '@bemuse/music-collection/groupSongsIntoCategories.js'
 import sortSongs from '@bemuse/music-collection/sortSongs.js'
+import { useMusicPreviewer } from '@bemuse/music-previewer/hook.js'
 import AuthenticationPopup from '@bemuse/online/components/AuthenticationPopup.js'
 import { useCurrentUser } from '@bemuse/online/hooks.js'
 import Online, { type UserInfo } from '@bemuse/online/index.js'
@@ -50,7 +52,6 @@ import MusicInfo from './MusicInfo.js'
 import MusicList from './MusicList.js'
 import styles from './MusicSelectScene.module.scss'
 import RageQuitPopup from './RageQuitPopup.js'
-import SongPreviewer from './SongPreviewer.js'
 import Toolbar, { item, spacer } from './Toolbar.js'
 import UnofficialPanel from './UnofficialPanel.js'
 
@@ -128,20 +129,32 @@ const Main = ({
     return [allSongs, selectGroups]
   }, [collectionRes.data, searchText])
 
-  if (collectionRes.isLoading || collectionRes.isPending) {
-    return <div className={styles.loading}>Loading…</div>
-  }
-  if (collectionRes.isError) {
-    return <div className={styles.loading}>Cannot load collection!</div>
-  }
-
   const selectedSong = selectedSongGivenSongs(songs)(musicSelection)
-  const selectedSongCharts = getPlayableCharts(selectedSong.charts)
+  const chartsOfSelectedSong = selectedSong
+    ? getPlayableCharts(selectedSong.charts)
+    : undefined
   const selectedChart =
-    selectedChartGivenCharts(selectedSongCharts)(musicSelection)
+    selectedChartGivenCharts(chartsOfSelectedSong)(musicSelection)
+
+  const previewer = useMusicPreviewer()
+
+  function onSelectSong(song: Song, chart?: Chart) {
+    if (musicPreviewEnabled) {
+      getPreviewResourceUrl(song, serverUrl).then((url) => {
+        if (url) {
+          previewer.preview(url)
+        }
+      })
+    }
+    handleSongSelect(song, chart)
+  }
 
   function onClickChart(chart: Chart, e: MouseEvent) {
+    if (!selectedSong) {
+      return
+    }
     if (selectedChart.md5 === chart.md5) {
+      previewer.go()
       MusicSelectionIO.launchGame({
         server: { url: serverUrl },
         song: selectedSong,
@@ -152,8 +165,22 @@ const Main = ({
         autoplayEnabled: e.altKey,
       })
     } else {
+      if (musicPreviewEnabled) {
+        getPreviewResourceUrl(selectedSong, serverUrl).then((url) => {
+          if (url) {
+            previewer.preview(url)
+          }
+        })
+      }
       handleSongSelect(selectedSong, chart)
     }
+  }
+
+  if (collectionRes.isLoading || collectionRes.isPending) {
+    return <div className={styles.loading}>Loading…</div>
+  }
+  if (collectionRes.isError) {
+    return <div className={styles.loading}>Cannot load collection!</div>
   }
 
   if (selectGroups.length === 0) {
@@ -164,24 +191,21 @@ const Main = ({
       <MusicList
         groups={selectGroups}
         highlight={musicSelect.highlight}
-        selectedSong={selectedSong}
+        selectedSong={selectedSong!}
         selectedChart={selectedChart}
         playMode={musicSelect.playMode}
-        onSelect={handleSongSelect}
+        onSelect={onSelectSong}
         onDeselect={handleSongDeselect}
       />
       <MusicInfo
-        song={selectedSong}
+        song={selectedSong!}
         chart={selectedChart}
-        charts={selectedSongCharts}
+        charts={chartsOfSelectedSong!}
         playMode={musicSelect.playMode}
         onChartClick={onClickChart}
         onOptions={handleOptionsOpen}
         serverUrl={serverUrl}
       />
-      {musicPreviewEnabled && (
-        <SongPreviewer song={selectedSong} serverUrl={serverUrl} />
-      )}
     </div>
   )
 }

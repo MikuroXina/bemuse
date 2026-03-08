@@ -5,7 +5,7 @@ import getPlayableCharts from '@bemuse/music-collection/getPlayableCharts.js'
 import getPreviewResourceUrl from '@bemuse/music-collection/getPreviewResourceUrl.js'
 import groupSongsIntoCategories from '@bemuse/music-collection/groupSongsIntoCategories.js'
 import sortSongs from '@bemuse/music-collection/sortSongs.js'
-import MusicSelectPreviewer from '@bemuse/music-previewer/MusicSelectPreviewer.js'
+import { useMusicPreviewer } from '@bemuse/music-previewer/hook.js'
 import { useState } from 'react'
 
 import styles from './MusicTable.module.css'
@@ -103,12 +103,10 @@ const SongWarnings = ({ song }: { song: Song }) => {
 }
 const SongRow = ({
   song,
-  url,
-  setPreviewUrl,
+  onClick,
 }: {
   song: Song
-  url: string
-  setPreviewUrl: (url: string | null) => void
+  onClick: () => void
 }): JSX.Element => (
   <tr key={song.id}>
     <td>
@@ -123,13 +121,7 @@ const SongRow = ({
       <span className={styles.subLabel}>{song.added}</span>
     </td>
     <td className={styles.songInfo}>
-      <span
-        className={styles.subLabel}
-        onClick={async () => {
-          const previewUrl = await getPreviewResourceUrl(song, url)
-          setPreviewUrl(previewUrl)
-        }}
-      >
+      <span className={styles.subLabel} onClick={onClick}>
         {song.genre}
       </span>
       <br />
@@ -153,68 +145,59 @@ const SongRow = ({
 const Rows = ({
   sort,
   songs,
-  url,
-  setPreviewUrl,
+  onClickRow,
 }: {
   sort: string
   songs: readonly Song[]
   url: string
-  setPreviewUrl: (url: string | null) => void
+  onClickRow: (song: Song) => void
 }) => {
   const categories = sorters[sort](songs)
-  const out: JSX.Element[] = []
-  for (const category of categories) {
-    out.push(
+  return categories.map((category) => (
+    <>
       <tr key={category.title}>
         <th colSpan={4}>{category.title}</th>
       </tr>
-    )
-    for (const song of category.songs) {
-      out.push(<SongRow {...{ song, url, setPreviewUrl }} />)
-    }
-  }
-  return <>{out}</>
+      {category.songs.map((song) => (
+        <SongRow
+          key={song.id}
+          {...{
+            song,
+            onClick: () => {
+              onClickRow(song)
+            },
+          }}
+        />
+      ))}
+    </>
+  ))
 }
 
 const Preview = ({
-  previewUrl,
   previewEnabled,
   togglePreview,
 }: {
-  previewUrl: string | null
   previewEnabled: boolean
   togglePreview: () => void
-}) => {
-  const button = (
+}) => (
+  <span>
+    <strong>Music preview:</strong>
     <button onClick={togglePreview}>
       {previewEnabled ? 'disable' : 'enable'}
     </button>
-  )
-  return (
-    <span>
-      <strong>Music preview:</strong> {button}
-      {previewEnabled && previewUrl && (
-        <MusicSelectPreviewer url={previewUrl} />
-      )}
-    </span>
-  )
-}
+  </span>
+)
 
-const Sorter = ({ setSort }: { setSort: (key: string) => void }) => {
-  const out = []
-  for (const key of Object.keys(sorters)) {
-    out.push(
+const Sorter = ({ setSort }: { setSort: (key: string) => void }) => (
+  <span>
+    <strong>Sort by:</strong>{' '}
+    {Object.keys(sorters).map((key) => (
       <button key={key} onClick={() => setSort(key)}>
         {key}
       </button>
-    )
-  }
-  return (
-    <span>
-      <strong>Sort by:</strong> {out}
-    </span>
-  )
-}
+    ))}
+  </span>
+)
 
 const Table = ({
   data,
@@ -227,7 +210,14 @@ const Table = ({
 }) => {
   const [sort, setSort] = useState(initialSort || Object.keys(sorters)[0])
   const [previewEnabled, setPreviewEnabled] = useState(false)
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null)
+  const previewer = useMusicPreviewer()
+
+  async function onClickRow(song: Song) {
+    const previewUrl = await getPreviewResourceUrl(song, url)
+    if (previewUrl) {
+      previewer.preview(previewUrl)
+    }
+  }
 
   return (
     <table className={styles.table}>
@@ -238,7 +228,6 @@ const Table = ({
             {' · '}
             <Preview
               previewEnabled={previewEnabled}
-              previewUrl={previewUrl}
               togglePreview={() => setPreviewEnabled((flag) => !flag)}
             />
           </th>
@@ -254,7 +243,7 @@ const Table = ({
           sort={sort}
           songs={data.songs}
           url={url}
-          setPreviewUrl={setPreviewUrl}
+          onClickRow={onClickRow}
         />
       </tbody>
     </table>
