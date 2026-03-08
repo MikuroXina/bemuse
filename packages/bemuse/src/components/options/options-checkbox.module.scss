@@ -1,8 +1,9 @@
 @use '@bemuse/components/common/common.scss';
 
-.OptionsCheckbox {
+.checkbox {
   > label > input {
     @include common.input;
+
     appearance: none;
     width: 21px;
     height: 21px;
@@ -13,6 +14,7 @@
     margin-right: 5px;
     transform: rotate(0deg);
     transition: 0.138s all ease-out;
+
     &::after {
       position: absolute;
       display: block;

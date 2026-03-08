@@ -1,0 +1,165 @@
+.gameDisplay {
+  display: block;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background: url(./background/default.jpg) center no-repeat;
+  background-size: cover;
+  animation: 1.5s slide-up;
+  animation-fill-mode: both;
+}
+
+.gameDisplay[data-info-panel-position='top'] .bg {
+  animation-name: slide-down;
+}
+
+.videoBg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: -48px;
+  left: 0px;
+  z-index: 11;
+  opacity: 0;
+  transition: 0.5s opacity;
+  will-change: opacity;
+
+  &[data-playing='true'] {
+    opacity: 1;
+  }
+}
+
+.gameDisplay[data-panel-placement='left'] .videoBg {
+  transform: translateX(13.671875%) scale(0.87);
+}
+.gameDisplay[data-panel-placement='right'] .videoBg {
+  transform: translateX(13.671875%) scale(0.87);
+}
+
+.bg img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  animation: 1.2s slide-up;
+  animation-fill-mode: both;
+}
+
+.gameDisplay[data-info-panel-position='top'] .bg img {
+  animation-name: slide-down;
+}
+
+.gameDisplay > canvas {
+  position: relative;
+  z-index: 100;
+}
+
+.touchButtons {
+  position: fixed;
+  transform: translateZ(0);
+  top: 0;
+  opacity: 0;
+  z-index: 110;
+}
+.touchButtons[data-visible='true'] {
+  opacity: 1;
+}
+.touchButtons.left {
+  left: 0;
+}
+.touchButtons.right {
+  right: 0;
+}
+
+.touchEscapeButton,
+.touchReplayButton,
+.touchFullscreenButton {
+  position: absolute;
+  top: 12px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 32px;
+  height: 32px;
+  background: transparent center center no-repeat;
+  background-size: 32px 32px;
+  cursor: pointer;
+}
+.touchEscapeButton {
+  background-image: url(./touch-escape.png);
+  left: 12px;
+}
+.touchReplayButton {
+  background-image: url(./touch-replay.png);
+  left: 56px;
+}
+.touchFullscreenButton {
+  background-image: url(./touch-fullscreen.png);
+  right: 12px;
+  :root:fullscreen & {
+    display: none;
+  }
+}
+.escapeHint {
+  position: absolute;
+  left: 12px;
+  top: 56px;
+  display: none;
+  background: #b61a44;
+  padding: 8px 12px;
+  color: white;
+  white-space: nowrap;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  pointer-events: none;
+
+  &[data-shown='true'] {
+    display: block;
+  }
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: -8px;
+    left: 16px;
+    margin-left: -8px;
+    border-width: 0 8px 8px 8px;
+    border-style: solid;
+    border-color: transparent;
+    border-bottom-color: #b61a44;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  to {
+    transform: translate(0, -35px);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-down {
+  from {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  to {
+    transform: translate(0, 35px);
+    opacity: 1;
+  }
+}

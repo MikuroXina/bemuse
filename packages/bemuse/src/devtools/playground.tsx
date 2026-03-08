@@ -1,13 +1,15 @@
 import { sceneRoot } from '@bemuse/utils/main-element.js'
 import query from '@bemuse/utils/query.js'
 
-import styles from "./playground.module.css"
+import styles from './playground.module.css'
 
-const playgrounds = import.meta.glob('./playgrounds/*.{js,jsx}');
-const availablePlaygrounds = {}
-for (const key of Object.keys(playgrounds)) {
-  const name = key.match(/\w[^.]+/)[0]
-  availablePlaygrounds[name] = await playgrounds[key]()
+const playgrounds = import.meta.glob('./playgrounds/*.{js,jsx}')
+const availablePlaygrounds: Record<string, { main: () => void }> = {}
+for (const [key, playground] of Object.entries(playgrounds)) {
+  const name = key.match(/\w[^.]+/)?.[0]
+  if (name) {
+    availablePlaygrounds[name] = (await playground()) as { main: () => void }
+  }
 }
 
 const DefaultPlayground = () => {
@@ -18,7 +20,10 @@ const DefaultPlayground = () => {
       <ul>
         {Object.keys(availablePlaygrounds).map((key) => (
           <li key={key}>
-            <a className={styles.playgroundLink} href={'?mode=playground&playground=' + key}>
+            <a
+              className={styles.playgroundLink}
+              href={'?mode=playground&playground=' + key}
+            >
               {key}
             </a>
           </li>

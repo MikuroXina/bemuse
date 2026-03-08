@@ -1,12 +1,11 @@
-import './Scene.scss'
-
-import c from 'classnames'
 import {
   type DragEvent,
   type ForwardedRef,
   forwardRef,
   type ReactNode,
 } from 'react'
+
+import styles from './scene.module.scss'
 
 export interface SceneProps {
   className: string
@@ -18,7 +17,11 @@ const Scene = (
   { className, children, onDragEnter }: SceneProps,
   ref: ForwardedRef<HTMLDivElement>
 ) => (
-  <div ref={ref} className={c('Scene', className)} onDragEnter={onDragEnter}>
+  <div
+    ref={ref}
+    className={`${styles.scene} ${className}`}
+    onDragEnter={onDragEnter}
+  >
     {children}
   </div>
 )

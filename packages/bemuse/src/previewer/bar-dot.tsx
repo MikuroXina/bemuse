@@ -1,4 +1,4 @@
-import './BarDot.scss'
+import styles from './bar-dot.module.scss'
 
 export interface BarDot {
   fraction: number
@@ -6,7 +6,7 @@ export interface BarDot {
 }
 
 export const BarDot = (props: BarDot) => (
-  <svg width={32} height={32} viewBox='0 0 32 32' className='BarDot'>
+  <svg width={32} height={32} viewBox='0 0 32 32' className={styles.barDot}>
     {props.fraction > 0 ? (
       props.fraction < 0.99 ? (
         <path

@@ -1,11 +1,11 @@
-import './OptionsInputField.scss'
-
 import {
   type ChangeEvent,
   type ComponentProps,
   type FocusEvent,
   useState,
 } from 'react'
+
+import styles from './options-input-field.module.scss'
 
 export interface OptionsInputFieldProps<T> {
   stringify: (x: T) => string
@@ -42,7 +42,7 @@ const OptionsInputField = <T,>(
     const input = e.currentTarget
     setValue(input.value)
     const valid = validator.test(input.value)
-    input.classList[valid ? 'remove' : 'add']('is-invalid')
+    input.dataset['valid'] = valid ? 'true' : 'false'
   }
   const handleInputBlur = (e: FocusEvent<HTMLInputElement>) => {
     const input = e.currentTarget
@@ -58,7 +58,7 @@ const OptionsInputField = <T,>(
       value={value}
       onChange={handleInputChange}
       onBlur={handleInputBlur}
-      className={`OptionsInputField ${className}`}
+      className={`${styles.input} ${className}`}
     />
   )
 }

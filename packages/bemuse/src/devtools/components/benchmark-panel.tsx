@@ -1,6 +1,6 @@
-import './BenchmarkPanel.scss'
-
 import { type MouseEvent, type TouchEvent, useEffect, useState } from 'react'
+
+import styles from './benchmark-panel.module.scss'
 
 const Table = ({ stats }: { stats: Record<string, unknown> }) => (
   <table>
@@ -45,7 +45,7 @@ const BenchmarkPanel = ({ bench }: BenchmarkPanelProps) => {
 
   return (
     <div
-      className='BenchmarkPanel'
+      className={styles.panel}
       onClick={handleInteraction}
       onTouchStart={handleInteraction}
     >

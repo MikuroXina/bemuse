@@ -1,18 +1,17 @@
-import './GameShellScene.scss'
-
 import type {
   PanelPlacement,
   ScratchPosition,
 } from '@bemuse/app/entities/options.js'
 import DndResources from '@bemuse/resources/dnd-resources.js'
 import type { IResource, IResources } from '@bemuse/resources/types.js'
-import c from 'classnames'
 import {
   type ChangeEvent,
   type DragEvent,
   type FormEvent,
   useState,
 } from 'react'
+
+import styles from './game-shell-scene.module.scss'
 
 interface BmsEntry {
   name: string
@@ -41,16 +40,14 @@ const CustomChartSelector = ({
   }
 
   return (
-    <div className='drop-zone'>
+    <div className={styles.dropZone}>
       {files.length ? (
         <ul>
           {files.map((file) => (
             <li key={file.name}>
               <a
                 onClick={handleItemClick(file)}
-                className={c({
-                  'is-active': file.resource === selectedResource,
-                })}
+                data-active={file.resource === selectedResource}
               >
                 {file.name}
               </a>
@@ -63,7 +60,7 @@ const CustomChartSelector = ({
           ) : null}
         </ul>
       ) : (
-        <div className='drop-zone-hint' onDrop={onDrop}>
+        <div className={styles.dropZoneHint} onDrop={onDrop}>
           Drop BMS folder here
           <br />
           (only works on Google Chrome)
@@ -168,16 +165,16 @@ const GameShellScene = ({
 
   return (
     <div
-      className='GameShellScene'
+      className={styles.scene}
       onDragOver={handleDragOver}
       onDrop={handleDrop}
     >
       <h1>Bemuse Game Shell</h1>
       <p>This tool is intended for developers testing the game.</p>
       <form onSubmit={submit}>
-        <div className='text'>
+        <div className={styles.text}>
           <label>
-            <span className='label'>BMS URL:</span>
+            <span className={styles.label}>BMS URL:</span>
             <input
               type='text'
               disabled={!!options.resource}
@@ -186,9 +183,9 @@ const GameShellScene = ({
             />
           </label>
         </div>
-        <div className='text'>
+        <div className={styles.text}>
           <label>
-            <span className='label'>-or- Drop BMS folder here</span>
+            <span className={styles.label}>-or- Drop BMS folder here</span>
             <CustomChartSelector
               files={files}
               selectedResource={options.resource}
@@ -197,9 +194,9 @@ const GameShellScene = ({
             />
           </label>
         </div>
-        <div className='text'>
+        <div className={styles.text}>
           <label>
-            <span className='label'>Audio-Input Latency</span>
+            <span className={styles.label}>Audio-Input Latency</span>
             <input
               type='text'
               onChange={bindOption(
@@ -209,9 +206,9 @@ const GameShellScene = ({
             />
           </label>
         </div>
-        <div className='text'>
+        <div className={styles.text}>
           <label>
-            <span className='label'>HI-SPEED:</span>
+            <span className={styles.label}>HI-SPEED:</span>
             <input
               type='text'
               onChange={bindOption(
@@ -221,7 +218,7 @@ const GameShellScene = ({
             />
           </label>
         </div>
-        <div className='radio'>
+        <div className={styles.radio}>
           <h3>Placement</h3>
           {(['left', 'center', 'right'] as const).map((placement) => (
             <label key={placement}>
@@ -233,7 +230,7 @@ const GameShellScene = ({
                 )}
                 checked={options.players[0].placement === placement}
               />
-              <span className='label'>{placement}</span>
+              <span className={styles.label}>{placement}</span>
             </label>
           ))}
         </div>

@@ -1,6 +1,6 @@
-import './YouTube.scss'
-
 import { useEffect, useRef } from 'react'
+
+import styles from './you-tube.module.css'
 
 const getUrl = (url: string) =>
   'https://www.youtube.com/embed/' + url.match(/v=([^&]+)/)![1]
@@ -31,7 +31,7 @@ const YouTube = ({ url }: YouTubeProps) => {
     <iframe
       ref={frameRef}
       width='100%'
-      className='YouTube'
+      className={styles.frame}
       src={getUrl(url)}
       frameBorder='0'
       allowFullScreen

@@ -1,6 +1,6 @@
-import './OptionsCheckbox.scss'
-
 import type { ReactNode } from 'react'
+
+import styles from './options-checkbox.module.scss'
 
 const OptionsCheckbox = ({
   checked,
@@ -12,7 +12,7 @@ const OptionsCheckbox = ({
   onToggle: () => void
 }) => {
   return (
-    <span className='OptionsCheckbox'>
+    <span className={styles.checkbox}>
       <label>
         <input type='checkbox' checked={checked} onChange={onToggle} />
         <span>{children}</span>

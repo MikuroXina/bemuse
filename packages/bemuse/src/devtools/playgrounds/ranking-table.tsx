@@ -1,8 +1,8 @@
-import './ranking-table-playground.scss'
-
 import Ranking from '@bemuse/components/ranking/ranking.js'
 import type { ScoreboardDataEntry } from '@bemuse/online/index.js'
 import { sceneRoot } from '@bemuse/utils/main-element.js'
+
+import styles from './ranking-table-playground.module.scss'
 
 const players: ScoreboardDataEntry[] = [
   {
@@ -21,7 +21,7 @@ const players: ScoreboardDataEntry[] = [
   },
 ]
 const RankingTablePlayground = () => (
-  <div className='ranking-table-playground'>
+  <div className={styles.container}>
     <Ranking
       state={{
         data: players,

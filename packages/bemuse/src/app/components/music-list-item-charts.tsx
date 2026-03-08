@@ -1,9 +1,8 @@
-import './music-list-item-charts.scss'
-
 import type { Chart } from '@mikuroxina/bemuse-types'
 import type { MouseEvent } from 'react'
 
 import MusicListItemChart from './music-list-item-chart.js'
+import styles from './music-list-item-charts.module.scss'
 
 export interface MusicListItemChartsProps {
   charts: readonly Chart[]
@@ -16,7 +15,7 @@ const MusicListItemCharts = ({
   onChartClick,
   selectedChart,
 }: MusicListItemChartsProps) => (
-  <div className='MusicListItemCharts'>
+  <div className={styles.charts}>
     {charts.map((chart, index) => (
       <MusicListItemChart
         key={index}

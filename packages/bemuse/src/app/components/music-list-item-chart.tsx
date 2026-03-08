@@ -1,9 +1,8 @@
-import './MusicListItemChart.scss'
-
 import { getGrade } from '@bemuse/rules/grade.js'
 import type { Chart } from '@mikuroxina/bemuse-types'
 import type { MouseEvent } from 'react'
 
+import styles from './music-list-item-chart.module.scss'
 import { usePersonalRecord } from './use-personal-record.js'
 
 export interface MusicListItemChartProps {
@@ -30,7 +29,7 @@ const MusicListItemChart = ({
 
   return (
     <div
-      className='MusicListItemChart'
+      className={styles.container}
       onClick={handleClick}
       data-md5={chart.md5}
       data-played={played}

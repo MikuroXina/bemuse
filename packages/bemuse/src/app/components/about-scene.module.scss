@@ -1,7 +1,9 @@
 @use '@bemuse/components/common/common.scss';
 
 .scene {
-  @include common.scene-background(url(../../ui/images/bg/c.jpg));
+  @include common.scene-background(
+    url(../../components/common/images/bg/c.jpg)
+  );
 
   > section {
     @include common.scrolling-y;

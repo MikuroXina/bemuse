@@ -1,5 +1,3 @@
-import './game-display.scss'
-
 import type { PanelPlacement } from '@bemuse/app/entities/options.js'
 import { shouldDisableFullScreen } from '@bemuse/flags/index.js'
 import type { Scintillator } from '@bemuse/scintillator/index.js'
@@ -12,6 +10,7 @@ import formatTime from '../../utils/format-time.js'
 import Game from '../game.js'
 import Player from '../player.js'
 import GameState from '../state/index.js'
+import styles from './game-display.module.scss'
 import PlayerDisplay from './player-display.js'
 
 export interface Video {
@@ -106,7 +105,7 @@ class GameDisplay {
     if (this._video && !this._videoStarted && gameTime >= this._videoOffset) {
       this._video.volume = 0
       this._video.play()
-      this._video.classList.add('is-playing')
+      this._video.dataset['playing'] = 'true'
       this._videoStarted = true
     }
   }
@@ -119,7 +118,9 @@ class GameDisplay {
         !this._escapeHintShown
       ) {
         this._escapeHintShown = true
-        this._escapeHint?.classList.add('is-shown')
+        if (this._escapeHint) {
+          this._escapeHint.dataset['shown'] = 'true'
+        }
       }
     }
   }
@@ -181,20 +182,20 @@ class GameDisplay {
     infoPanelPosition: InfoPanelPosition
   }) {
     const wrapper = document.createElement('div')
-    wrapper.className = 'game-display'
+    wrapper.className = styles.gameDisplay
     wrapper.setAttribute('data-panel-placement', panelPlacement)
     wrapper.setAttribute('data-info-panel-position', infoPanelPosition)
 
     const displayBackground = document.createElement('div')
-    displayBackground.classList.add('game-display--bg', 'js-back-image')
+    displayBackground.classList.add(styles.bg)
     wrapper.append(displayBackground, this.view)
     if (backgroundImage) {
-      wrapper.querySelector('.js-back-image')?.append(backgroundImage)
+      displayBackground.append(backgroundImage)
     }
     if (video) {
       this._video = video.element
       this._videoOffset = video.offset
-      video.element.classList.add('game-display--video-bg')
+      video.element.classList.add(styles.videoBg)
       wrapper.append(video.element)
     }
     return wrapper
@@ -202,19 +203,20 @@ class GameDisplay {
 
   private _createTouchEscapeButton() {
     const touchButtons = document.createElement('div')
-    touchButtons.className = 'game-display--touch-buttons is-left is-visible'
+    touchButtons.className = `${styles.touchButtons} ${styles.left}`
+    touchButtons.dataset['visible'] = 'true'
     this.wrapper.appendChild(touchButtons)
     createRoot(touchButtons).render(
       <>
         <TouchButton
-          className='game-display--touch-escape-button'
+          className={styles.touchEscapeButton}
           onClick={() => this._onEscape()}
         />
         <TouchButton
-          className='game-display--touch-replay-button'
+          className={styles.touchReplayButton}
           onClick={() => this._onReplay()}
         />
-        <div className='game-display--escape-hint'>
+        <div className={styles.escapeHint}>
           Click or press Esc to exit the tutorial
         </div>
       </>
@@ -226,11 +228,12 @@ class GameDisplay {
       return
     }
     const touchButtons = document.createElement('div')
-    touchButtons.className = 'game-display--touch-buttons is-visible is-right'
+    touchButtons.className = `${styles.touchButtons} ${styles.right}`
+    touchButtons.dataset['visible'] = 'true'
     this.wrapper.appendChild(touchButtons)
     createRoot(touchButtons).render(
       <TouchButton
-        className='game-display--touch-fullscreen-button'
+        className={styles.touchFullscreenButton}
         onClick={() => {
           screenfull.request()
         }}

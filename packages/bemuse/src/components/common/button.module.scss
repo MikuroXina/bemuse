@@ -1,4 +1,5 @@
 @use '@bemuse/components/common/common.scss';
 
-.YouTube {
+.button {
+  @include common.button;
 }

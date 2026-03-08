@@ -1,7 +1,6 @@
-import './SceneHeading.scss'
-
-import c from 'classnames'
 import type { ReactNode } from 'react'
+
+import styles from './scene-heading.module.scss'
 
 export interface SceneHeadingProps {
   className?: string
@@ -9,7 +8,7 @@ export interface SceneHeadingProps {
 }
 
 const SceneHeading = ({ className, children }: SceneHeadingProps) => (
-  <div className={c('SceneHeading', className)}>{children}</div>
+  <div className={`${styles.heading} ${className}`}>{children}</div>
 )
 
 export default SceneHeading

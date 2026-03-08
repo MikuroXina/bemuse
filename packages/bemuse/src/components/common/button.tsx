@@ -1,6 +1,6 @@
-import './Button.scss'
-
 import { forwardRef, type ReactNode } from 'react'
+
+import styles from './button.module.scss'
 
 const Button = forwardRef<
   HTMLButtonElement,
@@ -10,7 +10,7 @@ const Button = forwardRef<
   }
 >(function Button({ children, onClick }, ref) {
   return (
-    <button className='Button' onClick={onClick} ref={ref}>
+    <button className={styles.button} onClick={onClick} ref={ref}>
       {children}
     </button>
   )

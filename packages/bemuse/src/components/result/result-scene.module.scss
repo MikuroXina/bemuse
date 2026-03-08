@@ -2,7 +2,9 @@
 @use '@bemuse/components/common/common.scss';
 
 .container {
-  @include common.scene-background(url(@bemuse/ui/images/bg/b.jpg));
+  @include common.scene-background(
+    url(@bemuse/components/common/images/bg/b.jpg)
+  );
 
   color: black;
 }

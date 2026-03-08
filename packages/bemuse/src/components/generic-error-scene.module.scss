@@ -1,7 +1,9 @@
 @use '@bemuse/components/common/common.scss';
 
 .scene {
-  @include common.scene-background(url(@bemuse/ui/images/bg/c.jpg));
+  @include common.scene-background(
+    url(@bemuse/components/common/images/bg/c.jpg)
+  );
 }
 
 .wrapper {

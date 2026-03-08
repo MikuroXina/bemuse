@@ -1,5 +1,5 @@
 .jukebox {
-  &--overlay {
+  & > .overlay {
     position: fixed;
     top: 0;
     right: 0;
@@ -8,7 +8,7 @@
     background: rgba(#8b8685, 0.5);
   }
 
-  &--inner {
+  & > .inner {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -18,7 +18,7 @@
     padding: 12px;
   }
 
-  &--sampler {
+  & > .sampler {
     background: #090807;
     padding: 9px;
     border: 1px solid #8b8685;
@@ -31,7 +31,7 @@
       opacity: 1;
       transition: 0.5s opacity;
     }
-    span.is-off {
+    span[data-off='true'] {
       color: #8b8685;
       opacity: 0;
     }
@@ -42,14 +42,17 @@
 
   h1 {
     margin: 0 0 20px;
-    font: 30px Helvetica Neue, Helvetica, sans-serif;
+    font:
+      30px Helvetica Neue,
+      Helvetica,
+      sans-serif;
   }
 
   p {
     margin: 10px 0 0;
   }
 
-  & &--status {
+  & .status {
     color: #8b8685;
     font-style: italic;
     margin-bottom: 20px;
@@ -64,7 +67,9 @@
     cursor: pointer;
     border: 1px solid #8b8685;
     padding: 8px;
-    font: bold 15px verdana, sans-serif;
+    font:
+      bold 15px verdana,
+      sans-serif;
     margin-top: 18px;
   }
   button:disabled {

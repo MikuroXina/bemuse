@@ -1,6 +1,6 @@
-import './OptionsButton.scss'
-
 import type { MouseEvent, ReactNode } from 'react'
+
+import styles from './options-button.module.scss'
 
 const OptionsButton = ({
   className = '',
@@ -11,7 +11,7 @@ const OptionsButton = ({
   children: ReactNode
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void
 }) => (
-  <button className={`OptionsButton ${className}`} onClick={onClick}>
+  <button className={`${styles.button} ${className}`} onClick={onClick}>
     {children}
   </button>
 )

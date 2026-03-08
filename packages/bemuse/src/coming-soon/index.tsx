@@ -1,7 +1,7 @@
-import './style.scss'
-
 import { useEffect, useRef } from 'react'
 import { createRoot } from 'react-dom/client'
+
+import styles from './index.module.scss'
 
 export function main() {
   const root = createRoot(document.getElementById('scene-root')!)
@@ -20,7 +20,7 @@ function Page() {
   }, [])
 
   return (
-    <div className='coming-soon'>
+    <div className={styles.comingSoon}>
       <p>BEAT☆MUSIC☆SEQUENCE</p>
       <h1>Coming Soon</h1>
       <ul>
