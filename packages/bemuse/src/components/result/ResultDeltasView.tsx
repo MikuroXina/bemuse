@@ -1,5 +1,5 @@
+import Panel from '@bemuse/components/common/Panel.js'
 import { timegate } from '@bemuse/game/judgments.js'
-import Panel from '@bemuse/ui/Panel.js'
 import range from 'lodash/range'
 import mean from 'mean'
 import median from 'median'

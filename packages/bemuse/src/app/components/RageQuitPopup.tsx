@@ -1,7 +1,9 @@
+import DialogContent, {
+  Buttons,
+} from '@bemuse/components/common/DialogContent.js'
+import ModalPopup from '@bemuse/components/common/ModalPopup.js'
+import Panel from '@bemuse/components/common/Panel.js'
 import OptionsButton from '@bemuse/components/options/OptionsButton.js'
-import DialogContent, { Buttons } from '@bemuse/ui/DialogContent.js'
-import ModalPopup from '@bemuse/ui/ModalPopup.js'
-import Panel from '@bemuse/ui/Panel.js'
 import { useDispatch, useSelector } from 'react-redux'
 
 import * as ReduxState from '../../redux/ReduxState.js'

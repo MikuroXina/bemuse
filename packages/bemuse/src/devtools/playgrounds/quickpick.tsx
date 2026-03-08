@@ -1,4 +1,4 @@
-import { showAlert, showQuickPick } from '@bemuse/ui-dialogs/index.js'
+import { showAlert, showQuickPick } from '@bemuse/components/dialog/index.js'
 
 export function main() {
   ;(async () => {

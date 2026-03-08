@@ -1,4 +1,4 @@
-import Panel from '@bemuse/ui/Panel.js'
+import Panel from '@bemuse/components/common/Panel.js'
 
 import styles from './Options.module.scss'
 import OptionsAdvanced from './OptionsAdvanced.js'

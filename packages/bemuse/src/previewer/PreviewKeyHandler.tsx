@@ -1,4 +1,4 @@
-import { isModalActive } from '@bemuse/ui-dialogs/index.js'
+import { isModalActive } from '@bemuse/components/dialog/index.js'
 import { useLatest } from '@bemuse/utils/useLatest.js'
 import { useEffect } from 'react'
 

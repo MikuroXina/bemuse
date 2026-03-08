@@ -1,6 +1,8 @@
+import DialogContent, {
+  Buttons,
+} from '@bemuse/components/common/DialogContent.js'
+import Panel from '@bemuse/components/common/Panel.js'
 import OptionsButton from '@bemuse/components/options/OptionsButton.js'
-import DialogContent, { Buttons } from '@bemuse/ui/DialogContent.js'
-import Panel from '@bemuse/ui/Panel.js'
 
 import styles from './UnofficialPanel.module.scss'
 

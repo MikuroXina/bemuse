@@ -1,5 +1,5 @@
-import Markdown from '@bemuse/ui/Markdown.js'
-import Panel from '@bemuse/ui/Panel.js'
+import Markdown from '@bemuse/components/common/Markdown.js'
+import Panel from '@bemuse/components/common/Panel.js'
 import { useEffect, useState } from 'react'
 
 import styles from './ChangelogPanel.module.scss'

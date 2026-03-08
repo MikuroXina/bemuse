@@ -1,4 +1,4 @@
-import { showQuickPick } from '@bemuse/ui-dialogs/index.js'
+import { showQuickPick } from '@bemuse/components/dialog/index.js'
 import { useEffect } from 'react'
 
 export interface PreviewFileDropHandler {

@@ -1,8 +1,10 @@
 import { Subject } from '@bemuse/utils/subject.js'
 import { createRoot } from 'react-dom/client'
 
+import ExperimentScene, {
+  type ExperimentState,
+} from './components/ExperimentScene.js'
 import * as Music from './music/index.js'
-import ExperimentScene, { type ExperimentState } from './ui/ExperimentScene.js'
 
 export async function main(bootContext: {
   setStatus: (status: string) => void

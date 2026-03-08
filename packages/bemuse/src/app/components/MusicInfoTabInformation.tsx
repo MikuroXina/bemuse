@@ -1,6 +1,6 @@
 import type { Song } from '@bemuse/collection-model/types.js'
-import Markdown from '@bemuse/ui/Markdown.js'
-import YouTube from '@bemuse/ui/YouTube.js'
+import Markdown from '@bemuse/components/common/Markdown.js'
+import YouTube from '@bemuse/components/common/YouTube.js'
 import { memo } from 'react'
 
 import { useReadme } from '../io/ReadmeIO.js'

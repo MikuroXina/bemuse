@@ -1,7 +1,7 @@
+import Scene from '@bemuse/components/common/Scene.js'
+import SceneHeading from '@bemuse/components/common/SceneHeading.js'
+import SceneToolbar from '@bemuse/components/common/SceneToolbar.js'
 import { SceneManagerContext } from '@bemuse/scene-manager/index.js'
-import Scene from '@bemuse/ui/Scene.js'
-import SceneHeading from '@bemuse/ui/SceneHeading.js'
-import SceneToolbar from '@bemuse/ui/SceneToolbar.js'
 import { useContext, useEffect, useState } from 'react'
 
 import djBm from './about-scene/DJBM.png'

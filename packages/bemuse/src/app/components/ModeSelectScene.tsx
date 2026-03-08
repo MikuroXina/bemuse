@@ -1,8 +1,8 @@
+import Scene from '@bemuse/components/common/Scene.js'
+import SceneHeading from '@bemuse/components/common/SceneHeading.js'
+import SceneToolbar from '@bemuse/components/common/SceneToolbar.js'
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
 import { SceneManagerContext } from '@bemuse/scene-manager/index.js'
-import Scene from '@bemuse/ui/Scene.js'
-import SceneHeading from '@bemuse/ui/SceneHeading.js'
-import SceneToolbar from '@bemuse/ui/SceneToolbar.js'
 import { useContext, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 

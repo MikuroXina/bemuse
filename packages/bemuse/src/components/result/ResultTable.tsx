@@ -1,9 +1,9 @@
-import ModalPopup from '@bemuse/ui/ModalPopup.js'
-import RunningNumber from '@bemuse/ui/RunningNumber.js'
+import ModalPopup from '@bemuse/components/common/ModalPopup.js'
+import RunningNumber from '@bemuse/components/common/RunningNumber.js'
 import { useState } from 'react'
 
+import FirstTimeTip from '../../app/components/FirstTimeTip.js'
 import type { Result } from '../../app/types.js'
-import FirstTimeTip from '../../app/ui/FirstTimeTip.js'
 import ResultDeltasView from './ResultDeltasView.js'
 import styles from './ResultTable.module.scss'
 

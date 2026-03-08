@@ -1,5 +1,5 @@
+import TipContainer from '@bemuse/components/common/TipContainer.js'
 import { Icon } from '@bemuse/fa/index.js'
-import TipContainer from '@bemuse/ui/TipContainer.js'
 import {
   Fragment,
   memo,

@@ -1,9 +1,9 @@
+import Scene from '@bemuse/components/common/Scene.js'
 import OptionsButton from '@bemuse/components/options/OptionsButton.js'
 import {
   type ReactScene,
   SceneManagerContext,
 } from '@bemuse/scene-manager/index.js'
-import Scene from '@bemuse/ui/Scene.js'
 import { useContext } from 'react'
 
 import { SUPPORTED } from '../browser-support.js'

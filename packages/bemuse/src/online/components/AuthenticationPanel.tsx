@@ -1,7 +1,7 @@
 import djBemuse from '@bemuse/app/ui/about-scene/DJBM.png'
+import Flex from '@bemuse/components/common/Flex.js'
+import Panel from '@bemuse/components/common/Panel.js'
 import { OnlineContext } from '@bemuse/online/instance.js'
-import Flex from '@bemuse/ui/Flex.js'
-import Panel from '@bemuse/ui/Panel.js'
 import { useContext, useState } from 'react'
 
 import AuthenticationForm, {

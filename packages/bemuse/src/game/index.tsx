@@ -12,10 +12,12 @@ import {
 import query from '@bemuse/utils/query.js'
 import { Provider } from 'react-redux'
 
+import GameShellScene, {
+  type OptionsDraft,
+} from './components/GameShellScene.js'
+import LoadingScene from './components/LoadingScene.js'
 import GameScene from './game-scene.js'
 import type { LoadSpec } from './loaders/load-spec.js'
-import GameShellScene, { type OptionsDraft } from './ui/GameShellScene.js'
-import LoadingScene from './ui/LoadingScene.js'
 
 const sceneManager = new SceneManager(({ children }) => (
   <SceneManagerContext.Provider value={sceneManager}>

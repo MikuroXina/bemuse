@@ -1,4 +1,4 @@
-import ModalPopup from '@bemuse/ui/ModalPopup.js'
+import ModalPopup from '@bemuse/components/common/ModalPopup.js'
 import type { ComponentPropsWithRef } from 'react'
 
 import AuthenticationPanel from './AuthenticationPanel.js'
