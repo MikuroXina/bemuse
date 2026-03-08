@@ -35,7 +35,6 @@ import {
   selectSearchInputText,
   selectSearchText,
 } from '../../redux/ReduxState.js'
-import { searchText } from '../entities/MusicSearchText.js'
 import {
   musicSelectionSlice,
   selectedChartGivenCharts,
@@ -89,9 +88,10 @@ const Main = ({
 }) => {
   const dispatch = useDispatch()
   const sceneManager = useContext(SceneManagerContext)
+  const collectionRes = useCollection(serverUrl)
   const musicSelection = useSelector(selectMusicSelection)
   const customSongs = useSelector(selectCustomSongs)
-  const collectionRes = useCollection(serverUrl)
+  const searchText = useSelector(selectSearchText)
   const options = useSelector(selectOptions)
   const musicPreviewEnabled = Options.isPreviewEnabled(options)
 
@@ -126,7 +126,14 @@ const Main = ({
     }
 
     return [allSongs, selectGroups]
-  }, [collectionRes.data])
+  }, [collectionRes.data, searchText])
+
+  if (collectionRes.isLoading || collectionRes.isPending) {
+    return <div className={styles.loading}>Loading…</div>
+  }
+  if (collectionRes.isError) {
+    return <div className={styles.loading}>Cannot load collection!</div>
+  }
 
   const selectedSong = selectedSongGivenSongs(songs)(musicSelection)
   const selectedSongCharts = getPlayableCharts(selectedSong.charts)
@@ -147,13 +154,6 @@ const Main = ({
     } else {
       handleSongSelect(selectedSong, chart)
     }
-  }
-
-  if (collectionRes.isLoading || collectionRes.isPending) {
-    return <div className={styles.loading}>Loading…</div>
-  }
-  if (collectionRes.isError) {
-    return <div className={styles.loading}>Cannot load collection!</div>
   }
 
   if (selectGroups.length === 0) {
