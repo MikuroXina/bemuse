@@ -71,6 +71,10 @@ $bottom-padding: calc(32px + 4vh);
   }
 }
 
+.fillRest {
+  flex: 1;
+}
+
 .chartInfo {
   margin: 0 2vw;
 }

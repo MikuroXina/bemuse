@@ -1,5 +1,4 @@
 import djBemuse from '@bemuse/app/ui/about-scene/DJBM.png'
-import Flex from '@bemuse/components/common/Flex.js'
 import Panel from '@bemuse/components/common/Panel.js'
 import { OnlineContext } from '@bemuse/online/instance.js'
 import { useContext, useState } from 'react'
@@ -141,10 +140,10 @@ const AuthenticationPanel = ({ onFinish }: AuthenticationPanelProps) => {
               Create an Account
             </a>
           </div>
-          <Flex grow='2' />
-          <Message state={auth} />
-          <AuthenticationForm mode={mode} onSubmit={onSubmit} />
-          <Flex grow='3' />
+          <div className={styles.vCenter}>
+            <Message state={auth} />
+            <AuthenticationForm mode={mode} onSubmit={onSubmit} />
+          </div>
         </div>
       </div>
     </Panel>

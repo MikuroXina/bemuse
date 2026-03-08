@@ -1,4 +1,3 @@
-import Flex from '@bemuse/components/common/Flex.js'
 import Scene from '@bemuse/components/common/Scene.js'
 import SceneHeading from '@bemuse/components/common/SceneHeading.js'
 import SceneToolbar, {
@@ -125,7 +124,7 @@ const ResultScene = ({
             >
               <Icon name='twitter' />
             </a>
-            <Flex grow={1} />
+            <div className={styles.fillRest} />
             <FirstTimeTip tip='Back to music selection' featureKey='finishGame'>
               <div className={styles.exit} onClick={onExit}>
                 Continue
