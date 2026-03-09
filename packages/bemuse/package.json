@@ -128,7 +128,6 @@
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@reduxjs/toolkit": "^1.9.7",
     "@tanstack/react-query": "^5.90.21",
-    "auth0-js": "^9.30.1",
     "axios": "^1.13.5",
     "bson-objectid": "^2.0.4",
     "bytes": "^3.1.2",
