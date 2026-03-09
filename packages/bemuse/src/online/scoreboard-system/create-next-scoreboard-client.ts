@@ -1,4 +1,3 @@
-import axios from 'axios'
 import invariant from 'invariant'
 
 import type { ScoreboardClient, ScoreboardRow } from './scoreboard-client.js'
@@ -13,23 +12,24 @@ export interface CreateScoreboardClientOptions {
 }
 
 export function createNextScoreboardClient({
-  server,
+  server: base,
 }: CreateScoreboardClientOptions): ScoreboardClient {
-  const client = axios.create({
-    baseURL: server,
-  })
-
   async function getMyRecord(
     playerToken: string,
     md5: string,
     playMode: string
   ) {
-    const response = await client
-      .get(`/api/scoreboard/${md5}/${playMode}/mine`, {
-        headers: { Authorization: `Bearer ${playerToken}` },
-      })
-      .catch(handleAxiosError('Unable to retrieve personal records'))
-    return response.data.data as ScoreboardRow
+    try {
+      const response = await fetch(
+        new URL(`/api/scoreboard/${md5}/${playMode}/mine`, base),
+        {
+          headers: { Authorization: `Bearer ${playerToken}` },
+        }
+      )
+      return (await response.json()).data as ScoreboardRow
+    } catch (err) {
+      throw new Error('Unable to retrieve personal records', { cause: err })
+    }
   }
 
   const scoreboardClient: ScoreboardClient = {
@@ -37,60 +37,84 @@ export function createNextScoreboardClient({
       invariant(typeof username === 'string', 'username must be a string')
       invariant(typeof password === 'string', 'password must be a string')
       invariant(typeof email === 'string', 'email must be a string')
-      const response = await client
-        .post('/api/auth/signup', {
-          username,
-          password,
-          email,
+      try {
+        const response = await fetch(new URL('/api/auth/signup', base), {
+          method: 'POST',
+          body: JSON.stringify({
+            username,
+            password,
+            email,
+          }),
         })
-        .catch(handleAxiosError('Unable to sign up'))
-      return { playerToken: response.data.playerToken }
+        return { playerToken: (await response.json()).playerToken }
+      } catch (err) {
+        throw new Error('Unable to sign up', { cause: err })
+      }
     },
     async loginByUsernamePassword({ username, password }) {
       invariant(typeof username === 'string', 'username must be a string')
       invariant(typeof password === 'string', 'password must be a string')
-      const response = await client
-        .post('/api/auth/login', {
-          username,
-          password,
+      try {
+        const response = await fetch(new URL('/api/auth/login', base), {
+          method: 'POST',
+          body: JSON.stringify({
+            username,
+            password,
+          }),
         })
-        .catch(handleAxiosError('Unable to log in'))
-      return { playerToken: response.data.playerToken }
+        return { playerToken: (await response.json()).playerToken }
+      } catch (err) {
+        throw new Error('Unable to log in', { cause: err })
+      }
     },
     async changePassword({ email }) {
-      await client
-        .post('/api/auth/reset', { email })
-        .catch(handleAxiosError('Unable to request password reset'))
-      return {}
+      try {
+        await fetch('/api/auth/reset', {
+          method: 'POST',
+          body: JSON.stringify({ email }),
+        })
+        return {}
+      } catch (err) {
+        throw new Error('Unable to request password reset', { cause: err })
+      }
     },
     async submitScore({ playerToken, md5, playMode, input }) {
-      await client
-        .post(
-          `/api/scoreboard/${md5}/${playMode}/submit`,
-          { scoreData: input },
-          { headers: { Authorization: `Bearer ${playerToken}` } }
+      try {
+        await fetch(
+          new URL(`/api/scoreboard/${md5}/${playMode}/submit`, base),
+          {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${playerToken}` },
+            body: JSON.stringify({ scoreData: input }),
+          }
         )
-        .catch(handleAxiosError('Unable to submit score'))
-      return {
-        data: {
-          registerScore: {
-            resultingRow: await getMyRecord(playerToken, md5, playMode),
+        return {
+          data: {
+            registerScore: {
+              resultingRow: await getMyRecord(playerToken, md5, playMode),
+            },
           },
-        },
+        }
+      } catch (err) {
+        throw new Error('Unable to submit score', { cause: err })
       }
     },
     async retrieveScoreboard({ md5, playMode }) {
-      const response = await client
-        .get(`/api/scoreboard/${md5}/${playMode}/leaderboard`)
-        .catch(handleAxiosError('Unable to retrieve leaderboard'))
-      return {
-        data: {
-          chart: {
-            level: {
-              leaderboard: response.data.data,
+      try {
+        const response = await fetch(
+          new URL(`/api/scoreboard/${md5}/${playMode}/leaderboard`, base)
+        )
+        return {
+          data: {
+            chart: {
+              level: {
+                leaderboard: (await response.json()).data,
+              },
             },
           },
-        },
+        }
+      } catch (err) {
+        throw new Error('Unable to retrieve leaderboard', { cause: err })
       }
     },
     async retrieveRecord({ playerToken, md5, playMode }) {
@@ -105,47 +129,35 @@ export function createNextScoreboardClient({
       }
     },
     async retrieveRankingEntries({ playerToken, md5s }) {
-      const response = await client
-        .post(
-          `/api/scoreboard/records`,
-          { md5s },
-          { headers: { Authorization: `Bearer ${playerToken}` } }
-        )
-        .catch(handleAxiosError('Unable to retrieve ranking entries'))
-      return {
-        data: {
-          me: {
-            records: response.data.data,
+      try {
+        const response = await fetch(new URL('/api/scoreboard/records', base), {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${playerToken}` },
+          body: JSON.stringify({ md5s }),
+        })
+        return {
+          data: {
+            me: {
+              records: (await response.json()).data,
+            },
           },
-        },
+        }
+      } catch (err) {
+        throw new Error('Unable to retrieve ranking entries', { cause: err })
       }
     },
     async renewPlayerToken({ playerToken }) {
-      const response = await client
-        .post(
-          '/api/auth/renew',
-          {},
-          {
-            headers: { Authorization: `Bearer ${playerToken}` },
-          }
-        )
-        .catch(handleAxiosError('Unable to renew token'))
-      return response.data.playerToken
+      try {
+        const response = await fetch('/api/auth/renew', {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${playerToken}` },
+        })
+        return (await response.json()).playerToken
+      } catch (err) {
+        throw new Error('Unable to renew token', { cause: err })
+      }
     },
   }
 
   return scoreboardClient
-}
-function handleAxiosError(prefix: string) {
-  return (error: Error): never => {
-    if (axios.isAxiosError(error)) {
-      const data = error.response?.data
-      const message = data?.message
-      const suffix = message ? `: ${message}` : ''
-      if (data) {
-        throw new Error(`${prefix}: ${error}${suffix}`)
-      }
-    }
-    throw error
-  }
 }
