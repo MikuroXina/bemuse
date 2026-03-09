@@ -1,7 +1,7 @@
 import assert from 'assert'
 import { describe, it } from 'vitest'
 
-import createKeysoundCache from './createKeysoundCache'
+import createKeysoundCache from './create-keysound-cache'
 
 describe('A keysound cache', function () {
   it('starts empty', () => {

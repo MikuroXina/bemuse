@@ -10,7 +10,7 @@ import {
 } from 'vitest'
 
 import Online from './index.js'
-import OnlineService from './scoreboard-system/OnlineService.js'
+import OnlineService from './scoreboard-system/online-service.js'
 
 const uid = (function () {
   const session = Math.floor(Math.random() * 65536).toString(16)

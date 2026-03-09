@@ -1,7 +1,7 @@
 import assert from 'assert'
 import { describe, expect, it, vi } from 'vitest'
 
-import createAutoVelocity from './createAutoVelocity'
+import createAutoVelocity from './create-auto-velocity'
 
 describe('createAutoVelocity', function () {
   describe('when disabled', function () {

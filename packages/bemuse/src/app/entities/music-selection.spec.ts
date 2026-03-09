@@ -24,7 +24,7 @@ describe('selectedSongGivenSongs', function () {
         { ...dummy, id: 'song0', title: 'TEST' },
         { ...dummy, id: 'song1', title: 'BY MY SIDE' },
       ])(actual)
-    ).toStrictEqual({ id: 'song1', title: 'BY MY SIDE' })
+    ).toStrictEqual({ ...dummy, id: 'song1', title: 'BY MY SIDE' })
   })
   it('should fallback to avilaable song if not available', () => {
     const actual = MusicSelection.selectSong('song1')(
@@ -36,7 +36,7 @@ describe('selectedSongGivenSongs', function () {
         { ...dummy, id: 'song0', title: 'TEST' },
         { ...dummy, id: 'song2', title: 'RUNNING OUT' },
       ])(actual)
-    ).toStrictEqual({ id: 'song0', title: 'TEST' })
+    ).toStrictEqual({ ...dummy, id: 'song0', title: 'TEST' })
   })
   it('should allow selecting chart', () => {
     const actual = MusicSelection.selectChart(
@@ -45,7 +45,7 @@ describe('selectedSongGivenSongs', function () {
       8
     )(MusicSelection.initialState)
 
-    expect(actual.selectedChartId).toStrictEqual('song1')
+    expect(actual.selectedSongId).toStrictEqual('song1')
     expect(actual.selectedChartId).toStrictEqual('chart1.bml')
     expect(actual.selectedChartLevel).toStrictEqual(8)
   })
@@ -81,7 +81,11 @@ describe('selectedChartGivenCharts', function () {
         { ...dummy, file: 'chart1.bml', info: { ...dummyInfo, level: 8 } },
         { ...dummy, file: 'chart2.bml', info: { ...dummyInfo, level: 12 } },
       ])(givenSelectedChart)
-    ).toStrictEqual({ file: 'chart1.bml', info: { level: 8 } })
+    ).toStrictEqual({
+      ...dummy,
+      file: 'chart1.bml',
+      info: { ...dummyInfo, level: 8 },
+    })
   })
   it('selects chart with closest level if matching chart not available', () => {
     expect(
@@ -90,6 +94,10 @@ describe('selectedChartGivenCharts', function () {
         { ...dummy, file: 'pattern1.bml', info: { ...dummyInfo, level: 9 } },
         { ...dummy, file: 'pattern2.bml', info: { ...dummyInfo, level: 10 } },
       ])(givenSelectedChart)
-    ).toStrictEqual({ file: 'pattern1.bml', info: { level: 9 } })
+    ).toStrictEqual({
+      ...dummy,
+      file: 'pattern1.bml',
+      info: { ...dummyInfo, level: 9 },
+    })
   })
 })

@@ -1,14 +1,13 @@
-import assert from 'assert'
-import { describe, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
-import formatTime from './formatTime'
+import formatTime from './format-time'
 
 describe('formatTime', () => {
   it('should format the time using minutes:seconds format', () => {
-    assert(formatTime(0) === '0:00')
-    assert(formatTime(1) === '0:01')
-    assert(formatTime(11) === '0:11')
-    assert(formatTime(111) === '1:51')
-    assert(formatTime(1111) === '18:31')
+    expect(formatTime(0)).toStrictEqual('0:00')
+    expect(formatTime(1)).toStrictEqual('0:01')
+    expect(formatTime(11)).toStrictEqual('0:11')
+    expect(formatTime(111)).toStrictEqual('1:51')
+    expect(formatTime(1111)).toStrictEqual('18:31')
   })
 })
