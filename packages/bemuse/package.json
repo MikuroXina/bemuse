@@ -93,7 +93,6 @@
     "brfs": "^1.6.1",
     "buffer": "^6.0.3",
     "chalk": "^2.4.2",
-    "circumstance": "^1.1.1",
     "connect": "^3.7.0",
     "crypto-browserify": "^3.12.1",
     "dotenv": "^6.2.0",

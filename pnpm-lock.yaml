@@ -264,9 +264,6 @@ importers:
       chalk:
         specifier: ^2.4.2
         version: 2.4.2
-      circumstance:
-        specifier: ^1.1.1
-        version: 1.1.1
       connect:
         specifier: ^3.7.0
         version: 3.7.0
@@ -4957,9 +4954,6 @@ packages:
   cipher-base@1.0.7:
     resolution: {integrity: sha512-Mz9QMT5fJe7bKI7MH31UilT5cEK5EHHRCccw/YRFsRY47AuNgaV6HY3rscp0/I4Q+tTW/5zoqpSeRRI54TkDWA==}
     engines: {node: '>= 0.10'}
-
-  circumstance@1.1.1:
-    resolution: {integrity: sha512-jrOWunlQ+6gFohyjdSmcfuqSkV6fUNccIFfRECIx1XZBuiU4fMtLL7T+zhEqTnQvhfHQklbSaNxb7lBLoS633g==}
 
   class-transformer@0.5.1:
     resolution: {integrity: sha512-SQa1Ws6hUbfC98vKGxZH3KFY0Y1lm5Zm0SY8XX9zbK7FJCyVEac3ATW0RIpwzW+oOfmHE5PMPufDG9hCfoEOMw==}
@@ -16876,8 +16870,6 @@ snapshots:
       inherits: 2.0.4
       safe-buffer: 5.2.1
       to-buffer: 1.2.2
-
-  circumstance@1.1.1: {}
 
   class-transformer@0.5.1: {}
 
