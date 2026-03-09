@@ -45,7 +45,9 @@ export type KeyState = Record<string, boolean>
 //
 export class OmniInput {
   constructor(
-    private readonly win: Window = window,
+    private readonly win: GlobalEventHandlers & {
+      readonly navigator: Navigator
+    } = window,
     options: OmniInputOptions = {}
   ) {
     this.midiStream = (options.getMidiStream || getMidiStream)()
@@ -156,7 +158,7 @@ export class OmniInput {
     }
   }
 
-  update(): KeyState {
+  update(): Readonly<KeyState> {
     this.updateGamepads()
     return this.status
   }
