@@ -1,24 +1,7 @@
-import mean from 'mean'
+import { getDeltasStats } from '@bemuse/app/interactors/stats'
 import { memo } from 'react'
-import { createSelector, createStructuredSelector } from 'reselect'
-import variance from 'variance'
 
-import getNonMissedDeltas from '../../app/interactors/get-non-missed-deltas.js'
 import styles from './result-expert-info.module.css'
-
-const getStats = (() => {
-  const selectMean = createSelector(getNonMissedDeltas, (deltas) =>
-    mean(deltas)
-  )
-  const selectStandardDeviation = createSelector(getNonMissedDeltas, (deltas) =>
-    Math.sqrt(variance(deltas))
-  )
-  const selectStats = createStructuredSelector({
-    mean: selectMean,
-    standardDeviation: selectStandardDeviation,
-  })
-  return selectStats
-})()
 
 function formatOffset(n: number) {
   let sign: string
@@ -41,7 +24,7 @@ export interface ResultExpertInfoProps {
 }
 
 const ResultExpertInfo = ({ deltas }: ResultExpertInfoProps) => {
-  const stats = getStats(deltas)
+  const stats = getDeltasStats(deltas)
   return (
     <span>
       <span

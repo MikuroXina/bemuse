@@ -1,12 +1,9 @@
+import { getDeltasStats } from '@bemuse/app/interactors/stats.js'
 import Panel from '@bemuse/components/common/panel.js'
 import { timegate } from '@bemuse/game/judgments.js'
 import range from 'lodash/range'
-import mean from 'mean'
-import median from 'median'
 import type { ReactNode } from 'react'
-import variance from 'variance'
 
-import getNonMissedDeltas from '../../app/interactors/get-non-missed-deltas.js'
 import styles from './result-deltas-view.module.scss'
 
 const ms = (delta: number) => `${(delta * 1000).toFixed(1)} ms`
@@ -56,25 +53,26 @@ export interface ResultDeltasViewProps {
 }
 
 const ResultDeltasView = ({ deltas }: ResultDeltasViewProps) => {
-  const nonMissDeltas = getNonMissedDeltas(deltas)
+  const stats = getDeltasStats(deltas)
   const offDeltas = deltas.filter((delta) => timegate(1) <= Math.abs(delta))
   const earlyCount = offDeltas.filter((delta) => delta < 0).length
   const lateCount = offDeltas.filter((delta) => delta > 0).length
   const groups = group(deltas)
-  const stats = range(-20, 20).map((bucket) => ({
+  const buckets = range(-20, 20).map((bucket) => ({
     bucket,
     count: groups[bucket] || 0,
   }))
-  const max = stats
+  const histogramMax = buckets
     .map(({ count }) => count)
     .reduce((prev, curr) => Math.max(prev, curr), 0)
-  const height = (value: number) => Math.ceil((value / Math.max(max, 1)) * 128)
+  const height = (value: number) =>
+    Math.ceil((value / Math.max(histogramMax, 1)) * 128)
   return (
     <div className={styles.container}>
       <Panel title='Accuracy Data'>
         <div className={styles.content}>
           <div className={styles.histogram}>
-            {stats.map(({ bucket, count }) => (
+            {buckets.map(({ bucket, count }) => (
               <div
                 key={bucket}
                 className={styles.histogramBar}
@@ -91,13 +89,13 @@ const ResultDeltasView = ({ deltas }: ResultDeltasViewProps) => {
           </div>
           <table className={styles.info}>
             <tbody>
-              <Row text='Mean:' data={mean(nonMissDeltas)} />
+              <Row text='Mean:' data={stats.mean} />
               <Row
                 text='S.D:'
-                data={Math.sqrt(variance(nonMissDeltas))}
+                data={stats.standardDeviation}
                 options={{ showEarlyLate: false }}
               />
-              <Row text='Median:' data={median(nonMissDeltas)} />
+              <Row text='Median:' data={stats.median} />
             </tbody>
           </table>
         </div>
