@@ -2,7 +2,7 @@ import { promises } from 'node:fs'
 
 import dotenv from 'dotenv'
 
-dotenv.load()
+dotenv.config()
 
 import gulp from 'gulp'
 
