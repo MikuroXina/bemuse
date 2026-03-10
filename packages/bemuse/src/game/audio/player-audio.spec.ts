@@ -1,22 +1,31 @@
+import type { PlayInstance } from '@bemuse/sampling-master/index.js'
+import type { GameNote } from '@mikuroxina/bemuse-notechart'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
+import type Player from '../player.js'
+import type { PlayerState, SoundNotification } from '../state/player-state.js'
+import type PlayerStats from '../state/player-stats.js'
 import { playerWithBMS } from '../test-helpers/index.js'
-import PlayerAudio from './player-audio.js'
+import PlayerAudio, { type PlayerAudioOptions } from './player-audio.js'
+import type WaveFactory from './wave-factory.js'
 
 describe('PlayerAudio', function () {
-  const waveFactory = {
-    playAuto: () => ({}),
-    playNote: () => ({}),
-    playFree: () => ({}),
-  }
-  let audio
+  const waveFactory: WaveFactory = {
+    playAuto: () => ({}) as PlayInstance,
+    playNote: () => ({}) as PlayInstance,
+    playFree: () => ({}) as PlayInstance,
+  } as unknown as WaveFactory
+  let audio: PlayerAudio
 
   beforeEach(() => {
     vi.restoreAllMocks()
   })
 
-  function setup(player) {
-    audio = new PlayerAudio({ player, waveFactory })
+  function setup(player: unknown) {
+    audio = new PlayerAudio({
+      player: player as Player,
+      waveFactory,
+    } as PlayerAudioOptions)
   }
 
   it('should play autokeysounds on correct time', function () {
@@ -95,10 +104,17 @@ describe('PlayerAudio', function () {
 
     audio.update(0.999, {
       notifications: {
-        sounds: [{ note: { keysound: '0x' }, type: 'hit', judgment: 1 }],
+        sounds: [
+          {
+            note: { keysound: '0x' },
+            type: 'hit',
+            judgment: 1,
+          } as SoundNotification,
+        ],
+        judgments: [],
       },
-      stats: {},
-    })
+      stats: {} as PlayerStats,
+    } as unknown as PlayerState)
     expect(playNoteMock.mock.calls[0][0]['keysound']).toStrictEqual('0x')
   })
 
@@ -106,15 +122,18 @@ describe('PlayerAudio', function () {
     setup(playerWithBMS())
     const instance = {
       bad: vi.fn(),
-    }
+    } as unknown as PlayInstance
     vi.spyOn(waveFactory, 'playNote').mockReturnValue(instance)
 
     audio.update(0.999, {
       notifications: {
-        sounds: [{ note: { keysound: '0x' }, type: 'hit', judgment: 4 }],
+        sounds: [
+          { note: { keysound: '0x' } as GameNote, type: 'hit', judgment: 4 },
+        ],
+        judgments: [],
       },
-      stats: {},
-    })
+      stats: {} as PlayerStats,
+    } as unknown as PlayerState)
     expect(instance.bad).toHaveBeenCalled()
   })
 
@@ -124,30 +143,35 @@ describe('PlayerAudio', function () {
 
     audio.update(0.999, {
       notifications: {
-        sounds: [{ note: { keysound: '0x' }, type: 'hit', judgment: 4 }],
+        sounds: [
+          { note: { keysound: '0x' } as GameNote, type: 'hit', judgment: 4 },
+        ],
+        judgments: [],
       },
-      stats: {},
-    })
+      stats: {} as PlayerStats,
+    } as unknown as PlayerState)
   })
 
   it('should stop sound when broken', function () {
     setup(playerWithBMS())
-    const note = { keysound: '0x' }
-    const instance = { stop: vi.fn() }
+    const note = { keysound: '0x' } as GameNote
+    const instance = { stop: vi.fn() } as unknown as PlayInstance
     vi.spyOn(waveFactory, 'playNote').mockReturnValue(instance)
 
     audio.update(0.999, {
       notifications: {
-        sounds: [{ note: note, type: 'hit' }],
+        sounds: [{ note, type: 'hit' } as SoundNotification],
+        judgments: [],
       },
-      stats: {},
-    })
+      stats: {} as PlayerStats,
+    } as unknown as PlayerState)
     audio.update(1.1, {
       notifications: {
-        sounds: [{ note: note, type: 'break' }],
+        sounds: [{ note, type: 'break' }],
+        judgments: [],
       },
-      stats: {},
-    })
+      stats: {} as PlayerStats,
+    } as unknown as PlayerState)
     expect(instance.stop).toHaveBeenCalled()
   })
 
@@ -157,10 +181,11 @@ describe('PlayerAudio', function () {
 
     audio.update(0.999, {
       notifications: {
-        sounds: [{ note: { keysound: '0x' }, type: 'free' }],
+        sounds: [{ note: { keysound: '0x' } as GameNote, type: 'free' }],
+        judgments: [],
       },
-      stats: {},
-    })
+      stats: {} as PlayerStats,
+    } as unknown as PlayerState)
     expect(playFreeMock.mock.calls[0][0]['keysound']).toStrictEqual('0x')
   })
 
@@ -168,19 +193,21 @@ describe('PlayerAudio', function () {
     setup(playerWithBMS())
     const playNoteMock = vi.spyOn(waveFactory, 'playNote')
 
-    const note = { keysound: '0x' }
+    const note = { keysound: '0x' } as GameNote
     audio.update(0.999, {
       notifications: {
-        sounds: [{ note: note, type: 'hit' }],
+        sounds: [{ note, type: 'hit' } as SoundNotification],
+        judgments: [],
       },
-      stats: {},
-    })
+      stats: {} as PlayerStats,
+    } as unknown as PlayerState)
     audio.update(1.0, {
       notifications: {
-        sounds: [{ note: note, type: 'hit' }],
+        sounds: [{ note, type: 'hit' } as SoundNotification],
+        judgments: [],
       },
-      stats: {},
-    })
+      stats: {} as PlayerStats,
+    } as unknown as PlayerState)
     expect(playNoteMock).toHaveBeenCalledOnce()
   })
 })

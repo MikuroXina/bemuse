@@ -1,3 +1,4 @@
+import type Progress from '@bemuse/progress'
 import { BYTES_FORMATTER } from '@bemuse/progress/formatters.js'
 import delay from 'delay'
 
@@ -10,11 +11,14 @@ import delay from 'delay'
 //    Initiates the download as ``type``. The ``type`` is a string such as
 //    "arraybuffer" or "blob".
 export function download(
-  url,
+  url: string | URL,
   { getRetryDelay = () => 1000 + Math.random() * 4000 } = {}
 ) {
   return {
-    async as(type, progress) {
+    async as(
+      type: XMLHttpRequestResponseType,
+      progress?: Progress
+    ): Promise<ArrayBuffer> {
       let shouldGiveUp = false
       for (let i = 1; ; i++) {
         try {
@@ -26,7 +30,7 @@ export function download(
           await delay(waitMs)
         }
       }
-      function attempt() {
+      function attempt(): Promise<ArrayBuffer> {
         return new Promise((resolve, reject) => {
           const xh = new XMLHttpRequest()
           xh.open('GET', url, true)

@@ -1,8 +1,13 @@
-import assert from 'assert'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import type Notechart from '@mikuroxina/bemuse-notechart'
+import type { GameNote } from '@mikuroxina/bemuse-notechart'
+import { assert, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import GameInput from '../input'
-import Player from '../player'
+import GameInput, { type IGameInputPlugin } from '../input'
+import type Control from '../input/control'
+import Player, {
+  type PlayerOptionsInput,
+  type PlayerOptionsInternal,
+} from '../player'
 import { notechart } from '../test-helpers'
 import PlayerState from './player-state'
 
@@ -12,33 +17,40 @@ describe('PlayerState', function () {
       number: 1,
       columns: ['wow'],
       notechart: notechart(''),
-      options: { speed: 1 },
+      options: { speed: 1 } as PlayerOptionsInternal,
     })
-    const input = {
-      get: (name) => ({ name }),
-    }
+
+    const input = new GameInput()
+    vi.spyOn(input, 'get').mockImplementation(
+      (name) => ({ name }) as unknown as Control
+    )
     state.update(0, input)
-    assert(state.input.get('wow').name === 'p1_wow')
+
+    expect(state.input.get('wow')).toStrictEqual({ name: 'p1_wow' })
   })
 
   describe('with player and chart', function () {
-    let chart
-    let player
-    let state
-    let input
-    let buttons
+    let chart: Notechart
+    let player: Player
+    let state: PlayerState
+    let input: GameInput
+    const plugin = { get: () => {} } as unknown as IGameInputPlugin
 
-    function setup(bms, options = { speed: 1 }) {
+    function setup(
+      bms: string,
+      options: { speed?: number } & { [key: string]: string | number } = {
+        speed: 1,
+      }
+    ) {
       chart = notechart(bms)
-      player = new Player(chart, 1, options)
+      player = new Player(chart, 1, options as unknown as PlayerOptionsInput)
       state = new PlayerState(player)
       input = new GameInput()
-      buttons = {}
-      input.use({ get: () => buttons })
+      input.use(plugin)
     }
 
-    function advance(time, b) {
-      buttons = b
+    function advance(time: number, b: Record<string, number>) {
+      vi.spyOn(plugin, 'get').mockReturnValue(b)
       input.update()
       state.update(time, input)
     }
@@ -157,7 +169,7 @@ describe('PlayerState', function () {
       })
 
       describe('with long note', function () {
-        let note
+        let note: GameNote
         beforeEach(function () {
           setup(`
             #BPM 120
@@ -177,9 +189,9 @@ describe('PlayerState', function () {
         })
         it('gives 2 discrete judgments, one for down and one for up', function () {
           advance(2, { p1_1: 1 })
-          assert(state.stats.numJudgments === 1)
+          expect(state.stats.numJudgments).toStrictEqual(1)
           advance(3, { p1_1: 0 })
-          assert(state.stats.numJudgments === 2)
+          expect(state.stats.numJudgments).toStrictEqual(2)
         })
         it('records delta once', function () {
           const mock = vi.spyOn(state.stats, 'handleDelta')
@@ -224,7 +236,7 @@ describe('PlayerState', function () {
       })
 
       describe('with long scratch note', function () {
-        let note
+        let note: GameNote
         beforeEach(function () {
           setup(`
             #BPM 120
@@ -362,9 +374,9 @@ describe('PlayerState', function () {
       it('updates speed on dedicated buttons', function () {
         setup('', { speed: 2 })
         advance(1.0, { p1_speedup: 1 })
-        assert(state.speed === 2.5)
+        expect(state.speed).toStrictEqual(2.5)
         advance(1.2, { p1_speedup: 0, p1_speeddown: 1 })
-        assert(state.speed === 2)
+        expect(state.speed).toStrictEqual(2)
       })
       it('supports fine-grained speed modifications', function () {
         setup('', { speed: 2 })
@@ -382,11 +394,11 @@ describe('PlayerState', function () {
     describe('finish', function () {
       it('should become true when song is finished', function () {
         setup('#00111:0101')
-        assert(state.finished === false)
+        expect(state.finished).toStrictEqual(false)
         advance(4.0, {})
-        assert(state.finished === false)
+        expect(state.finished).toStrictEqual(false)
         advance(16.0, {})
-        assert(state.finished === true)
+        expect(state.finished).toStrictEqual(true)
       })
     })
   })

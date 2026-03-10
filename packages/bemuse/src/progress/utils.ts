@@ -7,7 +7,7 @@ import { Progress } from './progress.js'
  * update the progress with increasing `current` value,
  * out of a fixed `total`.
  */
-export function fixed(total: number, progress: Progress) {
+export function fixed(total: number, progress?: Progress) {
   if (!progress) return () => {}
   let loaded = 0
   progress.report(0, total)

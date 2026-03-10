@@ -1,22 +1,29 @@
+import type SamplingMaster from '@bemuse/sampling-master/index.js'
+import type { Sample } from '@bemuse/sampling-master/index.js'
+import type { SoundedEvent } from '@mikuroxina/bemuse-notechart'
 import delay from 'delay'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import WaveFactory from './wave-factory.js'
 
-function k(id) {
-  return { keysound: id }
+function k(id: string): SoundedEvent {
+  return { keysound: id } as SoundedEvent
 }
 
 describe('WaveFactory', function () {
   const master = { group: vi.fn() }
   const sample = { play: vi.fn() }
-  const samples = { 'wow.wav': sample }
+  const samples = { 'wow.wav': sample as unknown as Sample }
   const map = { '0z': 'wow.wav' }
-  let waveFactory
+  let waveFactory: WaveFactory
 
   beforeEach(function () {
     vi.resetAllMocks()
-    waveFactory = new WaveFactory(master, samples, map)
+    waveFactory = new WaveFactory(
+      master as unknown as SamplingMaster,
+      samples,
+      map
+    )
   })
 
   describe('playAuto', function () {

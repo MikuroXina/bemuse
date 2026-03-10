@@ -20,10 +20,13 @@ describe('ProgressUtils', function () {
   describe('.wrapPromise', function () {
     it('should report number of fulfilled promises', async () => {
       const progress = new Progress()
-      const f = ProgressUtils.wrapPromise(progress, (promise) => promise)
+      const f: <T>(p: Promise<T>) => PromiseLike<T> = ProgressUtils.wrapPromise(
+        progress,
+        (promise) => promise
+      )
       void f(new Promise(() => {}))
       const b = f(Promise.resolve(1))
-      void f(Promise.reject(new Error('no'))).catch((err) => {
+      void Promise.resolve(f(Promise.reject(new Error('no')))).catch((err) => {
         expect(err).toStrictEqual(new Error('no'))
       })
       const d = f(Promise.resolve(3))

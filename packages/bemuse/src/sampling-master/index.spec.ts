@@ -1,28 +1,13 @@
-/* global WebAudioTestAPI */
+import { beforeEach, describe, expect, it, type Mock, vi } from 'vitest'
 
-import 'web-audio-test-api'
-
-import assert from 'assert'
-import {
-  afterAll,
-  beforeAll,
-  beforeEach,
-  describe,
-  expect,
-  it,
-  vi,
-} from 'vitest'
-
-import SamplingMaster, { FADE_LENGTH } from './index.js'
+import SamplingMaster, { FADE_LENGTH, Sample } from './index.js'
 
 describe('SamplingMaster', function () {
-  let context
-  let master
-  beforeAll(() => {
-    WebAudioTestAPI.use()
-  })
+  let context: AudioContext
+  let master: SamplingMaster
   beforeEach(() => {
     vi.resetAllMocks()
+    vi.useFakeTimers()
 
     context = new AudioContext()
     master = new SamplingMaster(context)
@@ -48,23 +33,35 @@ describe('SamplingMaster', function () {
   describe('#group', function () {
     it('has a destination with gain', function () {
       const group = master.group({ volume: 0.5 })
-      expect(group.destination.gain.value).to.equal(0.5)
+      expect(group.destination!.gain.value).to.equal(0.5)
     })
     it('connect upon construct, disconnect upon destroy', function () {
+      let spyConnect: Mock<GainNode['connect']>
+      let spyDisconnect: Mock<GainNode['disconnect']>
+      vi.spyOn(master.audioContext, 'createGain').mockImplementation(function (
+        this: AudioContext
+      ) {
+        const created = this.createGain()
+        spyConnect = vi.spyOn(created, 'connect')
+        spyDisconnect = vi.spyOn(created, 'disconnect')
+        return created
+      })
+
       const group = master.group()
-      const node = group.destination
-      expect(node.$isConnectedTo(master.destination)).toBe(true)
+
+      expect(spyConnect!).toHaveBeenCalledWith(master.destination)
+
       group.destroy()
-      expect(node.$isConnectedTo(master.destination)).toBe(false)
+
+      expect(spyDisconnect!).toHaveBeenCalledOnce()
       expect(group.destination).toBe(null)
     })
   })
 
   describe('#decode', function () {
-    it('returns an audio buffer', () => {
-      return master.decode(new Blob([])).then((audioBuffer) => {
-        assert(audioBuffer.numberOfChannels)
-      })
+    it('returns an audio buffer', async () => {
+      const audioBuffer = await master.decode(new Blob([]))
+      expect(audioBuffer.numberOfChannels).to.be.greaterThan(0)
     })
   })
 
@@ -81,18 +78,22 @@ describe('SamplingMaster', function () {
       })
     })
     it('should reject when decoding failed', async () => {
-      context.DECODE_AUDIO_DATA_FAILED = true
+      vi.spyOn(master.audioContext, 'decodeAudioData').mockImplementation(
+        (_buf, _onSuccess, onError) => {
+          onError!(new DOMException())
+          return Promise.reject(new Error())
+        }
+      )
       await expect(master.sample(new ArrayBuffer(0))).rejects.toThrow()
-      context.DECODE_AUDIO_DATA_FAILED = false
     })
     describe('#play', function () {
-      let sample
-      let bufferSource
-      let buffer
-      let createBufferSourceMock
-      let startMock
+      let sample: Sample
+      let bufferSource: AudioBufferSourceNode
+      let buffer: AudioBuffer
+      let createBufferSourceMock: Mock<AudioContext['createBufferSource']>
+      let startMock: Mock<AudioBufferSourceNode['start']>
 
-      beforeEach(function () {
+      beforeEach(async function () {
         vi.resetAllMocks()
 
         bufferSource = context.createBufferSource()
@@ -103,7 +104,7 @@ describe('SamplingMaster', function () {
           .mockReturnValue(bufferSource)
         startMock = vi.spyOn(bufferSource, 'start')
 
-        return master.sample(new Blob([])).then((s) => (sample = s))
+        sample = await master.sample(new Blob([]))
       })
       it('should play a buffer source', function () {
         sample.play()
@@ -111,8 +112,9 @@ describe('SamplingMaster', function () {
         expect(startMock).toHaveBeenCalledWith(0, 0)
       })
       it('should play a buffer source with delay', function () {
-        context.$processTo(1)
+        vi.advanceTimersByTime(1 * 1000)
         sample.play(20)
+
         expect(createBufferSourceMock).toHaveBeenCalled()
         expect(startMock).toHaveBeenCalledWith(21, 0)
       })
@@ -125,16 +127,25 @@ describe('SamplingMaster', function () {
         expect(startMock).toHaveBeenCalledWith(0, 1, 2 + FADE_LENGTH)
       })
       it('should play to a group', function () {
+        let spyConnect: Mock<GainNode['connect']>
+        vi.spyOn(master.audioContext, 'createGain').mockImplementation(
+          function (this: AudioContext) {
+            const created = this.createGain()
+            spyConnect = vi.spyOn(created, 'connect')
+            return created
+          }
+        )
+
         const group = master.group()
-        const instance = sample.play(0, { group })
-        expect(instance.TEST_node.$isConnectedTo(group.destination)).toBe(true)
+        sample.play(0, { group })
+        expect(spyConnect!).toHaveBeenCalledWith(group.destination)
       })
 
       it('should call #stop when playing finished', function () {
         const instance = sample.play()
         const stopMock = vi.spyOn(instance, 'stop')
 
-        context.$processTo(1.5)
+        vi.advanceTimersByTime(1.5 * 1000)
 
         expect(stopMock).toHaveBeenCalled()
       })
@@ -179,9 +190,9 @@ describe('SamplingMaster', function () {
   })
 
   describe('#destroy', function () {
-    let sample
-    beforeEach(function () {
-      return master.sample(new Blob([])).then((s) => (sample = s))
+    let sample: Sample
+    beforeEach(async function () {
+      sample = await master.sample(new Blob([]))
     })
     it('should stop all samples', function () {
       const a = sample.play()
@@ -210,9 +221,5 @@ describe('SamplingMaster', function () {
 
       expect(destroyMock).toHaveBeenCalledOnce()
     })
-  })
-
-  afterAll(() => {
-    WebAudioTestAPI.unuse()
   })
 })

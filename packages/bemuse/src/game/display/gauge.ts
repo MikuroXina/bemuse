@@ -1,7 +1,7 @@
 import PlayerState from '../state/player-state.js'
 
 export interface Gauge {
-  update(playerState: PlayerState): void
+  update(playerState?: PlayerState): void
   shouldDisplay(): boolean
   getPrimary(): number
   getSecondary(): number
@@ -41,6 +41,9 @@ function hopeGauge(): Gauge {
   let extra: number
   return {
     update(playerState) {
+      if (!playerState) {
+        return
+      }
       const stats = playerState.stats
       const progress = stats.numJudgments / stats.totalCombo
       const getHope = (min: number, max1: number, max2: number) => {

@@ -1,15 +1,13 @@
 // Finds a song matching the title
 
-import type { SongMetadataInCollection } from '@mikuroxina/bemuse-types'
-
-function findMatchingSong({
+function findMatchingSong<T>({
   songs,
   title,
   getTitle,
 }: {
-  songs: readonly SongMetadataInCollection[]
+  songs: readonly T[]
   title: string
-  getTitle: (song: SongMetadataInCollection) => string
+  getTitle: (song: T) => string
 }) {
   return songs.find((song) => titleFullyMatches(getTitle(song), title))
 }

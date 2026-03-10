@@ -71,7 +71,6 @@
     "@mikuroxina/eslint-config-bemuse": "workspace:*",
     "@mikuroxina/monetizer": "workspace:*",
     "@tanstack/eslint-plugin-query": "^5.91.4",
-    "@types/assert": "^1.5.11",
     "@types/debug": "^4.1.12",
     "@types/fastclick": "^1.0.33",
     "@types/gulp": "^4.0.18",
@@ -88,7 +87,6 @@
     "@vitejs/plugin-react": "^5.1.4",
     "@vitest/browser-playwright": "^4.0.18",
     "@vitest/coverage-v8": "^4.0.18",
-    "assert": "^2.1.0",
     "autoprefixer": "^10.4.24",
     "body-parser": "^1.20.4",
     "chalk": "^2.4.2",
@@ -108,7 +106,6 @@
     "vite-plugin-pwa": "^1.2.0",
     "vite-tsconfig-paths": "^6.1.1",
     "vitest": "^4.0.18",
-    "web-audio-test-api": "^0.5.2",
     "wireit": "^0.14.12"
   },
   "dependencies": {
@@ -150,7 +147,6 @@
     "p-map": "^4.0.0",
     "p-memoize": "^4.0.4",
     "pixi.js": "^8.16.0",
-    "power-assert": "^1.6.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-redux": "^8.1.3",

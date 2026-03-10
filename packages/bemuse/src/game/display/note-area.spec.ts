@@ -1,3 +1,4 @@
+import type { GameNote } from '@mikuroxina/bemuse-notechart'
 import { describe, expect, it } from 'vitest'
 
 import NoteArea from './note-area'
@@ -13,7 +14,7 @@ describe('NoteArea', function () {
       { position: 6, column: 'A' },
       { position: 10, end: { position: 12 }, column: 'B' },
       { position: 11, column: 'C' },
-    ]
+    ] as GameNote[]
     const area = new NoteArea(notes, [])
     expect(area.getVisibleNotes(1.5, 3.5)).to.have.length(2)
     expect(area.getVisibleNotes(2.5, 3.5, 1)).to.have.length(2)
@@ -29,9 +30,9 @@ describe('NoteArea', function () {
     const area = new NoteArea(
       [],
       [
-        { beat: 0, position: 0 },
-        { beat: 4, position: 4 },
-        { beat: 7, position: 7 },
+        { time: 0, beat: 0, position: 0 },
+        { time: 0, beat: 4, position: 4 },
+        { time: 0, beat: 7, position: 7 },
       ]
     )
     expect(area.getVisibleBarLines(1.5, 4.5)).to.have.length(1)

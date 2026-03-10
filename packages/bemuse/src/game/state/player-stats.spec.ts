@@ -1,4 +1,3 @@
-import assert from 'assert'
 import { describe, expect, it } from 'vitest'
 
 import { notechart } from '../test-helpers/index.js'
@@ -12,67 +11,67 @@ describe('PlayerStats', function () {
   describe('#score', function () {
     it('returns the score', function () {
       const stats = statsFor5Notes()
-      assert(stats.score === 0)
+      expect(stats.score).toStrictEqual(0)
       stats.handleJudgment(1)
       stats.handleJudgment(1)
       stats.handleJudgment(1)
       stats.handleJudgment(1)
       stats.handleJudgment(1)
-      assert(stats.score === 555555)
+      expect(stats.score).toStrictEqual(555555)
     })
   })
 
   describe('#comboScore', function () {
     it('returns the score', function () {
       const stats = statsFor1000Notes()
-      assert(stats.comboScore === 0)
+      expect(stats.comboScore).toStrictEqual(0)
       for (let i = 0; i < 1000; i++) {
         stats.handleJudgment(1)
       }
-      assert(stats.comboScore === 55555)
+      expect(stats.comboScore).toStrictEqual(55555)
     })
   })
 
   describe('#maxPossibleComboScore', function () {
     it('is always 55555 in best case', function () {
       const stats = statsFor1000Notes()
-      assert(stats.maxPossibleComboScore === 55555)
+      expect(stats.maxPossibleComboScore).toStrictEqual(55555)
       for (let i = 0; i < 1000; i++) {
         stats.handleJudgment(1)
-        assert(stats.maxPossibleComboScore === 55555)
+        expect(stats.maxPossibleComboScore).toStrictEqual(55555)
       }
     })
     it('decreases to 0 in worst case', function () {
       const stats = statsFor5Notes()
-      assert(stats.maxPossibleComboScore === 55555)
+      expect(stats.maxPossibleComboScore).toStrictEqual(55555)
       stats.handleJudgment(-1)
-      assert(stats.maxPossibleComboScore < 55555)
+      expect(stats.maxPossibleComboScore).toBeLessThan(55555)
       for (let i = 0; i < 999; i++) {
         stats.handleJudgment(-1)
       }
-      assert(stats.maxPossibleComboScore === 0)
+      expect(stats.maxPossibleComboScore).toStrictEqual(0)
     })
   })
 
   describe('#maxPossibleScore', function () {
     it('is always 555555 in best case', function () {
       const stats = statsFor1000Notes()
-      assert(stats.maxPossibleScore === 555555)
+      expect(stats.maxPossibleScore).toStrictEqual(555555)
       for (let i = 0; i < 1000; i++) {
         stats.handleJudgment(1)
-        assert(stats.maxPossibleScore === 555555)
+        expect(stats.maxPossibleScore).toStrictEqual(555555)
       }
     })
     it('decreases to 0 in worst case', function () {
       const stats = statsFor1000Notes()
-      assert(stats.maxPossibleScore === 555555)
+      expect(stats.maxPossibleScore).toStrictEqual(555555)
       stats.handleJudgment(-1)
-      assert(stats.maxPossibleScore < 555555)
-      assert(stats.maxPossibleScore > stats.score)
+      expect(stats.maxPossibleScore).toBeLessThan(555555)
+      expect(stats.maxPossibleScore).toBeGreaterThan(stats.score)
       for (let i = 0; i < 999; i++) {
         stats.handleJudgment(-1)
       }
-      assert(stats.maxPossibleScore === 0)
+      expect(stats.maxPossibleScore).toStrictEqual(0)
     })
   })
 

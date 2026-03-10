@@ -89,7 +89,7 @@ export class SamplingMaster {
     return sample
   }
 
-  group(options: SoundGroupOptions): SoundGroup {
+  group(options?: SoundGroupOptions): SoundGroup {
     const group = new SoundGroup(this, options)
     this._groups.push(group)
     return group
@@ -179,7 +179,7 @@ export class Sample {
   }
 
   // Plays the sample and returns the new PlayInstance.
-  play(delay: number, options: PlayInstanceOptions = {}): PlayInstance {
+  play(delay?: number, options: PlayInstanceOptions = {}): PlayInstance {
     if (this._master == null || this._buffer == null) {
       throw new Error('Sample was destroyed')
     }
@@ -212,7 +212,6 @@ export interface PlayInstanceOptions {
 export class PlayInstance {
   private _source: AudioBufferSourceNode | null
   private _gain: GainNode | null
-  TEST_node: GainNode
 
   onstop: () => void = () => {}
 
@@ -235,7 +234,7 @@ export class PlayInstance {
       master.destination
     gain.connect(destination)
     this._source = source
-    this._gain = this.TEST_node = gain
+    this._gain = gain
 
     // Start the sound.
     const startTime = !delay ? 0 : Math.max(0, context.currentTime + delay)

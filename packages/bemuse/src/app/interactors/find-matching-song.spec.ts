@@ -1,5 +1,4 @@
-import assert from 'assert'
-import { describe, it } from 'vitest'
+import { assert, describe, it } from 'vitest'
 
 import findMatchingSong from './find-matching-song'
 
@@ -13,7 +12,7 @@ describe('selecting a song by title', function () {
     'Piece of Mine',
     'Goliath',
   ]
-  const getTitle = (song) => song
+  const getTitle = (song: string) => song
 
   it('finds a matching song', () => {
     assert(

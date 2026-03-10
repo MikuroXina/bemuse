@@ -5,11 +5,11 @@ import readBlob from './read-blob'
 describe('readBlob', function () {
   it('rejects when cannot read blob', async () => {
     const blob = new Blob(['hello world'])
-    vi.spyOn(FileReader.prototype, 'readAsText').mockImplementation(
-      function () {
-        this.onerror(new Error('...'))
-      }
-    )
+    vi.spyOn(FileReader.prototype, 'readAsText').mockImplementation(function (
+      this: FileReader
+    ) {
+      this.onerror?.(new Error('...') as unknown as ProgressEvent<FileReader>)
+    })
     await expect(readBlob(blob).as('text')).rejects.toThrow()
     vi.restoreAllMocks()
   })

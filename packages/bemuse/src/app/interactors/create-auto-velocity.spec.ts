@@ -1,5 +1,4 @@
-import assert from 'assert'
-import { describe, expect, it, vi } from 'vitest'
+import { assert, describe, expect, it, vi } from 'vitest'
 
 import createAutoVelocity from './create-auto-velocity'
 

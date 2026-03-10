@@ -30,6 +30,14 @@ function autoPlayer(array: SoundedEvent[]): AutoPlayer {
   }
 }
 
+export interface PlayerAudioOptions {
+  player: Player
+  samples: Record<string, Sample>
+  master: SamplingMaster
+  waveFactory?: WaveFactory
+  volume?: number
+}
+
 export class PlayerAudio {
   private readonly _waveFactory: WaveFactory
   private readonly _autos: AutoPlayer
@@ -43,13 +51,7 @@ export class PlayerAudio {
     master,
     waveFactory,
     volume,
-  }: {
-    player: Player
-    samples: Record<string, Sample>
-    master: SamplingMaster
-    waveFactory?: WaveFactory
-    volume?: number
-  }) {
+  }: PlayerAudioOptions) {
     const notechart = player.notechart
     this._waveFactory =
       waveFactory ??
@@ -59,7 +61,7 @@ export class PlayerAudio {
     this._autoSound = !!player.options.autosound
   }
 
-  update(time: number, state: PlayerState) {
+  update(time: number, state?: PlayerState) {
     this._playAutoKeysounds(time)
     this._playAutoSounds(time, state)
     this._handleSoundNotifications((state && state.notifications.sounds) || [])
@@ -71,7 +73,7 @@ export class PlayerAudio {
     }
   }
 
-  _playAutoSounds(time: number, state: PlayerState) {
+  _playAutoSounds(time: number, state?: PlayerState) {
     const autosounds = this._notes.next(time + 1 / 30)
     const poor = state && state.stats.poor
     const shouldPlay = this._autoSound && !poor
@@ -89,7 +91,7 @@ export class PlayerAudio {
       } else if (type === 'break') {
         this._breakNote(note)
       } else if (type === 'free') {
-        this._waveFactory.playFree(note, 0)
+        this._waveFactory.playFree(note)
       }
     }
   }

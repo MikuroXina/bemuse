@@ -1,10 +1,9 @@
-import assert from 'assert'
-import { describe, it } from 'vitest'
+import { assert, describe, it } from 'vitest'
 
 import getLR2Score from './get-lr2-score'
 
 describe('Calculating LR2 score', function () {
-  const LR2_NORMAL_TIMEGATE = [18, 40]
+  const LR2_NORMAL_TIMEGATE = [18, 40] as const
   it('perfect great = 2 points', () => {
     assert(getLR2Score([0.001], LR2_NORMAL_TIMEGATE) === 2)
   })

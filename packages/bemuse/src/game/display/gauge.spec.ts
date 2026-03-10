@@ -1,6 +1,6 @@
-import assert from 'assert'
-import { describe, it } from 'vitest'
+import { assert, describe, it } from 'vitest'
 
+import type PlayerState from '../state/player-state'
 import { getGauge } from './gauge'
 
 describe('an inactive gauge', () => {
@@ -14,11 +14,11 @@ describe('an inactive gauge', () => {
 })
 
 describe('a hope gauge', () => {
-  function setup(maxPossibleScore, progress) {
+  function setup(maxPossibleScore: number, progress: [number, number]) {
     const gauge = getGauge('hope')
     const [numJudgments, totalCombo] = progress
     const playerStats = { maxPossibleScore, numJudgments, totalCombo }
-    const playerState = { stats: playerStats }
+    const playerState = { stats: playerStats } as PlayerState
     gauge.update(playerState)
     return gauge
   }

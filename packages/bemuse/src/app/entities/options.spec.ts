@@ -1,6 +1,5 @@
-import assert from 'assert'
 import type { AnyAction } from 'redux'
-import { describe, expect, it } from 'vitest'
+import { assert, describe, expect, it } from 'vitest'
 
 import * as Options from './options'
 

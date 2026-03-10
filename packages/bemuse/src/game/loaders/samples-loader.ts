@@ -24,8 +24,8 @@ export class SamplesLoader {
 
   loadFiles(
     files: readonly string[],
-    loadProgress: Progress,
-    decodeProgress: Progress
+    loadProgress?: Progress,
+    decodeProgress?: Progress
   ): Promise<Record<string, Sample>> {
     const onLoad = ProgressUtils.fixed(files.length, loadProgress)
     const onDecode = ProgressUtils.fixed(files.length, decodeProgress)

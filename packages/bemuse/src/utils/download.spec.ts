@@ -25,8 +25,10 @@ describe('download', function () {
   })
 
   it('rejects for XHR error', async () => {
-    vi.spyOn(XMLHttpRequest.prototype, 'send').mockImplementation(function () {
-      this.onerror(new Error('...'))
+    vi.spyOn(XMLHttpRequest.prototype, 'send').mockImplementation(function (
+      this: XMLHttpRequest
+    ) {
+      this.onerror?.(new ProgressEvent('...'))
     })
     const url = new URL('./test-fixtures/download/hello.txt', import.meta.url)
 
