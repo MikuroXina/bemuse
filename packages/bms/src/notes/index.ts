@@ -1,9 +1,10 @@
 import invariant from 'invariant'
+import { parse } from 'valibot'
 
 import { BMSChart } from '../bms/chart.js'
 import { BMSObject } from '../bms/objects.js'
 import * as ChannelMapping from './channels.js'
-import { BMSNote, Note } from './note.js'
+import { BMSNote, bmsNoteSchema } from './note.js'
 
 export { BMSNote }
 
@@ -40,7 +41,9 @@ export class Notes {
    * @param {BMSNote[]} notes An array of Note objects
    */
   constructor(notes: BMSNote[]) {
-    notes.forEach(Note)
+    for (const note of notes) {
+      parse(bmsNoteSchema, note)
+    }
     this._notes = notes
   }
 
