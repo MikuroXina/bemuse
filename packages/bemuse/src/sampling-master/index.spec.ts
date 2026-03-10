@@ -1,23 +1,23 @@
 import { beforeEach, describe, expect, it, type Mock, vi } from 'vitest'
+import { userEvent } from 'vitest/browser'
 
 import SamplingMaster, { FADE_LENGTH, Sample } from './index.js'
 
 describe('SamplingMaster', function () {
-  let context: AudioContext
+  let context: BaseAudioContext
   let master: SamplingMaster
   beforeEach(() => {
     vi.resetAllMocks()
-    vi.useFakeTimers()
 
-    context = new AudioContext()
+    context = new OfflineAudioContext(2, 2 * 48000, 48000)
     master = new SamplingMaster(context)
 
     vi.spyOn(context, 'decodeAudioData').mockImplementation(
       async () =>
         new AudioBuffer({
           numberOfChannels: 2,
-          length: 1024,
-          sampleRate: 3000,
+          length: 48000,
+          sampleRate: 48000,
         })
     )
   })
@@ -82,204 +82,218 @@ describe('SamplingMaster', function () {
     )
     await expect(master.sample(new ArrayBuffer(0))).rejects.toThrow()
   })
+})
 
-  describe('#play', function () {
-    let sample: Sample
+describe('#play', function () {
+  let context: BaseAudioContext
+  let master: SamplingMaster
+  let sample: Sample
 
-    beforeEach(async function () {
-      vi.restoreAllMocks()
-      vi.useFakeTimers()
+  beforeEach(async function () {
+    vi.restoreAllMocks()
 
-      const buf = new AudioBuffer({
-        numberOfChannels: 2,
-        length: 48000,
-        sampleRate: 48000,
-      })
-      vi.spyOn(context, 'decodeAudioData').mockImplementation(async () => buf)
+    context = new AudioContext()
+    master = new SamplingMaster(context)
 
-      sample = await master.sample(buf)
+    const buf = new AudioBuffer({
+      numberOfChannels: 2,
+      length: 48000,
+      sampleRate: 48000,
     })
-    it('should play a buffer source', function () {
-      let startMock: Mock<AudioBufferSourceNode['start']>
-      const original = context.createBufferSource.bind(context)
-      const spy = vi
-        .spyOn(context, 'createBufferSource')
-        .mockImplementation(() => {
-          const bufferSourceNode = original()
-          startMock = vi.spyOn(bufferSourceNode, 'start')
-          return bufferSourceNode
-        })
+    vi.spyOn(context, 'decodeAudioData').mockImplementation(async () => buf)
 
-      sample.play()
-
-      expect(spy).toHaveBeenCalled()
-      expect(startMock!).toHaveBeenCalledWith(0, 0)
-    })
-    it('should play a buffer source with delay', function () {
-      let startMock: Mock<AudioBufferSourceNode['start']>
-      const original = context.createBufferSource.bind(context)
-      const spy = vi
-        .spyOn(context, 'createBufferSource')
-        .mockImplementation(() => {
-          const bufferSourceNode = original()
-          startMock = vi.spyOn(bufferSourceNode, 'start')
-          return bufferSourceNode
-        })
-
-      vi.advanceTimersByTime(1 * 1000)
-      vi.spyOn(context, 'currentTime', 'get').mockReturnValue(1)
-      sample.play(20)
-
-      expect(spy).toHaveBeenCalled()
-      expect(startMock!).toHaveBeenCalledWith(21, 0)
-    })
-    it('should play a buffer slice (without end)', function () {
-      let startMock: Mock<AudioBufferSourceNode['start']>
-      const original = context.createBufferSource.bind(context)
-      vi.spyOn(context, 'createBufferSource').mockImplementation(() => {
+    sample = await master.sample(buf)
+  })
+  it('should play a buffer source', function () {
+    let startMock: Mock<AudioBufferSourceNode['start']>
+    const original = context.createBufferSource.bind(context)
+    const spy = vi
+      .spyOn(context, 'createBufferSource')
+      .mockImplementation(() => {
         const bufferSourceNode = original()
         startMock = vi.spyOn(bufferSourceNode, 'start')
         return bufferSourceNode
       })
 
-      sample.play(0, { start: 1, end: undefined })
+    sample.play()
 
-      expect(startMock!).toHaveBeenCalledWith(0, 1)
-    })
-    it('should play a buffer slice (with end)', function () {
-      let startMock: Mock<AudioBufferSourceNode['start']>
-      const original = context.createBufferSource.bind(context)
-      vi.spyOn(context, 'createBufferSource').mockImplementation(() => {
+    expect(spy).toHaveBeenCalled()
+    expect(startMock!).toHaveBeenCalledWith(0, 0)
+  })
+  it('should play a buffer source with delay', function () {
+    let startMock: Mock<AudioBufferSourceNode['start']>
+    const original = context.createBufferSource.bind(context)
+    const spy = vi
+      .spyOn(context, 'createBufferSource')
+      .mockImplementation(() => {
         const bufferSourceNode = original()
         startMock = vi.spyOn(bufferSourceNode, 'start')
         return bufferSourceNode
       })
 
-      sample.play(0, { start: 1, end: 3 })
-      expect(startMock!).toHaveBeenCalledWith(0, 1, 2 + FADE_LENGTH)
-    })
-    it('should play to a group', function () {
-      let spyConnect: Mock<GainNode['connect']>
-      const original = master.audioContext.createGain.bind(master.audioContext)
-      vi.spyOn(master.audioContext, 'createGain').mockImplementation(() => {
-        const created = original()
-        spyConnect = vi.spyOn(created, 'connect')
-        return created
-      })
+    vi.spyOn(context, 'currentTime', 'get').mockReturnValue(1)
+    sample.play(20)
 
-      const group = master.group()
-      sample.play(0, { group })
-      expect(spyConnect!).toHaveBeenCalledWith(group.destination)
+    expect(spy).toHaveBeenCalled()
+    expect(startMock!).toHaveBeenCalledWith(21, 0)
+  })
+  it('should play a buffer slice (without end)', function () {
+    let startMock: Mock<AudioBufferSourceNode['start']>
+    const original = context.createBufferSource.bind(context)
+    vi.spyOn(context, 'createBufferSource').mockImplementation(() => {
+      const bufferSourceNode = original()
+      startMock = vi.spyOn(bufferSourceNode, 'start')
+      return bufferSourceNode
     })
 
-    it('should call #stop when playing finished', async () => {
-      let stopMock: Mock<() => void>
+    sample.play(0, { start: 1, end: undefined })
+
+    expect(startMock!).toHaveBeenCalledWith(0, 1)
+  })
+  it('should play a buffer slice (with end)', function () {
+    let startMock: Mock<AudioBufferSourceNode['start']>
+    const original = context.createBufferSource.bind(context)
+    vi.spyOn(context, 'createBufferSource').mockImplementation(() => {
+      const bufferSourceNode = original()
+      startMock = vi.spyOn(bufferSourceNode, 'start')
+      return bufferSourceNode
+    })
+
+    sample.play(0, { start: 1, end: 3 })
+    expect(startMock!).toHaveBeenCalledWith(0, 1, 2 + FADE_LENGTH)
+  })
+  it('should play to a group', function () {
+    let spyConnect: Mock<GainNode['connect']>
+    const original = master.audioContext.createGain.bind(master.audioContext)
+    vi.spyOn(master.audioContext, 'createGain').mockImplementation(() => {
+      const created = original()
+      spyConnect = vi.spyOn(created, 'connect')
+      return created
+    })
+
+    const group = master.group()
+    sample.play(0, { group })
+    expect(spyConnect!).toHaveBeenCalledWith(group.destination)
+  })
+
+  it('should call #stop when playing finished', async () => {
+    // Activate document to allow autoplay
+    await userEvent.click(document.body)
+
+    const mock = vi.fn()
+    const instance = sample.play()
+    instance.onstop = mock
+
+    await vi.waitFor(
+      () => {
+        expect(mock).toHaveBeenCalled()
+      },
+      { timeout: 1.5 * 1000 }
+    )
+  })
+
+  describe('#stop', function () {
+    it('should stop the buffer source', function () {
+      let stopMock: Mock<AudioBufferSourceNode['stop']>
       const original = context.createBufferSource.bind(context)
       vi.spyOn(context, 'createBufferSource').mockImplementation(() => {
-        const bufferSourceNode = original()
-        stopMock = vi.spyOn(bufferSourceNode, 'stop')
-        return bufferSourceNode
+        const node = original()
+        stopMock = vi.spyOn(node, 'stop')
+        return node
       })
 
-      sample.play()
+      const instance = sample.play()
 
-      await vi.waitFor(
-        () => {
-          expect(stopMock!).toHaveBeenCalled()
-        },
-        { timeout: 1.5 * 1000 }
-      )
+      instance.stop()
+
+      expect(stopMock!).toHaveBeenCalled()
     })
-
-    describe('#stop', function () {
-      it('should stop the buffer source', function () {
-        let stopMock: Mock<AudioBufferSourceNode['stop']>
-        const original = context.createBufferSource.bind(context)
-        vi.spyOn(context, 'createBufferSource').mockImplementation(() => {
-          const node = original()
-          stopMock = vi.spyOn(node, 'stop')
-          return node
-        })
-
-        const instance = sample.play()
-
-        instance.stop()
-
-        expect(stopMock!).toHaveBeenCalled()
+    it('can be called multiple times', function () {
+      let stopMock: Mock<AudioBufferSourceNode['stop']>
+      const original = context.createBufferSource.bind(context)
+      vi.spyOn(context, 'createBufferSource').mockImplementation(() => {
+        const node = original()
+        stopMock = vi.spyOn(node, 'stop')
+        return node
       })
-      it('can be called multiple times', function () {
-        let stopMock: Mock<AudioBufferSourceNode['stop']>
-        const original = context.createBufferSource.bind(context)
-        vi.spyOn(context, 'createBufferSource').mockImplementation(() => {
-          const node = original()
-          stopMock = vi.spyOn(node, 'stop')
-          return node
-        })
 
-        const instance = sample.play()
+      const instance = sample.play()
 
-        instance.stop()
-        instance.stop()
-        instance.stop()
+      instance.stop()
+      instance.stop()
+      instance.stop()
 
-        expect(stopMock!).toHaveBeenCalledOnce()
-      })
-      it('should call #onstop', function () {
-        const instance = sample.play()
-        instance.onstop = vi.fn()
-
-        instance.stop()
-
-        expect(instance.onstop).toHaveBeenCalled()
-      })
+      expect(stopMock!).toHaveBeenCalledOnce()
     })
+    it('should call #onstop', function () {
+      const instance = sample.play()
+      instance.onstop = vi.fn()
 
-    describe('#bad', function () {
-      it('should change pitch of sound', function () {
-        let bufferSourceNode: AudioBufferSourceNode
-        const original = context.createBufferSource.bind(context)
-        vi.spyOn(context, 'createBufferSource').mockImplementation(() => {
-          return (bufferSourceNode = original())
-        })
+      instance.stop()
 
-        const instance = sample.play()
-        instance.bad()
-        expect(bufferSourceNode!.playbackRate.value).not.to.equal(1)
-      })
+      expect(instance.onstop).toHaveBeenCalled()
     })
   })
 
-  describe('#destroy', function () {
-    let sample: Sample
-    beforeEach(async function () {
-      sample = await master.sample(new Blob([]))
-    })
-    it('should stop all samples', function () {
-      const a = sample.play()
-      const b = sample.play()
-      const c = sample.play()
-      const aStopMock = vi.spyOn(a, 'stop')
-      const bStopMock = vi.spyOn(b, 'stop')
-      const cStopMock = vi.spyOn(c, 'stop')
+  describe('#bad', function () {
+    it('should change pitch of sound', function () {
+      let bufferSourceNode: AudioBufferSourceNode
+      const original = context.createBufferSource.bind(context)
+      vi.spyOn(context, 'createBufferSource').mockImplementation(() => {
+        return (bufferSourceNode = original())
+      })
 
-      master.destroy()
-
-      expect(aStopMock).toHaveBeenCalled()
-      expect(bStopMock).toHaveBeenCalled()
-      expect(cStopMock).toHaveBeenCalled()
+      const instance = sample.play()
+      instance.bad()
+      expect(bufferSourceNode!.playbackRate.value).not.to.equal(1)
     })
-    it('can no longer create samples', async () => {
-      master.destroy()
-      await expect(master.sample(new Blob([]))).rejects.toThrow()
-    })
-    it('only destroys once', function () {
-      const a = sample.play()
-      const destroyMock = vi.spyOn(a, 'destroy')
+  })
+})
 
-      master.destroy()
-      master.destroy()
+describe('#destroy', function () {
+  let context: BaseAudioContext
+  let master: SamplingMaster
+  let sample: Sample
+  beforeEach(async function () {
+    vi.restoreAllMocks()
 
-      expect(destroyMock).toHaveBeenCalledOnce()
+    context = new OfflineAudioContext(2, 2 * 48000, 48000)
+    master = new SamplingMaster(context)
+
+    const buf = new AudioBuffer({
+      numberOfChannels: 2,
+      length: 48000,
+      sampleRate: 48000,
     })
+    vi.spyOn(context, 'decodeAudioData').mockImplementation(async () => buf)
+
+    sample = await master.sample(buf)
+  })
+  it('should stop all samples', function () {
+    const a = sample.play()
+    const b = sample.play()
+    const c = sample.play()
+    const aStopMock = vi.spyOn(a, 'stop')
+    const bStopMock = vi.spyOn(b, 'stop')
+    const cStopMock = vi.spyOn(c, 'stop')
+
+    master.destroy()
+
+    expect(aStopMock).toHaveBeenCalled()
+    expect(bStopMock).toHaveBeenCalled()
+    expect(cStopMock).toHaveBeenCalled()
+  })
+  it('can no longer create samples', async () => {
+    master.destroy()
+    await expect(master.sample(new Blob([]))).rejects.toThrow()
+  })
+  it('only destroys once', function () {
+    const a = sample.play()
+    const destroyMock = vi.spyOn(a, 'destroy')
+
+    master.destroy()
+    master.destroy()
+
+    expect(destroyMock).toHaveBeenCalledOnce()
   })
 })
