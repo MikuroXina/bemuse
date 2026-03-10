@@ -14,7 +14,7 @@ import type GameAudio from './audio/index.js'
 // and the audio time to compute a high-precision-and-accuracy time.
 //
 export class Clock {
-  private _context: AudioContext
+  private _context: BaseAudioContext
   private readonly _offset: number[] = []
   private _sum = 0
   time = 0

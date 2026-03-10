@@ -7,7 +7,7 @@ import PlayerAudio from './player-audio.js'
 
 export class GameAudio {
   private readonly _master: SamplingMaster
-  private readonly _context: AudioContext
+  private readonly _context: BaseAudioContext
   private readonly _players: Map<Player, PlayerAudio>
 
   constructor({
