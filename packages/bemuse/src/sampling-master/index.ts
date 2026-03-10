@@ -30,7 +30,7 @@ export class SamplingMaster {
   private _destroyed = false
 
   constructor(
-    private readonly _audioContext: AudioContext = defaultAudioContext
+    private readonly _audioContext: BaseAudioContext = defaultAudioContext
   ) {
     this._destination = this._audioContext.destination
   }
@@ -261,9 +261,8 @@ export class PlayInstance {
 
   // Stops the sample and disconnects the underlying Web Audio nodes.
   stop() {
-    if (!this._source) return
-    this._source.stop(0)
-    this._source.disconnect()
+    this._source?.stop(0)
+    this._source?.disconnect()
     this._gain?.disconnect()
     this._source = null
     this._gain = null
@@ -297,7 +296,7 @@ export default SamplingMaster
  *
  * @param {AudioContext} ctx The AudioContext to be unmuted.
  */
-export function unmuteAudio(ctx: AudioContext = defaultAudioContext): void {
+export function unmuteAudio(ctx: BaseAudioContext = defaultAudioContext): void {
   // Perform some strange magic to unmute the audio on iOS devices.
   // This code doesn’t make sense at all, you know.
   const gain = ctx.createGain()
@@ -313,6 +312,8 @@ export function unmuteAudio(ctx: AudioContext = defaultAudioContext): void {
   })
 }
 
-async function resumeContext(ctx: AudioContext): Promise<void> {
-  return await ctx.resume()
+async function resumeContext(ctx: BaseAudioContext): Promise<void> {
+  if (ctx instanceof AudioContext) {
+    await ctx.resume()
+  }
 }

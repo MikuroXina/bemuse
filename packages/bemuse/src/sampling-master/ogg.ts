@@ -17,13 +17,12 @@ const limit = throat(1)
 
 function getDecoder() {
   if (!decoderPromise) {
-    decoderPromise = import(
-      './vendor/stbvorbis/stbvorbis-e6da5fe-NDEBUG.js?raw'
-    )
-      .then((ns) => ns.default)
-      .then((src) => {
-        return (0, eval)(src + 'stbvorbis')
-      })
+    decoderPromise =
+      import('./vendor/stbvorbis/stbvorbis-e6da5fe-NDEBUG.js?raw')
+        .then((ns) => ns.default)
+        .then((src) => {
+          return (0, eval)(src + 'stbvorbis')
+        })
   }
   return decoderPromise
 }
@@ -32,7 +31,7 @@ function getDecoder() {
  * Decodes an OGG file using stbvorbis.js.
  */
 export async function decodeOGG(
-  audioContext: AudioContext,
+  audioContext: BaseAudioContext,
   arrayBuffer: ArrayBuffer
 ) {
   const stbvorbis = await getDecoder()
@@ -41,7 +40,7 @@ export async function decodeOGG(
 
 function doDecodeOGG(
   stbvorbis: OGGDecoder,
-  audioContext: AudioContext,
+  audioContext: BaseAudioContext,
   arrayBuffer: ArrayBuffer
 ) {
   return new Promise<AudioBuffer>((resolve, reject) => {
@@ -67,7 +66,7 @@ function doDecodeOGG(
 }
 
 async function createBuffer(
-  audioContext: AudioContext,
+  audioContext: BaseAudioContext,
   decodedChunks: Float32Array[][],
   length: number,
   sampleRate: number
