@@ -219,7 +219,7 @@ export class PlayInstance {
     const context = master.audioContext
     const source = context.createBufferSource()
     source.buffer = buffer
-    source.onended = () => this.stop()
+    source.addEventListener('ended', () => this.stop())
     const gain = context.createGain()
     source.connect(gain)
     const destination =
