@@ -105,29 +105,23 @@ export class SamplingMaster {
     }
   }
 
-  _decodeAudio(arrayBuffer: ArrayBuffer): Promise<AudioBuffer> {
-    return new Promise((resolve, reject) => {
-      if (needsVorbisDecoder && arrayBuffer.byteLength > 4) {
-        const view = new Uint8Array(arrayBuffer, 0, 4)
-        if (
-          view[0] === 0x4f &&
-          view[1] === 0x67 &&
-          view[2] === 0x67 &&
-          view[3] === 0x53
-        ) {
-          return resolve(decodeOGG(this.audioContext, arrayBuffer))
-        }
+  async _decodeAudio(arrayBuffer: ArrayBuffer): Promise<AudioBuffer> {
+    if (needsVorbisDecoder && arrayBuffer.byteLength > 4) {
+      const view = new Uint8Array(arrayBuffer, 0, 4)
+      if (
+        view[0] === 0x4f &&
+        view[1] === 0x67 &&
+        view[2] === 0x67 &&
+        view[3] === 0x53
+      ) {
+        return decodeOGG(this.audioContext, arrayBuffer)
       }
-      this.audioContext.decodeAudioData(
-        arrayBuffer,
-        function decodeAudioDataSuccess(audioBuffer) {
-          resolve(audioBuffer)
-        },
-        function decodeAudioDataFailure(e) {
-          reject(new Error('Unable to decode audio: ' + e))
-        }
-      )
-    })
+    }
+    try {
+      return await this.audioContext.decodeAudioData(arrayBuffer)
+    } catch (err) {
+      throw new Error('Unable to decode audio', { cause: err })
+    }
   }
 
   _startPlaying(instance: PlayInstance) {
