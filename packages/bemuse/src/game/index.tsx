@@ -49,7 +49,10 @@ export async function main() {
   const getSong = async function (): Promise<LoadSpec> {
     const kbm = (query.keyboard || '').split(',')
     const options: OptionsDraft = {
-      url: query.bms || '/music/[snack]dddd/dddd_sph.bme',
+      url: new URL(
+        query.bms || '/music/[snack]dddd/dddd_sph.bme',
+        location.href
+      ),
       game: {
         audioInputLatency: +query.latency || 0,
       },

@@ -121,5 +121,5 @@ export async function downloadFileEntryFromURL(
     lastTime = Date.now()
   })
   const blob = await download(url).as('blob', progress)
-  return { name, file: blob }
+  return { name, file: new File([blob], name) }
 }

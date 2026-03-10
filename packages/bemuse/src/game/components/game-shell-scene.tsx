@@ -73,7 +73,7 @@ const CustomChartSelector = ({
 export interface OptionsDraft {
   resource?: IResource | null
   resources?: IResources
-  url: string
+  url: URL
   game: {
     audioInputLatency: number
   }
@@ -178,8 +178,8 @@ const GameShellScene = ({
             <input
               type='text'
               disabled={!!options.resource}
-              onChange={bindOption((o, v) => (o.url = v))}
-              value={options.url}
+              onChange={bindOption((o, v) => (o.url.href = v))}
+              value={options.url.href}
             />
           </label>
         </div>

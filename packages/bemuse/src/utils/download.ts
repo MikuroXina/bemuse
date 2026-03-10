@@ -2,6 +2,26 @@ import type Progress from '@bemuse/progress'
 import { BYTES_FORMATTER } from '@bemuse/progress/formatters.js'
 import delay from 'delay'
 
+export type XMLHttpRequestResponse<T extends XMLHttpRequestResponseType> =
+  T extends ''
+    ? string
+    : T extends 'text'
+      ? string
+      : T extends 'arraybuffer'
+        ? ArrayBuffer
+        : T extends 'blob'
+          ? Blob
+          : T extends 'document'
+            ? Document
+            : unknown
+
+export interface Downloader {
+  as<const T extends XMLHttpRequestResponseType>(
+    type: T,
+    progress?: Progress
+  ): Promise<XMLHttpRequestResponse<T>>
+}
+
 // Downloads the file from the URL.
 // The download will not actually be started unless the ``as()`` method
 // is called.
@@ -13,12 +33,12 @@ import delay from 'delay'
 export function download(
   url: string | URL,
   { getRetryDelay = () => 1000 + Math.random() * 4000 } = {}
-) {
+): Downloader {
   return {
-    async as(
-      type: XMLHttpRequestResponseType,
+    async as<const T extends XMLHttpRequestResponseType>(
+      type: T,
       progress?: Progress
-    ): Promise<ArrayBuffer> {
+    ): Promise<XMLHttpRequestResponse<T>> {
       let shouldGiveUp = false
       for (let i = 1; ; i++) {
         try {
@@ -30,7 +50,7 @@ export function download(
           await delay(waitMs)
         }
       }
-      function attempt(): Promise<ArrayBuffer> {
+      function attempt(): Promise<XMLHttpRequestResponse<T>> {
         return new Promise((resolve, reject) => {
           const xh = new XMLHttpRequest()
           xh.open('GET', url, true)
