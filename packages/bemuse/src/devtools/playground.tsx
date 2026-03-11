@@ -3,7 +3,8 @@ import query from '@bemuse/utils/query.js'
 
 import styles from './playground.module.css'
 
-const playgrounds = import.meta.glob('./playgrounds/*.{js,jsx}')
+const playgrounds = import.meta.glob('./playgrounds/*.{js,jsx,ts,tsx}')
+console.dir(playgrounds)
 const availablePlaygrounds: Record<string, { main: () => void }> = {}
 for (const [key, playground] of Object.entries(playgrounds)) {
   const name = key.match(/\w[^.]+/)?.[0]
