@@ -30,7 +30,7 @@ export class SamplingMaster {
   private _destroyed = false
 
   constructor(
-    private readonly _audioContext: AudioContext = defaultAudioContext
+    private readonly _audioContext: BaseAudioContext = defaultAudioContext
   ) {
     this._destination = this._audioContext.destination
   }
@@ -89,7 +89,7 @@ export class SamplingMaster {
     return sample
   }
 
-  group(options: SoundGroupOptions): SoundGroup {
+  group(options?: SoundGroupOptions): SoundGroup {
     const group = new SoundGroup(this, options)
     this._groups.push(group)
     return group
@@ -105,29 +105,23 @@ export class SamplingMaster {
     }
   }
 
-  _decodeAudio(arrayBuffer: ArrayBuffer): Promise<AudioBuffer> {
-    return new Promise((resolve, reject) => {
-      if (needsVorbisDecoder && arrayBuffer.byteLength > 4) {
-        const view = new Uint8Array(arrayBuffer, 0, 4)
-        if (
-          view[0] === 0x4f &&
-          view[1] === 0x67 &&
-          view[2] === 0x67 &&
-          view[3] === 0x53
-        ) {
-          return resolve(decodeOGG(this.audioContext, arrayBuffer))
-        }
+  async _decodeAudio(arrayBuffer: ArrayBuffer): Promise<AudioBuffer> {
+    if (needsVorbisDecoder && arrayBuffer.byteLength > 4) {
+      const view = new Uint8Array(arrayBuffer, 0, 4)
+      if (
+        view[0] === 0x4f &&
+        view[1] === 0x67 &&
+        view[2] === 0x67 &&
+        view[3] === 0x53
+      ) {
+        return decodeOGG(this.audioContext, arrayBuffer)
       }
-      this.audioContext.decodeAudioData(
-        arrayBuffer,
-        function decodeAudioDataSuccess(audioBuffer) {
-          resolve(audioBuffer)
-        },
-        function decodeAudioDataFailure(e) {
-          reject(new Error('Unable to decode audio: ' + e))
-        }
-      )
-    })
+    }
+    try {
+      return await this.audioContext.decodeAudioData(arrayBuffer)
+    } catch (err) {
+      throw new Error('Unable to decode audio', { cause: err })
+    }
   }
 
   _startPlaying(instance: PlayInstance) {
@@ -179,7 +173,7 @@ export class Sample {
   }
 
   // Plays the sample and returns the new PlayInstance.
-  play(delay: number, options: PlayInstanceOptions = {}): PlayInstance {
+  play(delay?: number, options: PlayInstanceOptions = {}): PlayInstance {
     if (this._master == null || this._buffer == null) {
       throw new Error('Sample was destroyed')
     }
@@ -212,7 +206,6 @@ export interface PlayInstanceOptions {
 export class PlayInstance {
   private _source: AudioBufferSourceNode | null
   private _gain: GainNode | null
-  TEST_node: GainNode
 
   onstop: () => void = () => {}
 
@@ -226,7 +219,7 @@ export class PlayInstance {
     const context = master.audioContext
     const source = context.createBufferSource()
     source.buffer = buffer
-    source.onended = () => this.stop()
+    source.addEventListener('ended', () => this.stop())
     const gain = context.createGain()
     source.connect(gain)
     const destination =
@@ -235,7 +228,7 @@ export class PlayInstance {
       master.destination
     gain.connect(destination)
     this._source = source
-    this._gain = this.TEST_node = gain
+    this._gain = gain
 
     // Start the sound.
     const startTime = !delay ? 0 : Math.max(0, context.currentTime + delay)
@@ -268,9 +261,8 @@ export class PlayInstance {
 
   // Stops the sample and disconnects the underlying Web Audio nodes.
   stop() {
-    if (!this._source) return
-    this._source.stop(0)
-    this._source.disconnect()
+    this._source?.stop(0)
+    this._source?.disconnect()
     this._gain?.disconnect()
     this._source = null
     this._gain = null
@@ -304,7 +296,7 @@ export default SamplingMaster
  *
  * @param {AudioContext} ctx The AudioContext to be unmuted.
  */
-export function unmuteAudio(ctx: AudioContext = defaultAudioContext): void {
+export function unmuteAudio(ctx: BaseAudioContext = defaultAudioContext): void {
   // Perform some strange magic to unmute the audio on iOS devices.
   // This code doesn’t make sense at all, you know.
   const gain = ctx.createGain()
@@ -320,6 +312,8 @@ export function unmuteAudio(ctx: AudioContext = defaultAudioContext): void {
   })
 }
 
-async function resumeContext(ctx: AudioContext): Promise<void> {
-  return await ctx.resume()
+async function resumeContext(ctx: BaseAudioContext): Promise<void> {
+  if (ctx instanceof AudioContext) {
+    await ctx.resume()
+  }
 }

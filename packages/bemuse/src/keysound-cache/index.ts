@@ -1,4 +1,4 @@
-import createKeysoundCache from './createKeysoundCache'
+import createKeysoundCache from './create-keysound-cache'
 
 export interface KeysoundCache {
   receiveSongId(nextSongId: string): void

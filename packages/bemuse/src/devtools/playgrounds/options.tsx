@@ -1,6 +1,8 @@
-import Options from '@bemuse/components/options/Options.js'
-import ModalPopup from '@bemuse/ui/ModalPopup.js'
+import ModalPopup from '@bemuse/components/common/modal-popup.js'
+import Options from '@bemuse/components/options/options.js'
+import configureStore from '@bemuse/redux/configure-store'
 import { sceneRoot } from '@bemuse/utils/main-element.js'
+import { Provider } from 'react-redux'
 
 const noop = () => {}
 
@@ -11,5 +13,10 @@ const OptionsPlayground = () => (
 )
 
 export function main() {
-  sceneRoot.render(<OptionsPlayground />)
+  const store = configureStore()
+  sceneRoot.render(
+    <Provider store={store}>
+      <OptionsPlayground />
+    </Provider>
+  )
 }

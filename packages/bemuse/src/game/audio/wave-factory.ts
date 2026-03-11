@@ -28,7 +28,7 @@ export class WaveFactory {
   }
 
   // Plays a note when hitting in the blank area (unlimited polyphony)
-  playFree(note: SoundedEvent, _delay: number): PlayInstance | null {
+  playFree(note: SoundedEvent): PlayInstance | null {
     return this._play({ note, delay: 0, exclusive: false })
   }
 

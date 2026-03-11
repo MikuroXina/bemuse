@@ -1,0 +1,11 @@
+@use '@bemuse/components/common/common.scss';
+
+.input {
+  @include common.input;
+
+  text-align: center;
+
+  &[data-valid='false'] {
+    color: #8b8685;
+  }
+}

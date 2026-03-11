@@ -1,16 +1,12 @@
-import DataStructure from 'data-structure'
+import * as v from 'valibot'
 
-export const Segment = DataStructure<SpeedSegment>({
-  t: 'number',
-  x: 'number',
-  dx: 'number',
+export const speedSegmentSchema = v.object({
+  t: v.number(),
+  x: v.number(),
+  /** the amount of change in x per t */
+  dx: v.number(),
+  /** whether or not the segment includes the t */
+  inclusive: v.boolean(),
 })
 
-export interface SpeedSegment {
-  t: number
-  x: number
-  /** the amount of change in x per t */
-  dx: number
-  /** whether or not the segment includes the t */
-  inclusive: boolean
-}
+export type SpeedSegment = v.InferOutput<typeof speedSegmentSchema>

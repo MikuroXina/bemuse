@@ -1,4 +1,6 @@
-import { Segment, SpeedSegment } from './segment.js'
+import { parse } from 'valibot'
+
+import { SpeedSegment, speedSegmentSchema } from './segment.js'
 
 /**
  * Speedcore is a small internally-used library.
@@ -71,7 +73,9 @@ export class Speedcore<S extends SpeedSegment = SpeedSegment> {
    * Constructs a new `Speedcore` from given segments.
    */
   constructor(segments: S[]) {
-    segments.forEach(Segment)
+    for (const segment of segments) {
+      parse(speedSegmentSchema, segment)
+    }
     this._segments = segments
   }
 

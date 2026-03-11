@@ -1,0 +1,43 @@
+import { sceneRoot } from '@bemuse/utils/main-element.js'
+import query from '@bemuse/utils/query.js'
+
+import styles from './playground.module.css'
+
+const playgrounds = import.meta.glob('./playgrounds/*.{js,jsx,ts,tsx}')
+console.dir(playgrounds)
+const availablePlaygrounds: Record<string, { main: () => void }> = {}
+for (const [key, playground] of Object.entries(playgrounds)) {
+  const name = key.match(/\w[^.]+/)?.[0]
+  if (name) {
+    availablePlaygrounds[name] = (await playground()) as { main: () => void }
+  }
+}
+
+const DefaultPlayground = () => {
+  return (
+    <div>
+      <h1>Bemuse Playground</h1>
+      <p>Please select a playground</p>
+      <ul>
+        {Object.keys(availablePlaygrounds).map((key) => (
+          <li key={key}>
+            <a
+              className={styles.playgroundLink}
+              href={'?mode=playground&playground=' + key}
+            >
+              {key}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+export function main() {
+  if (availablePlaygrounds[query.playground]) {
+    availablePlaygrounds[query.playground].main()
+  } else {
+    sceneRoot.render(<DefaultPlayground />)
+  }
+}

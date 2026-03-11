@@ -1,5 +1,3 @@
-import './style.scss'
-
 import ctx from '@bemuse/audio-context/index.js'
 import DndResources from '@bemuse/resources/dnd-resources.js'
 import SamplingMaster, { Sample } from '@bemuse/sampling-master/index.js'
@@ -13,6 +11,8 @@ import {
 } from '@mikuroxina/bms'
 import { useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
+
+import styles from './index.module.scss'
 
 interface PlayContext {
   timing: Timing
@@ -46,7 +46,7 @@ function UI() {
 
   return (
     <div
-      className='jukebox'
+      className={styles.jukebox}
       onDragOver={(e) => {
         e.preventDefault()
       }}
@@ -64,16 +64,15 @@ function UI() {
         )
       }}
     >
-      <div className='jukebox--overlay' />
-      <div className='jukebox--inner'>
+      <div className={styles.overlay} />
+      <div className={styles.inner}>
         <h1>BMS Jukebox</h1>
-        <p className='jukebox--status js-log'>{logText}</p>
+        <p className={styles.status}>{logText}</p>
         <p>Google Chrome: Drag a BMS folder into this box.</p>
         <p>
           Firefox, Safari: Select all files (BMS+sounds) and drag into this box.
         </p>
         <button
-          className='js-play'
           onClick={() => {
             if (!playContextRef.current || !samplerRef.current) {
               return
@@ -85,7 +84,7 @@ function UI() {
         >
           Click Here to Play
         </button>
-        <div ref={samplerRef} className='js-sampler jukebox--sampler' />
+        <div ref={samplerRef} className={styles.sampler} />
       </div>
     </div>
   )
@@ -175,7 +174,10 @@ function play(
         const instance = sample.play(0)
         sampler.scrollTop = sampler.scrollHeight
         instance.onstop = function () {
-          sampler.children.item(0)?.classList.add('is-off')
+          const first = sampler.children.item(0)
+          if (first) {
+            ;(first as HTMLElement).dataset['off'] = 'true'
+          }
         }
       },
       timing.beatToSeconds(note.beat) * 1000

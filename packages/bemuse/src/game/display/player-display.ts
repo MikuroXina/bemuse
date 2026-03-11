@@ -8,7 +8,7 @@ import Player, {
 import PlayerState, {
   type JudgementNotification,
 } from '../state/player-state.js'
-import { type Gauge, getGauge } from './Gauge.js'
+import { type Gauge, getGauge } from './gauge.js'
 import NoteArea from './note-area.js'
 import * as touch3d from './touch3d.js'
 

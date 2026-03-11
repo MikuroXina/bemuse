@@ -1,0 +1,156 @@
+import Scene from '@bemuse/components/common/scene.js'
+import SceneHeading from '@bemuse/components/common/scene-heading.js'
+import SceneToolbar from '@bemuse/components/common/scene-toolbar.js'
+import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
+import { SceneManagerContext } from '@bemuse/scene-manager/index.js'
+import { useContext, useRef } from 'react'
+import { useDispatch } from 'react-redux'
+
+import { optionsSlice } from '../entities/options.js'
+import styles from './mode-select-scene.module.scss'
+import MusicSelectScene from './music-select-scene.js'
+
+function KBGraphics() {
+  const children = []
+  for (let i = 0; i < 7; i++) {
+    if (i === 3) {
+      children.push(
+        <rect
+          key={i}
+          x={13 + 3.5}
+          y='31'
+          width='63'
+          height='11'
+          rx='2'
+          ry='2'
+        />
+      )
+    } else {
+      children.push(
+        <rect
+          key={i}
+          x={13 * i + 3.5}
+          y='13'
+          width='11'
+          height='11'
+          rx='2'
+          ry='2'
+        />
+      )
+    }
+  }
+  return (
+    <svg width='96' height='54' viewBox='0 0 96 54' className={styles.graphics}>
+      {children}
+    </svg>
+  )
+}
+
+function BMGraphics() {
+  const children = []
+  for (let i = 0; i < 7; i++) {
+    children.push(
+      <rect
+        key={i}
+        x={6.5 * i + 41.5}
+        y={i % 2 === 0 ? 28 : 12}
+        width='11'
+        height='14'
+        rx='2'
+        ry='2'
+      />
+    )
+  }
+  return (
+    <svg width='96' height='54' viewBox='0 0 96 54' className={styles.graphics}>
+      <circle cx='21' cy='27' r='16' />
+      {children}
+    </svg>
+  )
+}
+
+type PlayDevice = 'touch' | 'keyboard' | null
+
+const ModeSelectScene = () => {
+  const sceneManager = useContext(SceneManagerContext)
+  const dispatch = useDispatch()
+  const playDevice = useRef<PlayDevice>(null)
+
+  const onSetMode = (mode: MappingMode) => {
+    if (
+      playDevice.current === 'touch' &&
+      window.innerWidth >= window.innerHeight &&
+      mode === 'KB'
+    ) {
+      dispatch(optionsSlice.actions.CHANGE_PANEL_PLACEMENT({ placement: '3d' }))
+    } else {
+      dispatch(optionsSlice.actions.CHANGE_PLAY_MODE({ mode }))
+    }
+  }
+
+  const setPlayDevice = (device: PlayDevice) => {
+    if (playDevice.current === device) {
+      return
+    }
+    console.log('Set play device to', device)
+    if (!playDevice.current) {
+      playDevice.current = device
+    }
+  }
+  const handleKB = () => {
+    onSetMode('KB')
+    sceneManager.display(<MusicSelectScene />)
+  }
+  const handleBM = () => {
+    onSetMode('BM')
+    sceneManager.display(<MusicSelectScene />)
+  }
+  const handleBack = () => {
+    sceneManager.pop()
+  }
+
+  return (
+    <Scene className={styles.scene}>
+      <SceneHeading className={styles.heading}>Select Mode</SceneHeading>
+      <div className={styles.main}>
+        <div
+          className={styles.content}
+          onTouchStart={() => setPlayDevice('touch')}
+          onMouseDown={() => setPlayDevice('keyboard')}
+        >
+          <div
+            className={styles.item}
+            onClick={handleKB}
+            data-testid='keyboard-mode'
+          >
+            <KBGraphics />
+            <h2>Keyboard Mode</h2>
+            <p>
+              Keys are arranged like computer keyboard.{' '}
+              <strong>Recommended for new players.</strong>
+            </p>
+            <p>This mode is similar to O2Jam.</p>
+          </div>
+          <div
+            className={styles.item}
+            onClick={handleBM}
+            data-testid='bms-mode'
+          >
+            <BMGraphics />
+            <h2>BMS Mode</h2>
+            <p>
+              Keys are arranged like piano keyboard with a special scratch lane.{' '}
+              <strong>For advanced BMS music gamers.</strong>
+            </p>
+            <p>This mode is similar to beatmaniaIIDX and LR2.</p>
+          </div>
+        </div>
+      </div>
+      <SceneToolbar>
+        <a onClick={handleBack}>Go Back</a>
+      </SceneToolbar>
+    </Scene>
+  )
+}
+
+export default ModeSelectScene

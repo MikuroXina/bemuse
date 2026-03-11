@@ -11,14 +11,22 @@ describe('NotechartLoader', function () {
       const loader = new NotechartLoader()
       const buffer = new TextEncoder().encode(`#TITLE meow`)
 
-      const notechart = await loader.load(buffer, { name: 'wow.bms' }, options)
+      const notechart = await loader.load(
+        buffer.buffer,
+        { name: 'wow.bms' },
+        options
+      )
       expect(notechart.songInfo.title).to.equal('meow')
     })
     it('also reads judge rank', async function () {
       const loader = new NotechartLoader()
       const buffer = new TextEncoder().encode(`#RANK 1`)
 
-      const notechart = await loader.load(buffer, { name: 'wow.bms' }, options)
+      const notechart = await loader.load(
+        buffer.buffer,
+        { name: 'wow.bms' },
+        options
+      )
       expect(notechart.expertJudgmentWindow[0]).to.equal(15)
       expect(notechart.expertJudgmentWindow[1]).to.equal(30)
     })
@@ -26,7 +34,11 @@ describe('NotechartLoader', function () {
       const loader = new NotechartLoader()
       const buffer = new TextEncoder().encode(`#001D2:010203`)
 
-      const notechart = await loader.load(buffer, { name: 'wow.bms' }, options)
+      const notechart = await loader.load(
+        buffer.buffer,
+        { name: 'wow.bms' },
+        options
+      )
       expect(notechart.landmines.length).to.equal(3)
     })
   })
@@ -35,12 +47,12 @@ describe('NotechartLoader', function () {
     it('should be able to read', async function () {
       const loader = new NotechartLoader()
       const data = {
-        info: { title: 'Running Out' },
+        info: { title: 'Running Out', initBPM: 120 },
       }
       const buffer = new TextEncoder().encode(JSON.stringify(data))
 
       const notechart = await loader.load(
-        buffer,
+        buffer.buffer,
         { name: 'wow.bmson' },
         options
       )
@@ -49,12 +61,12 @@ describe('NotechartLoader', function () {
     it('should read the judge_rank of the song', async function () {
       const loader = new NotechartLoader()
       const data = {
-        info: { title: 'Running Out', judge_rank: 200 },
+        info: { title: 'Running Out', initBPM: 120, judge_rank: 200 },
       }
       const buffer = new TextEncoder().encode(JSON.stringify(data))
 
       const notechart = await loader.load(
-        buffer,
+        buffer.buffer,
         { name: 'wow.bmson' },
         options
       )

@@ -2,8 +2,8 @@ import { isQueryFlagEnabled } from '@bemuse/flags/index.js'
 import { createContext } from 'react'
 
 import Online from './index.js'
-import OfflineService from './OfflineService.js'
-import OnlineService from './scoreboard-system/OnlineService.js'
+import OfflineService from './offline-service.js'
+import OnlineService from './scoreboard-system/online-service.js'
 
 let instance: Online
 

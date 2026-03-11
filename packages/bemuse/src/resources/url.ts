@@ -4,13 +4,14 @@ import download from '@bemuse/utils/download.js'
 import type { IResource, IResources } from './types.js'
 
 export class URLResource implements IResource {
-  constructor(private url: string) {}
-  read(progress: Progress) {
+  constructor(private url: URL) {}
+
+  read(progress?: Progress) {
     return download(this.url).as('arraybuffer', progress)
   }
 
   async resolveUrl() {
-    return Promise.resolve(this.url)
+    return Promise.resolve(this.url.href)
   }
 
   get name() {
@@ -25,7 +26,7 @@ export class URLResources implements IResources {
       .split('/')
       .map((part) => encodeURIComponent(part))
       .join('/')
-    const href = new URL(path, this.base).href
+    const href = new URL(path, this.base)
     return new URLResource(href)
   }
 }

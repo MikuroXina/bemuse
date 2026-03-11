@@ -78,11 +78,11 @@
   },
   "dependencies": {
     "chardet": "^2.1.1",
-    "data-structure": "^1.2.0",
     "invariant": "^2.2.4",
     "lodash.assign": "^4.2.0",
     "lodash.map": "^4.6.0",
     "lodash.uniq": "^4.5.0",
-    "lodash.values": "^4.3.0"
+    "lodash.values": "^4.3.0",
+    "valibot": "^1.2.0"
   }
 }

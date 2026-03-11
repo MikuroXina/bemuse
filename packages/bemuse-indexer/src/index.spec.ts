@@ -154,14 +154,14 @@ describe('getFileInfo (bmson)', function () {
 
   describe('.info', function () {
     it('should return song info', async function () {
-      const out = await info({ info: { title: 'Running Out' } })
+      const out = await info({ info: { title: 'Running Out', initBPM: 120 } })
       return expect(out.info.title).to.equal('Running Out')
     })
   })
 
   describe('.bga', function () {
     it('is undefined if no bga', async function () {
-      const out = await info({ info: { title: 'Running Out' } })
+      const out = await info({ info: { title: 'Running Out', initBPM: 120 } })
       return expect(out.bga).to.equal(undefined)
     })
     it('has timing ', async function () {

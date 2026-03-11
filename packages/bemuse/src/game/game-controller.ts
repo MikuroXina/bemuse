@@ -1,4 +1,4 @@
-import * as BemuseTestMode from '@bemuse/debug/BemuseTestMode'
+import * as BemuseTestMode from '@bemuse/debug/bemuse-test-mode'
 import bench from '@bemuse/debug/benchmark'
 
 import type GameAudio from './audio/index.js'

@@ -1,0 +1,80 @@
+import type { Song } from '@bemuse/collection-model/types.js'
+import Markdown from '@bemuse/components/common/markdown.js'
+import YouTube from '@bemuse/components/common/you-tube.js'
+import { memo } from 'react'
+
+import { useReadme } from '../io/readme-io.js'
+import styles from './music-info-tab-information.module.scss'
+
+export interface MusicInfoTabInformationProps {
+  serverUrl: string
+  song: Song
+}
+
+const Buttons = ({ song }: { song: Song }) => {
+  const buttons = []
+  if (song.bms_url) {
+    buttons.push(<Link text='Download BMS' url={song.bms_url} />)
+  }
+  if (song.song_url) {
+    const text = /soundcloud\.com/.test(song.song_url)
+      ? 'SoundCloud'
+      : 'Song URL'
+    buttons.push(<Link text={text} url={song.song_url} />)
+  }
+  if (song.long_url) {
+    buttons.push(<Link text='Long Version' url={song.long_url} />)
+  }
+  if (song.bmssearch_id) {
+    buttons.push(
+      <Link
+        text='BMS Search'
+        url={
+          typeof song.bmssearch_id === 'number' ||
+          String(song.bmssearch_id).match(/^\d{1,6}$/)
+            ? `http://bmssearch.net/bms?id=${song.bmssearch_id}`
+            : `https://bmssearch.net/bmses/${song.bmssearch_id}`
+        }
+      />
+    )
+  }
+  if (buttons.length === 0) {
+    return null
+  } else {
+    return <p className={styles.buttons}>{buttons}</p>
+  }
+}
+
+const Link = ({ text, url }: { text: string; url?: string }) =>
+  url ? (
+    <a key={text} href={url} target='_blank' rel='noreferrer'>
+      {text}
+    </a>
+  ) : (
+    <>{text}</>
+  )
+
+const MusicInfoTabInformation = ({
+  serverUrl,
+  song,
+}: MusicInfoTabInformationProps) => {
+  const readme = useReadme(serverUrl, song)
+
+  return (
+    <div className={styles.tabInfo}>
+      <Buttons song={song} />
+      <p className={styles.artist}>
+        <span>Artist:</span>
+        <strong>
+          <Link text={song.artist} url={song.artist_url} />
+        </strong>
+      </p>
+      {song.youtube_url ? <YouTube url={song.youtube_url} /> : null}
+      <section className={styles.readme}>
+        <Markdown source={readme} />
+      </section>
+    </div>
+  )
+}
+
+export default memo(MusicInfoTabInformation)

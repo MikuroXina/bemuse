@@ -4,16 +4,16 @@
 // We need this file to load as soon as possible, therefore,
 // we minimize the amount of third-party dependencies.
 
-import '../ui/fonts.scss'
-import '../ui/global.scss'
+import '../components/common/fonts.scss'
+import '../components/common/global.scss'
 
 import attachFastClick from 'fastclick'
 import { createRoot } from 'react-dom/client'
 
 import query from '../utils/query.js'
+import Boot from './components/boot.js'
+import ErrorDialog from './components/error-dialog.js'
 import loadModule, { type Module } from './loader.js'
-import Boot from './ui/Boot.js'
-import ErrorDialog from './ui/ErrorDialog.js'
 
 let booted = false
 

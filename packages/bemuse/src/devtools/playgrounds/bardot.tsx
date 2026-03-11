@@ -1,4 +1,4 @@
-import { BarDot } from '@bemuse/previewer/BarDot.js'
+import { BarDot } from '@bemuse/previewer/bar-dot.js'
 import { sceneRoot } from '@bemuse/utils/main-element.js'
 
 export function main() {

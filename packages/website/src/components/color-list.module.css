@@ -11,6 +11,12 @@
   padding: 5px 8px;
   vertical-align: baseline;
 }
+.name:not([data-dark='true']) {
+  color: black;
+}
+.name[data-dark='true'] {
+  color: white;
+}
 
 .colorCode {
   background-color: rgba(27, 31, 35, 0.05);
@@ -19,8 +25,14 @@
   border: 0;
   border-radius: 3px;
   color: inherit;
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono,
-    Courier New, monospace;
+  font-family:
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    Liberation Mono,
+    Courier New,
+    monospace;
   font-size: 85%;
   vertical-align: baseline;
 }

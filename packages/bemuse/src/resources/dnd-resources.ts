@@ -1,4 +1,4 @@
-import { addUnprefixed } from './addUnprefixed.js'
+import { addUnprefixed } from './add-unprefixed.js'
 import {
   ARCHIVE_REGEXP,
   CustomSongResources,

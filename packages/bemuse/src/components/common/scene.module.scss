@@ -1,0 +1,25 @@
+@use '@bemuse/components/common/common.scss';
+
+.scene {
+  @include common.full-screen;
+
+  overflow: hidden;
+  font-family: common.$ui-font;
+
+  & > .heading {
+    position: absolute;
+    top: 20px;
+    right: 0;
+    left: 0;
+
+    @media (min-width: 720px) {
+      top: 2rem;
+    }
+  }
+  & > .toolbar {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}

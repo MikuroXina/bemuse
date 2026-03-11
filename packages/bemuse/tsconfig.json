@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["src/**/*", "types/**/*"],
+  "include": ["src/**/*", "types/**/*", "gulpfile.ts"],
   "exclude": ["node_modules", "website/node_modules"],
   "compilerOptions": {
     "target": "ESNext",

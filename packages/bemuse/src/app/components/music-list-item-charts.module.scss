@@ -1,0 +1,14 @@
+@use '@bemuse/components/common/common.scss';
+
+.charts {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  margin-top: -0.2rem;
+  flex-wrap: wrap;
+  & > * {
+    margin-left: 0.2rem;
+    margin-top: 0.2rem;
+    flex: none;
+  }
+}

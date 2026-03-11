@@ -1,10 +1,10 @@
 import { queryClient } from '@bemuse/react-query/index.js'
 import type { ScoreCount } from '@bemuse/rules/accuracy.js'
 
-import { BatchedFetcher } from './BatchedFetcher.js'
+import { BatchedFetcher } from './batched-fetcher.js'
 import type { RecordLevel } from './level.js'
 import type { Operation } from './operations.js'
-import { rootQueryKey } from './queryKeys.js'
+import { rootQueryKey } from './query-keys.js'
 
 export interface SignUpInfo {
   username: string

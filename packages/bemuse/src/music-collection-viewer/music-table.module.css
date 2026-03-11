@@ -1,0 +1,28 @@
+.warning {
+  font-family: 'Ubuntu Mono', monospace;
+  margin-right: 2px;
+  padding: 3px;
+  font-size: 0.8em;
+  background-color: #755;
+}
+
+.songId {
+  font-family: 'Ubuntu Mono', monospace;
+}
+
+.songInfo {
+  text-align: center;
+  background-color: #353433;
+}
+
+.table {
+  border-spacing: 4px;
+}
+
+.subLabel {
+  color: #8b8685;
+}
+
+.message {
+  text-align: center;
+}

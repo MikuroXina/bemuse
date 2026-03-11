@@ -19,7 +19,7 @@ import {
   getLeaderboardQueryKey,
   getPersonalRankingEntryQueryKey,
   getPersonalRecordQueryKey,
-} from './queryKeys.js'
+} from './query-keys.js'
 
 export function useCurrentUser() {
   const online = useContext(OnlineContext)

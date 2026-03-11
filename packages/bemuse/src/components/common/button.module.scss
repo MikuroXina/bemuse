@@ -1,0 +1,5 @@
+@use '@bemuse/components/common/common.scss';
+
+.button {
+  @include common.button;
+}

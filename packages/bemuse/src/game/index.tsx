@@ -1,6 +1,6 @@
-import { isScratchPosition } from '@bemuse/app/entities/Options.js'
+import { isScratchPosition } from '@bemuse/app/entities/options.js'
 import audioContext from '@bemuse/audio-context/index.js'
-import configureStore from '@bemuse/redux/configureStore.js'
+import configureStore from '@bemuse/redux/configure-store.js'
 import BemusePackageResources from '@bemuse/resources/bemuse-package.js'
 import type { IResource } from '@bemuse/resources/types.js'
 import URLResource from '@bemuse/resources/url.js'
@@ -12,10 +12,12 @@ import {
 import query from '@bemuse/utils/query.js'
 import { Provider } from 'react-redux'
 
+import GameShellScene, {
+  type OptionsDraft,
+} from './components/game-shell-scene.js'
+import LoadingScene from './components/loading-scene.js'
 import GameScene from './game-scene.js'
 import type { LoadSpec } from './loaders/load-spec.js'
-import GameShellScene, { type OptionsDraft } from './ui/GameShellScene.js'
-import LoadingScene from './ui/LoadingScene.js'
 
 const sceneManager = new SceneManager(({ children }) => (
   <SceneManagerContext.Provider value={sceneManager}>
@@ -47,7 +49,10 @@ export async function main() {
   const getSong = async function (): Promise<LoadSpec> {
     const kbm = (query.keyboard || '').split(',')
     const options: OptionsDraft = {
-      url: query.bms || '/music/[snack]dddd/dddd_sph.bme',
+      url: new URL(
+        query.bms || '/music/[snack]dddd/dddd_sph.bme',
+        location.href
+      ),
       game: {
         audioInputLatency: +query.latency || 0,
       },

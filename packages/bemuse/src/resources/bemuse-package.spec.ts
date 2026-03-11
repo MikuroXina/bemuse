@@ -1,5 +1,4 @@
-import assert from 'assert'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { assert, beforeEach, describe, expect, it } from 'vitest'
 
 import BemusePackageResources from './bemuse-package.js'
 

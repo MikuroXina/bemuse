@@ -1,4 +1,4 @@
-import GenericErrorScene from '@bemuse/components/GenericErrorScene.js'
+import GenericErrorScene from '@bemuse/components/generic-error-scene.js'
 import { sceneRoot } from '@bemuse/utils/main-element.js'
 
 const ErrorScene = () => (

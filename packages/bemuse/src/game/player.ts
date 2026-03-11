@@ -26,7 +26,7 @@ type PlayerOptionsInputMapping = {
   sensitivity?: number
 }
 
-type PlayerOptionsInternal = {
+export type PlayerOptionsInternal = {
   autoplayEnabled: boolean
   autosound: boolean
   speed: number

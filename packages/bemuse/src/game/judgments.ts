@@ -55,7 +55,7 @@ const ABSOLUTE_BEGINNER_TIMEGATES: Timegates = [
 // #endregion
 
 export interface IJudge {
-  getTimegates(gameTime: number | null, noteTime: number | null): Timegates
+  getTimegates(gameTime?: number | null, noteTime?: number | null): Timegates
 }
 
 class FixedTimegatesJudge implements IJudge {
@@ -132,7 +132,7 @@ export function judgeTimeWith(f: (timegate: Timegate) => number) {
 export const judgeTime = judgeTimeWith((t) => t.timegate)
 export const judgeEndTime = judgeTimeWith((t) => t.endTimegate)
 
-export function timegate(judgment: Judgment, judge = NORMAL_JUDGE) {
+export function timegate(judgment: Judgment, judge: IJudge = NORMAL_JUDGE) {
   return judge.getTimegates().find((timegate) => timegate.value === judgment)!
     .timegate
 }

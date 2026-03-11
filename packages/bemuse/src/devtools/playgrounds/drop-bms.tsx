@@ -1,4 +1,4 @@
-import CustomBMS from '@bemuse/components/CustomBMS.js'
+import CustomBMS from '@bemuse/components/custom-bms.js'
 import { sceneRoot } from '@bemuse/utils/main-element.js'
 
 const DropBMSScene = () => (
