@@ -183,6 +183,7 @@ class GameDisplay {
   }) {
     const wrapper = document.createElement('div')
     wrapper.className = styles.gameDisplay
+    wrapper.dataset['testid'] = 'game-display'
     wrapper.setAttribute('data-panel-placement', panelPlacement)
     wrapper.setAttribute('data-info-panel-position', infoPanelPosition)
 

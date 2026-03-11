@@ -11,7 +11,9 @@ test('Gameplay smoke test', async ({ page }, testInfo) => {
     await page.getByTestId('keyboard-mode').click()
     await takeScreenshot(page, testInfo, 'Song selection')
     await page.getByTestId('play-selected-chart').click()
-    await expect(page.locator('.game-display canvas')).toBeVisible()
+    await expect(
+      page.locator('[data-testid="game-display"] canvas')
+    ).toBeVisible()
   })
 
   await test.step('Play through the game', async () => {
