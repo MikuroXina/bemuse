@@ -1,0 +1,186 @@
+openapi: 3.1.0
+
+info:
+  title: Auth API
+  version: 1.0.0
+  license:
+    name: Apache 2.0
+    identifier: Apache-2.0
+
+servers:
+  - url: https://bemuse-scoreboard.mikuroxina.workers.dev/api/auth
+    description: Production env
+  - url: https://staging.bemuse-scoreboard.mikuroxina.workers.dev/api/auth
+    description: Staging env
+
+components:
+  securitySchemes:
+    AccessTokenAuth:
+      type: http
+      scheme: bearer
+    RefreshTokenAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    UserInfo:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The identifier of user.
+          examples:
+            - '969186e5-3e25-4fb0-b42a-a82183025b60'
+        name:
+          type: string
+          description: The display name of user.
+          examples:
+            - Mikuroさいな
+
+paths:
+  /sign_up:
+    get:
+      summary:
+        Redirects to the Auth0.js authorization page to register a new user or
+        log in as an existing user.
+      operationId: signUp
+      security: []
+      parameters:
+        - name: state
+          in: query
+          schema:
+            type: string
+          required: true
+          description:
+            The state string kept during the sign up scheme for preventing from
+            CSRF attacks. It should be specified bytes generated from the
+            cryptographic random generator.
+      responses:
+        '302':
+          description:
+            Redirected to the external page with some query parameters.
+        '400':
+          description: The parameter state not specified.
+        default:
+          description: Unexpected errors.
+  /sign_up/callback:
+    post:
+      summary:
+        Completes the user registration with an authorize token. If the user is
+        already registered, this behaves as logging in. This endpoint is
+        registered as the callback on Auth0.js.
+      operationId: signUpCallback
+      security: []
+      parameters:
+        - name: code
+          in: query
+          description: OAuth 2.0 authorization code.
+          schema:
+            type: string
+          required: true
+        - name: state
+          in: query
+          description:
+            The state string that you passed to `/sign_up`. You MUST check
+            whether the state is kept for preventing the scheme from CSRF
+            attacks.
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description:
+            The user registration succeed. And returns the tokens available on
+            other APIs.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user_id:
+                    type: string
+                    description: Your identifier.
+                  access_token:
+                    type: string
+                    description:
+                      A Bearer token which you can use on other APIs of this
+                      service to authorize.
+                  refresh_token:
+                    type: string
+                    description:
+                      A Bearer token which you can pass to `/refresh` when the
+                      access token has expired.
+        '400':
+          description: Bad parameters.
+        '403':
+          description: The authorization code is expired.
+  /refresh:
+    post:
+      summary: Gets the new access token with a refresh token.
+      operationId: refresh
+      security:
+        - RefreshTokenAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refresh_token:
+                  type: string
+                  description:
+                    The refresh token returned from `/sign_up/callback`.
+                required: true
+      responses:
+        '200':
+          description: Succeed to regenerate a new access token.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                    description: A new access token.
+                  refresh_token:
+                    type: string
+                    description: A new refresh token.
+        '400':
+          description: Bad parameters.
+        '401':
+          description: The refresh token is not provided.
+        '403':
+          description: The refresh token is expired.
+  /users/{user_id}:
+    post:
+      summary: Updates the user information.
+      operationId: updateUser
+      security:
+        - AccessTokenAuth: []
+      parameters:
+        - name: user_id
+          in: path
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+      responses:
+        '200':
+          description:
+            Succeed to update your user information. And returns the current
+            information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInfo'
+        '400':
+          description: Bad parameters.
+        '404':
+          description: The user of the specified id not found.

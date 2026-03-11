@@ -6,10 +6,10 @@ apis:
     root: ./openapi/scoreboard.yaml
     x-openapi-ts:
       output: ./openapi/scoreboard.ts
-  accounts@v1:
-    root: ./openapi/accounts.yaml
+  auth@v1:
+    root: ./openapi/auth.yaml
     x-openapi-ts:
-      output: ./openapi/accounts.ts
+      output: ./openapi/auth.ts
   moderation@v1:
     root: ./openapi/moderation.yaml
     x-openapi-ts:
