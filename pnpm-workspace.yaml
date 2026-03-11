@@ -15,3 +15,5 @@ ignoredBuiltDependencies:
 onlyBuiltDependencies:
   - esbuild
   - puppeteer
+  - sharp
+  - workerd
