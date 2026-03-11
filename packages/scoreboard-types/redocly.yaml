@@ -5,12 +5,12 @@ apis:
   scoreboard@v1:
     root: ./openapi/scoreboard.yaml
     x-openapi-ts:
-      output: ./openapi/scoreboard.ts
+      output: ./src/scoreboard.ts
   auth@v1:
     root: ./openapi/auth.yaml
     x-openapi-ts:
-      output: ./openapi/auth.ts
+      output: ./src/auth.ts
   moderation@v1:
     root: ./openapi/moderation.yaml
     x-openapi-ts:
-      output: ./openapi/moderation.ts
+      output: ./src/moderation.ts
