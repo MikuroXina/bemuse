@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "main": "./src/index.ts",
+  "main": "./dist/index.js",
   "scripts": {
-    "build": "openapi-typescript",
-    "check": "tsc --noEmit .",
+    "build": "openapi-typescript && tsc",
+    "check": "tsc --noEmit",
     "lint": "eslint ."
   },
   "author": "MikuroXina <mikuroxina@gmail.com>",
