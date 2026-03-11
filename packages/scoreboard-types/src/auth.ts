@@ -81,7 +81,7 @@ export interface components {
              * @description The identifier of user.
              * @example 969186e5-3e25-4fb0-b42a-a82183025b60
              */
-            id?: string;
+            id: string;
             /**
              * @description The display name of user.
              * @example Mikuroさいな
@@ -92,7 +92,7 @@ export interface components {
              * @description The registered date of user.
              * @example 2022-12-31T23:59:59.999Z
              */
-            created_at?: string;
+            created_at: string;
             /**
              * @description The user is frozen about submitting the new scores.
              * @default false
