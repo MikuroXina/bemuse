@@ -1,0 +1,139 @@
+openapi: 3.1.0
+
+info:
+  title: Moderation API
+  version: 1.0.0
+  license:
+    name: Apache 2.0
+    identifier: Apache-2.0
+
+servers:
+  - url: https://bemuse-scoreboard.mikuroxina.workers.dev/api/moderation
+    description: Production env
+  - url: https://staging.bemuse-scoreboard.mikuroxina.workers.dev/api/moderation
+    description: Staging env
+
+components:
+  securitySchemes:
+    TokenAuth:
+      type: http
+      scheme: bearer
+
+paths:
+  /users:
+    get:
+      summary: Lists all registered users.
+      operationId: listUsers
+      security:
+        - TokenAuth: []
+      parameters:
+        - name: since
+          in: query
+          schema:
+            type: string
+            format: date-time
+          description: Filters the users registered since.
+        - name: until
+          in: query
+          schema:
+            type: string
+            format: date-time
+          description: Filters the users registered until.
+        - name: name
+          in: query
+          schema:
+            type: string
+          description: Filters the users who the name matching to.
+      responses:
+        '200':
+          description:
+            Returns the users matching conditions built from query parameters.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: './auth.yaml#/components/schemas/UserInfo'
+                    maxItems: 100
+        '400':
+          description: Bad parameters.
+        '401':
+          description: Expected to authorize as a moderator.
+  /users/{user_id}:
+    get:
+      summary:
+        Checks the user information and its play history for investigation.
+      operationId: inspectUser
+      security:
+        - TokenAuth: []
+      parameters:
+        - name: user_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Returns the user information and its play history.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  info:
+                    $ref: './auth.yaml#/components/schemas/UserInfo'
+                  plays:
+                    type: array
+                    items:
+                      $ref: './scoreboard.yaml#/components/schemas/ScoreboardEntry'
+        '401':
+          description: Expected to authorize as a moderator.
+        '404':
+          description: The user not found.
+  /users/{user_id}/freeze:
+    post:
+      summary:
+        Freezes the user. It disallows the user submitting the new scores until
+        the moderator unfreezes it.
+      operationId: freezeUser
+      security:
+        - TokenAuth: []
+      parameters:
+        - name: user_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: The moderation succeed.
+        '400':
+          description: Bad parameters.
+        '401':
+          description: Expected to authorize as a moderator.
+        '404':
+          description: The user not found.
+  /users/{user_id}/unfreeze:
+    post:
+      summary: Unfreezes the user. It allows the user submitting the new scores.
+      operationId: unfreezeUser
+      security:
+        - TokenAuth: []
+      parameters:
+        - name: user_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: The moderation succeed.
+        '400':
+          description: Bad parameters.
+        '401':
+          description: Expected to authorize as a moderator.
+        '404':
+          description: The user not found.

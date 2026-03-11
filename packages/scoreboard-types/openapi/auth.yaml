@@ -35,6 +35,16 @@ components:
           description: The display name of user.
           examples:
             - Mikuroさいな
+        created_at:
+          type: string
+          format: date-time
+          description: The registered date of user.
+          examples:
+            - 2022-12-31T23:59:59.999Z
+        is_frozen:
+          type: boolean
+          default: false
+          description: The user is frozen about submitting the new scores.
 
 paths:
   /sign_up:
