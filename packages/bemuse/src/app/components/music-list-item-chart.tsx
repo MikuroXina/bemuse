@@ -31,6 +31,7 @@ const MusicListItemChart = ({
     <div
       className={styles.container}
       onClick={handleClick}
+      data-testid='music-list-item-chart'
       data-md5={chart.md5}
       data-played={played}
       data-selected={selected}

@@ -71,7 +71,7 @@ test('Keeps highest score', async ({ page }) => {
 test('Clears data when switching user', async ({ page }) => {
   await page.goto('/?flags=fake-scoreboard,skip-to-music-select')
   const chart = page.locator(
-    '.MusicListItemChart[data-md5="fb3dab834591381a5b8188bc2dc9c4b7"]'
+    '[data-testid="music-list-item-chart"][data-md5="fb3dab834591381a5b8188bc2dc9c4b7"]'
   )
   await chart.click()
   await expect(chart).not.toHaveAttribute('data-played', 'true')
