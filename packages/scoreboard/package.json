@@ -6,18 +6,34 @@
   "scripts": {
     "lint": "eslint .",
     "check": "tsc --noEmit",
-    "dev": "wrangler dev",
-    "deploy": "wrangler deploy"
+    "dev": "wireit",
+    "deploy": "wireit"
+  },
+  "wireit": {
+    "dev": {
+      "command": "wrangler dev",
+      "dependencies": [
+        "../scoreboard-types:build"
+      ]
+    },
+    "deploy": {
+      "command": "wrangler deploy",
+      "dependencies": [
+        "../scoreboard-types:build"
+      ]
+    }
   },
   "author": "MikuroXina <mikuroxina@gmail.com>",
   "license": "Apache-2.0",
   "packageManager": "pnpm@10.30.2",
   "devDependencies": {
     "@mikuroxina/eslint-config-bemuse": "workspace:*",
+    "@mikuroxina/scoreboard-types": "workspace:*",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "eslint": "^9.0.0",
     "typescript": "^5.9.3",
+    "wireit": "^0.14.12",
     "wrangler": "^4.72.0"
   },
   "dependencies": {
