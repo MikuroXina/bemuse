@@ -24,6 +24,9 @@ components:
   schemas:
     UserInfo:
       type: object
+      required:
+        - id
+        - created_at
       properties:
         id:
           type: string
