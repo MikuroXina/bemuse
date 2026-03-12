@@ -203,7 +203,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    "text/plain": "Bad Request";
                 };
             };
         };
@@ -239,7 +239,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    "text/plain": "Bad Request";
                 };
             };
             /** @description No authorization provided. */
@@ -248,7 +248,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    "text/plain": "Unauthorized";
                 };
             };
         };
@@ -281,7 +281,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    "text/plain": "Not Found";
                 };
             };
         };

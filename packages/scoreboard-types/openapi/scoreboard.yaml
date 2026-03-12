@@ -202,8 +202,7 @@ paths:
           content:
             text/plain:
               schema:
-                type: string
-                example: Bad Request
+                const: Bad Request
     post:
       summary:
         'Submits the high score of the score on the leader board and the play
@@ -241,15 +240,13 @@ paths:
           content:
             text/plain:
               schema:
-                type: string
-                example: Bad Request
+                const: Bad Request
         '401':
           description: No authorization provided.
           content:
             text/plain:
               schema:
-                type: string
-                example: Unauthorized
+                const: Unauthorized
   /{chart_md5}/{play_mode}/{user_id}:
     get:
       summary: Retrieves the play stats detail of the user.
@@ -283,5 +280,4 @@ paths:
           content:
             text/plain:
               schema:
-                type: string
-                example: Not Found
+                const: Not Found

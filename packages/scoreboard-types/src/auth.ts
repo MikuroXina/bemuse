@@ -123,6 +123,9 @@ export interface operations {
             /** @description Redirected to the external page with some query parameters. */
             302: {
                 headers: {
+                    Location?: {
+                        "text/plain": string;
+                    };
                     [name: string]: unknown;
                 };
                 content?: never;
@@ -133,7 +136,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    "text/plain": "Bad Request";
                 };
             };
             /** @description Unexpected errors. */
@@ -183,7 +186,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    "text/plain": "Bad Request";
                 };
             };
             /** @description The authorization code is expired. */
@@ -192,7 +195,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    "text/plain": "Forbidden";
                 };
             };
         };
@@ -234,7 +237,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    "text/plain": "Bad Request";
                 };
             };
             /** @description The refresh token is not provided. */
@@ -243,7 +246,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    "text/plain": "Unauthorized";
                 };
             };
             /** @description The refresh token is expired. */
@@ -252,7 +255,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    "text/plain": "Forbidden";
                 };
             };
         };
@@ -289,7 +292,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    "text/plain": "Bad Request";
                 };
             };
             /** @description The user of the specified id not found. */
@@ -298,7 +301,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    "text/plain": "Not Found";
                 };
             };
         };

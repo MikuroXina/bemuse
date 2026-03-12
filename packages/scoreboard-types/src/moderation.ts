@@ -228,7 +228,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    "text/plain": "Bad Request";
                 };
             };
             /** @description Expected to authorize as a moderator. */
@@ -237,7 +237,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    "text/plain": "Unauthorized";
                 };
             };
         };
@@ -271,7 +271,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    "text/plain": "Unauthorized";
                 };
             };
             /** @description The user not found. */
@@ -280,7 +280,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    "text/plain": "Not Found";
                 };
             };
         };
@@ -302,7 +302,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    "text/plain": "OK";
                 };
             };
             /** @description Bad parameters. */
@@ -311,7 +311,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    "text/plain": "Bad Request";
                 };
             };
             /** @description Expected to authorize as a moderator. */
@@ -320,7 +320,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    "text/plain": "Unauthorized";
                 };
             };
             /** @description The user not found. */
@@ -329,7 +329,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    "text/plain": "Not Found";
                 };
             };
         };
@@ -351,7 +351,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    "text/plain": "OK";
                 };
             };
             /** @description Bad parameters. */
@@ -360,7 +360,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    "text/plain": "Bad Request";
                 };
             };
             /** @description Expected to authorize as a moderator. */
@@ -369,7 +369,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    "text/plain": "Unauthorized";
                 };
             };
             /** @description The user not found. */
@@ -378,7 +378,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "text/plain": string;
+                    "text/plain": "Not Found";
                 };
             };
         };
