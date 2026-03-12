@@ -60,8 +60,18 @@ paths:
                     maxItems: 100
         '400':
           description: Bad parameters.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Bad Request
         '401':
           description: Expected to authorize as a moderator.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Unauthorized
   /users/{user_id}:
     get:
       summary:
@@ -91,8 +101,18 @@ paths:
                       $ref: './scoreboard.yaml#/components/schemas/ScoreboardEntry'
         '401':
           description: Expected to authorize as a moderator.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Unauthorized
         '404':
           description: The user not found.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Not Found
   /users/{user_id}/freeze:
     post:
       summary:
@@ -110,12 +130,32 @@ paths:
       responses:
         '200':
           description: The moderation succeed.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: OK
         '400':
           description: Bad parameters.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Bad Request
         '401':
           description: Expected to authorize as a moderator.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Unauthorized
         '404':
           description: The user not found.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Not Found
   /users/{user_id}/unfreeze:
     post:
       summary: Unfreezes the user. It allows the user submitting the new scores.
@@ -131,9 +171,29 @@ paths:
       responses:
         '200':
           description: The moderation succeed.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: OK
         '400':
           description: Bad parameters.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Bad Request
         '401':
           description: Expected to authorize as a moderator.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Unauthorized
         '404':
           description: The user not found.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Not Found

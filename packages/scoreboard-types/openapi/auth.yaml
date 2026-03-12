@@ -73,8 +73,17 @@ paths:
             Redirected to the external page with some query parameters.
         '400':
           description: The parameter state not specified.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Bad Request
         default:
           description: Unexpected errors.
+          content:
+            text/plain:
+              schema:
+                type: string
   /sign_up/callback:
     post:
       summary:
@@ -124,8 +133,18 @@ paths:
                       access token has expired.
         '400':
           description: Bad parameters.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Bad Request
         '403':
           description: The authorization code is expired.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Forbidden
   /refresh:
     post:
       summary: Gets the new access token with a refresh token.
@@ -159,10 +178,25 @@ paths:
                     description: A new refresh token.
         '400':
           description: Bad parameters.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Bad Request
         '401':
           description: The refresh token is not provided.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Unauthorized
         '403':
           description: The refresh token is expired.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Forbidden
   /users/{user_id}:
     post:
       summary: Updates the user information.
@@ -195,5 +229,15 @@ paths:
                 $ref: '#/components/schemas/UserInfo'
         '400':
           description: Bad parameters.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Bad Request
         '404':
           description: The user of the specified id not found.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Not Found
