@@ -47,7 +47,7 @@ components:
         is_frozen:
           type: boolean
           default: false
-          description: The user is frozen about submitting the new scores.
+          description: The user is frozen about submitting new scores.
 
 paths:
   /sign_up:
@@ -156,17 +156,6 @@ paths:
       operationId: refresh
       security:
         - RefreshTokenAuth: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                refresh_token:
-                  type: string
-                  description:
-                    The refresh token returned from `/sign_up/callback`.
-                required: true
       responses:
         '200':
           description: Succeed to regenerate a new access token.

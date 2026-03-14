@@ -5,7 +5,7 @@
   "type": "module",
   "main": "./dist/index.js",
   "scripts": {
-    "build": "openapi-typescript && tsc",
+    "build": "tsc",
     "check": "tsc --noEmit",
     "lint": "eslint ."
   },
@@ -18,7 +18,9 @@
   "devDependencies": {
     "@mikuroxina/eslint-config-bemuse": "workspace:*",
     "eslint": "^10.0.3",
-    "openapi-typescript": "^7.13.0",
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "valibot": "^1.2.0"
   }
 }
