@@ -1,4 +1,4 @@
-import { auth, requiresAuth } from '@auth0/auth0-hono'
+import { requiresAuth } from '@auth0/auth0-hono'
 import { sValidator } from '@hono/standard-validator'
 import { Auth } from '@mikuroxina/scoreboard-types'
 import { ManagementClient } from 'auth0'
@@ -9,18 +9,6 @@ import { parse } from 'valibot'
 import type { Env } from './env'
 
 export const router = new Hono()
-
-router.use((c, next) => {
-  const { AUTH0_CLIENT_ID, AUTH0_DOMAIN, AUTH0_CLIENT_SECRET, BASE_URL } =
-    env<Env>(c)
-  return auth({
-    domain: AUTH0_DOMAIN,
-    clientID: AUTH0_CLIENT_ID,
-    clientSecret: AUTH0_CLIENT_SECRET,
-    baseURL: BASE_URL,
-    authRequired: false,
-  })(c, next)
-})
 
 router.use('/users/:user_id', requiresAuth())
 router.post(

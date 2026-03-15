@@ -1,25 +1,12 @@
-import { auth, type OIDCEnv, requiresAuth } from '@auth0/auth0-hono'
+import { type OIDCEnv, requiresAuth } from '@auth0/auth0-hono'
 import { sValidator } from '@hono/standard-validator'
 import { Scoreboard } from '@mikuroxina/scoreboard-types'
 import { type Context, Hono } from 'hono'
-import { env } from 'hono/adapter'
 import { type InferInput, type InferOutput, parse } from 'valibot'
 
-import type { Bindings, Env } from './env'
+import type { Bindings } from './env'
 
 export const router = new Hono<{ Bindings: Bindings }>()
-
-router.use((c, next) => {
-  const { AUTH0_CLIENT_ID, AUTH0_DOMAIN, AUTH0_CLIENT_SECRET, BASE_URL } =
-    env<Env>(c)
-  return auth({
-    domain: AUTH0_DOMAIN,
-    clientID: AUTH0_CLIENT_ID,
-    clientSecret: AUTH0_CLIENT_SECRET,
-    baseURL: BASE_URL,
-    authRequired: false,
-  })(c, next)
-})
 
 router.get('/:chart_id/:play_mode', async (c) => {
   const { chart_id, play_mode } = c.req.param()
