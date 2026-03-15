@@ -6,3 +6,8 @@ main = "src/main.ts"
 AUTH0_AUDIENCE = "https://bemuse-scoreboard.mikuroxina.workers.dev/"
 AUTH0_DOMAIN = "https://mikuroxina.jp.auth0.com/"
 AUTH0_CLIENT_ID = "08G3QzJ8z1rh6pElmVzbEl98j7yXI9ab"
+
+[[d1_databases]]
+binding = "score"
+database_name = "score"
+database_id = "43f545a9-cf4c-4e52-9a0f-c81155c2cff0"

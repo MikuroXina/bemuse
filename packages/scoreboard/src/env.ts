@@ -5,3 +5,7 @@ export type Env = {
   AUTH0_DOMAIN: string
   BASE_URL: string
 }
+
+export type Bindings = {
+  score: D1Database
+}
