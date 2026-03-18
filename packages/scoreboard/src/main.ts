@@ -1,11 +1,14 @@
 import { auth } from '@auth0/auth0-hono'
 import { Hono } from 'hono'
 import { env } from 'hono/adapter'
+import { createElement } from 'react'
+import { renderToReadableStream } from 'react-dom/server'
 
 import { router as authRouter } from './auth'
 import type { Env } from './env'
 import { router as moderationRouter } from './moderation'
 import { router as scoreboardRouter } from './scoreboard'
+import { View } from './view'
 
 const app = new Hono()
 
@@ -24,5 +27,21 @@ app.use((c, next) => {
 app.route('/api/v1/auth', authRouter)
 app.route('/api/v1/moderation', moderationRouter)
 app.route('/api/v1/scoreboard', scoreboardRouter)
+
+app.get('/moderation', async (c) => {
+  const { AUTH0_AUDIENCE, AUTH0_CLIENT_ID, AUTH0_DOMAIN } = env<Env>(c)
+  const stream = await renderToReadableStream(
+    createElement(View, {
+      auth0Audience: AUTH0_AUDIENCE,
+      auth0ClientId: AUTH0_CLIENT_ID,
+      auth0Domain: AUTH0_DOMAIN,
+    })
+  )
+  return new Response(stream, {
+    headers: {
+      'Content-Type': 'text/html',
+    },
+  })
+})
 
 export default app
