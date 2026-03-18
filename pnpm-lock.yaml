@@ -698,21 +698,36 @@ importers:
         specifier: ^1.2.0
         version: 1.2.0(typescript@5.9.3)
     devDependencies:
+      '@hono/vite-cloudflare-pages':
+        specifier: ^0.4.3
+        version: 0.4.3(hono@4.12.7)
+      '@hono/vite-dev-server':
+        specifier: ^0.25.1
+        version: 0.25.1(hono@4.12.7)(miniflare@4.20260310.0)(wrangler@4.72.0)
       '@mikuroxina/eslint-config-bemuse':
         specifier: workspace:*
         version: link:../eslint-config-bemuse
+      '@types/node':
+        specifier: ^24.11.0
+        version: 24.11.0
       '@types/react':
         specifier: ^19.2.14
         version: 19.2.14
       '@types/react-dom':
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.14)
+      '@vitejs/plugin-react':
+        specifier: ^5.1.4
+        version: 5.1.4(vite@7.3.1(@types/node@24.11.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.0)(yaml@2.8.2))
       eslint:
         specifier: ^9.0.0
         version: 9.39.3(jiti@1.21.7)
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
+      vite:
+        specifier: ^7.3.1
+        version: 7.3.1(@types/node@24.11.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.0)(yaml@2.8.2)
       wrangler:
         specifier: ^4.72.0
         version: 4.72.0
@@ -2594,6 +2609,12 @@ packages:
   '@hapi/topo@5.1.0':
     resolution: {integrity: sha512-foQZKJig7Ob0BMAYBfcJk8d77QtOe7Wo4ox7ff1lQYoNNAb6jwcY1ncdoy2e9wQZzvNy7ODZCYJkK8kzmcAnAg==}
 
+  '@hono/node-server@1.19.11':
+    resolution: {integrity: sha512-dr8/3zEaB+p0D2n/IUrlPF1HZm586qgJNXK1a9fhg/PzdtkK7Ksd5l312tJX2yBuALqDYBlG20QEbayqPyxn+g==}
+    engines: {node: '>=18.14.1'}
+    peerDependencies:
+      hono: ^4
+
   '@hono/standard-validator@0.2.2':
     resolution: {integrity: sha512-mJ7W84Bt/rSvoIl63Ynew+UZOHAzzRAoAXb3JaWuxAkM/Lzg+ZHTCUiz77KOtn2e623WNN8LkD57Dk0szqUrIw==}
     peerDependencies:
@@ -2605,6 +2626,25 @@ packages:
     peerDependencies:
       hono: '>=3.9.0'
       valibot: ^1.0.0 || ^1.0.0-beta.4 || ^1.0.0-rc
+
+  '@hono/vite-cloudflare-pages@0.4.3':
+    resolution: {integrity: sha512-MrMsH/EGHQI3KG5CAI7GMrwyTgiXbpY+uo3uBBdOUONHLsn8Z+Wt4y+A4T0eMEzvo6xc+uFh+graZMbT1RjU3A==}
+    engines: {node: '>=18.14.1'}
+    peerDependencies:
+      hono: '*'
+
+  '@hono/vite-dev-server@0.25.1':
+    resolution: {integrity: sha512-H6EqoPtCV+uH1fu8nKyRy5Wh3LU012QxloEYMlUcyMjjEfVFiRXPjHx/0TQiiRi140Vu8San5A4XQWyElKFKaw==}
+    engines: {node: '>=18.14.1'}
+    peerDependencies:
+      hono: '*'
+      miniflare: '*'
+      wrangler: '*'
+    peerDependenciesMeta:
+      miniflare:
+        optional: true
+      wrangler:
+        optional: true
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -14359,6 +14399,10 @@ snapshots:
     dependencies:
       '@hapi/hoek': 9.3.0
 
+  '@hono/node-server@1.19.11(hono@4.12.7)':
+    dependencies:
+      hono: 4.12.7
+
   '@hono/standard-validator@0.2.2(@standard-schema/spec@1.1.0)(hono@4.12.7)':
     dependencies:
       '@standard-schema/spec': 1.1.0
@@ -14368,6 +14412,19 @@ snapshots:
     dependencies:
       hono: 4.12.7
       valibot: 1.2.0(typescript@5.9.3)
+
+  '@hono/vite-cloudflare-pages@0.4.3(hono@4.12.7)':
+    dependencies:
+      hono: 4.12.7
+
+  '@hono/vite-dev-server@0.25.1(hono@4.12.7)(miniflare@4.20260310.0)(wrangler@4.72.0)':
+    dependencies:
+      '@hono/node-server': 1.19.11(hono@4.12.7)
+      hono: 4.12.7
+      minimatch: 9.0.9
+    optionalDependencies:
+      miniflare: 4.20260310.0
+      wrangler: 4.72.0
 
   '@humanfs/core@0.19.1': {}
 

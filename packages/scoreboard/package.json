@@ -7,19 +7,22 @@
     "lint": "eslint .",
     "check": "tsc --noEmit",
     "dev": "wireit",
+    "build": "vite build",
     "deploy": "wireit"
   },
   "wireit": {
     "dev": {
       "command": "wrangler dev",
       "dependencies": [
-        "../scoreboard-types:build"
+        "../scoreboard-types:build",
+        "build"
       ]
     },
     "deploy": {
       "command": "wrangler deploy",
       "dependencies": [
-        "../scoreboard-types:build"
+        "../scoreboard-types:build",
+        "build"
       ]
     }
   },
@@ -30,11 +33,16 @@
   },
   "packageManager": "pnpm@10.30.2",
   "devDependencies": {
+    "@hono/vite-cloudflare-pages": "^0.4.3",
+    "@hono/vite-dev-server": "^0.25.1",
     "@mikuroxina/eslint-config-bemuse": "workspace:*",
+    "@types/node": "^24.11.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.4",
     "eslint": "^9.0.0",
     "typescript": "^5.9.3",
+    "vite": "^7.3.1",
     "wrangler": "^4.72.0"
   },
   "dependencies": {
