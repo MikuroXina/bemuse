@@ -5,9 +5,23 @@
   "type": "module",
   "main": "./dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "wireit",
     "check": "tsc --noEmit",
     "lint": "eslint ."
+  },
+  "wireit": {
+    "build": {
+      "command": "tsc",
+      "clean": "if-file-deleted",
+      "files": [
+        "src/**/*.ts",
+        "tsconfig.json"
+      ],
+      "output": [
+        "dist",
+        "tsconfig.tsbuildinfo"
+      ]
+    }
   },
   "author": "MikuroXina <mikuroxina@gmail.com>",
   "license": "Apache-2.0",
@@ -18,7 +32,8 @@
   "devDependencies": {
     "@mikuroxina/eslint-config-bemuse": "workspace:*",
     "eslint": "^10.0.3",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "wireit": "^0.14.12"
   },
   "dependencies": {
     "valibot": "^1.2.0"

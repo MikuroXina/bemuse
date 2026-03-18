@@ -6,22 +6,38 @@
   "scripts": {
     "lint": "eslint .",
     "check": "tsc --noEmit",
+    "build": "wireit",
     "dev": "wireit",
-    "build": "vite build",
     "deploy": "wireit"
   },
   "wireit": {
+    "build": {
+      "command": "vite build",
+      "dependencies": [
+        "../scoreboard-types:build"
+      ],
+      "files": [
+        "src/view.tsx",
+        "src/view/**/*"
+      ],
+      "output": [
+        "dist/**"
+      ]
+    },
     "dev": {
       "command": "wrangler dev",
       "dependencies": [
-        "../scoreboard-types:build",
         "build"
-      ]
+      ],
+      "service": {
+        "readyWhen": {
+          "lineMatches": "[wrangler:info] Ready on"
+        }
+      }
     },
     "deploy": {
       "command": "wrangler deploy",
       "dependencies": [
-        "../scoreboard-types:build",
         "build"
       ]
     }
