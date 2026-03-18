@@ -6,7 +6,9 @@ import { type InferInput, type InferOutput, parse } from 'valibot'
 
 import type { Bindings } from './env'
 
-export const router = new Hono<{ Bindings: Bindings }>()
+export const router = new Hono<{ Bindings: Bindings }>().basePath(
+  '/api/v1/scoreboard'
+)
 
 router.get('/:chart_id/:play_mode', async (c) => {
   const { chart_id, play_mode } = c.req.param()

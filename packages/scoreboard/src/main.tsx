@@ -41,9 +41,9 @@ app.onError((err, c) => {
   return c.text('Internal Server Error', 500)
 })
 
-app.route('/api/v1/auth', authRouter)
-app.route('/api/v1/moderation', moderationRouter)
-app.route('/api/v1/scoreboard', scoreboardRouter)
+app.route('/', authRouter)
+app.route('/', moderationRouter)
+app.route('/', scoreboardRouter)
 
 app.get('/moderation', async (c) => {
   const { VITE_AUTH0_AUDIENCE, VITE_AUTH0_CLIENT_ID, VITE_AUTH0_DOMAIN } =

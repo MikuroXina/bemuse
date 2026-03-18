@@ -8,7 +8,9 @@ import { parse } from 'valibot'
 
 import type { Bindings, Env } from './env'
 
-export const router = new Hono<{ Bindings: Bindings }>()
+export const router = new Hono<{ Bindings: Bindings }>().basePath(
+  '/api/v1/moderation'
+)
 
 async function checkModerator(
   c: Context<OIDCEnv<Bindings>>

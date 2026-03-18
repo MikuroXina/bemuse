@@ -10,7 +10,7 @@ import type { Env } from './env'
 
 export const router = new Hono()
 
-router.use('/users/:user_id', requiresAuth())
+router.use('/users/:user_id', requiresAuth()).basePath('/api/v1/auth')
 router.post(
   '/users/:user_id',
   sValidator('param', Auth.updateUserRequestSchema),
