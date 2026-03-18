@@ -7,16 +7,22 @@ export interface ViewProps {
   auth0Audience: string
   auth0ClientId: string
   auth0Domain: string
+  baseUrl: string
 }
 
-export function View({ auth0Audience, auth0ClientId, auth0Domain }: ViewProps) {
+export function View({
+  auth0Audience,
+  auth0ClientId,
+  auth0Domain,
+  baseUrl,
+}: ViewProps) {
   return (
     <StrictMode>
       <Auth0Provider
         clientId={auth0ClientId}
         domain={auth0Domain}
         authorizationParams={{
-          redirect_uri: window.location.origin,
+          redirect_uri: new URL('/callback', baseUrl),
           audience: auth0Audience,
         }}
       >

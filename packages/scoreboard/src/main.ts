@@ -48,12 +48,14 @@ app.route('/api/v1/moderation', moderationRouter)
 app.route('/api/v1/scoreboard', scoreboardRouter)
 
 app.get('/moderation', async (c) => {
-  const { AUTH0_AUDIENCE, AUTH0_CLIENT_ID, AUTH0_DOMAIN } = env<Env>(c)
+  const { AUTH0_AUDIENCE, AUTH0_CLIENT_ID, AUTH0_DOMAIN, BASE_URL } =
+    env<Env>(c)
   const stream = await renderToReadableStream(
     createElement(View, {
       auth0Audience: AUTH0_AUDIENCE,
       auth0ClientId: AUTH0_CLIENT_ID,
       auth0Domain: AUTH0_DOMAIN,
+      baseUrl: BASE_URL,
     })
   )
   return new Response(stream, {
