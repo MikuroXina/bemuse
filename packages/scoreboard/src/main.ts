@@ -1,4 +1,4 @@
-import { auth } from '@auth0/auth0-hono'
+import { auth, Auth0Exception } from '@auth0/auth0-hono'
 import { Hono } from 'hono'
 import { env } from 'hono/adapter'
 import { createElement } from 'react'
@@ -22,6 +22,15 @@ app.use((c, next) => {
     baseURL: BASE_URL,
     authRequired: false,
   })(c, next)
+})
+app.onError((err, c) => {
+  console.error(err)
+  if (err instanceof Auth0Exception) {
+    if (process.env.NODE_ENV === 'development') {
+      return err.getResponse()
+    }
+  }
+  return c.text('Internal Server Error', 500)
 })
 
 app.route('/api/v1/auth', authRouter)
