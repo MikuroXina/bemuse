@@ -13,7 +13,7 @@ const queryUsers =
     const params = new URLSearchParams({
       until: pageParam,
     })
-    const res = await fetch(`/api/v1/moderation/users/?${params}`, {
+    const res = await fetch(`/api/v1/moderation/users?${params}`, {
       headers: {
         Authorization: `Bearer ${await tokenPromise}`,
       },
