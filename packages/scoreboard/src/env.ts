@@ -4,6 +4,7 @@ export type Env = {
   AUTH0_CLIENT_SECRET: string
   AUTH0_DOMAIN: string
   BASE_URL: string
+  SESSION_SECRET: string
 }
 
 export type Bindings = {

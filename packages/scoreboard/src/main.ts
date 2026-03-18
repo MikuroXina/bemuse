@@ -13,14 +13,24 @@ import { View } from './view'
 const app = new Hono()
 
 app.use((c, next) => {
-  const { AUTH0_CLIENT_ID, AUTH0_DOMAIN, AUTH0_CLIENT_SECRET, BASE_URL } =
-    env<Env>(c)
+  const {
+    AUTH0_CLIENT_ID,
+    AUTH0_DOMAIN,
+    AUTH0_CLIENT_SECRET,
+    BASE_URL,
+    SESSION_SECRET,
+  } = env<Env>(c)
   return auth({
     domain: AUTH0_DOMAIN,
     clientID: AUTH0_CLIENT_ID,
     clientSecret: AUTH0_CLIENT_SECRET,
     baseURL: BASE_URL,
+    session: {
+      secret: SESSION_SECRET,
+    },
     authRequired: false,
+    errorOnRequiredAuth: true,
+    attemptSilentLogin: true,
   })(c, next)
 })
 app.onError((err, c) => {
