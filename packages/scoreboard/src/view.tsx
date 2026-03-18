@@ -1,7 +1,10 @@
 import { Auth0Provider } from '@auth0/auth0-react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { StrictMode } from 'react'
 
 import { App } from './view/app'
+
+const queryClient = new QueryClient()
 
 export interface ViewProps {
   auth0Audience: string
@@ -26,7 +29,9 @@ export function View({
           audience: auth0Audience,
         }}
       >
-        <App />
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
       </Auth0Provider>
     </StrictMode>
   )
