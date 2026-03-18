@@ -1,7 +1,6 @@
 import { auth, Auth0Exception } from '@auth0/auth0-hono'
 import { Hono } from 'hono'
 import { env } from 'hono/adapter'
-import { createElement } from 'react'
 import { renderToReadableStream } from 'react-dom/server'
 
 import { router as authRouter } from './auth'
@@ -14,15 +13,15 @@ const app = new Hono()
 
 app.use((c, next) => {
   const {
-    AUTH0_CLIENT_ID,
-    AUTH0_DOMAIN,
+    VITE_AUTH0_CLIENT_ID,
+    VITE_AUTH0_DOMAIN,
     AUTH0_CLIENT_SECRET,
     BASE_URL,
     SESSION_SECRET,
   } = env<Env>(c)
   return auth({
-    domain: AUTH0_DOMAIN,
-    clientID: AUTH0_CLIENT_ID,
+    domain: VITE_AUTH0_DOMAIN,
+    clientID: VITE_AUTH0_CLIENT_ID,
     clientSecret: AUTH0_CLIENT_SECRET,
     baseURL: BASE_URL,
     session: {
@@ -48,15 +47,32 @@ app.route('/api/v1/moderation', moderationRouter)
 app.route('/api/v1/scoreboard', scoreboardRouter)
 
 app.get('/moderation', async (c) => {
-  const { AUTH0_AUDIENCE, AUTH0_CLIENT_ID, AUTH0_DOMAIN, BASE_URL } =
-    env<Env>(c)
+  const {
+    VITE_AUTH0_AUDIENCE,
+    VITE_AUTH0_CLIENT_ID,
+    VITE_AUTH0_DOMAIN,
+    BASE_URL,
+  } = env<Env>(c)
   const stream = await renderToReadableStream(
-    createElement(View, {
-      auth0Audience: AUTH0_AUDIENCE,
-      auth0ClientId: AUTH0_CLIENT_ID,
-      auth0Domain: AUTH0_DOMAIN,
-      baseUrl: BASE_URL,
-    })
+    <html lang='en'>
+      <head>
+        <meta charSet='utf-8' />
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+      </head>
+      <body>
+        <div id='root'>
+          <View
+            auth0Audience={VITE_AUTH0_AUDIENCE}
+            auth0ClientId={VITE_AUTH0_DOMAIN}
+            auth0Domain={VITE_AUTH0_CLIENT_ID}
+            baseUrl={BASE_URL}
+          />
+        </div>
+      </body>
+    </html>,
+    {
+      bootstrapModules: ['./static/client.js'],
+    }
   )
   return new Response(stream, {
     headers: {

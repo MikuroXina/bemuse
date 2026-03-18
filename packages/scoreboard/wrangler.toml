@@ -1,13 +1,13 @@
 name = "bemuse-scoreboard"
 compatibility_date = "2026-03-10"
 compatibility_flags = ["nodejs_compat"]
-main = "src/main.ts"
+main = "src/main.tsx"
 assets = { directory = "./dist" }
 
 [vars]
-AUTH0_AUDIENCE = "https://bemuse-scoreboard.mikuroxina.workers.dev/"
-AUTH0_DOMAIN = "mikuroxina.jp.auth0.com"
-AUTH0_CLIENT_ID = "08G3QzJ8z1rh6pElmVzbEl98j7yXI9ab"
+VITE_AUTH0_AUDIENCE = "https://bemuse-scoreboard.mikuroxina.workers.dev/"
+VITE_AUTH0_DOMAIN = "mikuroxina.jp.auth0.com"
+VITE_AUTH0_CLIENT_ID = "08G3QzJ8z1rh6pElmVzbEl98j7yXI9ab"
 
 [[d1_databases]]
 binding = "score"

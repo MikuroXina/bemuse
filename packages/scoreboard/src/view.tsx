@@ -17,27 +17,17 @@ export function View({
   baseUrl,
 }: ViewProps) {
   return (
-    <html lang='en'>
-      <head>
-        <meta charSet='utf-8' />
-        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-      </head>
-      <body>
-        <div id='root'>
-          <StrictMode>
-            <Auth0Provider
-              clientId={auth0ClientId}
-              domain={auth0Domain}
-              authorizationParams={{
-                redirect_uri: new URL('/callback', baseUrl),
-                audience: auth0Audience,
-              }}
-            >
-              <App />
-            </Auth0Provider>
-          </StrictMode>
-        </div>
-      </body>
-    </html>
+    <StrictMode>
+      <Auth0Provider
+        clientId={auth0ClientId}
+        domain={auth0Domain}
+        authorizationParams={{
+          redirect_uri: `${baseUrl}/callback`,
+          audience: auth0Audience,
+        }}
+      >
+        <App />
+      </Auth0Provider>
+    </StrictMode>
   )
 }
