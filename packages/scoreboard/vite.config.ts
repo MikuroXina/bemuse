@@ -9,7 +9,7 @@ export default defineConfig({
     devServer({
       injectClientScript: false,
       adapter,
-      entry: 'src/main.ts',
+      entry: 'src/main.tsx',
     }),
   ],
   build: {
