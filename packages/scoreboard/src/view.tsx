@@ -22,7 +22,7 @@ export function View({
         clientId={auth0ClientId}
         domain={auth0Domain}
         authorizationParams={{
-          redirect_uri: `${baseUrl}/callback`,
+          redirect_uri: `${baseUrl}/moderation`,
           audience: auth0Audience,
         }}
       >
