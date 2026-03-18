@@ -37,11 +37,12 @@ router.get(
     }
 
     const { since = '*', until = '*', name = '' } = c.req.valid('param')
-    const { AUTH0_DOMAIN, AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET } = env<Env>(c)
+    const { VITE_AUTH0_DOMAIN, VITE_AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET } =
+      env<Env>(c)
 
     const management = new ManagementClient({
-      domain: AUTH0_DOMAIN,
-      clientId: AUTH0_CLIENT_ID,
+      domain: VITE_AUTH0_DOMAIN,
+      clientId: VITE_AUTH0_CLIENT_ID,
       clientSecret: AUTH0_CLIENT_SECRET,
     })
     const pages = await management.users.list({
@@ -78,7 +79,8 @@ router.get(
       return c.text('Bad Request', 400)
     }
 
-    const { AUTH0_DOMAIN, AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET } = env<Env>(c)
+    const { VITE_AUTH0_DOMAIN, VITE_AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET } =
+      env<Env>(c)
 
     const select = await c.env.score
       .prepare(
@@ -121,8 +123,8 @@ router.get(
     }
 
     const management = new ManagementClient({
-      domain: AUTH0_DOMAIN,
-      clientId: AUTH0_CLIENT_ID,
+      domain: VITE_AUTH0_DOMAIN,
+      clientId: VITE_AUTH0_CLIENT_ID,
       clientSecret: AUTH0_CLIENT_SECRET,
     })
     const user = await management.users.get(userId)
@@ -153,10 +155,11 @@ router.post(
       return c.text('Bad Request', 400)
     }
 
-    const { AUTH0_DOMAIN, AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET } = env<Env>(c)
+    const { VITE_AUTH0_DOMAIN, VITE_AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET } =
+      env<Env>(c)
     const management = new ManagementClient({
-      domain: AUTH0_DOMAIN,
-      clientId: AUTH0_CLIENT_ID,
+      domain: VITE_AUTH0_DOMAIN,
+      clientId: VITE_AUTH0_CLIENT_ID,
       clientSecret: AUTH0_CLIENT_SECRET,
     })
     await management.users.update(userId, {
@@ -181,10 +184,11 @@ router.post(
       return c.text('Bad Request', 400)
     }
 
-    const { AUTH0_DOMAIN, AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET } = env<Env>(c)
+    const { VITE_AUTH0_DOMAIN, VITE_AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET } =
+      env<Env>(c)
     const management = new ManagementClient({
-      domain: AUTH0_DOMAIN,
-      clientId: AUTH0_CLIENT_ID,
+      domain: VITE_AUTH0_DOMAIN,
+      clientId: VITE_AUTH0_CLIENT_ID,
       clientSecret: AUTH0_CLIENT_SECRET,
     })
     await management.users.update(userId, {
