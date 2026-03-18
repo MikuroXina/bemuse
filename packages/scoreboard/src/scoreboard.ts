@@ -30,7 +30,7 @@ router.get('/:chart_id/:play_mode', async (c) => {
       MAX(score) AS score,
       max_combo,
       total_combo,
-      RANK() OVER (ORDER BY score DESC, create_at DESC) AS rank
+      RANK() OVER (ORDER BY score DESC, created_at DESC) AS rank
     FROM
       score_record
     WHERE
