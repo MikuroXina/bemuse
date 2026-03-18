@@ -14,7 +14,7 @@ export default defineConfig({
   ],
   build: {
     rollupOptions: {
-      input: ['src/view/client.tsx'],
+      input: ['src/client.tsx'],
       output: {
         entryFileNames: 'static/[name].js',
       },

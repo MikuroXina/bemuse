@@ -16,14 +16,13 @@ app.use((c, next) => {
     VITE_AUTH0_CLIENT_ID,
     VITE_AUTH0_DOMAIN,
     AUTH0_CLIENT_SECRET,
-    BASE_URL,
     SESSION_SECRET,
   } = env<Env>(c)
   return auth({
     domain: VITE_AUTH0_DOMAIN,
     clientID: VITE_AUTH0_CLIENT_ID,
     clientSecret: AUTH0_CLIENT_SECRET,
-    baseURL: BASE_URL,
+    baseURL: new URL(c.req.url).origin,
     session: {
       secret: SESSION_SECRET,
     },
@@ -47,12 +46,8 @@ app.route('/api/v1/moderation', moderationRouter)
 app.route('/api/v1/scoreboard', scoreboardRouter)
 
 app.get('/moderation', async (c) => {
-  const {
-    VITE_AUTH0_AUDIENCE,
-    VITE_AUTH0_CLIENT_ID,
-    VITE_AUTH0_DOMAIN,
-    BASE_URL,
-  } = env<Env>(c)
+  const { VITE_AUTH0_AUDIENCE, VITE_AUTH0_CLIENT_ID, VITE_AUTH0_DOMAIN } =
+    env<Env>(c)
   const stream = await renderToReadableStream(
     <html lang='en'>
       <head>
@@ -63,9 +58,9 @@ app.get('/moderation', async (c) => {
         <div id='root'>
           <View
             auth0Audience={VITE_AUTH0_AUDIENCE}
-            auth0ClientId={VITE_AUTH0_DOMAIN}
-            auth0Domain={VITE_AUTH0_CLIENT_ID}
-            baseUrl={BASE_URL}
+            auth0ClientId={VITE_AUTH0_CLIENT_ID}
+            auth0Domain={VITE_AUTH0_DOMAIN}
+            baseUrl={new URL(c.req.url).origin}
           />
         </div>
       </body>
