@@ -33,7 +33,10 @@ router.get(
       page: 0,
       per_page: 100,
       sort: 'created_at:-1',
-      q: `name:*"${name}"*,create_at:[${since} to ${until}]`,
+      q:
+        name === ''
+          ? `created_at:[${since} TO ${until}}`
+          : `name:*"${name}"*,created_at:[${since} TO ${until}}`,
       search_engine: 'v3',
     })
     const ret: unknown[] = []
