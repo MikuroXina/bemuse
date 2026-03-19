@@ -45,7 +45,7 @@ router.get(
         id: page.user_id,
         name: page.name,
         created_at: page.created_at,
-        is_frozen: page.blocked,
+        is_frozen: page.blocked ?? false,
       })
     }
     return c.json(parse(Moderation.listUsersResponseSchema, ret))
@@ -115,7 +115,7 @@ router.get(
         id: user.user_id,
         name: user.name,
         created_at: user.created_at,
-        is_frozen: user.blocked,
+        is_frozen: user.blocked ?? false,
       },
       plays,
     }
