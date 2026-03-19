@@ -1,8 +1,9 @@
-import { auth } from '@auth0/auth0-hono'
+import { auth, type OIDCEnv, requiresAuth } from '@auth0/auth0-hono'
+import type { Context } from 'hono'
 import { env } from 'hono/adapter'
 import { createMiddleware } from 'hono/factory'
 
-import type { Env } from './env'
+import type { Bindings, Env } from './env'
 
 export const authMiddleware = createMiddleware<{ Variables: Env }>(
   (c, next) => {
@@ -24,9 +25,6 @@ export const authMiddleware = createMiddleware<{ Variables: Env }>(
       },
       session: {
         secret: SESSION_SECRET,
-        cookie: {
-          sameSite: 'strict',
-        },
       },
       authRequired: false,
       errorOnRequiredAuth: false,
@@ -34,3 +32,32 @@ export const authMiddleware = createMiddleware<{ Variables: Env }>(
     })(c, next)
   }
 )
+
+async function checkModerator(
+  c: Context<OIDCEnv<Bindings>>
+): Promise<Response | null> {
+  const user = await c.get('auth0Client')!.getUser()
+  if (!user) {
+    return c.text('Unauthorized', 401)
+  }
+
+  const isModerator =
+    user.email_verified && user.email === 'mikuroxina@gmail.com'
+  if (!isModerator) {
+    return c.text('Forbidden', 403)
+  }
+  return null
+}
+
+export const requiresModeratorAuth = (behavior?: 'error' | 'login') =>
+  createMiddleware<OIDCEnv<Bindings>>(async (c, next) => {
+    const res1 = await requiresAuth(behavior)(c, next)
+    if (res1) {
+      return res1
+    }
+    const res2 = await checkModerator(c)
+    if (res2) {
+      return res2
+    }
+    return await next()
+  })

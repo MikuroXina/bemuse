@@ -9,15 +9,7 @@ function main() {
     return
   }
   started = true
-  hydrateRoot(
-    document.getElementById('root')!,
-    <View
-      auth0Audience={import.meta.env.VITE_AUTH0_AUDIENCE}
-      auth0ClientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
-      auth0Domain={import.meta.env.VITE_AUTH0_DOMAIN}
-      baseUrl={window.location.origin}
-    />
-  )
+  hydrateRoot(document.getElementById('root')!, <View />)
 }
 
 if (document.readyState === 'loading') {

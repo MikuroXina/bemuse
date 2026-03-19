@@ -1,4 +1,4 @@
-import { type OIDCEnv, requiresAuth } from '@auth0/auth0-hono'
+import { type OIDCEnv } from '@auth0/auth0-hono'
 import { sValidator } from '@hono/standard-validator'
 import { Moderation } from '@mikuroxina/scoreboard-types'
 import { ManagementClient } from 'auth0'
@@ -7,7 +7,7 @@ import { env } from 'hono/adapter'
 import { parse } from 'valibot'
 
 import type { Bindings, Env } from './env'
-import { authMiddleware } from './middleware'
+import { authMiddleware, requiresModeratorAuth } from './middleware'
 
 export const router = new Hono<{ Bindings: Bindings }>().basePath(
   '/api/v1/moderation'
@@ -15,32 +15,11 @@ export const router = new Hono<{ Bindings: Bindings }>().basePath(
 
 router.use(authMiddleware)
 
-async function checkModerator(
-  c: Context<OIDCEnv<Bindings>>
-): Promise<Response | null> {
-  const user = await c.get('auth0Client')!.getUser()
-  if (!user) {
-    return c.text('Unauthorized', 401)
-  }
-
-  const isModerator =
-    user.email_verified && user.email === 'mikuroxina@gmail.com'
-  if (!isModerator) {
-    return c.text('Forbidden', 403)
-  }
-  return null
-}
-
 router.get(
   '/users',
   sValidator('param', Moderation.listUsersParameterSchema),
-  requiresAuth(),
+  requiresModeratorAuth(),
   async (c) => {
-    const res = await checkModerator(c)
-    if (res != null) {
-      return res
-    }
-
     const { since = '*', until = '*', name = '' } = c.req.valid('param')
     const { VITE_AUTH0_DOMAIN, VITE_AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET } =
       env<Env>(c)
@@ -72,13 +51,8 @@ router.get(
 
 router.get(
   '/users/:user_id',
-  requiresAuth(),
+  requiresModeratorAuth(),
   async (c: Context<OIDCEnv<Bindings>>) => {
-    const res = await checkModerator(c)
-    if (res != null) {
-      return res
-    }
-
     const userId = c.req.param('user_id')
     if (userId == null || userId === '') {
       return c.text('Bad Request', 400)
@@ -148,13 +122,8 @@ router.get(
 
 router.post(
   '/users/:user_id/freeze',
-  requiresAuth(),
+  requiresModeratorAuth(),
   async (c: Context<OIDCEnv<Bindings>>) => {
-    const res = await checkModerator(c)
-    if (res != null) {
-      return res
-    }
-
     const userId = c.req.param('user_id')
     if (userId == null || userId === '') {
       return c.text('Bad Request', 400)
@@ -177,13 +146,8 @@ router.post(
 
 router.post(
   '/users/:user_id/unfreeze',
-  requiresAuth(),
+  requiresModeratorAuth(),
   async (c: Context<OIDCEnv<Bindings>>) => {
-    const res = await checkModerator(c)
-    if (res != null) {
-      return res
-    }
-
     const userId = c.req.param('user_id')
     if (userId == null || userId === '') {
       return c.text('Bad Request', 400)

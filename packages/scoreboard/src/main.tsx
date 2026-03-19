@@ -4,13 +4,14 @@ import { env } from 'hono/adapter'
 import { renderToReadableStream } from 'react-dom/server'
 
 import { router as authRouter } from './auth'
-import type { Env } from './env'
+import { authMiddleware, requiresModeratorAuth } from './middleware'
 import { router as moderationRouter } from './moderation'
 import { router as scoreboardRouter } from './scoreboard'
 import { View } from './view'
 
 const app = new Hono()
 
+app.use(authMiddleware)
 app.onError((err, c) => {
   console.error(err)
   if (err instanceof Auth0Exception) {
@@ -25,9 +26,7 @@ app.route('/', authRouter)
 app.route('/', moderationRouter)
 app.route('/', scoreboardRouter)
 
-app.get('/moderation', async (c) => {
-  const { VITE_AUTH0_AUDIENCE, VITE_AUTH0_CLIENT_ID, VITE_AUTH0_DOMAIN } =
-    env<Env>(c)
+app.get('/moderation', requiresModeratorAuth(), async () => {
   const stream = await renderToReadableStream(
     <html lang='en'>
       <head>
@@ -36,12 +35,7 @@ app.get('/moderation', async (c) => {
       </head>
       <body>
         <div id='root'>
-          <View
-            auth0Audience={VITE_AUTH0_AUDIENCE}
-            auth0ClientId={VITE_AUTH0_CLIENT_ID}
-            auth0Domain={VITE_AUTH0_DOMAIN}
-            baseUrl={new URL(c.req.url).origin}
-          />
+          <View />
         </div>
       </body>
     </html>,

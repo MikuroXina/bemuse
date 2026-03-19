@@ -63,7 +63,6 @@
   },
   "dependencies": {
     "@auth0/auth0-hono": "^1.2.6",
-    "@auth0/auth0-react": "^2.15.1",
     "@hono/standard-validator": "^0.2.2",
     "@hono/valibot-validator": "^0.6.1",
     "@mikuroxina/scoreboard-types": "workspace:*",

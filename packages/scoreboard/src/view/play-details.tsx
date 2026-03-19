@@ -1,26 +1,23 @@
-import { useAuth0 } from '@auth0/auth0-react'
 import { Moderation } from '@mikuroxina/scoreboard-types'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import { parse } from 'valibot'
 
-const fetchLog =
-  (tokenPromise: Promise<string>) =>
-  async ({ queryKey: [, userId] }: { queryKey: ['inspectUser', string] }) => {
-    const res = await fetch(`/api/v1/moderation/users/${userId}/`, {
-      headers: {
-        Authorization: `Bearer ${await tokenPromise}`,
-      },
-    })
-    return parse(Moderation.inspectUserResponseSchema, await res.json())
-  }
+const fetchLog = async ({
+  queryKey: [, userId],
+}: {
+  queryKey: ['inspectUser', string]
+}) => {
+  const res = await fetch(`/api/v1/moderation/users/${userId}/`, {
+    credentials: 'include',
+  })
+  return parse(Moderation.inspectUserResponseSchema, await res.json())
+}
 
 function PlayLog({ userId }: { userId: string }) {
-  const { getAccessTokenSilently } = useAuth0()
-  const tokenPromise = getAccessTokenSilently()
   const { status, error, data } = useQuery({
     queryKey: ['inspectUser', userId],
-    queryFn: fetchLog(tokenPromise),
+    queryFn: fetchLog,
   })
 
   if (status === 'pending') {
