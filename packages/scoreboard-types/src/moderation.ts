@@ -4,8 +4,8 @@ import { userIdSchema, userInfoSchema } from './auth'
 import { scoreboardEntrySchema } from './scoreboard'
 
 export const listUsersParameterSchema = v.object({
-  since: v.optional(v.pipe(v.string(), v.isoDateTime())),
-  until: v.optional(v.pipe(v.string(), v.isoDateTime())),
+  since: v.optional(v.pipe(v.string(), v.isoTimestamp())),
+  until: v.optional(v.pipe(v.string(), v.isoTimestamp())),
   name: v.optional(v.string()),
 })
 export const listUsersResponseSchema = v.pipe(

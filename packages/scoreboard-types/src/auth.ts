@@ -9,7 +9,7 @@ export const userInfoSchema = v.object({
   /** The display name of user. */
   name: v.string(),
   /** The registered date of user. */
-  created_at: v.pipe(v.string(), v.isoDateTime()),
+  created_at: v.pipe(v.string(), v.isoTimestamp()),
   /** The user is frozen bout submitting new scores. */
   is_frozen: v.boolean(),
 })

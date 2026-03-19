@@ -40,7 +40,7 @@ export const md5HashSchema = v.pipe(v.string(), v.regex(/[0-9a-z]{32}/))
 
 export const scoreboardEntrySchema = v.object({
   id: scoreboardEntryIdSchema,
-  created_at: v.pipe(v.string(), v.isoDateTime()),
+  created_at: v.pipe(v.string(), v.isoTimestamp()),
   score: scoreSchema,
   recorded_by: userIdSchema,
   chart_md5: md5HashSchema,
