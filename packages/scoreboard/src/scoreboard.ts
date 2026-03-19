@@ -5,10 +5,13 @@ import { type Context, Hono } from 'hono'
 import { type InferInput, type InferOutput, parse } from 'valibot'
 
 import type { Bindings } from './env'
+import { authMiddleware } from './middleware'
 
 export const router = new Hono<{ Bindings: Bindings }>().basePath(
   '/api/v1/scoreboard'
 )
+
+router.use(authMiddleware)
 
 router.get('/:chart_id/:play_mode', async (c) => {
   const { chart_id, play_mode } = c.req.param()

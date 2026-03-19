@@ -1,4 +1,3 @@
-import { useAuth0 } from '@auth0/auth0-react'
 import { Moderation } from '@mikuroxina/scoreboard-types'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { Fragment } from 'react'
@@ -7,29 +6,23 @@ import { parse } from 'valibot'
 import { PlayDetails } from './play-details'
 import { UserFreezeButton } from './user-freeze-button'
 
-const queryUsers =
-  (tokenPromise: Promise<string>) =>
-  async ({ pageParam }: { pageParam: string }) => {
-    const params = new URLSearchParams({
-      until: pageParam,
-    })
-    const res = await fetch(`/api/v1/moderation/users?${params}`, {
-      headers: {
-        Authorization: `Bearer ${await tokenPromise}`,
-      },
-    })
-    const data = await res.json()
-    const users = parse(Moderation.listUsersResponseSchema, data)
-    const nextCursor = users.at(-1)!.created_at
-    return {
-      data: users,
-      nextCursor,
-    }
+const queryUsers = async ({ pageParam }: { pageParam: string }) => {
+  const params = new URLSearchParams({
+    until: pageParam,
+  })
+  const res = await fetch(`/api/v1/moderation/users?${params}`, {
+    credentials: 'include',
+  })
+  const data = await res.json()
+  const users = parse(Moderation.listUsersResponseSchema, data)
+  const nextCursor = users.at(-1)!.created_at
+  return {
+    data: users,
+    nextCursor,
   }
+}
 
 export function UsersEditor() {
-  const { getAccessTokenSilently } = useAuth0()
-  const tokenPromise = getAccessTokenSilently()
   const {
     data,
     status,
@@ -39,7 +32,7 @@ export function UsersEditor() {
     isFetchingNextPage,
   } = useInfiniteQuery({
     queryKey: ['listUsers'],
-    queryFn: queryUsers(tokenPromise),
+    queryFn: queryUsers,
     initialPageParam: new Date().toISOString(),
     getNextPageParam: ({ nextCursor }) => nextCursor,
   })

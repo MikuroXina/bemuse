@@ -6,9 +6,12 @@ import { Hono } from 'hono'
 import { env } from 'hono/adapter'
 import { parse } from 'valibot'
 
-import type { Env } from './env'
+import type { Bindings, Env } from './env'
+import { authMiddleware } from './middleware'
 
-export const router = new Hono()
+export const router = new Hono<{ Bindings: Bindings }>()
+
+router.use(authMiddleware)
 
 router.use('/users/:user_id', requiresAuth()).basePath('/api/v1/auth')
 router.post(

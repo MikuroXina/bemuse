@@ -7,10 +7,13 @@ import { env } from 'hono/adapter'
 import { parse } from 'valibot'
 
 import type { Bindings, Env } from './env'
+import { authMiddleware } from './middleware'
 
 export const router = new Hono<{ Bindings: Bindings }>().basePath(
   '/api/v1/moderation'
 )
+
+router.use(authMiddleware)
 
 async function checkModerator(
   c: Context<OIDCEnv<Bindings>>

@@ -1,4 +1,4 @@
-import { auth, Auth0Exception } from '@auth0/auth0-hono'
+import { Auth0Exception } from '@auth0/auth0-hono'
 import { Hono } from 'hono'
 import { env } from 'hono/adapter'
 import { renderToReadableStream } from 'react-dom/server'
@@ -11,30 +11,10 @@ import { View } from './view'
 
 const app = new Hono()
 
-app.use((c, next) => {
-  const {
-    VITE_AUTH0_CLIENT_ID,
-    VITE_AUTH0_DOMAIN,
-    AUTH0_CLIENT_SECRET,
-    SESSION_SECRET,
-  } = env<Env>(c)
-  return auth({
-    domain: VITE_AUTH0_DOMAIN,
-    clientID: VITE_AUTH0_CLIENT_ID,
-    clientSecret: AUTH0_CLIENT_SECRET,
-    baseURL: new URL(c.req.url).origin,
-    session: {
-      secret: SESSION_SECRET,
-    },
-    authRequired: false,
-    errorOnRequiredAuth: true,
-    attemptSilentLogin: true,
-  })(c, next)
-})
 app.onError((err, c) => {
   console.error(err)
   if (err instanceof Auth0Exception) {
-    if (process.env.NODE_ENV === 'development') {
+    if (env(c).NODE_ENV === 'development') {
       return err.getResponse()
     }
   }
