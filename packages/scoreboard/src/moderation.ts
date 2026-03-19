@@ -36,7 +36,7 @@ router.get(
       q:
         name === ''
           ? `created_at:[${since} TO ${until}}`
-          : `name:*"${name}"*,created_at:[${since} TO ${until}}`,
+          : `name:"${name}"~ AND created_at:[${since} TO ${until}}`,
       search_engine: 'v3',
     })
     const ret: unknown[] = []
