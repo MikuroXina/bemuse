@@ -55,5 +55,6 @@ app.get('/moderation', async (c) => {
     },
   })
 })
+app.get('/moderation/logout', (c) => c.redirect('/moderation'))
 
 export default app
