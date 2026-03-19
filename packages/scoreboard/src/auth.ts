@@ -9,11 +9,13 @@ import { parse } from 'valibot'
 import type { Bindings, Env } from './env'
 import { authMiddleware } from './middleware'
 
-export const router = new Hono<{ Bindings: Bindings }>()
+export const router = new Hono<{ Bindings: Bindings }>().basePath(
+  '/api/v1/auth'
+)
 
 router.use(authMiddleware)
 
-router.use('/users/:user_id', requiresAuth()).basePath('/api/v1/auth')
+router.use('/users/:user_id', requiresAuth())
 router.post(
   '/users/:user_id',
   sValidator('param', Auth.updateUserRequestSchema),

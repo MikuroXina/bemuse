@@ -17,6 +17,11 @@ export const authMiddleware = createMiddleware<{ Variables: Env }>(
       clientID: VITE_AUTH0_CLIENT_ID,
       clientSecret: AUTH0_CLIENT_SECRET,
       baseURL: new URL(c.req.url).origin,
+      routes: {
+        login: '/api/v1/auth/login',
+        callback: '/api/v1/auth/callback',
+        logout: '/api/v1/auth/logout',
+      },
       session: {
         secret: SESSION_SECRET,
         cookie: {
