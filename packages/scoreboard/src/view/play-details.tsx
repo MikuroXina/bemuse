@@ -34,6 +34,9 @@ function PlayLog({ userId }: { userId: string }) {
       </div>
     )
   }
+  if (data.plays.length === 0) {
+    return <p>No records found.</p>
+  }
   return (
     <table>
       <tr>
