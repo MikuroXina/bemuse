@@ -31,7 +31,7 @@ router.get(
     })
     const pages = await management.users.list({
       page: 0,
-      per_page: 100,
+      per_page: 20,
       sort: 'created_at:-1',
       q:
         name === ''
