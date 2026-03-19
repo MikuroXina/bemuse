@@ -1,15 +1,22 @@
 import { Moderation } from '@mikuroxina/scoreboard-types'
 import { useInfiniteQuery } from '@tanstack/react-query'
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import { parse } from 'valibot'
 
 import { PlayDetails } from './play-details'
 import { UserFreezeButton } from './user-freeze-button'
 
-const queryUsers = async ({ pageParam }: { pageParam: string }) => {
-  const params = new URLSearchParams({
-    until: pageParam,
-  })
+const queryUsers = async ({
+  pageParam,
+  queryKey: [, nameSearch],
+}: {
+  pageParam: string
+  queryKey: readonly ['listUsers', string]
+}) => {
+  const params = new URLSearchParams([
+    ['name', nameSearch],
+    ['until', pageParam],
+  ])
   const res = await fetch(`/api/v1/moderation/users?${params}`, {
     credentials: 'include',
   })
@@ -22,7 +29,7 @@ const queryUsers = async ({ pageParam }: { pageParam: string }) => {
   }
 }
 
-export function UsersEditor() {
+function UsersList({ nameSearch }: { nameSearch: string }) {
   const {
     data,
     status,
@@ -31,7 +38,7 @@ export function UsersEditor() {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ['listUsers'],
+    queryKey: ['listUsers', nameSearch] as const,
     queryFn: queryUsers,
     initialPageParam: new Date().toISOString(),
     getNextPageParam: ({ nextCursor }) => nextCursor,
@@ -50,7 +57,7 @@ export function UsersEditor() {
   }
 
   return (
-    <div>
+    <>
       <ol>
         {data?.pages.map(({ data }, i) => (
           <Fragment key={i}>
@@ -76,6 +83,31 @@ export function UsersEditor() {
         </button>
       )}
       {isFetchingNextPage && <p>Loading more…</p>}
+    </>
+  )
+}
+
+export function UsersEditor() {
+  const [nameSearch, setNameSearch] = useState('')
+
+  return (
+    <div>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          setNameSearch(
+            (e.target.elements.namedItem('name-search') as HTMLInputElement)
+              .value
+          )
+        }}
+      >
+        <label>
+          Name filter:
+          <input id='name-search' type='text' defaultValue='' />
+        </label>
+        <button type='submit'>Search</button>
+      </form>
+      <UsersList nameSearch={nameSearch} />
     </div>
   )
 }
