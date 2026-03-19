@@ -8,9 +8,12 @@ const fetchLog = async ({
 }: {
   queryKey: ['inspectUser', string]
 }) => {
-  const res = await fetch(`/api/v1/moderation/users/${userId}/`, {
-    credentials: 'include',
-  })
+  const res = await fetch(
+    `/api/v1/moderation/users/${encodeURIComponent(userId)}`,
+    {
+      credentials: 'include',
+    }
+  )
   return parse(Moderation.inspectUserResponseSchema, await res.json())
 }
 
