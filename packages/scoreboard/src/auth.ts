@@ -1,4 +1,3 @@
-import { requiresAuth } from '@auth0/auth0-hono'
 import { sValidator } from '@hono/standard-validator'
 import { Auth } from '@mikuroxina/scoreboard-types'
 import { ManagementClient } from 'auth0'
@@ -7,7 +6,7 @@ import { env } from 'hono/adapter'
 import { parse } from 'valibot'
 
 import type { Bindings, Env } from './env'
-import { authMiddleware } from './middleware'
+import { authMiddleware, requiresModeratorAuth } from './middleware'
 
 export const router = new Hono<{ Bindings: Bindings }>().basePath(
   '/api/v1/auth'
@@ -15,7 +14,7 @@ export const router = new Hono<{ Bindings: Bindings }>().basePath(
 
 router.use(authMiddleware)
 
-router.use('/users/:user_id', requiresAuth())
+router.use('/users/:user_id', requiresModeratorAuth())
 router.post(
   '/users/:user_id',
   sValidator('param', Auth.updateUserRequestSchema),
