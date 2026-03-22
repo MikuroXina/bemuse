@@ -12,6 +12,10 @@ export default defineConfig({
       entry: 'src/main.tsx',
     }),
   ],
+  server: {
+    // delegated to Hono's CORS middleware
+    cors: false,
+  },
   build: {
     rollupOptions: {
       input: ['src/client.tsx'],

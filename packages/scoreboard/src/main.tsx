@@ -1,6 +1,7 @@
 import { Auth0Exception } from '@auth0/auth0-hono'
 import { Hono } from 'hono'
 import { env } from 'hono/adapter'
+import { cors } from 'hono/cors'
 import { renderToReadableStream } from 'react-dom/server'
 
 import { router as authRouter } from './auth'
@@ -11,6 +12,13 @@ import { View } from './view'
 
 const app = new Hono()
 
+app.use(
+  cors({
+    origin: import.meta.env.DEV ? ['localhost:5173'] : ['bemuse.pages.dev'],
+    allowMethods: ['POST', 'GET', 'OPTIONS'],
+    credentials: true,
+  })
+)
 app.use(authMiddleware)
 app.onError((err, c) => {
   console.error(err)
