@@ -2,6 +2,13 @@
 
 This log was last generated on Sun, 06 Nov 2022 16:09:03 GMT and should not be manually modified.
 
+## [52.1.0](https://github.com/MikuroXina/bemuse/compare/bms-v52.0.0...bms-v52.1.0) (2026-03-22)
+
+
+### Features
+
+* Merge custom song workshop as a sub-package ([#40](https://github.com/MikuroXina/bemuse/issues/40)) ([f9c130a](https://github.com/MikuroXina/bemuse/commit/f9c130ade4810dd54d866bca761fbce1d13742a4))
+
 ## 51.0.0
 Sun, 06 Nov 2022 16:09:03 GMT
 
@@ -27,4 +34,3 @@ Fri, 29 Oct 2021 19:57:09 GMT
 ### Patches
 
 - Added missing dependencies and updated versioning policy -- starting at v50 this package is now versioned independently of Bemuse
-
