@@ -90,13 +90,13 @@ export class Online {
 
   async signUp(options: SignUpInfo) {
     const user = await this.service.signUp(options)
-    queryClient.invalidateQueries({ queryKey: rootQueryKey })
+    queryClient.invalidateQueries({ queryKey: [this, rootQueryKey] })
     return user
   }
 
   async logIn(options: LogInInfo) {
     const user = await this.service.logIn(options)
-    queryClient.invalidateQueries({ queryKey: rootQueryKey })
+    queryClient.invalidateQueries({ queryKey: [this, rootQueryKey] })
     return user
   }
 
@@ -117,7 +117,7 @@ export class Online {
 
   async logOut(): Promise<void> {
     await this.service.logOut()
-    queryClient.invalidateQueries({ queryKey: rootQueryKey })
+    queryClient.invalidateQueries({ queryKey: [this, rootQueryKey] })
   }
 
   async submitScore(info: ScoreInfo) {

@@ -79,7 +79,7 @@ export function useRecordSubmissionMutation(): UseMutationResult<
         data
       )
       client.invalidateQueries({
-        queryKey: getLeaderboardQueryKey(info.md5, info.playMode),
+        queryKey: [online, getLeaderboardQueryKey(info.md5, info.playMode)],
       })
     },
   })
