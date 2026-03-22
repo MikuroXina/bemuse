@@ -22,7 +22,10 @@
       ],
       "output": [
         "dist/**"
-      ]
+      ],
+      "env": {
+        "NODE_ENV": "production"
+      }
     },
     "dev": {
       "command": "wrangler dev",
