@@ -12,12 +12,12 @@ import { View } from './view'
 
 const app = new Hono()
 
-app.use(
+app.use((c, next) =>
   cors({
-    origin: import.meta.env.DEV ? ['localhost:5173'] : ['bemuse.pages.dev'],
+    origin: env(c).DEV ? ['localhost:5173'] : ['bemuse.pages.dev'],
     allowMethods: ['POST', 'GET', 'OPTIONS'],
     credentials: true,
-  })
+  })(c, next)
 )
 app.use(authMiddleware)
 app.onError((err, c) => {
