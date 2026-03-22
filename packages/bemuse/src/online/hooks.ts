@@ -25,7 +25,7 @@ export function useCurrentUser() {
   const online = useContext(OnlineContext)
   return (
     useQuery({
-      queryKey: currentUserQueryKey,
+      queryKey: [online, currentUserQueryKey],
       queryFn: () => online.getCurrentUser(),
     }).data || null
   )
@@ -34,7 +34,7 @@ export function useCurrentUser() {
 export function usePersonalRecordsByMd5Query(chart: { md5: string }) {
   const online = useContext(OnlineContext)
   return useQuery({
-    queryKey: getPersonalRecordQueryKey(chart.md5),
+    queryKey: [online, getPersonalRecordQueryKey(chart.md5)],
     queryFn: () => online.getPersonalRecordsByMd5(chart.md5),
   })
 }
@@ -45,7 +45,7 @@ export function useLeaderboardQuery(
 ): UseQueryResult<{ data: ScoreboardDataEntry[] }> {
   const online = useContext(OnlineContext)
   return useQuery({
-    queryKey: getLeaderboardQueryKey(chart.md5, playMode),
+    queryKey: [online, getLeaderboardQueryKey(chart.md5, playMode)],
     queryFn: () => online.scoreboard({ md5: chart.md5, playMode }),
   })
 }
@@ -56,7 +56,7 @@ export function usePersonalRankingEntryQuery(
 ): UseQueryResult<ScoreboardDataRecord | null> {
   const online = useContext(OnlineContext)
   return useQuery({
-    queryKey: getPersonalRankingEntryQueryKey(chart.md5, playMode),
+    queryKey: [online, getPersonalRankingEntryQueryKey(chart.md5, playMode)],
     queryFn: () =>
       online.retrievePersonalRankingEntry({ md5: chart.md5, playMode }),
   })
@@ -79,7 +79,7 @@ export function useRecordSubmissionMutation(): UseMutationResult<
         data
       )
       client.invalidateQueries({
-        queryKey: getLeaderboardQueryKey(info.md5, info.playMode),
+        queryKey: [online, getLeaderboardQueryKey(info.md5, info.playMode)],
       })
     },
   })
