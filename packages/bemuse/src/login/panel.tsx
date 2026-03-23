@@ -1,0 +1,53 @@
+import { useAuth0 } from '@auth0/auth0-react'
+import { storeAccessToken } from '@bemuse/online'
+import { useEffect } from 'react'
+
+import styles from './panel.module.css'
+
+export function LoginPanel() {
+  const {
+    isLoading,
+    isAuthenticated,
+    error,
+    user,
+    loginWithRedirect,
+    getAccessTokenSilently,
+  } = useAuth0()
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      getAccessTokenSilently().then(storeAccessToken).catch(console.log)
+    }
+  }, [getAccessTokenSilently, isAuthenticated])
+
+  if (isLoading) {
+    return <p className={styles.status}>Loading…</p>
+  }
+  if (error) {
+    return (
+      <div>
+        <h2 className={styles.subtitle}>Something went wrong</h2>
+        <p className={styles.errorMessage}>{error.message}</p>
+      </div>
+    )
+  }
+  if (!isAuthenticated) {
+    return (
+      <button
+        className={styles.primaryActionButton}
+        onClick={() => loginWithRedirect()}
+      >
+        Sign Up / Log In
+      </button>
+    )
+  }
+
+  return (
+    <div>
+      <p className={styles.primary}>
+        You have been succeed to log in as {user?.nickname ?? '(unnamed)'}!
+      </p>
+      <p className={styles.secondary}>You can close this window anytime.</p>
+    </div>
+  )
+}

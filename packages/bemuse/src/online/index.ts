@@ -6,6 +6,33 @@ import type { RecordLevel } from './level.js'
 import type { Operation } from './operations.js'
 import { rootQueryKey } from './query-keys.js'
 
+const STORAGE_KEY = 'scoreboard.auth.access-token'
+
+export const storeAccessToken = (accessToken: string) => {
+  localStorage.setItem(STORAGE_KEY, accessToken)
+}
+
+export const loadAccessToken = async (): Promise<string | null> => {
+  const accessToken = localStorage.getItem(STORAGE_KEY)
+  if (accessToken == null) {
+    return null
+  }
+
+  // check expired
+  const res = await fetch(
+    new URL(
+      '/api/v1/users/me',
+      'https://bemuse-scoreboard.mikuroxina.workers.dev'
+    ),
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  )
+  return res.ok ? accessToken : null
+}
+
 export interface SignUpInfo {
   username: string
   password: string

@@ -21,7 +21,7 @@ function buildInfo() {
     name += ' DevMode'
     if (process.env.DEPLOY_PRIME_URL) {
       const m = process.env.DEPLOY_PRIME_URL.match(/\/\/(.*?)--/)
-      version += `[${m[1]}]`
+      version += `[${m![1]}]`
     }
     version += '@' + gitRevision()
   } else if (process.env.CONTEXT === 'production') {
@@ -47,7 +47,7 @@ const commonPlugins = [
   }),
   {
     name: 'vite-plugin-node-polyfills:shims-resolver',
-    resolveId(source) {
+    resolveId(source: string) {
       const res =
         /^vite-plugin-node-polyfills\/shims\/(?<shim>buffer|global|process)/.exec(
           source
@@ -107,9 +107,6 @@ export default defineConfig({
   build: {
     commonjsOptions: {
       include: [/node_modules/],
-    },
-    dynamicImportVarsOptions: {
-      errorWhenNoFilesFound: true,
     },
   },
   optimizeDeps: {
