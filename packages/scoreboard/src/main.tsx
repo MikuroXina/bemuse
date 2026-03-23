@@ -1,13 +1,13 @@
-import { Auth0Exception } from '@auth0/auth0-hono'
 import { Hono } from 'hono'
 import { env } from 'hono/adapter'
 import { cors } from 'hono/cors'
+import { HTTPException } from 'hono/http-exception'
 import { renderToReadableStream } from 'react-dom/server'
 
-import { router as authRouter } from './auth'
-import { authMiddleware, requiresModeratorAuth } from './middleware'
-import { router as moderationRouter } from './moderation'
-import { router as scoreboardRouter } from './scoreboard'
+import { authMiddleware, authModeratorMiddleware } from './middleware'
+import { router as authRouter } from './routes/auth'
+import { router as moderationRouter } from './routes/moderation'
+import { router as scoreboardRouter } from './routes/scoreboard'
 import { View } from './view'
 
 const app = new Hono()
@@ -22,7 +22,7 @@ app.use((c, next) =>
 app.use(authMiddleware)
 app.onError((err, c) => {
   console.error(err)
-  if (err instanceof Auth0Exception) {
+  if (err instanceof HTTPException) {
     if (env(c).NODE_ENV === 'development') {
       return err.getResponse()
     }
@@ -34,7 +34,7 @@ app.route('/', authRouter)
 app.route('/', moderationRouter)
 app.route('/', scoreboardRouter)
 
-app.get('/moderation', requiresModeratorAuth(), async () => {
+app.get('/moderation', authModeratorMiddleware, async () => {
   const stream = await renderToReadableStream(
     <html lang='en'>
       <head>

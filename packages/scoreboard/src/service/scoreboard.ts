@@ -1,21 +1,16 @@
-import { type OIDCEnv, requiresAuth } from '@auth0/auth0-hono'
-import { sValidator } from '@hono/standard-validator'
 import { Scoreboard } from '@mikuroxina/scoreboard-types'
-import { type Context, Hono } from 'hono'
-import { type InferInput, type InferOutput, parse } from 'valibot'
+import { type InferOutput, parse } from 'valibot'
 
-import type { Bindings } from './env'
-import { authMiddleware } from './middleware'
+import type { IDProvider } from '../interface/idp'
 
-export const router = new Hono<{ Bindings: Bindings }>().basePath(
-  '/api/v1/scoreboard'
-)
-
-router.use(authMiddleware)
-
-router.get('/:chart_id/:play_mode', async (c) => {
-  const { chart_id, play_mode } = c.req.param()
-  const select = await c.env.score
+export const getLeaderboard = async ({
+  param: { chart_md5: chartId, play_mode: playMode },
+  score,
+}: {
+  param: InferOutput<typeof Scoreboard.getLeaderboardParameterSchema>
+  score: D1Database
+}): Promise<InferOutput<typeof Scoreboard.getLeaderboardResponseSchema>> => {
+  const select = await score
     .prepare(
       `
     SELECT
@@ -45,7 +40,7 @@ router.get('/:chart_id/:play_mode', async (c) => {
       created_at DESC;
     `
     )
-    .bind(chart_id, play_mode)
+    .bind(chartId, playMode)
     .run()
 
   const ret: unknown[] = []
@@ -74,52 +69,30 @@ router.get('/:chart_id/:play_mode', async (c) => {
       },
     })
   }
-  return c.json(parse(Scoreboard.getLeaderboardResponseSchema, ret))
-})
+  return parse(Scoreboard.getLeaderboardResponseSchema, ret)
+}
 
-router.post(
-  '/:chart_id/:play_mode',
-  requiresAuth(),
-  sValidator('json', Scoreboard.submitScoreRequestBodySchema),
-  async (
-    c: Context<
-      OIDCEnv<Bindings>,
-      '/:chart_id/:play_mode',
-      {
-        in: { json: InferInput<typeof Scoreboard.submitScoreRequestBodySchema> }
-        out: {
-          json: InferOutput<typeof Scoreboard.submitScoreRequestBodySchema>
-        }
-      }
-    >
-  ) => {
-    const userId = (await c.var.auth0Client?.getUser())?.sub
-    if (!userId) {
-      return c.text('Unauthorized', 401)
-    }
+export const submitScore = async ({
+  param: { chart_md5: chartId, play_mode: playMode },
+  db,
+  toSubmit,
+  accessToken,
+  idp,
+}: {
+  param: InferOutput<typeof Scoreboard.submitScoreParameterSchema>
+  db: D1Database
+  toSubmit: InferOutput<typeof Scoreboard.submitScoreRequestBodySchema>
+  accessToken: string
+  idp: IDProvider
+}): Promise<InferOutput<typeof Scoreboard.submitScoreResponseSchema>> => {
+  const userId = await idp.userId(accessToken)
+  const { score, combo, total, count, log } = toSubmit
 
-    const { chart_id, play_mode } = c.req.param()
-    const { score, combo, total, count, log } = c.req.valid('json')
-
-    await c.env.score
-      .prepare(
-        `
-        INSERT INTO
-          chart (id, title)
-        VALUES
-          (?, ?)
-        ON CONFLICT (id)
-          DO NOTHING;
-        `
-      )
-      .bind(chart_id)
-      .run()
-
-    const newRecordId = crypto.randomUUID()
-    const createdAt = new Date().toISOString()
-    await c.env.score
-      .prepare(
-        `
+  const newRecordId = crypto.randomUUID()
+  const createdAt = new Date().toISOString()
+  await db
+    .prepare(
+      `
         INSERT INTO
           score_record (
             id,
@@ -139,28 +112,28 @@ router.post(
           )
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         `
-      )
-      .bind(
-        newRecordId,
-        createdAt,
-        userId,
-        chart_id,
-        play_mode,
-        count.meticulous,
-        count.precise,
-        count.good,
-        count.offbeat,
-        count.missed,
-        log,
-        score,
-        combo,
-        total
-      )
-      .run()
+    )
+    .bind(
+      newRecordId,
+      createdAt,
+      userId,
+      chartId,
+      playMode,
+      count.meticulous,
+      count.precise,
+      count.good,
+      count.offbeat,
+      count.missed,
+      log,
+      score,
+      combo,
+      total
+    )
+    .run()
 
-    const select = await c.env.score
-      .prepare(
-        `
+  const select = await db
+    .prepare(
+      `
       SELECT
         RANK() OVER (ORDER BY score DESC, created_at DESC) AS rank
       FROM
@@ -172,37 +145,41 @@ router.post(
       HAVING
         user_id = ?
       `
-      )
-      .bind(chart_id, play_mode, userId)
-      .first()
-    if (!select) {
-      throw new Error('insertion failed')
-    }
-
-    const ret = {
-      rank: select.rank,
-      entry: {
-        id: newRecordId,
-        created_at: createdAt,
-        score: {
-          score,
-          combo,
-          total,
-          count,
-          log,
-        },
-        recorded_by: userId,
-        chart_md5: chart_id,
-        play_mode: play_mode,
-      },
-    }
-    return c.json(parse(Scoreboard.submitScoreResponseSchema, ret))
+    )
+    .bind(chartId, playMode, userId)
+    .first()
+  if (!select) {
+    throw new Error('insertion failed')
   }
-)
 
-router.get('/:chart_id/:play_mode/:user_id', async (c) => {
-  const { chart_id, play_mode, user_id } = c.req.param()
-  const result = await c.env.score
+  const ret = {
+    rank: select.rank,
+    entry: {
+      id: newRecordId,
+      created_at: createdAt,
+      score: {
+        score,
+        combo,
+        total,
+        count,
+        log,
+      },
+      recorded_by: userId,
+      chart_md5: chartId,
+      play_mode: playMode,
+    },
+  }
+  return parse(Scoreboard.submitScoreResponseSchema, ret)
+}
+
+export const getScore = async ({
+  param: { chart_md5: chartId, play_mode: playMode, user_id: userId },
+  score,
+}: {
+  param: InferOutput<typeof Scoreboard.getScoreParameterSchema>
+  score: D1Database
+}): Promise<InferOutput<typeof Scoreboard.getScoreResponseSchema> | null> => {
+  const result = await score
     .prepare(
       `
     SELECT
@@ -235,11 +212,11 @@ router.get('/:chart_id/:play_mode/:user_id', async (c) => {
       1;
     `
     )
-    .bind(chart_id, play_mode, user_id)
+    .bind(chartId, playMode, userId)
     .first()
 
   if (result == null) {
-    return c.text('Not Found', 404)
+    return null
   }
 
   const ret: unknown = {
@@ -265,5 +242,5 @@ router.get('/:chart_id/:play_mode/:user_id', async (c) => {
       play_mode: result.play_mode,
     },
   }
-  return c.json(parse(Scoreboard.getScoreResponseSchema, ret))
-})
+  return parse(Scoreboard.getScoreResponseSchema, ret)
+}
