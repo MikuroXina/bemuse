@@ -16,7 +16,13 @@ export function LoginPanel() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      getAccessTokenSilently().then(storeAccessToken).catch(console.log)
+      ;(async () => {
+        const token = await getAccessTokenSilently()
+        storeAccessToken(token)
+        if (window.opener) {
+          ;(window.opener as Window).postMessage([])
+        }
+      })().catch(console.log)
     }
   }, [getAccessTokenSilently, isAuthenticated])
 
