@@ -3,7 +3,7 @@ import { Auth } from '@mikuroxina/scoreboard-types'
 import { ManagementClient, UserInfoClient } from 'auth0'
 import { Hono } from 'hono'
 import { env } from 'hono/adapter'
-import { parse } from 'valibot'
+import type { InferOutput } from 'valibot'
 
 import type { Env, Variables } from '../env'
 import { authMiddleware } from '../middleware'
@@ -32,13 +32,13 @@ router
       clientSecret: AUTH0_CLIENT_SECRET,
     })
     const res = await management.users.get(userId)
-    const ret: unknown = {
-      id: res.user_id,
-      name: res.name,
-      created_at: res.created_at,
-      frozen: res.blocked ?? false,
+    const ret: InferOutput<typeof Auth.userInfoSchema> = {
+      id: res.user_id! as Auth.UserId,
+      name: res.name!,
+      created_at: res.created_at! as string,
+      is_frozen: res.blocked ?? false,
     }
-    return c.json(parse(Auth.userInfoSchema, ret))
+    return c.json(ret)
   })
   .post(sValidator('param', Auth.updateUserRequestSchema), async (c) => {
     const { VITE_AUTH0_DOMAIN, VITE_AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET } =
@@ -63,11 +63,11 @@ router
     const res = await management.users.update(userId, {
       name,
     })
-    const data = {
-      id: res.user_id,
-      name: res.name,
-      created_at: res.created_at,
-      is_frozen: res.blocked,
+    const data: InferOutput<typeof Auth.updateUserResponseSchema> = {
+      id: res.user_id! as Auth.UserId,
+      name: res.name!,
+      created_at: res.created_at! as string,
+      is_frozen: res.blocked ?? false,
     }
-    return c.json(parse(Auth.updateUserResponseSchema, data))
+    return c.json(data)
   })

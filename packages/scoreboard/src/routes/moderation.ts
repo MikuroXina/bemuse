@@ -1,9 +1,9 @@
 import { sValidator } from '@hono/standard-validator'
-import { Moderation } from '@mikuroxina/scoreboard-types'
+import { Auth, Moderation } from '@mikuroxina/scoreboard-types'
 import { ManagementClient } from 'auth0'
 import { type Context, Hono } from 'hono'
 import { env } from 'hono/adapter'
-import { parse } from 'valibot'
+import type { InferOutput } from 'valibot'
 
 import { idProvider, userRepo } from '../adaptor/auth0'
 import type { Env, EnvVars } from '../env'
@@ -37,16 +37,16 @@ router.get(
           : `name:"${name}"~ AND created_at:[${since} TO ${until}}`,
       search_engine: 'v3',
     })
-    const ret: unknown[] = []
+    const ret: InferOutput<typeof Moderation.listUsersResponseSchema> = []
     for await (const page of pages) {
       ret.push({
-        id: page.user_id,
-        name: page.name,
-        created_at: page.created_at,
+        id: page.user_id! as Auth.UserId,
+        name: page.name!,
+        created_at: page.created_at! as string,
         is_frozen: page.blocked ?? false,
       })
     }
-    return c.json(parse(Moderation.listUsersResponseSchema, ret))
+    return c.json(ret)
   }
 )
 
