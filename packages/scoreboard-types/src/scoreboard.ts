@@ -42,7 +42,10 @@ export const scoreboardEntrySchema = v.object({
   id: scoreboardEntryIdSchema,
   created_at: v.pipe(v.string(), v.isoTimestamp()),
   score: scoreSchema,
-  recorded_by: userIdSchema,
+  recorded_by: v.object({
+    id: userIdSchema,
+    name: v.string(),
+  }),
   chart_md5: md5HashSchema,
   play_mode: playModeSchema,
 })
@@ -53,6 +56,14 @@ export const scoreboardRowSchema = v.object({
   entry: scoreboardEntrySchema,
 })
 export type ScoreboardRow = v.InferOutput<typeof scoreboardRowSchema>
+
+export const playStatsSchema = v.object({
+  /** Index of play records */
+  play_nth: v.pipe(v.number(), v.integer()),
+  /** Total number of play records */
+  play_count: v.pipe(v.number(), v.integer()),
+})
+export type PlayStats = v.InferOutput<typeof playStatsSchema>
 
 export const getLeaderboardParameterSchema = v.object({
   chart_md5: md5HashSchema,
@@ -65,11 +76,17 @@ export const submitScoreParameterSchema = v.object({
   play_mode: playModeSchema,
 })
 export const submitScoreRequestBodySchema = scoreSchema
-export const submitScoreResponseSchema = scoreboardRowSchema
+export const submitScoreResponseSchema = v.object({
+  ...scoreboardRowSchema.entries,
+  ...playStatsSchema.entries,
+})
 
 export const getScoreParameterSchema = v.object({
   chart_md5: md5HashSchema,
   play_mode: playModeSchema,
   user_id: userIdSchema,
 })
-export const getScoreResponseSchema = scoreboardRowSchema
+export const getScoreResponseSchema = v.object({
+  ...scoreboardRowSchema.entries,
+  ...playStatsSchema.entries,
+})

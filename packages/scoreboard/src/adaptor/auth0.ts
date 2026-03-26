@@ -43,5 +43,21 @@ export const userRepo = ({
         is_frozen: info.blocked ?? false,
       }
     },
+    userInfoBatch: async (userIds) => {
+      const res = await client.users.list({
+        search_engine: 'v3',
+        q: userIds.map((userId) => `user_id:"${userId}"`).join(' OR '),
+      })
+      const ret: Record<Auth.UserId, Auth.UserInfo> = {}
+      for (const info of res.data) {
+        ret[info.user_id! as Auth.UserId] = {
+          id: info.user_id! as Auth.UserId,
+          name: info.nickname ?? '(unnamed)',
+          created_at: info.created_at as string,
+          is_frozen: info.blocked ?? false,
+        }
+      }
+      return ret
+    },
   }
 }
