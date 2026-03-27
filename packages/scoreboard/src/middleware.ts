@@ -7,7 +7,8 @@ import type { Env, EnvVars } from './env'
 
 export const authMiddleware = createMiddleware<Env>(async (c, next) => {
   const authorization = c.req.header('Authorization')
-  if (!authorization || authorization.startsWith('Bearer ')) {
+  if (!authorization || !authorization.startsWith('Bearer ')) {
+    console.error({ authorization })
     return c.text('Unauthorized', 401)
   }
   const accessToken = authorization.slice('Bearer '.length)

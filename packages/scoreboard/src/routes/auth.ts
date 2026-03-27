@@ -21,6 +21,7 @@ router
       domain: VITE_AUTH0_DOMAIN,
     }).getUserInfo(c.get('accessToken'))
     if (user.status !== 200) {
+      console.error(user.data)
       return c.text('Unauthorized', 401)
     }
 
