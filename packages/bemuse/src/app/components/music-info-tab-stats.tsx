@@ -36,7 +36,7 @@ const Message = ({ show }: { show: boolean }) =>
 
 const MusicInfoTabStats = ({ chart }: MusicInfoTabStatsProps) => {
   const user = useCurrentUser()
-  const [loading, record] = usePersonalRecord(chart)
+  const { isLoading, data: record } = usePersonalRecord(chart)
   return (
     <div className={styles.tabStats}>
       <Message show={!user} />
@@ -49,7 +49,7 @@ const MusicInfoTabStats = ({ chart }: MusicInfoTabStatsProps) => {
         <dd>{formatTime(chart.duration)}</dd>
         <dt>Play Count</dt>
         <dd data-testid='stats-play-count'>
-          <WhenNotLoading loading={loading}>
+          <WhenNotLoading loading={isLoading}>
             {record ? record.playCount : user ? '0' : '-'}
           </WhenNotLoading>
         </dd>
@@ -57,21 +57,21 @@ const MusicInfoTabStats = ({ chart }: MusicInfoTabStatsProps) => {
       <dl className={`${styles.column} ${styles.right}`}>
         <dt>Best Score</dt>
         <dd data-testid='stats-best-score'>
-          <WhenNotLoading loading={loading}>
+          <WhenNotLoading loading={isLoading}>
             {record ? record.score : '-'}
           </WhenNotLoading>
         </dd>
 
         <dt>Accuracy</dt>
         <dd>
-          <WhenNotLoading loading={loading}>
+          <WhenNotLoading loading={isLoading}>
             {record ? formattedAccuracyForRecord(record) : '-'}
           </WhenNotLoading>
         </dd>
 
         <dt>Max Combo</dt>
         <dd>
-          <WhenNotLoading loading={loading}>
+          <WhenNotLoading loading={isLoading}>
             {record ? (
               <span>
                 {record.combo} <small>/ {record.total}</small>

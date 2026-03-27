@@ -16,7 +16,7 @@ const MusicListItemChart = ({
   selected,
   onClick,
 }: MusicListItemChartProps) => {
-  const [isLoading, record] = usePersonalRecord(chart)
+  const { isLoading, data: record } = usePersonalRecord(chart)
   const played = !!record
   let grade = played ? getGrade(record) : null
   if (grade === 'F') grade = null

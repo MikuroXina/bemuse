@@ -1,6 +1,10 @@
 import AuthenticationPopup from '@bemuse/online/components/authentication-popup.js'
-import type { RankingState } from '@bemuse/online/index.js'
-import { isWaiting } from '@bemuse/online/operations.js'
+import {
+  useCurrentUser,
+  useLeaderboardQuery,
+  usePersonalRankingEntryQuery,
+} from '@bemuse/online/hooks'
+import type { MappingMode } from '@bemuse/rules/mapping-mode'
 import { type ReactNode, useState } from 'react'
 
 import styles from './ranking.module.scss'
@@ -30,29 +34,34 @@ const Error = ({
 )
 
 const Leaderboard = ({
-  state,
-  onReloadScoreboardRequest,
+  chartMd5,
+  playMode,
 }: {
-  state: RankingState
-  onReloadScoreboardRequest?: () => void
+  chartMd5: string
+  playMode: MappingMode
 }) => {
+  const { isLoading, isError, data, error, refetch } = useLeaderboardQuery(
+    { md5: chartMd5 },
+    playMode
+  )
+
   let tableBody: ReactNode
-  if (state.data?.length) {
-    tableBody = state.data.map((record, index) => (
-      <Row key={index} record={record} />
-    ))
-  } else if (isWaiting(state.meta.scoreboard)) {
+  if (isLoading) {
     tableBody = <Message>Loading...</Message>
-  } else if (state.meta.scoreboard.status === 'error') {
+  } else if (isError) {
     tableBody = (
       <Message>
         <Error
           text='Sorry, we are unable to fetch the scoreboard.'
-          error={state.meta.scoreboard.error}
-          retry={onReloadScoreboardRequest}
+          error={error}
+          retry={refetch}
         />
       </Message>
     )
+  } else if (data?.data.length) {
+    tableBody = data.data.map((record, index) => (
+      <Row key={index} record={record} />
+    ))
   } else {
     tableBody = <Message>No Data</Message>
   }
@@ -65,37 +74,44 @@ const Leaderboard = ({
 }
 
 const Yours = ({
-  state,
+  chartMd5,
+  playMode,
   onResubmitScoreRequest,
   showPopup,
 }: {
-  state: RankingState
+  chartMd5: string
+  playMode: MappingMode
   onResubmitScoreRequest?: () => void
   showPopup: () => void
 }) => {
-  const submission = state.meta.submission
+  const user = useCurrentUser()
+  const { isLoading, isError, data, error } = usePersonalRankingEntryQuery(
+    { md5: chartMd5 },
+    playMode
+  )
+
   let tableBody: ReactNode
-  if (submission.status === 'completed' && submission.value) {
-    tableBody = <Row record={submission.value} />
-  } else if (submission.status === 'unauthenticated') {
+  if (!user) {
     tableBody = (
       <Message>
         Please <a onClick={showPopup}>log in or create an account</a> to submit
         scores.
       </Message>
     )
-  } else if (submission.status === 'error') {
+  } else if (isError) {
     tableBody = (
       <Message>
         <Error
           text='Unable to submit score'
-          error={submission.error}
+          error={error}
           retry={onResubmitScoreRequest}
         />
       </Message>
     )
-  } else if (isWaiting(submission)) {
+  } else if (isLoading) {
     tableBody = <Message>Please wait...</Message>
+  } else if (data) {
+    tableBody = <Row record={data} />
   } else {
     tableBody = <Message>No record. Let’s play!</Message>
   }
@@ -108,14 +124,14 @@ const Yours = ({
 }
 
 export interface RankingProps {
-  state: RankingState
-  onReloadScoreboardRequest?: () => void
+  chartMd5: string
+  playMode: MappingMode
   onResubmitScoreRequest?: () => void
 }
 
 const Ranking = ({
-  state,
-  onReloadScoreboardRequest,
+  chartMd5,
+  playMode,
   onResubmitScoreRequest,
 }: RankingProps) => {
   const [authenticationPopupVisible, setAuthenticationPopupVisible] =
@@ -131,14 +147,12 @@ const Ranking = ({
         onBackdropClick={hidePopup}
       />
       <Yours
-        state={state}
+        chartMd5={chartMd5}
+        playMode={playMode}
         onResubmitScoreRequest={onResubmitScoreRequest}
         showPopup={() => setAuthenticationPopupVisible(true)}
       />
-      <Leaderboard
-        state={state}
-        onReloadScoreboardRequest={onReloadScoreboardRequest}
-      />
+      <Leaderboard chartMd5={chartMd5} playMode={playMode} />
     </div>
   )
 }

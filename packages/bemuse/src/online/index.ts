@@ -109,13 +109,15 @@ export class Online {
     return record
   }
 
-  scoreboard(level: RecordLevel) {
-    return this.service.retrieveScoreboard(level)
+  async scoreboard(level: RecordLevel) {
+    return await this.service.retrieveScoreboard(level)
   }
 
-  retrievePersonalRankingEntry(level: RecordLevel) {
-    if (!this.service.getCurrentUser()) return null
-    return this.service.retrieveRecord(level)
+  async retrievePersonalRankingEntry(level: RecordLevel) {
+    if (!this.service.getCurrentUser()) {
+      return null
+    }
+    return await this.service.retrieveRecord(level)
   }
 
   dispose() {}
