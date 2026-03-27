@@ -4,7 +4,7 @@ import { cors } from 'hono/cors'
 import { HTTPException } from 'hono/http-exception'
 import { renderToReadableStream } from 'react-dom/server'
 
-import { authMiddleware, authModeratorMiddleware } from './middleware'
+import { authModeratorMiddleware } from './middleware'
 import { router as authRouter } from './routes/auth'
 import { router as moderationRouter } from './routes/moderation'
 import { router as scoreboardRouter } from './routes/scoreboard'
@@ -19,7 +19,6 @@ app.use((c, next) =>
     credentials: true,
   })(c, next)
 )
-app.use(authMiddleware)
 app.onError((err, c) => {
   console.error(err)
   if (err instanceof HTTPException) {
