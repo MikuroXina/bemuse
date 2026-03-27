@@ -18,7 +18,7 @@ export const getLeaderboard = async ({
     .prepare(
       `
     SELECT
-      id,
+      score_record.id as id,
       created_at,
       user_id,
       chart_id,
@@ -35,8 +35,12 @@ export const getLeaderboard = async ({
       RANK() OVER (ORDER BY score DESC, created_at DESC) AS rank
     FROM
       score_record
+      JOIN
+        user_frozen
+      ON
+        score_record.user_id = user_frozen.id
     WHERE
-      chart_id = ? AND play_mode = ?
+      chart_id = ? AND play_mode = ? AND user_frozen.frozen IS NOT TRUE
     GROUP BY
       user_id
     ORDER BY

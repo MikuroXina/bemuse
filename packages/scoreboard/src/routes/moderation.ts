@@ -90,6 +90,20 @@ router.post('/users/:user_id/freeze', async (c: Context<Env>) => {
     blocked: true,
   })
 
+  await c.env.score
+    .prepare(
+      `
+    INSERT
+      user_frozen (id, frozen)
+    VALUES
+      (1, TRUE)
+    ON CONFLICT DO UPDATE SET
+      frozen = TRUE;
+    `
+    )
+    .bind(userId)
+    .run()
+
   return c.text('OK')
 })
 
@@ -109,6 +123,20 @@ router.post('/users/:user_id/unfreeze', async (c: Context<Env>) => {
   await management.users.update(userId, {
     blocked: false,
   })
+
+  await c.env.score
+    .prepare(
+      `
+    INSERT
+      user_frozen (id, frozen)
+    VALUES
+      (1, FALSE)
+    ON CONFLICT DO UPDATE SET
+      frozen = FALSE;
+    `
+    )
+    .bind(userId)
+    .run()
 
   return c.text('OK')
 })
