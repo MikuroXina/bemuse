@@ -12,7 +12,6 @@ import groupSongsIntoCategories from '@bemuse/music-collection/group-songs-into-
 import sortSongs from '@bemuse/music-collection/sort-songs.js'
 import { useMusicPreviewer } from '@bemuse/music-previewer/hook.js'
 import AuthenticationPopup from '@bemuse/online/components/authentication-popup.js'
-import { useCurrentUser } from '@bemuse/online/hooks.js'
 import Online, { type UserInfo } from '@bemuse/online/index.js'
 import { OnlineContext } from '@bemuse/online/instance.js'
 import { OFFICIAL_SERVER_URL, useCollection } from '@bemuse/query/collection.js'
@@ -127,7 +126,7 @@ const Main = ({
     }
 
     return [allSongs, selectGroups]
-  }, [collectionRes.data, searchText])
+  }, [collectionRes.data, searchText, customSongs])
 
   const selectedSong = selectedSongGivenSongs(songs)(musicSelection)
   const chartsOfSelectedSong = selectedSong
@@ -285,7 +284,7 @@ const MusicSelectScene = () => {
 
   const dispatch = useDispatch()
   const online = useContext(OnlineContext)
-  const user = useCurrentUser()
+  const user = online.getCurrentUser()
 
   const popScene = () => {
     sceneManager.pop()

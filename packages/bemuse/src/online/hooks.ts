@@ -15,7 +15,6 @@ import type {
 } from './index.js'
 import { OnlineContext } from './instance.js'
 import {
-  currentUserQueryKey,
   getLeaderboardQueryKey,
   getPersonalRankingEntryQueryKey,
   getPersonalRecordQueryKey,
@@ -23,12 +22,7 @@ import {
 
 export function useCurrentUser() {
   const online = useContext(OnlineContext)
-  return (
-    useQuery({
-      queryKey: [online, currentUserQueryKey],
-      queryFn: () => online.getCurrentUser(),
-    }).data || null
-  )
+  return online.getCurrentUser()
 }
 
 export function usePersonalRecordsByMd5Query(
