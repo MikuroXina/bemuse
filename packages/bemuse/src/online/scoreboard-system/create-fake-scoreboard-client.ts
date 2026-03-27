@@ -53,26 +53,15 @@ export function createFakeScoreboardClient(): ScoreboardClient {
   chart('fb3dab834591381a5b8188bc2dc9c4b7', 'KB')
     .addEntry('tester', 543210, [9, 1, 0, 0, 0])
     .addEntry('tester2', 123456, [0, 1, 5, 9, 0])
-  const signedUpUsernames = new Set<string>(['taken'])
 
+  let tokenId = 0
   const client: ScoreboardClient = {
-    signUp: async (options) => {
+    login: async () => {
       await delay(100)
-      if (signedUpUsernames.has(options.username)) {
-        throw new Error('Username already taken')
-      }
-      signedUpUsernames.add(options.username)
-      return { playerToken: 'FAKE!' + options.username }
+      return { playerToken: `FAKE!${++tokenId}` }
     },
-    loginByUsernamePassword: async (options) => {
-      await delay(100)
-      return { playerToken: 'FAKE!' + options.username }
-    },
-    changePassword: async () => {
-      return {}
-    },
-    renewPlayerToken: async (options) => {
-      return options.playerToken
+    myName: async (token) => {
+      return `Anonymous ${token.split('!')[1]}`
     },
     submitScore: async (options) => {
       await delay(100)

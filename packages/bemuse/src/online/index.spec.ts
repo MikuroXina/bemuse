@@ -1,7 +1,8 @@
 import { assert, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import Online from './index.js'
-import OnlineService from './scoreboard-system/online-service.js'
+import FakeOnlineService from './scoreboard-system/fake-online-service.js'
+import type { ScoreboardClient } from './scoreboard-system/scoreboard-client.js'
 
 const uid = (function () {
   const session = Math.floor(Math.random() * 65536).toString(16)
@@ -22,46 +23,8 @@ const uid = (function () {
   }
 })()
 
-class StubStorage implements Storage {
-  map = new Map<string, string>()
-  get length() {
-    return this.map.size
-  }
-  clear() {
-    this.map.clear()
-  }
-  key(index: number): string | null {
-    throw new Error('unimplemented key with: ' + index)
-  }
-  getItem(key: string): string | null {
-    return this.map.get(key) ?? null
-  }
-  setItem(key: string, value: string) {
-    this.map.set(key, value)
-  }
-  removeItem(key: string) {
-    this.map.delete(key)
-  }
-}
-
-const storage = new StubStorage()
-
-function createOnline() {
-  return new Online(new OnlineService({ fake: true, storage }))
-}
-
-interface AccountInfo {
-  username: string
-  password: string
-  email: string
-}
-
-function createAccountInfo(): AccountInfo {
-  return {
-    username: uid(),
-    password: 'wow_bemuse_test',
-    email: 'test+' + uid() + '@bemuse.ninja',
-  }
+function createOnline(scoreboardClient?: ScoreboardClient) {
+  return new Online(new FakeOnlineService(scoreboardClient))
 }
 
 describe('Online', function () {
@@ -69,18 +32,11 @@ describe('Online', function () {
 
   describe('signup', function () {
     let online: Online
-    let info: AccountInfo
     beforeAll(function () {
       online = createOnline()
     })
-    beforeAll(function () {
-      info = createAccountInfo()
-    })
     it('should succeed', async () => {
-      await online.signUp(info)
-    })
-    it('should not allow duplicate signup', async () => {
-      await expect(online.signUp(info)).rejects.toThrowError()
+      await online.logIn()
     })
   })
 
@@ -103,24 +59,20 @@ describe('Online', function () {
       online = createOnline()
     })
     it('user should change to signed-up user', async function () {
-      const info = createAccountInfo()
-
-      await online.signUp(info)
+      await online.logIn()
 
       const user = online.getCurrentUser()
-      expect(user!.username).to.equal(info.username)
+      expect(user!.username).to.equal('Anonymous 1')
     })
   })
 
   describe('with an active user', function () {
     let online: Online
-    const info = createAccountInfo()
     beforeAll(function () {
       online = createOnline()
-      return online.signUp(info)
     })
     beforeEach(function () {
-      return online.logIn(info)
+      return online.logIn()
     })
     it('when log out, the user should change back to null', async function () {
       await online.logOut()
@@ -134,12 +86,10 @@ describe('Online', function () {
   it('submitting high scores', async () => {
     const online = createOnline()
     const prefix = uid() + '_'
-    const user1 = createAccountInfo()
-    const user2 = createAccountInfo()
 
     let lastRecordedAt: Date | undefined
     // sign up...
-    await online.signUp(user1)
+    await online.logIn()
 
     // records data successfully
     const record1 = await online.submitScore({
@@ -190,7 +140,7 @@ describe('Online', function () {
     expect(record3.playNumber).to.equal(3)
     expect(record3.playCount).to.equal(3)
     expect(record3.recordedAt).to.be.above(lastRecordedAt!)
-    expect(record3.playerName).to.equal(user1.username)
+    expect(record3.playerName).to.equal('Anonymous 1')
 
     // different mode have different score board
     const record4 = await online.submitScore({
@@ -206,7 +156,8 @@ describe('Online', function () {
     expect(record4.rank).to.equal(1)
 
     // as another user...
-    await online.signUp(user2)
+    await online.logOut()
+    await online.logIn()
 
     // saves a separate data
     const record5 = await online.submitScore({
@@ -229,11 +180,9 @@ describe('Online', function () {
     await online.logOut()
 
     const prefix = uid() + '_'
-    const user1 = createAccountInfo()
-    const user2 = createAccountInfo()
 
     // sign up user1...
-    await online.signUp(user1)
+    await online.logIn()
 
     // submit score1...
     await online.submitScore({
@@ -247,7 +196,8 @@ describe('Online', function () {
     })
 
     // sign up user2...
-    await online.signUp(user2)
+    await online.logOut()
+    await online.logIn()
 
     // submit score2...
     await online.submitScore({

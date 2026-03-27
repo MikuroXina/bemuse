@@ -5,11 +5,8 @@ export const rootQueryKey: QueryKey = ['online']
 
 export const currentUserQueryKey: QueryKey = ['online', 'currentUser']
 
-export const getPersonalRecordQueryKey: (md5: string) => QueryKey = (md5) => [
-  'online',
-  'personalRecord',
-  md5,
-]
+export const getPersonalRecordQueryKey = (md5: string, playMode: MappingMode) =>
+  ['online', 'personalRecord', md5, playMode] as const
 
 export const getLeaderboardQueryKey: (
   md5: string,

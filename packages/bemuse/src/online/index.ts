@@ -1,7 +1,6 @@
 import { queryClient } from '@bemuse/react-query/index.js'
 import type { ScoreCount } from '@bemuse/rules/accuracy.js'
 
-import { BatchedFetcher } from './batched-fetcher.js'
 import type { RecordLevel } from './level.js'
 import type { Operation } from './operations.js'
 import { rootQueryKey } from './query-keys.js'
@@ -12,44 +11,16 @@ export const storeAccessToken = (accessToken: string) => {
   localStorage.setItem(STORAGE_KEY, accessToken)
 }
 
-export const loadAccessToken = async (): Promise<string | null> => {
-  const accessToken = localStorage.getItem(STORAGE_KEY)
-  if (accessToken == null) {
-    return null
-  }
-
-  // check expired
-  const res = await fetch(
-    new URL(
-      '/api/v1/users/me',
-      'https://bemuse-scoreboard.mikuroxina.workers.dev'
-    ),
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    }
-  )
-  return res.ok ? accessToken : null
+export const clearAccessToken = () => {
+  localStorage.removeItem(STORAGE_KEY)
 }
 
-export interface SignUpInfo {
-  username: string
-  password: string
-  email: string
-}
-
-export interface LogInInfo {
-  username: string
-  password: string
+export const loadAccessToken = (): string | null => {
+  return localStorage.getItem(STORAGE_KEY)
 }
 
 export interface UserInfo {
   username: string
-}
-
-export interface ChangePasswordInfo {
-  email: string
 }
 
 export interface ScoreBase {
@@ -94,18 +65,13 @@ export interface RankingState {
 
 export interface InternetRankingService {
   getCurrentUser(): UserInfo | null
-  signUp(signUpInfo: SignUpInfo): Promise<UserInfo | null>
-  logIn(logInInfo: LogInInfo): Promise<UserInfo | null>
-  changePassword(changePasswordInfo: ChangePasswordInfo): Promise<object>
+  logIn(): Promise<UserInfo | null>
   logOut(): Promise<void>
   submitScore(scoreInfo: ScoreInfo): Promise<ScoreboardDataRecord>
   retrieveRecord(level: RecordLevel): Promise<ScoreboardDataRecord | null>
   retrieveScoreboard(
     level: RecordLevel
   ): Promise<{ data: ScoreboardDataEntry[] }>
-  retrieveMultipleRecords(
-    levels: readonly { md5: string }[]
-  ): Promise<ScoreboardDataRecord[]>
 }
 
 export class Online {
@@ -115,31 +81,19 @@ export class Online {
     return this.service.getCurrentUser()
   }
 
-  async signUp(options: SignUpInfo) {
-    const user = await this.service.signUp(options)
+  async logIn() {
+    const user = await this.service.logIn()
     queryClient.invalidateQueries({ queryKey: [this, rootQueryKey] })
     return user
   }
 
-  async logIn(options: LogInInfo) {
-    const user = await this.service.logIn(options)
-    queryClient.invalidateQueries({ queryKey: [this, rootQueryKey] })
-    return user
-  }
-
-  batchedRecordFetcher = new BatchedFetcher<ScoreboardDataRecord>(
-    (md5s) =>
-      this.service.retrieveMultipleRecords(md5s.map((md5) => ({ md5 }))),
-    (record) => record.md5
-  )
-
-  getPersonalRecordsByMd5(md5: string) {
-    if (!this.service.getCurrentUser()) return []
-    return this.batchedRecordFetcher.load(md5)
-  }
-
-  changePassword(options: ChangePasswordInfo) {
-    return Promise.resolve(this.service.changePassword(options))
+  async getPersonalRecord(
+    level: RecordLevel
+  ): Promise<ScoreboardDataRecord | null> {
+    if (!this.service.getCurrentUser()) {
+      return null
+    }
+    return await this.service.retrieveRecord(level)
   }
 
   async logOut(): Promise<void> {

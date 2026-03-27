@@ -12,9 +12,6 @@ export const usePersonalRecord = (
   chart: PartialChart
 ): [isLoading: boolean, record: ScoreboardDataRecord | null] => {
   const playMode = useSelector(ReduxState.selectPlayMode)
-  const query = usePersonalRecordsByMd5Query(chart)
-  return [
-    query.isLoading,
-    query.data?.find((record) => record.playMode === playMode) || null,
-  ]
+  const query = usePersonalRecordsByMd5Query(chart, playMode)
+  return [query.isLoading, query.data ?? null]
 }

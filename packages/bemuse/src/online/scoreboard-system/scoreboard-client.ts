@@ -2,22 +2,11 @@ import type { ScoreCount } from '@bemuse/rules/accuracy.js'
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
 
 export interface ScoreboardClient {
-  signUp(options: {
-    username: string
-    password: string
-    email: string
-  }): Promise<{
+  login(): Promise<{
     playerToken: string
   }>
 
-  loginByUsernamePassword(options: {
-    username: string
-    password: string
-  }): Promise<{
-    playerToken: string
-  }>
-
-  changePassword(options: { email: string }): Promise<Record<string, never>>
+  myName(playerToken: string): Promise<string>
 
   submitScore(options: {
     playerToken: string
@@ -70,8 +59,6 @@ export interface ScoreboardClient {
       }
     }
   }>
-
-  renewPlayerToken(options: { playerToken: string }): Promise<string>
 }
 
 export interface SubmitScoreInput {

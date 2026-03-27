@@ -122,6 +122,7 @@
     "@mikuroxina/bemuse-types": "workspace:*",
     "@mikuroxina/bms": "workspace:*",
     "@mikuroxina/bmson": "workspace:*",
+    "@mikuroxina/scoreboard-types": "workspace:*",
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@reduxjs/toolkit": "^1.9.7",
     "@tanstack/react-query": "^5.90.21",
@@ -154,7 +155,8 @@
     "reselect": "^4.1.8",
     "screenfull": "^6.0.2",
     "throat": "^2.0.2",
-    "timesynchro": "^1.0.1"
+    "timesynchro": "^1.0.1",
+    "valibot": "^1.2.0"
   },
   "husky": {
     "hooks": {

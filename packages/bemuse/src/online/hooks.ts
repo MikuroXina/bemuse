@@ -31,11 +31,18 @@ export function useCurrentUser() {
   )
 }
 
-export function usePersonalRecordsByMd5Query(chart: { md5: string }) {
+export function usePersonalRecordsByMd5Query(
+  chart: { md5: string },
+  playMode: MappingMode
+) {
   const online = useContext(OnlineContext)
   return useQuery({
-    queryKey: [online, getPersonalRecordQueryKey(chart.md5)],
-    queryFn: () => online.getPersonalRecordsByMd5(chart.md5),
+    queryKey: [online, getPersonalRecordQueryKey(chart.md5, playMode)],
+    queryFn: () =>
+      online.getPersonalRecord({
+        md5: chart.md5,
+        playMode,
+      }),
   })
 }
 
