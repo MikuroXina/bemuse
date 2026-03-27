@@ -25,7 +25,7 @@ import { musicSearchTextSlice } from './entities/music-search-text.js'
 import { optionsSlice } from './entities/options.js'
 import { getInitialGrepString, getTimeSynchroServer } from './query-flags.js'
 
-const store = configureStore()
+let store = configureStore()
 
 const sceneManager = new SceneManager(({ children }) => (
   <div className='bemuse-scene'>
@@ -39,7 +39,9 @@ const sceneManager = new SceneManager(({ children }) => (
 
 // Allow hot reloading of some modules.
 if (import.meta.hot) {
-  import.meta.hot.accept('../redux/ReduxState.js', () => {})
+  import.meta.hot.accept('../redux/configure-store.js', () => {
+    store = configureStore()
+  })
 }
 
 function bootUp() {
