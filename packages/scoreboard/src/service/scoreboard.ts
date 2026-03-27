@@ -123,25 +123,25 @@ export const submitScore = async ({
   await db
     .prepare(
       `
-        INSERT INTO
-          score_record (
-            id,
-            created_at,
-            user_id,
-            chart_id,
-            play_mode,
-            count_meticulous,
-            count_precise,
-            count_good,
-            count_offbeat,
-            count_missed,
-            log,
-            score,
-            max_combo,
-            total_combo
-          )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
-        `
+      INSERT INTO
+        score_record (
+          id,
+          created_at,
+          user_id,
+          chart_id,
+          play_mode,
+          count_meticulous,
+          count_precise,
+          count_good,
+          count_offbeat,
+          count_missed,
+          log,
+          score,
+          max_combo,
+          total_combo
+        )
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+      `
     )
     .bind(
       newRecordId,
@@ -154,7 +154,7 @@ export const submitScore = async ({
       count.good,
       count.offbeat,
       count.missed,
-      log,
+      log ?? null,
       score,
       combo,
       total
@@ -184,7 +184,7 @@ export const submitScore = async ({
       SELECT
         COUNT(*) as play_count
       FROM
-        score_board
+        score_record
       WHERE
         chart_id = ? AND play_mode = ? AND user_id = ?;
       `
