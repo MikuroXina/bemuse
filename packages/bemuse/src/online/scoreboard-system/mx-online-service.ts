@@ -218,6 +218,7 @@ export class MXOnlineService implements InternetRankingService {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(body),
       }
