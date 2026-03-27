@@ -255,10 +255,10 @@ export const getScore = async ({
       chart_id = ? AND play_mode = ?
     GROUP BY
       user_id
-    ORDER BY
-      score DESC
     HAVING
       user_id = ?
+    ORDER BY
+      score DESC
     LIMIT
       1;
     `
