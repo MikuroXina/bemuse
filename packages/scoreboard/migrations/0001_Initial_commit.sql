@@ -12,10 +12,7 @@ CREATE TABLE score_record (
   count_good INTEGER NOT NULL CHECK (count_good >= 0),
   count_offbeat INTEGER NOT NULL CHECK (count_offbeat >= 0),
   count_missed INTEGER NOT NULL CHECK (count_missed >= 0),
-  log TEXT CHECK (
-    log IS NULL
-    OR log MATCH "^[ABCDM]+$"
-  ),
+  log TEXT,
   score INTEGER NOT NULL CHECK (score >= 0),
   max_combo INTEGER NOT NULL CHECK (max_combo >= 0),
   total_combo INTEGER NOT NULL CHECK (total_combo >= 0)
