@@ -1,3 +1,5 @@
+import '@fortawesome/fontawesome-svg-core/styles.css'
+
 import {
   isQueryFlagEnabled,
   shouldShowAbout,

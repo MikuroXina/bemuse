@@ -1,4 +1,5 @@
-import { Icon } from '@bemuse/fa/index.js'
+import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import type { Chart } from '@mikuroxina/bemuse-types'
 
 import styles from './music-chart-selector-item.module.scss'
@@ -49,7 +50,7 @@ const MusicChartSelectorItem = ({
     >
       <Text isTutorial={isTutorial} chart={chart} />
       <span className={styles.play}>
-        <Icon name='play' />
+        <FontAwesomeIcon icon={faPlay} />
       </span>
     </li>
   )

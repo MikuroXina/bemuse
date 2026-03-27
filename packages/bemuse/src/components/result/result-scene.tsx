@@ -4,8 +4,9 @@ import SceneToolbar, {
   SceneToolbarSpacer,
 } from '@bemuse/components/common/scene-toolbar.js'
 import RankingContainer from '@bemuse/components/ranking/ranking-container.js'
-import { Icon } from '@bemuse/fa/index.js'
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
+import { faTwitter } from '@fortawesome/free-brands-svg-icons/faTwitter'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import type { Chart } from '@mikuroxina/bemuse-types'
 import type { MouseEvent } from 'react'
 
@@ -122,7 +123,7 @@ const ResultScene = ({
               className={styles.tweet}
               onClick={onTweet}
             >
-              <Icon name='twitter' />
+              <FontAwesomeIcon icon={faTwitter} />
             </a>
             <div className={styles.fillRest} />
             <FirstTimeTip tip='Back to music selection' featureKey='finishGame'>

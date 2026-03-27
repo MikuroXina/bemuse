@@ -1,6 +1,7 @@
-import { Icon } from '@bemuse/fa/index.js'
 import { useCurrentUser } from '@bemuse/online/hooks.js'
 import { formattedAccuracyForRecord } from '@bemuse/rules/accuracy.js'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons/faSpinner'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import type { ReactNode } from 'react'
 
 import formatTime from '../../utils/format-time.js'
@@ -24,7 +25,7 @@ const WhenNotLoading = ({
 }: {
   loading: boolean
   children: ReactNode
-}) => (loading ? <Icon name='spinner' spin /> : <>{children}</>)
+}) => (loading ? <FontAwesomeIcon icon={faSpinner} spin /> : <>{children}</>)
 
 const Message = ({ show }: { show: boolean }) =>
   show ? (

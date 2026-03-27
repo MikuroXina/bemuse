@@ -1,5 +1,6 @@
 import TipContainer from '@bemuse/components/common/tip-container.js'
-import { Icon } from '@bemuse/fa/index.js'
+import { faBars } from '@fortawesome/free-solid-svg-icons/faBars'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   Fragment,
   memo,
@@ -53,7 +54,7 @@ export default memo(function Toolbar({ items }: { items: ToolbarItems }) {
         className={styles.floatingMobileButton}
         onClick={() => setVisible((flag) => !flag)}
       >
-        <Icon name='bars' />
+        <FontAwesomeIcon icon={faBars} />
       </button>
     </>
   )
