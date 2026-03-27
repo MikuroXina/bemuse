@@ -26,7 +26,7 @@ export class MXOnlineService implements InternetRankingService {
       return true
     }
 
-    const res = await fetch(new URL('/api/v1/users/me', this.baseUrl), {
+    const res = await fetch(new URL('/api/v1/auth/users/me', this.baseUrl), {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -60,7 +60,7 @@ export class MXOnlineService implements InternetRankingService {
 
   private async updateUser(): Promise<void> {
     const accessToken = loadAccessToken()
-    const res = await fetch(new URL('/api/v1/users/me', this.baseUrl), {
+    const res = await fetch(new URL('/api/v1/auth/users/me', this.baseUrl), {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -146,12 +146,17 @@ export class MXOnlineService implements InternetRankingService {
       return null
     }
 
+    const accessToken = loadAccessToken()
     const res = await fetch(
       new URL(
-        `/api/v1/scoreboard/${level.md5}/${level.playMode}/${this.#currentUser.id}`,
+        `/api/v1/scoreboard/${level.md5}/${level.playMode}/${encodeURIComponent(this.#currentUser.id)}`,
         this.baseUrl
       ),
-      {}
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
     )
     if (!res.ok) {
       throw new Error(await res.text())
