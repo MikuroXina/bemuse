@@ -56,7 +56,7 @@ export const getLeaderboard = async ({
       count_good: number
       count_offbeat: number
       count_missed: number
-      log: string
+      log: string | null
       score: number
       max_combo: number
       total_combo: number
@@ -85,7 +85,7 @@ export const getLeaderboard = async ({
             offbeat: result.count_offbeat,
             missed: result.count_missed,
           },
-          log: result.log,
+          log: result.log ?? undefined,
         },
         recorded_by: userInfos[result.user_id]!,
         chart_md5: result.chart_id,
@@ -275,7 +275,7 @@ export const getScore = async ({
       count_good: number
       count_offbeat: number
       count_missed: number
-      log: string
+      log: string | null
       score: number
       max_combo: number
       total_combo: number
@@ -333,7 +333,7 @@ export const getScore = async ({
           offbeat: highScoreSelect.count_offbeat,
           missed: highScoreSelect.count_missed,
         },
-        log: highScoreSelect.log,
+        log: highScoreSelect.log ?? undefined,
       },
       recorded_by: userInfo,
       chart_md5: highScoreSelect.chart_id,
