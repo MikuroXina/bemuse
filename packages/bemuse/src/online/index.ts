@@ -1,9 +1,8 @@
-import { queryClient } from '@bemuse/react-query/index.js'
 import type { ScoreCount } from '@bemuse/rules/accuracy.js'
+import { useState } from 'react'
 
 import type { RecordLevel } from './level.js'
 import type { Operation } from './operations.js'
-import { rootQueryKey } from './query-keys.js'
 
 const STORAGE_KEY = 'scoreboard.auth.access-token'
 
@@ -74,53 +73,49 @@ export interface InternetRankingService {
   ): Promise<{ data: ScoreboardDataEntry[] }>
 }
 
-export class Online {
-  constructor(private readonly service: InternetRankingService) {}
-
-  getCurrentUser() {
-    return this.service.getCurrentUser()
+export const useOnline = (service: InternetRankingService): Online => {
+  const [currentUser, setCurrentUser] = useState<UserInfo | null>(null)
+  return {
+    getCurrentUser: () => currentUser,
+    logIn: async () => {
+      const user = await service.logIn()
+      setCurrentUser(user)
+      return user
+    },
+    getPersonalRecord: async (level) => {
+      if (!service.getCurrentUser()) {
+        return null
+      }
+      return await service.retrieveRecord(level)
+    },
+    logOut: async () => {
+      setCurrentUser(null)
+      await service.logOut()
+    },
+    submitScore: async (scoreInfo) => {
+      if (!currentUser) {
+        throw new Error('unauthorized')
+      }
+      return await service.submitScore(scoreInfo)
+    },
+    scoreboard: (level) => service.retrieveScoreboard(level),
+    retrievePersonalRankingEntry: async (level: RecordLevel) => {
+      if (!currentUser) {
+        return null
+      }
+      return await service.retrieveRecord(level)
+    },
   }
-
-  async logIn() {
-    const user = await this.service.logIn()
-    queryClient.invalidateQueries({ queryKey: [this, rootQueryKey] })
-    return user
-  }
-
-  async getPersonalRecord(
-    level: RecordLevel
-  ): Promise<ScoreboardDataRecord | null> {
-    if (!this.service.getCurrentUser()) {
-      return null
-    }
-    return await this.service.retrieveRecord(level)
-  }
-
-  async logOut(): Promise<void> {
-    await this.service.logOut()
-    queryClient.invalidateQueries({ queryKey: [this, rootQueryKey] })
-  }
-
-  async submitScore(info: ScoreInfo) {
-    if (!this.service.getCurrentUser()) {
-      throw new Error('Unauthenticated.')
-    }
-    const record = await this.service.submitScore(info)
-    return record
-  }
-
-  async scoreboard(level: RecordLevel) {
-    return await this.service.retrieveScoreboard(level)
-  }
-
-  async retrievePersonalRankingEntry(level: RecordLevel) {
-    if (!this.service.getCurrentUser()) {
-      return null
-    }
-    return await this.service.retrieveRecord(level)
-  }
-
-  dispose() {}
 }
 
-export default Online
+export interface Online {
+  getCurrentUser(): UserInfo | null
+  logIn(): Promise<UserInfo | null>
+  getPersonalRecord(level: RecordLevel): Promise<ScoreboardDataRecord | null>
+  logOut(): Promise<void>
+  submitScore(info: ScoreInfo): Promise<ScoreboardDataRecord>
+  scoreboard(level: RecordLevel): Promise<{ data: ScoreboardDataEntry[] }>
+  retrievePersonalRankingEntry(
+    level: RecordLevel
+  ): Promise<ScoreboardDataRecord | null>
+}

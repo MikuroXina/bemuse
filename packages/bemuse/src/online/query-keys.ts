@@ -1,8 +1,6 @@
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
 import type { QueryKey } from '@tanstack/react-query'
 
-export const rootQueryKey: QueryKey = ['online']
-
 export const getPersonalRecordQueryKey = (md5: string, playMode: MappingMode) =>
   ['online', 'personalRecord', md5, playMode] as const
 

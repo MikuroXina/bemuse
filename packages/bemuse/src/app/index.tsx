@@ -5,6 +5,11 @@ import {
   shouldShowAbout,
   shouldShowModeSelect,
 } from '@bemuse/flags/index.js'
+import { type InternetRankingService, useOnline } from '@bemuse/online/index.js'
+import { OnlineContext } from '@bemuse/online/instance.js'
+import OfflineService from '@bemuse/online/offline-service.js'
+import FakeOnlineService from '@bemuse/online/scoreboard-system/fake-online-service.js'
+import { MXOnlineService } from '@bemuse/online/scoreboard-system/mx-online-service.js'
 import {
   SceneManager,
   SceneManagerContext,
@@ -25,17 +30,37 @@ import { musicSearchTextSlice } from './entities/music-search-text.js'
 import { optionsSlice } from './entities/options.js'
 import { getInitialGrepString, getTimeSynchroServer } from './query-flags.js'
 
+let ranking: InternetRankingService
+
+if (isQueryFlagEnabled('fake-scoreboard')) {
+  ranking = new FakeOnlineService()
+} else if (isQueryFlagEnabled('offline')) {
+  ranking = new OfflineService()
+} else if (import.meta.env.VITE_SCOREBOARD_SERVER) {
+  ranking = new MXOnlineService(import.meta.env.VITE_SCOREBOARD_SERVER)
+} else {
+  console.warn(
+    'Warning: No server specified. Using a fake scoreboard that resets when you refresh the page.'
+  )
+  ranking = new FakeOnlineService()
+}
+
 let store = configureStore()
 
-const sceneManager = new SceneManager(({ children }) => (
-  <div className='bemuse-scene'>
-    <Provider store={store}>
-      <SceneManagerContext.Provider value={sceneManager}>
-        {children}
-      </SceneManagerContext.Provider>
-    </Provider>
-  </div>
-))
+const sceneManager = new SceneManager(({ children }) => {
+  const online = useOnline(ranking)
+  return (
+    <div className='bemuse-scene'>
+      <Provider store={store}>
+        <SceneManagerContext.Provider value={sceneManager}>
+          <OnlineContext.Provider value={online}>
+            {children}
+          </OnlineContext.Provider>
+        </SceneManagerContext.Provider>
+      </Provider>
+    </div>
+  )
+})
 
 // Allow hot reloading of some modules.
 if (import.meta.hot) {

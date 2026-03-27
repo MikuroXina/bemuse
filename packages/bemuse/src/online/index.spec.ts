@@ -1,6 +1,7 @@
 import { assert, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import Online from './index.js'
+import type { Online, UserInfo } from './index.js'
+import type { RecordLevel } from './level.js'
 import FakeOnlineService from './scoreboard-system/fake-online-service.js'
 import type { ScoreboardClient } from './scoreboard-system/scoreboard-client.js'
 
@@ -23,8 +24,40 @@ const uid = (function () {
   }
 })()
 
-function createOnline(scoreboardClient?: ScoreboardClient) {
-  return new Online(new FakeOnlineService(scoreboardClient))
+function createOnline(scoreboardClient?: ScoreboardClient): Online {
+  const service = new FakeOnlineService(scoreboardClient)
+  let currentUser: UserInfo | null = null
+  return {
+    getCurrentUser: () => currentUser,
+    logIn: async () => {
+      const user = await service.logIn()
+      currentUser = user
+      return user
+    },
+    getPersonalRecord: async (level) => {
+      if (!service.getCurrentUser()) {
+        return null
+      }
+      return await service.retrieveRecord(level)
+    },
+    logOut: async () => {
+      currentUser = null
+      await service.logOut()
+    },
+    submitScore: async (scoreInfo) => {
+      if (!currentUser) {
+        throw new Error('unauthorized')
+      }
+      return await service.submitScore(scoreInfo)
+    },
+    scoreboard: (level) => service.retrieveScoreboard(level),
+    retrievePersonalRankingEntry: async (level: RecordLevel) => {
+      if (!currentUser) {
+        return null
+      }
+      return await service.retrieveRecord(level)
+    },
+  }
 }
 
 describe('Online', function () {

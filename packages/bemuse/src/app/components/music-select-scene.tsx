@@ -12,7 +12,7 @@ import groupSongsIntoCategories from '@bemuse/music-collection/group-songs-into-
 import sortSongs from '@bemuse/music-collection/sort-songs.js'
 import { useMusicPreviewer } from '@bemuse/music-previewer/hook.js'
 import AuthenticationPopup from '@bemuse/online/components/authentication-popup.js'
-import Online, { type UserInfo } from '@bemuse/online/index.js'
+import type { Online } from '@bemuse/online/index.js'
 import { OnlineContext } from '@bemuse/online/instance.js'
 import { OFFICIAL_SERVER_URL, useCollection } from '@bemuse/query/collection.js'
 import { SceneManagerContext } from '@bemuse/scene-manager/index.js'
@@ -211,7 +211,6 @@ const Main = ({
 
 const getToolbarItems = ({
   online,
-  user,
   handleCustomBMSOpen,
   handleAuthenticate,
   handleOptionsOpen,
@@ -221,7 +220,6 @@ const getToolbarItems = ({
   handleAuthenticate: () => void
   handleOptionsOpen: () => void
   handleExit: () => void
-  user: UserInfo | null
   online: Online
 }) => {
   const handleLogout = () => {
@@ -235,7 +233,7 @@ const getToolbarItems = ({
   }: {
     handleAuthenticate: () => void
   }) => {
-    if (!online) return []
+    const user = online.getCurrentUser()
     if (user) {
       return [
         item(<span>Log Out ({user.username})</span>, {
@@ -284,7 +282,6 @@ const MusicSelectScene = () => {
 
   const dispatch = useDispatch()
   const online = useContext(OnlineContext)
-  const user = online.getCurrentUser()
 
   const popScene = () => {
     sceneManager.pop()
@@ -375,7 +372,6 @@ const MusicSelectScene = () => {
           handleOptionsOpen: showOptions,
           handleExit: popScene,
           online,
-          user: user ?? null,
         })}
       />
 
