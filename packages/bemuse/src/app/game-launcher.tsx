@@ -13,6 +13,7 @@ import { unmuteAudio } from '@bemuse/sampling-master/index.js'
 import { type ReactScene, SceneManager } from '@bemuse/scene-manager/index.js'
 import query from '@bemuse/utils/query.js'
 import invariant from 'invariant'
+import type { JSX } from 'react'
 
 import GenericErrorScene from '../components/generic-error-scene.js'
 import ResultScene from '../components/result/result-scene.js'

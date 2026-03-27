@@ -2,7 +2,7 @@ import type { Song } from '@bemuse/collection-model/types.js'
 import Panel from '@bemuse/components/common/panel.js'
 import { loadSongFromResources } from '@bemuse/custom-song-loader/index.js'
 import type { ICustomSongResources } from '@bemuse/resources/types.js'
-import { type DragEventHandler, useEffect, useState } from 'react'
+import { type DragEventHandler, type JSX, useEffect, useState } from 'react'
 
 import {
   handleClipboardPaste,

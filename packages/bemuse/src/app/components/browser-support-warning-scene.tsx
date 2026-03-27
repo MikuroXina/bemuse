@@ -4,7 +4,7 @@ import {
   type ReactScene,
   SceneManagerContext,
 } from '@bemuse/scene-manager/index.js'
-import { useContext } from 'react'
+import { type JSX, useContext } from 'react'
 
 import { SUPPORTED } from '../browser-support.js'
 import styles from './browser-support-warning-scene.module.scss'
