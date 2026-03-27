@@ -4214,8 +4214,8 @@ packages:
     resolution: {integrity: sha512-DBsLPs3GsWhX5HylbP9HNG15U0bnwut55Lx12bHB9MpXxQ+R5GC8MwQe+N1UFXxAeQDvEsEDY6ZYwX03K7Z6HQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@typescript-eslint/types@8.57.2':
-    resolution: {integrity: sha512-/iZM6FnM4tnx9csuTxspMW4BOSegshwX5oBDznJ7S4WggL7Vczz5d2W11ecc4vRrQMQHXRSxzrCsyG5EsPPTbA==}
+  '@typescript-eslint/types@8.57.1':
+    resolution: {integrity: sha512-S29BOBPJSFUiblEl6RzPPjJt6w25A6XsBqRVDt53tA/tlL8q7ceQNZHTjPeONt/3S7KRI4quk+yP9jK2WjBiPQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@typescript-eslint/typescript-estree@5.62.0':
@@ -13979,7 +13979,7 @@ snapshots:
 
   '@docusaurus/react-loadable@6.0.0(react@18.3.1)':
     dependencies:
-      '@types/react': 18.3.28
+      '@types/react': 19.2.14
       react: 18.3.1
 
   '@docusaurus/theme-classic@3.9.2(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)':
@@ -15925,7 +15925,7 @@ snapshots:
   '@types/react-router@5.1.20':
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 18.3.28
+      '@types/react': 19.2.14
 
   '@types/react@18.3.28':
     dependencies:
@@ -16102,7 +16102,7 @@ snapshots:
 
   '@typescript-eslint/types@8.56.0': {}
 
-  '@typescript-eslint/types@8.57.2': {}
+  '@typescript-eslint/types@8.57.1': {}
 
   '@typescript-eslint/typescript-estree@5.62.0(typescript@5.9.3)':
     dependencies:
@@ -18758,7 +18758,7 @@ snapshots:
   esrap@2.2.4:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
-      '@typescript-eslint/types': 8.57.2
+      '@typescript-eslint/types': 8.57.1
 
   esrecurse@4.3.0:
     dependencies:
