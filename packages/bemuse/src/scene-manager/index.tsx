@@ -1,7 +1,13 @@
 import { queryClient } from '@bemuse/react-query/index.js'
 import MAIN from '@bemuse/utils/main-element.js'
 import { QueryClientProvider } from '@tanstack/react-query'
-import { cloneElement, createContext, type JSX, type ReactNode } from 'react'
+import {
+  cloneElement,
+  createContext,
+  type JSX,
+  type ReactNode,
+  StrictMode,
+} from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 
 export type TeardownCallback = () => PromiseLike<void> | void
@@ -91,9 +97,11 @@ function ReactScene(
       },
     })
     root.render(
-      <QueryClientProvider client={queryClient}>
-        <ReactSceneContainer>{clonedElement}</ReactSceneContainer>
-      </QueryClientProvider>
+      <StrictMode>
+        <QueryClientProvider client={queryClient}>
+          <ReactSceneContainer>{clonedElement}</ReactSceneContainer>
+        </QueryClientProvider>
+      </StrictMode>
     )
     return {
       async teardown() {
