@@ -46,6 +46,7 @@
     },
     "pre-deploy": {
       "command": "gulp pre-deploy",
+      "clean": false,
       "dependencies": [
         "build",
         "../website:build",
