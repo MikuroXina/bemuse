@@ -16,9 +16,7 @@ export class FakeOnlineService implements InternetRankingService {
 
   constructor(
     private readonly scoreboardClient: ScoreboardClient = createFakeScoreboardClient()
-  ) {
-    this.invalidateCurrentUser()
-  }
+  ) {}
 
   async invalidateCurrentUser() {
     if (this.playerToken == null) {
@@ -39,13 +37,13 @@ export class FakeOnlineService implements InternetRankingService {
   async logIn() {
     const { playerToken } = await this.scoreboardClient.login()
     this.playerToken = playerToken
-    this.invalidateCurrentUser()
+    await this.invalidateCurrentUser()
     return this.getCurrentUser()
   }
 
   async logOut() {
     this.playerToken = null
-    this.invalidateCurrentUser()
+    await this.invalidateCurrentUser()
   }
 
   async submitScore(info: ScoreInfo) {
