@@ -43,7 +43,7 @@ export function LoginPanel() {
         className={styles.primaryActionButton}
         onClick={() => loginWithRedirect()}
       >
-        Sign Up / Log In
+        Log In / Sign Up
       </button>
     )
   }
