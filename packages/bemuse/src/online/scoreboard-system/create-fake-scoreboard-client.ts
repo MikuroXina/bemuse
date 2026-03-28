@@ -1,7 +1,6 @@
 import type { ScoreCount } from '@bemuse/rules/accuracy.js'
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
 import ObjectID from 'bson-objectid'
-import delay from 'delay'
 
 import type {
   ScoreboardClient,
@@ -47,24 +46,22 @@ export function createFakeScoreboardClient(): ScoreboardClient {
     return c
   }
   chart('12345670123456789abcdef89abemuse', 'TS')
-    .addEntry('tester', 111111, [0, 0, 0, 1, 0])
+    .addEntry('tester1', 111111, [0, 0, 0, 1, 0])
     .addEntry('rival', 222222, [0, 0, 0, 1, 0])
     .addEntry('unbeatable', 555554, [1, 0, 0, 0, 0])
   chart('fb3dab834591381a5b8188bc2dc9c4b7', 'KB')
-    .addEntry('tester', 543210, [9, 1, 0, 0, 0])
+    .addEntry('tester1', 543210, [9, 1, 0, 0, 0])
     .addEntry('tester2', 123456, [0, 1, 5, 9, 0])
 
   let tokenId = 0
   const client: ScoreboardClient = {
     login: async () => {
-      await delay(100)
       return { playerToken: `FAKE!${++tokenId}` }
     },
     myName: async (token) => {
-      return `Anonymous ${token.split('!')[1]}`
+      return decodeFakePlayerToken(token).username
     },
     submitScore: async (options) => {
-      await delay(100)
       const { username } = decodeFakePlayerToken(options.playerToken)
       const matching = (s: Submission): boolean =>
         s.md5 === options.md5 &&
@@ -95,7 +92,6 @@ export function createFakeScoreboardClient(): ScoreboardClient {
         console.error('Invalid md5s...', options.md5s)
         throw new Error('Invalid md5s (this is a programmer error)')
       }
-      await delay(100)
       const { username } = decodeFakePlayerToken(options.playerToken)
       const set = new Set<string>(options.md5s)
       return {
@@ -109,7 +105,6 @@ export function createFakeScoreboardClient(): ScoreboardClient {
       }
     },
     retrieveRecord: async (options) => {
-      await delay(100)
       const { username } = decodeFakePlayerToken(options.playerToken)
       return {
         data: {
@@ -122,7 +117,6 @@ export function createFakeScoreboardClient(): ScoreboardClient {
       }
     },
     retrieveScoreboard: async (options) => {
-      await delay(100)
       return {
         data: {
           chart: {
@@ -172,7 +166,7 @@ function decodeFakePlayerToken(token: string) {
   if (!token.startsWith('FAKE!')) {
     throw new Error('Invalid player token: ' + token)
   }
-  return { username: token.replace(/^FAKE!/, '') }
+  return { username: `tester${token.split('!')[1]}` }
 }
 
 export interface ScoreData {
