@@ -736,10 +736,10 @@ importers:
         version: link:../bms
       '@react-router/fs-routes':
         specifier: ^7.13.1
-        version: 7.13.2(@react-router/dev@7.13.2(@types/node@24.12.0)(babel-plugin-macros@3.1.0)(jiti@1.21.7)(react-router@7.13.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.1)(typescript@5.9.3)(vite@7.3.1(@types/node@24.12.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.1)(yaml@2.8.3))(yaml@2.8.3))(typescript@5.9.3)
+        version: 7.13.2(@react-router/dev@7.13.2(@types/node@24.12.0)(babel-plugin-macros@3.1.0)(jiti@1.21.7)(react-router@7.13.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.1)(typescript@5.9.3)(vite@7.3.1(@types/node@24.12.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.1)(yaml@2.8.3))(yaml@2.8.3))(typescript@5.9.3)
       '@react-router/node':
         specifier: ^7.13.1
-        version: 7.13.2(react-router@7.13.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@5.9.3)
+        version: 7.13.2(react-router@7.13.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@5.9.3)
       '@ui5/webcomponents':
         specifier: ^2.19.2
         version: 2.19.2
@@ -790,7 +790,7 @@ importers:
         version: 19.2.4(react@19.2.4)
       react-router:
         specifier: ^7.13.1
-        version: 7.13.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        version: 7.13.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       spark-md5:
         specifier: ^3.0.2
         version: 3.0.2
@@ -806,7 +806,7 @@ importers:
         version: link:../eslint-config-bemuse
       '@react-router/dev':
         specifier: ^7.13.1
-        version: 7.13.2(@types/node@24.12.0)(babel-plugin-macros@3.1.0)(jiti@1.21.7)(react-router@7.13.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.1)(typescript@5.9.3)(vite@7.3.1(@types/node@24.12.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.1)(yaml@2.8.3))(yaml@2.8.3)
+        version: 7.13.2(@types/node@24.12.0)(babel-plugin-macros@3.1.0)(jiti@1.21.7)(react-router@7.13.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.1)(typescript@5.9.3)(vite@7.3.1(@types/node@24.12.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.1)(yaml@2.8.3))(yaml@2.8.3)
       '@sveltejs/vite-plugin-svelte':
         specifier: ^6.2.4
         version: 6.2.4(svelte@5.53.7)(vite@7.3.1(@types/node@24.12.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.1)(yaml@2.8.3))
@@ -9279,8 +9279,8 @@ packages:
     peerDependencies:
       react: '>=15'
 
-  react-router@7.13.1:
-    resolution: {integrity: sha512-td+xP4X2/6BJvZoX6xw++A2DdEi++YypA69bJUV5oVvqf6/9/9nNlD70YO1e9d3MyamJEBQFEzk6mbfDYbqrSA==}
+  react-router@7.13.2:
+    resolution: {integrity: sha512-tX1Aee+ArlKQP+NIUd7SE6Li+CiGKwQtbS+FfRxPX6Pe4vHOo6nr9d++u5cwg+Z8K/x8tP+7qLmujDtfrAoUJA==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react: '>=18'
@@ -14487,7 +14487,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.28
 
-  '@react-router/dev@7.13.2(@types/node@24.12.0)(babel-plugin-macros@3.1.0)(jiti@1.21.7)(react-router@7.13.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.1)(typescript@5.9.3)(vite@7.3.1(@types/node@24.12.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.1)(yaml@2.8.3))(yaml@2.8.3)':
+  '@react-router/dev@7.13.2(@types/node@24.12.0)(babel-plugin-macros@3.1.0)(jiti@1.21.7)(react-router@7.13.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.1)(typescript@5.9.3)(vite@7.3.1(@types/node@24.12.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.1)(yaml@2.8.3))(yaml@2.8.3)':
     dependencies:
       '@babel/core': 7.29.0
       '@babel/generator': 7.29.1
@@ -14496,7 +14496,7 @@ snapshots:
       '@babel/preset-typescript': 7.28.5(@babel/core@7.29.0)
       '@babel/traverse': 7.29.0
       '@babel/types': 7.29.0
-      '@react-router/node': 7.13.2(react-router@7.13.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@5.9.3)
+      '@react-router/node': 7.13.2(react-router@7.13.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@5.9.3)
       '@remix-run/node-fetch-server': 0.13.0
       arg: 5.0.2
       babel-dead-code-elimination: 1.0.12
@@ -14513,7 +14513,7 @@ snapshots:
       pkg-types: 2.3.0
       prettier: 3.8.1
       react-refresh: 0.14.2
-      react-router: 7.13.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      react-router: 7.13.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       semver: 7.7.4
       tinyglobby: 0.2.15
       valibot: 1.2.0(typescript@5.9.3)
@@ -14536,17 +14536,17 @@ snapshots:
       - tsx
       - yaml
 
-  '@react-router/fs-routes@7.13.2(@react-router/dev@7.13.2(@types/node@24.12.0)(babel-plugin-macros@3.1.0)(jiti@1.21.7)(react-router@7.13.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.1)(typescript@5.9.3)(vite@7.3.1(@types/node@24.12.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.1)(yaml@2.8.3))(yaml@2.8.3))(typescript@5.9.3)':
+  '@react-router/fs-routes@7.13.2(@react-router/dev@7.13.2(@types/node@24.12.0)(babel-plugin-macros@3.1.0)(jiti@1.21.7)(react-router@7.13.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.1)(typescript@5.9.3)(vite@7.3.1(@types/node@24.12.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.1)(yaml@2.8.3))(yaml@2.8.3))(typescript@5.9.3)':
     dependencies:
-      '@react-router/dev': 7.13.2(@types/node@24.12.0)(babel-plugin-macros@3.1.0)(jiti@1.21.7)(react-router@7.13.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.1)(typescript@5.9.3)(vite@7.3.1(@types/node@24.12.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.1)(yaml@2.8.3))(yaml@2.8.3)
+      '@react-router/dev': 7.13.2(@types/node@24.12.0)(babel-plugin-macros@3.1.0)(jiti@1.21.7)(react-router@7.13.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.1)(typescript@5.9.3)(vite@7.3.1(@types/node@24.12.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.97.3)(terser@5.46.1)(yaml@2.8.3))(yaml@2.8.3)
       minimatch: 9.0.9
     optionalDependencies:
       typescript: 5.9.3
 
-  '@react-router/node@7.13.2(react-router@7.13.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@5.9.3)':
+  '@react-router/node@7.13.2(react-router@7.13.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@5.9.3)':
     dependencies:
       '@mjackson/node-fetch-server': 0.2.0
-      react-router: 7.13.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      react-router: 7.13.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
     optionalDependencies:
       typescript: 5.9.3
 
@@ -22100,7 +22100,7 @@ snapshots:
       tiny-invariant: 1.3.3
       tiny-warning: 1.0.3
 
-  react-router@7.13.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+  react-router@7.13.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
     dependencies:
       cookie: 1.1.1
       react: 19.2.4
