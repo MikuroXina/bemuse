@@ -9,7 +9,6 @@
     "lib"
   ],
   "scripts": {
-    "clean": "rimraf lib tsconfig.tsbuildinfo",
     "build": "wireit",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
@@ -21,6 +20,14 @@
       "dependencies": [
         "../bms:build",
         "../bmson:build"
+      ],
+      "files": [
+        "src/**/*",
+        "tsconfig.json"
+      ],
+      "output": [
+        "lib/**",
+        "tsconfig.tsbuildinfo"
       ]
     }
   },

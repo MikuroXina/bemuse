@@ -10,7 +10,6 @@
     "lib"
   ],
   "scripts": {
-    "clean": "rimraf lib tsconfig.tsbuildinfo",
     "build": "wireit",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
@@ -21,6 +20,16 @@
       "command": "tsc -b .",
       "dependencies": [
         "../bms:build"
+      ],
+      "files": [
+        "src/**/*",
+        "eslint.config.mjs",
+        "tsconfig.json",
+        "vitest.config.js"
+      ],
+      "output": [
+        "lib/**",
+        "tsconfig.tsbuildinfo"
       ]
     }
   },

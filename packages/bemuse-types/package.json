@@ -12,14 +12,28 @@
   ],
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "tsc -p .",
+    "build": "wireit",
     "test": "tsc -p . --noEmit",
     "lint": "eslint ."
+  },
+  "wireit": {
+    "build": {
+      "command": "tsc -p .",
+      "files": [
+        "eslint.config.mjs",
+        "index.ts",
+        "tsconfig.json"
+      ],
+      "output": [
+        "dist/**"
+      ]
+    }
   },
   "devDependencies": {
     "@mikuroxina/eslint-config-bemuse": "workspace:*",
     "eslint": "^9.0.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "wireit": "^0.14.12"
   },
   "dependencies": {
     "valibot": "^1.2.0"

@@ -21,6 +21,14 @@
       "command": "playwright test",
       "dependencies": [
         "../bemuse:pre-deploy"
+      ],
+      "files": [
+        "tests/**/*",
+        "eslint.config.mjs",
+        "playwright.config.ts"
+      ],
+      "output": [
+        "test-results/**"
       ]
     }
   }

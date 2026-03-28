@@ -30,6 +30,18 @@
         "../bemuse-types:build",
         "../bms:build",
         "../bmson:build"
+      ],
+      "files": [
+        "public/**/*",
+        "src/**/*",
+        "types/**/*",
+        ".env*",
+        "index.html",
+        "tsconfig.json",
+        "vite.config.ts"
+      ],
+      "output": [
+        "dist/**"
       ]
     },
     "pre-deploy": {
@@ -38,6 +50,9 @@
         "build",
         "../website:build",
         "../workshop:build"
+      ],
+      "output": [
+        "dist/**"
       ]
     },
     "test": {

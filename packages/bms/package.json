@@ -13,8 +13,7 @@
     "lib"
   ],
   "scripts": {
-    "clean": "rimraf lib tsconfig.tsbuildinfo",
-    "build": "tsc -b .",
+    "build": "wireit",
     "bmspec:update": "gulp bmspec:update",
     "test": "wireit",
     "coverage": "wireit",
@@ -22,6 +21,18 @@
     "lint": "eslint ."
   },
   "wireit": {
+    "build": {
+      "command": "tsc -b .",
+      "files": [
+        "src/**/*",
+        "eslint.config.mjs",
+        "tsconfig.json"
+      ],
+      "output": [
+        "lib/**",
+        "tsconfig.tsbuildinfo"
+      ]
+    },
     "test": {
       "dependencies": [
         "bmspec:update"
