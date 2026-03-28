@@ -1,4 +1,5 @@
 import type { Chart, SongMetadata } from '@mikuroxina/bemuse-types'
+import { memo } from 'react'
 
 import styles from './music-chart-selector.module.scss'
 import MusicChartSelectorItem, {
@@ -31,4 +32,4 @@ const MusicChartSelector = ({
   </ul>
 )
 
-export default MusicChartSelector
+export default memo(MusicChartSelector)
