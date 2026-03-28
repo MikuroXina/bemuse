@@ -20,7 +20,7 @@ export interface MusicInfoProps {
 
 const MusicInfo = (props: MusicInfoProps) => (
   <section className={styles.container}>
-    {props.chart ? (
+    {props.chart && (
       <>
         <div className={styles.chartInfo}>
           <MusicChartInfo info={props.chart.info} />
@@ -35,8 +35,6 @@ const MusicInfo = (props: MusicInfoProps) => (
         </div>
         <MusicInfoTabs {...props} chart={props.chart} />
       </>
-    ) : (
-      <></>
     )}
   </section>
 )
