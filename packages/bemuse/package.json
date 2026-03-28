@@ -28,7 +28,6 @@
         "../bemuse-indexer:build",
         "../bemuse-notechart:build",
         "../bemuse-types:build",
-        "../monetizer:build",
         "../bms:build",
         "../bmson:build"
       ]
@@ -69,7 +68,6 @@
   "license": "AGPL-1.0",
   "devDependencies": {
     "@mikuroxina/eslint-config-bemuse": "workspace:*",
-    "@mikuroxina/monetizer": "workspace:*",
     "@tanstack/eslint-plugin-query": "^5.91.4",
     "@types/debug": "^4.1.12",
     "@types/fastclick": "^1.0.33",
