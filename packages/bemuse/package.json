@@ -146,7 +146,7 @@
     "delay": "^5.0.0",
     "downshift": "~6.1.12",
     "fastclick": "^1.0.6",
-    "fuzzysort": "~1.1.4",
+    "fuzzysort": "~1.9.0",
     "idb-keyval": "^6.2.2",
     "immer": "~9.0.21",
     "immutable": "^4.3.7",
