@@ -12,8 +12,11 @@ import groupSongsIntoCategories from '@bemuse/music-collection/group-songs-into-
 import sortSongs from '@bemuse/music-collection/sort-songs.js'
 import { useMusicPreviewer } from '@bemuse/music-previewer/hook.js'
 import AuthenticationPopup from '@bemuse/online/components/authentication-popup.js'
-import type { Online } from '@bemuse/online/index.js'
-import { OnlineContext } from '@bemuse/online/instance.js'
+import {
+  useCurrentUser,
+  useLogOutMutation,
+  type UserInfo,
+} from '@bemuse/online/index.js'
 import { OFFICIAL_SERVER_URL, useCollection } from '@bemuse/query/collection.js'
 import { SceneManagerContext } from '@bemuse/scene-manager/index.js'
 import type { SongMetadataInCollection } from '@mikuroxina/bemuse-types'
@@ -210,44 +213,37 @@ const Main = ({
 }
 
 const getToolbarItems = ({
-  online,
+  user,
+  logOut,
   handleCustomBMSOpen,
   handleAuthenticate,
   handleOptionsOpen,
   handleExit,
 }: {
+  user: UserInfo | null
   handleCustomBMSOpen: () => void
   handleAuthenticate: () => void
   handleOptionsOpen: () => void
   handleExit: () => void
-  online: Online
+  logOut: () => void
 }) => {
   const handleLogout = () => {
     if (confirm('Do you really want to log out?')) {
-      online.logOut()
+      logOut()
     }
   }
 
-  const getOnlineToolbarButtons = ({
-    handleAuthenticate,
-  }: {
-    handleAuthenticate: () => void
-  }) => {
-    const user = online.getCurrentUser()
-    if (user) {
-      return [
+  const onlineToolbarButtons = user
+    ? [
         item(<span>Log Out ({user.username})</span>, {
           onClick: handleLogout,
         }),
       ]
-    } else {
-      return [
+    : [
         item('Log In / Create an Account', {
           onClick: handleAuthenticate,
         }),
       ]
-    }
-  }
 
   return [
     item('Exit', {
@@ -257,7 +253,7 @@ const getToolbarItems = ({
       onClick: handleCustomBMSOpen,
     }),
     spacer(),
-    ...getOnlineToolbarButtons({ handleAuthenticate }),
+    ...onlineToolbarButtons,
     item('Options', {
       onClick: handleOptionsOpen,
     }),
@@ -281,7 +277,8 @@ const MusicSelectScene = () => {
     useState(false)
 
   const dispatch = useDispatch()
-  const online = useContext(OnlineContext)
+  const user = useCurrentUser()
+  const logOutMutation = useLogOutMutation()
 
   const popScene = () => {
     sceneManager.pop()
@@ -367,11 +364,12 @@ const MusicSelectScene = () => {
 
       <Toolbar
         items={getToolbarItems({
+          user,
           handleAuthenticate: showAuthenticationPopup,
           handleCustomBMSOpen: showCustomBMSModal,
           handleOptionsOpen: showOptions,
           handleExit: popScene,
-          online,
+          logOut: () => logOutMutation.mutate([]),
         })}
       />
 

@@ -1,5 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { storeAccessToken } from '@bemuse/online'
+import { storeAccessToken } from '@bemuse/online/scoreboard-system/mx-online-service.js'
 import { useEffect } from 'react'
 
 import styles from './panel.module.css'

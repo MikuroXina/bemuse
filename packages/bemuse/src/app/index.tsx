@@ -5,11 +5,11 @@ import {
   shouldShowAbout,
   shouldShowModeSelect,
 } from '@bemuse/flags/index.js'
-import { type InternetRankingService, useOnline } from '@bemuse/online/index.js'
-import { OnlineContext } from '@bemuse/online/instance.js'
+import type { RankingService } from '@bemuse/online/index.js'
 import OfflineService from '@bemuse/online/offline-service.js'
 import FakeOnlineService from '@bemuse/online/scoreboard-system/fake-online-service.js'
 import { MXOnlineService } from '@bemuse/online/scoreboard-system/mx-online-service.js'
+import { RankingServiceContext } from '@bemuse/online/service.js'
 import {
   SceneManager,
   SceneManagerContext,
@@ -29,7 +29,7 @@ import { musicSearchTextSlice } from './entities/music-search-text.js'
 import { optionsSlice } from './entities/options.js'
 import { getInitialGrepString, getTimeSynchroServer } from './query-flags.js'
 
-let ranking: InternetRankingService
+let ranking: RankingService
 
 if (isQueryFlagEnabled('fake-scoreboard')) {
   ranking = new FakeOnlineService()
@@ -47,14 +47,13 @@ if (isQueryFlagEnabled('fake-scoreboard')) {
 let store = configureStore()
 
 const sceneManager = new SceneManager(({ children }) => {
-  const online = useOnline(ranking)
   return (
     <div className='bemuse-scene'>
       <Provider store={store}>
         <SceneManagerContext.Provider value={sceneManager}>
-          <OnlineContext.Provider value={online}>
+          <RankingServiceContext.Provider value={ranking}>
             {children}
-          </OnlineContext.Provider>
+          </RankingServiceContext.Provider>
         </SceneManagerContext.Provider>
       </Provider>
     </div>

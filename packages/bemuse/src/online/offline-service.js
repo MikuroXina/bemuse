@@ -1,8 +1,8 @@
 const no = () => Promise.reject(new Error('Online services not enabled.'))
 
 export class OfflineService {
-  getCurrentUser() {
-    return null
+  me() {
+    return Promise.resolve(null)
   }
 
   isLoggedIn() {

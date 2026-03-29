@@ -1,4 +1,4 @@
-import { useCurrentUser } from '@bemuse/online/hooks.js'
+import { useCurrentUser } from '@bemuse/online/index.js'
 import { formattedAccuracyForRecord } from '@bemuse/rules/accuracy.js'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons/faSpinner'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

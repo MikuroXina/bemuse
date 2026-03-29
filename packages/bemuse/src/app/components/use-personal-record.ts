@@ -1,5 +1,7 @@
-import { usePersonalRecordsByMd5Query } from '@bemuse/online/hooks.js'
-import type { ScoreboardDataRecord } from '@bemuse/online/index.js'
+import {
+  type ScoreboardDataRecord,
+  useRecordQuery,
+} from '@bemuse/online/index.js'
 import type { UseQueryResult } from '@tanstack/react-query'
 import { useSelector } from 'react-redux'
 
@@ -13,5 +15,5 @@ export const usePersonalRecord = (
   chart: PartialChart
 ): UseQueryResult<ScoreboardDataRecord | null> => {
   const playMode = useSelector(ReduxState.selectPlayMode)
-  return usePersonalRecordsByMd5Query(chart, playMode)
+  return useRecordQuery(chart, playMode)
 }

@@ -2,8 +2,8 @@ import AuthenticationPopup from '@bemuse/online/components/authentication-popup.
 import {
   useCurrentUser,
   useLeaderboardQuery,
-  usePersonalRankingEntryQuery,
-} from '@bemuse/online/hooks'
+  useRecordQuery,
+} from '@bemuse/online/index.js'
 import type { MappingMode } from '@bemuse/rules/mapping-mode'
 import { type ReactNode, useState } from 'react'
 
@@ -85,7 +85,7 @@ const Yours = ({
   showPopup: () => void
 }) => {
   const user = useCurrentUser()
-  const { isLoading, isError, data, error } = usePersonalRankingEntryQuery(
+  const { isLoading, isError, data, error } = useRecordQuery(
     { md5: chartMd5 },
     playMode
   )

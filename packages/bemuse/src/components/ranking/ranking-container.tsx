@@ -1,7 +1,4 @@
-import {
-  useCurrentUser,
-  useRecordSubmissionMutation,
-} from '@bemuse/online/hooks.js'
+import { useCurrentUser, useSubmitMutation } from '@bemuse/online/index.js'
 import type { ScoreCount } from '@bemuse/rules/accuracy.js'
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
 import { useEffect, useRef } from 'react'
@@ -15,13 +12,14 @@ export interface RankingContainerProps {
   result?: Result
 }
 
-export const NewRankingContainer = ({
+const RankingContainer = ({
   chart,
   playMode,
   result,
 }: RankingContainerProps) => {
   const user = useCurrentUser()
-  const submissionMutation = useRecordSubmissionMutation()
+  const submissionMutation = useSubmitMutation()
+  console.log({ user })
   const canSubmit = !!user && !!result
   const submit = () => {
     if (canSubmit) {
@@ -58,4 +56,4 @@ export const NewRankingContainer = ({
   )
 }
 
-export default NewRankingContainer
+export default RankingContainer

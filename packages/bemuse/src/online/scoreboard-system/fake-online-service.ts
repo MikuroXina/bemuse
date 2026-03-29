@@ -1,7 +1,7 @@
 import { isTestModeEnabled } from '@bemuse/debug/bemuse-test-mode.js'
 
 import type {
-  InternetRankingService,
+  RankingService,
   ScoreboardDataEntry,
   ScoreInfo,
   UserInfo,
@@ -10,7 +10,7 @@ import type { RecordLevel } from '../level.js'
 import { createFakeScoreboardClient } from './create-fake-scoreboard-client.js'
 import type { ScoreboardClient, ScoreboardRow } from './scoreboard-client.js'
 
-export class FakeOnlineService implements InternetRankingService {
+export class FakeOnlineService implements RankingService {
   private playerToken: string | null = null
   private currentUser: UserInfo | null = null
 
@@ -18,15 +18,12 @@ export class FakeOnlineService implements InternetRankingService {
     private readonly scoreboardClient: ScoreboardClient = createFakeScoreboardClient()
   ) {}
 
-  async invalidateCurrentUser() {
+  async me() {
     if (this.playerToken == null) {
-      return
+      return null
     }
     const username = await this.scoreboardClient.myName(this.playerToken)
     this.currentUser = { username }
-  }
-
-  getCurrentUser() {
     return this.currentUser
   }
 
@@ -37,13 +34,12 @@ export class FakeOnlineService implements InternetRankingService {
   async logIn() {
     const { playerToken } = await this.scoreboardClient.login()
     this.playerToken = playerToken
-    await this.invalidateCurrentUser()
-    return this.getCurrentUser()
+    return this.me()
   }
 
   async logOut() {
     this.playerToken = null
-    await this.invalidateCurrentUser()
+    await this.me()
   }
 
   async submitScore(info: ScoreInfo) {

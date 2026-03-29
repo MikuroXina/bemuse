@@ -1,9 +1,9 @@
 import djBemuse from '@bemuse/app/components/about-scene/DJBM.png'
 import Panel from '@bemuse/components/common/panel.js'
 import OptionsButton from '@bemuse/components/options/options-button'
-import { OnlineContext } from '@bemuse/online/instance.js'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 
+import { useLogInMutation } from '../index.js'
 import styles from './authentication-panel.module.scss'
 
 export interface AuthenticationPanelProps {
@@ -25,7 +25,7 @@ const Message = ({ state }: { state: AuthState }) => {
 }
 
 const AuthenticationPanel = ({ onFinish }: AuthenticationPanelProps) => {
-  const online = useContext(OnlineContext)
+  const logInMutation = useLogInMutation()
   const [auth, setAuth] = useState<AuthState>({ status: 'idle', message: '' })
 
   const runPromise = (promise: Promise<string>) => {
@@ -50,7 +50,7 @@ const AuthenticationPanel = ({ onFinish }: AuthenticationPanelProps) => {
   }
 
   const doLogIn = async () => {
-    await online.logIn()
+    logInMutation.mutate([])
     onFinish?.()
     return 'Welcome back!'
   }

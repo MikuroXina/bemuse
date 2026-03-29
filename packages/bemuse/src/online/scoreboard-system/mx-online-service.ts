@@ -2,9 +2,7 @@ import { Auth, Scoreboard } from '@mikuroxina/scoreboard-types'
 import { type InferOutput, parse } from 'valibot'
 
 import {
-  clearAccessToken,
-  type InternetRankingService,
-  loadAccessToken,
+  type RankingService,
   type ScoreboardDataEntry,
   type ScoreboardDataRecord,
   type ScoreInfo,
@@ -12,7 +10,23 @@ import {
 } from '../index.js'
 import type { RecordLevel } from '../level.js'
 
-export class MXOnlineService implements InternetRankingService {
+const STORAGE_KEY = 'scoreboard.auth.access-token'
+
+export const storeAccessToken = (accessToken: string) => {
+  localStorage.setItem(STORAGE_KEY, accessToken)
+}
+
+const clearAccessToken = () => {
+  localStorage.removeItem(STORAGE_KEY)
+}
+
+const loadAccessToken = (): string | null => {
+  return localStorage.getItem(STORAGE_KEY)
+}
+
+export class MXOnlineService implements RankingService {
+  #currentUser: Auth.UserInfo | null = null
+
   constructor(private readonly baseUrl: string) {}
 
   /**
@@ -58,7 +72,7 @@ export class MXOnlineService implements InternetRankingService {
     })
   }
 
-  private async updateUser(): Promise<void> {
+  async me(): Promise<UserInfo | null> {
     const accessToken = loadAccessToken()
     const res = await fetch(new URL('/api/v1/auth/users/me', this.baseUrl), {
       headers: {
@@ -67,18 +81,9 @@ export class MXOnlineService implements InternetRankingService {
     })
     if (!res.ok) {
       console.log(await res.text())
-      this.#currentUser = null
-      return
-    }
-    this.#currentUser = parse(Auth.updateUserResponseSchema, await res.json())
-  }
-
-  #currentUser: Auth.UserInfo | null = null
-
-  getCurrentUser(): UserInfo | null {
-    if (!this.#currentUser) {
       return null
     }
+    this.#currentUser = parse(Auth.updateUserResponseSchema, await res.json())
     return { username: this.#currentUser.name }
   }
 
@@ -87,8 +92,7 @@ export class MXOnlineService implements InternetRankingService {
     if (hasExpired) {
       await this.popupLoginMode()
     }
-    await this.updateUser()
-    return this.getCurrentUser()
+    return this.me()
   }
 
   logOut(): Promise<void> {
