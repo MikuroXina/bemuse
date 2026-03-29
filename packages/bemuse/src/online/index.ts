@@ -10,7 +10,6 @@ import {
 import { useContext } from 'react'
 
 import type { RecordLevel } from './level.js'
-import type { Operation } from './operations.js'
 import { RankingServiceContext } from './service.js'
 
 export interface UserInfo {
@@ -42,20 +41,6 @@ export interface ScoreboardDataEntry {
 }
 
 export type ScoreboardDataRecord = ScoreboardDataEntry & RecordLevel
-
-export type SubmissionOperation =
-  | Operation<ScoreboardDataEntry | null>
-  | Readonly<{
-      status: 'unauthenticated'
-    }>
-
-export interface RankingState {
-  data: ScoreboardDataEntry[] | null
-  meta: {
-    submission: SubmissionOperation
-    scoreboard: Operation<{ data: ScoreboardDataEntry[] }>
-  }
-}
 
 export interface RankingService {
   me(): Promise<UserInfo | null>

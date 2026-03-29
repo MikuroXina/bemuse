@@ -6,7 +6,6 @@ import {
   shouldShowModeSelect,
 } from '@bemuse/flags/index.js'
 import type { RankingService } from '@bemuse/online/index.js'
-import OfflineService from '@bemuse/online/offline-service.js'
 import FakeOnlineService from '@bemuse/online/scoreboard-system/fake-online-service.js'
 import { MXOnlineService } from '@bemuse/online/scoreboard-system/mx-online-service.js'
 import { RankingServiceContext } from '@bemuse/online/service.js'
@@ -31,10 +30,8 @@ import { getInitialGrepString, getTimeSynchroServer } from './query-flags.js'
 
 let ranking: RankingService
 
-if (isQueryFlagEnabled('fake-scoreboard')) {
+if (isQueryFlagEnabled('fake-scoreboard') || isQueryFlagEnabled('offline')) {
   ranking = new FakeOnlineService()
-} else if (isQueryFlagEnabled('offline')) {
-  ranking = new OfflineService()
 } else if (import.meta.env.VITE_SCOREBOARD_SERVER) {
   ranking = new MXOnlineService(import.meta.env.VITE_SCOREBOARD_SERVER)
 } else {

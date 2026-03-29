@@ -7,7 +7,7 @@ import type {
   UserInfo,
 } from '../index.js'
 import type { RecordLevel } from '../level.js'
-import { createFakeScoreboardClient } from './create-fake-scoreboard-client.js'
+import { createFakeScoreboardClient } from './fake-scoreboard-client.js'
 import type { ScoreboardClient, ScoreboardRow } from './scoreboard-client.js'
 
 export class FakeOnlineService implements RankingService {
