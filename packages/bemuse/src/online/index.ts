@@ -83,9 +83,14 @@ export const useLogInMutation = (): UseMutationResult<
   never[]
 > => {
   const service = useContext(RankingServiceContext)
+  const client = useQueryClient()
   return useMutation({
     mutationKey: [service, 'login'],
-    mutationFn: () => service.logIn(),
+    mutationFn: async () => {
+      const user = await service.logIn()
+      client.setQueryData([service, 'me'], user)
+      return user
+    },
   })
 }
 
@@ -95,9 +100,13 @@ export const useLogOutMutation = (): UseMutationResult<
   never[]
 > => {
   const service = useContext(RankingServiceContext)
+  const client = useQueryClient()
   return useMutation({
     mutationKey: [service, 'logout'],
-    mutationFn: () => service.logOut(),
+    mutationFn: async () => {
+      await service.logOut()
+      client.setQueryData([service, 'me'], null)
+    },
   })
 }
 
