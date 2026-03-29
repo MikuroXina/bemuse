@@ -21,6 +21,11 @@
     {
       "matchDatasources": ["github-actions"],
       "labels": ["R-Update(gh-actions)"]
+    },
+    {
+      "groupName": "Vitest packages",
+      "matchDatasources": ["npm"],
+      "matchPackageNames": ["vitest", "@vitest/**"]
     }
   ],
   "npm": {
