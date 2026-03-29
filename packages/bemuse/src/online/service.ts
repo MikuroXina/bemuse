@@ -1,13 +1,8 @@
 import { createContext } from 'react'
 
 import type { RankingService } from './index.js'
+import FakeOnlineService from './scoreboard-system/fake-online-service.js'
 
-export const RankingServiceContext = createContext<RankingService>({
-  isAuthenticated: () => false,
-  me: () => Promise.resolve(null),
-  logIn: () => Promise.resolve(null),
-  logOut: () => Promise.resolve(),
-  submitScore: () => Promise.reject(new Error('no context provided')),
-  retrieveRecord: () => Promise.resolve(null),
-  retrieveScoreboard: () => Promise.resolve({ data: [] }),
-})
+export const RankingServiceContext = createContext<RankingService>(
+  new FakeOnlineService()
+)
