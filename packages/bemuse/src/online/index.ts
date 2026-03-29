@@ -106,7 +106,6 @@ export function useLeaderboardQuery(
 ): UseQueryResult<{ data: ScoreboardDataEntry[] }> {
   const service = useContext(RankingServiceContext)
   return useQuery({
-    enabled: service.isAuthenticated(),
     queryKey: ['online', 'leaderboard', chart.md5, playMode],
     queryFn: () => service.retrieveScoreboard({ md5: chart.md5, playMode }),
   })
