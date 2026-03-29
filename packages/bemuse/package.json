@@ -25,6 +25,7 @@
     "build": {
       "command": "vite build",
       "dependencies": [
+        "../scoreboard-types:build",
         "../bemuse-indexer:build",
         "../bemuse-notechart:build",
         "../bemuse-types:build",
