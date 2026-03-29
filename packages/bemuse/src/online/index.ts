@@ -91,6 +91,13 @@ export const useLogOutMutation = (): UseMutationResult<
     mutationFn: async () => {
       await service.logOut()
       client.setQueryData(['online', 'me'], null)
+      client.setQueriesData(
+        {
+          queryKey: ['online', 'record'],
+          type: 'all',
+        },
+        null
+      )
     },
   })
 }
