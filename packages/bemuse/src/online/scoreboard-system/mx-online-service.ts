@@ -29,6 +29,10 @@ export class MXOnlineService implements RankingService {
 
   constructor(private readonly baseUrl: string) {}
 
+  isAuthenticated(): boolean {
+    return this.#currentUser != null
+  }
+
   /**
    * Checks the token has expired, and then clears it if it has expired.
    *

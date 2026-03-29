@@ -18,6 +18,10 @@ export class FakeOnlineService implements RankingService {
     private readonly scoreboardClient: ScoreboardClient = createFakeScoreboardClient()
   ) {}
 
+  isAuthenticated(): boolean {
+    return this.playerToken != null
+  }
+
   async me() {
     if (this.playerToken == null) {
       return null

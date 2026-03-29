@@ -19,7 +19,6 @@ const RankingContainer = ({
 }: RankingContainerProps) => {
   const user = useCurrentUser()
   const submissionMutation = useSubmitMutation()
-  console.log({ user })
   const canSubmit = !!user && !!result
   const submit = () => {
     if (canSubmit) {

@@ -43,6 +43,7 @@ export interface ScoreboardDataEntry {
 export type ScoreboardDataRecord = ScoreboardDataEntry & RecordLevel
 
 export interface RankingService {
+  isAuthenticated(): boolean
   me(): Promise<UserInfo | null>
   logIn(): Promise<UserInfo | null>
   logOut(): Promise<void>
@@ -56,7 +57,8 @@ export interface RankingService {
 export const useCurrentUser = (): UserInfo | null => {
   const service = useContext(RankingServiceContext)
   const { data } = useQuery({
-    queryKey: [service, 'me'],
+    enabled: service.isAuthenticated(),
+    queryKey: ['online', 'me'],
     queryFn: () => service.me(),
   })
   return data ?? null
@@ -70,10 +72,9 @@ export const useLogInMutation = (): UseMutationResult<
   const service = useContext(RankingServiceContext)
   const client = useQueryClient()
   return useMutation({
-    mutationKey: [service, 'login'],
     mutationFn: async () => {
       const user = await service.logIn()
-      client.setQueryData([service, 'me'], user)
+      client.setQueryData(['online', 'me'], user)
       return user
     },
   })
@@ -87,10 +88,9 @@ export const useLogOutMutation = (): UseMutationResult<
   const service = useContext(RankingServiceContext)
   const client = useQueryClient()
   return useMutation({
-    mutationKey: [service, 'logout'],
     mutationFn: async () => {
       await service.logOut()
-      client.setQueryData([service, 'me'], null)
+      client.setQueryData(['online', 'me'], null)
     },
   })
 }
@@ -101,7 +101,8 @@ export function useLeaderboardQuery(
 ): UseQueryResult<{ data: ScoreboardDataEntry[] }> {
   const service = useContext(RankingServiceContext)
   return useQuery({
-    queryKey: [service, 'leaderboard', chart.md5, playMode],
+    enabled: service.isAuthenticated(),
+    queryKey: ['online', 'leaderboard', chart.md5, playMode],
     queryFn: () => service.retrieveScoreboard({ md5: chart.md5, playMode }),
   })
 }
@@ -112,7 +113,8 @@ export function useRecordQuery(
 ): UseQueryResult<ScoreboardDataRecord | null> {
   const service = useContext(RankingServiceContext)
   return useQuery({
-    queryKey: [service, 'record', chart.md5, playMode],
+    enabled: service.isAuthenticated(),
+    queryKey: ['online', 'record', chart.md5, playMode],
     queryFn: () => service.retrieveRecord({ md5: chart.md5, playMode }),
   })
 }
@@ -129,9 +131,9 @@ export function useSubmitMutation(): UseMutationResult<
       return await service.submitScore(info)
     },
     onSuccess: (data, info) => {
-      client.setQueryData([service, 'record', info.md5, info.playMode], data)
+      client.setQueryData(['online', 'record', info.md5, info.playMode], data)
       client.invalidateQueries({
-        queryKey: [service, 'leaderboard', info.md5, info.playMode],
+        queryKey: ['online', 'leaderboard', info.md5, info.playMode],
       })
     },
   })
