@@ -748,10 +748,10 @@ importers:
         version: 2.20.2(react@19.2.4)
       '@ui5/webcomponents-icons':
         specifier: ^2.19.2
-        version: 2.19.2
+        version: 2.20.2(react@19.2.4)
       '@ui5/webcomponents-react':
         specifier: ^2.19.0
-        version: 2.19.0(@types/react-dom@18.3.7(@types/react@19.2.14))(@types/react@19.2.14)(@ui5/webcomponents-base@2.19.2)(@ui5/webcomponents-fiori@2.20.2(react@19.2.4))(@ui5/webcomponents-icons@2.19.2)(@ui5/webcomponents@2.20.2(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        version: 2.19.0(@types/react-dom@18.3.7(@types/react@19.2.14))(@types/react@19.2.14)(@ui5/webcomponents-base@2.19.2)(@ui5/webcomponents-fiori@2.20.2(react@19.2.4))(@ui5/webcomponents-icons@2.20.2(react@19.2.4))(@ui5/webcomponents@2.20.2(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       axios:
         specifier: ^0.23.0
         version: 0.23.0
@@ -3906,9 +3906,6 @@ packages:
 
   '@ui5/webcomponents-icons-tnt@2.20.2':
     resolution: {integrity: sha512-2xOf9GO/9OFWRlms4EC+9aqWlkmsQsInyn093lpNVBHheNkEhwg/SDIbTUT5adq6IYCJy96c7JaTJi43YoT+Cw==}
-
-  '@ui5/webcomponents-icons@2.19.2':
-    resolution: {integrity: sha512-OKfy6QTiTUhDulibrGePwcUZdJNuc9nkfUasjdcYcihFje/i7U71XZbYbw0wE8jp9YBtZS3BbUm4GfzTYeYvNw==}
 
   '@ui5/webcomponents-icons@2.20.2':
     resolution: {integrity: sha512-oWRpD17SRQz9LIRIyrnZOPb7xPc1rfVsM+OJMWCQBdgOw8cmxYY7WQ2SOuH255dwFN6X3M1HYvioghlsj14S7w==}
@@ -15493,6 +15490,7 @@ snapshots:
     dependencies:
       '@lit-labs/ssr-dom-shim': 1.5.1
       lit-html: 2.8.0
+    optional: true
 
   '@ui5/webcomponents-base@2.20.2(react@19.2.4)':
     dependencies:
@@ -15523,10 +15521,6 @@ snapshots:
     transitivePeerDependencies:
       - react
 
-  '@ui5/webcomponents-icons@2.19.2':
-    dependencies:
-      '@ui5/webcomponents-base': 2.19.2
-
   '@ui5/webcomponents-icons@2.20.2(react@19.2.4)':
     dependencies:
       '@ui5/webcomponents-base': 2.20.2(react@19.2.4)
@@ -15547,7 +15541,7 @@ snapshots:
       '@types/react': 19.2.14
       '@ui5/webcomponents-base': 2.19.2
 
-  '@ui5/webcomponents-react@2.19.0(@types/react-dom@18.3.7(@types/react@19.2.14))(@types/react@19.2.14)(@ui5/webcomponents-base@2.19.2)(@ui5/webcomponents-fiori@2.20.2(react@19.2.4))(@ui5/webcomponents-icons@2.19.2)(@ui5/webcomponents@2.20.2(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@ui5/webcomponents-react@2.19.0(@types/react-dom@18.3.7(@types/react@19.2.14))(@types/react@19.2.14)(@ui5/webcomponents-base@2.19.2)(@ui5/webcomponents-fiori@2.20.2(react@19.2.4))(@ui5/webcomponents-icons@2.20.2(react@19.2.4))(@ui5/webcomponents@2.20.2(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@tanstack/react-virtual': 3.13.18(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@ui5/webcomponents': 2.20.2(react@19.2.4)
@@ -15561,7 +15555,7 @@ snapshots:
       '@types/react-dom': 18.3.7(@types/react@19.2.14)
       '@ui5/webcomponents-base': 2.19.2
       '@ui5/webcomponents-fiori': 2.20.2(react@19.2.4)
-      '@ui5/webcomponents-icons': 2.19.2
+      '@ui5/webcomponents-icons': 2.20.2(react@19.2.4)
 
   '@ui5/webcomponents-theming@2.20.2(react@19.2.4)':
     dependencies:
