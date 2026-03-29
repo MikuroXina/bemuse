@@ -745,13 +745,13 @@ importers:
         version: 2.20.2(react@19.2.4)
       '@ui5/webcomponents-fiori':
         specifier: ^2.19.2
-        version: 2.19.2
+        version: 2.20.2(react@19.2.4)
       '@ui5/webcomponents-icons':
         specifier: ^2.19.2
         version: 2.19.2
       '@ui5/webcomponents-react':
         specifier: ^2.19.0
-        version: 2.19.0(@types/react-dom@18.3.7(@types/react@19.2.14))(@types/react@19.2.14)(@ui5/webcomponents-base@2.19.2)(@ui5/webcomponents-fiori@2.19.2)(@ui5/webcomponents-icons@2.19.2)(@ui5/webcomponents@2.20.2(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        version: 2.19.0(@types/react-dom@18.3.7(@types/react@19.2.14))(@types/react@19.2.14)(@ui5/webcomponents-base@2.19.2)(@ui5/webcomponents-fiori@2.20.2(react@19.2.4))(@ui5/webcomponents-icons@2.19.2)(@ui5/webcomponents@2.20.2(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       axios:
         specifier: ^0.23.0
         version: 0.23.0
@@ -3239,9 +3239,6 @@ packages:
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
 
-  '@sap-theming/theming-base-content@11.29.3':
-    resolution: {integrity: sha512-0LVCUYqoTQGcKmgPShbxQLBoF8469ZojUrYtVm1k3op/1pgLA/FMN//bvgGEm7HTBJBu3gW2Ad2f4ASqEzLolA==}
-
   '@sap-theming/theming-base-content@11.33.0':
     resolution: {integrity: sha512-dBzkXs289Mq7vn9TGbiYldjKQPnxFzsRyAtBUoPLP0rmWFjbYh5F9o//qm38g7DHFAC3uzrT4gKGDNAewVRpwg==}
 
@@ -3901,17 +3898,11 @@ packages:
       react:
         optional: true
 
-  '@ui5/webcomponents-fiori@2.19.2':
-    resolution: {integrity: sha512-JlIfaa/wZb0OxMEn3bQZ0hUp0Cr9X396AgjwipKAUzkIv59SVUBmZAfId8M8qIdsX6Swo0Up811rBWeU8/5ZSw==}
-
-  '@ui5/webcomponents-icons-business-suite@2.19.2':
-    resolution: {integrity: sha512-6n32uCmS6beOxO7zwaGK81hQWsmcgQA0j80p57Lh5EyTc6k9kRDeZzq/IzQrARuPTGAZL16cnayXflhOoT5NvQ==}
+  '@ui5/webcomponents-fiori@2.20.2':
+    resolution: {integrity: sha512-cP2Cgxy6q5RViqwVhnSP4IfDRVXI1VQ1v8EJ9cE7177Fy2f1HJgg26MorGX2O8sBUnm+z47/9xgqJPuJp4jJXg==}
 
   '@ui5/webcomponents-icons-business-suite@2.20.2':
     resolution: {integrity: sha512-WJi+GHoaVVqYytQ5Mxi4KpDkLYAx6j59M3ZE6ZIw6QB9vmgzrT/HKYgoHHRUEHCEm77lUCaLJ2VI5dsH+HT+Nw==}
-
-  '@ui5/webcomponents-icons-tnt@2.19.2':
-    resolution: {integrity: sha512-kidvymFpha1tz9nJQtrfrelW7e2xlWk6ZxuFJovp+GRWZmB8RF4iXRJw7LmQ0h7bVyLEVHwUzmWVDvLcqFx0cg==}
 
   '@ui5/webcomponents-icons-tnt@2.20.2':
     resolution: {integrity: sha512-2xOf9GO/9OFWRlms4EC+9aqWlkmsQsInyn093lpNVBHheNkEhwg/SDIbTUT5adq6IYCJy96c7JaTJi43YoT+Cw==}
@@ -3921,9 +3912,6 @@ packages:
 
   '@ui5/webcomponents-icons@2.20.2':
     resolution: {integrity: sha512-oWRpD17SRQz9LIRIyrnZOPb7xPc1rfVsM+OJMWCQBdgOw8cmxYY7WQ2SOuH255dwFN6X3M1HYvioghlsj14S7w==}
-
-  '@ui5/webcomponents-localization@2.19.2':
-    resolution: {integrity: sha512-Q2NiCZWTx1QVi2i1vRDsPGSbOcoD3IOhi5RPtDLoAB22+7FebaF/N4qWGM9sfD2ZFwu5q9FwcMn2GC9CkclhTA==}
 
   '@ui5/webcomponents-localization@2.20.2':
     resolution: {integrity: sha512-34jL+tEtvSUUzh3JcqCFC2KdXKZ3HZkUJGzFluo7QvLzoy23A7ZUi41eyyZYs2XLKcqoU9LU3IgEQAaZonuz6Q==}
@@ -3963,14 +3951,8 @@ packages:
       '@ui5/webcomponents-icons':
         optional: true
 
-  '@ui5/webcomponents-theming@2.19.2':
-    resolution: {integrity: sha512-FrXp7H/NasjFeWrPeE6yGIcyUVXc4BJhNfj5Q4SxnU/qZynCRmb6mT01Q34RVQSrWNThYT3rOwprq7Kdnf+qAw==}
-
   '@ui5/webcomponents-theming@2.20.2':
     resolution: {integrity: sha512-hVxT6WdNX9mzi3deyiwk67j+hiCTm9xqFUZqD/8R5Nwyka7guEggaEsjtyghNJ/F9t2bpBknOw5ao5XdeXUaaA==}
-
-  '@ui5/webcomponents@2.19.2':
-    resolution: {integrity: sha512-qwJGmGhpZME4HTajhe9r9Bq7p3qIk/czDEs0oIl/Uw/cbz/1ZrYQJdRYAzs9r3FFosuB61ePYv0Eoa8H2IQspA==}
 
   '@ui5/webcomponents@2.20.2':
     resolution: {integrity: sha512-Ut5lzKApoHG3daAHC9QigZ9jHA93vNY5FS/NWcYU+AWDfwHhk8OpRB/78/qDA4vmU5k2U8a0wMHAItsSvAXq6g==}
@@ -14740,8 +14722,6 @@ snapshots:
 
   '@rtsao/scc@1.1.0': {}
 
-  '@sap-theming/theming-base-content@11.29.3': {}
-
   '@sap-theming/theming-base-content@11.33.0': {}
 
   '@sideway/address@4.1.5':
@@ -15521,27 +15501,21 @@ snapshots:
     optionalDependencies:
       react: 19.2.4
 
-  '@ui5/webcomponents-fiori@2.19.2':
+  '@ui5/webcomponents-fiori@2.20.2(react@19.2.4)':
     dependencies:
-      '@ui5/webcomponents': 2.19.2
-      '@ui5/webcomponents-base': 2.19.2
-      '@ui5/webcomponents-icons': 2.19.2
-      '@ui5/webcomponents-theming': 2.19.2
+      '@ui5/webcomponents': 2.20.2(react@19.2.4)
+      '@ui5/webcomponents-base': 2.20.2(react@19.2.4)
+      '@ui5/webcomponents-icons': 2.20.2(react@19.2.4)
+      '@ui5/webcomponents-theming': 2.20.2(react@19.2.4)
       '@zxing/library': 0.21.3
-
-  '@ui5/webcomponents-icons-business-suite@2.19.2':
-    dependencies:
-      '@ui5/webcomponents-base': 2.19.2
+    transitivePeerDependencies:
+      - react
 
   '@ui5/webcomponents-icons-business-suite@2.20.2(react@19.2.4)':
     dependencies:
       '@ui5/webcomponents-base': 2.20.2(react@19.2.4)
     transitivePeerDependencies:
       - react
-
-  '@ui5/webcomponents-icons-tnt@2.19.2':
-    dependencies:
-      '@ui5/webcomponents-base': 2.19.2
 
   '@ui5/webcomponents-icons-tnt@2.20.2(react@19.2.4)':
     dependencies:
@@ -15559,11 +15533,6 @@ snapshots:
     transitivePeerDependencies:
       - react
 
-  '@ui5/webcomponents-localization@2.19.2':
-    dependencies:
-      '@types/openui5': 1.145.0
-      '@ui5/webcomponents-base': 2.19.2
-
   '@ui5/webcomponents-localization@2.20.2(react@19.2.4)':
     dependencies:
       '@types/openui5': 1.145.0
@@ -15578,7 +15547,7 @@ snapshots:
       '@types/react': 19.2.14
       '@ui5/webcomponents-base': 2.19.2
 
-  '@ui5/webcomponents-react@2.19.0(@types/react-dom@18.3.7(@types/react@19.2.14))(@types/react@19.2.14)(@ui5/webcomponents-base@2.19.2)(@ui5/webcomponents-fiori@2.19.2)(@ui5/webcomponents-icons@2.19.2)(@ui5/webcomponents@2.20.2(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@ui5/webcomponents-react@2.19.0(@types/react-dom@18.3.7(@types/react@19.2.14))(@types/react@19.2.14)(@ui5/webcomponents-base@2.19.2)(@ui5/webcomponents-fiori@2.20.2(react@19.2.4))(@ui5/webcomponents-icons@2.19.2)(@ui5/webcomponents@2.20.2(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@tanstack/react-virtual': 3.13.18(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@ui5/webcomponents': 2.20.2(react@19.2.4)
@@ -15591,13 +15560,8 @@ snapshots:
       '@types/react': 19.2.14
       '@types/react-dom': 18.3.7(@types/react@19.2.14)
       '@ui5/webcomponents-base': 2.19.2
-      '@ui5/webcomponents-fiori': 2.19.2
+      '@ui5/webcomponents-fiori': 2.20.2(react@19.2.4)
       '@ui5/webcomponents-icons': 2.19.2
-
-  '@ui5/webcomponents-theming@2.19.2':
-    dependencies:
-      '@sap-theming/theming-base-content': 11.29.3
-      '@ui5/webcomponents-base': 2.19.2
 
   '@ui5/webcomponents-theming@2.20.2(react@19.2.4)':
     dependencies:
@@ -15605,15 +15569,6 @@ snapshots:
       '@ui5/webcomponents-base': 2.20.2(react@19.2.4)
     transitivePeerDependencies:
       - react
-
-  '@ui5/webcomponents@2.19.2':
-    dependencies:
-      '@ui5/webcomponents-base': 2.19.2
-      '@ui5/webcomponents-icons': 2.19.2
-      '@ui5/webcomponents-icons-business-suite': 2.19.2
-      '@ui5/webcomponents-icons-tnt': 2.19.2
-      '@ui5/webcomponents-localization': 2.19.2
-      '@ui5/webcomponents-theming': 2.19.2
 
   '@ui5/webcomponents@2.20.2(react@19.2.4)':
     dependencies:
