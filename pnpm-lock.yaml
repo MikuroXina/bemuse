@@ -81,8 +81,8 @@ importers:
         specifier: ^1.0.6
         version: 1.0.6
       fuzzysort:
-        specifier: ~1.1.4
-        version: 1.1.4
+        specifier: ~1.9.0
+        version: 1.9.0
       idb-keyval:
         specifier: ^6.2.2
         version: 6.2.2
@@ -6351,8 +6351,8 @@ packages:
   functions-have-names@1.2.3:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
 
-  fuzzysort@1.1.4:
-    resolution: {integrity: sha512-JzK/lHjVZ6joAg3OnCjylwYXYVjRiwTY6Yb25LvfpJHK8bjisfnZJ5bY8aVWwTwCXgxPNgLAtmHL+Hs5q1ddLQ==}
+  fuzzysort@1.9.0:
+    resolution: {integrity: sha512-MOxCT0qLTwLqmEwc7UtU045RKef7mc8Qz8eR4r2bLNEq9dy/c3ZKMEFp6IEst69otkQdFZ4FfgH2dmZD+ddX1g==}
 
   generator-function@2.0.1:
     resolution: {integrity: sha512-SFdFmIJi+ybC0vjlHN0ZGVGHc3lgE0DxPAT0djjVg+kjOnSqclqmj0KQ7ykTOLP6YxoqOvuAODGdcHJn+43q3g==}
@@ -18503,7 +18503,7 @@ snapshots:
 
   functions-have-names@1.2.3: {}
 
-  fuzzysort@1.1.4: {}
+  fuzzysort@1.9.0: {}
 
   generator-function@2.0.1: {}
 
