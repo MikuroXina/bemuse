@@ -63,7 +63,7 @@ jobs:
       - name: Build
         run: pnpm run build
       - name: Lint all
-        run: pnpm run lint
+        run: pnpm run -r lint
         if: always()
       - name: Semgrep
         uses: ./.github/actions/semgrep
@@ -80,7 +80,7 @@ jobs:
       - name: Build
         run: pnpm run build
       - name: Test with coverage
-        run: pnpm run coverage
+        run: pnpm run -r coverage
       - uses: codecov/codecov-action@v5
         with:
           files: ./packages/bemuse/coverage/clover.xml,./packages/bemuse-indexer/coverage/clover.xml,./packages/bemuse-notechart/coverage/clover.xml,./packages/bemuse-tools/coverage/clover.xml,./packages/bms/coverage/clover.xml,./packages/bmson/coverage/clover.xml,./packages/monetizer/coverage/clover.xml
