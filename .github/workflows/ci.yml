@@ -28,11 +28,7 @@ jobs:
       - name: Set up project
         uses: ./.github/actions/setup-project
       - name: Build
-        run: |
-          rm -rf packages/bemuse/dist
-          pnpm run build
-        env:
-          SCOREBOARD_SERVER: ${{ secrets.SCOREBOARD_SERVER }}
+        run: pnpm run build
       - name: Compress build output
         if: always()
         run: tar -cvzf dist.tar.gz packages/bemuse/dist
@@ -46,8 +42,6 @@ jobs:
         run: pnpm run --filter bemuse pre-deploy
       - name: Publish dry run
         run: pnpm publish -r --dry-run --no-git-checks
-    outputs:
-      released-tag: ${{ steps.release.outputs.tag }}
   typecheck:
     runs-on: ubuntu-latest
     steps:
