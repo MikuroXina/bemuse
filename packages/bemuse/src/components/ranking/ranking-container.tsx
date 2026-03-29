@@ -1,4 +1,4 @@
-import { useCurrentUser, useSubmitMutation } from '@bemuse/online/index.js'
+import { useAuthenticated, useSubmitMutation } from '@bemuse/online/index.js'
 import type { ScoreCount } from '@bemuse/rules/accuracy.js'
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
 import { useEffect, useRef } from 'react'
@@ -17,9 +17,9 @@ const RankingContainer = ({
   playMode,
   result,
 }: RankingContainerProps) => {
-  const user = useCurrentUser()
+  const authenticated = useAuthenticated()
   const submissionMutation = useSubmitMutation()
-  const canSubmit = !!user && !!result
+  const canSubmit = authenticated && !!result
   const submit = () => {
     if (canSubmit) {
       submissionMutation.mutate({

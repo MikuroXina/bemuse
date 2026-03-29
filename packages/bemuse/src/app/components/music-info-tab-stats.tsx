@@ -1,4 +1,4 @@
-import { useCurrentUser } from '@bemuse/online/index.js'
+import { useAuthenticated } from '@bemuse/online/index.js'
 import { formattedAccuracyForRecord } from '@bemuse/rules/accuracy.js'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons/faSpinner'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -35,11 +35,11 @@ const Message = ({ show }: { show: boolean }) =>
   ) : null
 
 const MusicInfoTabStats = ({ chart }: MusicInfoTabStatsProps) => {
-  const user = useCurrentUser()
+  const authenticated = useAuthenticated()
   const { isLoading, data: record } = usePersonalRecord(chart)
   return (
     <div className={styles.tabStats}>
-      <Message show={!user} />
+      <Message show={!authenticated} />
       <dl className={`${styles.column} ${styles.left}`}>
         <dt>Notes</dt>
         <dd>{chart.noteCount}</dd>
@@ -50,7 +50,7 @@ const MusicInfoTabStats = ({ chart }: MusicInfoTabStatsProps) => {
         <dt>Play Count</dt>
         <dd data-testid='stats-play-count'>
           <WhenNotLoading loading={isLoading}>
-            {record ? record.playCount : user ? '0' : '-'}
+            {record ? record.playCount : authenticated ? '0' : '-'}
           </WhenNotLoading>
         </dd>
       </dl>

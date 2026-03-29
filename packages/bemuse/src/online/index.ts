@@ -54,6 +54,11 @@ export interface RankingService {
   ): Promise<{ data: ScoreboardDataEntry[] }>
 }
 
+export const useAuthenticated = (): boolean => {
+  const service = useContext(RankingServiceContext)
+  return service.isAuthenticated()
+}
+
 export const useCurrentUser = (): UserInfo | null => {
   const service = useContext(RankingServiceContext)
   const { data } = useQuery({
