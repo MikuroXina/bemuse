@@ -4,7 +4,7 @@ import bemuseConfig from '@mikuroxina/eslint-config-bemuse'
 export default [
   ...bemuseConfig,
   {
-    ignores: ['.docusaurus/'],
+    ignores: ['.docusaurus/', '.wireit/'],
   },
   {
     plugins: {
