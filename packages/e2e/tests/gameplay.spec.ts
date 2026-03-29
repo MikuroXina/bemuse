@@ -80,8 +80,8 @@ test('Gameplay smoke test', async ({ page }, testInfo) => {
   await page.getByTestId('ranking-yours').getByText('log in').click()
   await page.getByRole('button', { name: 'Log In / Sign Up' }).click()
 
-  await expect(page.getByTestId('ranking-yours')).toHaveText(/Playwright/)
-  await expect(page.getByTestId('ranking-leaderboard')).toHaveText(/Playwright/)
+  await expect(page.getByTestId('ranking-yours')).toHaveText(/tester1/)
+  await expect(page.getByTestId('ranking-leaderboard')).toHaveText(/tester1/)
 
   await takeScreenshot(page, testInfo, 'Result')
 
