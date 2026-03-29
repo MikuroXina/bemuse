@@ -1,14 +1,19 @@
+import '@fortawesome/fontawesome-svg-core/styles.css'
+
 import {
   isQueryFlagEnabled,
   shouldShowAbout,
   shouldShowModeSelect,
 } from '@bemuse/flags/index.js'
+import type { RankingService } from '@bemuse/online/index.js'
+import FakeOnlineService from '@bemuse/online/scoreboard-system/fake-online-service.js'
+import { MXOnlineService } from '@bemuse/online/scoreboard-system/mx-online-service.js'
+import { RankingServiceContext } from '@bemuse/online/service.js'
 import {
   SceneManager,
   SceneManagerContext,
 } from '@bemuse/scene-manager/index.js'
 import now from '@bemuse/utils/now.js'
-import { monetize } from '@mikuroxina/monetizer'
 import { Provider } from 'react-redux'
 
 import * as BemuseTestMode from '../debug/bemuse-test-mode.js'
@@ -23,21 +28,40 @@ import { musicSearchTextSlice } from './entities/music-search-text.js'
 import { optionsSlice } from './entities/options.js'
 import { getInitialGrepString, getTimeSynchroServer } from './query-flags.js'
 
-const store = configureStore()
+let ranking: RankingService
 
-const sceneManager = new SceneManager(({ children }) => (
-  <div className='bemuse-scene'>
-    <Provider store={store}>
-      <SceneManagerContext.Provider value={sceneManager}>
-        {children}
-      </SceneManagerContext.Provider>
-    </Provider>
-  </div>
-))
+if (isQueryFlagEnabled('fake-scoreboard') || isQueryFlagEnabled('offline')) {
+  ranking = new FakeOnlineService()
+} else if (import.meta.env.VITE_SCOREBOARD_SERVER) {
+  ranking = new MXOnlineService(import.meta.env.VITE_SCOREBOARD_SERVER)
+} else {
+  console.warn(
+    'Warning: No server specified. Using a fake scoreboard that resets when you refresh the page.'
+  )
+  ranking = new FakeOnlineService()
+}
+
+let store = configureStore()
+
+const sceneManager = new SceneManager(({ children }) => {
+  return (
+    <div className='bemuse-scene'>
+      <Provider store={store}>
+        <SceneManagerContext.Provider value={sceneManager}>
+          <RankingServiceContext.Provider value={ranking}>
+            {children}
+          </RankingServiceContext.Provider>
+        </SceneManagerContext.Provider>
+      </Provider>
+    </div>
+  )
+})
 
 // Allow hot reloading of some modules.
 if (import.meta.hot) {
-  import.meta.hot.accept('../redux/ReduxState.js', () => {})
+  import.meta.hot.accept('../redux/configure-store.js', () => {
+    store = configureStore()
+  })
 }
 
 function bootUp() {
@@ -59,9 +83,6 @@ export function main() {
   if (timeSynchroServer) {
     now.synchronize(timeSynchroServer)
   }
-
-  // add web monetization meta tag
-  monetize('$twitter.xrptipbot.com/bemusegame')
 }
 
 function displayFirstScene() {

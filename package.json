@@ -1,67 +1,6 @@
 {
   "scripts": {
-    "build": "wireit",
-    "lint": "wireit",
-    "test": "wireit",
-    "coverage": "wireit",
-    "test-packages": "wireit",
-    "coverage-packages": "wireit"
+    "build": "pnpm run --filter bemuse build"
   },
-  "wireit": {
-    "build": {
-      "dependencies": [
-        "./packages/bemuse:build"
-      ]
-    },
-    "lint": {
-      "dependencies": [
-        "./packages/bemuse:lint",
-        "./packages/e2e:lint",
-        "./packages/bemuse-indexer:lint",
-        "./packages/bemuse-notechart:lint",
-        "./packages/bemuse-tools:lint",
-        "./packages/bms:lint",
-        "./packages/bmson:lint",
-        "./packages/monetizer:lint",
-        "./packages/website:lint"
-      ]
-    },
-    "test": {
-      "dependencies": [
-        "test-packages",
-        "./packages/bemuse:test"
-      ]
-    },
-    "coverage": {
-      "dependencies": [
-        "coverage-packages",
-        "./packages/bemuse:coverage"
-      ]
-    },
-    "test-packages": {
-      "dependencies": [
-        "./packages/bemuse-indexer:test",
-        "./packages/bemuse-notechart:test",
-        "./packages/bemuse-tools:test",
-        "./packages/bms:test",
-        "./packages/bmson:test",
-        "./packages/monetizer:test"
-      ]
-    },
-    "coverage-packages": {
-      "dependencies": [
-        "./packages/bemuse-indexer:coverage",
-        "./packages/bemuse-notechart:coverage",
-        "./packages/bemuse-tools:coverage",
-        "./packages/bms:coverage",
-        "./packages/bmson:coverage",
-        "./packages/monetizer:coverage"
-      ]
-    }
-  },
-  "packageManager": "pnpm@10.30.2+sha512.36cdc707e7b7940a988c9c1ecf88d084f8514b5c3f085f53a2e244c2921d3b2545bc20dd4ebe1fc245feec463bb298aecea7a63ed1f7680b877dc6379d8d0cb4",
-  "devDependencies": {
-    "rimraf": "^6.1.0",
-    "wireit": "^0.14.12"
-  }
+  "packageManager": "pnpm@10.30.2+sha512.36cdc707e7b7940a988c9c1ecf88d084f8514b5c3f085f53a2e244c2921d3b2545bc20dd4ebe1fc245feec463bb298aecea7a63ed1f7680b877dc6379d8d0cb4"
 }

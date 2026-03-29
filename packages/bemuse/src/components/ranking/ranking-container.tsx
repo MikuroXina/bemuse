@@ -1,23 +1,6 @@
-import {
-  useCurrentUser,
-  useLeaderboardQuery,
-  usePersonalRankingEntryQuery,
-  useRecordSubmissionMutation,
-} from '@bemuse/online/hooks.js'
-import type {
-  RankingState,
-  ScoreboardDataRecord,
-  ScoreInfo,
-} from '@bemuse/online/index.js'
-import {
-  completed,
-  error,
-  loading,
-  type Operation,
-} from '@bemuse/online/operations.js'
+import { useCurrentUser, useSubmitMutation } from '@bemuse/online/index.js'
 import type { ScoreCount } from '@bemuse/rules/accuracy.js'
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
-import type { UseMutationResult, UseQueryResult } from '@tanstack/react-query'
 import { useEffect, useRef } from 'react'
 
 import type { Result } from '../../app/types.js'
@@ -29,18 +12,13 @@ export interface RankingContainerProps {
   result?: Result
 }
 
-export const NewRankingContainer = ({
+const RankingContainer = ({
   chart,
   playMode,
   result,
 }: RankingContainerProps) => {
   const user = useCurrentUser()
-  const leaderboardQuery = useLeaderboardQuery(chart, playMode)
-  const personalRankingEntryQuery = usePersonalRankingEntryQuery(
-    chart,
-    playMode
-  )
-  const submissionMutation = useRecordSubmissionMutation()
+  const submissionMutation = useSubmitMutation()
   const canSubmit = !!user && !!result
   const submit = () => {
     if (canSubmit) {
@@ -61,17 +39,6 @@ export const NewRankingContainer = ({
       })
     }
   }
-  const state: RankingState = {
-    data: leaderboardQuery.data?.data || null,
-    meta: {
-      submission: user
-        ? operationFromResult<ScoreboardDataRecord | null, unknown, ScoreInfo>(
-            canSubmit ? submissionMutation : personalRankingEntryQuery
-          )
-        : { status: 'unauthenticated' },
-      scoreboard: operationFromResult(leaderboardQuery),
-    },
-  }
   const submitted = useRef(false)
   useEffect(() => {
     if (!submitted.current && canSubmit) {
@@ -81,23 +48,11 @@ export const NewRankingContainer = ({
   }, [canSubmit])
   return (
     <Ranking
-      state={state}
-      onReloadScoreboardRequest={() => personalRankingEntryQuery.refetch()}
       onResubmitScoreRequest={submit}
+      chartMd5={chart.md5}
+      playMode={playMode}
     />
   )
 }
 
-function operationFromResult<T, TError, TVariables>(
-  result: UseMutationResult<T, TError, TVariables> | UseQueryResult<T, TError>
-): Operation<T> {
-  if (result.isPending) {
-    return loading()
-  }
-  if (result.isError) {
-    return error(result.error as Error)
-  }
-  return completed(result.data!)
-}
-
-export default NewRankingContainer
+export default RankingContainer

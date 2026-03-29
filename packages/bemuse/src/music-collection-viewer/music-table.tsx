@@ -6,7 +6,7 @@ import getPreviewResourceUrl from '@bemuse/music-collection/get-preview-resource
 import groupSongsIntoCategories from '@bemuse/music-collection/group-songs-into-categories.js'
 import sortSongs from '@bemuse/music-collection/sort-songs.js'
 import { useMusicPreviewer } from '@bemuse/music-previewer/hook.js'
-import { useState } from 'react'
+import { type JSX, useState } from 'react'
 
 import styles from './music-table.module.css'
 

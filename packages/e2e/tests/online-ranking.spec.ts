@@ -5,40 +5,15 @@ test('Can sign up', async ({ page }) => {
   await page.getByText('Log In / Create an Account').click()
   await page
     .getByTestId('authentication-panel')
-    .getByText('Create an Account')
+    .getByText('Log In / Sign Up')
     .click()
 
-  await page.getByLabel('Username').fill('tester')
-  await page.getByLabel('Email').fill('tester@tester.bemuse.ninja')
-  await page.getByLabel('Password').first().fill('h@cKm3Bemuse!')
-  await page.getByLabel('Confirm Password').first().fill('h@cKm3Bemuse!')
-  await page.getByRole('button', { name: 'Sign Me Up' }).click()
-
-  await expect(page.locator('body')).toContainText('Log Out (tester)')
-})
-
-test('Cannot sign up if duplicate account', async ({ page }) => {
-  await page.goto('/?flags=fake-scoreboard,skip-to-music-select')
-  await page.getByText('Log In / Create an Account').click()
-  await page
-    .getByTestId('authentication-panel')
-    .getByText('Create an Account')
-    .click()
-
-  await page.getByLabel('Username').fill('taken')
-  await page.getByLabel('Email').fill('taken@tester.bemuse.ninja')
-  await page.getByLabel('Password').first().fill('h@cKm3Bemuse!')
-  await page.getByLabel('Confirm Password').first().fill('h@cKm3Bemuse!')
-  await page.getByRole('button', { name: 'Sign Me Up' }).click()
-
-  await expect(page.getByTestId('authentication-panel')).toContainText(
-    'Username already taken'
-  )
+  await expect(page.locator('body')).toContainText('Log Out (tester1)')
 })
 
 test('Can log in and out', async ({ page }) => {
   await page.goto('/?flags=fake-scoreboard,skip-to-music-select')
-  await logIn(page, 'tester')
+  await logIn(page)
   await expect(page.getByText('Log In / Create an Account')).not.toBeVisible()
   await logOut(page)
   await expect(page.getByText('Log In / Create an Account')).toBeVisible()
@@ -49,7 +24,7 @@ test('Can submit score to improve', async ({ page }) => {
     '/?mode=playground&playground=playgrounds/result&flags=fake-scoreboard'
   )
   await expect(page.getByTestId('ranking')).toContainText('111111')
-  await logInFromRankingTable(page, 'tester')
+  await logInFromRankingTable(page)
   await expect(page.getByTestId('ranking')).not.toContainText('111111')
   await expect(page.getByTestId('ranking')).toContainText('222222')
 })
@@ -61,7 +36,7 @@ test('Keeps highest score', async ({ page }) => {
   const testerOldScore = '111111'
   await expect(page.getByTestId('ranking')).toContainText(testerOldScore)
 
-  await logInFromRankingTable(page, 'tester')
+  await logInFromRankingTable(page)
 
   await expect(page.getByTestId('ranking')).toContainText('555554')
   const testerHighScore = '543210'
@@ -77,7 +52,7 @@ test('Clears data when switching user', async ({ page }) => {
   await expect(chart).not.toHaveAttribute('data-played', 'true')
 
   await test.step('Log in as tester - stats should show', async () => {
-    await logIn(page, 'tester')
+    await logIn(page)
     await expect(chart).toHaveAttribute('data-played', 'true')
     await expect(chart).toContainText('S')
     await expect(page.getByTestId('stats-best-score')).toContainText('543210')
@@ -93,27 +68,23 @@ test('Clears data when switching user', async ({ page }) => {
   })
 
   await test.step('Log in as tester2 - stats should show', async () => {
-    await logIn(page, 'tester2')
+    await logIn(page)
     await expect(page.getByTestId('ranking-yours')).toContainText('123456')
     await page.getByText('Stats').click()
     await expect(page.getByTestId('stats-best-score')).toContainText('123456')
   })
 })
 
-async function logIn(page: Page, username: string) {
+async function logIn(page: Page) {
   await page.getByText('Log In / Create an Account').click()
-  await page.getByLabel('Username').fill(username)
-  await page.getByLabel('Password').first().fill('h@cKm3Bemuse!')
-  await page.getByRole('button', { name: 'Log In' }).click()
+  await page.getByRole('button', { name: 'Log In / Sign Up' }).click()
   await expect(page.locator('body')).toContainText('Log Out')
 }
 
-async function logInFromRankingTable(page: Page, username: string) {
+async function logInFromRankingTable(page: Page) {
   await page.getByText('log in or create an account').click()
-  await page.getByLabel('Username').fill(username)
-  await page.getByLabel('Password').first().fill('h@cKm3Bemuse!')
-  await page.getByRole('button', { name: 'Log In' }).click()
-  await expect(page.getByText('log in or create an account')).not.toBeVisible()
+  await page.getByRole('button', { name: 'Log In / Sign Up' }).click()
+  await expect(page.getByText('Log In / Sign Up')).not.toBeVisible()
 }
 
 async function logOut(page: Page) {

@@ -10,7 +10,6 @@
     "lib"
   ],
   "scripts": {
-    "clean": "rimraf lib tsconfig.tsbuildinfo",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
     "build": "wireit",
@@ -23,6 +22,14 @@
         "../bemuse-types:build",
         "../bms:build",
         "../bmson:build"
+      ],
+      "files": [
+        "src/**/*",
+        "tsconfig.json"
+      ],
+      "output": [
+        "lib/**",
+        "tsconfig.tsbuildinfo"
       ]
     }
   },

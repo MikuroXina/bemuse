@@ -1,12 +1,9 @@
 import djBemuse from '@bemuse/app/components/about-scene/DJBM.png'
 import Panel from '@bemuse/components/common/panel.js'
-import { OnlineContext } from '@bemuse/online/instance.js'
-import { useContext, useState } from 'react'
+import OptionsButton from '@bemuse/components/options/options-button'
+import { useState } from 'react'
 
-import AuthenticationForm, {
-  type AuthenticationFormData,
-  type AuthMode,
-} from './authentication-form.js'
+import { useLogInMutation } from '../index.js'
 import styles from './authentication-panel.module.scss'
 
 export interface AuthenticationPanelProps {
@@ -28,8 +25,7 @@ const Message = ({ state }: { state: AuthState }) => {
 }
 
 const AuthenticationPanel = ({ onFinish }: AuthenticationPanelProps) => {
-  const online = useContext(OnlineContext)
-  const [mode, setMode] = useState<AuthMode>('logIn')
+  const logInMutation = useLogInMutation()
   const [auth, setAuth] = useState<AuthState>({ status: 'idle', message: '' })
 
   const runPromise = (promise: Promise<string>) => {
@@ -53,68 +49,14 @@ const AuthenticationPanel = ({ onFinish }: AuthenticationPanelProps) => {
     )
   }
 
-  const doSignUp = async (formData: AuthenticationFormData) => {
-    if (!formData.username.trim()) {
-      throw new Error('Please enter a username.')
-    }
-    if (!formData.username.match(/^\S+$/)) {
-      throw new Error('Username may not contain spaces.')
-    }
-    if (formData.username.length < 2) {
-      throw new Error('Username must be at least 2 characters long.')
-    }
-    if (formData.username.length > 24) {
-      throw new Error('Username must be at most 24 characters long.')
-    }
-    if (!formData.password) {
-      throw new Error('Please enter a password.')
-    }
-    if (formData.password.length < 6) {
-      throw new Error('Password must be at least 6 characters long.')
-    }
-    if (!formData.passwordConfirmation) {
-      throw new Error('Please confirm your password.')
-    }
-    if (formData.password !== formData.passwordConfirmation) {
-      throw new Error('Passwords do not match.')
-    }
-    await online.signUp(formData)
-    if (onFinish) onFinish()
-    return 'Welcome to Bemuse!'
+  const doLogIn = async () => {
+    logInMutation.mutate([])
+    onFinish?.()
+    return 'Welcome back!'
   }
 
-  const doLogIn = async (formData: AuthenticationFormData) => {
-    if (!formData.password.trim()) {
-      if (window.confirm('Did you forget your password?')) {
-        const email = window.prompt('Please enter your email address.')
-        if (email) {
-          await online.changePassword({ email })
-          throw new Error('Please check your email')
-        }
-      }
-    }
-    if (!formData.username.trim()) {
-      throw new Error('Please enter your username.')
-    }
-    if (!formData.password.trim()) {
-      throw new Error('Please enter your password.')
-    }
-    return online.logIn(formData).then(() => {
-      if (onFinish) onFinish()
-      return 'Welcome back!'
-    })
-  }
-
-  const onSwitchToLogin = () => setMode('logIn')
-
-  const onSwitchToSignUp = () => setMode('signUp')
-
-  const onSubmit = (formData: AuthenticationFormData) => {
-    if (mode === 'signUp') {
-      runPromise(doSignUp(formData))
-    } else {
-      runPromise(doLogIn(formData))
-    }
+  const onClickLogIn = () => {
+    runPromise(doLogIn())
   }
 
   return (
@@ -131,18 +73,11 @@ const AuthenticationPanel = ({ onFinish }: AuthenticationPanelProps) => {
           </div>
         </div>
         <div className={styles.content}>
-          <div className={styles.modeSwitcher}>
-            <a onClick={onSwitchToLogin} data-active={mode === 'logIn'}>
-              Log In
-            </a>{' '}
-            &middot;{' '}
-            <a onClick={onSwitchToSignUp} data-active={mode === 'signUp'}>
-              Create an Account
-            </a>
-          </div>
           <div className={styles.vCenter}>
             <Message state={auth} />
-            <AuthenticationForm mode={mode} onSubmit={onSubmit} />
+            <OptionsButton onClick={onClickLogIn}>
+              Log In / Sign Up
+            </OptionsButton>
           </div>
         </div>
       </div>

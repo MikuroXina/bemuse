@@ -1,7 +1,8 @@
 import type { Chart, Song } from '@bemuse/collection-model/types.js'
 import RankingContainer from '@bemuse/components/ranking/ranking-container.js'
-import { Icon } from '@bemuse/fa/index.js'
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
+import { faGear } from '@fortawesome/free-solid-svg-icons/faGear'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 
 import MusicInfoTabInformation from './music-info-tab-information.js'
@@ -70,7 +71,7 @@ const MusicInfoTabs = (props: MusicInfoTabsProps) => {
           onClick={props.onOptions}
           data-testid='options-button'
         >
-          <Icon name='gear' /> Options
+          <FontAwesomeIcon icon={faGear} /> Options
         </li>
         {TABS.map((title, index) => (
           <MusicInfoTab

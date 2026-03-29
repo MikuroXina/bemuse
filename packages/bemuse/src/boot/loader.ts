@@ -42,6 +42,11 @@ const modules = {
   // previewer
   //   Runs BMS previewer.
   previewer: () => import('@bemuse/previewer/index.jsx'),
+
+  // >>
+  // login
+  //   Popups login panel for accessing the scoreboard ranking server.
+  login: () => import('@bemuse/login/index.jsx'),
 } as const satisfies Record<string, () => Promise<Module>>
 
 export default modules

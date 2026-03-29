@@ -28,11 +28,7 @@ jobs:
       - name: Set up project
         uses: ./.github/actions/setup-project
       - name: Build
-        run: |
-          rm -rf packages/bemuse/dist
-          pnpm run build
-        env:
-          SCOREBOARD_SERVER: ${{ secrets.SCOREBOARD_SERVER }}
+        run: pnpm run build
       - name: Compress build output
         if: always()
         run: tar -cvzf dist.tar.gz packages/bemuse/dist
@@ -46,8 +42,6 @@ jobs:
         run: pnpm run --filter bemuse pre-deploy
       - name: Publish dry run
         run: pnpm publish -r --dry-run --no-git-checks
-    outputs:
-      released-tag: ${{ steps.release.outputs.tag }}
   typecheck:
     runs-on: ubuntu-latest
     steps:
@@ -69,7 +63,7 @@ jobs:
       - name: Build
         run: pnpm run build
       - name: Lint all
-        run: pnpm run lint
+        run: pnpm run -r lint
         if: always()
       - name: Semgrep
         uses: ./.github/actions/semgrep
@@ -86,7 +80,7 @@ jobs:
       - name: Build
         run: pnpm run build
       - name: Test with coverage
-        run: pnpm run coverage
+        run: pnpm run -r coverage
       - uses: codecov/codecov-action@v5
         with:
           files: ./packages/bemuse/coverage/clover.xml,./packages/bemuse-indexer/coverage/clover.xml,./packages/bemuse-notechart/coverage/clover.xml,./packages/bemuse-tools/coverage/clover.xml,./packages/bms/coverage/clover.xml,./packages/bmson/coverage/clover.xml,./packages/monetizer/coverage/clover.xml

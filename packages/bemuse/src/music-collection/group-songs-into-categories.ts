@@ -11,7 +11,7 @@ interface Grouping {
 }
 
 const grouping: readonly Grouping[] = [
-  { title: 'Custom Song', criteria: (song) => !!song.custom },
+  { title: 'Custom Songs', criteria: (song) => !!song.custom },
   { title: 'Tutorial', criteria: (song) => !!song.tutorial },
   { title: 'Unreleased', criteria: (song) => !!song.unreleased },
   {

@@ -16,7 +16,7 @@ const MusicListItemChart = ({
   selected,
   onClick,
 }: MusicListItemChartProps) => {
-  const [isLoading, record] = usePersonalRecord(chart)
+  const { isPending, isFetching, data: record } = usePersonalRecord(chart)
   const played = !!record
   let grade = played ? getGrade(record) : null
   if (grade === 'F') grade = null
@@ -37,7 +37,7 @@ const MusicListItemChart = ({
       data-selected={selected}
       data-grade={!!grade}
     >
-      <span>{isLoading ? '…' : grade || chart.info.level}</span>
+      <span>{isPending && isFetching ? '…' : grade || chart.info.level}</span>
     </div>
   )
 }

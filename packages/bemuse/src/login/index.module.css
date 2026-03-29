@@ -1,0 +1,16 @@
+.page {
+  margin: 8px;
+}
+
+.title {
+  font-size: 2rem;
+  line-height: 1.75rem;
+}
+
+.panelContainer {
+  margin: 4rem;
+  border: 2px solid #aaa;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 1fr;
+}

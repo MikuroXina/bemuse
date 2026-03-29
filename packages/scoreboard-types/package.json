@@ -1,0 +1,46 @@
+{
+  "name": "@mikuroxina/scoreboard-types",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "wireit",
+    "check": "tsc --noEmit",
+    "lint": "eslint ."
+  },
+  "wireit": {
+    "build": {
+      "command": "tsc",
+      "clean": "if-file-deleted",
+      "files": [
+        "src/**/*.ts",
+        "tsconfig.json"
+      ],
+      "output": [
+        "dist",
+        "tsconfig.tsbuildinfo"
+      ]
+    }
+  },
+  "author": "MikuroXina <mikuroxina@gmail.com>",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "packageManager": "pnpm@10.30.2",
+  "devDependencies": {
+    "@mikuroxina/eslint-config-bemuse": "workspace:*",
+    "eslint": "^9.0.0",
+    "typescript": "^5.9.3",
+    "wireit": "^0.14.12"
+  },
+  "dependencies": {
+    "valibot": "^1.2.0"
+  }
+}

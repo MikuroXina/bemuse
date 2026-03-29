@@ -1,0 +1,23 @@
+.status {
+  color: #bbb;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  line-height: 1.25rem;
+}
+
+.errorMessage {
+  color: #eada00;
+}
+
+.primaryActionButton {
+  padding: 12px;
+  border-radius: 9999px;
+}
+
+.primary {
+}
+
+.secondary {
+}

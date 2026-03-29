@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { JSX, ReactNode } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import {

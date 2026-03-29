@@ -25,20 +25,36 @@
     "build": {
       "command": "vite build",
       "dependencies": [
+        "../scoreboard-types:build",
         "../bemuse-indexer:build",
         "../bemuse-notechart:build",
         "../bemuse-types:build",
-        "../monetizer:build",
         "../bms:build",
         "../bmson:build"
+      ],
+      "files": [
+        "public/**/*",
+        "src/**/*",
+        "types/**/*",
+        ".env*",
+        "index.html",
+        "tsconfig.json",
+        "vite.config.ts"
+      ],
+      "output": [
+        "dist/**"
       ]
     },
     "pre-deploy": {
       "command": "gulp pre-deploy",
+      "clean": false,
       "dependencies": [
         "build",
         "../website:build",
         "../workshop:build"
+      ],
+      "output": [
+        "dist/**"
       ]
     },
     "test": {
@@ -69,7 +85,6 @@
   "license": "AGPL-1.0",
   "devDependencies": {
     "@mikuroxina/eslint-config-bemuse": "workspace:*",
-    "@mikuroxina/monetizer": "workspace:*",
     "@tanstack/eslint-plugin-query": "^5.91.4",
     "@types/debug": "^4.1.12",
     "@types/fastclick": "^1.0.33",
@@ -80,8 +95,8 @@
     "@types/markdown-it": "^12.2.3",
     "@types/node": "24",
     "@types/object-hash": "^3.0.6",
-    "@types/react": "^18.3.28",
-    "@types/react-dom": "^18.3.7",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "@types/webpack-env": "^1.18.8",
     "@types/wicg-file-system-access": "^2020.9.8",
     "@vitejs/plugin-react": "^5.1.4",
@@ -109,6 +124,7 @@
     "wireit": "^0.14.12"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.15.1",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
@@ -121,6 +137,7 @@
     "@mikuroxina/bemuse-types": "workspace:*",
     "@mikuroxina/bms": "workspace:*",
     "@mikuroxina/bmson": "workspace:*",
+    "@mikuroxina/scoreboard-types": "workspace:*",
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@reduxjs/toolkit": "^1.9.7",
     "@tanstack/react-query": "^5.90.21",
@@ -146,14 +163,15 @@
     "p-map": "^4.0.0",
     "p-memoize": "^4.0.4",
     "pixi.js": "^8.16.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "react-redux": "^8.1.3",
     "redux": "^4.2.1",
     "reselect": "^4.1.8",
     "screenfull": "^6.0.2",
     "throat": "^2.0.2",
-    "timesynchro": "^1.0.1"
+    "timesynchro": "^1.0.1",
+    "valibot": "^1.2.0"
   },
   "husky": {
     "hooks": {

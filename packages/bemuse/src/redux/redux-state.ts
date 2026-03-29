@@ -31,9 +31,11 @@ export const customSongsSlice = createSlice({
   initialState: [] as SongMetadataInCollection[],
   reducers: {
     CUSTOM_SONG_LOADED: (
-      _state,
+      state,
       { payload: { song } }: PayloadAction<{ song: SongMetadataInCollection }>
-    ) => [song],
+    ) => {
+      state.push(song)
+    },
     CUSTOM_SONGS_LOADED: (
       _state,
       {

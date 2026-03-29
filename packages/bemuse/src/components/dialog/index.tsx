@@ -29,9 +29,7 @@ export async function showAlert(title: string, message: ReactNode) {
                 <AlertDialog.Description>{message}</AlertDialog.Description>
                 <div className={styles.primaryActionRow}>
                   <AlertDialog.Action asChild>
-                    <Button onClick={onClick} ref={(b) => b && b.focus()}>
-                      OK
-                    </Button>
+                    <Button onClick={onClick}>OK</Button>
                   </AlertDialog.Action>
                 </div>
               </VBox>

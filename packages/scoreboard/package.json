@@ -1,0 +1,79 @@
+{
+  "name": "@mikuroxina/bemuse-scoreboard",
+  "version": "1.0.0",
+  "private": true,
+  "main": "src/main.ts",
+  "scripts": {
+    "lint": "eslint .",
+    "check": "tsc --noEmit",
+    "build": "wireit",
+    "dev": "wireit",
+    "deploy": "wireit"
+  },
+  "wireit": {
+    "build": {
+      "command": "vite build",
+      "dependencies": [
+        "../scoreboard-types:build"
+      ],
+      "files": [
+        "src/view.tsx",
+        "src/view/**/*"
+      ],
+      "output": [
+        "dist/**"
+      ],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "dev": {
+      "command": "wrangler dev",
+      "dependencies": [
+        "build"
+      ],
+      "service": {
+        "readyWhen": {
+          "lineMatches": "[wrangler:info] Ready on"
+        }
+      }
+    },
+    "deploy": {
+      "command": "wrangler deploy",
+      "dependencies": [
+        "build"
+      ]
+    }
+  },
+  "author": "MikuroXina <mikuroxina@gmail.com>",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "packageManager": "pnpm@10.30.2",
+  "devDependencies": {
+    "@hono/vite-cloudflare-pages": "^0.4.3",
+    "@hono/vite-dev-server": "^0.25.1",
+    "@mikuroxina/eslint-config-bemuse": "workspace:*",
+    "@types/node": "^24.11.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.4",
+    "eslint": "^9.0.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "wrangler": "^4.72.0"
+  },
+  "dependencies": {
+    "@hono/standard-validator": "^0.2.2",
+    "@hono/valibot-validator": "^0.6.1",
+    "@mikuroxina/scoreboard-types": "workspace:*",
+    "@tanstack/react-query": "^5.90.21",
+    "auth0": "^5.5.0",
+    "dotenv": "^17.3.1",
+    "hono": "^4.12.7",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "valibot": "^1.2.0"
+  }
+}

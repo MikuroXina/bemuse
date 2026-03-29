@@ -8,7 +8,6 @@
     "bin"
   ],
   "scripts": {
-    "clean": "rimraf lib tsconfig.tsbuildinfo",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
     "build": "wireit",
@@ -19,6 +18,14 @@
       "command": "tsc -b .",
       "dependencies": [
         "../bemuse-indexer:build"
+      ],
+      "files": [
+        "src/**/*",
+        "tsconfig.json"
+      ],
+      "output": [
+        "lib/**",
+        "tsconfig.tsbuildinfo"
       ]
     }
   },

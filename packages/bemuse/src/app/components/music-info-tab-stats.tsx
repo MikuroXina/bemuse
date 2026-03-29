@@ -1,6 +1,7 @@
-import { Icon } from '@bemuse/fa/index.js'
-import { useCurrentUser } from '@bemuse/online/hooks.js'
+import { useCurrentUser } from '@bemuse/online/index.js'
 import { formattedAccuracyForRecord } from '@bemuse/rules/accuracy.js'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons/faSpinner'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import type { ReactNode } from 'react'
 
 import formatTime from '../../utils/format-time.js'
@@ -24,7 +25,7 @@ const WhenNotLoading = ({
 }: {
   loading: boolean
   children: ReactNode
-}) => (loading ? <Icon name='spinner' spin /> : <>{children}</>)
+}) => (loading ? <FontAwesomeIcon icon={faSpinner} spin /> : <>{children}</>)
 
 const Message = ({ show }: { show: boolean }) =>
   show ? (
@@ -35,7 +36,7 @@ const Message = ({ show }: { show: boolean }) =>
 
 const MusicInfoTabStats = ({ chart }: MusicInfoTabStatsProps) => {
   const user = useCurrentUser()
-  const [loading, record] = usePersonalRecord(chart)
+  const { isLoading, data: record } = usePersonalRecord(chart)
   return (
     <div className={styles.tabStats}>
       <Message show={!user} />
@@ -48,7 +49,7 @@ const MusicInfoTabStats = ({ chart }: MusicInfoTabStatsProps) => {
         <dd>{formatTime(chart.duration)}</dd>
         <dt>Play Count</dt>
         <dd data-testid='stats-play-count'>
-          <WhenNotLoading loading={loading}>
+          <WhenNotLoading loading={isLoading}>
             {record ? record.playCount : user ? '0' : '-'}
           </WhenNotLoading>
         </dd>
@@ -56,21 +57,21 @@ const MusicInfoTabStats = ({ chart }: MusicInfoTabStatsProps) => {
       <dl className={`${styles.column} ${styles.right}`}>
         <dt>Best Score</dt>
         <dd data-testid='stats-best-score'>
-          <WhenNotLoading loading={loading}>
+          <WhenNotLoading loading={isLoading}>
             {record ? record.score : '-'}
           </WhenNotLoading>
         </dd>
 
         <dt>Accuracy</dt>
         <dd>
-          <WhenNotLoading loading={loading}>
+          <WhenNotLoading loading={isLoading}>
             {record ? formattedAccuracyForRecord(record) : '-'}
           </WhenNotLoading>
         </dd>
 
         <dt>Max Combo</dt>
         <dd>
-          <WhenNotLoading loading={loading}>
+          <WhenNotLoading loading={isLoading}>
             {record ? (
               <span>
                 {record.combo} <small>/ {record.total}</small>

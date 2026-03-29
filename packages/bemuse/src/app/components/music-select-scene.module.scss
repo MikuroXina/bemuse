@@ -65,7 +65,7 @@
 
   & > * {
     overflow-y: scroll;
-    padding-top: 10rem;
+    padding-top: 3rem;
     padding-bottom: 3rem;
   }
 }
@@ -94,6 +94,7 @@
     & > :nth-child(2) {
       position: fixed;
       width: min(800px, 90vw);
+      padding-top: 10rem;
       top: 0;
       right: 0;
       bottom: 0;
@@ -121,6 +122,10 @@
       '. list info .'
       '. list info .'
       '. list info .';
+
+    & > * {
+      padding-bottom: 10rem;
+    }
 
     & > :nth-child(1) {
       grid-area: list;

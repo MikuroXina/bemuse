@@ -1,0 +1,10 @@
+name = "bemuse-scoreboard"
+compatibility_date = "2026-03-10"
+compatibility_flags = ["nodejs_compat"]
+main = "src/main.tsx"
+assets = { directory = "./dist" }
+
+[[d1_databases]]
+binding = "score"
+database_name = "score"
+database_id = "43f545a9-cf4c-4e52-9a0f-c81155c2cff0"

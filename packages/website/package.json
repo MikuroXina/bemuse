@@ -5,13 +5,47 @@
   "scripts": {
     "examples": "docusaurus-examples",
     "start": "docusaurus start",
-    "build": "docusaurus build",
+    "build": "wireit",
     "publish-gh-pages": "docusaurus-publish",
     "write-translations": "docusaurus-write-translations",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "docusaurus": "docusaurus",
-    "lint": "eslint ."
+    "lint": "wireit"
+  },
+  "wireit": {
+    "build": {
+      "command": "docusaurus build",
+      "files": [
+        "docs/**/*",
+        "i18n/**/*",
+        "src/**/*",
+        "static/**/*",
+        "blog/**/*",
+        "docusaurus.config.js",
+        "sidebars.json",
+        "tsconfig.json"
+      ],
+      "output": [
+        ".docusaurus/**",
+        "build/**"
+      ]
+    },
+    "lint": {
+      "command": "eslint .",
+      "files": [
+        "docs/**/*",
+        "i18n/**/*",
+        "src/**/*",
+        "static/**/*",
+        "blog/**/*",
+        "docusaurus.config.js",
+        "eslint.config.mjs",
+        "sidebars.json",
+        "tsconfig.json"
+      ],
+      "output": []
+    }
   },
   "engines": {
     "node": ">=24.0.0"
@@ -31,11 +65,12 @@
     "@docusaurus/module-type-aliases": "^3.9.0",
     "@docusaurus/tsconfig": "^3.9.2",
     "@docusaurus/types": "^3.9.2",
+    "@mikuroxina/eslint-config-bemuse": "workspace:*",
     "@tsconfig/docusaurus": "^2.0.9",
     "@types/node": "24",
     "@types/react": "^18.0.0",
     "eslint": "^9.0.0",
-    "@mikuroxina/eslint-config-bemuse": "workspace:*",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "wireit": "^0.14.12"
   }
 }

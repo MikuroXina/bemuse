@@ -1,7 +1,9 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-  SCOREBOARD_SERVER?: string
+  VITE_AUTH0_DOMAIN: string
+  VITE_AUTH0_CLIENT_ID: string
+  VITE_SCOREBOARD_SERVER: string
 }
 
 interface ImportMeta {

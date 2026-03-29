@@ -78,22 +78,10 @@ test('Gameplay smoke test', async ({ page }, testInfo) => {
   await expect(page.getByTestId('ranking-leaderboard')).toHaveText(/No Data/)
 
   await page.getByTestId('ranking-yours').getByText('log in').click()
-  await page
-    .getByTestId('authentication-panel')
-    .getByRole('textbox', { name: 'Username' })
-    .fill('Playwright')
-  await page
-    .getByTestId('authentication-panel')
-    .getByRole('textbox', { name: 'Password' })
-    .fill('hunter2')
-  await takeScreenshot(page, testInfo, 'Authentication')
-  await page
-    .getByTestId('authentication-panel')
-    .getByRole('button', { name: 'Log In' })
-    .click()
+  await page.getByRole('button', { name: 'Log In / Sign Up' }).click()
 
-  await expect(page.getByTestId('ranking-yours')).toHaveText(/Playwright/)
-  await expect(page.getByTestId('ranking-leaderboard')).toHaveText(/Playwright/)
+  await expect(page.getByTestId('ranking-yours')).toHaveText(/tester1/)
+  await expect(page.getByTestId('ranking-leaderboard')).toHaveText(/tester1/)
 
   await takeScreenshot(page, testInfo, 'Result')
 
@@ -105,7 +93,7 @@ test('Gameplay smoke test', async ({ page }, testInfo) => {
   await expect(page.getByTestId('ranking')).toContainText('524305')
 })
 
-test.skip('works offline', async ({ page }) => {
+test('works offline', async ({ page }) => {
   await startBemuse(page)
   await expect
     .poll(() => page.evaluate(() => navigator.serviceWorker.controller?.state))
