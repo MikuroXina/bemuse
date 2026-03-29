@@ -1,5 +1,3 @@
-import { isTestModeEnabled } from '@bemuse/debug/bemuse-test-mode.js'
-
 import type {
   RankingService,
   ScoreboardDataEntry,
@@ -47,9 +45,6 @@ export class FakeOnlineService implements RankingService {
   }
 
   async submitScore(info: ScoreInfo) {
-    if (isTestModeEnabled()) {
-      throw new Error('Cannot submit score in test mode')
-    }
     if (!this.playerToken) {
       throw new Error('Not logged in')
     }
