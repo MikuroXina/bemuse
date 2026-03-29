@@ -123,6 +123,10 @@
       '. list info .'
       '. list info .';
 
+    & > * {
+      padding-bottom: 10rem;
+    }
+
     & > :nth-child(1) {
       grid-area: list;
     }
