@@ -94,9 +94,6 @@ const CustomBMS = ({ onSongLoaded }: CustomBMSProps) => {
         <div className={styles.remark}>
           Please don’t play unauthorized / illegally obtained BMS files.
         </div>
-        <div className={styles.remark}>
-          Experimental: You can paste IPFS path/URL here.
-        </div>
         <div
           className={styles.dropzone}
           data-hover={hover}
