@@ -32,6 +32,11 @@
     "labels": ["C-security"],
     "assignees": ["MikuroXina"]
   },
-  "extends": [":timezone(Asia/Tokyo)"],
+  "extends": [
+    ":timezone(Asia/Tokyo)",
+    "packages:eslint",
+    "packages:react",
+    "packages:vite"
+  ],
   "schedule": ["on the first day of the week"]
 }
