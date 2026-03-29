@@ -93,7 +93,7 @@ test('Gameplay smoke test', async ({ page }, testInfo) => {
   await expect(page.getByTestId('ranking')).toContainText('524305')
 })
 
-test.skip('works offline', async ({ page }) => {
+test('works offline', async ({ page }) => {
   await startBemuse(page)
   await expect
     .poll(() => page.evaluate(() => navigator.serviceWorker.controller?.state))
