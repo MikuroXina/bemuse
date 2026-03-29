@@ -13,7 +13,7 @@ import ChangelogPanel from './changelog-panel.js'
 import logo from './images/logo-with-shadow.svg'
 import ModeSelectScene from './mode-select-scene.js'
 import styles from './title-scene.module.scss'
-import Toolbar, { item, spacer } from './toolbar.js'
+import Toolbar, { ToolbarItem, ToolbarSeparator } from './toolbar.js'
 
 const HAS_PARENT = (() => {
   try {
@@ -29,7 +29,7 @@ const Version = () => (
   </>
 )
 
-const toolbarItems = ({
+const ToolbarItems = ({
   showAbout,
   viewChangelog,
   hasSeenChangelog,
@@ -37,26 +37,21 @@ const toolbarItems = ({
   showAbout: (e: MouseEvent<HTMLAnchorElement>) => void
   viewChangelog: (e: MouseEvent<HTMLAnchorElement>) => void
   hasSeenChangelog: boolean
-}) => [
-  item('About', {
-    onClick: showAbout,
-  }),
-  item('Docs', {
-    href: '/project/',
-  }),
-  item('Workshop', {
-    href: '/workshop/',
-  }),
-  item(<Version />, {
-    onClick: viewChangelog,
-    tip: 'What’s new?',
-    tipVisible: !hasSeenChangelog,
-  }),
-  spacer(),
-  item('GitHub', {
-    href: 'https://github.com/MikuroXina/bemuse',
-  }),
-]
+}) => (
+  <>
+    <ToolbarItem text='About' onClick={showAbout} />
+    <ToolbarItem text='Docs' href='/project/' />
+    <ToolbarItem text='Workshop' href='/workshop/' />
+    <ToolbarItem
+      text={<Version />}
+      onClick={viewChangelog}
+      tip='What’s new?'
+      tipVisible={!hasSeenChangelog}
+    />
+    <ToolbarSeparator />
+    <ToolbarItem text='GitHub' href='https://github.com/MikuroXina/bemuse' />
+  </>
+)
 
 const TitleScene = () => {
   const sceneManager = useContext(SceneManagerContext)
@@ -112,9 +107,9 @@ const TitleScene = () => {
           </div>
         ) : null}
       </div>
-      <Toolbar
-        items={toolbarItems({ hasSeenChangelog, showAbout, viewChangelog })}
-      />
+      <Toolbar>
+        <ToolbarItems {...{ hasSeenChangelog, showAbout, viewChangelog }} />
+      </Toolbar>
       <div className={styles.curtain} />
       <ModalPopup
         visible={changelogModalVisible}

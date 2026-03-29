@@ -2,9 +2,10 @@ import TipContainer from '@bemuse/components/common/tip-container.js'
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  Fragment,
+  type ComponentProps,
   memo,
   type MouseEvent,
+  type ReactElement,
   type ReactNode,
   useState,
 } from 'react'
@@ -12,9 +13,13 @@ import {
 import FirstTimeTip from './first-time-tip.js'
 import styles from './toolbar.module.scss'
 
+function openLink(e: MouseEvent<HTMLAnchorElement>) {
+  e.preventDefault()
+  window.open(e.currentTarget.href, '_blank')
+}
+
 export interface ToolbarItemProps {
-  type: 'item'
-  onClick: (e: MouseEvent<HTMLAnchorElement>) => void
+  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void
   href?: string
   text: ReactNode
   tip?: ReactNode
@@ -22,33 +27,54 @@ export interface ToolbarItemProps {
   tipVisible?: boolean
 }
 
-export interface ToolbarSpacerProps {
-  type: 'spacer'
+export const ToolbarItem = ({
+  onClick = openLink,
+  href,
+  text,
+  tip,
+  tipFeatureKey,
+  tipVisible,
+}: ToolbarItemProps) => {
+  let content = <>{text}</>
+  if (tip) {
+    if (tipFeatureKey) {
+      content = (
+        <FirstTimeTip tip={tip} featureKey={tipFeatureKey}>
+          {content}
+        </FirstTimeTip>
+      )
+    } else {
+      content = (
+        <TipContainer tip={tip} tipVisible={!!tipVisible}>
+          {content}
+        </TipContainer>
+      )
+    }
+  }
+  return (
+    <a className={styles.toolBarItem} onClick={onClick} href={href}>
+      {content}
+    </a>
+  )
 }
 
-export type ToolbarItems = readonly (ToolbarItemProps | ToolbarSpacerProps)[]
+export const ToolbarSeparator = () => <hr className={styles.separator} />
 
-export default memo(function Toolbar({ items }: { items: ToolbarItems }) {
+export type ToolbarItemComponents = typeof ToolbarItem | typeof ToolbarSeparator
+
+export type ToolbarItem = ReactElement<ComponentProps<ToolbarItemComponents>>
+
+export default memo(function Toolbar({
+  children,
+}: {
+  children: ToolbarItem | readonly ToolbarItem[]
+}) {
   const [visible, setVisible] = useState(false)
 
   return (
     <>
       <nav className={styles.toolBar} data-visible={visible}>
-        {items.map((element, index) => {
-          if (element.type === 'item') {
-            return (
-              <Fragment key={index}>
-                <ToolbarItem item={element} />
-              </Fragment>
-            )
-          } else {
-            return (
-              <Fragment key={index}>
-                <hr className={styles.separator} />
-              </Fragment>
-            )
-          }
-        })}
+        {children}
       </nav>
       <button
         className={styles.floatingMobileButton}
@@ -59,50 +85,3 @@ export default memo(function Toolbar({ items }: { items: ToolbarItems }) {
     </>
   )
 })
-
-function openLink(e: MouseEvent<HTMLAnchorElement>) {
-  e.preventDefault()
-  window.open(e.currentTarget.href, '_blank')
-}
-const defaultOptions = {
-  onClick: openLink,
-} as const
-
-export const item = (
-  text: ReactNode,
-  options: Partial<ToolbarItemProps>
-): ToolbarItemProps => {
-  return {
-    type: 'item',
-    text,
-    ...defaultOptions,
-    ...options,
-  }
-}
-export const spacer = (): ToolbarSpacerProps => {
-  return { type: 'spacer' }
-}
-
-const ToolbarItem = ({ item }: { item: ToolbarItemProps }) => {
-  let content = <>{item.text}</>
-  if (item.tip) {
-    if (item.tipFeatureKey) {
-      content = (
-        <FirstTimeTip tip={item.tip} featureKey={item.tipFeatureKey}>
-          {content}
-        </FirstTimeTip>
-      )
-    } else {
-      content = (
-        <TipContainer tip={item.tip} tipVisible={!!item.tipVisible}>
-          {content}
-        </TipContainer>
-      )
-    }
-  }
-  return (
-    <a className={styles.toolBarItem} onClick={item.onClick} href={item.href}>
-      {content}
-    </a>
-  )
-}
