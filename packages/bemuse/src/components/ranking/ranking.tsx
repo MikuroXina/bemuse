@@ -1,6 +1,6 @@
 import AuthenticationPopup from '@bemuse/online/components/authentication-popup.js'
 import {
-  useAuthenticated,
+  useCurrentUser,
   useLeaderboardQuery,
   useRecordQuery,
 } from '@bemuse/online/index.js'
@@ -84,14 +84,14 @@ const Yours = ({
   onResubmitScoreRequest?: () => void
   showPopup: () => void
 }) => {
-  const authenticated = useAuthenticated()
+  const user = useCurrentUser()
   const { isLoading, isError, data, error } = useRecordQuery(
     { md5: chartMd5 },
     playMode
   )
 
   let tableBody: ReactNode
-  if (!authenticated) {
+  if (!user) {
     tableBody = (
       <Message>
         Please <a onClick={showPopup}>log in or create an account</a> to submit
