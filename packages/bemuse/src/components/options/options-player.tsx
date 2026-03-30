@@ -2,6 +2,7 @@ import type { JSX, ReactNode } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import {
+  isAutoplayEnabled,
   isAutoVelocityEnabled,
   isBackgroundAnimationsEnabled,
   isGaugeEnabled,
@@ -219,6 +220,19 @@ const OptionsPlayer = ({ onClose }: { onClose?: () => void }) => {
             onToggle={() => dispatch(optionsSlice.actions.TOGGLE_PREVIEW())}
           >
             Enable music preview
+          </OptionsCheckbox>
+        )}
+      />
+
+      <SettingRow
+        selector={isAutoplayEnabled}
+        label='Autoplay'
+        renderControl={(isAutoplayEnabled) => (
+          <OptionsCheckbox
+            checked={isAutoplayEnabled}
+            onToggle={() => dispatch(optionsSlice.actions.TOGGLE_AUTOPLAY())}
+          >
+            Enable auto-play mode
           </OptionsCheckbox>
         )}
       />

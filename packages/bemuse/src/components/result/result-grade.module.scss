@@ -1,33 +1,33 @@
 @use '@bemuse/components/common/common.scss';
 
 .container {
+  height: 100%;
   display: flex;
-  position: relative;
-  border: 2px dashed rgba(white, 0.5);
-  border-radius: 1em;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  border: 2px dashed rgba(white, 0.5);
+  border-radius: 1em;
 }
 
 .label {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  flex: 0 1 min-content;
   color: rgba(white, 0.5);
   text-align: center;
 }
 
 .grade {
-  font-weight: bold;
-  font-size: 18vh;
-  color: #ff9;
-  position: relative;
-  top: -0.2ex;
-  text-shadow: 3px 3px 0 rgba(black, 0.3);
+  flex: 1 1 auto;
+  filter: drop-shadow(3px 3px 0 rgba(black, 0.3));
   animation: 0.3s result-grade--animation linear;
   animation-delay: 2s;
   animation-fill-mode: backwards;
+
+  & > svg {
+    height: 100%;
+    font-weight: bold;
+    color: #ff9;
+  }
 }
 
 @keyframes result-grade--animation {

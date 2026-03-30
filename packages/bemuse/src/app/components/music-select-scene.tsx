@@ -16,13 +16,7 @@ import { useCurrentUser, useLogOutMutation } from '@bemuse/online/index.js'
 import { OFFICIAL_SERVER_URL, useCollection } from '@bemuse/query/collection.js'
 import { SceneManagerContext } from '@bemuse/scene-manager/index.js'
 import type { SongMetadataInCollection } from '@mikuroxina/bemuse-types'
-import {
-  type ChangeEvent,
-  type MouseEvent,
-  useContext,
-  useMemo,
-  useState,
-} from 'react'
+import { type ChangeEvent, useContext, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 
@@ -147,7 +141,7 @@ const Main = ({
     handleSongSelect(song, chart)
   }
 
-  function onClickChart(chart: Chart, e: MouseEvent) {
+  function onClickChart(chart: Chart) {
     if (!selectedSong) {
       return
     }
@@ -160,7 +154,7 @@ const Main = ({
         dispatch,
         options,
         sceneManager,
-        autoplayEnabled: e.altKey,
+        autoplayEnabled: options['player.P1.autoplay'] === 'on',
       })
     } else {
       if (musicPreviewEnabled) {
