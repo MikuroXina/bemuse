@@ -153,6 +153,10 @@ export const isGaugeEnabled = (state: OptionsState) => getGauge(state) !== 'off'
 export const getGauge = (state: OptionsState): Gauge =>
   state['player.P1.gauge'] as Gauge
 
+// Autoplay
+export const isAutoplayEnabled = (state: OptionsState) =>
+  state['player.P1.autoplay'] === 'on'
+
 // Queries
 export const keyboardMapping = (state: OptionsState) => {
   const mapping: Record<string, string> = {}
@@ -295,6 +299,10 @@ export const optionsSlice = createSlice({
     TOGGLE_GAUGE: (state) => {
       state['player.P1.gauge'] =
         state['player.P1.gauge'] === 'off' ? 'hope' : 'off'
+    },
+    TOGGLE_AUTOPLAY: (state) => {
+      state['player.P1.autoplay'] =
+        state['player.P1.autoplay'] === 'on' ? 'off' : 'on'
     },
     ACKNOWLEDGE: (
       state,
