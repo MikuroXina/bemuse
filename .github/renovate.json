@@ -26,6 +26,21 @@
       "groupName": "Vitest packages",
       "matchDatasources": ["npm"],
       "matchPackageNames": ["vitest", "@vitest/**"]
+    },
+    {
+      "groupName": "React Router packages",
+      "matchDatasources": ["npm"],
+      "matchPackageNames": ["react-router", "@react-router/**"]
+    },
+    {
+      "groupName": "TanStack packages",
+      "matchDatasources": ["npm"],
+      "matchPackageNames": ["@tanstack/**"]
+    },
+    {
+      "groupName": "UI5 Web Components packages",
+      "matchDatasources": ["npm"],
+      "matchPackageNames": ["@ui5/**"]
     }
   ],
   "npm": {
