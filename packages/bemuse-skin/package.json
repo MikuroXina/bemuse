@@ -15,12 +15,14 @@
   },
   "wireit": {
     "build": {
-      "command": "tsc -p .",
+      "command": "tsc -p . && node dist/index.js",
       "files": [
         "src/**/*"
       ],
       "output": [
-        "dist/**"
+        "dist/**",
+        "out/**",
+        "tsconfig.tsbuildinfo"
       ]
     }
   },
