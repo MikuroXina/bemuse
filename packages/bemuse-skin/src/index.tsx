@@ -15,6 +15,8 @@ async function main(): Promise<void> {
   await renderToXml(Screen(), path.join(outDir, 'skin_screen.xml'))
   await renderToXml(Touch(), path.join(outDir, 'skin_touch.xml'))
   await renderToXml(Touch3d(), path.join(outDir, 'skin_touch3d.xml'))
+
+  await promises.cp('public', outDir, { recursive: true })
 }
 
 async function renderToXml(

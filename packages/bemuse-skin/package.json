@@ -1,9 +1,11 @@
 {
   "name": "@mikuroxina/bemuse-skin",
-  "private": true,
-  "description": "The templates for Bemuse's skin XML.",
+  "version": "1.0.0",
+  "description": "The build scripts for Bemuse's skin XML.",
   "type": "module",
-  "main": "./dist/index.js",
+  "files": [
+    "./out"
+  ],
   "scripts": {
     "lint": "eslint .",
     "build": "wireit",

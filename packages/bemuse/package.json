@@ -29,6 +29,7 @@
         "../bemuse-indexer:build",
         "../bemuse-notechart:build",
         "../bemuse-types:build",
+        "../bemuse-skin:start",
         "../bms:build",
         "../bmson:build"
       ],
