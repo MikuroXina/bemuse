@@ -1,0 +1,43 @@
+{
+  "name": "@mikuroxina/bemuse-skin",
+  "version": "1.0.0",
+  "description": "The schema and templates for Bemuse's skin XML.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "build": "wireit"
+  },
+  "wireit": {
+    "build": {
+      "command": "tsc -p .",
+      "files": [
+        "src/**/*"
+      ],
+      "output": [
+        "dist/**"
+      ]
+    }
+  },
+  "author": "MikuroXina <mikuroxina@gmail.com>",
+  "license": "AGPL-1.0",
+  "packageManager": "pnpm@10.30.2",
+  "devDependencies": {
+    "@mikuroxina/eslint-config-bemuse": "workspace:*",
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^9.39.4",
+    "typescript": "^5.9.3",
+    "wireit": "^0.14.12"
+  },
+  "dependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  }
+}
