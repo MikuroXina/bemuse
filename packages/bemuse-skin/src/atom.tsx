@@ -62,10 +62,11 @@ export interface TextProps extends AnimatableProps {
   text: string
   data?: string
   'font-family': string
-  'font-size': string
+  'font-size'?: string
   'font-weight'?: string
   'font-src'?: string
   align?: TextAlignment
+  fill?: string
   blend?: BlendMode
 }
 
@@ -87,6 +88,10 @@ export function Defs({ children }: { children: ReactNode }) {
   return createElement('defs', {}, children)
 }
 
+export function Use(props: { def: string }) {
+  return createElement('use', props)
+}
+
 export interface IfProps {
   children: ReactNode
   key: string
@@ -100,6 +105,7 @@ export function If({ children, ...props }: IfProps) {
 export type Rect = `${number}x${number}+${number}+${number}`
 
 export interface GroupProps extends AnimatableProps {
+  id?: string
   mask?: Rect
   t?: string
   children: ReactNode

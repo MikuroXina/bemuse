@@ -408,7 +408,7 @@ export function NoteAreaHints(props: NoteHintsProps) {
   )
 }
 
-export function AllNoteArea(props: GroupProps) {
+export function AllNoteArea(props: Omit<GroupProps, 'children'>) {
   return (
     <Group {...props}>
       <If key='p1_scratch' value='left'>
