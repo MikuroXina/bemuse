@@ -11,9 +11,11 @@
   },
   "wireit": {
     "build": {
-      "command": "tsc -p .",
+      "command": "tsc --build --pretty",
+      "clean": "if-file-deleted",
       "files": [
-        "src/**/*"
+        "src/**/*",
+        "tsconfig.json"
       ],
       "output": [
         "dist/**",
