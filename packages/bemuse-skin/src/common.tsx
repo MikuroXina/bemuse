@@ -36,7 +36,7 @@ export interface ObjectHint {
   image: string
 }
 
-const STYLES: Record<ObjectStyleKey, ObjectStyle> = {
+export const STYLES: Record<ObjectStyleKey, ObjectStyle> = {
   scratch: {
     x: 0,
     width: 61,
