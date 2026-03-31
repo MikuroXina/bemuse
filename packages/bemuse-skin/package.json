@@ -1,28 +1,35 @@
 {
   "name": "@mikuroxina/bemuse-skin",
-  "version": "1.0.0",
-  "description": "The schema and templates for Bemuse's skin XML.",
+  "private": true,
+  "description": "The templates for Bemuse's skin XML.",
   "type": "module",
-  "exports": {
-    ".": {
-      "default": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    }
-  },
+  "main": "./dist/index.js",
   "scripts": {
     "lint": "eslint .",
-    "build": "wireit"
+    "build": "wireit",
+    "start": "wireit"
   },
   "wireit": {
     "build": {
-      "command": "tsc -p . && node dist/index.js",
+      "command": "tsc -p .",
       "files": [
         "src/**/*"
       ],
       "output": [
         "dist/**",
-        "out/**",
         "tsconfig.tsbuildinfo"
+      ]
+    },
+    "start": {
+      "command": "node dist/index.js",
+      "dependencies": [
+        "build"
+      ],
+      "files": [
+        "dist/**"
+      ],
+      "output": [
+        "out/**"
       ]
     }
   },
