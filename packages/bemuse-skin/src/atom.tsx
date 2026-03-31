@@ -46,6 +46,8 @@ export interface SpriteProps extends AnimatableProps {
   frame?: string
   width?: string
   height?: string
+  'anchor-x'?: string
+  'anchor-y'?: string
   visible?: string
   blend?: BlendMode
   t?: string
