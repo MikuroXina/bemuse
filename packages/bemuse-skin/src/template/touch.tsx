@@ -11,6 +11,20 @@ import {
   Use,
 } from '../atom.js'
 import { AllNoteArea, STYLES, Tutorial } from '../common.js'
+import notePanel from '../assets/Touch/NotePanel.png?url'
+import kNormal from '../assets/Touch/Buttons/KNormal.png?url'
+import kActive from '../assets/Touch/Buttons/KActive.png?url'
+import buttonPanel from '../assets/Touch/ButtonPanel.png?url'
+import scratchAreaL from '../assets/Touch/Scratch/ScratchAreaL.png?url'
+import scratchGlowL from '../assets/Touch/Scratch/ScratchGlowL.png?url'
+import scratchAreaR from '../assets/Touch/Scratch/ScratchAreaR.png?url'
+import scratchGlowR from '../assets/Touch/Scratch/ScratchGlowR.png?url'
+import sNormal from '../assets/Touch/Buttons/SNormal.png?url'
+import sActive from '../assets/Touch/Buttons/SActive.png?url'
+import normal from '../assets/Touch/Buttons/Normal.png?url'
+import active from '../assets/Touch/Buttons/Active.png?url'
+import infoSmall from '../assets/Fonts/InfoSmall.fnt?url'
+import scoreNumberSmall from '../assets/Fonts/ScoreNumberSmall.fnt?url'
 
 const WIDTH = 768
 const HEIGHT = 928
@@ -22,7 +36,7 @@ function NotePanel() {
         <Keyframe t='0.25' alpha='0' />
         <Keyframe t='0.6' alpha='1' ease='quadOut' />
       </Animation>
-      <Sprite image='Touch/NotePanel.png' x='0' y='0' />
+      <Sprite image={notePanel} x='0' y='0' />
       <Group x='42' y='0'>
         <AllNoteArea />
       </Group>
@@ -41,14 +55,9 @@ function KButton({ col, children }: KButtonProps) {
   const y = 32
   return (
     <Group x={`${x}`} y={`${y}`}>
-      <Sprite image='Touch/Buttons/KNormal.png' x='0' y='0' ref={`p1_${n}`} />
+      <Sprite image={kNormal} x='0' y='0' ref={`p1_${n}`} />
       {children}
-      <Sprite
-        image='Touch/Buttons/KActive.png'
-        x='-1'
-        y='-1'
-        alpha={`p1_${n}_active`}
-      />
+      <Sprite image={kActive} x='-1' y='-1' alpha={`p1_${n}_active`} />
     </Group>
   )
 }
@@ -60,24 +69,14 @@ function ButtonPanel() {
         <Keyframe t='0' y={`${HEIGHT}`} />
         <Keyframe t='0.3' y={`${HEIGHT - 311}`} />
       </Animation>
-      <Sprite image='Touch/ButtonPanel.png' />
+      <Sprite image={buttonPanel} />
       <If key='p1_scratch' value='left'>
         <Group>
           <Group x={`${STYLES.scratch.width / 2}`}>
             <Use def='dxbuttons' />
           </Group>
-          <Sprite
-            image='Touch/Scratch/ScratchAreaL.png'
-            x='0'
-            y='8'
-            ref='p1_SC'
-          />
-          <Sprite
-            image='Touch/Scratch/ScratchGlowL.png'
-            x='0'
-            y='6'
-            alpha='p1_SC_active'
-          />
+          <Sprite image={scratchAreaL} x='0' y='8' ref='p1_SC' />
+          <Sprite image={scratchGlowL} x='0' y='6' alpha='p1_SC_active' />
         </Group>
       </If>
       <If key='p1_scratch' value='right'>
@@ -85,18 +84,8 @@ function ButtonPanel() {
           <Group x={`${-STYLES.scratch.width / 2}`}>
             <Use def='dxbuttons' />
           </Group>
-          <Sprite
-            image='Touch/Scratch/ScratchAreaR.png'
-            x='674'
-            y='8'
-            ref='p1_SC'
-          />
-          <Sprite
-            image='Touch/Scratch/ScratchGlowR.png'
-            x='674'
-            y='6'
-            alpha='p1_SC_active'
-          />
+          <Sprite image={scratchAreaR} x='674' y='8' ref='p1_SC' />
+          <Sprite image={scratchGlowR} x='674' y='6' alpha='p1_SC_active' />
         </Group>
       </If>
       <If key='p1_scratch' value='off'>
@@ -108,13 +97,8 @@ function ButtonPanel() {
           <KButton col={5} />
           <KButton col={6} />
           <Group x='147' y='180'>
-            <Sprite image='Touch/Buttons/SNormal.png' x='0' y='0' ref='p1_4' />
-            <Sprite
-              image='Touch/Buttons/SActive.png'
-              x='-1'
-              y='-1'
-              alpha='p1_4_active'
-            />
+            <Sprite image={sNormal} x='0' y='0' ref='p1_4' />
+            <Sprite image={sActive} x='-1' y='-1' alpha='p1_4_active' />
           </Group>
         </Group>
       </If>
@@ -139,14 +123,9 @@ function Button({ i, row, n, children }: ButtonProps) {
   const y = yBase + row * (buttonHeight + spacing)
   return (
     <Group x={`${x}`} y={`${y}`}>
-      <Sprite image='Touch/Buttons/Normal.png' x='0' y='0' ref={`p1_${n}`} />
+      <Sprite image={normal} x='0' y='0' ref={`p1_${n}`} />
       {children}
-      <Sprite
-        image='Touch/Buttons/Active.png'
-        x='-1'
-        y='-1'
-        alpha={`p1_${n}_active`}
-      />
+      <Sprite image={active} x='-1' y='-1' alpha={`p1_${n}_active`} />
     </Group>
   )
 }
@@ -168,7 +147,7 @@ export function Touch() {
               text='Score'
               align='center'
               font-family='InfoSmall'
-              font-src='Fonts/InfoSmall.fnt'
+              font-src={infoSmall}
             />
             <Text
               x='75'
@@ -176,8 +155,8 @@ export function Touch() {
               text='%s'
               align='center'
               data='p1_score'
-              font-family=': "ScoreNumberSmall'
-              font-src='Fonts/ScoreNumberSmall.fnt'
+              font-family='ScoreNumberSmall'
+              font-src={scoreNumberSmall}
             />
           </Button>
           <Button i={-2} row={0} n={2} />
@@ -188,7 +167,7 @@ export function Touch() {
               text='Accuracy'
               align='center'
               font-family='InfoSmall'
-              font-src='Fonts/InfoSmall.fnt'
+              font-src={infoSmall}
             />
             <Text
               x='75'
@@ -197,7 +176,7 @@ export function Touch() {
               align='center'
               data='p1_stat_acc'
               font-family='ScoreNumberSmall'
-              font-src='Fonts/ScoreNumberSmall.fnt'
+              font-src={scoreNumberSmall}
             />
           </Button>
           <Button i={0} row={0} n={4} />
@@ -208,7 +187,7 @@ export function Touch() {
               text='Time'
               align='center'
               font-family='"InfoSmall'
-              font-src='Fonts/InfoSmall.fnt'
+              font-src={infoSmall}
             />
             <Text
               x='75'
@@ -217,7 +196,7 @@ export function Touch() {
               align='center'
               data='song_time'
               font-family='InfoSmall'
-              font-src='Fonts/InfoSmall.fnt'
+              font-src={infoSmall}
             />
           </Button>
           <Button i={2} row={0} n={6} />
@@ -228,7 +207,7 @@ export function Touch() {
               text='Speed'
               align='center'
               font-family='InfoSmall'
-              font-src='Fonts/InfoSmall.fnt'
+              font-src={infoSmall}
             />
             <Text
               x='75'
@@ -237,7 +216,7 @@ export function Touch() {
               align='center'
               data='p1_speed'
               font-family='ScoreNumberSmall'
-              font-src='Fonts/ScoreNumberSmall.fnt'
+              font-src={scoreNumberSmall}
             />
           </Button>
         </Group>

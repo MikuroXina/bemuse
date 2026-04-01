@@ -11,6 +11,39 @@ import {
   type TextProps,
   type Rect,
 } from './atom.js'
+import dxNote from './assets/Note/DX/Note.png?url'
+import kbNote from './assets/Note/KB/Note.png?url'
+import dxBackgroundLeft from './assets/Note/DX/BackgroundLeft.png?url'
+import dxHighlight from './assets/Note/DX/Highlight.png?url'
+import dx5kLeft from './assets/Note/DX/5kLeft.png?url'
+import dxBackgroundRight from './assets/Note/DX/BackgroundRight.png?url'
+import dx5kRight from './assets/Note/DX/5kRight.png?url'
+import kbBackground from './assets/Note/KB/Background.png?url'
+import kbHighlight from './assets/Note/KB/Highlight.png?url'
+import kb5k from './assets/Note/KB/5k.png?url'
+import bar from './assets/NoteArea/Bar.png?url'
+import noteExplosion from './assets/Explosion/NoteExplosion.png?url'
+import flash from './assets/NoteArea/Flash.png?url'
+import stripe from './assets/NoteArea/Stripe.png?url'
+import laneCover from './assets/NoteArea/LaneCover.png?url'
+import hopeBar from './assets/Hope/HopeBar.png?url'
+import gaugeSecondary from './assets/Hope/HopeA.png?url'
+import gaugePrimary from './assets/Hope/Hope.png?url'
+import gaugeExtra from './assets/Hope/HopeSS.png?url'
+import pressStart from './assets/NotePanel/PressStart.png?url'
+import late from './assets/Deviation/Late.png?url'
+import early from './assets/Deviation/Early.png?url'
+import ready from './assets/Tutorial/Ready.png?url'
+import page0 from './assets/Tutorial/Page0.png?url'
+import page1 from './assets/Tutorial/Page1.png?url'
+import page2 from './assets/Tutorial/Page2.png?url'
+import page2Touch from './assets/Tutorial/Page2Touch.png?url'
+import page2Kb from './assets/Tutorial/Page2KB.png?url'
+import page2TouchKb from './assets/Tutorial/Page2TouchKB.png?url'
+import page3 from './assets/Tutorial/Page3.png?url'
+import page4 from './assets/Tutorial/Page4.png?url'
+import page5 from './assets/Tutorial/Page5.png?url'
+import page6 from './assets/Tutorial/Page6.png?url'
 
 export const objectStyleKeys = [
   'scratch',
@@ -40,48 +73,48 @@ export const STYLES: Record<ObjectStyleKey, ObjectStyle> = {
   scratch: {
     x: 0,
     width: 61,
-    image: 'Note/DX/Note.png',
+    image: dxNote,
   },
   white: {
     x: 62,
     width: 34,
-    image: 'Note/DX/Note.png',
+    image: dxNote,
   },
   blue: {
     x: 97,
     width: 26,
-    image: 'Note/DX/Note.png',
+    image: dxNote,
   },
   green: {
     x: 159,
     width: 26,
-    image: 'Note/DX/Note.png',
+    image: dxNote,
   },
   lwhite: {
     x: 0,
     width: 40,
-    image: 'Note/KB/Note.png',
+    image: kbNote,
   },
   lblue: {
     x: 41,
     width: 37,
-    image: 'Note/KB/Note.png',
+    image: kbNote,
   },
   lgreen: {
     x: 79,
     width: 42,
-    image: 'Note/KB/Note.png',
+    image: kbNote,
   },
 }
 
 const HINTS: Record<ObjectStyleKey, ObjectHint> = {
-  scratch: { xOffset: 0, yOffset: 1, xAdvance: 64, image: 'Scratch.png' },
-  white: { xOffset: 0, yOffset: 6, xAdvance: 31, image: 'Note.png' },
-  blue: { xOffset: 0, yOffset: 0, xAdvance: 31, image: 'Note.png' },
-  green: { xOffset: 0, yOffset: 0, xAdvance: 31, image: 'Note.png' },
-  lwhite: { xOffset: 0, yOffset: 6, xAdvance: 41, image: 'LNote.png' },
-  lblue: { xOffset: 0, yOffset: 0, xAdvance: 41, image: 'LNote.png' },
-  lgreen: { xOffset: 0, yOffset: 0, xAdvance: 41, image: 'LNote.png' },
+  scratch: { xOffset: 0, yOffset: 1, xAdvance: 64, image: 'Scratch' },
+  white: { xOffset: 0, yOffset: 6, xAdvance: 31, image: 'Note' },
+  blue: { xOffset: 0, yOffset: 0, xAdvance: 31, image: 'Note' },
+  green: { xOffset: 0, yOffset: 0, xAdvance: 31, image: 'Note' },
+  lwhite: { xOffset: 0, yOffset: 6, xAdvance: 41, image: 'LNote' },
+  lblue: { xOffset: 0, yOffset: 0, xAdvance: 41, image: 'LNote' },
+  lgreen: { xOffset: 0, yOffset: 0, xAdvance: 41, image: 'LNote' },
 }
 
 const AREA_HEIGHT = 550 as const
@@ -99,9 +132,9 @@ export interface ModePreset {
 
 const MODE: Record<ModeKey, ModePreset> = {
   iidxL: {
-    background: 'Note/DX/BackgroundLeft.png',
-    highlight: 'Note/DX/Highlight.png',
-    cover5k: 'Note/DX/5kLeft.png',
+    background: dxBackgroundLeft,
+    highlight: dxHighlight,
+    cover5k: dx5kLeft,
     hintStart: 3,
     columns: [
       { style: 'scratch', channel: 'SC' },
@@ -115,9 +148,9 @@ const MODE: Record<ModeKey, ModePreset> = {
     ],
   },
   iidxR: {
-    background: 'Note/DX/BackgroundRight.png',
-    highlight: 'Note/DX/Highlight.png',
-    cover5k: 'Note/DX/5kRight.png',
+    background: dxBackgroundRight,
+    highlight: dxHighlight,
+    cover5k: dx5kRight,
     hintStart: 3,
     columns: [
       { style: 'white', channel: '1' },
@@ -131,9 +164,9 @@ const MODE: Record<ModeKey, ModePreset> = {
     ],
   },
   kb: {
-    background: 'Note/KB/BackgroundLeft.png',
-    highlight: 'Note/KB/Highlight.png',
-    cover5k: 'Note/KB/5k.png',
+    background: kbBackground,
+    highlight: kbHighlight,
+    cover5k: kb5k,
     hintStart: 0,
     columns: [
       { style: 'lwhite', channel: '1' },
@@ -214,12 +247,7 @@ export function Notes({ highlight, columns }: NotesProps) {
   return (
     <>
       <Object key='p1_barlines' pool='8'>
-        <Sprite
-          image='NoteArea/Bar.png'
-          x='0'
-          y={`y * ${AREA_HEIGHT} - 1`}
-          blend='screen'
-        />
+        <Sprite image={bar} x='0' y={`y * ${AREA_HEIGHT} - 1`} blend='screen' />
       </Object>
       {
         columns.reduce<[JSX.Element[], number]>(
@@ -311,12 +339,7 @@ export function Explosions({ columns }: ExplosionsProps) {
             <Keyframe t='0' alpha='1' scale-x='2' scale-y='1' />
             <Keyframe t='0.18' alpha='0' scale-x='2' scale-y='2' />
           </Animation>
-          <Sprite
-            image='Explosion/NoteExplosion.png'
-            x='-25'
-            y='-25'
-            blend='screen'
-          />
+          <Sprite image={noteExplosion} x='-25' y='-25' blend='screen' />
         </Group>
       )
       return [nodes, x + cur.width + 1]
@@ -338,13 +361,23 @@ export function NoteHints({ hintStart, columns }: NoteHintsProps) {
       nodes.push(
         <Group key={x} x={`${x}`}>
           <Sprite
-            image={`NoteHint/Normal/${cur.image}`}
+            image={
+              new URL(
+                `./assets/NoteHint/Normal/${cur.image}.png`,
+                import.meta.url
+              ).href
+            }
             x={`${cur.xOffset}`}
             y={`${cur.yOffset}`}
             ref={`p1_${ch}`}
           />
           <Sprite
-            image={`NoteHint/Active/${cur.image}`}
+            image={
+              new URL(
+                `./assets/NoteHint/Active/${cur.image}.png`,
+                import.meta.url
+              ).href
+            }
             x={`${cur.xOffset - 1}`}
             y={`${cur.yOffset - 1}`}
           >
@@ -384,7 +417,7 @@ export function NoteArea({ highlight, columns }: NoteAreaProps) {
   return (
     <>
       <Sprite
-        image='NoteArea/Flash.png'
+        image={flash}
         x='1'
         y='442'
         blend='screen'
@@ -438,11 +471,11 @@ export function AllNoteArea(props: Omit<GroupProps, 'children'>) {
               <NoteArea {...MODE.iidxR} />
             </Group>
           </If>
-          <Sprite image='NoteArea/Stripe.png' x='1' y='537' blend='screen' />
-          <Sprite image='NoteArea/LaneCover.png' x='1' y={`${AREA_HEIGHT}`} />
+          <Sprite image={stripe} x='1' y='537' blend='screen' />
+          <Sprite image={laneCover} x='1' y={`${AREA_HEIGHT}`} />
         </Group>
         <Group x='0' y={`p1_lane_press * ${AREA_HEIGHT}`}>
-          <Sprite image='NoteArea/LaneCover.png' x='1' y={`-${AREA_HEIGHT}`} />
+          <Sprite image={laneCover} x='1' y={`-${AREA_HEIGHT}`} />
         </Group>
       </Group>
       <If key='p1_scratch' value='left'>
@@ -495,23 +528,23 @@ export function AllNoteArea(props: Omit<GroupProps, 'children'>) {
 export function HopeGauge() {
   return (
     <Group x='6' y='6'>
-      <Sprite image='Hope/HopeBar.png' />
+      <Sprite image={hopeBar} />
       <Sprite
-        image='Hope/HopeA.png'
+        image={gaugeSecondary}
         x='3'
         y='3'
         width='p1_gauge_secondary * 263'
         height='5'
       />
       <Sprite
-        image='Hope/Hope.png'
+        image={gaugePrimary}
         x='3'
         y='3'
         width='p1_gauge_primary * 263'
         height='5'
       />
       <Sprite
-        image='Hope/HopeSS.png'
+        image={gaugeExtra}
         x='3'
         y='3'
         width='p1_gauge_extra * 263'
@@ -547,31 +580,21 @@ export function PressStart() {
         <Animation on='started'>
           <Keyframe t='0' alpha='0' />
         </Animation>
-        <Sprite image='NotePanel/PressStart.png' x='-107' y='-40' ref='start' />
+        <Sprite image={pressStart} x='-107' y='-40' ref='start' />
       </Group>
       <Group x='143' y='400' alpha='0'>
         <Animation on='started'>
           <Keyframe t='0' alpha='0.5' scale-x='0.9' scale-y='0.9' />
           <Keyframe t='0.3' alpha='0' scale-x='1.5' scale-y='1.5' />
         </Animation>
-        <Sprite
-          image='NotePanel/PressStart.png'
-          x='-107'
-          y='-40'
-          blend='screen'
-        />
+        <Sprite image={pressStart} x='-107' y='-40' blend='screen' />
       </Group>
       <Group x='143' y='400' alpha='0'>
         <Animation on='started'>
           <Keyframe t='0' alpha='0.5' scale-x='0.9' scale-y='0.9' />
           <Keyframe t='0.3' alpha='0' scale-x='0.67' scale-y='0.67' />
         </Animation>
-        <Sprite
-          image='NotePanel/PressStart.png'
-          x='-107'
-          y='-40'
-          blend='screen'
-        />
+        <Sprite image={pressStart} x='-107' y='-40' blend='screen' />
       </Group>
     </Group>
   )
@@ -616,7 +639,10 @@ export function JudgmentText({ name, ...props }: JudgmentTextProps) {
       align='center'
       font-family={`BemuseDefault-${name}`}
       font-size='40px'
-      font-src={`Fonts/BemuseDefault-${name}.fnt`}
+      font-src={
+        new URL(`./assets/Fonts/BemuseDefault-${name}.fnt`, import.meta.url)
+          .href
+      }
     />
   )
 }
@@ -663,10 +689,10 @@ export function JudgmentDeviations() {
   return (
     <>
       <JudgmentDeviation type='late'>
-        <Sprite image='Deviation/Late.png' x='117' />
+        <Sprite image={late} x='117' />
       </JudgmentDeviation>
       <JudgmentDeviation type='early'>
-        <Sprite image='Deviation/Early.png' x='111' />
+        <Sprite image={early} x='111' />
       </JudgmentDeviation>
     </>
   )
@@ -764,12 +790,7 @@ function ReadyText({
   return (
     <Group x={`${cx}`} y='360' t='gameTime'>
       <ReadyFade start={start} />
-      <Sprite
-        image='Tutorial/Ready.png'
-        x={`${-w / 2}`}
-        y={`${-h / 2}`}
-        frame={frame}
-      />
+      <Sprite image={ready} x={`${-w / 2}`} y={`${-h / 2}`} frame={frame} />
     </Group>
   )
 }
@@ -813,51 +834,37 @@ export function Tutorial({ width, touch = true }: TutorialProps) {
   return (
     <If key='tutorial' value='yes'>
       <Group>
-        <Sprite image='Tutorial/Page0.png' x='64' y='64' t='gameTime'>
+        <Sprite image={page0} x='64' y='64' t='gameTime'>
           <Fade begin={-1} end={0} />
         </Sprite>
-        <Sprite image='Tutorial/Page1.png' x='64' y='64' t='gameTime'>
+        <Sprite image={page1} x='64' y='64' t='gameTime'>
           <Fade begin={0} end={3} />
         </Sprite>
         <Group t='gameTime'>
           <Fade begin={19} end={27} />
           <If key='p1_scratch' value='left'>
-            <Sprite
-              image={touch ? 'Tutorial/Page2Touch.png' : 'Tutorial/Page2.png'}
-              x='64'
-              y='64'
-            />
+            <Sprite image={touch ? page2Touch : page2} x='64' y='64' />
           </If>
           <If key='p1_scratch' value='right'>
-            <Sprite
-              image={touch ? 'Tutorial/Page2Touch.png' : 'Tutorial/Page2.png'}
-              x='64'
-              y='64'
-            />
+            <Sprite image={touch ? page2Touch : page2} x='64' y='64' />
           </If>
           <If key='p1_scratch' value='off'>
-            <Sprite
-              image={
-                touch ? 'Tutorial/Page2TouchKB.png' : 'Tutorial/Page2KB.png'
-              }
-              x='64'
-              y='64'
-            />
+            <Sprite image={touch ? page2TouchKb : page2Kb} x='64' y='64' />
           </If>
         </Group>
-        <Sprite image='Tutorial/Page3.png' x='64' y='64' t='gameTime'>
+        <Sprite image={page3} x='64' y='64' t='gameTime'>
           <Fade begin={27} end={33} />
         </Sprite>
         <Ready cx={cx} begin={33} />
-        <Sprite image='Tutorial/Page4.png' x='64' y='64' t='gameTime'>
+        <Sprite image={page4} x='64' y='64' t='gameTime'>
           <Fade begin={43} end={49} />
         </Sprite>
         <Ready cx={cx} begin={49} />
-        <Sprite image='Tutorial/Page5.png' x='64' y='64' t='gameTime'>
+        <Sprite image={page5} x='64' y='64' t='gameTime'>
           <Fade begin={55} end={57} />
         </Sprite>
         <Ready cx={cx} begin={57} />
-        <Sprite image='Tutorial/Page6.png' x='64' y='64' t='gameTime'>
+        <Sprite image={page6} x='64' y='64' t='gameTime'>
           <Fade begin={67} end={73} />
         </Sprite>
         <Ready cx={cx} begin={73} />

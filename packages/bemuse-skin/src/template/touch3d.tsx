@@ -14,11 +14,30 @@ import {
   PressStart,
   Tutorial,
 } from '../common.js'
+import noteExplosion from '../assets/Explosion/NoteExplosion.png?url'
+import infoBackground from '../assets/InfoPanel/Background.png?url'
+import infoTemplate from '../assets/InfoPanel/Template.png?url'
+import scoreNumber from '../assets/Fonts/ScoreNumber.fnt?url'
+import statNumber from '../assets/Fonts/StatNumber.fnt?url'
+import lane from '../assets/Touch3DMode/Lane.png?url'
+import flash from '../assets/Touch3DMode/Flash.png?url'
+import bar from '../assets/NoteArea/Bar.png?url'
+import noteWhite from '../assets/Touch3DMode/NoteWhite.png?url'
+import noteBlue from '../assets/Touch3DMode/NoteBlue.png?url'
+import noteGreen from '../assets/Touch3DMode/NoteGreen.png?url'
 
 function MyNote({ column, file }: { column: number; file: string }) {
   return (
     <>
-      <Sprite image={`Touch3DMode/Highlight${column}.png`} blend='screen'>
+      <Sprite
+        image={
+          new URL(
+            `../assets/Touch3DMode/Highlight${column}.png`,
+            import.meta.url
+          ).href
+        }
+        blend='screen'
+      >
         <Animation>
           <Keyframe t='0' alpha='0' />
         </Animation>
@@ -49,12 +68,7 @@ function MyNote({ column, file }: { column: number; file: string }) {
           <Keyframe t='0' alpha='1' scale-x='4' scale-y='2' />
           <Keyframe t='0.18' alpha='0' scale-x='4' scale-y='4' />
         </Animation>
-        <Sprite
-          image='Explosion/NoteExplosion.png'
-          x='-25'
-          y='-25'
-          blend='screen'
-        />
+        <Sprite image={noteExplosion} x='-25' y='-25' blend='screen' />
       </Group>
     </>
   )
@@ -74,15 +88,15 @@ export function Touch3d() {
           <Keyframe t='0' y='-104' />
           <Keyframe t='0.3' y='-12' ease='quadOut' />
         </Animation>
-        <Sprite image='InfoPanel/Background.png' />
-        <Sprite image='InfoPanel/Template.png' y='1' />
+        <Sprite image={infoBackground} />
+        <Sprite image={infoTemplate} y='1' />
         <Text
           x='176'
           y='22'
           text='%s'
           data='p1_score'
           font-family='ScoreNumber'
-          font-src='Fonts/ScoreNumber.fnt'
+          font-src={scoreNumber}
           align='right'
         />
         <Text
@@ -125,7 +139,7 @@ export function Touch3d() {
           text='%s'
           data='p1_speed'
           font-family='ScoreNumber'
-          font-src='Fonts/ScoreNumber.fnt'
+          font-src={scoreNumber}
           align='left'
         />
         <Text
@@ -134,7 +148,7 @@ export function Touch3d() {
           text='%s'
           data='p1_bpm'
           font-family='StatNumber'
-          font-src='Fonts/StatNumber.fnt'
+          font-src={statNumber}
           align='left'
         />
         <Text
@@ -143,7 +157,7 @@ export function Touch3d() {
           text='%s'
           data='p1_stat_1'
           font-family='StatNumber'
-          font-src='Fonts/StatNumber.fnt'
+          font-src={statNumber}
           align='right'
         />
         <Text
@@ -152,7 +166,7 @@ export function Touch3d() {
           text='%s'
           data='p1_stat_2'
           font-family='StatNumber'
-          font-src='Fonts/StatNumber.fnt'
+          font-src={statNumber}
           align='right'
         />
         <Text
@@ -161,7 +175,7 @@ export function Touch3d() {
           text='%s'
           data='p1_stat_3'
           font-family='StatNumber'
-          font-src='Fonts/StatNumber.fnt'
+          font-src={statNumber}
           align='right'
         />
         <Text
@@ -170,7 +184,7 @@ export function Touch3d() {
           text='%s'
           data='p1_stat_4'
           font-family='StatNumber'
-          font-src='Fonts/StatNumber.fnt'
+          font-src={statNumber}
           align='right'
         />
         <Text
@@ -179,7 +193,7 @@ export function Touch3d() {
           text='%s'
           data='p1_stat_missed'
           font-family='StatNumber'
-          font-src='Fonts/StatNumber.fnt'
+          font-src={statNumber}
           align='right'
         />
         <Text
@@ -188,7 +202,7 @@ export function Touch3d() {
           text='%s'
           data='p1_stat_acc'
           font-family='StatNumber'
-          font-src='Fonts/StatNumber.fnt'
+          font-src={statNumber}
           align='right'
         />
       </Group>
@@ -197,9 +211,9 @@ export function Touch3d() {
           <Keyframe t='0.25' alpha='0' />
           <Keyframe t='0.6' alpha='1' ease='quadOut' />
         </Animation>
-        <Sprite image='Touch3DMode/Lane.png' x='0' y='0' />
+        <Sprite image={lane} x='0' y='0' />
         <Sprite
-          image='Touch3DMode/Flash.png'
+          image={flash}
           x='0'
           y='0'
           blend='screen'
@@ -207,20 +221,20 @@ export function Touch3d() {
         />
         <Object key='p1_barlines3d' pool='24'>
           <Sprite
-            image='NoteArea/Bar.png'
+            image={bar}
             x='x'
             y='y'
             scale-x='width / 282'
             scale-y='width / 282'
           />
         </Object>
-        <MyNote column={1} file='Touch3DMode/NoteWhite.png' />
-        <MyNote column={2} file='Touch3DMode/NoteBlue.png' />
-        <MyNote column={3} file='Touch3DMode/NoteWhite.png' />
-        <MyNote column={4} file='Touch3DMode/NoteGreen.png' />
-        <MyNote column={5} file='Touch3DMode/NoteWhite.png' />
-        <MyNote column={6} file='Touch3DMode/NoteBlue.png' />
-        <MyNote column={7} file='Touch3DMode/NoteWhite.png' />
+        <MyNote column={1} file={noteWhite} />
+        <MyNote column={2} file={noteBlue} />
+        <MyNote column={3} file={noteWhite} />
+        <MyNote column={4} file={noteGreen} />
+        <MyNote column={5} file={noteWhite} />
+        <MyNote column={6} file={noteBlue} />
+        <MyNote column={7} file={noteWhite} />
       </Group>
       <Group x='498'>
         <PressStart />

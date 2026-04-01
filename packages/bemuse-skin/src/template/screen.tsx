@@ -10,6 +10,14 @@ import {
   Use,
 } from '../atom.js'
 import { AllNoteArea, Tutorial } from '../common.js'
+import panelLeft from '../assets/NotePanel/Left.png?url'
+import panelMiddle from '../assets/NotePanel/Middle.png?url'
+import panelRight from '../assets/NotePanel/Right.png?url'
+import infoBackground from '../assets/InfoPanel/Background.png?url'
+import infoTemplate from '../assets/InfoPanel/Template.png?url'
+import scoreNumber from '../assets/Fonts/ScoreNumber.fnt?url'
+import bpmNumber from '../assets/Fonts/BPMNumber.fnt?url'
+import statNumber from '../assets/Fonts/StatNumber.fnt?url'
 
 function NotePanel() {
   const left = (
@@ -19,7 +27,7 @@ function NotePanel() {
           <Keyframe t='0.25' x='-361' />
           <Keyframe t='0.6' x='0' ease='quadOut' />
         </Animation>
-        <Sprite image='NotePanel/Left.png' x='0' y='0' />
+        <Sprite image={panelLeft} x='0' y='0' />
         <Group x='34' y='0'>
           <Use def='note-area' />
         </Group>
@@ -33,7 +41,7 @@ function NotePanel() {
           <Keyframe t='0.25' alpha='0' />
           <Keyframe t='0.6' alpha='1' ease='quadOut' />
         </Animation>
-        <Sprite image='NotePanel/Middle.png' x='0' y='0' />
+        <Sprite image={panelMiddle} x='0' y='0' />
         <Group x='42' y='0'>
           <Use def='note-area' />
         </Group>
@@ -47,7 +55,7 @@ function NotePanel() {
           <Keyframe t='0.25' x='1280' />
           <Keyframe t='0.6' x='919' ease='quadOut' />
         </Animation>
-        <Sprite image='NotePanel/Right.png' x='0' y='0' />
+        <Sprite image={panelRight} x='0' y='0' />
         <Group x='42' y='0'>
           <Use def='note-area' />
         </Group>
@@ -70,15 +78,15 @@ function InfoPanel() {
         <Keyframe t='0' y='720' />
         <Keyframe t='0.3' y='616' ease='quadOut' />
       </Animation>
-      <Sprite image='InfoPanel/Background.png' />
-      <Sprite image='InfoPanel/Template.png' />
+      <Sprite image={infoBackground} />
+      <Sprite image={infoTemplate} />
       <Text
         x='176'
         y='22'
         text='%s'
         data='p1_score'
         font-family='ScoreNumber'
-        font-src='Fonts/ScoreNumber.fnt'
+        font-src={scoreNumber}
         alpha='right'
       />
       <Text
@@ -87,7 +95,7 @@ function InfoPanel() {
         text='%s'
         data='p1_bpm'
         font-family='BPMNumber'
-        font-src='Fonts/BPMNumber.fnt'
+        font-src={bpmNumber}
         align='center'
       />
       <Text
@@ -130,7 +138,7 @@ function InfoPanel() {
         text='%s'
         data='p1_stat_1'
         font-family='StatNumber'
-        font-src='Fonts/StatNumber.fnt'
+        font-src={statNumber}
         align='right'
       />
       <Text
@@ -139,7 +147,7 @@ function InfoPanel() {
         text='%s'
         data='p1_stat_2'
         font-family='StatNumber'
-        font-src='Fonts/StatNumber.fnt'
+        font-src={statNumber}
         align='right'
       />
       <Text
@@ -148,7 +156,7 @@ function InfoPanel() {
         text='%s'
         data='p1_stat_3'
         font-family='StatNumber'
-        font-src='Fonts/StatNumber.fnt'
+        font-src={statNumber}
         align='right'
       />
       <Text
@@ -157,7 +165,7 @@ function InfoPanel() {
         text='%s'
         data='p1_stat_4'
         font-family='StatNumber'
-        font-src='Fonts/StatNumber.fnt'
+        font-src={statNumber}
         align='right'
       />
       <Text
@@ -166,7 +174,7 @@ function InfoPanel() {
         text='%s'
         data='p1_stat_missed'
         font-family='StatNumber'
-        font-src='Fonts/StatNumber.fnt'
+        font-src={statNumber}
         align='right'
       />
       <Text
@@ -175,7 +183,7 @@ function InfoPanel() {
         text='%s'
         data='p1_stat_acc'
         font-family='StatNumber'
-        font-src='Fonts/StatNumber.fnt'
+        font-src={statNumber}
         align='right'
       />
       <Text
@@ -184,7 +192,7 @@ function InfoPanel() {
         text='%s'
         data='p1_speed'
         font-family='StatNumber'
-        font-src='Fonts/StatNumber.fnt'
+        font-src={statNumber}
         align='left'
       />
     </Group>
