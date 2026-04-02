@@ -23,12 +23,10 @@ app.use('/api/v1/*', (c, next) =>
   })(c, next)
 )
 app.onError((err, c) => {
-  console.error(err)
   if (err instanceof HTTPException) {
-    if (env(c).NODE_ENV === 'development') {
-      return err.getResponse()
-    }
+    return err.getResponse()
   }
+  console.error(err)
   return c.text('Internal Server Error', 500)
 })
 
