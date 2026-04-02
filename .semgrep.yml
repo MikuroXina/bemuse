@@ -1,13 +1,4 @@
 rules:
-  - id: consistent_react_prop_type_naming
-    pattern-either:
-      - pattern-regex: 'const (\w+): FC<\s*(?:\1)?Props\s*>'
-      - pattern-regex: 'function (\w+)\(\s*props:\s*(?:\1)?Props\s*'
-    message:
-      Make the prop type/interface have the same name as the React component.
-    languages: [ts]
-    severity: ERROR
-
   - id: consistent_react_fc
     pattern-regex: 'React\.FC'
     message: Use FC instead of React.FC
