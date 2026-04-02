@@ -5,6 +5,11 @@ main = "src/main.tsx"
 assets = { directory = "./dist" }
 upload_source_maps = true
 
+[observability]
+[observability.logs]
+enabled = true
+invocation_logs = true
+
 [[d1_databases]]
 binding = "score"
 database_name = "score"
