@@ -371,7 +371,7 @@ export function NoteHints({ hintStart, columns }: NoteHintsProps) {
             }
             x={`${cur.xOffset}`}
             y={`${cur.yOffset}`}
-            ref={`p1_${ch}`}
+            refName={`p1_${ch}`}
           />
           <Sprite
             image={
@@ -587,7 +587,7 @@ export function PressStart() {
         <Animation on='started'>
           <Keyframe t='0' alpha='0' />
         </Animation>
-        <Sprite image={pressStart} x='-107' y='-40' ref='start' />
+        <Sprite image={pressStart} x='-107' y='-40' refName='start' />
       </Group>
       <Group x='143' y='400' alpha='0'>
         <Animation on='started'>
