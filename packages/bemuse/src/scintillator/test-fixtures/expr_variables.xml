@@ -1,3 +1,0 @@
-<skin width="123" height="456">
-  <sprite image="test.png" x="a+b" y="a*b" />
-</skin>

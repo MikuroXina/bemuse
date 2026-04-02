@@ -99,7 +99,7 @@ export default defineConfig({
       },
     ],
   },
-  assetsInclude: ['../CHANGELOG.md', './public/**/*'],
+  assetsInclude: ['../CHANGELOG.md', './public/**/*', '**/*.png', '**/*.fnt'],
   worker: {
     format: 'es',
     plugins: () => commonPlugins,
@@ -125,6 +125,11 @@ export default defineConfig({
       'vite-plugin-node-polyfills/shims/global',
       'vite-plugin-node-polyfills/shims/process',
     ],
+  },
+  server: {
+    fs: {
+      allow: ['../..'],
+    },
   },
   test: {
     browser: {

@@ -1,3 +1,4 @@
+import type { Song } from '@bemuse/collection-model/types'
 import type {
   MusicServerIndex,
   SongMetadataInCollection,
@@ -6,15 +7,17 @@ import { type Draft, produce } from 'immer'
 
 export interface Preprocessed extends MusicServerIndex {
   songOfTheDayEnabled?: boolean
+  songs: Song[]
 }
 
-export const preprocessCollection = produce(
-  (draft: Draft<Preprocessed>, songs?: SongMetadataInCollection[]) => {
-    if (songs) {
-      draft.songs = songs.map((song) => preprocessSong(song))
+export const preprocessCollection = produce((draft: Draft<Preprocessed>) => {
+  draft.songs = draft.songs.map((song) => preprocessSong(song))
+  if (draft.songOfTheDayEnabled) {
+    for (let i = 0; i < Math.min(draft.songs.length, 3); ++i) {
+      draft.songs[i].songOfTheDay = true
     }
   }
-)
+})
 
 function preprocessSong(
   song: SongMetadataInCollection

@@ -42,7 +42,7 @@ export async function main() {
   })
 
   const skin = await Scintillator.load(
-    Scintillator.getSkinUrl({
+    Scintillator.getSkin({
       displayMode: 'touch3d',
     })
   )

@@ -1,30 +1,27 @@
 import type { Container, Sprite, Text } from 'pixi.js'
+import type { JSX } from 'react'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 import { load, type Scintillator } from './index.js'
 
-const fixture = (file: string) =>
-  new URL(`./test-fixtures/${file}`, import.meta.url).href.replace(
-    'file://',
-    ''
-  )
+const fixture = async (file: string): Promise<() => JSX.Element> => {
+  const mod = await import(`./test-fixtures/${file}.tsx`)
+  return mod.default
+}
 
 describe('Scintillator', function () {
   describe('#load', function () {
     it('should load skin and return skin node', async function () {
-      const actual = await load(fixture('bare.xml'))
+      const actual = await load(await fixture('bare'))
       expect(actual.skin.width).to.equal(123)
       expect(actual.skin.height).to.equal(456)
       actual.app.destroy()
-    })
-    it('should reject if invalid', async () => {
-      await expect(load(fixture('invalid_tag.xml'))).rejects.toThrow()
     })
   })
 
   describe('Expressions', function () {
     it('should be parsed and processed', async function () {
-      const actual = await load(fixture('expr_basic.xml'))
+      const actual = await load(await fixture('expr-basic'))
       actual.stateSubject.dispatch({})
       const stage = actual.app.stage
       expect(stage.children[0].x).to.equal(6)
@@ -32,7 +29,7 @@ describe('Scintillator', function () {
       actual.app.destroy()
     })
     it('should support variables', async function () {
-      const actual = await load(fixture('expr_variables.xml'))
+      const actual = await load(await fixture('expr-variables'))
       const stage = actual.app.stage
 
       actual.stateSubject.dispatch({ a: 4, b: 3 })
@@ -49,7 +46,7 @@ describe('Scintillator', function () {
 
   describe('SpriteNode', function () {
     it('should allow setting sprite frame', async function () {
-      const actual = await load(fixture('sprite_attrs.xml'))
+      const actual = await load(await fixture('sprite-attrs'))
       const stage = actual.app.stage
 
       actual.stateSubject.dispatch({})
@@ -62,7 +59,7 @@ describe('Scintillator', function () {
       actual.app.destroy()
     })
     it('should allow setting visibility, width, height', async function () {
-      const actual = await load(fixture('sprite_attrs.xml'))
+      const actual = await load(await fixture('sprite-attrs'))
       const stage = actual.app.stage
 
       actual.stateSubject.dispatch({})
@@ -73,14 +70,11 @@ describe('Scintillator', function () {
 
       actual.app.destroy()
     })
-    it('should reject if blend mode is invalid', async () => {
-      await expect(load(fixture('sprite_invalid_blend.xml'))).rejects.toThrow()
-    })
   })
 
   describe('TextNode', function () {
     it('should display text', async function () {
-      const actual = await load(fixture('text.xml'))
+      const actual = await load(await fixture('text'))
       const stage = actual.app.stage
 
       actual.stateSubject.dispatch({})
@@ -90,7 +84,7 @@ describe('Scintillator', function () {
       actual.app.destroy()
     })
     it('should center text', async function () {
-      const actual = await load(fixture('text_center.xml'))
+      const actual = await load(await fixture('text-center'))
       const stage = actual.app.stage
 
       actual.stateSubject.dispatch({})
@@ -100,7 +94,7 @@ describe('Scintillator', function () {
       actual.app.destroy()
     })
     it('should support data interpolation', async function () {
-      const actual = await load(fixture('text_interpolation.xml'))
+      const actual = await load(await fixture('text-interpolation'))
       const stage = actual.app.stage
 
       actual.stateSubject.dispatch({ lol: 'wow' })
@@ -115,11 +109,11 @@ describe('Scintillator', function () {
     let scintillator: Scintillator
     let stage: Container
     beforeEach(async function () {
-      scintillator = await load(fixture('expr_if.xml'))
+      scintillator = await load(await fixture('expr-if'))
       stage = scintillator.app.stage
     })
     afterEach(function () {
-      scintillator.app.destroy()
+      scintillator?.app?.destroy()
     })
     it('should display child when correct value', function () {
       scintillator.stateSubject.dispatch({ a: 'b' })
@@ -131,7 +125,7 @@ describe('Scintillator', function () {
 
   describe('ObjectNode', function () {
     it('should display children', async function () {
-      const actual = await load(fixture('expr_object.xml'))
+      const actual = await load(await fixture('expr-object'))
       const stage = actual.app.stage
       const container = stage.children[0]
 
@@ -155,7 +149,7 @@ describe('Scintillator', function () {
       actual.app.destroy()
     })
     it('should update same array with content changed', async function () {
-      const actual = await load(fixture('expr_object.xml'))
+      const actual = await load(await fixture('expr-object'))
       const stage = actual.app.stage
       const container = stage.children[0]
       let notes: { key: string; y: number }[] = []
@@ -170,7 +164,7 @@ describe('Scintillator', function () {
       actual.app.destroy()
     })
     it('should let children get value from item', async function () {
-      const actual = await load(fixture('expr_object_var.xml'))
+      const actual = await load(await fixture('expr-object-var'))
       const stage = actual.app.stage
       const container = stage.children[0]
 
@@ -195,7 +189,7 @@ describe('Scintillator', function () {
 
   describe('GroupNode', function () {
     it('should allow masking', async function () {
-      const actual = await load(fixture('group_mask.xml'))
+      const actual = await load(await fixture('group-mask'))
       const stage = actual.app.stage
       const mask = stage.children[0].mask
       expect(mask).not.to.equal(null)
@@ -205,7 +199,7 @@ describe('Scintillator', function () {
 
   describe('AnimationNode', function () {
     it('should allow animations', async function () {
-      const actual = await load(fixture('animation.xml'))
+      const actual = await load(await fixture('animation'))
       const group = actual.app.stage.children[0]
 
       actual.stateSubject.dispatch({ t: 0 })
@@ -223,7 +217,7 @@ describe('Scintillator', function () {
       actual.app.destroy()
     })
     it('should allow animations on different events', async function () {
-      const actual = await load(fixture('animation.xml'))
+      const actual = await load(await fixture('animation'))
       const group = actual.app.stage.children[0]
 
       actual.stateSubject.dispatch({ t: 0.5, exitEvent: 0.5 })
@@ -241,7 +235,7 @@ describe('Scintillator', function () {
       actual.app.destroy()
     })
     it('should allow animations on different value', async function () {
-      const actual = await load(fixture('animation_timekey.xml'))
+      const actual = await load(await fixture('animation-time-key'))
       const group = actual.app.stage.children[0]
       actual.stateSubject.dispatch({ t: 0, x: 0.5 })
       expect(group.x).to.equal(15)
@@ -250,7 +244,7 @@ describe('Scintillator', function () {
 
   describe('defs', function () {
     it('should allow reuse of skin nodes', async function () {
-      const actual = await load(fixture('defs.xml'))
+      const actual = await load(await fixture('defs'))
 
       actual.stateSubject.dispatch({})
       const stage = actual.app.stage

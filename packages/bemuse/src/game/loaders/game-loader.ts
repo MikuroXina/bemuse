@@ -25,7 +25,7 @@ export function load(spec: LoadSpec) {
     async (_, progress) => {
       const mod = await import('@bemuse/scintillator/index.js')
       return mod.load(
-        mod.getSkinUrl({
+        mod.getSkin({
           displayMode: spec.displayMode,
         }),
         progress
