@@ -95,10 +95,11 @@ export function Touch3d() {
         <Sprite image={infoTemplate} y='1' />
         <Text
           x='176'
-          y='22'
+          y='10'
           text='%s'
           data='p1_score'
           font-family='ScoreNumber'
+          font-size='50px'
           font-src={scoreNumber}
           align='right'
         />
@@ -138,73 +139,81 @@ export function Touch3d() {
         />
         <Text
           x='1160'
-          y='22'
+          y='10'
           text='%s'
           data='p1_speed'
           font-family='ScoreNumber'
+          font-size='50px'
           font-src={scoreNumber}
           align='left'
         />
         <Text
           x='1099'
-          y='34'
+          y='29'
           text='%s'
           data='p1_bpm'
           font-family='StatNumber'
+          font-size='14px'
           font-src={statNumber}
           align='left'
         />
         <Text
           x='260'
-          y='29'
+          y='27'
           text='%s'
           data='p1_stat_1'
           font-family='StatNumber'
+          font-size='14px'
           font-src={statNumber}
           align='right'
         />
         <Text
           x='260'
-          y='47'
+          y='45'
           text='%s'
           data='p1_stat_2'
           font-family='StatNumber'
+          font-size='14px'
           font-src={statNumber}
           align='right'
         />
         <Text
           x='260'
-          y='65'
+          y='63'
           text='%s'
           data='p1_stat_3'
           font-family='StatNumber'
+          font-size='14px'
           font-src={statNumber}
           align='right'
         />
         <Text
           x='387'
-          y='29'
+          y='27'
           text='%s'
           data='p1_stat_4'
           font-family='StatNumber'
+          font-size='14px'
           font-src={statNumber}
           align='right'
         />
         <Text
           x='387'
-          y='47'
+          y='45'
           text='%s'
           data='p1_stat_missed'
           font-family='StatNumber'
+          font-size='14px'
           font-src={statNumber}
           align='right'
         />
         <Text
           x='387'
-          y='65'
+          y='63'
           text='%s'
           data='p1_stat_acc'
           font-family='StatNumber'
+          font-size='14px'
           font-src={statNumber}
           align='right'
         />
