@@ -5,12 +5,14 @@ import { env } from 'hono/adapter'
 
 import { idProvider, userRepo } from '../adaptor/auth0'
 import type { Bindings, EnvVars } from '../env'
-import { authMiddleware } from '../middleware'
+import { authMiddleware, corsMiddleware } from '../middleware'
 import { getLeaderboard, getScore, submitScore } from '../service/scoreboard'
 
 export const router = new Hono<{ Bindings: Bindings }>().basePath(
   '/api/v1/scoreboard'
 )
+
+router.use(corsMiddleware)
 
 router.get(
   '/:chart_md5/:play_mode',

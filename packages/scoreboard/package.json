@@ -2,6 +2,7 @@
   "name": "@mikuroxina/bemuse-scoreboard",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "main": "src/main.ts",
   "scripts": {
     "lint": "eslint .",
@@ -28,15 +29,8 @@
       }
     },
     "dev": {
-      "command": "wrangler dev",
-      "dependencies": [
-        "build"
-      ],
-      "service": {
-        "readyWhen": {
-          "lineMatches": "[wrangler:info] Ready on"
-        }
-      }
+      "command": "vite dev",
+      "service": true
     },
     "deploy": {
       "command": "wrangler deploy",
@@ -52,6 +46,7 @@
   },
   "packageManager": "pnpm@10.30.2",
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.31.0",
     "@hono/vite-cloudflare-pages": "^0.4.3",
     "@hono/vite-dev-server": "^0.25.1",
     "@mikuroxina/eslint-config-bemuse": "workspace:*",
@@ -63,7 +58,7 @@
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
     "wireit": "^0.14.12",
-    "wrangler": "^4.72.0"
+    "wrangler": "^4.80.0"
   },
   "dependencies": {
     "@hono/standard-validator": "^0.2.2",

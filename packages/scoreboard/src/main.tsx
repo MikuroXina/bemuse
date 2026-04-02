@@ -1,6 +1,4 @@
 import { Hono } from 'hono'
-import { env } from 'hono/adapter'
-import { cors } from 'hono/cors'
 import { HTTPException } from 'hono/http-exception'
 import { renderToReadableStream } from 'react-dom/server'
 
@@ -12,16 +10,6 @@ import { View } from './view'
 
 const app = new Hono()
 
-app.use('/api/v1/*', (c, next) =>
-  cors({
-    origin: env(c).DEV ? ['localhost:5173'] : ['bemuse.pages.dev'],
-    allowMethods: ['POST', 'GET', 'OPTIONS'],
-    allowHeaders: ['Upgrade-Insecure-Requests', 'Content-Type'],
-    exposeHeaders: ['Content-Length'],
-    credentials: true,
-    maxAge: 24 * 60 * 60,
-  })(c, next)
-)
 app.onError((err, c) => {
   if (err instanceof HTTPException) {
     return err.getResponse()
