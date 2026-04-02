@@ -75,7 +75,7 @@ function ButtonPanel() {
       <Sprite image={buttonPanel} />
       <If keyName='p1_scratch' value='left'>
         <Group>
-          <Group x={`${STYLES.scratch.width / 2}`}>
+          <Group x={`${STYLES.scratch.width * 2}`}>
             <Use def='dxbuttons' />
           </Group>
           <Sprite image={scratchAreaL} x='0' y='8' ref='p1_SC' />
@@ -84,7 +84,7 @@ function ButtonPanel() {
       </If>
       <If keyName='p1_scratch' value='right'>
         <Group>
-          <Group x={`${-STYLES.scratch.width / 2}`}>
+          <Group x={`${-STYLES.scratch.width * 2}`}>
             <Use def='dxbuttons' />
           </Group>
           <Sprite image={scratchAreaR} x='674' y='8' ref='p1_SC' />
@@ -150,6 +150,7 @@ export function Touch() {
               text='Score'
               align='center'
               font-family='InfoSmall'
+              font-size='20px'
               font-src={infoSmall}
             />
             <Text
@@ -159,6 +160,7 @@ export function Touch() {
               align='center'
               data='p1_score'
               font-family='ScoreNumberSmall'
+              font-size='32px'
               font-src={scoreNumberSmall}
             />
           </Button>
@@ -170,6 +172,7 @@ export function Touch() {
               text='Accuracy'
               align='center'
               font-family='InfoSmall'
+              font-size='20px'
               font-src={infoSmall}
             />
             <Text
@@ -179,6 +182,7 @@ export function Touch() {
               align='center'
               data='p1_stat_acc'
               font-family='ScoreNumberSmall'
+              font-size='32px'
               font-src={scoreNumberSmall}
             />
           </Button>
@@ -189,7 +193,8 @@ export function Touch() {
               y='32'
               text='Time'
               align='center'
-              font-family='"InfoSmall'
+              font-family='InfoSmall'
+              font-size='20px'
               font-src={infoSmall}
             />
             <Text
@@ -198,8 +203,9 @@ export function Touch() {
               text='%s'
               align='center'
               data='song_time'
-              font-family='InfoSmall'
-              font-src={infoSmall}
+              font-family='ScoreNumberSmall'
+              font-size='32px'
+              font-src={scoreNumberSmall}
             />
           </Button>
           <Button i={2} row={0} n={6} />
@@ -210,6 +216,7 @@ export function Touch() {
               text='Speed'
               align='center'
               font-family='InfoSmall'
+              font-size='20px'
               font-src={infoSmall}
             />
             <Text
@@ -219,6 +226,7 @@ export function Touch() {
               align='center'
               data='p1_speed'
               font-family='ScoreNumberSmall'
+              font-size='32px'
               font-src={scoreNumberSmall}
             />
           </Button>
