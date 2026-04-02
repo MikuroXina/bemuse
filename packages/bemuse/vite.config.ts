@@ -99,7 +99,7 @@ export default defineConfig({
       },
     ],
   },
-  assetsInclude: ['../CHANGELOG.md', './public/**/*'],
+  assetsInclude: ['../CHANGELOG.md', './public/**/*', '**/*.png', '**/*.fnt'],
   worker: {
     format: 'es',
     plugins: () => commonPlugins,

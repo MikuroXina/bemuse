@@ -1,6 +1,8 @@
 import type Progress from '@bemuse/progress'
+import { renderToXml } from '@mikuroxina/bemuse-skin'
 import debug from 'debug'
 import { Application, Assets, Container } from 'pixi.js'
+import type { JSX } from 'react'
 
 import { SelectorSubject } from './nodes/index.js'
 import { root } from './nodes/root.js'
@@ -16,11 +18,12 @@ export interface Scintillator {
 }
 
 export async function load(
-  xmlPath: string,
+  xmlComponent: () => JSX.Element,
   progress?: Progress
 ): Promise<Scintillator> {
-  log('load XML from %s', xmlPath)
-  const xml = await loadXml(xmlPath)
+  const xmlSrc = renderToXml(xmlComponent())
+  const xml = new DOMParser().parseFromString(xmlSrc, 'text/xml')
+    .documentElement as Element
 
   // scan all images
   const paths = new Set<string>()
@@ -30,15 +33,9 @@ export async function load(
   for (const element of Array.from(xml.querySelectorAll('[font-src]'))) {
     paths.add(element.getAttribute('font-src')!)
   }
-  const base = new URL(xmlPath, location.href)
-  const baseStr = base.toString()
 
   // preload all images + progress reporting
-  await loadResources(
-    baseStr.substring(0, baseStr.lastIndexOf('/')),
-    [...paths],
-    progress
-  )
+  await loadResources([...paths], progress)
 
   // compile the skin
   log('compiling')
@@ -47,20 +44,12 @@ export async function load(
   return { ...rootItems, stateSubject }
 }
 
-async function loadXml(xmlUrl: string): Promise<Element> {
-  const res = await fetch(xmlUrl)
-  const text = await res.text()
-  return new DOMParser().parseFromString(text, 'text/xml')
-    .documentElement as Element
-}
-
 async function loadResources(
-  basePath: string,
   paths: readonly string[],
   progress?: Progress
 ): Promise<void> {
   log('loading resources')
-  await Assets.init({ basePath })
+  await Assets.init()
   await Assets.load(paths, (ratio) => {
     progress?.report(ratio, 1.0)
   })

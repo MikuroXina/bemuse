@@ -1,8 +1,7 @@
 import MAIN from '@bemuse/utils/main-element'
+import meticulousFont from '@mikuroxina/bemuse-skin/BemuseDefault-Meticulous.fnt?url'
+import otherFont from '@mikuroxina/bemuse-skin/BemuseDefault-Other.fnt?url'
 import { Application, Assets, autoDetectRenderer, BitmapText } from 'pixi.js'
-
-import meticulousFont from '/skins/default/Fonts/BemuseDefault-Meticulous.fnt?url'
-import otherFont from '/skins/default/Fonts/BemuseDefault-Other.fnt?url'
 
 export async function main() {
   await autoDetectRenderer({

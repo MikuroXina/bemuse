@@ -1,18 +1,21 @@
+import { Screen, Touch, Touch3d } from '@mikuroxina/bemuse-skin'
+import type { JSX } from 'react'
+
 import { load, type Scintillator } from './loader'
 import type { DisplayMode } from './skin'
 
 export { type DisplayMode, load, type Scintillator }
 
-export function getSkinUrl({
+export function getSkin({
   displayMode,
-}: { displayMode?: DisplayMode } = {}): string {
+}: { displayMode?: DisplayMode } = {}): () => JSX.Element {
   if (displayMode === 'touch3d') {
-    return '/skins/default/skin_touch3d.xml'
+    return Touch3d
   } else {
     if (window.innerWidth < window.innerHeight) {
-      return '/skins/default/skin_touch.xml'
+      return Touch
     } else {
-      return '/skins/default/skin_screen.xml'
+      return Screen
     }
   }
 }

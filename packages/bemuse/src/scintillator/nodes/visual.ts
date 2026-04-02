@@ -59,10 +59,10 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
     }
     case 'if': {
       container = new Container()
-      const key = element.getAttribute('key')
+      const key = element.getAttribute('keyName')
       const matchValue = element.getAttribute('value')
       if (key == null || matchValue == null) {
-        throw new Error('expected if node has key and value attribute')
+        throw new Error('expected if node has keyName and value attribute')
       }
       container.label = `(${key} = '${matchValue}')`
 
@@ -138,9 +138,9 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
       break
     }
     case 'object': {
-      const key = element.getAttribute('key')
+      const key = element.getAttribute('keyName')
       if (key == null) {
-        throw new Error('expected element has key attribute')
+        throw new Error('expected element has keyName attribute')
       }
       const poolLen = parseInt(element.getAttribute('pool') ?? '0', 10)
       const objectsExpr = compileExpression(key)
