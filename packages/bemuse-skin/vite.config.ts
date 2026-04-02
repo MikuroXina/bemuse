@@ -6,9 +6,12 @@ import dts from 'vite-plugin-dts'
 export default defineConfig({
   plugins: [
     libAssetsPlugin({
-      name: '[name]-[contenthash:8].[ext]',
+      name: '[name].[ext]',
+      include: [/\.png(\?.*)?$/, /\.fnt(\?.*)?$/],
     }),
-    dts(),
+    dts({
+      insertTypesEntry: true,
+    }),
   ],
   assetsInclude: ['**/*.png', '**/*.fnt'],
   build: {

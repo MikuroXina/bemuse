@@ -4,11 +4,11 @@ export type InputDevice = 'keyboard' | 'touch'
 export type PanelPosition = 'bottom' | 'top'
 
 export interface SkinProps {
-  children: ReactNode
+  children?: ReactNode
   width: string
   height: string
-  'data-main-input-device': InputDevice
-  'data-info-panel-position': PanelPosition
+  'data-main-input-device'?: InputDevice
+  'data-info-panel-position'?: PanelPosition
   'data-display-mode'?: 'touch3d'
 }
 
@@ -79,7 +79,7 @@ export function Text(props: TextProps) {
 export interface ObjectProps {
   children: ReactNode
   key: string
-  pool: `${number}`
+  pool?: `${number}`
 }
 
 export function Object({ children, ...props }: ObjectProps) {
@@ -110,7 +110,7 @@ export interface GroupProps extends AnimatableProps {
   id?: string
   mask?: Rect
   t?: string
-  children: ReactNode
+  children?: ReactNode
 }
 
 export function Group({ children, ...props }: GroupProps) {

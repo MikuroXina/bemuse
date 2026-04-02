@@ -11,7 +11,9 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/bemuse-skin.js",
       "require": "./dist/bemuse-skin.umd.cjs"
-    }
+    },
+    "./*.fnt": "./dist/assets/*.fnt",
+    "./*.png": "./dist/assets/*.png"
   },
   "scripts": {
     "lint": "eslint .",
