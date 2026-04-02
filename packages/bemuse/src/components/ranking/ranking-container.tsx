@@ -19,8 +19,8 @@ const RankingContainer = ({
 }: RankingContainerProps) => {
   const user = useCurrentUser()
   const submissionMutation = useSubmitMutation()
-  const canSubmit = !!user && !!result && !result.tainted
   const submit = () => {
+    const canSubmit = !!user && !!result && !result.tainted
     if (canSubmit) {
       submissionMutation.mutate({
         md5: chart.md5,
@@ -41,11 +41,12 @@ const RankingContainer = ({
   }
   const submitted = useRef(false)
   useEffect(() => {
+    const canSubmit = !!user && !!result && !result.tainted
     if (!submitted.current && canSubmit) {
       submitted.current = true
       submit()
     }
-  }, [canSubmit])
+  }, [user, result])
   return (
     <Ranking
       onResubmitScoreRequest={submit}
