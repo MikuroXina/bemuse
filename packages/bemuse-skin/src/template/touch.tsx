@@ -1,4 +1,22 @@
+import '../assets/Fonts/InfoSmall.png'
+import '../assets/Fonts/ScoreNumberSmall.png'
+
 import type { ReactNode } from 'react'
+
+import infoSmall from '../assets/Fonts/InfoSmall.fnt?url'
+import scoreNumberSmall from '../assets/Fonts/ScoreNumberSmall.fnt?url'
+import buttonPanel from '../assets/Touch/ButtonPanel.png?url'
+import active from '../assets/Touch/Buttons/Active.png?url'
+import kActive from '../assets/Touch/Buttons/KActive.png?url'
+import kNormal from '../assets/Touch/Buttons/KNormal.png?url'
+import normal from '../assets/Touch/Buttons/Normal.png?url'
+import sActive from '../assets/Touch/Buttons/SActive.png?url'
+import sNormal from '../assets/Touch/Buttons/SNormal.png?url'
+import notePanel from '../assets/Touch/NotePanel.png?url'
+import scratchAreaL from '../assets/Touch/Scratch/ScratchAreaL.png?url'
+import scratchAreaR from '../assets/Touch/Scratch/ScratchAreaR.png?url'
+import scratchGlowL from '../assets/Touch/Scratch/ScratchGlowL.png?url'
+import scratchGlowR from '../assets/Touch/Scratch/ScratchGlowR.png?url'
 import {
   Animation,
   Defs,
@@ -11,23 +29,6 @@ import {
   Use,
 } from '../atom.js'
 import { AllNoteArea, STYLES, Tutorial } from '../common.js'
-import notePanel from '../assets/Touch/NotePanel.png?url'
-import kNormal from '../assets/Touch/Buttons/KNormal.png?url'
-import kActive from '../assets/Touch/Buttons/KActive.png?url'
-import buttonPanel from '../assets/Touch/ButtonPanel.png?url'
-import scratchAreaL from '../assets/Touch/Scratch/ScratchAreaL.png?url'
-import scratchGlowL from '../assets/Touch/Scratch/ScratchGlowL.png?url'
-import scratchAreaR from '../assets/Touch/Scratch/ScratchAreaR.png?url'
-import scratchGlowR from '../assets/Touch/Scratch/ScratchGlowR.png?url'
-import sNormal from '../assets/Touch/Buttons/SNormal.png?url'
-import sActive from '../assets/Touch/Buttons/SActive.png?url'
-import normal from '../assets/Touch/Buttons/Normal.png?url'
-import active from '../assets/Touch/Buttons/Active.png?url'
-import infoSmall from '../assets/Fonts/InfoSmall.fnt?url'
-import scoreNumberSmall from '../assets/Fonts/ScoreNumberSmall.fnt?url'
-
-import '../assets/Fonts/InfoSmall.png'
-import '../assets/Fonts/ScoreNumberSmall.png'
 
 const WIDTH = 768
 const HEIGHT = 928

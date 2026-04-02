@@ -1,6 +1,7 @@
-import { defineConfig } from 'vite'
-import libAssetsPlugin from '@laynezh/vite-plugin-lib-assets'
 import { resolve } from 'node:path'
+
+import libAssetsPlugin from '@laynezh/vite-plugin-lib-assets'
+import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 
 export default defineConfig({

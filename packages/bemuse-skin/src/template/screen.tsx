@@ -1,3 +1,15 @@
+import '../assets/Fonts/ScoreNumber.png'
+import '../assets/Fonts/BPMNumber.png'
+import '../assets/Fonts/StatNumber.png'
+
+import bpmNumber from '../assets/Fonts/BPMNumber.fnt?url'
+import scoreNumber from '../assets/Fonts/ScoreNumber.fnt?url'
+import statNumber from '../assets/Fonts/StatNumber.fnt?url'
+import infoBackground from '../assets/InfoPanel/Background.png?url'
+import infoTemplate from '../assets/InfoPanel/Template.png?url'
+import panelLeft from '../assets/NotePanel/Left.png?url'
+import panelMiddle from '../assets/NotePanel/Middle.png?url'
+import panelRight from '../assets/NotePanel/Right.png?url'
 import {
   Animation,
   Defs,
@@ -10,18 +22,6 @@ import {
   Use,
 } from '../atom.js'
 import { AllNoteArea, Tutorial } from '../common.js'
-import panelLeft from '../assets/NotePanel/Left.png?url'
-import panelMiddle from '../assets/NotePanel/Middle.png?url'
-import panelRight from '../assets/NotePanel/Right.png?url'
-import infoBackground from '../assets/InfoPanel/Background.png?url'
-import infoTemplate from '../assets/InfoPanel/Template.png?url'
-import scoreNumber from '../assets/Fonts/ScoreNumber.fnt?url'
-import bpmNumber from '../assets/Fonts/BPMNumber.fnt?url'
-import statNumber from '../assets/Fonts/StatNumber.fnt?url'
-
-import '../assets/Fonts/ScoreNumber.png'
-import '../assets/Fonts/BPMNumber.png'
-import '../assets/Fonts/StatNumber.png'
 
 function NotePanel() {
   const left = (

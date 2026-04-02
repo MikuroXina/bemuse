@@ -1,51 +1,52 @@
+import './assets/Fonts/JudgmentCombo.png'
+
 import { Fragment, type JSX, type ReactNode } from 'react'
-import {
-  Animation,
-  Group,
-  If,
-  Keyframe,
-  Particle,
-  Sprite,
-  Text,
-  type GroupProps,
-  type TextProps,
-  type Rect,
-} from './atom.js'
-import dxNote from './assets/Note/DX/Note.png?url'
-import kbNote from './assets/Note/KB/Note.png?url'
-import dxBackgroundLeft from './assets/Note/DX/BackgroundLeft.png?url'
-import dxHighlight from './assets/Note/DX/Highlight.png?url'
+
+import early from './assets/Deviation/Early.png?url'
+import late from './assets/Deviation/Late.png?url'
+import noteExplosion from './assets/Explosion/NoteExplosion.png?url'
+import gaugePrimary from './assets/Hope/Hope.png?url'
+import gaugeSecondary from './assets/Hope/HopeA.png?url'
+import hopeBar from './assets/Hope/HopeBar.png?url'
+import gaugeExtra from './assets/Hope/HopeSS.png?url'
 import dx5kLeft from './assets/Note/DX/5kLeft.png?url'
-import dxBackgroundRight from './assets/Note/DX/BackgroundRight.png?url'
 import dx5kRight from './assets/Note/DX/5kRight.png?url'
+import dxBackgroundLeft from './assets/Note/DX/BackgroundLeft.png?url'
+import dxBackgroundRight from './assets/Note/DX/BackgroundRight.png?url'
+import dxHighlight from './assets/Note/DX/Highlight.png?url'
+import dxNote from './assets/Note/DX/Note.png?url'
+import kb5k from './assets/Note/KB/5k.png?url'
 import kbBackground from './assets/Note/KB/Background.png?url'
 import kbHighlight from './assets/Note/KB/Highlight.png?url'
-import kb5k from './assets/Note/KB/5k.png?url'
+import kbNote from './assets/Note/KB/Note.png?url'
 import bar from './assets/NoteArea/Bar.png?url'
-import noteExplosion from './assets/Explosion/NoteExplosion.png?url'
 import flash from './assets/NoteArea/Flash.png?url'
-import stripe from './assets/NoteArea/Stripe.png?url'
 import laneCover from './assets/NoteArea/LaneCover.png?url'
-import hopeBar from './assets/Hope/HopeBar.png?url'
-import gaugeSecondary from './assets/Hope/HopeA.png?url'
-import gaugePrimary from './assets/Hope/Hope.png?url'
-import gaugeExtra from './assets/Hope/HopeSS.png?url'
+import stripe from './assets/NoteArea/Stripe.png?url'
 import pressStart from './assets/NotePanel/PressStart.png?url'
-import late from './assets/Deviation/Late.png?url'
-import early from './assets/Deviation/Early.png?url'
-import ready from './assets/Tutorial/Ready.png?url'
 import page0 from './assets/Tutorial/Page0.png?url'
 import page1 from './assets/Tutorial/Page1.png?url'
 import page2 from './assets/Tutorial/Page2.png?url'
-import page2Touch from './assets/Tutorial/Page2Touch.png?url'
 import page2Kb from './assets/Tutorial/Page2KB.png?url'
+import page2Touch from './assets/Tutorial/Page2Touch.png?url'
 import page2TouchKb from './assets/Tutorial/Page2TouchKB.png?url'
 import page3 from './assets/Tutorial/Page3.png?url'
 import page4 from './assets/Tutorial/Page4.png?url'
 import page5 from './assets/Tutorial/Page5.png?url'
 import page6 from './assets/Tutorial/Page6.png?url'
-
-import './assets/Fonts/JudgmentCombo.png'
+import ready from './assets/Tutorial/Ready.png?url'
+import {
+  Animation,
+  Group,
+  type GroupProps,
+  If,
+  Keyframe,
+  Particle,
+  type Rect,
+  Sprite,
+  Text,
+  type TextProps,
+} from './atom.js'
 
 export const objectStyleKeys = [
   'scratch',

@@ -1,5 +1,6 @@
 import type { JSX } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
+
 import { Screen } from './template/screen.js'
 import { Touch } from './template/touch.js'
 import { Touch3d } from './template/touch3d.js'
