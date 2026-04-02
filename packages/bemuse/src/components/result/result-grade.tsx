@@ -16,6 +16,7 @@ const ResultGrade = ({ grade }: { grade: string }) => (
             dominantBaseline='central'
             textAnchor='middle'
             fill='#ff9'
+            transform='scale(1, 0.9)'
           >
             {grade}
           </text>
