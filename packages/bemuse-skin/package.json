@@ -12,8 +12,7 @@
       "import": "./dist/bemuse-skin.js",
       "require": "./dist/bemuse-skin.umd.cjs"
     },
-    "./*.fnt": "./dist/assets/*.fnt",
-    "./*.png": "./dist/assets/*.png"
+    "./*.fnt": "./dist/assets/Fonts/*.fnt"
   },
   "scripts": {
     "lint": "eslint .",
