@@ -6,10 +6,11 @@ import { env } from 'hono/adapter'
 import type { InferOutput } from 'valibot'
 
 import type { Env, Variables } from '../env'
-import { authMiddleware } from '../middleware'
+import { authMiddleware, corsMiddleware } from '../middleware'
 
 export const router = new Hono<Env>().basePath('/api/v1/auth')
 
+router.use(corsMiddleware)
 router.use(authMiddleware)
 
 router

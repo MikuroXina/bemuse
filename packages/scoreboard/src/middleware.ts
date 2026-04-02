@@ -1,9 +1,21 @@
 import { UserInfoClient } from 'auth0'
 import { env } from 'hono/adapter'
 import { every } from 'hono/combine'
+import { cors } from 'hono/cors'
 import { createMiddleware } from 'hono/factory'
 
 import type { Env, EnvVars } from './env'
+
+export const corsMiddleware = createMiddleware<Env>((c, next) =>
+  cors({
+    origin: env<EnvVars>(c).DEV ? ['localhost:5173'] : ['bemuse.pages.dev'],
+    allowMethods: ['POST', 'GET', 'OPTIONS'],
+    allowHeaders: ['Upgrade-Insecure-Requests', 'Content-Type'],
+    exposeHeaders: ['Content-Length'],
+    credentials: true,
+    maxAge: 24 * 60 * 60,
+  })(c, next)
+)
 
 export const authMiddleware = createMiddleware<Env>(async (c, next) => {
   const authorization = c.req.header('Authorization')
