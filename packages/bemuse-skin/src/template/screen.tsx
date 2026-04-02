@@ -19,6 +19,10 @@ import scoreNumber from '../assets/Fonts/ScoreNumber.fnt?url'
 import bpmNumber from '../assets/Fonts/BPMNumber.fnt?url'
 import statNumber from '../assets/Fonts/StatNumber.fnt?url'
 
+import '../assets/Fonts/ScoreNumber.png'
+import '../assets/Fonts/BPMNumber.png'
+import '../assets/Fonts/StatNumber.png'
+
 function NotePanel() {
   const left = (
     <If keyName='p1_placement' value='left'>

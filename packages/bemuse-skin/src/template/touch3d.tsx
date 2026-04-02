@@ -26,6 +26,9 @@ import noteWhite from '../assets/Touch3DMode/NoteWhite.png?url'
 import noteBlue from '../assets/Touch3DMode/NoteBlue.png?url'
 import noteGreen from '../assets/Touch3DMode/NoteGreen.png?url'
 
+import '../assets/Fonts/ScoreNumber.png'
+import '../assets/Fonts/StatNumber.png'
+
 function MyNote({ column, file }: { column: number; file: string }) {
   return (
     <>

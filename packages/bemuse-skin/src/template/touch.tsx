@@ -26,6 +26,9 @@ import active from '../assets/Touch/Buttons/Active.png?url'
 import infoSmall from '../assets/Fonts/InfoSmall.fnt?url'
 import scoreNumberSmall from '../assets/Fonts/ScoreNumberSmall.fnt?url'
 
+import '../assets/Fonts/InfoSmall.png'
+import '../assets/Fonts/ScoreNumberSmall.png'
+
 const WIDTH = 768
 const HEIGHT = 928
 

@@ -45,6 +45,8 @@ import page4 from './assets/Tutorial/Page4.png?url'
 import page5 from './assets/Tutorial/Page5.png?url'
 import page6 from './assets/Tutorial/Page6.png?url'
 
+import './assets/Fonts/JudgmentCombo.png'
+
 export const objectStyleKeys = [
   'scratch',
   'white',
@@ -184,7 +186,7 @@ export interface LongNoteProps {
   keyName: string
   x: number
   cur: ObjectStyle
-  add: string
+  add: number
   visible: string
 }
 
@@ -193,11 +195,11 @@ export function LongNote({ keyName, x, cur, add, visible }: LongNoteProps) {
     <Particle keyName={keyName} pool='8'>
       <Sprite
         image={cur.image}
-        frame={`${cur.width} x 64 + ${cur.x} + 22 + ${add}`}
+        frame={`${cur.width}x64+${cur.x}+${22 + add}`}
         x={`${x}`}
         y={`y * ${AREA_HEIGHT} + 4 - 12`}
         width={`${cur.width}`}
-        height={`height + ${AREA_HEIGHT}`}
+        height={`height * ${AREA_HEIGHT}`}
         visible={visible}
       />
     </Particle>
@@ -206,7 +208,7 @@ export function LongNote({ keyName, x, cur, add, visible }: LongNoteProps) {
     <Particle keyName={keyName} pool='8'>
       <Sprite
         image={cur.image}
-        frame={`${cur.width} x 8 + ${cur.x} + 104 + ${add}`}
+        frame={`${cur.width}x8+${cur.x}+${104 + add}`}
         x={`${x}`}
         y={`(y + height) * ${AREA_HEIGHT} + 4 - 12`}
         visible={visible}
@@ -217,7 +219,7 @@ export function LongNote({ keyName, x, cur, add, visible }: LongNoteProps) {
     <Particle keyName={keyName} pool='8'>
       <Sprite
         image={cur.image}
-        frame={`${cur.width} x 8 + ${cur.x} + 12 + ${add}`}
+        frame={`${cur.width}x8+${cur.x}+${12 + add}`}
         x={`${x}`}
         y={`y * ${AREA_HEIGHT} - 12`}
         visible={visible}
@@ -258,17 +260,17 @@ export function Notes({ highlight, columns }: NotesProps) {
               <Fragment key={x}>
                 <Sprite
                   image={highlight}
-                  frame={`${cur.width} x 552 + ${cur.x}`}
+                  frame={`${cur.width}x552+${cur.x}+0`}
                   x={`${x}`}
                   y='0'
                   blend='screen'
                   scale-x='1'
                 >
                   <Animation>
-                    <Keyframe t='0' alpha='0' scale-x='1' />
+                    <Keyframe t='0' alpha='0' scale-x='1' x={`${x}`} />
                   </Animation>
                   <Animation on={`p1_${ch}_down`}>
-                    <Keyframe t='0' alpha='1' scale-x='1' />
+                    <Keyframe t='0' alpha='1' scale-x='1' x={`${x}`} />
                   </Animation>
                   <Animation on={`p1_${ch}_up`}>
                     <Keyframe t='0' alpha='1' scale-x='1' x={`${x}`} />
@@ -277,14 +279,14 @@ export function Notes({ highlight, columns }: NotesProps) {
                       ease='quadOut'
                       alpha='0'
                       scale-x='0'
-                      x={`${x + cur.width / 1}`}
+                      x={`${x + cur.width / 2}`}
                     />
                   </Animation>
                 </Sprite>
                 <Particle keyName={`p1_note_${ch}`} pool='24'>
                   <Sprite
                     image={cur.image}
-                    frame={`${cur.width} x 12 + ${cur.x}`}
+                    frame={`${cur.width}x12+${cur.x}+0`}
                     x={`${x}`}
                     y={`y * ${AREA_HEIGHT} - 12`}
                   />
@@ -293,21 +295,21 @@ export function Notes({ highlight, columns }: NotesProps) {
                   keyName={`p1_longnote_${ch}`}
                   x={x}
                   cur={cur}
-                  add='0'
+                  add={0}
                   visible='!active && !missed'
                 />
                 <LongNote
                   keyName={`p1_longnote_${ch}`}
                   x={x}
                   cur={cur}
-                  add='100'
+                  add={100}
                   visible='!!active && !missed'
                 />
                 <LongNote
                   keyName={`p1_longnote_${ch}`}
                   x={x}
                   cur={cur}
-                  add='200'
+                  add={200}
                   visible='!!missed'
                 />
               </Fragment>
@@ -331,7 +333,7 @@ export function Explosions({ columns }: ExplosionsProps) {
       const cur = STYLES[column.style]
       const ch = column.channel
       nodes.push(
-        <Group keyName={`${x}`} x={`${x + cur.width / 2}`}>
+        <Group x={`${x + cur.width / 2}`}>
           <Animation>
             <Keyframe t='0' alpha='0' scale-x='1' scale-y='1' />
           </Animation>
@@ -359,7 +361,7 @@ export function NoteHints({ hintStart, columns }: NoteHintsProps) {
       const cur = HINTS[column.style]
       const ch = column.channel
       nodes.push(
-        <Group keyName={`${x}`} x={`${x}`}>
+        <Group x={`${x}`}>
           <Sprite
             image={
               new URL(
@@ -384,7 +386,7 @@ export function NoteHints({ hintStart, columns }: NoteHintsProps) {
             <Animation>
               <Keyframe t='0' alpha='0' />
             </Animation>
-            <Animation on={`p1_${ch}_up`}>
+            <Animation on={`p1_${ch}_down`}>
               <Keyframe t='0' alpha='1' />
             </Animation>
             <Animation on={`p1_${ch}_up`}>
@@ -469,6 +471,11 @@ export function AllNoteArea(props: Omit<GroupProps, 'children'>) {
           <If keyName='p1_scratch' value='right'>
             <Group>
               <NoteArea {...MODE.iidxR} />
+            </Group>
+          </If>
+          <If keyName='p1_scratch' value='off'>
+            <Group>
+              <NoteArea {...MODE.kb} />
             </Group>
           </If>
           <Sprite image={stripe} x='1' y='537' blend='screen' />
@@ -612,6 +619,18 @@ export function Judgments() {
           alpha='1 - t * 10 % 1'
           blend='screen'
         />
+      </Judgment>
+      <Judgment type='2'>
+        <JudgmentText name='Precise' text='*%s' data='p1_combo' />
+      </Judgment>
+      <Judgment type='3'>
+        <JudgmentText name='Good' text='*%s' data='p1_combo' />
+      </Judgment>
+      <Judgment type='4'>
+        <JudgmentText name='Other' text='1' />
+      </Judgment>
+      <Judgment type='missed'>
+        <JudgmentText name='Other' text='0' />
       </Judgment>
     </>
   )
