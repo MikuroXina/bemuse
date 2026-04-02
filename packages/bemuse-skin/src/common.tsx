@@ -190,7 +190,7 @@ export interface LongNoteProps {
 
 export function LongNote({ keyName, x, cur, add, visible }: LongNoteProps) {
   const body = (
-    <Object key={keyName} pool='8'>
+    <Object keyName={keyName} pool='8'>
       <Sprite
         image={cur.image}
         frame={`${cur.width} x 64 + ${cur.x} + 22 + ${add}`}
@@ -203,7 +203,7 @@ export function LongNote({ keyName, x, cur, add, visible }: LongNoteProps) {
     </Object>
   )
   const tail = (
-    <Object key={keyName} pool='8'>
+    <Object keyName={keyName} pool='8'>
       <Sprite
         image={cur.image}
         frame={`${cur.width} x 8 + ${cur.x} + 104 + ${add}`}
@@ -214,7 +214,7 @@ export function LongNote({ keyName, x, cur, add, visible }: LongNoteProps) {
     </Object>
   )
   const head = (
-    <Object key={keyName} pool='8'>
+    <Object keyName={keyName} pool='8'>
       <Sprite
         image={cur.image}
         frame={`${cur.width} x 8 + ${cur.x} + 12 + ${add}`}
@@ -246,7 +246,7 @@ export interface NotesProps {
 export function Notes({ highlight, columns }: NotesProps) {
   return (
     <>
-      <Object key='p1_barlines' pool='8'>
+      <Object keyName='p1_barlines' pool='8'>
         <Sprite image={bar} x='0' y={`y * ${AREA_HEIGHT} - 1`} blend='screen' />
       </Object>
       {
@@ -281,7 +281,7 @@ export function Notes({ highlight, columns }: NotesProps) {
                     />
                   </Animation>
                 </Sprite>
-                <Object key={`p1_note_${ch}`} pool='24'>
+                <Object keyName={`p1_note_${ch}`} pool='24'>
                   <Sprite
                     image={cur.image}
                     frame={`${cur.width} x 12 + ${cur.x}`}
@@ -331,7 +331,7 @@ export function Explosions({ columns }: ExplosionsProps) {
       const cur = STYLES[column.style]
       const ch = column.channel
       nodes.push(
-        <Group key={x} x={`${x + cur.width / 2}`}>
+        <Group keyName={`${x}`} x={`${x + cur.width / 2}`}>
           <Animation>
             <Keyframe t='0' alpha='0' scale-x='1' scale-y='1' />
           </Animation>
@@ -359,7 +359,7 @@ export function NoteHints({ hintStart, columns }: NoteHintsProps) {
       const cur = HINTS[column.style]
       const ch = column.channel
       nodes.push(
-        <Group key={x} x={`${x}`}>
+        <Group keyName={`${x}`} x={`${x}`}>
           <Sprite
             image={
               new URL(
@@ -444,29 +444,29 @@ export function NoteAreaHints(props: NoteHintsProps) {
 export function AllNoteArea(props: Omit<GroupProps, 'children'>) {
   return (
     <Group {...props}>
-      <If key='p1_scratch' value='left'>
+      <If keyName='p1_scratch' value='left'>
         <Group>
           <NoteAreaBackground background={MODE.iidxL.background} />
         </Group>
       </If>
-      <If key='p1_scratch' value='right'>
+      <If keyName='p1_scratch' value='right'>
         <Group>
           <NoteAreaBackground background={MODE.iidxR.background} />
         </Group>
       </If>
-      <If key='p1_scratch' value='off'>
+      <If keyName='p1_scratch' value='off'>
         <Group>
           <NoteAreaBackground background={MODE.kb.background} />
         </Group>
       </If>
       <Group x='0' mask='284x550+0+0'>
         <Group x='0' y={`0 - p1_lane_lift * ${AREA_HEIGHT}`}>
-          <If key='p1_scratch' value='left'>
+          <If keyName='p1_scratch' value='left'>
             <Group>
               <NoteArea {...MODE.iidxL} />
             </Group>
           </If>
-          <If key='p1_scratch' value='right'>
+          <If keyName='p1_scratch' value='right'>
             <Group>
               <NoteArea {...MODE.iidxR} />
             </Group>
@@ -478,34 +478,34 @@ export function AllNoteArea(props: Omit<GroupProps, 'children'>) {
           <Sprite image={laneCover} x='1' y={`-${AREA_HEIGHT}`} />
         </Group>
       </Group>
-      <If key='p1_scratch' value='left'>
+      <If keyName='p1_scratch' value='left'>
         <Group>
           <NoteAreaHints {...MODE.iidxL} />
         </Group>
       </If>
-      <If key='p1_scratch' value='right'>
+      <If keyName='p1_scratch' value='right'>
         <Group>
           <NoteAreaHints {...MODE.iidxR} />
         </Group>
       </If>
-      <If key='p1_scratch' value='off'>
+      <If keyName='p1_scratch' value='off'>
         <Group>
           <NoteAreaHints {...MODE.kb} />
         </Group>
       </If>
-      <If key='p1_key_mode' value='5K'>
+      <If keyName='p1_key_mode' value='5K'>
         <Group>
-          <If key='p1_scratch' value='left'>
+          <If keyName='p1_scratch' value='left'>
             <Group>
               <NoteAreaCovers {...MODE.iidxL} />
             </Group>
           </If>
-          <If key='p1_scratch' value='right'>
+          <If keyName='p1_scratch' value='right'>
             <Group>
               <NoteAreaCovers {...MODE.iidxR} />
             </Group>
           </If>
-          <If key='p1_scratch' value='off'>
+          <If keyName='p1_scratch' value='off'>
             <Group>
               <NoteAreaCovers {...MODE.kb} />
             </Group>
@@ -832,7 +832,7 @@ export interface TutorialProps {
 export function Tutorial({ width, touch = true }: TutorialProps) {
   const cx = width / 2
   return (
-    <If key='tutorial' value='yes'>
+    <If keyName='tutorial' value='yes'>
       <Group>
         <Sprite image={page0} x='64' y='64' t='gameTime'>
           <Fade begin={-1} end={0} />
@@ -842,13 +842,13 @@ export function Tutorial({ width, touch = true }: TutorialProps) {
         </Sprite>
         <Group t='gameTime'>
           <Fade begin={19} end={27} />
-          <If key='p1_scratch' value='left'>
+          <If keyName='p1_scratch' value='left'>
             <Sprite image={touch ? page2Touch : page2} x='64' y='64' />
           </If>
-          <If key='p1_scratch' value='right'>
+          <If keyName='p1_scratch' value='right'>
             <Sprite image={touch ? page2Touch : page2} x='64' y='64' />
           </If>
-          <If key='p1_scratch' value='off'>
+          <If keyName='p1_scratch' value='off'>
             <Sprite image={touch ? page2TouchKb : page2Kb} x='64' y='64' />
           </If>
         </Group>

@@ -21,7 +21,7 @@ import statNumber from '../assets/Fonts/StatNumber.fnt?url'
 
 function NotePanel() {
   const left = (
-    <If key='p1_placement' value='left'>
+    <If keyName='p1_placement' value='left'>
       <Group>
         <Animation>
           <Keyframe t='0.25' x='-361' />
@@ -35,7 +35,7 @@ function NotePanel() {
     </If>
   )
   const center = (
-    <If key='p1_placement' value='center'>
+    <If keyName='p1_placement' value='center'>
       <Group x='455'>
         <Animation>
           <Keyframe t='0.25' alpha='0' />
@@ -49,7 +49,7 @@ function NotePanel() {
     </If>
   )
   const right = (
-    <If key='p1_placement' value='right'>
+    <If keyName='p1_placement' value='right'>
       <Group>
         <Animation>
           <Keyframe t='0.25' x='1280' />

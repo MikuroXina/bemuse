@@ -70,7 +70,7 @@ function ButtonPanel() {
         <Keyframe t='0.3' y={`${HEIGHT - 311}`} />
       </Animation>
       <Sprite image={buttonPanel} />
-      <If key='p1_scratch' value='left'>
+      <If keyName='p1_scratch' value='left'>
         <Group>
           <Group x={`${STYLES.scratch.width / 2}`}>
             <Use def='dxbuttons' />
@@ -79,7 +79,7 @@ function ButtonPanel() {
           <Sprite image={scratchGlowL} x='0' y='6' alpha='p1_SC_active' />
         </Group>
       </If>
-      <If key='p1_scratch' value='right'>
+      <If keyName='p1_scratch' value='right'>
         <Group>
           <Group x={`${-STYLES.scratch.width / 2}`}>
             <Use def='dxbuttons' />
@@ -88,7 +88,7 @@ function ButtonPanel() {
           <Sprite image={scratchGlowR} x='674' y='6' alpha='p1_SC_active' />
         </Group>
       </If>
-      <If key='p1_scratch' value='off'>
+      <If keyName='p1_scratch' value='off'>
         <Group>
           <KButton col={0} />
           <KButton col={1} />

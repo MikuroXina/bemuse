@@ -49,7 +49,7 @@ function MyNote({ column, file }: { column: number; file: string }) {
           <Keyframe t='0.18' ease='quadOut' alpha='0' />
         </Animation>
       </Sprite>
-      <Object key={`p1_note3d_${column}`} pool='24'>
+      <Object keyName={`p1_note3d_${column}`} pool='24'>
         <Sprite
           image={file}
           x='x'
@@ -219,7 +219,7 @@ export function Touch3d() {
           blend='screen'
           alpha='1 - p1_beat % 1'
         />
-        <Object key='p1_barlines3d' pool='24'>
+        <Object keyName='p1_barlines3d' pool='24'>
           <Sprite
             image={bar}
             x='x'

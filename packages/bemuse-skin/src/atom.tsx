@@ -78,7 +78,7 @@ export function Text(props: TextProps) {
 
 export interface ObjectProps {
   children: ReactNode
-  key: string
+  keyName: string
   pool?: `${number}`
 }
 
@@ -96,7 +96,7 @@ export function Use(props: { def: string }) {
 
 export interface IfProps {
   children: ReactNode
-  key: string
+  keyName: string
   value: string
 }
 
@@ -110,6 +110,7 @@ export interface GroupProps extends AnimatableProps {
   id?: string
   mask?: Rect
   t?: string
+  keyName?: string
   children?: ReactNode
 }
 
