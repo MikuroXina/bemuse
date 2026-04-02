@@ -12,7 +12,11 @@ export const corsMiddleware = createMiddleware<Env>((c, next) =>
       ? ['http://localhost:5173']
       : ['https://bemuse.pages.dev'],
     allowMethods: ['POST', 'GET', 'OPTIONS'],
-    allowHeaders: ['Upgrade-Insecure-Requests', 'Content-Type'],
+    allowHeaders: [
+      'Upgrade-Insecure-Requests',
+      'Content-Type',
+      'Authorization',
+    ],
     exposeHeaders: ['Content-Length'],
     credentials: true,
     maxAge: 24 * 60 * 60,
