@@ -126,6 +126,11 @@ export default defineConfig({
       'vite-plugin-node-polyfills/shims/process',
     ],
   },
+  server: {
+    fs: {
+      allow: ['../..'],
+    },
+  },
   test: {
     browser: {
       enabled: true,
