@@ -75,6 +75,10 @@ export const useLogInMutation = (): UseMutationResult<
     mutationFn: async () => {
       const user = await service.logIn()
       client.setQueryData(['online', 'me'], user)
+      await client.invalidateQueries({
+        queryKey: ['online', 'record'],
+        type: 'all',
+      })
       return user
     },
   })

@@ -170,6 +170,10 @@ export class MXOnlineService implements RankingService {
       throw new Error(await res.text())
     }
 
+    const record = parse(Scoreboard.getScoreResponseSchema, await res.json())
+    if (record == null) {
+      return null
+    }
     const {
       entry: {
         score: {
@@ -184,7 +188,7 @@ export class MXOnlineService implements RankingService {
       play_count,
       play_nth,
       rank,
-    } = parse(Scoreboard.getScoreResponseSchema, await res.json())
+    } = record
     return {
       ...level,
       rank,

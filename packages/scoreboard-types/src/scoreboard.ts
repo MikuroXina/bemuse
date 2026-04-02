@@ -86,7 +86,9 @@ export const getScoreParameterSchema = v.object({
   play_mode: playModeSchema,
   user_id: userIdSchema,
 })
-export const getScoreResponseSchema = v.object({
-  ...scoreboardRowSchema.entries,
-  ...playStatsSchema.entries,
-})
+export const getScoreResponseSchema = v.nullable(
+  v.object({
+    ...scoreboardRowSchema.entries,
+    ...playStatsSchema.entries,
+  })
+)
