@@ -8,7 +8,9 @@ import type { Env, EnvVars } from './env'
 
 export const corsMiddleware = createMiddleware<Env>((c, next) =>
   cors({
-    origin: env<EnvVars>(c).DEV ? ['localhost:5173'] : ['bemuse.pages.dev'],
+    origin: env<EnvVars>(c).DEV
+      ? ['http://localhost:5173']
+      : ['https://bemuse.pages.dev'],
     allowMethods: ['POST', 'GET', 'OPTIONS'],
     allowHeaders: ['Upgrade-Insecure-Requests', 'Content-Type'],
     exposeHeaders: ['Content-Length'],
