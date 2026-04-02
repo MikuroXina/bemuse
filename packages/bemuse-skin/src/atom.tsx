@@ -76,14 +76,14 @@ export function Text(props: TextProps) {
   return createElement('text', props)
 }
 
-export interface ObjectProps {
+export interface ParticleProps {
   children: ReactNode
   keyName: string
   pool?: `${number}`
 }
 
-export function Object({ children, ...props }: ObjectProps) {
-  return createElement('object', props, children)
+export function Particle({ children, ...props }: ParticleProps) {
+  return createElement('particle', props, children)
 }
 
 export function Defs({ children }: { children: ReactNode }) {

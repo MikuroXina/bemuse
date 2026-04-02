@@ -4,7 +4,7 @@ import {
   Group,
   If,
   Keyframe,
-  Object,
+  Particle,
   Sprite,
   Text,
   type GroupProps,
@@ -190,7 +190,7 @@ export interface LongNoteProps {
 
 export function LongNote({ keyName, x, cur, add, visible }: LongNoteProps) {
   const body = (
-    <Object keyName={keyName} pool='8'>
+    <Particle keyName={keyName} pool='8'>
       <Sprite
         image={cur.image}
         frame={`${cur.width} x 64 + ${cur.x} + 22 + ${add}`}
@@ -200,10 +200,10 @@ export function LongNote({ keyName, x, cur, add, visible }: LongNoteProps) {
         height={`height + ${AREA_HEIGHT}`}
         visible={visible}
       />
-    </Object>
+    </Particle>
   )
   const tail = (
-    <Object keyName={keyName} pool='8'>
+    <Particle keyName={keyName} pool='8'>
       <Sprite
         image={cur.image}
         frame={`${cur.width} x 8 + ${cur.x} + 104 + ${add}`}
@@ -211,10 +211,10 @@ export function LongNote({ keyName, x, cur, add, visible }: LongNoteProps) {
         y={`(y + height) * ${AREA_HEIGHT} + 4 - 12`}
         visible={visible}
       />
-    </Object>
+    </Particle>
   )
   const head = (
-    <Object keyName={keyName} pool='8'>
+    <Particle keyName={keyName} pool='8'>
       <Sprite
         image={cur.image}
         frame={`${cur.width} x 8 + ${cur.x} + 12 + ${add}`}
@@ -222,7 +222,7 @@ export function LongNote({ keyName, x, cur, add, visible }: LongNoteProps) {
         y={`y * ${AREA_HEIGHT} - 12`}
         visible={visible}
       />
-    </Object>
+    </Particle>
   )
   return (
     <>
@@ -246,9 +246,9 @@ export interface NotesProps {
 export function Notes({ highlight, columns }: NotesProps) {
   return (
     <>
-      <Object keyName='p1_barlines' pool='8'>
+      <Particle keyName='p1_barlines' pool='8'>
         <Sprite image={bar} x='0' y={`y * ${AREA_HEIGHT} - 1`} blend='screen' />
-      </Object>
+      </Particle>
       {
         columns.reduce<[JSX.Element[], number]>(
           ([nodes, x], column) => {
@@ -281,14 +281,14 @@ export function Notes({ highlight, columns }: NotesProps) {
                     />
                   </Animation>
                 </Sprite>
-                <Object keyName={`p1_note_${ch}`} pool='24'>
+                <Particle keyName={`p1_note_${ch}`} pool='24'>
                   <Sprite
                     image={cur.image}
                     frame={`${cur.width} x 12 + ${cur.x}`}
                     x={`${x}`}
                     y={`y * ${AREA_HEIGHT} - 12`}
                   />
-                </Object>
+                </Particle>
                 <LongNote
                   keyName={`p1_longnote_${ch}`}
                   x={x}

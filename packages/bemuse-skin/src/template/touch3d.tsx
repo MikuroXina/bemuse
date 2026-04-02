@@ -2,7 +2,7 @@ import {
   Animation,
   Group,
   Keyframe,
-  Object,
+  Particle,
   Skin,
   Sprite,
   Text,
@@ -49,7 +49,7 @@ function MyNote({ column, file }: { column: number; file: string }) {
           <Keyframe t='0.18' ease='quadOut' alpha='0' />
         </Animation>
       </Sprite>
-      <Object keyName={`p1_note3d_${column}`} pool='24'>
+      <Particle keyName={`p1_note3d_${column}`} pool='24'>
         <Sprite
           image={file}
           x='x'
@@ -59,7 +59,7 @@ function MyNote({ column, file }: { column: number; file: string }) {
           scale-x='width / 26.5'
           scale-y='width / 28'
         />
-      </Object>
+      </Particle>
       <Group x={`${560 * (((column - 0.5) / 7) * 2 - 1) + 1280 / 2}`} y='689'>
         <Animation>
           <Keyframe t='0' alpha='0' scale-x='2' scale-y='2' />
@@ -219,7 +219,7 @@ export function Touch3d() {
           blend='screen'
           alpha='1 - p1_beat % 1'
         />
-        <Object keyName='p1_barlines3d' pool='24'>
+        <Particle keyName='p1_barlines3d' pool='24'>
           <Sprite
             image={bar}
             x='x'
@@ -227,7 +227,7 @@ export function Touch3d() {
             scale-x='width / 282'
             scale-y='width / 282'
           />
-        </Object>
+        </Particle>
         <MyNote column={1} file={noteWhite} />
         <MyNote column={2} file={noteBlue} />
         <MyNote column={3} file={noteWhite} />

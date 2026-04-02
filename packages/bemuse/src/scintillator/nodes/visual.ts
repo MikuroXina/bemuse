@@ -137,7 +137,7 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
       }
       break
     }
-    case 'object': {
+    case 'particle': {
       const key = element.getAttribute('keyName')
       if (key == null) {
         throw new Error('expected element has keyName attribute')
