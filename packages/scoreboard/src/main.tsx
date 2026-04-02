@@ -26,7 +26,11 @@ app.onError((err, c) => {
   if (err instanceof HTTPException) {
     return err.getResponse()
   }
-  console.error(err)
+  console.error(`fatal error: ${err.message}`, {
+    method: c.req.method,
+    path: c.req.path,
+    stack: err.stack,
+  })
   return c.text('Internal Server Error', 500)
 })
 
