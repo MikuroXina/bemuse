@@ -29,7 +29,9 @@ app.onError((err, c) => {
   console.error(`fatal error: ${err.message}`, {
     method: c.req.method,
     path: c.req.path,
+    name: err.name,
     stack: err.stack,
+    cause: err.cause,
   })
   return c.text('Internal Server Error', 500)
 })
