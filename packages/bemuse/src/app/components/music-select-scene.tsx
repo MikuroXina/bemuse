@@ -97,10 +97,7 @@ const Main = ({
     const allSongs = customSongs.concat(collectionData.songs)
     const songList = sortSongs(allSongs)
     const selectFilteredSongList = filterSongs(songList, searchText)
-    const songOfTheDayEnabled = collectionData.songOfTheDayEnabled
-    const selectGroups = groupSongsIntoCategories(selectFilteredSongList, {
-      songOfTheDayEnabled,
-    })
+    const selectGroups = groupSongsIntoCategories(selectFilteredSongList)
 
     const initiallySelectedSong = getInitiallySelectedSong()
     if (initiallySelectedSong) {

@@ -1,11 +1,9 @@
 import type { Song } from '@bemuse/collection-model/types.js'
 import orderBy from 'lodash/orderBy'
 
-import { SongOfTheDay } from './song-of-the-day.js'
-
 interface Grouping {
   title: string
-  criteria: (song: Song, context: { songOfTheDay: SongOfTheDay }) => boolean
+  criteria: (song: Song) => boolean
   sort?: (song: Song) => string
   reverse?: boolean
 }
@@ -23,25 +21,19 @@ const grouping: readonly Grouping[] = [
   },
   {
     title: 'Random Songs of the Day',
-    criteria: (song, context) => context.songOfTheDay.isSongOfTheDay(song.id),
+    criteria: (song) => !!song.songOfTheDay,
   },
   { title: '☆', criteria: () => true },
 ]
 
-export function groupSongsIntoCategories(
-  songs: readonly Song[],
-  { songOfTheDayEnabled = false } = {}
-) {
-  const context = {
-    songOfTheDay: new SongOfTheDay(songs, { enabled: songOfTheDayEnabled }),
-  }
+export function groupSongsIntoCategories(songs: readonly Song[]) {
   const groups = grouping.map((group) => ({
     input: group,
     output: { title: group.title, songs: [] as Song[] },
   }))
   for (const song of songs) {
     for (const { input, output } of groups) {
-      if (input.criteria(song, context)) {
+      if (input.criteria(song)) {
         output.songs.push(song)
         break
       }

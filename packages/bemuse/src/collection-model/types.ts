@@ -13,6 +13,9 @@ export interface Song extends SongMetadataInCollection {
 
   /** `true` if this is an unreleased song. */
   unreleased?: boolean
+
+  /** `true` if this is a special song specified by the song server. */
+  songOfTheDay?: boolean
 }
 
 export type { Chart }
