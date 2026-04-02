@@ -58,7 +58,7 @@ function KButton({ col, children }: KButtonProps) {
   const y = 32
   return (
     <Group x={`${x}`} y={`${y}`}>
-      <Sprite image={kNormal} x='0' y='0' ref={`p1_${n}`} />
+      <Sprite image={kNormal} x='0' y='0' refName={`p1_${n}`} />
       {children}
       <Sprite image={kActive} x='-1' y='-1' alpha={`p1_${n}_active`} />
     </Group>
@@ -78,7 +78,7 @@ function ButtonPanel() {
           <Group x={`${STYLES.scratch.width * 2}`}>
             <Use def='dxbuttons' />
           </Group>
-          <Sprite image={scratchAreaL} x='0' y='8' ref='p1_SC' />
+          <Sprite image={scratchAreaL} x='0' y='8' refName='p1_SC' />
           <Sprite image={scratchGlowL} x='0' y='6' alpha='p1_SC_active' />
         </Group>
       </If>
@@ -87,7 +87,7 @@ function ButtonPanel() {
           <Group x={`${-STYLES.scratch.width * 2}`}>
             <Use def='dxbuttons' />
           </Group>
-          <Sprite image={scratchAreaR} x='674' y='8' ref='p1_SC' />
+          <Sprite image={scratchAreaR} x='674' y='8' refName='p1_SC' />
           <Sprite image={scratchGlowR} x='674' y='6' alpha='p1_SC_active' />
         </Group>
       </If>
@@ -100,7 +100,7 @@ function ButtonPanel() {
           <KButton col={5} />
           <KButton col={6} />
           <Group x='147' y='180'>
-            <Sprite image={sNormal} x='0' y='0' ref='p1_4' />
+            <Sprite image={sNormal} x='0' y='0' refName='p1_4' />
             <Sprite image={sActive} x='-1' y='-1' alpha='p1_4_active' />
           </Group>
         </Group>
@@ -126,7 +126,7 @@ function Button({ i, row, n, children }: ButtonProps) {
   const y = yBase + row * (buttonHeight + spacing)
   return (
     <Group x={`${x}`} y={`${y}`}>
-      <Sprite image={normal} x='0' y='0' ref={`p1_${n}`} />
+      <Sprite image={normal} x='0' y='0' refName={`p1_${n}`} />
       {children}
       <Sprite image={active} x='-1' y='-1' alpha={`p1_${n}_active`} />
     </Group>

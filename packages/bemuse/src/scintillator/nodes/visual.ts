@@ -238,7 +238,7 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
     throw new Error(`invalid blend mode: ${blendMode}`)
   }
 
-  const ref = element.getAttribute('ref')
+  const ref = element.getAttribute('refName')
   if (ref !== null) {
     if (!ctx.refs.has(ref)) {
       ctx.refs.set(ref, new Set())

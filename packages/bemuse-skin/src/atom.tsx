@@ -51,7 +51,7 @@ export interface SpriteProps extends AnimatableProps {
   visible?: string
   blend?: BlendMode
   t?: string
-  ref?: string
+  refName?: string
 }
 
 export function Sprite({ children, ...props }: SpriteProps) {
