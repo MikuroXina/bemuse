@@ -64,7 +64,7 @@ export interface TextProps extends AnimatableProps {
   text: string
   data?: string
   'font-family': string
-  'font-size'?: string
+  'font-size': string
   'font-weight'?: string
   'font-src'?: string
   align?: TextAlignment
