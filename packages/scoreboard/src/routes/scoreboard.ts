@@ -45,6 +45,15 @@ router.post(
   sValidator('param', Scoreboard.submitScoreParameterSchema),
   sValidator('json', Scoreboard.submitScoreRequestBodySchema),
   async (c) => {
+    const { success } = await c.env.SUBMISSION_RATE_LIMITER.limit({
+      key: [c.req.path, c.get('accessToken')].join('#'),
+    })
+    if (!success) {
+      return c.text('Too Many Requests', 429, {
+        'Retry-After': '60',
+      })
+    }
+
     const { VITE_AUTH0_DOMAIN, VITE_AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET } =
       env<EnvVars>(c)
     return c.json(

@@ -12,6 +12,7 @@ export type Variables = EnvVars & {
 
 export type Bindings = {
   score: D1Database
+  SUBMISSION_RATE_LIMITER: RateLimit
 }
 
 export type Env = {
