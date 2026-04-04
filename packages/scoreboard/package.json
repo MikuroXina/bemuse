@@ -9,7 +9,8 @@
     "check": "tsc --noEmit",
     "build": "wireit",
     "dev": "wireit",
-    "deploy": "wireit"
+    "deploy": "wireit",
+    "use-test-data": "wrangler d1 execute score --local --file=test-data.sql"
   },
   "wireit": {
     "build": {
