@@ -16,7 +16,13 @@ import { useCurrentUser, useLogOutMutation } from '@bemuse/online/index.js'
 import { OFFICIAL_SERVER_URL, useCollection } from '@bemuse/query/collection.js'
 import { SceneManagerContext } from '@bemuse/scene-manager/index.js'
 import type { SongMetadataInCollection } from '@mikuroxina/bemuse-types'
-import { type ChangeEvent, useContext, useMemo, useState } from 'react'
+import {
+  type ChangeEvent,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 
@@ -118,52 +124,72 @@ const Main = ({
     return [allSongs, selectGroups]
   }, [collectionRes.data, searchText, customSongs])
 
-  const selectedSong = selectedSongGivenSongs(songs)(musicSelection)
+  const selectedSong = useMemo(
+    () => selectedSongGivenSongs(songs)(musicSelection),
+    [songs, musicSelection]
+  )
   const chartsOfSelectedSong = selectedSong
     ? getPlayableCharts(selectedSong.charts)
     : undefined
-  const selectedChart =
-    selectedChartGivenCharts(chartsOfSelectedSong)(musicSelection)
+  const selectedChart = useMemo(
+    () => selectedChartGivenCharts(chartsOfSelectedSong)(musicSelection),
+    [chartsOfSelectedSong, musicSelection]
+  )
 
   const previewer = useMusicPreviewer()
 
-  function onSelectSong(song: Song, chart?: Chart) {
-    if (musicPreviewEnabled) {
-      getPreviewResourceUrl(song, serverUrl).then((url) => {
-        if (url) {
-          previewer.preview(url)
-        }
-      })
-    }
-    handleSongSelect(song, chart)
-  }
-
-  function onClickChart(chart: Chart) {
-    if (!selectedSong) {
-      return
-    }
-    if (selectedChart.md5 === chart.md5) {
-      previewer.go()
-      MusicSelectionIO.launchGame({
-        server: { url: serverUrl },
-        song: selectedSong,
-        chart: selectedChart,
-        dispatch,
-        options,
-        sceneManager,
-        autoplayEnabled: options['player.P1.autoplay'] === 'on',
-      })
-    } else {
+  const onSelectSong = useCallback(
+    (song: Song, chart?: Chart) => {
       if (musicPreviewEnabled) {
-        getPreviewResourceUrl(selectedSong, serverUrl).then((url) => {
+        getPreviewResourceUrl(song, serverUrl).then((url) => {
           if (url) {
             previewer.preview(url)
           }
         })
       }
-      handleSongSelect(selectedSong, chart)
-    }
-  }
+      handleSongSelect(song, chart)
+    },
+    [musicPreviewEnabled, getPreviewResourceUrl, handleSongSelect]
+  )
+
+  const onClickChart = useCallback(
+    (chart: Chart) => {
+      if (!selectedSong) {
+        return
+      }
+      if (selectedChart.md5 === chart.md5) {
+        previewer.go()
+        MusicSelectionIO.launchGame({
+          server: { url: serverUrl },
+          song: selectedSong,
+          chart: selectedChart,
+          dispatch,
+          options,
+          sceneManager,
+          autoplayEnabled: options['player.P1.autoplay'] === 'on',
+        })
+      } else {
+        if (musicPreviewEnabled) {
+          getPreviewResourceUrl(selectedSong, serverUrl).then((url) => {
+            if (url) {
+              previewer.preview(url)
+            }
+          })
+        }
+        handleSongSelect(selectedSong, chart)
+      }
+    },
+    [
+      selectedSong,
+      selectedChart,
+      previewer,
+      options,
+      sceneManager,
+      musicPreviewEnabled,
+      getPreviewResourceUrl,
+      handleSongSelect,
+    ]
+  )
 
   if (collectionRes.isLoading || collectionRes.isPending) {
     return <div className={styles.loading}>Loading…</div>
@@ -257,59 +283,75 @@ const MusicSelectScene = () => {
 
   const dispatch = useDispatch()
 
-  const popScene = () => {
+  const popScene = useCallback(() => {
     sceneManager.pop()
-  }
-  const onSelectChart = (song: Song, chart: Chart) =>
-    MusicSelectionIO.selectChart(song, chart, dispatch)
-  const onSelectSong = (song: Song) =>
-    MusicSelectionIO.selectSong(song, dispatch)
-  const onFilterTextChange = (text: string) =>
-    MusicSearchIO.handleSearchTextType(text, dispatch)
+  }, [])
+  const onSelectChart = useCallback(
+    (song: Song, chart: Chart) =>
+      MusicSelectionIO.selectChart(song, chart, dispatch),
+    []
+  )
+  const onSelectSong = useCallback(
+    (song: Song) => MusicSelectionIO.selectSong(song, dispatch),
+    []
+  )
+  const onFilterTextChange = useCallback(
+    (text: string) => MusicSearchIO.handleSearchTextType(text, dispatch),
+    []
+  )
 
-  const showUnofficialDisclaimer = () => {
+  const showUnofficialDisclaimer = useCallback(() => {
     setUnofficialDisclaimerVisible(true)
-  }
-  const hideUnofficialDisclaimer = () => {
+  }, [])
+  const hideUnofficialDisclaimer = useCallback(() => {
     setUnofficialDisclaimerVisible(false)
-  }
-  const showCustomBMSModal = () => {
+  }, [])
+  const showCustomBMSModal = useCallback(() => {
     setCustomBMSModalVisible(true)
-  }
-  const hideCustomBMSModal = () => {
+  }, [])
+  const hideCustomBMSModal = useCallback(() => {
     setCustomBMSModalVisible(false)
-  }
-  const onSongLoaded = (song: Song) => {
-    dispatch(customSongsSlice.actions.CUSTOM_SONG_LOADED({ song }))
-    hideCustomBMSModal()
-  }
-  const handleFilter = (e: ChangeEvent<HTMLInputElement>) => {
-    onFilterTextChange(e.target.value)
-  }
-  const showOptions = () => {
+  }, [])
+  const onSongLoaded = useCallback(
+    (song: Song) => {
+      dispatch(customSongsSlice.actions.CUSTOM_SONG_LOADED({ song }))
+      hideCustomBMSModal()
+    },
+    [hideCustomBMSModal]
+  )
+  const handleFilter = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      onFilterTextChange(e.target.value)
+    },
+    [onFilterTextChange]
+  )
+  const showOptions = useCallback(() => {
     setOptionsVisible(true)
-  }
-  const hideOptions = () => {
+  }, [])
+  const hideOptions = useCallback(() => {
     setOptionsVisible(false)
-  }
-  const showAuthenticationPopup = () => {
+  }, [])
+  const showAuthenticationPopup = useCallback(() => {
     setAuthenticationPopupVisible(true)
-  }
-  const hideAuthenticationPopup = () => {
+  }, [])
+  const hideAuthenticationPopup = useCallback(() => {
     setAuthenticationPopupVisible(false)
-  }
-  const handleSongSelect = (song: Song, chart?: Chart) => {
-    if (chart) {
-      onSelectChart(song, chart)
-    } else {
-      onSelectSong(song)
-    }
-    setInSong(true)
-  }
+  }, [])
+  const handleSongSelect = useCallback(
+    (song: Song, chart?: Chart) => {
+      if (chart) {
+        onSelectChart(song, chart)
+      } else {
+        onSelectSong(song)
+      }
+      setInSong(true)
+    },
+    [onSelectChart, onSelectSong]
+  )
 
-  const handleSongDeselect = () => {
+  const handleSongDeselect = useCallback(() => {
     setInSong(false)
-  }
+  }, [])
 
   return (
     <Scene className={styles.scene} onDragEnter={showCustomBMSModal}>
