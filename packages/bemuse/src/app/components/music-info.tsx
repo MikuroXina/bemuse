@@ -1,5 +1,6 @@
 import type { Chart, Song } from '@bemuse/collection-model/types.js'
 import type { MappingMode } from '@bemuse/rules/mapping-mode.js'
+import { memo } from 'react'
 
 import MusicChartInfo from './music-chart-info.js'
 import MusicChartSelector from './music-chart-selector.js'
@@ -21,7 +22,7 @@ const MusicInfo = (props: MusicInfoProps) => (
     {props.chart && (
       <>
         <div className={styles.chartInfo}>
-          <MusicChartInfo info={props.chart.info} />
+          <MusicChartInfo key={props.chart.md5} info={props.chart.info} />
         </div>
         <div className={styles.chartSelector}>
           <MusicChartSelector
@@ -37,4 +38,4 @@ const MusicInfo = (props: MusicInfoProps) => (
   </section>
 )
 
-export default MusicInfo
+export default memo(MusicInfo)
