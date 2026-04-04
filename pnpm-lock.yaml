@@ -12,7 +12,7 @@ importers:
     dependencies:
       '@auth0/auth0-react':
         specifier: ^2.15.1
-        version: 2.15.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        version: 2.16.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@emotion/react':
         specifier: ^11.14.0
         version: 11.14.0(@types/react@19.2.14)(react@19.2.4)
@@ -1065,17 +1065,17 @@ packages:
     peerDependencies:
       ajv: '>=8'
 
-  '@auth0/auth0-auth-js@1.5.0':
-    resolution: {integrity: sha512-shahG7sRw6VxduRvnNcmbgL8V42z+kNR9LDih9ofY4eM8ygt07RUh58x7S1M80ENx9wcMqYUsJWMaVudgQHyjQ==}
+  '@auth0/auth0-auth-js@1.6.0':
+    resolution: {integrity: sha512-/WYYNlsqhWA6I60pMVLFVeOgjOUCLdJThEAsjN8pAgYY09BTxbPaRIEVDgGu6ckoJpkmKvEYlHPO/vwRNrvX6w==}
 
-  '@auth0/auth0-react@2.15.1':
-    resolution: {integrity: sha512-zcBh8xWO1cgUeN19tQueZHVzq7/O+yWc6MhKdQvoU0ima0wagl9SeyVmahg8aiBQqRcqT6C+y2+IOcnPGnI2Vw==}
+  '@auth0/auth0-react@2.16.1':
+    resolution: {integrity: sha512-YT6ngVDh3MV5ey2zhzXVQdLN0gQQCGzvykGtQVGY49Bky/NCB/Os6sXPhqqdsoTB07umYY9Uu54GowqwUSO4sw==}
     peerDependencies:
       react: ^16.11.0 || ^17 || ^18 || ~19.0.1 || ~19.1.2 || ^19.2.1
       react-dom: ^16.11.0 || ^17 || ^18 || ~19.0.1 || ~19.1.2 || ^19.2.1
 
-  '@auth0/auth0-spa-js@2.18.0':
-    resolution: {integrity: sha512-2oKnn6cD4zQUWDfZ4bWWmLxEbOnxjMYakMFOJCJ5Z5OobVeOBtUTVkYKB8LaDksQrK3F41IRzcP97ffsqEUYEA==}
+  '@auth0/auth0-spa-js@2.18.3':
+    resolution: {integrity: sha512-nfZxRj+bq0t4dJfem7V0VK/mPjD9TTvu6Wd87Yc/k7QojiFf5VswDL1+9o+6WjXAIaIEttS6BLZUYcsIgphLiQ==}
 
   '@babel/code-frame@7.29.0':
     resolution: {integrity: sha512-9NhCeYjq9+3uxgdtp20LSiJXJvN0FeCtNGpJxuMFZ1Kv3cWUNb6DOhJwUvcVCzKGR66cw4njwM6hrJLqgOwbcw==}
@@ -12231,20 +12231,20 @@ snapshots:
       jsonpointer: 5.0.1
       leven: 3.1.0
 
-  '@auth0/auth0-auth-js@1.5.0':
+  '@auth0/auth0-auth-js@1.6.0':
     dependencies:
       jose: 6.2.2
       openid-client: 6.8.2
 
-  '@auth0/auth0-react@2.15.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@auth0/auth0-react@2.16.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
-      '@auth0/auth0-spa-js': 2.18.0
+      '@auth0/auth0-spa-js': 2.18.3
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
 
-  '@auth0/auth0-spa-js@2.18.0':
+  '@auth0/auth0-spa-js@2.18.3':
     dependencies:
-      '@auth0/auth0-auth-js': 1.5.0
+      '@auth0/auth0-auth-js': 1.6.0
       browser-tabs-lock: 1.3.0
       dpop: 2.1.1
       es-cookie: 1.3.2
