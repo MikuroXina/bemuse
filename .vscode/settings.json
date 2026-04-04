@@ -65,6 +65,7 @@
     "precomputed",
     "prfun",
     "promisify",
+    "ratelimits",
     "renke",
     "Renoter",
     "replaygain",

@@ -19,3 +19,10 @@ invocation_logs = true
 binding = "score"
 database_name = "score"
 database_id = "43f545a9-cf4c-4e52-9a0f-c81155c2cff0"
+
+[[ratelimits]]
+name = "SUBMISSION_RATE_LIMITER"
+namespace_id = "1001"
+[ratelimits.simple]
+limit = 2
+period = 60
