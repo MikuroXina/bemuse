@@ -32,10 +32,10 @@ export const getLeaderboard = async ({
       MAX(score) AS score,
       max_combo,
       total_combo,
-      RANK() OVER (ORDER BY score DESC, created_at DESC) AS rank
+      RANK() OVER (ORDER BY score DESC, created_at ASC) AS rank
     FROM
       score_record
-      JOIN
+      LEFT JOIN
         user_frozen
       ON
         score_record.user_id = user_frozen.id
@@ -45,7 +45,7 @@ export const getLeaderboard = async ({
       user_id
     ORDER BY
       score DESC,
-      created_at DESC;
+      created_at ASC;
     `
     )
     .bind(chartId, playMode)
