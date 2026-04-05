@@ -16,13 +16,13 @@ export async function start(dir: string, port: number): Promise<void> {
   await fastify.register(cors, {
     methods: ['GET', 'HEAD', 'OPTIONS'],
   })
-  await fastify.register(staticServe, {
-    root: dir,
-  })
-  fastify.get(
-    '/^\\/+:song(.+)\\/assets\\/:file([^/]+)$/',
-    await bemuseAssets(dir)
-  )
+  const cwd = process.cwd()
+  const root = path.resolve(cwd, dir)
+  if (cwd !== root && !root.startsWith(cwd + path.sep)) {
+    throw new Error('cannot serve a directory not in CWD')
+  }
+  await fastify.register(staticServe, { root })
+  fastify.get('/:song(.+)/assets/:file([^/]+)', await bemuseAssets(dir))
   fastify.listen({ port }, (err, address) => {
     if (err != null) {
       throw err
@@ -108,7 +108,7 @@ async function createSongServer(dir: string): Promise<SongServer> {
     } else if (file === 'data.bemuse') {
       streamFiles(dir, files, res)
     } else {
-      throw new Error('Invalid file!')
+      res.callNotFound()
     }
   }
 }
