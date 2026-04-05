@@ -29,6 +29,15 @@ export const chartBgaSchema = v.object({
 })
 export type ChartBga = v.InferOutput<typeof chartBgaSchema>
 
+export const chartKeysSchema = v.union([
+  v.literal('5K'),
+  v.literal('7K'),
+  v.literal('10K'),
+  v.literal('14K'),
+  v.literal('empty'),
+])
+export type ChartKeys = v.InferOutput<typeof chartKeysSchema>
+
 export const chartSchema = v.object({
   md5: v.pipe(v.string(), v.hash(['md5'])),
   info: chartInfoSchema,
@@ -36,13 +45,7 @@ export const chartSchema = v.object({
   bpm: chartBpmSchema,
   duration: v.number(),
   scratch: v.boolean(),
-  keys: v.union([
-    v.literal('5K'),
-    v.literal('7K'),
-    v.literal('10K'),
-    v.literal('14K'),
-    v.literal('empty'),
-  ]),
+  keys: chartKeysSchema,
   file: v.string(),
   bga: v.optional(chartBgaSchema),
 })
