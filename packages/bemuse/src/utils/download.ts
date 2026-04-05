@@ -1,6 +1,5 @@
 import type Progress from '@bemuse/progress'
 import { BYTES_FORMATTER } from '@bemuse/progress/formatters.js'
-import delay from 'delay'
 
 export type XMLHttpRequestResponse<T extends XMLHttpRequestResponseType> =
   T extends ''
@@ -47,7 +46,7 @@ export function download(
           console.error(`Unable to download ${url} [attempt ${i}]`, error)
           if (i >= 3 || shouldGiveUp) throw error
           const waitMs = getRetryDelay()
-          await delay(waitMs)
+          await new Promise((resolve) => setTimeout(resolve, waitMs))
         }
       }
       function attempt(): Promise<XMLHttpRequestResponse<T>> {
