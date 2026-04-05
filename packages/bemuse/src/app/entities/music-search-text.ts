@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import { type Draft, produce } from 'immer'
+import { type Draft } from 'immer'
 
 export interface MusicSearchTextState {
   staged: string
@@ -20,10 +20,10 @@ export const searchText = (state: MusicSearchTextState) => state.committed
 export const inputText = (state: MusicSearchTextState) => state.staged
 
 // Updaters
-export const handleTextType = (text: string) =>
-  produce((draft: Draft<MusicSearchTextState>) => {
+export const handleTextType =
+  (text: string) => (draft: Draft<MusicSearchTextState>) => {
     draft.staged = text
-  })
+  }
 export const handleDebounce = (state: MusicSearchTextState) => ({
   ...state,
   committed: state.staged,
@@ -39,9 +39,5 @@ export const musicSearchTextSlice = createSlice({
       { payload: { text } }: PayloadAction<{ text: string }>
     ) => handleTextType(text)(state),
     MUSIC_SEARCH_DEBOUNCED: (state) => handleDebounce(state),
-    MUSIC_SEARCH_TEXT_INITIALIZED: (
-      _state,
-      { payload: { text } }: PayloadAction<{ text: string }>
-    ) => setText(text)(),
   },
 })

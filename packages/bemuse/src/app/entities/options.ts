@@ -66,7 +66,9 @@ export const initialState: OptionsState = {
   'system.ack.finishGame': '0',
   'system.ack.replayGame': '0',
 }
-export const initWithDataFromStorage = (options: Record<string, string>) => {
+const initWithDataFromStorage = (
+  options: Record<string, string>
+): OptionsState => {
   if (options['player.P1.scratch'] === 'off') {
     options['player.P1.scratch'] = 'left'
   }
@@ -74,6 +76,14 @@ export const initWithDataFromStorage = (options: Record<string, string>) => {
     ...initialState,
     ...options,
   }
+}
+
+export const loadOptions = (storage: Storage): OptionsState => {
+  const options: Record<string, string> = {}
+  for (const key of Object.keys(initialState)) {
+    options[key] = storage.getItem(key) ?? initialState[key]
+  }
+  return initWithDataFromStorage(options)
 }
 
 // Internal utils
@@ -210,13 +220,6 @@ export const optionsSlice = createSlice({
   name: 'options',
   initialState: initialState,
   reducers: {
-    LOAD_FROM_STORAGE: () => {},
-    LOADED_FROM_STORAGE: (
-      _state,
-      {
-        payload: { options },
-      }: PayloadAction<{ options: Record<string, string> }>
-    ) => initWithDataFromStorage(options),
     INIT_WITH_DATA_FROM_STORAGE: (
       _state,
       {
