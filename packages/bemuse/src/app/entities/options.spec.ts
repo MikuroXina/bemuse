@@ -1,9 +1,9 @@
-import type { AnyAction } from 'redux'
+import type { UnknownAction } from 'redux'
 import { assert, describe, expect, it } from 'vitest'
 
 import * as Options from './options'
 
-const update = (action: AnyAction) => (state: Options.OptionsState) =>
+const update = (action: UnknownAction) => (state: Options.OptionsState) =>
   Options.optionsSlice.reducer(state, action)
 const actions = Options.optionsSlice.actions
 

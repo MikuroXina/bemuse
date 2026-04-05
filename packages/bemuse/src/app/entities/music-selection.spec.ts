@@ -1,3 +1,4 @@
+import { produce } from 'immer'
 import { describe, expect, it } from 'vitest'
 
 import * as MusicSelection from './music-selection'
@@ -15,7 +16,7 @@ describe('selectedSongGivenSongs', function () {
   }
 
   it('allows selecting song', () => {
-    const actual = MusicSelection.selectSong('song1')(
+    const actual = produce(MusicSelection.selectSong('song1'))(
       MusicSelection.initialState
     )
 
@@ -27,7 +28,7 @@ describe('selectedSongGivenSongs', function () {
     ).toStrictEqual({ ...dummy, id: 'song1', title: 'BY MY SIDE' })
   })
   it('should fallback to avilaable song if not available', () => {
-    const actual = MusicSelection.selectSong('song1')(
+    const actual = produce(MusicSelection.selectSong('song1'))(
       MusicSelection.initialState
     )
 
@@ -39,10 +40,8 @@ describe('selectedSongGivenSongs', function () {
     ).toStrictEqual({ ...dummy, id: 'song0', title: 'TEST' })
   })
   it('should allow selecting chart', () => {
-    const actual = MusicSelection.selectChart(
-      'song1',
-      'chart1.bml',
-      8
+    const actual = produce(
+      MusicSelection.selectChart('song1', 'chart1.bml', 8)
     )(MusicSelection.initialState)
 
     expect(actual.selectedSongId).toStrictEqual('song1')
@@ -69,10 +68,8 @@ describe('selectedChartGivenCharts', function () {
     keys: '5K' as const,
   }
 
-  const givenSelectedChart = MusicSelection.selectChart(
-    'song1',
-    'chart1.bml',
-    8
+  const givenSelectedChart = produce(
+    MusicSelection.selectChart('song1', 'chart1.bml', 8)
   )(MusicSelection.initialState)
   it('selects the chart if available', () => {
     expect(
