@@ -82,7 +82,7 @@ jobs:
         run: pnpm run build
       - name: Test with coverage
         run: pnpm run -r coverage
-      - uses: codecov/codecov-action@v5
+      - uses: codecov/codecov-action@v6
         with:
           files: ./packages/bemuse/coverage/clover.xml,./packages/bemuse-indexer/coverage/clover.xml,./packages/bemuse-notechart/coverage/clover.xml,./packages/bemuse-tools/coverage/clover.xml,./packages/bms/coverage/clover.xml,./packages/bmson/coverage/clover.xml,./packages/monetizer/coverage/clover.xml
           use_oidc: true
