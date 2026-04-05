@@ -14,4 +14,3 @@ runs:
     - name: Install Deps
       run: pnpm install
       shell: bash
-    - uses: google/wireit@setup-github-actions-caching/v2

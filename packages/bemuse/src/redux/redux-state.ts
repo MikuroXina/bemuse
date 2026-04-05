@@ -7,6 +7,8 @@
 // - The selectors can be used to query data from the store.
 //
 
+import { initWithText } from '@bemuse/app/entities/music-search-text.js'
+import { getInitialGrepString } from '@bemuse/app/query-flags.js'
 import type { SongMetadataInCollection } from '@mikuroxina/bemuse-types'
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { enableMapSet } from 'immer'
@@ -23,6 +25,18 @@ export interface AppState {
   musicSelection: MusicSelection.MusicSelectionState
   options: Options.OptionsState
   rageQuit: boolean
+}
+
+export const preloadState = (storage: Storage): AppState => {
+  const options = Options.loadOptions(storage)
+  const musicSearchText = initWithText(getInitialGrepString() ?? '')
+  return {
+    customSongs: customSongsSlice.getInitialState(),
+    musicSearchText,
+    musicSelection: MusicSelection.musicSelectionSlice.getInitialState(),
+    options,
+    rageQuit: rageQuitSlice.getInitialState(),
+  }
 }
 
 // Slice

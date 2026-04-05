@@ -1,6 +1,5 @@
 import Scene from '@bemuse/components/common/scene.js'
 import type { ChartInfo } from '@mikuroxina/bemuse-types'
-import delay from 'delay'
 import { useEffect, useRef } from 'react'
 
 import styles from './loading-scene.module.scss'
@@ -34,7 +33,7 @@ const LoadingScene = ({
     if (registerTeardownCallback) {
       registerTeardownCallback(() => {
         sceneRef.current?.classList.add('is-exiting')
-        return delay(500)
+        return new Promise((resolve) => setTimeout(resolve, 500))
       })
     }
   }, [])

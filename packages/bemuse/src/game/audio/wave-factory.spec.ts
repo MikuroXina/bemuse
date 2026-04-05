@@ -1,7 +1,6 @@
 import type SamplingMaster from '@bemuse/sampling-master/index.js'
 import type { Sample } from '@bemuse/sampling-master/index.js'
 import type { SoundedEvent } from '@mikuroxina/bemuse-notechart'
-import delay from 'delay'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import WaveFactory from './wave-factory.js'
@@ -42,7 +41,7 @@ describe('WaveFactory', function () {
       sample.play.mockReturnValue(instance)
       waveFactory.playNote(k('0z'), 0)
       waveFactory.playNote(k('0z'), 0)
-      await delay(0)
+      await new Promise((resolve) => setTimeout(resolve, 0))
       expect(instance.stop).toHaveBeenCalledOnce()
     })
   })

@@ -1,3 +1,4 @@
+import produce from 'immer'
 import { describe, expect, it } from 'vitest'
 
 import * as MusicSearchText from './music-search-text.js'
@@ -11,7 +12,7 @@ describe('MusicSearchText', function () {
   })
 
   it('should set inputText when typing', () => {
-    const actual = MusicSearchText.handleTextType('hello')(
+    const actual = produce(MusicSearchText.handleTextType('hello'))(
       MusicSearchText.initialState
     )
 
@@ -21,7 +22,9 @@ describe('MusicSearchText', function () {
 
   it('should copy inputText to searchText when debounced', () => {
     const actual = MusicSearchText.handleDebounce(
-      MusicSearchText.handleTextType('hello')(MusicSearchText.initialState)
+      produce(MusicSearchText.handleTextType('hello'))(
+        MusicSearchText.initialState
+      )
     )
 
     expect(MusicSearchText.searchText(actual)).toStrictEqual('hello')

@@ -1,6 +1,6 @@
 import type { Chart, SongMetadataInCollection } from '@mikuroxina/bemuse-types'
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import { type Draft, produce } from 'immer'
+import { type Draft } from 'immer'
 import minBy from 'lodash/minBy'
 
 export interface MusicSelectionState {
@@ -35,20 +35,17 @@ export const selectedChartGivenCharts =
   }
 
 // Updater
-export const selectSong = (songId: string) =>
-  produce((draft: Draft<MusicSelectionState>) => {
+export const selectSong =
+  (songId: string) => (draft: Draft<MusicSelectionState>) => {
     draft.selectedSongId = songId
-  })
-export const selectChart = (
-  songId: string,
-  chartId: string,
-  chartLevel: number
-) =>
-  produce((draft: Draft<MusicSelectionState>) => {
+  }
+export const selectChart =
+  (songId: string, chartId: string, chartLevel: number) =>
+  (draft: Draft<MusicSelectionState>) => {
     draft.selectedSongId = songId
     draft.selectedChartId = chartId
     draft.selectedChartLevel = chartLevel
-  })
+  }
 
 export interface PartialChart {
   info: {
@@ -73,7 +70,10 @@ export const musicSelectionSlice = createSlice({
     MUSIC_SONG_SELECTED: (
       state,
       { payload: { songId } }: PayloadAction<{ songId: string }>
-    ) => selectSong(songId)(state),
+    ) => {
+      console.log({ state })
+      return selectSong(songId)(state)
+    },
     MUSIC_CHART_SELECTED: (
       state,
       {

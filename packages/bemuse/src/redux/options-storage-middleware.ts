@@ -1,27 +1,24 @@
-import type { AnyAction, Middleware } from 'redux'
+import {
+  createListenerMiddleware,
+  type ListenerMiddlewareInstance,
+} from '@reduxjs/toolkit'
 
-import { initialState, optionsSlice } from '../app/entities/options.js'
 import type { AppState } from './redux-state.js'
 
-export const optionsStorageMiddleware =
-  (
-    storage: Storage = localStorage
-  ): Middleware<Record<string, never>, AppState> =>
-  ({ dispatch, getState }) =>
-  (next) =>
-  (action: AnyAction) => {
-    if (action.type === optionsSlice.actions.LOAD_FROM_STORAGE.type) {
-      const options: Record<string, string> = {}
-      for (const key of Object.keys(initialState)) {
-        options[key] = storage.getItem(key) ?? initialState[key]
-      }
-      dispatch(optionsSlice.actions.LOADED_FROM_STORAGE({ options }))
-    }
-    next(action)
-    if (action.type.startsWith('options/')) {
-      const { options } = getState()
+export const optionsStorageMiddleware = (
+  storage: Storage
+): ListenerMiddlewareInstance<AppState> => {
+  const middleware = createListenerMiddleware<AppState>({
+    extra: storage,
+  })
+  middleware.startListening({
+    predicate: (action) => action.type.startsWith('options/'),
+    effect: (_, listener) => {
+      const { options } = listener.getState()
       for (const key of Object.keys(options)) {
         storage.setItem(key, options[key])
       }
-    }
-  }
+    },
+  })
+  return middleware
+}
