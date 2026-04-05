@@ -1,4 +1,4 @@
-import meow, { AnyFlags, Result } from 'meow'
+import meow, { type AnyFlags, type Result } from 'meow'
 
 import { index } from './indexer.js'
 import { packIntoBemuse } from './packer.js'

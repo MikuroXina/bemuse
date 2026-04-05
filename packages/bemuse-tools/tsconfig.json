@@ -2,9 +2,10 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "lib": ["ESNext", "DOM"],
-    "types": ["node", "lodash", "js-yaml"],
+    "types": ["node", "js-yaml"],
     "typeRoots": ["./node_modules/@types"],
-    "noEmit": true
+    "noEmit": true,
+    "verbatimModuleSyntax": true
   },
   "include": ["src/**/*"]
 }

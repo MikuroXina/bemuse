@@ -3,17 +3,17 @@ import { basename, dirname, join } from 'node:path'
 
 import {
   getSongInfo,
-  IndexingInputFile,
-  OutputFileInfo,
-  OutputSongInfo,
+  type IndexingInputFile,
+  type OutputFileInfo,
+  type OutputSongInfo,
   type SongCache,
 } from '@mikuroxina/bemuse-indexer'
-import {
+import type {
   Chart,
   ChartKeys,
   SongMetadataInCollection,
 } from '@mikuroxina/bemuse-types'
-import chalk, { ChalkInstance } from 'chalk'
+import chalk, { type ChalkInstance } from 'chalk'
 import { glob } from 'glob'
 import yaml from 'js-yaml'
 import { sortBy } from 'lodash-es'

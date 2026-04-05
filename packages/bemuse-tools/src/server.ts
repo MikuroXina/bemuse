@@ -6,7 +6,7 @@ import cors from '@fastify/cors'
 import middle from '@fastify/middie'
 import staticServe from '@fastify/static'
 import bytes from 'bytes'
-import Fastify, { FastifyReply, FastifyRequest } from 'fastify'
+import Fastify, { type FastifyReply, type FastifyRequest } from 'fastify'
 import { glob } from 'glob'
 
 export async function start(dir: string, port: number): Promise<void> {

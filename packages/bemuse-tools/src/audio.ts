@@ -1,13 +1,8 @@
 import { spawn } from 'node:child_process'
 import fs from 'node:fs'
-import { cpus } from 'node:os'
 import { basename, extname } from 'node:path'
 
-import throat from 'throat'
-
 import type { FileEntry } from './directory.js'
-
-const limit = cpus().length || 1
 
 export class AudioConvertor {
   private _target: string
@@ -66,27 +61,29 @@ export class AudioConvertor {
     return this._doSoX(path, type, typeArgs)
   }
 
-  private _doSoX(path: string, type: string, inputTypeArgs: readonly string[]) {
-    return throat(limit, async () => {
-      const sox = spawn('sox', [
-        ...inputTypeArgs,
-        path,
-        '-t',
-        type,
-        ...this._extra,
-        '-',
-      ])
-      sox.stdin.end()
-      sox.stderr.on('data', (x) => process.stderr.write(x))
-      sox.on('close', (code) => {
-        if (code !== 0) {
-          console.error('Unable to convert audio file -- SoX exited ' + code)
-          throw new Error('SoX process exited: ' + code)
-        }
-      })
-      const buf = Buffer.concat(await Array.fromAsync(sox.stdout))
-      return new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength)
+  private async _doSoX(
+    path: string,
+    type: string,
+    inputTypeArgs: readonly string[]
+  ): Promise<ArrayBuffer> {
+    const sox = spawn('sox', [
+      ...inputTypeArgs,
+      path,
+      '-t',
+      type,
+      ...this._extra,
+      '-',
+    ])
+    sox.stdin.end()
+    sox.stderr.on('data', (x) => process.stderr.write(x))
+    sox.on('close', (code) => {
+      if (code !== 0) {
+        console.error('Unable to convert audio file -- SoX exited ' + code)
+        throw new Error('SoX process exited: ' + code)
+      }
     })
+    const buf = Buffer.concat(await Array.fromAsync(sox.stdout))
+    return buf.buffer
   }
 }
 
