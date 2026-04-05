@@ -35,7 +35,7 @@ jobs:
         run: tar -cvzf dist.tar.gz packages/bemuse/dist
       - name: Upload artifact
         if: always()
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: bemuse-build-${{ github.sha }}
           path: dist.tar.gz
@@ -89,7 +89,7 @@ jobs:
       - name: Run E2E tests
         run: pnpm run --filter bemuse-e2e test
       - name: Upload test report
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: playwright-report
