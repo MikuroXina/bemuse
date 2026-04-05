@@ -39,7 +39,7 @@ const commands: Command[] = [
         },
         argv: cli.input,
       })
-      const dir = packCli.input
+      const dir = packCli.input[0]
       if (!dir) {
         throw new Error('Please specify the directory!')
       }
@@ -83,7 +83,7 @@ async function main(): Promise<void> {
     importMeta: import.meta,
     commands: commands.map(({ name }) => name),
   })
-  const targetCommand = args.input.shift()
+  const targetCommand = args.command
   for (const command of commands) {
     if (command.name === targetCommand) {
       return await command.handle(args)
