@@ -33,6 +33,8 @@ import type {
   OutputSongInfoVideo,
 } from './types.js'
 
+export * from './types.js'
+
 interface InputMeta {
   name: string
   md5?: string
@@ -128,13 +130,15 @@ export async function getFileInfo(
   }
 }
 
+export interface SongCache {
+  get(md5: string): OutputFileInfo
+  put(md5: string, info: OutputFileInfo): void
+}
+
 export async function getSongInfo(
   files: IndexingInputFile[],
   options?: {
-    cache?: {
-      get(md5: string): OutputFileInfo
-      put(md5: string, info: OutputFileInfo): void
-    }
+    cache?: SongCache
     extra?: unknown
     onProgress?: (processed: number, len: number, name: string) => void
     onError?: (error: Error, name: string) => void

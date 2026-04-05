@@ -1,20 +1,16 @@
-import fs from 'node:fs'
+import { promises } from 'node:fs'
 import { join } from 'node:path'
-
-import mkdirp from 'mkdirp'
 
 import AudioConvertor from './audio.js'
 import BemusePacker from './bemuse-packer.js'
 import Directory from './directory.js'
 
-const fileStat = fs.promises.stat
-
-export async function packIntoBemuse(path) {
-  const stat = await fileStat(path)
+export async function packIntoBemuse(path: string): Promise<void> {
+  const stat = await promises.stat(path)
   if (!stat.isDirectory()) throw new Error('Not a directory: ' + path)
 
   const directory = new Directory(path)
-  const packer = new BemusePacker(directory)
+  const packer = new BemusePacker()
 
   console.log('-> Loading audios')
   const audio = await directory.files('*.{mp3,wav,ogg}')
@@ -27,11 +23,14 @@ export async function packIntoBemuse(path) {
 
   console.log('-> Writing...')
   const out = join(path, 'assets')
-  await mkdirp(out)
+  await promises.mkdir(out, { recursive: true })
   await packer.write(out)
 }
 
-async function dotMap(array, map) {
+async function dotMap<T, U>(
+  array: readonly T[],
+  map: (t: T) => Promise<U>
+): Promise<U[]> {
   const results = await Promise.all(
     array.map(async (item) => {
       try {
@@ -40,7 +39,7 @@ async function dotMap(array, map) {
         return [result]
       } catch (e) {
         process.stdout.write('x')
-        process.stderr.write('[ERR] ' + e.stack)
+        process.stderr.write('[ERR] ' + (e as Error).stack)
         return []
       }
     })

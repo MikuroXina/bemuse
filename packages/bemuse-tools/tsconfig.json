@@ -1,9 +1,11 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "lib",
-    "target": "es5"
+    "lib": ["ESNext", "DOM"],
+    "types": ["node", "js-yaml"],
+    "typeRoots": ["./node_modules/@types"],
+    "noEmit": true,
+    "verbatimModuleSyntax": true
   },
-  "include": ["src/**/*.js"]
+  "include": ["src/**/*"]
 }

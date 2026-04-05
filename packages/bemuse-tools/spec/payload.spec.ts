@@ -2,12 +2,12 @@ import { beforeEach, describe, expect, it } from 'vitest'
 
 import Payload from '../src/payload'
 
-function buffer(text) {
-  return new TextEncoder().encode(text)
+function buffer(text: string): ArrayBuffer {
+  return new TextEncoder().encode(text).buffer
 }
 
 describe('Payload', function () {
-  let payload
+  let payload: Payload
 
   beforeEach(() => {
     payload = new Payload()

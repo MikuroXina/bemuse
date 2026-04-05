@@ -1,16 +1,15 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+import { FileEntry } from './directory.js'
 import Payload from './payload.js'
 
 const { writeFile } = fs.promises
 
 export class BemusePacker {
-  constructor() {
-    this._refs = []
-  }
+  private _refs: Ref[] = []
 
-  pack(name, files) {
+  pack(name: string, files: FileEntry[]): void {
     const max = 1474560
     let cur = null
     files = files.slice()
@@ -23,16 +22,16 @@ export class BemusePacker {
     }
   }
 
-  ref(name) {
+  ref(name: string): Ref {
     const ref = new Ref(name, this._refs.length)
     this._refs.push(ref)
     return ref
   }
 
-  async write(folder) {
+  async write(folder: string): Promise<void> {
     const files = []
     const refs = []
-    const nums = {}
+    const counts: Record<string, number> = {}
     for (const ref of this._refs) {
       const payload = new Payload()
       for (const file of ref.files) {
@@ -40,11 +39,11 @@ export class BemusePacker {
         files.push({ name: file.name, ref: [ref.index, start, end] })
       }
       const hash = payload.hash
-      const num = (nums[ref.name] || 0) + 1
-      nums[ref.name] = num
-      const out = ref.name + '.' + num + '.' + hash.substr(0, 8) + '.bemuse'
+      const num = (counts[ref.name] || 0) + 1
+      counts[ref.name] = num
+      const out = ref.name + '.' + num + '.' + hash.slice(0, 8) + '.bemuse'
       refs.push({ path: out, hash: hash })
-      await this._writeBin(path.join(folder, out), Buffer.alloc(0), payload)
+      await this._writeBin(path.join(folder, out), new ArrayBuffer(0), payload)
       console.log(`Written ${out}`)
     }
     const metadata = { files, refs }
@@ -55,11 +54,15 @@ export class BemusePacker {
     console.log(`Written metadata.json`)
   }
 
-  _writeBin(path, metadataBuffer, payload) {
-    return new Promise((resolve, reject) => {
+  private _writeBin(
+    path: string,
+    metadataBuffer: ArrayBuffer,
+    payload: Payload
+  ): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
       const file = fs.createWriteStream(path)
       const size = Buffer.alloc(4)
-      size.writeUInt32LE(metadataBuffer.length, 0)
+      size.writeUInt32LE(metadataBuffer.byteLength, 0)
       file.write(Buffer.from('BEMUSEPACK'))
       file.write(size)
       file.write(metadataBuffer)
@@ -74,14 +77,15 @@ export class BemusePacker {
 }
 
 export class Ref {
-  constructor(name, index) {
-    this.name = name
-    this.index = index
-    this.size = 0
-    this.files = []
-  }
+  public size = 0
+  public readonly files: FileEntry[] = []
 
-  add(file) {
+  constructor(
+    public readonly name: string,
+    public readonly index: number
+  ) {}
+
+  add(file: FileEntry): void {
     this.files.push(file)
     this.size += file.size
   }
