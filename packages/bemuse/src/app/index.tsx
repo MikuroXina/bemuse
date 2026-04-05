@@ -24,9 +24,7 @@ import BrowserSupportWarningScene from './components/browser-support-warning-sce
 import ModeSelectScene from './components/mode-select-scene.js'
 import MusicSelectScene from './components/music-select-scene.js'
 import TitleScene from './components/title-scene.js'
-import { musicSearchTextSlice } from './entities/music-search-text.js'
-import { optionsSlice } from './entities/options.js'
-import { getInitialGrepString, getTimeSynchroServer } from './query-flags.js'
+import { getTimeSynchroServer } from './query-flags.js'
 
 let ranking: RankingService
 
@@ -64,17 +62,7 @@ if (import.meta.hot) {
   })
 }
 
-function bootUp() {
-  store.dispatch(
-    musicSearchTextSlice.actions.MUSIC_SEARCH_TEXT_INITIALIZED({
-      text: getInitialGrepString() ?? '',
-    })
-  )
-  store.dispatch(optionsSlice.actions.LOAD_FROM_STORAGE())
-}
-
 export function main() {
-  bootUp()
   displayFirstScene()
 
   // synchronize time
