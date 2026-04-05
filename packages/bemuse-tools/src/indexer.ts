@@ -16,7 +16,7 @@ import {
 import chalk, { ChalkInstance } from 'chalk'
 import { glob } from 'glob'
 import yaml from 'js-yaml'
-import sortBy from 'lodash/sortBy'
+import { sortBy } from 'lodash-es'
 
 const { readFile, writeFile, stat: fileStat } = fs.promises
 
