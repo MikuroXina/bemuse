@@ -1,9 +1,10 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "lib",
-    "target": "es5"
+    "lib": ["ESNext", "DOM"],
+    "types": ["node", "lodash", "js-yaml"],
+    "typeRoots": ["./node_modules/@types"],
+    "noEmit": true
   },
-  "include": ["src/**/*.js"]
+  "include": ["src/**/*"]
 }
