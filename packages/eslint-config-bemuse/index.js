@@ -71,6 +71,12 @@ export default [
       'dot-notation': 'off',
       'object-shorthand': 'off',
       'n/no-missing-import': 'off',
+      'n/no-unpublished-import': [
+        'error',
+        {
+          ignoreTypeImport: true,
+        },
+      ],
 
       // These should be errors, but we just added them and there are too many
       // violations to fix right now.
