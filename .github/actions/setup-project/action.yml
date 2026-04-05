@@ -8,7 +8,7 @@ runs:
       with:
         node-version-file: .tool-versions
     - name: Setup pnpm
-      uses: pnpm/action-setup@v4
+      uses: pnpm/action-setup@v5
     - name: Setup Rush cache
       uses: ./.github/actions/rush-cache
     - name: Install Deps
