@@ -1,5 +1,5 @@
 import type Progress from '@bemuse/progress'
-import { renderToXml } from '@mikuroxina/bemuse-skin'
+import { renderToXml } from '@bemuse/skin/index.js'
 import debug from 'debug'
 import { Application, Assets, Container } from 'pixi.js'
 import type { JSX } from 'react'

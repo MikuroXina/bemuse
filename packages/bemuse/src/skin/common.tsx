@@ -1,5 +1,3 @@
-import './assets/Fonts/JudgmentCombo.png'
-
 import { Fragment, type JSX, type ReactNode } from 'react'
 
 import early from './assets/Deviation/Early.png?url'
@@ -659,10 +657,7 @@ export function JudgmentText({ name, ...props }: JudgmentTextProps) {
       align='center'
       font-family={`BemuseDefault-${name}`}
       font-size='40px'
-      font-src={
-        new URL(`./assets/Fonts/BemuseDefault-${name}.fnt`, import.meta.url)
-          .href
-      }
+      font-src={`/Fonts/BemuseDefault-${name}.fnt`}
     />
   )
 }
