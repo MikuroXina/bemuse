@@ -71,7 +71,6 @@ export const musicSelectionSlice = createSlice({
       state,
       { payload: { songId } }: PayloadAction<{ songId: string }>
     ) => {
-      console.log({ state })
       return selectSong(songId)(state)
     },
     MUSIC_CHART_SELECTED: (
