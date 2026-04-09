@@ -1,4 +1,4 @@
-import { Screen, Touch, Touch3d } from '@mikuroxina/bemuse-skin'
+import { Screen, Touch, Touch3d } from '@bemuse/skin/index.js'
 import type { JSX } from 'react'
 
 import { load, type Scintillator } from './loader'

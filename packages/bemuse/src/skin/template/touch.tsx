@@ -1,10 +1,5 @@
-import '../assets/Fonts/InfoSmall.png'
-import '../assets/Fonts/ScoreNumberSmall.png'
-
 import type { ReactNode } from 'react'
 
-import infoSmall from '../assets/Fonts/InfoSmall.fnt?url'
-import scoreNumberSmall from '../assets/Fonts/ScoreNumberSmall.fnt?url'
 import buttonPanel from '../assets/Touch/ButtonPanel.png?url'
 import active from '../assets/Touch/Buttons/Active.png?url'
 import kActive from '../assets/Touch/Buttons/KActive.png?url'
@@ -29,6 +24,9 @@ import {
   Use,
 } from '../atom.js'
 import { AllNoteArea, STYLES, Tutorial } from '../common.js'
+
+const infoSmall = '/Fonts/InfoSmall.fnt'
+const scoreNumberSmall = '/Fonts/ScoreNumberSmall.fnt'
 
 const WIDTH = 768
 const HEIGHT = 928

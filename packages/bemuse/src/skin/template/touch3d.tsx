@@ -1,9 +1,4 @@
-import '../assets/Fonts/ScoreNumber.png'
-import '../assets/Fonts/StatNumber.png'
-
 import noteExplosion from '../assets/Explosion/NoteExplosion.png?url'
-import scoreNumber from '../assets/Fonts/ScoreNumber.fnt?url'
-import statNumber from '../assets/Fonts/StatNumber.fnt?url'
 import infoBackground from '../assets/InfoPanel/Background.png?url'
 import infoTemplate from '../assets/InfoPanel/Template.png?url'
 import bar from '../assets/NoteArea/Bar.png?url'
@@ -28,6 +23,9 @@ import {
   PressStart,
   Tutorial,
 } from '../common.js'
+
+const scoreNumber = '/Fonts/ScoreNumber.fnt'
+const statNumber = '/Fonts/StatNumber.fnt'
 
 function MyNote({ column, file }: { column: number; file: string }) {
   return (

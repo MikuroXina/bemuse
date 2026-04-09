@@ -29,7 +29,6 @@
         "../bemuse-indexer:build",
         "../bemuse-notechart:build",
         "../bemuse-types:build",
-        "../bemuse-skin:build",
         "../bms:build",
         "../bmson:build"
       ],
@@ -133,7 +132,6 @@
     "@fortawesome/react-fontawesome": "^3.3.0",
     "@mikuroxina/bemuse-indexer": "workspace:*",
     "@mikuroxina/bemuse-notechart": "workspace:*",
-    "@mikuroxina/bemuse-skin": "workspace:*",
     "@mikuroxina/bemuse-types": "workspace:*",
     "@mikuroxina/bms": "workspace:*",
     "@mikuroxina/bmson": "workspace:*",

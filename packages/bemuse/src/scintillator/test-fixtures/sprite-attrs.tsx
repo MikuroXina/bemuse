@@ -1,4 +1,4 @@
-import { Atom } from '@mikuroxina/bemuse-skin'
+import { Atom } from '@bemuse/skin/index.js'
 
 import testImage from './test.png?url'
 
