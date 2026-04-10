@@ -4,6 +4,7 @@ import { resolve } from 'node:path'
 
 import react from '@vitejs/plugin-react'
 import { playwright } from '@vitest/browser-playwright'
+import { analyzer } from 'vite-bundle-analyzer'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import { VitePWA } from 'vite-plugin-pwa'
 import tsconfigPaths from 'vite-tsconfig-paths'
@@ -83,6 +84,7 @@ export default defineConfig({
         navigateFallbackDenylist: [/^\/project\//, /^\/workshop\//],
       },
     }),
+    ...(process.env['ANALYZE'] ? [analyzer()] : []),
   ],
   appType: 'mpa',
   base: '/',
