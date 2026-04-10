@@ -10,11 +10,16 @@ export const idProvider = (auth0Domain: string): IDProvider => {
   })
   return {
     userId: async (accessToken) => {
-      const info = await client.getUserInfo(accessToken)
-      if (info.status !== 200) {
+      try {
+        const info = await client.getUserInfo(accessToken)
+        if (info.status !== 200) {
+          return null
+        }
+        return info.data.sub as Auth.UserId
+      } catch (err) {
+        console.log(err)
         return null
       }
-      return info.data.sub as Auth.UserId
     },
   }
 }
