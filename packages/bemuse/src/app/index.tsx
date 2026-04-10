@@ -13,7 +13,6 @@ import {
   SceneManager,
   SceneManagerContext,
 } from '@bemuse/scene-manager/index.js'
-import now from '@bemuse/utils/now.js'
 import { Provider } from 'react-redux'
 
 import * as BemuseTestMode from '../debug/bemuse-test-mode.js'
@@ -24,7 +23,6 @@ import BrowserSupportWarningScene from './components/browser-support-warning-sce
 import ModeSelectScene from './components/mode-select-scene.js'
 import MusicSelectScene from './components/music-select-scene.js'
 import TitleScene from './components/title-scene.js'
-import { getTimeSynchroServer } from './query-flags.js'
 
 let ranking: RankingService
 
@@ -64,13 +62,6 @@ if (import.meta.hot) {
 
 export function main() {
   displayFirstScene()
-
-  // synchronize time
-  const timeSynchroServer =
-    getTimeSynchroServer() || 'wss://timesynchro.herokuapp.com/'
-  if (timeSynchroServer) {
-    now.synchronize(timeSynchroServer)
-  }
 }
 
 function displayFirstScene() {

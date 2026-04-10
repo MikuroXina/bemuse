@@ -177,7 +177,6 @@
     "reselect": "^4.1.8",
     "screenfull": "^6.0.2",
     "throat": "^2.0.2",
-    "timesynchro": "^1.0.1",
     "valibot": "^1.2.0"
   },
   "husky": {
