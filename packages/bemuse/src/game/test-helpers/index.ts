@@ -13,14 +13,14 @@ export function chart(code: string = '') {
 
 export function notechart(
   code?: string,
-  options: PlayerOptions = { scratch: 'off' }
+  options: PlayerOptions = { scratch: 'left' }
 ) {
   return fromBMSChart(chart(code), options)
 }
 
 export const defaultOptions: PlayerOptionsInput = {
-  scratch: 'off',
-  speed: 2,
+  scratch: 'left',
+  speed: 1,
   input: {
     keyboard: {
       '1': 'KeyS',

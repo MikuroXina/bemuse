@@ -3,12 +3,9 @@ import type { GameNote } from '@mikuroxina/bemuse-notechart'
 import { assert, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import GameInput, { type IGameInputPlugin } from '../input'
-import type Control from '../input/control'
-import Player, {
-  type PlayerOptionsInput,
-  type PlayerOptionsInternal,
-} from '../player'
-import { notechart } from '../test-helpers'
+import Control from '../input/control'
+import Player, { type PlayerOptionsInput } from '../player'
+import { defaultOptions, notechart } from '../test-helpers'
 import PlayerState from './player-state'
 
 describe('PlayerState', function () {
@@ -17,16 +14,39 @@ describe('PlayerState', function () {
       number: 1,
       columns: ['wow'],
       notechart: notechart(''),
-      options: { speed: 1 } as PlayerOptionsInternal,
+      options: {
+        autoplayEnabled: false,
+        autosound: false,
+        speed: 1,
+        placement: 'center',
+        scratch: 'left',
+        input: {
+          keyboard: {
+            '1': 'KeyS',
+            '2': 'KeyD',
+            '3': 'KeyF',
+            '4': 'Space',
+            '5': 'KeyJ',
+            '6': 'KeyK',
+            '7': 'KeyL',
+            SC: 'ShiftLeft',
+            SC2: 'KeyA',
+          },
+        },
+        laneCover: 0,
+        gauge: 'off',
+        tutorial: false,
+      },
     })
 
     const input = new GameInput()
-    vi.spyOn(input, 'get').mockImplementation(
-      (name) => ({ name }) as unknown as Control
-    )
+    input.use({
+      name: 'wow_controller',
+      get: () => ({ wow: 1 }),
+    })
     state.update(0, input)
 
-    expect(state.input.get('wow')).toStrictEqual({ name: 'p1_wow' })
+    expect(state.input.get('wow')).toStrictEqual(new Control(0, false))
   })
 
   describe('with player and chart', function () {
@@ -34,16 +54,19 @@ describe('PlayerState', function () {
     let player: Player
     let state: PlayerState
     let input: GameInput
-    const plugin = { get: () => {} } as unknown as IGameInputPlugin
+    const plugin: IGameInputPlugin = {
+      name: 'test_controller',
+      get: () => ({}),
+    }
 
     function setup(
       bms: string,
-      options: { speed?: number } & { [key: string]: string | number } = {
+      options: Partial<PlayerOptionsInput> = {
         speed: 1,
       }
     ) {
       chart = notechart(bms)
-      player = new Player(chart, 1, options as unknown as PlayerOptionsInput)
+      player = new Player(chart, 1, { ...defaultOptions, ...options })
       state = new PlayerState(player)
       input = new GameInput()
       input.use(plugin)
@@ -279,7 +302,9 @@ describe('PlayerState', function () {
             #00111:0102
           `)
           advance(2, { p1_1: 1 })
-          assert(state.notifications.sounds[0].note === chart.notes[0])
+          expect(state.notifications.sounds[0].note).toStrictEqual(
+            chart.notes[0]
+          )
           assert(state.notifications.sounds[0].type === 'hit')
         })
         it('should notify missed notes as break', function () {
@@ -288,7 +313,9 @@ describe('PlayerState', function () {
             #00111:01
           `)
           advance(5, { p1_1: 0 })
-          assert(state.notifications.sounds[0].note === chart.notes[0])
+          expect(state.notifications.sounds[0].note).toStrictEqual(
+            chart.notes[0]
+          )
           assert(state.notifications.sounds[0].type === 'break')
         })
         it('notifies of free keysound hit', function () {
@@ -304,8 +331,10 @@ describe('PlayerState', function () {
 
           // hit the blank area
           advance(4, { p1_1: 1 })
-          assert(state.notifications.sounds[0].note === chart.notes[0])
-          assert(state.notifications.sounds[0].type === 'free')
+          expect(state.notifications.sounds[0].note).toStrictEqual(
+            chart.notes[0]
+          )
+          expect(state.notifications.sounds[0].type).toStrictEqual('free')
 
           // release the button
           advance(4, { p1_1: 0 })
@@ -313,19 +342,25 @@ describe('PlayerState', function () {
 
           // try again
           advance(5, { p1_1: 1 })
-          assert(state.notifications.sounds[0].note === chart.notes[0])
+          expect(state.notifications.sounds[0].note).toStrictEqual(
+            chart.notes[0]
+          )
 
           // release the button
           advance(5, { p1_1: 0 })
 
           // wait and try again.
           advance(6.5, { p1_1: 1 })
-          assert(state.notifications.sounds[0].note === chart.notes[0])
+          expect(state.notifications.sounds[0].note).toStrictEqual(
+            chart.notes[0]
+          )
           advance(6.5, { p1_1: 0 })
 
           // wait and try again. this time keysound should change
           advance(7.5, { p1_1: 1 })
-          assert(state.notifications.sounds[0].note === chart.notes[1])
+          expect(state.notifications.sounds[0].note).toStrictEqual(
+            chart.notes[1]
+          )
         })
         it('suppresses freestyle keysound when column is sandwiched between 2 adjacent notes in 3d mode', function () {
           setup(
@@ -338,11 +373,11 @@ describe('PlayerState', function () {
             { speed: 1, placement: '3d' }
           )
           advance(1, { p1_2: 1 })
-          assert.equal(state.notifications.sounds.length, 1)
+          expect(state.notifications.sounds.length).toStrictEqual(1)
           advance(1, { p1_2: 0 })
 
           advance(4, { p1_2: 1 })
-          assert.equal(state.notifications.sounds.length, 0)
+          expect(state.notifications.sounds.length).toStrictEqual(0)
           advance(4, { p1_2: 0 })
         })
         it('does not suppress freestyle keysound outside 3d mode', function () {

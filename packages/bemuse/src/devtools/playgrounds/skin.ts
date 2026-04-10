@@ -36,7 +36,7 @@ export async function main() {
     #00218:010000000010010001000100
     #00219:010000000001000100000100`).chart
 
-  const notecharts = [fromBMSChart(chart, { scratch: 'off' })]
+  const notecharts = [fromBMSChart(chart, { scratch: 'left' })]
 
   const game = new Game(notecharts, {
     players: [
@@ -55,7 +55,7 @@ export async function main() {
             SC2: 'KeyA',
           },
         },
-        scratch: 'off',
+        scratch: 'left',
       },
     ],
     audioInputLatency: 0,
