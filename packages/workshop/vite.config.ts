@@ -1,18 +1,14 @@
 import { reactRouter } from '@react-router/dev/vite'
 import { playwright } from '@vitest/browser-playwright'
-import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
+import { defineConfig } from 'vitest/config'
 
-// @ts-check
 export default defineConfig({
   plugins: [tsconfigPaths(), reactRouter()],
   build: {
     assetsDir: './workshop/assets/',
     commonjsOptions: {
       include: [/node_modules/],
-    },
-    dynamicImportVarsOptions: {
-      errorWhenNoFilesFound: true,
     },
   },
   optimizeDeps: {

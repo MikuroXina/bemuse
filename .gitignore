@@ -63,3 +63,6 @@ common/autoinstallers/*/.npmrc
 
 # Wireit cache
 .wireit/
+
+# TypeScript build info
+*.tsbuildinfo
