@@ -1,5 +1,10 @@
 export default readBlob
 
+export interface BlobReader {
+  as(type: 'arraybuffer'): Promise<ArrayBuffer>
+  as(type: 'text'): Promise<string>
+}
+
 // Reads the blob as a specified type. The blob will not actually be read
 // unless the ``as()`` method is called.
 //
@@ -7,13 +12,13 @@ export default readBlob
 //
 //    Starts reading the blob as ``type``. The ``type`` is a String such as
 //    "arraybuffer" or "text".
-export function readBlob(blob: Blob) {
+export function readBlob(blob: Blob): BlobReader {
   return {
-    as(type: 'arraybuffer' | 'text'): Promise<unknown> {
+    as(type: 'arraybuffer' | 'text'): Promise<ArrayBuffer | string> {
       return new Promise(function (resolve, reject) {
         const reader = new FileReader()
         reader.onload = function () {
-          resolve(reader.result)
+          resolve(reader.result!)
         }
         reader.onerror = function () {
           reject(new Error('Unable to read from Blob'))
@@ -28,5 +33,5 @@ export function readBlob(blob: Blob) {
         }
       })
     },
-  }
+  } as BlobReader
 }

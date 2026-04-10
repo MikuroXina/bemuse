@@ -7,12 +7,12 @@ import Player, { type PlayerOptionsInput } from '../player.js'
 
 export { tap }
 
-export function chart(code = '') {
+export function chart(code: string = '') {
   return Compiler.compile(code).chart
 }
 
 export function notechart(
-  code: string,
+  code?: string,
   options: PlayerOptions = { scratch: 'off' }
 ) {
   return fromBMSChart(chart(code), options)
@@ -37,7 +37,7 @@ export const defaultOptions: PlayerOptionsInput = {
 }
 
 export function playerWithBMS(
-  code: string,
+  code?: string,
   options: PlayerOptionsInput = defaultOptions
 ) {
   return new Player(notechart(code, options), 1, options)
