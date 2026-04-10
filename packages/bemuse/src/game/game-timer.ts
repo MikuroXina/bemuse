@@ -7,7 +7,6 @@ import type GameInput from './input/index.js'
 // This class should be tied to the AudioContext.
 //
 export class GameTimer {
-  private _now: () => number
   private _lastRecordedTimeSinceStart = 0
   private _pauseAtTimerValue = Infinity
   private _unpausedTimeSinceStart = 0
@@ -21,9 +20,7 @@ export class GameTimer {
   constructor(
     private readonly clock: Clock,
     private readonly input: GameInput
-  ) {
-    this._now = now.synchronized()
-  }
+  ) {}
 
   // True if the game is started, false otherwise.
   get started() {
@@ -37,7 +34,7 @@ export class GameTimer {
     this.time = this._calculateTime()
   }
 
-  _checkStartGame() {
+  private _checkStartGame() {
     if (this.started) return
     if (this.input.get('start').value) {
       this.gettingStarted = true
@@ -56,8 +53,8 @@ export class GameTimer {
     }
   }
 
-  _getWait() {
-    const t = this._now() / 1000
+  private _getWait() {
+    const t = now() / 1000
     return Math.ceil(t) - t
   }
 

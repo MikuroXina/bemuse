@@ -19,7 +19,7 @@ export const SUPPORTED = [
   },
 ]
 
-function checkUserAgent(pattern, num) {
+function checkUserAgent(pattern: RegExp, num: number) {
   const match = navigator.userAgent.match(pattern)
   if (!match) return false
   if (+match[1] >= num) return true

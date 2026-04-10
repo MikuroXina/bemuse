@@ -37,5 +37,5 @@ export async function main() {
   text2.y = 100
   app.stage.addChild(text2)
 
-  MAIN.appendChild(app.canvas)
+  MAIN?.appendChild(app.canvas)
 }

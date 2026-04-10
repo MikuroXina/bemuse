@@ -2,7 +2,13 @@ import type { Song } from '@bemuse/collection-model/types.js'
 import Panel from '@bemuse/components/common/panel.js'
 import { loadSongFromResources } from '@bemuse/custom-song-loader/index.js'
 import type { ICustomSongResources } from '@bemuse/resources/types.js'
-import { type DragEventHandler, type JSX, useEffect, useState } from 'react'
+import {
+  type DragEventHandler,
+  type JSX,
+  startTransition,
+  useEffect,
+  useState,
+} from 'react'
 
 import {
   handleClipboardPaste,
@@ -30,7 +36,11 @@ const CustomBMS = ({ onSongLoaded }: CustomBMSProps) => {
     }
     try {
       const song = await loadSongFromResources(resources, {
-        onMessage: (message) => setLog((log) => [...log, message]),
+        onMessage: (message) => {
+          startTransition(() => {
+            setLog((log) => [...log, message])
+          })
+        },
       })
       song.id = '__custom_' + Date.now()
       song.custom = true
