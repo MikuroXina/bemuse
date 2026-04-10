@@ -1,5 +1,6 @@
 import GameDisplay from '@bemuse/game/display'
 import Game from '@bemuse/game/game'
+import type GameTimer from '@bemuse/game/game-timer'
 import GameInput from '@bemuse/game/input'
 import GameState from '@bemuse/game/state'
 import * as Scintillator from '@bemuse/scintillator'
@@ -35,10 +36,29 @@ export async function main() {
     #00218:010000000010010001000100
     #00219:010000000001000100000100`).chart
 
-  const notecharts = [fromBMSChart(chart, {})]
+  const notecharts = [fromBMSChart(chart, { scratch: 'off' })]
 
   const game = new Game(notecharts, {
-    players: [{ speed: 2 }],
+    players: [
+      {
+        speed: 2,
+        input: {
+          keyboard: {
+            '1': 'KeyS',
+            '2': 'KeyD',
+            '3': 'KeyF',
+            '4': 'Space',
+            '5': 'KeyJ',
+            '6': 'KeyK',
+            '7': 'KeyL',
+            SC: 'ShiftLeft',
+            SC2: 'KeyA',
+          },
+        },
+        scratch: 'off',
+      },
+    ],
+    audioInputLatency: 0,
   })
 
   const skin = await Scintillator.load(
@@ -47,22 +67,23 @@ export async function main() {
     })
   )
 
-  const display = new GameDisplay({ game, scintillator: skin })
+  const display = new GameDisplay({ game, scintillator: skin, video: null })
   const state = new GameState(game)
   const input = new GameInput()
   const started = new Date().getTime()
   const timer = {
+    time: 0,
     started: true,
     startTime: started,
     readyFraction: 0,
-  }
+  } as unknown as GameTimer
 
   display.start()
   display._getData = ((getData) =>
-    function () {
-      const result = getData.apply(display, arguments)
+    function (...params) {
+      const result = getData.apply(display, params)
       result['p1_score'] = (new Date().getTime() - started) % 555556
-      window.LATEST_DATA = result
+      ;(window as unknown as Record<string, unknown>).LATEST_DATA = result
       return result
     })(display._getData)
 
@@ -81,13 +102,13 @@ export async function main() {
   showCanvas(skin.app.canvas)
 }
 
-function showCanvas(view) {
+function showCanvas(view: HTMLCanvasElement) {
   const { width, height } = view
 
   view.style.display = 'block'
   view.style.margin = '0 auto'
 
-  MAIN.appendChild(view)
+  MAIN?.appendChild(view)
   resize()
   window.addEventListener('resize', resize)
 

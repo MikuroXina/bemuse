@@ -20,7 +20,7 @@ export type PlayerOptionsScratch = 'left' | 'right' | 'off'
 
 export type PlayerOptionsGauge = 'off' | 'hope'
 
-type PlayerOptionsInputMapping = {
+export type PlayerOptionsInputMapping = {
   keyboard: PlayerControlKeysMap
   continuous?: boolean
   sensitivity?: number

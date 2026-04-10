@@ -1,8 +1,13 @@
-export function filterSongs(songs, filterText) {
+import type { Song } from '@bemuse/collection-model/types'
+
+export function filterSongs(
+  songs: readonly Song[],
+  filterText: string
+): Song[] {
   return songs.filter((song) => matches(song, filterText))
 }
 
-function matches(song, filterText) {
+function matches(song: Song, filterText: string): boolean {
   if (!filterText) return true
   return (
     contains(song.title, filterText) ||
@@ -11,7 +16,7 @@ function matches(song, filterText) {
   )
 }
 
-function contains(haystack, needle) {
+function contains(haystack: string, needle: string): boolean {
   return String(haystack.toLowerCase()).indexOf(needle.toLowerCase()) >= 0
 }
 

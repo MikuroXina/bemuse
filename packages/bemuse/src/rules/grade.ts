@@ -1,5 +1,7 @@
+import type { Result } from '@bemuse/app/types'
+
 // #region grade
-export function getGrade(stats) {
+export function getGrade(stats: Result) {
   const score = stats.score
   if (score < 300000) return 'F'
   if (score < 350000) return 'D'
