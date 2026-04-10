@@ -1,6 +1,11 @@
 import { sValidator } from '@hono/standard-validator'
 import { Auth } from '@mikuroxina/scoreboard-types'
-import { ManagementClient, UserInfoClient } from 'auth0'
+import {
+  JSONApiResponse,
+  ManagementClient,
+  UserInfoClient,
+  type UserInfoResponse,
+} from 'auth0'
 import { Hono } from 'hono'
 import { env } from 'hono/adapter'
 import { cache } from 'hono/cache'
@@ -25,9 +30,15 @@ router
       const { VITE_AUTH0_DOMAIN, VITE_AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET } =
         env<Variables>(c)
 
-      const user = await new UserInfoClient({
-        domain: VITE_AUTH0_DOMAIN,
-      }).getUserInfo(c.get('accessToken'))
+      let user: JSONApiResponse<UserInfoResponse>
+      try {
+        user = await new UserInfoClient({
+          domain: VITE_AUTH0_DOMAIN,
+        }).getUserInfo(c.get('accessToken'))
+      } catch (err) {
+        console.log(err)
+        return c.text('Unauthorized', 401)
+      }
       if (user.status !== 200) {
         console.error(user.data)
         return c.text('Unauthorized', 401)
