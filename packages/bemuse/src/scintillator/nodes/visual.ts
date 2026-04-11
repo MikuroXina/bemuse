@@ -103,6 +103,8 @@ export const visual: SkinNodeComponent = (element) => async (ctx) => {
               fontSize,
               fill,
               align: align as TextStyleAlign | undefined,
+              // workaround from https://github.com/pixijs/pixijs/issues/9663
+              padding: 24,
             },
             anchor: {
               x: xRelativePos,
