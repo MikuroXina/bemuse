@@ -140,9 +140,9 @@ export function useSubmitMutation(): UseMutationResult<
     mutationFn: async (info: ScoreInfo) => {
       return await service.submitScore(info)
     },
-    onSuccess: (data, info) => {
+    onSuccess: async (data, info) => {
       client.setQueryData(['online', 'record', info.md5, info.playMode], data)
-      client.invalidateQueries({
+      await client.invalidateQueries({
         queryKey: ['online', 'leaderboard', info.md5, info.playMode],
       })
     },
