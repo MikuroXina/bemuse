@@ -2,6 +2,8 @@ import { Auth, Scoreboard } from '@mikuroxina/scoreboard-types'
 import { HTTPException } from 'hono/http-exception'
 import type { InferOutput } from 'valibot'
 
+import type { Clock } from '../interface/clock'
+import type { IDGenerator } from '../interface/id-gen'
 import type { IDProvider } from '../interface/idp'
 import type { UserRepository } from '../interface/user'
 
@@ -105,6 +107,8 @@ export const submitScore = async ({
   db,
   toSubmit,
   accessToken,
+  clock,
+  idGen,
   idp,
   userRepo,
 }: {
@@ -112,6 +116,8 @@ export const submitScore = async ({
   db: D1Database
   toSubmit: InferOutput<typeof Scoreboard.submitScoreRequestBodySchema>
   accessToken: string
+  clock: Clock
+  idGen: IDGenerator
   idp: IDProvider
   userRepo: UserRepository
 }): Promise<InferOutput<typeof Scoreboard.submitScoreResponseSchema>> => {
@@ -122,8 +128,8 @@ export const submitScore = async ({
 
   const { score, combo, total, count, log } = toSubmit
 
-  const newRecordId = crypto.randomUUID()
-  const createdAt = new Date().toISOString()
+  const newRecordId = idGen.nextId()
+  const createdAt = clock.now().toString({ fractionalSecondDigits: 3 })
   await db
     .prepare(
       `

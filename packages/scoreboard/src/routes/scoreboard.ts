@@ -5,6 +5,7 @@ import { env } from 'hono/adapter'
 import { cache } from 'hono/cache'
 
 import { idProvider, userRepo } from '../adaptor/auth0'
+import { builtInClock, builtInIdGen } from '../adaptor/built-in'
 import type { Bindings, EnvVars } from '../env'
 import { authMiddleware, corsMiddleware } from '../middleware'
 import { getLeaderboard, getScore, submitScore } from '../service/scoreboard'
@@ -61,6 +62,8 @@ router.post(
         accessToken: c.get('accessToken'),
         param: c.req.valid('param'),
         toSubmit: c.req.valid('json'),
+        clock: builtInClock(),
+        idGen: builtInIdGen(),
         idp: idProvider(VITE_AUTH0_DOMAIN),
         userRepo: userRepo({
           auth0Domain: VITE_AUTH0_DOMAIN,
