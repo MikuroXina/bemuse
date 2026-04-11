@@ -50,8 +50,7 @@
       ],
       "files": [
         "src/**"
-      ],
-      "output": []
+      ]
     }
   },
   "author": "MikuroXina <mikuroxina@gmail.com>",
