@@ -3,7 +3,7 @@ import { HTTPException } from 'hono/http-exception'
 import { type InferOutput, parse } from 'valibot'
 
 import type { IDProvider } from '../interface/idp'
-import type { UserRepository } from '../interface/user'
+import type { UserQuery, UserRepository } from '../interface/user'
 
 export const inspectUser = async ({
   accessToken,
@@ -13,7 +13,7 @@ export const inspectUser = async ({
 }: {
   accessToken: string
   idp: IDProvider
-  userRepo: UserRepository
+  userRepo: UserQuery
   score: D1Database
 }): Promise<InferOutput<typeof Moderation.inspectUserResponseSchema>> => {
   const userId = await idp.userId(accessToken)
@@ -64,4 +64,62 @@ export const inspectUser = async ({
 
   const ret: unknown = { info, plays }
   return parse(Moderation.inspectUserResponseSchema, ret)
+}
+
+export const freezeUser = async ({
+  param: { user_id: userId },
+  userRepo,
+  score,
+}: {
+  param: InferOutput<typeof Moderation.freezeParameterSchema>
+  userRepo: UserRepository
+  score: D1Database
+}) => {
+  await userRepo.freeze(userId)
+  try {
+    await score
+      .prepare(
+        `
+        INSERT
+          user_frozen (id, frozen)
+        VALUES
+          (1, TRUE)
+        ON CONFLICT DO UPDATE SET
+          frozen = TRUE;
+        `
+      )
+      .bind(userId)
+      .run()
+  } catch {
+    await userRepo.unfreeze(userId)
+  }
+}
+
+export const unfreezeUser = async ({
+  param: { user_id: userId },
+  userRepo,
+  score,
+}: {
+  param: InferOutput<typeof Moderation.unfreezeParameterSchema>
+  userRepo: UserRepository
+  score: D1Database
+}) => {
+  await userRepo.unfreeze(userId)
+  try {
+    await score
+      .prepare(
+        `
+    INSERT
+      user_frozen (id, frozen)
+    VALUES
+      (1, FALSE)
+    ON CONFLICT DO UPDATE SET
+      frozen = FALSE;
+    `
+      )
+      .bind(userId)
+      .run()
+  } catch {
+    await userRepo.freeze(userId)
+  }
 }

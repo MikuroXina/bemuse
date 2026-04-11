@@ -5,7 +5,7 @@ import type { InferOutput } from 'valibot'
 import type { Clock } from '../interface/clock'
 import type { IDGenerator } from '../interface/id-gen'
 import type { IDProvider } from '../interface/idp'
-import type { UserRepository } from '../interface/user'
+import type { UserQuery } from '../interface/user'
 
 export const getLeaderboard = async ({
   param: { chart_md5: chartId, play_mode: playMode },
@@ -14,7 +14,7 @@ export const getLeaderboard = async ({
 }: {
   param: InferOutput<typeof Scoreboard.getLeaderboardParameterSchema>
   score: D1Database
-  userRepo: UserRepository
+  userRepo: UserQuery
 }): Promise<InferOutput<typeof Scoreboard.getLeaderboardResponseSchema>> => {
   const select = await score
     .prepare(
@@ -119,7 +119,7 @@ export const submitScore = async ({
   clock: Clock
   idGen: IDGenerator
   idp: IDProvider
-  userRepo: UserRepository
+  userRepo: UserQuery
 }): Promise<InferOutput<typeof Scoreboard.submitScoreResponseSchema>> => {
   const userId = await idp.userId(accessToken)
   if (userId == null) {
@@ -238,7 +238,7 @@ export const getScore = async ({
 }: {
   param: InferOutput<typeof Scoreboard.getScoreParameterSchema>
   score: D1Database
-  userRepo: UserRepository
+  userRepo: UserQuery
 }): Promise<InferOutput<typeof Scoreboard.getScoreResponseSchema> | null> => {
   const highScoreSelect = await score
     .prepare(

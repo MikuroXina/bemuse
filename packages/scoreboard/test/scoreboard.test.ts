@@ -9,14 +9,14 @@ import {
   constantIdGen,
   idProvider,
 } from '../src/adaptor/mock.js'
-import type { UserRepository } from '../src/interface/user.js'
+import type { UserQuery } from '../src/interface/user.js'
 import { getLeaderboard, submitScore } from '../src/service/scoreboard.js'
 
 beforeEach(async () => {
   await env.score.exec('DELETE FROM score_record;')
 })
 
-const userRepo: UserRepository = {
+const userQuery: UserQuery = {
   userInfo: async (id) => ({
     id,
     name: 'Foo',
@@ -29,7 +29,7 @@ const userRepo: UserRepository = {
         ids.map(
           async (id): Promise<[Auth.UserId, Auth.UserInfo]> => [
             id,
-            await userRepo.userInfo(id),
+            await userQuery.userInfo(id),
           ]
         )
       )
@@ -39,7 +39,7 @@ const userRepo: UserRepository = {
 test('Submit a new record', async () => {
   const clock = constantClock(new Temporal.Instant(0n))
   const idGen = constantIdGen('qux')
-  const userInfoMock = vi.spyOn(userRepo, 'userInfo')
+  const userInfoMock = vi.spyOn(userQuery, 'userInfo')
 
   const res = await submitScore({
     db: env.score,
@@ -47,7 +47,7 @@ test('Submit a new record', async () => {
     clock,
     idGen,
     idp: idProvider(),
-    userRepo,
+    userRepo: userQuery,
     param: {
       chart_md5: 'deadbeef',
       play_mode: 'TS',
@@ -107,7 +107,7 @@ const addScore =
       clock,
       idGen: builtInIdGen(),
       idp: idProvider(),
-      userRepo,
+      userRepo: userQuery,
       param: {
         chart_md5: chartMd5,
         play_mode: 'TS',
@@ -139,7 +139,7 @@ test('Retrieve leaderboard', async () => {
       play_mode: 'TS',
     },
     score: env.score,
-    userRepo,
+    userRepo: userQuery,
   })
 
   expect(res).toMatchObject([
