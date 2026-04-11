@@ -42,6 +42,9 @@
     },
     "test": {
       "command": "vitest run",
+      "env": {
+        "TEST": "true"
+      },
       "dependencies": [
         "../scoreboard-types:build"
       ],
@@ -70,7 +73,7 @@
     "eslint": "^9.0.0",
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
-    "vitest": "^4.0.18",
+    "vitest": "^4.1.4",
     "wireit": "^0.14.12",
     "wrangler": "^4.80.0"
   },
