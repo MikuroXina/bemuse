@@ -90,7 +90,8 @@ export const freezeUser = async ({
       )
       .bind(userId)
       .run()
-  } catch {
+  } catch (err) {
+    console.error(err)
     await userRepo.unfreeze(userId)
   }
 }
@@ -119,7 +120,8 @@ export const unfreezeUser = async ({
       )
       .bind(userId)
       .run()
-  } catch {
+  } catch (err) {
+    console.error(err)
     await userRepo.freeze(userId)
   }
 }
