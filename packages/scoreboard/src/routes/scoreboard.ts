@@ -4,7 +4,8 @@ import { Hono } from 'hono'
 import { env } from 'hono/adapter'
 import { cache } from 'hono/cache'
 
-import { idProvider, userRepo } from '../adaptor/auth0'
+import { idProvider, userQuery } from '../adaptor/auth0'
+import { builtInClock, builtInIdGen } from '../adaptor/built-in'
 import type { Bindings, EnvVars } from '../env'
 import { authMiddleware, corsMiddleware } from '../middleware'
 import { getLeaderboard, getScore, submitScore } from '../service/scoreboard'
@@ -29,7 +30,7 @@ router.get(
       await getLeaderboard({
         param: c.req.valid('param'),
         score: c.env.score,
-        userRepo: userRepo({
+        userRepo: userQuery({
           auth0Domain: VITE_AUTH0_DOMAIN,
           auth0ClientId: VITE_AUTH0_CLIENT_ID,
           auth0ClientSecret: AUTH0_CLIENT_SECRET,
@@ -61,8 +62,10 @@ router.post(
         accessToken: c.get('accessToken'),
         param: c.req.valid('param'),
         toSubmit: c.req.valid('json'),
+        clock: builtInClock(),
+        idGen: builtInIdGen(),
         idp: idProvider(VITE_AUTH0_DOMAIN),
-        userRepo: userRepo({
+        userRepo: userQuery({
           auth0Domain: VITE_AUTH0_DOMAIN,
           auth0ClientId: VITE_AUTH0_CLIENT_ID,
           auth0ClientSecret: AUTH0_CLIENT_SECRET,
@@ -87,7 +90,7 @@ router.get(
       await getScore({
         param: c.req.valid('param'),
         score: c.env.score,
-        userRepo: userRepo({
+        userRepo: userQuery({
           auth0Domain: VITE_AUTH0_DOMAIN,
           auth0ClientId: VITE_AUTH0_CLIENT_ID,
           auth0ClientSecret: AUTH0_CLIENT_SECRET,

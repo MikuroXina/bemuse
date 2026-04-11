@@ -10,7 +10,8 @@
     "build": "wireit",
     "dev": "wireit",
     "deploy": "wireit",
-    "use-test-data": "wrangler d1 execute score --local --file=test-data.sql"
+    "use-test-data": "wrangler d1 execute score --local --file=test-data.sql",
+    "test": "wireit"
   },
   "wireit": {
     "build": {
@@ -38,6 +39,18 @@
       "dependencies": [
         "build"
       ]
+    },
+    "test": {
+      "command": "vitest run",
+      "env": {
+        "TEST": "true"
+      },
+      "dependencies": [
+        "../scoreboard-types:build"
+      ],
+      "files": [
+        "src/**"
+      ]
     }
   },
   "author": "MikuroXina <mikuroxina@gmail.com>",
@@ -48,6 +61,7 @@
   "packageManager": "pnpm@10.30.2",
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.31.0",
+    "@cloudflare/vitest-pool-workers": "^0.14.3",
     "@hono/vite-cloudflare-pages": "^0.4.3",
     "@hono/vite-dev-server": "^0.25.1",
     "@mikuroxina/eslint-config-bemuse": "workspace:*",
@@ -58,6 +72,7 @@
     "eslint": "^9.0.0",
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
+    "vitest": "^4.1.4",
     "wireit": "^0.14.12",
     "wrangler": "^4.80.0"
   },
@@ -71,6 +86,7 @@
     "hono": "^4.12.7",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+    "temporal-polyfill": "^0.3.2",
     "valibot": "^1.2.0"
   }
 }

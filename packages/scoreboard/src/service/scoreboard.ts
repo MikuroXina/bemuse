@@ -2,8 +2,10 @@ import { Auth, Scoreboard } from '@mikuroxina/scoreboard-types'
 import { HTTPException } from 'hono/http-exception'
 import type { InferOutput } from 'valibot'
 
+import type { Clock } from '../interface/clock'
+import type { IDGenerator } from '../interface/id-gen'
 import type { IDProvider } from '../interface/idp'
-import type { UserRepository } from '../interface/user'
+import type { UserQuery } from '../interface/user'
 
 export const getLeaderboard = async ({
   param: { chart_md5: chartId, play_mode: playMode },
@@ -12,7 +14,7 @@ export const getLeaderboard = async ({
 }: {
   param: InferOutput<typeof Scoreboard.getLeaderboardParameterSchema>
   score: D1Database
-  userRepo: UserRepository
+  userRepo: UserQuery
 }): Promise<InferOutput<typeof Scoreboard.getLeaderboardResponseSchema>> => {
   const select = await score
     .prepare(
@@ -105,6 +107,8 @@ export const submitScore = async ({
   db,
   toSubmit,
   accessToken,
+  clock,
+  idGen,
   idp,
   userRepo,
 }: {
@@ -112,8 +116,10 @@ export const submitScore = async ({
   db: D1Database
   toSubmit: InferOutput<typeof Scoreboard.submitScoreRequestBodySchema>
   accessToken: string
+  clock: Clock
+  idGen: IDGenerator
   idp: IDProvider
-  userRepo: UserRepository
+  userRepo: UserQuery
 }): Promise<InferOutput<typeof Scoreboard.submitScoreResponseSchema>> => {
   const userId = await idp.userId(accessToken)
   if (userId == null) {
@@ -122,8 +128,8 @@ export const submitScore = async ({
 
   const { score, combo, total, count, log } = toSubmit
 
-  const newRecordId = crypto.randomUUID()
-  const createdAt = new Date().toISOString()
+  const newRecordId = idGen.nextId()
+  const createdAt = clock.now().toString({ fractionalSecondDigits: 3 })
   await db
     .prepare(
       `
@@ -232,7 +238,7 @@ export const getScore = async ({
 }: {
   param: InferOutput<typeof Scoreboard.getScoreParameterSchema>
   score: D1Database
-  userRepo: UserRepository
+  userRepo: UserQuery
 }): Promise<InferOutput<typeof Scoreboard.getScoreResponseSchema> | null> => {
   const highScoreSelect = await score
     .prepare(

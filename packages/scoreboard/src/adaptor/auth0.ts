@@ -2,7 +2,7 @@ import type { Auth } from '@mikuroxina/scoreboard-types'
 import { ManagementClient, UserInfoClient } from 'auth0'
 
 import type { IDProvider } from '../interface/idp'
-import type { UserRepository } from '../interface/user'
+import type { UserQuery, UserRepository } from '../interface/user'
 
 export const idProvider = (auth0Domain: string): IDProvider => {
   const client = new UserInfoClient({
@@ -24,7 +24,7 @@ export const idProvider = (auth0Domain: string): IDProvider => {
   }
 }
 
-export const userRepo = ({
+export const userQuery = ({
   auth0Domain: domain,
   auth0ClientId: clientId,
   auth0ClientSecret: clientSecret,
@@ -32,7 +32,7 @@ export const userRepo = ({
   auth0Domain: string
   auth0ClientId: string
   auth0ClientSecret: string
-}): UserRepository => {
+}): UserQuery => {
   const client = new ManagementClient({
     domain,
     clientId,
@@ -63,6 +63,34 @@ export const userRepo = ({
         }
       }
       return ret
+    },
+  }
+}
+
+export const userRepo = ({
+  auth0Domain: domain,
+  auth0ClientId: clientId,
+  auth0ClientSecret: clientSecret,
+}: {
+  auth0Domain: string
+  auth0ClientId: string
+  auth0ClientSecret: string
+}): UserRepository => {
+  const management = new ManagementClient({
+    domain,
+    clientId,
+    clientSecret,
+  })
+  return {
+    freeze: async (userId) => {
+      await management.users.update(userId, {
+        blocked: true,
+      })
+    },
+    unfreeze: async (userId) => {
+      await management.users.update(userId, {
+        blocked: false,
+      })
     },
   }
 }
