@@ -80,10 +80,10 @@ export const freezeUser = async ({
     await score
       .prepare(
         `
-        INSERT
+        INSERT INTO
           user_frozen (id, frozen)
         VALUES
-          (1, TRUE)
+          (?, TRUE)
         ON CONFLICT DO UPDATE SET
           frozen = TRUE;
         `
@@ -110,13 +110,13 @@ export const unfreezeUser = async ({
     await score
       .prepare(
         `
-    INSERT
-      user_frozen (id, frozen)
-    VALUES
-      (1, FALSE)
-    ON CONFLICT DO UPDATE SET
-      frozen = FALSE;
-    `
+        INSERT INTO
+          user_frozen (id, frozen)
+        VALUES
+          (?, FALSE)
+        ON CONFLICT DO UPDATE SET
+          frozen = FALSE;
+        `
       )
       .bind(userId)
       .run()
