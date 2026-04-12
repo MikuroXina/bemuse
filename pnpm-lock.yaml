@@ -14123,7 +14123,7 @@ snapshots:
 
   '@docusaurus/react-loadable@6.0.0(react@19.2.5)':
     dependencies:
-      '@types/react': 18.3.28
+      '@types/react': 19.2.14
       react: 19.2.5
 
   '@docusaurus/theme-classic@3.9.2(@types/react@18.3.28)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3)':
