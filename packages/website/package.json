@@ -56,8 +56,8 @@
     "@docusaurus/preset-classic": "^3.9.0",
     "@docusaurus/theme-classic": "^3.9.2",
     "@mdx-js/react": "^3",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
   },
   "devDependencies": {
     "@docusaurus/eslint-plugin": "^3.9.2",
