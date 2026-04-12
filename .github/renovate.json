@@ -15,14 +15,6 @@
   "enabledManagers": ["npm", "github-actions"],
   "packageRules": [
     {
-      "matchDatasources": ["npm"],
-      "labels": ["R-Update(npm)"]
-    },
-    {
-      "matchDatasources": ["github-actions"],
-      "labels": ["R-Update(gh-actions)"]
-    },
-    {
       "groupName": "Vitest packages",
       "matchDatasources": ["npm"],
       "matchPackageNames": ["vitest", "@vitest/**"]
@@ -46,6 +38,11 @@
       "groupName": "Cloudflare wrangler packages",
       "matchDatasources": ["npm"],
       "matchPackageNames": ["wrangler", "@cloudflare/**"]
+    },
+    {
+      "groupName": "Docusaurus packages",
+      "matchDatasources": ["npm"],
+      "matchPackageNames": ["@docusaurus/**", "@tsconfig/docusaurus"]
     }
   ],
   "npm": {
