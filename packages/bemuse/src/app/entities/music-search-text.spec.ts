@@ -1,4 +1,4 @@
-import produce from 'immer'
+import { produce } from 'immer'
 import { describe, expect, it } from 'vitest'
 
 import * as MusicSearchText from './music-search-text.js'
