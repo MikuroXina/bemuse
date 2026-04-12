@@ -157,7 +157,7 @@
     "fastclick": "^1.0.6",
     "fuzzysort": "~1.9.0",
     "idb-keyval": "^6.2.2",
-    "immer": "~9.0.21",
+    "immer": "~11.1.0",
     "immutable": "^4.3.7",
     "invariant": "^2.2.4",
     "jquery": "^3.7.1",
