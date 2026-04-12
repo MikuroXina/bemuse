@@ -225,8 +225,8 @@ importers:
         specifier: ^5.0.1
         version: 5.0.1
       js-yaml:
-        specifier: ^3.14.2
-        version: 3.14.2
+        specifier: ^4.0.0
+        version: 4.1.1
       playwright:
         specifier: ^1.59.1
         version: 1.59.1
@@ -392,8 +392,8 @@ importers:
         specifier: ^13.0.0
         version: 13.0.6
       js-yaml:
-        specifier: ^3.12.0
-        version: 3.14.2
+        specifier: ^4.0.0
+        version: 4.1.1
       lodash-es:
         specifier: ^4.18.1
         version: 4.18.1
