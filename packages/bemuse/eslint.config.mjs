@@ -23,6 +23,15 @@ export default [
           ignoreRestSiblings: true,
         },
       ],
+      '@tanstack/query/exhaustive-deps': [
+        'error',
+        {
+          allowlist: {
+            variables: ['service'],
+            types: ['RankingService'],
+          },
+        },
+      ],
     },
   },
 ]
