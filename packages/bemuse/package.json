@@ -155,7 +155,7 @@
     "debug": "^3.2.7",
     "downshift": "~6.1.12",
     "fastclick": "^1.0.6",
-    "fuzzysort": "~1.9.0",
+    "fuzzysort": "~3.1.0",
     "idb-keyval": "^6.2.2",
     "immer": "~11.1.0",
     "immutable": "^4.3.7",
