@@ -41,6 +41,11 @@
       "groupName": "UI5 Web Components packages",
       "matchDatasources": ["npm"],
       "matchPackageNames": ["@ui5/**"]
+    },
+    {
+      "groupName": "Cloudflare wrangler packages",
+      "matchDatasources": ["npm"],
+      "matchPackageNames": ["wrangler", "@cloudflare/**"]
     }
   ],
   "npm": {
