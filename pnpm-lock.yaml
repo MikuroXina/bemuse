@@ -83,8 +83,8 @@ importers:
         specifier: ^6.2.2
         version: 6.2.2
       immer:
-        specifier: ~9.0.21
-        version: 9.0.21
+        specifier: ~11.1.0
+        version: 11.1.4
       immutable:
         specifier: ^4.3.7
         version: 4.3.8
@@ -7456,9 +7456,6 @@ packages:
 
   immer@11.1.4:
     resolution: {integrity: sha512-XREFCPo6ksxVzP4E0ekD5aMdf8WMwmdNaz6vuvxgI40UaEiu6q3p8X52aU6GdyvLY3XXX/8R7JOTXStz/nBbRw==}
-
-  immer@9.0.21:
-    resolution: {integrity: sha512-bc4NBHqOqSfRW7POMkHd51LvClaeMXpm8dx0e8oE2GORbq5aRK7Bxl4FyzVLdGtLmvLKL7BTDBG5ACQm4HWjTA==}
 
   immutable@4.3.8:
     resolution: {integrity: sha512-d/Ld9aLbKpNwyl0KiM2CT1WYvkitQ1TSvmRtkcV8FKStiDoA7Slzgjmb/1G2yhKM1p0XeNOieaTbFZmU1d3Xuw==}
@@ -20147,8 +20144,6 @@ snapshots:
   image-size@2.0.2: {}
 
   immer@11.1.4: {}
-
-  immer@9.0.21: {}
 
   immutable@4.3.8: {}
 
