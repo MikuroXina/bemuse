@@ -147,7 +147,7 @@ importers:
         version: 2.0.2
       valibot:
         specifier: ^1.2.0
-        version: 1.2.0(typescript@5.9.3)
+        version: 1.3.1(typescript@5.9.3)
     devDependencies:
       '@mikuroxina/eslint-config-bemuse':
         specifier: workspace:*
@@ -448,7 +448,7 @@ importers:
     dependencies:
       valibot:
         specifier: ^1.2.0
-        version: 1.2.0(typescript@5.9.3)
+        version: 1.3.1(typescript@5.9.3)
     devDependencies:
       '@mikuroxina/eslint-config-bemuse':
         specifier: workspace:*
@@ -485,7 +485,7 @@ importers:
         version: 4.3.0
       valibot:
         specifier: ^1.2.0
-        version: 1.2.0(typescript@5.9.3)
+        version: 1.3.1(typescript@5.9.3)
     devDependencies:
       '@cucumber/cucumber':
         specifier: ^12.6.0
@@ -641,7 +641,7 @@ importers:
         version: 0.2.2(@standard-schema/spec@1.1.0)(hono@4.12.12)
       '@hono/valibot-validator':
         specifier: ^0.6.1
-        version: 0.6.1(hono@4.12.12)(valibot@1.2.0(typescript@5.9.3))
+        version: 0.6.1(hono@4.12.12)(valibot@1.3.1(typescript@5.9.3))
       '@mikuroxina/scoreboard-types':
         specifier: workspace:*
         version: link:../scoreboard-types
@@ -668,7 +668,7 @@ importers:
         version: 0.3.2
       valibot:
         specifier: ^1.2.0
-        version: 1.2.0(typescript@5.9.3)
+        version: 1.3.1(typescript@5.9.3)
     devDependencies:
       '@cloudflare/vite-plugin':
         specifier: ^1.31.0
@@ -720,7 +720,7 @@ importers:
     dependencies:
       valibot:
         specifier: ^1.2.0
-        version: 1.2.0(typescript@5.9.3)
+        version: 1.3.1(typescript@5.9.3)
     devDependencies:
       '@mikuroxina/eslint-config-bemuse':
         specifier: workspace:*
@@ -869,7 +869,7 @@ importers:
         version: 3.0.2
       valibot:
         specifier: ^1.2.0
-        version: 1.2.0(typescript@5.9.3)
+        version: 1.3.1(typescript@5.9.3)
     devDependencies:
       '@mikuroxina/bemuse-types':
         specifier: workspace:*
@@ -11592,8 +11592,8 @@ packages:
     resolution: {integrity: sha512-fcRLaS4H/hrZk9hYwbdRM35D0U8IYMfEClhXxCivOojl+yTRAZH3Zy2sSy6qVCiGbV9YAtPssP6jaChqC9vPCg==}
     engines: {node: '>= 10.13.0'}
 
-  valibot@1.2.0:
-    resolution: {integrity: sha512-mm1rxUsmOxzrwnX5arGS+U4T25RdvpPjPN4yR0u9pUBov9+zGVtO84tif1eY4r6zWxVxu3KzIyknJy3rxfRZZg==}
+  valibot@1.3.1:
+    resolution: {integrity: sha512-sfdRir/QFM0JaF22hqTroPc5xy4DimuGQVKFrzF1YfGwaS1nJot3Y8VqMdLO2Lg27fMzat2yD3pY5PbAYO39Gg==}
     peerDependencies:
       typescript: '>=5'
     peerDependenciesMeta:
@@ -14983,10 +14983,10 @@ snapshots:
       '@standard-schema/spec': 1.1.0
       hono: 4.12.12
 
-  '@hono/valibot-validator@0.6.1(hono@4.12.12)(valibot@1.2.0(typescript@5.9.3))':
+  '@hono/valibot-validator@0.6.1(hono@4.12.12)(valibot@1.3.1(typescript@5.9.3))':
     dependencies:
       hono: 4.12.12
-      valibot: 1.2.0(typescript@5.9.3)
+      valibot: 1.3.1(typescript@5.9.3)
 
   '@hono/vite-cloudflare-pages@0.4.3(hono@4.12.12)':
     dependencies:
@@ -15723,7 +15723,7 @@ snapshots:
       react-router: 7.13.2(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       semver: 7.7.4
       tinyglobby: 0.2.15
-      valibot: 1.2.0(typescript@5.9.3)
+      valibot: 1.3.1(typescript@5.9.3)
       vite: 7.3.2(@types/node@24.12.2)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.99.0)(terser@5.46.1)(yaml@2.8.3)
       vite-node: 3.2.4(@types/node@24.12.2)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.99.0)(terser@5.46.1)(yaml@2.8.3)
     optionalDependencies:
@@ -25169,7 +25169,7 @@ snapshots:
 
   v8flags@4.0.1: {}
 
-  valibot@1.2.0(typescript@5.9.3):
+  valibot@1.3.1(typescript@5.9.3):
     optionalDependencies:
       typescript: 5.9.3
 
