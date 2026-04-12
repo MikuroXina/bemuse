@@ -8,6 +8,7 @@
   },
   "platformAutomerge": true,
   "prConcurrentLimit": 3,
+  "prHourlyLimit": 20,
   "dependencyDashboard": true,
   "semanticCommits": "enabled",
   "minimumReleaseAge": "3 days",
