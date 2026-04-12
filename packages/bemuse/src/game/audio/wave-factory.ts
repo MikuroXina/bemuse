@@ -1,5 +1,5 @@
-import type { PlayInstance, Sample, SoundGroup } from '@bemuse/sampling-master'
 import type SamplingMaster from '@bemuse/sampling-master'
+import type { PlayInstance, Sample, SoundGroup } from '@bemuse/sampling-master'
 import type { SoundedEvent } from '@mikuroxina/bemuse-notechart'
 
 export class WaveFactory {
