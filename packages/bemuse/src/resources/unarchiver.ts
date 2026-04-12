@@ -1,28 +1,25 @@
-import { Archive, type FileRecord } from 'libarchive.js/main.js'
+import { BlobReader, configure, ZipReader } from '@zip.js/zip.js'
 
-import { addUnprefixed } from './add-unprefixed.js'
 import type { FileEntry } from './types.js'
 
-Archive.init({
-  workerUrl: '/vendor/libarchive.js-1.3.0/dist/worker-bundle.js',
+configure({
+  useWebWorkers: false,
 })
 
 export async function unarchive(file: File): Promise<FileEntry[]> {
   const out: FileEntry[] = []
-  const archive = await Archive.open(file)
-  const extracted = await archive.extractFiles()
-  const traverse = (tree: FileRecord, prefix = '') => {
-    for (const key of Object.keys(tree)) {
-      const value = tree[key]
-      if (value instanceof File) {
-        addUnprefixed(prefix, key, (name) => {
-          out.push({ name, file: value })
-        })
-      } else if (value && typeof value === 'object') {
-        traverse(value, prefix + key + '/')
+  const zipFileReader = new BlobReader(file)
+  const zipReader = new ZipReader(zipFileReader)
+  for await (const entry of zipReader.getEntriesGenerator()) {
+    if (!entry.directory) {
+      const { filename } = entry
+      const file = new File([await entry.arrayBuffer()], filename)
+      const parts = filename.split('/')
+      for (let i = 0; i < parts.length; ++i) {
+        const name = parts.slice(i).join('/')
+        out.push({ name, file })
       }
     }
   }
-  traverse(extracted)
   return out
 }
