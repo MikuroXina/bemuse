@@ -18,14 +18,14 @@ export function ComboBox<T extends ComboBoxItem>(props: {
     getLabelProps,
     getMenuProps,
     getInputProps,
-    getComboboxProps,
+    getToggleButtonProps,
     highlightedIndex,
     getItemProps,
     setHighlightedIndex,
   } = useCombobox({
     items: inputItems,
     initialHighlightedIndex: 0,
-    isOpen: true,
+    defaultIsOpen: true,
     onInputValueChange: ({ inputValue }) => {
       const results = inputValue
         ? fuzzysort
@@ -56,12 +56,13 @@ export function ComboBox<T extends ComboBoxItem>(props: {
       <label hidden {...getLabelProps()}>
         Choose an element:
       </label>
-      <div {...getComboboxProps()} className={styles.search}>
+      <div className={styles.search}>
         <input {...getInputProps()} className={styles.input} />
+        <button {...getToggleButtonProps()}>{isOpen ? '↑' : '↓'}</button>
       </div>
-      <ul {...getMenuProps()} className={styles.menu}>
-        {isOpen &&
-          inputItems.map((item, index) => (
+      {isOpen && (
+        <ul {...getMenuProps()} className={styles.menu}>
+          {inputItems.map((item, index) => (
             <li
               data-highlighted={highlightedIndex === index}
               key={`${item.label}${index}`}
@@ -70,7 +71,8 @@ export function ComboBox<T extends ComboBoxItem>(props: {
               {item.label}
             </li>
           ))}
-      </ul>
+        </ul>
+      )}
     </div>
   )
 }
