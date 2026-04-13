@@ -58,7 +58,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@types/spark-md5": "^3.0.5",
-    "@types/wicg-file-system-access": "^2020.9.4",
+    "@types/wicg-file-system-access": "^2023.0.0",
     "@vitest/browser-playwright": "^4.0.18",
     "eslint": "^9.0.0",
     "playwright": "^1.59.1",

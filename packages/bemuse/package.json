@@ -108,7 +108,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@types/webpack-env": "^1.18.8",
-    "@types/wicg-file-system-access": "^2020.9.8",
+    "@types/wicg-file-system-access": "^2023.0.0",
     "@vitejs/plugin-react": "^5.1.4",
     "@vitest/browser-playwright": "^4.0.18",
     "@vitest/coverage-v8": "^4.0.18",
