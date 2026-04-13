@@ -54,7 +54,7 @@
     "@vitest/coverage-v8": "^4.0.18",
     "eslint": "^9.0.0",
     "@mikuroxina/eslint-config-bemuse": "workspace:*",
-    "gulp": "^4.0.2",
+    "gulp": "^5.0.0",
     "power-assert": "^1.6.1",
     "typescript": "^5.9.3",
     "vitest": "^4.0.18",

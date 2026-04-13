@@ -79,7 +79,7 @@
     "@types/node": "24",
     "@vitest/coverage-v8": "^4.0.18",
     "eslint": "^9.0.0",
-    "gulp": "^4.0.2",
+    "gulp": "^5.0.0",
     "hide-stack-frames-from": "^1.0.0",
     "lazy-property": "^1.0.0",
     "typescript": "^5.9.3",
