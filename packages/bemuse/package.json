@@ -175,7 +175,7 @@
     "react-dom": "^19.2.5",
     "react-redux": "^9.2.0",
     "redux": "^5.0.0",
-    "reselect": "^4.1.8",
+    "reselect": "^5.0.0",
     "screenfull": "^6.0.2",
     "throat": "^2.0.2",
     "valibot": "^1.2.0"
