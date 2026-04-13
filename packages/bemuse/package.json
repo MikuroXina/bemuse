@@ -177,7 +177,7 @@
     "redux": "^5.0.0",
     "reselect": "^5.0.0",
     "screenfull": "^6.0.2",
-    "throat": "^2.0.2",
+    "throat": "^6.0.0",
     "valibot": "^1.2.0"
   },
   "husky": {
