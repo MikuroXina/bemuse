@@ -16,6 +16,11 @@
   "enabledManagers": ["npm", "github-actions"],
   "packageRules": [
     {
+      "groupName": "Vite packages",
+      "matchDatasources": ["npm"],
+      "matchPackageNames": ["vite", "**vite-plugin**", "@vitejs/**"]
+    },
+    {
       "groupName": "Vitest packages",
       "matchDatasources": ["npm"],
       "matchPackageNames": ["vitest", "@vitest/**"]
@@ -58,8 +63,7 @@
   "extends": [
     ":timezone(Asia/Tokyo)",
     "packages:eslint",
-    "packages:react",
-    "packages:vite"
+    "packages:react"
   ],
   "schedule": ["on the first day of the week"]
 }
