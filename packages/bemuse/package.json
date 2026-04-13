@@ -153,7 +153,7 @@
     "@zip.js/zip.js": "^2.8.26",
     "bson-objectid": "^2.0.4",
     "bytes": "^3.1.2",
-    "debug": "^3.2.7",
+    "debug": "^4.0.0",
     "downshift": "~6.1.12",
     "fastclick": "^1.0.6",
     "fuzzysort": "~3.1.0",
