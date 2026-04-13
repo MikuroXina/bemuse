@@ -1,3 +1,5 @@
+import landmineImageUrl from '@bemuse/skin/assets/Note/DX/Landmine.png?url'
+import notesImageUrl from '@bemuse/skin/assets/Note/DX/Note.png?url'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 import type { NotechartPreview } from './notechart-preview.js'
@@ -62,8 +64,8 @@ export interface PreviewCanvas {
 
 export const PreviewCanvas = (props: PreviewCanvas) => {
   const keymap = 'SCs 1 2b 3 4g 5 6b 7 - 8 9b 10 11g 12 13b 14 SC2s'
-  const notesImage = useImage('/skins/default/Note/DX/Note.png')
-  const landmineImage = useImage('/skins/default/Note/DX/Landmine.png')
+  const notesImage = useImage(notesImageUrl)
+  const landmineImage = useImage(landmineImageUrl)
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   const layout = useMemo(() => new PreviewLayout(keymap), [keymap])

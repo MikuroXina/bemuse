@@ -5,6 +5,10 @@
   max-width: 80vw;
 }
 
+.search {
+  display: flex;
+}
+
 .input {
   @include common.input;
 

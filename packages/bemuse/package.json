@@ -154,7 +154,7 @@
     "bson-objectid": "^2.0.4",
     "bytes": "^3.1.2",
     "debug": "^4.0.0",
-    "downshift": "~6.1.12",
+    "downshift": "~9.3.0",
     "fastclick": "^1.0.6",
     "fuzzysort": "~3.1.0",
     "idb-keyval": "^6.2.2",
