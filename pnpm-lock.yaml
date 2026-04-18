@@ -214,7 +214,7 @@ importers:
         version: 5.6.2
       dotenv:
         specifier: ^17.3.1
-        version: 17.4.1
+        version: 17.4.2
       eslint:
         specifier: ^9.39.3
         version: 9.39.4(jiti@1.21.7)
@@ -653,7 +653,7 @@ importers:
         version: 5.6.0
       dotenv:
         specifier: ^17.3.1
-        version: 17.4.1
+        version: 17.4.2
       hono:
         specifier: ^4.12.7
         version: 4.12.12
@@ -4685,6 +4685,7 @@ packages:
   '@xmldom/xmldom@0.8.12':
     resolution: {integrity: sha512-9k/gHF6n/pAi/9tqr3m3aqkuiNosYTurLLUtc7xQ9sxB/wm7WPygCv8GYa6mS0fLJEHhqMC1ATYhz++U/lRHqg==}
     engines: {node: '>=10.0.0'}
+    deprecated: this version has critical issues, please update to the latest version
 
   '@xtuc/ieee754@1.2.0':
     resolution: {integrity: sha512-DX8nKgqcGwsc0eJSqYt5lwP4DH5FlHnmuWWBRy7X0NcaGR0ZtuyeESgMwTYVEtxmsNGY+qit4QYT/MIYTOTPeA==}
@@ -6016,8 +6017,8 @@ packages:
     resolution: {integrity: sha512-tE7ztYzXHIeyvc7N+hR3oi7FIbf/NIjVP9hmAt3yMXzrQ072/fpjGLx2GxNxGxUl5V73MEqYzioOMoVhGMJ5cA==}
     engines: {node: '>=10'}
 
-  dotenv@17.4.1:
-    resolution: {integrity: sha512-k8DaKGP6r1G30Lx8V4+pCsLzKr8vLmV2paqEj1Y55GdAgJuIqpRp5FfajGF8KtwMxCz9qJc6wUIJnm053d/WCw==}
+  dotenv@17.4.2:
+    resolution: {integrity: sha512-nI4U3TottKAcAD9LLud4Cb7b2QztQMUEfHbvhTH09bqXTxnSie8WnjPALV/WMCrJZ6UV/qHJ6L03OqO3LcdYZw==}
     engines: {node: '>=12'}
 
   downshift@9.3.2:
@@ -6876,6 +6877,10 @@ packages:
 
   hasown@2.0.2:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
+    engines: {node: '>= 0.4'}
+
+  hasown@2.0.3:
+    resolution: {integrity: sha512-ej4AhfhfL2Q2zpMmLo7U1Uv9+PyhIZpgQLGT1F9miIGmiCJIoCgSmczFdrc97mWT4kVY72KA+WnnhJ5pghSvSg==}
     engines: {node: '>= 0.4'}
 
   hast-util-from-parse5@8.0.3:
@@ -10443,8 +10448,8 @@ packages:
     resolution: {integrity: sha512-tO/bf30wBbTsJ7go80j0RzA2rcwX6o7XPBpeFcb+jzoeb4pfMM2zUeSDIkY1AWqeZabWxaQZ/h8N9t35QKDLPQ==}
     engines: {node: '>=10.13.0'}
 
-  undici-types@6.24.1:
-    resolution: {integrity: sha512-JT8B3M7LYQCRZVfB1OZZIqzi1OMeDHcTpRJpHPNvHFmye4wT03uBM8vw73NqXKfihrpGzSsWlBfUcOglX3oBeA==}
+  undici-types@6.25.0:
+    resolution: {integrity: sha512-vOw74RVVYFtnooUkZPxsY1GuuNNupSrCcANIAaDekpZ/Dp1sBuLLl5n2UCKpzxgmOwD66S4Jj24MrhmcDG+0vw==}
 
   undici-types@7.16.0:
     resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
@@ -16167,7 +16172,7 @@ snapshots:
   auth0@4.37.0:
     dependencies:
       jose: 4.15.9
-      undici-types: 6.24.1
+      undici-types: 6.25.0
       uuid: 9.0.1
 
   auth0@5.6.0:
@@ -17280,7 +17285,7 @@ snapshots:
     dependencies:
       is-obj: 2.0.0
 
-  dotenv@17.4.1: {}
+  dotenv@17.4.2: {}
 
   downshift@9.3.2(react@19.2.5):
     dependencies:
@@ -18131,7 +18136,7 @@ snapshots:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       es-set-tostringtag: 2.1.0
-      hasown: 2.0.2
+      hasown: 2.0.3
       mime-types: 2.1.35
     optional: true
 
@@ -18451,6 +18456,11 @@ snapshots:
   hasown@2.0.2:
     dependencies:
       function-bind: 1.1.2
+
+  hasown@2.0.3:
+    dependencies:
+      function-bind: 1.1.2
+    optional: true
 
   hast-util-from-parse5@8.0.3:
     dependencies:
@@ -22751,7 +22761,7 @@ snapshots:
       last-run: 2.0.0
       undertaker-registry: 2.0.0
 
-  undici-types@6.24.1: {}
+  undici-types@6.25.0: {}
 
   undici-types@7.16.0: {}
 
