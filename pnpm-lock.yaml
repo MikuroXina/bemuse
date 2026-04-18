@@ -827,7 +827,7 @@ importers:
         version: 2.21.0(react@19.2.5)
       '@ui5/webcomponents-react':
         specifier: ^2.19.0
-        version: 2.21.2(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(@ui5/webcomponents-base@2.21.0(react@19.2.5))(@ui5/webcomponents-fiori@2.21.0(react@19.2.5))(@ui5/webcomponents-icons@2.21.0(react@19.2.5))(@ui5/webcomponents@2.21.0(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+        version: 2.21.3(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(@ui5/webcomponents-base@2.21.0(react@19.2.5))(@ui5/webcomponents-fiori@2.21.0(react@19.2.5))(@ui5/webcomponents-icons@2.21.0(react@19.2.5))(@ui5/webcomponents@2.21.0(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       buffer:
         specifier: ^6.0.3
         version: 6.0.3
@@ -4584,8 +4584,8 @@ packages:
       '@ui5/webcomponents-base':
         optional: true
 
-  '@ui5/webcomponents-react@2.21.2':
-    resolution: {integrity: sha512-jAiislOOoRM2Xq2K/qJlG6fI3i4nHCfQy/cnXn4dsyqoe01v8cNkt4cmmSqHcFz6CV6qtCRoxpFS4dETT7XDXw==}
+  '@ui5/webcomponents-react@2.21.3':
+    resolution: {integrity: sha512-XHH1oggYG5JqtKF4fMmwg1jn86KbfuewkdYZZEVwTn4EVRCUOSgcEWRqh2hHcA6UdkwobrfK6IOrKw8jpL7o0Q==}
     peerDependencies:
       '@types/react': '*'
       '@types/react-dom': '*'
@@ -15689,7 +15689,7 @@ snapshots:
       '@types/react': 19.2.14
       '@ui5/webcomponents-base': 2.21.0(react@19.2.5)
 
-  '@ui5/webcomponents-react@2.21.2(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(@ui5/webcomponents-base@2.21.0(react@19.2.5))(@ui5/webcomponents-fiori@2.21.0(react@19.2.5))(@ui5/webcomponents-icons@2.21.0(react@19.2.5))(@ui5/webcomponents@2.21.0(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+  '@ui5/webcomponents-react@2.21.3(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(@ui5/webcomponents-base@2.21.0(react@19.2.5))(@ui5/webcomponents-fiori@2.21.0(react@19.2.5))(@ui5/webcomponents-icons@2.21.0(react@19.2.5))(@ui5/webcomponents@2.21.0(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
     dependencies:
       '@tanstack/react-virtual': 3.13.23(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@ui5/webcomponents': 2.21.0(react@19.2.5)
