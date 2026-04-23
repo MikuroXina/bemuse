@@ -9,14 +9,16 @@ const ResultGrade = ({ grade }: { grade: string }) => (
       {grade === 'AUTOPLAY' ? (
         <FontAwesomeIcon icon={faRobot} size='7x' />
       ) : (
-        <svg className={styles.gradeTextBox} viewBox='0 0 10 10'>
+        <svg className={styles.gradeTextBox} viewBox='0 0 100 100'>
           <text
             x='50%'
             y='50%'
             dominantBaseline='central'
             textAnchor='middle'
             fill='#ff9'
-            transform='scale(1, 0.9)'
+            fontSize={120}
+            textLength={80}
+            lengthAdjust='spacingAndGlyphs'
           >
             {grade}
           </text>
