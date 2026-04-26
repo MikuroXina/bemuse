@@ -65,7 +65,7 @@
     "@hono/vite-cloudflare-pages": "^0.4.3",
     "@hono/vite-dev-server": "^0.25.1",
     "@mikuroxina/eslint-config-bemuse": "workspace:*",
-    "@types/node": "^24.11.0",
+    "@types/node": "^25.0.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.4",
