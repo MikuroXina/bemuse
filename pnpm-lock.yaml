@@ -650,7 +650,7 @@ importers:
         version: 5.97.0(react@19.2.5)
       auth0:
         specifier: ^5.5.0
-        version: 5.6.0
+        version: 5.8.0
       dotenv:
         specifier: ^17.3.1
         version: 17.4.2
@@ -5057,8 +5057,8 @@ packages:
     resolution: {integrity: sha512-+TqJRxh4QvbD4TQIYx1ak2vanykQkG/nIZLuR6o8LoQj425gjVG3tFuUbbOeh/nCpP1rnvU0CCV1ChZHYXLU/A==}
     engines: {node: '>=18'}
 
-  auth0@5.6.0:
-    resolution: {integrity: sha512-+1pEJlf9Q2j2eU1mMQ8wRIGJ15U9iDXrQTUWqeyY6BOpUtYCPOs9I9yuYcQHL7NyByTWPrLNoNEXbtMHi36LAw==}
+  auth0@5.8.0:
+    resolution: {integrity: sha512-Pad4cQDUUihPMfRkq5boUccbfAHk5gDwJifel0sPy2CdUI7RDH60cxUOZlSZ3/x2QmPMTTTs2WrhvLDA3YE4dw==}
     engines: {node: ^20.19.0 || ^22.12.0 || ^24.0.0}
 
   autoprefixer@10.4.27:
@@ -16363,7 +16363,7 @@ snapshots:
       undici-types: 6.25.0
       uuid: 9.0.1
 
-  auth0@5.6.0:
+  auth0@5.8.0:
     dependencies:
       auth0-legacy: auth0@4.37.0
       jose: 4.15.9
