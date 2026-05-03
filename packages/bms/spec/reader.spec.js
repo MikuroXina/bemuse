@@ -6,7 +6,7 @@ import { describe, expect, it } from 'vitest'
 import { Reader } from '../lib/index.js'
 
 function fixture(name) {
-  return fs.readFileSync(path.resolve(__dirname, 'fixtures/' + name)).buffer
+  return fs.readFileSync(path.resolve(__dirname, 'fixtures/' + name))
 }
 
 describe('bms.Reader', function () {
