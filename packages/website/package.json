@@ -66,10 +66,9 @@
     "@docusaurus/types": "^3.9.2",
     "@mikuroxina/eslint-config-bemuse": "workspace:*",
     "@tsconfig/docusaurus": "^2.0.9",
-    "@types/node": "24",
     "@types/react": "^19.0.0",
     "eslint": "^9.0.0",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.0",
     "wireit": "^0.14.12"
   }
 }
