@@ -36,7 +36,7 @@
   "packageManager": "pnpm@10.33.2",
   "devDependencies": {
     "@mikuroxina/eslint-config-bemuse": "workspace:*",
-    "eslint": "^9.0.0",
+    "eslint": "^10.0.0",
     "typescript": "^6.0.0",
     "wireit": "^0.14.12"
   },
