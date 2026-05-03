@@ -70,7 +70,7 @@
     "@vitest/coverage-v8": "^4.0.18",
     "esbuild": "^0.28.0",
     "eslint": "^9.0.0",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.0",
     "vitest": "^4.0.18",
     "wireit": "^0.14.12"
   }

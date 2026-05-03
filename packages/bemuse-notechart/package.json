@@ -40,7 +40,7 @@
     "@vitest/coverage-v8": "^4.0.18",
     "eslint": "^9.0.0",
     "@mikuroxina/eslint-config-bemuse": "workspace:*",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.0",
     "vitest": "^4.0.18",
     "wireit": "^0.14.12"
   },

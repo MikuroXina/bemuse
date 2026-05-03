@@ -82,7 +82,7 @@
     "gulp": "^5.0.0",
     "hide-stack-frames-from": "^1.0.0",
     "lazy-property": "^1.0.0",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.0",
     "vitest": "^4.0.18",
     "wireit": "^0.14.12"
   },
