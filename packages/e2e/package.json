@@ -3,7 +3,6 @@
   "private": true,
   "devDependencies": {
     "@playwright/test": "^1.29.1",
-    "@types/node": "24",
     "eslint": "^9.0.0",
     "@mikuroxina/eslint-config-bemuse": "workspace:*",
     "typescript": "^6.0.0",

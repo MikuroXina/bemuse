@@ -7,7 +7,7 @@
   ],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "types": ["node", "vite/client", "@types/wicg-file-system-access"],
+    "types": ["vite/client", "@types/wicg-file-system-access"],
     "target": "ESNext",
     "module": "ES2022",
     "moduleResolution": "bundler",
