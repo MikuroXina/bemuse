@@ -49,6 +49,15 @@
       "groupName": "Docusaurus packages",
       "matchDatasources": ["npm"],
       "matchPackageNames": ["@docusaurus/**", "@tsconfig/docusaurus"]
+    },
+    {
+      "groupName": "react",
+      "matchPackageNames": [
+        "react",
+        "@types/react",
+        "react-dom",
+        "@types/react-dom"
+      ]
     }
   ],
   "npm": {
@@ -62,8 +71,7 @@
   },
   "extends": [
     ":timezone(Asia/Tokyo)",
-    "packages:eslint",
-    "packages:react"
+    "packages:eslint"
   ],
   "schedule": ["on the first day of the week"]
 }
