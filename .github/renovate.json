@@ -21,6 +21,15 @@
       "matchPackageNames": ["vite", "**vite-plugin**", "@vitejs/**"]
     },
     {
+      "groupName": "Playwright packages",
+      "matchDatasources": ["npm", "github-actions"],
+      "matchPackageNames": [
+        "playwright",
+        "@playwright/**",
+        "mcr.microsoft.com/playwright"
+      ]
+    },
+    {
       "groupName": "Vitest packages",
       "matchDatasources": ["npm"],
       "matchPackageNames": ["vitest", "@vitest/**"]
@@ -69,9 +78,6 @@
     "labels": ["C-security"],
     "assignees": ["MikuroXina"]
   },
-  "extends": [
-    ":timezone(Asia/Tokyo)",
-    "packages:eslint"
-  ],
+  "extends": [":timezone(Asia/Tokyo)", "packages:eslint"],
   "schedule": ["on the first day of the week"]
 }
