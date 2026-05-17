@@ -632,7 +632,7 @@ importers:
         version: 5.100.10(react@19.2.6)
       auth0:
         specifier: ^5.5.0
-        version: 5.8.0
+        version: 5.10.0
       dotenv:
         specifier: ^17.3.1
         version: 17.4.2
@@ -654,7 +654,7 @@ importers:
     devDependencies:
       '@cloudflare/vite-plugin':
         specifier: ^1.31.0
-        version: 1.36.4(vite@7.3.3(@types/node@25.6.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.99.0)(terser@5.47.1)(yaml@2.9.0))(workerd@1.20260515.1)(wrangler@4.90.1)
+        version: 1.36.4(vite@7.3.3(@types/node@25.6.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.99.0)(terser@5.47.1)(yaml@2.9.0))(workerd@1.20260508.1)(wrangler@4.90.1)
       '@cloudflare/vitest-pool-workers':
         specifier: ^0.16.0
         version: 0.16.6(@vitest/runner@4.1.6)(@vitest/snapshot@4.1.6)(vitest@4.1.6)
@@ -5010,8 +5010,8 @@ packages:
     resolution: {integrity: sha512-+TqJRxh4QvbD4TQIYx1ak2vanykQkG/nIZLuR6o8LoQj425gjVG3tFuUbbOeh/nCpP1rnvU0CCV1ChZHYXLU/A==}
     engines: {node: '>=18'}
 
-  auth0@5.8.0:
-    resolution: {integrity: sha512-Pad4cQDUUihPMfRkq5boUccbfAHk5gDwJifel0sPy2CdUI7RDH60cxUOZlSZ3/x2QmPMTTTs2WrhvLDA3YE4dw==}
+  auth0@5.10.0:
+    resolution: {integrity: sha512-vVLk1j/ZE7BzAIuswWpz8KERX5EPy4TLgdt6Oh3omyHMCtsOj9dmv3EsIczvglLTWCpqgTox+OdzZJQnKXxqCA==}
     engines: {node: ^20.19.0 || ^22.12.0 || ^24.0.0}
 
   autoprefixer@10.5.0:
@@ -7490,8 +7490,8 @@ packages:
   jose@4.15.9:
     resolution: {integrity: sha512-1vUQX+IdDMVPj4k8kOxgUqlcK518yluMuGZwqlr44FS1ppZB/5GWh4rZG89erpOBOJjU/OBsnCVFfapsRz6nEA==}
 
-  jose@6.2.2:
-    resolution: {integrity: sha512-d7kPDd34KO/YnzaDOlikGpOurfF0ByC2sEV4cANCtdqLlTfBlw2p14O/5d/zv40gJPbIQxfES3nSx1/oYNyuZQ==}
+  jose@6.2.3:
+    resolution: {integrity: sha512-YYVDInQKFJfR/xa3ojUTl8c2KoTwiL1R5Wg9YCydwH0x0B9grbzlg5HC7mMjCtUJjbQ/YnGEZIhI5tCgfTb4Hw==}
 
   jquery@4.0.0:
     resolution: {integrity: sha512-TXCHVR3Lb6TZdtw1l3RTLf8RBWVGexdxL6AC8/e0xZKEpBflBsjh9/8LXw+dkNFuOyW9B7iB3O1sP7hS0Kiacg==}
@@ -10657,8 +10657,8 @@ packages:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
 
-  uuid@11.1.0:
-    resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
+  uuid@11.1.1:
+    resolution: {integrity: sha512-vIYxrBCC/N/K+Js3qSN88go7kIfNPssr/hHCesKCQNAjmgvYS2oqr69kIufEG+O4+PfezOH4EbIeHCfFov8ZgQ==}
     hasBin: true
 
   uuid@8.3.2:
@@ -11344,7 +11344,7 @@ snapshots:
 
   '@auth0/auth0-auth-js@1.6.0':
     dependencies:
-      jose: 6.2.2
+      jose: 6.2.3
       openid-client: 6.8.3
 
   '@auth0/auth0-react@2.16.2(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
@@ -12258,9 +12258,9 @@ snapshots:
     optionalDependencies:
       workerd: 1.20260515.1
 
-  '@cloudflare/vite-plugin@1.36.4(vite@7.3.3(@types/node@25.6.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.99.0)(terser@5.47.1)(yaml@2.9.0))(workerd@1.20260515.1)(wrangler@4.90.1)':
+  '@cloudflare/vite-plugin@1.36.4(vite@7.3.3(@types/node@25.6.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.99.0)(terser@5.47.1)(yaml@2.9.0))(workerd@1.20260508.1)(wrangler@4.90.1)':
     dependencies:
-      '@cloudflare/unenv-preset': 2.16.1(unenv@2.0.0-rc.24)(workerd@1.20260515.1)
+      '@cloudflare/unenv-preset': 2.16.1(unenv@2.0.0-rc.24)(workerd@1.20260508.1)
       miniflare: 4.20260508.0
       unenv: 2.0.0-rc.24
       vite: 7.3.3(@types/node@25.6.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.99.0)(terser@5.47.1)(yaml@2.9.0)
@@ -16237,11 +16237,11 @@ snapshots:
       undici-types: 6.25.0
       uuid: 9.0.1
 
-  auth0@5.8.0:
+  auth0@5.10.0:
     dependencies:
       auth0-legacy: auth0@4.37.0
       jose: 4.15.9
-      uuid: 11.1.0
+      uuid: 11.1.1
 
   autoprefixer@10.5.0(postcss@8.5.14):
     dependencies:
@@ -19188,7 +19188,7 @@ snapshots:
 
   jose@4.15.9: {}
 
-  jose@6.2.2: {}
+  jose@6.2.3: {}
 
   jquery@4.0.0: {}
 
@@ -20329,7 +20329,7 @@ snapshots:
 
   openid-client@6.8.3:
     dependencies:
-      jose: 6.2.2
+      jose: 6.2.3
       oauth4webapi: 3.8.5
 
   optionator@0.9.4:
@@ -23026,7 +23026,7 @@ snapshots:
 
   utils-merge@1.0.1: {}
 
-  uuid@11.1.0: {}
+  uuid@11.1.1: {}
 
   uuid@8.3.2: {}
 
