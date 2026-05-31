@@ -69,22 +69,12 @@ module.exports = {
           position: 'left',
         },
         {
-          href: 'https://faq.bemuse.pages.dev',
-          label: 'Community FAQ',
-          position: 'left',
-        },
-        {
           to: '/contribute',
           label: 'Contribute',
           position: 'left',
         },
         {
-          href: 'https://discord.gg/aB6ucmx',
-          label: 'Discord',
-          position: 'left',
-        },
-        {
-          href: 'https://github.com/bemusic/bemuse',
+          href: 'https://github.com/MikuroXina/bemuse',
           label: 'GitHub',
           position: 'left',
         },
@@ -109,16 +99,8 @@ module.exports = {
           title: 'Community',
           items: [
             {
-              label: 'Discord Community',
-              href: 'https://discord.gg/aB6ucmx',
-            },
-            {
-              label: 'Community FAQ',
-              href: 'https://faq.bemuse.pages.dev',
-            },
-            {
               label: 'GitHub Project',
-              href: 'https://github.com/bemusic/bemuse',
+              href: 'https://github.com/MikuroXina/bemuse',
             },
           ],
         },
@@ -126,8 +108,8 @@ module.exports = {
           title: 'Social',
           items: [
             {
-              label: 'Twitter @bemusegame',
-              href: 'https://twitter.com/bemusegame',
+              label: 'Twitter @MikuroXina',
+              href: 'https://x.com/MikuroXina',
             },
           ],
         },
@@ -144,11 +126,6 @@ module.exports = {
         },
       },
       style: 'dark',
-    },
-    algolia: {
-      appId: '1I7X31Q06Y',
-      apiKey: 'a113c79cadd1ce125abb6011106af056',
-      indexName: 'bemuse',
     },
   },
 }
