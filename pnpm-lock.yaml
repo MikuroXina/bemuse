@@ -84,7 +84,7 @@ importers:
         version: 3.1.0
       idb-keyval:
         specifier: ^6.2.2
-        version: 6.2.4
+        version: 6.2.5
       immer:
         specifier: ~11.1.0
         version: 11.1.8
@@ -7612,8 +7612,8 @@ packages:
     peerDependencies:
       postcss: ^8.1.0
 
-  idb-keyval@6.2.4:
-    resolution: {integrity: sha512-D/NzHWUmYJGXi++z67aMSrnisb9A3621CyRK5G89JyTlN13C8xf0g04DLxUKMufPem3e3L2JAXR6Z00OWy183Q==}
+  idb-keyval@6.2.5:
+    resolution: {integrity: sha512-eKQkTnS0relYsSOYomx8ozIbmdsQCKUdhyuIaQ2DZgKuaxtyQQMkyD/wlnQN32pO3yutN1b1L8uqwcDKaJd7/Q==}
 
   idb@7.1.1:
     resolution: {integrity: sha512-gchesWBzyvGHRO9W8tzUWFDycow5gwjvFKfyV9FF32Y7F50yZMp7mP+T2mJIWFx49zicqyC4uefHM17o6xKIVQ==}
@@ -20026,7 +20026,7 @@ snapshots:
     dependencies:
       postcss: 8.5.9
 
-  idb-keyval@6.2.4: {}
+  idb-keyval@6.2.5: {}
 
   idb@7.1.1: {}
 
