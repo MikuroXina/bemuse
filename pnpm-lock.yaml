@@ -75,7 +75,7 @@ importers:
         version: 4.4.3(supports-color@8.1.1)
       downshift:
         specifier: ~9.3.0
-        version: 9.3.4(react@19.2.7)
+        version: 9.3.6(react@19.2.7)
       fastclick:
         specifier: ^1.0.6
         version: 1.0.6
@@ -6556,8 +6556,8 @@ packages:
     resolution: {integrity: sha512-nI4U3TottKAcAD9LLud4Cb7b2QztQMUEfHbvhTH09bqXTxnSie8WnjPALV/WMCrJZ6UV/qHJ6L03OqO3LcdYZw==}
     engines: {node: '>=12'}
 
-  downshift@9.3.4:
-    resolution: {integrity: sha512-vcKzyAJw+SDM4txgzEeGHoJm0/UHdJLUa/B+UtBHcATK5d7tv8GXzGiP/k7wW2kD9jZktViFkpx/9nwbxityew==}
+  downshift@9.3.6:
+    resolution: {integrity: sha512-xEKP1vbt/k7Siu481TKibmj8EyL6iyBwaRJgb6gCsFyLeiyZ1KEJnApS9R1U71hTdK5ym0R99AOYRROcTz1PeQ==}
     peerDependencies:
       react: '>=16.12.0'
 
@@ -8729,8 +8729,8 @@ packages:
     peerDependencies:
       webpack: ^4.0.0 || ^5.0.0
 
-  nwsapi@2.2.23:
-    resolution: {integrity: sha512-7wfH4sLbt4M0gCDzGE6vzQBo0bfTKjU7Sfpqy/7gs1qBfYz2vEJH6vXcBKpO3+6Yu1telwd0t9HpyOoLEQQbIQ==}
+  nwsapi@2.2.24:
+    resolution: {integrity: sha512-7YRhZ3jS45LwmSCT4b2sVFHt/WuovaktDU07QrtOBY2PXskss5a9jfmR9jptyumwXST+rFjrmppMY1KT/yn35A==}
 
   oauth4webapi@3.8.6:
     resolution: {integrity: sha512-iwemM91xz8nryHti2yTmg5fhyEMVOkOXwHNqbvcATjyajb5oQxCQzrNOA6uElRHuMhQQTKUyFKV9y/CNyg25BQ==}
@@ -18515,7 +18515,7 @@ snapshots:
 
   dotenv@17.4.2: {}
 
-  downshift@9.3.4(react@19.2.7):
+  downshift@9.3.6(react@19.2.7):
     dependencies:
       '@babel/runtime': 7.29.7
       compute-scroll-into-view: 3.1.1
@@ -20392,7 +20392,7 @@ snapshots:
       http-proxy-agent: 4.0.1
       https-proxy-agent: 5.0.1
       is-potential-custom-element-name: 1.0.1
-      nwsapi: 2.2.23
+      nwsapi: 2.2.24
       parse5: 6.0.1
       saxes: 5.0.1
       symbol-tree: 3.2.4
@@ -21384,7 +21384,7 @@ snapshots:
       schema-utils: 3.3.0
       webpack: 5.105.2
 
-  nwsapi@2.2.23:
+  nwsapi@2.2.24:
     optional: true
 
   oauth4webapi@3.8.6: {}
