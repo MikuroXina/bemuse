@@ -90,7 +90,7 @@ importers:
         version: 11.1.8
       immutable:
         specifier: ^5.0.0
-        version: 5.1.5
+        version: 5.1.6
       invariant:
         specifier: ^2.2.4
         version: 2.2.4
@@ -7632,9 +7632,6 @@ packages:
 
   immer@11.1.8:
     resolution: {integrity: sha512-/tbkHMW7y10Lx6i1crLjD4/OhNkRG+Fo7byZHtah0547nIeXYcpIXaUh0IAQY6gO5459qpGGYapcEOHtFXkIuA==}
-
-  immutable@5.1.5:
-    resolution: {integrity: sha512-t7xcm2siw+hlUM68I+UEOK+z84RzmN59as9DZ7P1l0994DKUWV7UXBMQZVxaoMSRQ+PBZbHCOoBt7a2wxOMt+A==}
 
   immutable@5.1.6:
     resolution: {integrity: sha512-q1swsS8K7L8usSHuOqF2TAoCCkonYz0SG38wLAggaa4Wml70zixIvt2ql4coQ2C2B3hTjltJry4r6bULwgAXLQ==}
@@ -20034,10 +20031,7 @@ snapshots:
 
   immer@11.1.8: {}
 
-  immutable@5.1.5: {}
-
-  immutable@5.1.6:
-    optional: true
+  immutable@5.1.6: {}
 
   import-fresh@3.3.1:
     dependencies:
@@ -23105,7 +23099,7 @@ snapshots:
   sass@1.100.0:
     dependencies:
       chokidar: 5.0.0
-      immutable: 5.1.5
+      immutable: 5.1.6
       source-map-js: 1.2.1
     optionalDependencies:
       '@parcel/watcher': 2.5.6
