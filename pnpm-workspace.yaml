@@ -1,6 +1,15 @@
 packages:
   - packages/**
 
+allowBuilds:
+  '@parcel/watcher': true
+  browser-tabs-lock: true
+  core-js: true
+  esbuild: true
+  puppeteer: true
+  sharp: true
+  workerd: true
+
 ignoredBuiltDependencies:
   - '@fortawesome/fontawesome-common-types'
   - '@fortawesome/fontawesome-svg-core'
