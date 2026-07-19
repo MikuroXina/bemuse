@@ -67,6 +67,10 @@
         "react-dom",
         "@types/react-dom"
       ]
+    },
+    {
+      "groupName": "Fontawesome",
+      "matchPackageNames": ["@font-awesome/**"]
     }
   ],
   "npm": {
