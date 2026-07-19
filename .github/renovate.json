@@ -69,8 +69,8 @@
       ]
     },
     {
-      "groupName": "Fontawesome",
-      "matchPackageNames": ["@font-awesome/**"]
+      "groupName": "Fortawesome",
+      "matchPackageNames": ["@fortawesome/**"]
     }
   ],
   "npm": {
