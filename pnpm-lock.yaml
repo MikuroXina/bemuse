@@ -632,7 +632,7 @@ importers:
         version: 5.100.14(react@19.2.8)
       auth0:
         specifier: ^5.5.0
-        version: 5.13.0
+        version: 5.14.1
       dotenv:
         specifier: ^17.3.1
         version: 17.4.2
@@ -4909,9 +4909,9 @@ packages:
     resolution: {integrity: sha512-o9ca0P+hHSUbiwOSFW+DS2GmCA5c6T6E1UJZhWcgKmjAI2Aid16wLzY4/y+XNFb7Im1rM+wQc5YkkNZuTy5FOw==}
     engines: {node: '>=18'}
 
-  auth0@5.13.0:
-    resolution: {integrity: sha512-/xExT44bBr1cxcb833osSvN78QPJxLl/Z2K6zxAuk2iJXXx/Zue1NKodWjKyolIeCQ9aI4mq713xZ9dSuLw1eQ==}
-    engines: {node: ^20.19.0 || ^22.12.0 || ^24.0.0}
+  auth0@5.14.1:
+    resolution: {integrity: sha512-yysfvwSP2kfbZwSAXnfPoXmjW3hHVyA3Iw/ICZKDs/E/kceI3+QyhBeejQAgAVHLUBS2KfFwviWzGg7896Tpfw==}
+    engines: {node: ^20.19.0 || ^22.12.0 || ^24.0.0 || ^26.0.0}
 
   autoprefixer@10.5.4:
     resolution: {integrity: sha512-MaU0U/za7N3r6brxD4YB/l4NSrFzLPlANv6wEuQVaIPlD3L4W9rFcQPbL/EilY9BHhHvhfcz3gInDLrEtWT4EA==}
@@ -7396,6 +7396,9 @@ packages:
 
   jose@4.15.9:
     resolution: {integrity: sha512-1vUQX+IdDMVPj4k8kOxgUqlcK518yluMuGZwqlr44FS1ppZB/5GWh4rZG89erpOBOJjU/OBsnCVFfapsRz6nEA==}
+
+  jose@5.10.0:
+    resolution: {integrity: sha512-s+3Al/p9g32Iq+oqXxkW//7jk2Vig6FF1CFqzVXoTUXt2qz89YWbL+OwS17NFYEvxC35n0FKeGO2LGYSxeM2Gg==}
 
   jose@6.2.6:
     resolution: {integrity: sha512-HwMtbJjMw8rC8dUTwCNilHJD+fxTeKM3JV1eprSmTjS41qwXSSt6exJXgyPK1QOu0jB9eDYLESRDkB3qaT3jnw==}
@@ -10467,8 +10470,8 @@ packages:
     resolution: {integrity: sha512-tO/bf30wBbTsJ7go80j0RzA2rcwX6o7XPBpeFcb+jzoeb4pfMM2zUeSDIkY1AWqeZabWxaQZ/h8N9t35QKDLPQ==}
     engines: {node: '>=10.13.0'}
 
-  undici-types@6.27.0:
-    resolution: {integrity: sha512-HDBmCak1Ccswl7xS6/blapTYRVsqva4skTCeeJPLiDn6qCszeqiPGDljQBH2Kf/S0BI6EN14FQsgKVyGid9xnA==}
+  undici-types@6.28.0:
+    resolution: {integrity: sha512-FnO9H9rmJvJbP5Mwy0XICbDezlIKf6WYRkDMCm8uukbHlKWMzmD5jodVA7F1k+TrAiZhWieDcoFayjVN5mnGUg==}
 
   undici-types@7.16.0:
     resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
@@ -16499,13 +16502,13 @@ snapshots:
   auth0@4.37.1:
     dependencies:
       jose: 4.15.9
-      undici-types: 6.27.0
+      undici-types: 6.28.0
       uuid: 11.1.1
 
-  auth0@5.13.0:
+  auth0@5.14.1:
     dependencies:
       auth0-legacy: auth0@4.37.1
-      jose: 4.15.9
+      jose: 5.10.0
       uuid: 11.1.1
 
   autoprefixer@10.5.4(postcss@8.5.15):
@@ -19457,6 +19460,8 @@ snapshots:
       '@sideway/pinpoint': 2.0.0
 
   jose@4.15.9: {}
+
+  jose@5.10.0: {}
 
   jose@6.2.6: {}
 
@@ -23172,7 +23177,7 @@ snapshots:
       last-run: 2.0.0
       undertaker-registry: 2.0.0
 
-  undici-types@6.27.0: {}
+  undici-types@6.28.0: {}
 
   undici-types@7.16.0: {}
 
