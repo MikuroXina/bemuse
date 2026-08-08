@@ -175,7 +175,7 @@ importers:
         version: 4.0.1
       '@types/lodash':
         specifier: ^4.17.23
-        version: 4.17.24
+        version: 4.17.25
       '@types/markdown-it':
         specifier: ^14.0.0
         version: 14.1.2
@@ -293,7 +293,7 @@ importers:
         version: 2.2.37
       '@types/lodash':
         specifier: ^4.14.176
-        version: 4.17.24
+        version: 4.17.25
       '@types/object-assign':
         specifier: ^4.0.30
         version: 4.0.33
@@ -339,7 +339,7 @@ importers:
         version: 2.2.37
       '@types/lodash':
         specifier: ^4.14.176
-        version: 4.17.24
+        version: 4.17.25
       '@vitest/coverage-v8':
         specifier: ^4.0.18
         version: 4.1.10(@vitest/browser@4.1.10)(vitest@4.1.10)
@@ -535,7 +535,7 @@ importers:
         version: link:../eslint-config-bemuse
       '@types/lodash':
         specifier: ^4.14.176
-        version: 4.17.24
+        version: 4.17.25
       '@types/power-assert':
         specifier: ^1.5.0
         version: 1.5.12
@@ -861,7 +861,7 @@ importers:
         version: 3.1.2
       '@types/lodash':
         specifier: ^4.14.175
-        version: 4.17.24
+        version: 4.17.25
       '@types/markdown-it':
         specifier: ^14.0.0
         version: 14.1.2
@@ -4101,6 +4101,9 @@ packages:
 
   '@types/lodash@4.17.24':
     resolution: {integrity: sha512-gIW7lQLZbue7lRSWEFql49QJJWThrTFFeIMJdp3eH4tKoxm1OvEPg02rm4wCCSHS0cL3/Fizimb35b7k8atwsQ==}
+
+  '@types/lodash@4.17.25':
+    resolution: {integrity: sha512-+K1NIO8I+F9/wNulfVvu23QYd0Pe9/OCqRrim4NoYIf1VoEDL90Ve4ClzpyqBLc7NpGGWRvYNCKZ1BE/Jpf8dQ==}
 
   '@types/markdown-it@14.1.2':
     resolution: {integrity: sha512-promo4eFwuiW+TfGxhi+0x3czqTYJkG8qB17ZUJiVF10Xm7NLVRSLUsfRTU/6h1e24VvRnXCx+hG7li58lkzog==}
@@ -15456,6 +15459,8 @@ snapshots:
       '@types/lodash': 4.17.24
 
   '@types/lodash@4.17.24': {}
+
+  '@types/lodash@4.17.25': {}
 
   '@types/markdown-it@14.1.2':
     dependencies:
