@@ -12,7 +12,7 @@ importers:
     dependencies:
       '@auth0/auth0-react':
         specifier: ^2.15.1
-        version: 2.22.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        version: 2.23.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@emotion/react':
         specifier: ^11.14.0
         version: 11.14.0(@types/react@19.2.18)(react@19.2.8)(supports-color@10.2.2)
@@ -1004,8 +1004,8 @@ packages:
   '@auth0/auth0-auth-js@1.12.0':
     resolution: {integrity: sha512-94r29UxcFEdroO74TUqu5KYy5hSKa6mCXY8lu4hADiyES8qthlSCwaCPEW1adpM5hdheltQ7s1o9TsK8Btyjvg==}
 
-  '@auth0/auth0-react@2.22.1':
-    resolution: {integrity: sha512-3hyexxNOTN3K6wrSu7/HNN15dXhM51vHTLykvhc7+yPGZj31Fxn5KP1W/j7udDBKne1f26+DVI6TgMXSc6H6LQ==}
+  '@auth0/auth0-react@2.23.0':
+    resolution: {integrity: sha512-oyvZWPoGPSAEf/ZM+1BxOBqCsS7l8vxA+USR62C41z4bmgvulWEafNJDx9X0E91qPkHc9mEjwdah66GaZuQLeg==}
     peerDependencies:
       react: ^16.11.0 || ^17 || ^18 || ~19.0.1 || ~19.1.2 || ^19.2.1
       react-dom: ^16.11.0 || ^17 || ^18 || ~19.0.1 || ~19.1.2 || ^19.2.1
@@ -7403,8 +7403,8 @@ packages:
   jose@5.10.0:
     resolution: {integrity: sha512-s+3Al/p9g32Iq+oqXxkW//7jk2Vig6FF1CFqzVXoTUXt2qz89YWbL+OwS17NFYEvxC35n0FKeGO2LGYSxeM2Gg==}
 
-  jose@6.2.6:
-    resolution: {integrity: sha512-HwMtbJjMw8rC8dUTwCNilHJD+fxTeKM3JV1eprSmTjS41qwXSSt6exJXgyPK1QOu0jB9eDYLESRDkB3qaT3jnw==}
+  jose@6.2.8:
+    resolution: {integrity: sha512-Bsdjwm3Qsd/P0jR+BHDe3LytDfY7WBq2HmCCLIwuVRHMuEC9ae7/R474GIUdF1NgCyZjzVo/A9DOiOBtXq8ZoQ==}
 
   jquery@4.0.0:
     resolution: {integrity: sha512-TXCHVR3Lb6TZdtw1l3RTLf8RBWVGexdxL6AC8/e0xZKEpBflBsjh9/8LXw+dkNFuOyW9B7iB3O1sP7hS0Kiacg==}
@@ -11370,10 +11370,10 @@ snapshots:
 
   '@auth0/auth0-auth-js@1.12.0':
     dependencies:
-      jose: 6.2.6
+      jose: 6.2.8
       openid-client: 6.8.4
 
-  '@auth0/auth0-react@2.22.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+  '@auth0/auth0-react@2.23.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:
       '@auth0/auth0-spa-js': 2.24.1
       react: 19.2.8
@@ -19472,7 +19472,7 @@ snapshots:
 
   jose@5.10.0: {}
 
-  jose@6.2.6: {}
+  jose@6.2.8: {}
 
   jquery@4.0.0: {}
 
@@ -20659,7 +20659,7 @@ snapshots:
 
   openid-client@6.8.4:
     dependencies:
-      jose: 6.2.6
+      jose: 6.2.8
       oauth4webapi: 3.8.6
 
   optionator@0.9.4:
