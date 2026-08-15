@@ -63,7 +63,7 @@ importers:
         version: 5.100.14(react@19.2.8)
       '@zip.js/zip.js':
         specifier: ^2.8.26
-        version: 2.8.34
+        version: 2.8.43
       bson-objectid:
         specifier: ^2.0.4
         version: 2.0.4
@@ -4615,6 +4615,7 @@ packages:
   '@xmldom/xmldom@0.8.13':
     resolution: {integrity: sha512-KRYzxepc14G/CEpEGc3Yn+JKaAeT63smlDr+vjB8jRfgTBBI9wRj/nkQEO+ucV8p8I9bfKLWp37uHgFrbntPvw==}
     engines: {node: '>=10.0.0'}
+    deprecated: this version has critical issues, please update to the latest version
 
   '@xtuc/ieee754@1.2.0':
     resolution: {integrity: sha512-DX8nKgqcGwsc0eJSqYt5lwP4DH5FlHnmuWWBRy7X0NcaGR0ZtuyeESgMwTYVEtxmsNGY+qit4QYT/MIYTOTPeA==}
@@ -4622,8 +4623,8 @@ packages:
   '@xtuc/long@4.2.2':
     resolution: {integrity: sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==}
 
-  '@zip.js/zip.js@2.8.34':
-    resolution: {integrity: sha512-+6a3lyqq69rpseLbvDPiVIWsZ/HdTGAAD6afFtug6ECPDGttb2dHnPC6cJgdPofYkzL9OvXizegq+DQVfL2rnA==}
+  '@zip.js/zip.js@2.8.43':
+    resolution: {integrity: sha512-LesnlKQyNaCm3NWd7TwMLYYRVShxaeItzReGGRiwxRhsad5PhIF2Vxl+tOWoajjK7xiukZtqmJf5ckkE/OVpYw==}
     engines: {bun: '>=0.7.0', deno: '>=1.0.0', node: '>=18.0.0'}
 
   '@zxing/library@0.21.3':
@@ -16194,7 +16195,7 @@ snapshots:
 
   '@xtuc/long@4.2.2': {}
 
-  '@zip.js/zip.js@2.8.34': {}
+  '@zip.js/zip.js@2.8.43': {}
 
   '@zxing/library@0.21.3':
     dependencies:
