@@ -620,10 +620,10 @@ importers:
     dependencies:
       '@hono/standard-validator':
         specifier: ^0.4.0
-        version: 0.4.0(@standard-schema/spec@1.1.0)(hono@4.13.1)
+        version: 0.4.0(@standard-schema/spec@1.1.0)(hono@4.13.3)
       '@hono/valibot-validator':
         specifier: ^0.6.1
-        version: 0.6.1(hono@4.13.1)(valibot@1.4.2(typescript@6.0.3))
+        version: 0.6.1(hono@4.13.3)(valibot@1.4.2(typescript@6.0.3))
       '@mikuroxina/scoreboard-types':
         specifier: workspace:*
         version: link:../scoreboard-types
@@ -638,7 +638,7 @@ importers:
         version: 17.4.2
       hono:
         specifier: ^4.12.7
-        version: 4.13.1
+        version: 4.13.3
       react:
         specifier: ^19.2.4
         version: 19.2.8
@@ -660,10 +660,10 @@ importers:
         version: 0.21.3(@vitest/runner@4.1.10)(@vitest/snapshot@4.1.10)(vitest@4.1.10)
       '@hono/vite-cloudflare-pages':
         specifier: ^0.4.3
-        version: 0.4.3(hono@4.13.1)
+        version: 0.4.3(hono@4.13.3)
       '@hono/vite-dev-server':
         specifier: ^0.26.0
-        version: 0.26.1(hono@4.13.1)(miniflare@4.20260730.0)(wrangler@4.122.0)
+        version: 0.26.1(hono@4.13.3)(miniflare@4.20260730.0)(wrangler@4.122.0)
       '@mikuroxina/eslint-config-bemuse':
         specifier: workspace:*
         version: link:../eslint-config-bemuse
@@ -7010,8 +7010,8 @@ packages:
     resolution: {integrity: sha512-eSmmWE5bZTK2Nou4g0AI3zZ9rswp7GRKoKXS1BLUkvPviOqs4YTN1djQIqrXy9k5gEtdLPy86JjRwsNM9tnDcA==}
     engines: {node: '>=0.10.0'}
 
-  hono@4.13.1:
-    resolution: {integrity: sha512-kdJoFVv2xmayw6cY09H7AbMJMt8Jn5jdlEdXsP7AGBdF2DIptVlKlOLKXP41yPip4/a3yQPv9gVcJYI8YY04dw==}
+  hono@4.13.3:
+    resolution: {integrity: sha512-r8AO2mYHoLxSHkgafNeC/BXyb2vWRxD3jem4Ts+ptav8oTG5FIRifAjuJEmZI4bSvvc2ns0GxmIYiZnHqN3mMw==}
     engines: {node: '>=16.9.0'}
 
   hosted-git-info@9.0.3:
@@ -14402,28 +14402,28 @@ snapshots:
     dependencies:
       '@hapi/hoek': 9.3.0
 
-  '@hono/node-server@1.19.14(hono@4.13.1)':
+  '@hono/node-server@1.19.14(hono@4.13.3)':
     dependencies:
-      hono: 4.13.1
+      hono: 4.13.3
 
-  '@hono/standard-validator@0.4.0(@standard-schema/spec@1.1.0)(hono@4.13.1)':
+  '@hono/standard-validator@0.4.0(@standard-schema/spec@1.1.0)(hono@4.13.3)':
     dependencies:
       '@standard-schema/spec': 1.1.0
-      hono: 4.13.1
+      hono: 4.13.3
 
-  '@hono/valibot-validator@0.6.1(hono@4.13.1)(valibot@1.4.2(typescript@6.0.3))':
+  '@hono/valibot-validator@0.6.1(hono@4.13.3)(valibot@1.4.2(typescript@6.0.3))':
     dependencies:
-      hono: 4.13.1
+      hono: 4.13.3
       valibot: 1.4.2(typescript@6.0.3)
 
-  '@hono/vite-cloudflare-pages@0.4.3(hono@4.13.1)':
+  '@hono/vite-cloudflare-pages@0.4.3(hono@4.13.3)':
     dependencies:
-      hono: 4.13.1
+      hono: 4.13.3
 
-  '@hono/vite-dev-server@0.26.1(hono@4.13.1)(miniflare@4.20260730.0)(wrangler@4.122.0)':
+  '@hono/vite-dev-server@0.26.1(hono@4.13.3)(miniflare@4.20260730.0)(wrangler@4.122.0)':
     dependencies:
-      '@hono/node-server': 1.19.14(hono@4.13.1)
-      hono: 4.13.1
+      '@hono/node-server': 1.19.14(hono@4.13.3)
+      hono: 4.13.3
       minimatch: 9.0.9
     optionalDependencies:
       miniflare: 4.20260730.0
@@ -19176,7 +19176,7 @@ snapshots:
     dependencies:
       parse-passwd: 1.0.0
 
-  hono@4.13.1: {}
+  hono@4.13.3: {}
 
   hosted-git-info@9.0.3:
     dependencies:
