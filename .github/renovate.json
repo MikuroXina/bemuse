@@ -13,7 +13,7 @@
   "semanticCommits": "enabled",
   "minimumReleaseAge": "3 days",
   "fetchChangeLogs": "pr",
-  "enabledManagers": ["npm", "github-actions", "docker"],
+  "enabledManagers": ["npm", "github-actions"],
   "customManagers": [
     {
       "customType": "regex",
