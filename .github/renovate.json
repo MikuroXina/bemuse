@@ -14,6 +14,17 @@
   "minimumReleaseAge": "3 days",
   "fetchChangeLogs": "pr",
   "enabledManagers": ["npm", "github-actions", "docker"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["^\\.github/workflows/.+\\.ya?ml$"],
+      "matchStrings": [
+        "container:\\s*mcr\\.microsoft\\.com/playwright:(?<currentValue>v?[0-9.]+)-noble"
+      ],
+      "depNameTemplate": "mcr.microsoft.com/playwright",
+      "datasourceTemplate": "docker"
+    }
+  ],
   "packageRules": [
     {
       "groupName": "Vite packages",
@@ -22,7 +33,6 @@
     },
     {
       "groupName": "Playwright packages",
-      "matchDatasources": ["npm", "docker"],
       "matchPackageNames": [
         "playwright",
         "@playwright/**",
