@@ -13,7 +13,7 @@
   "semanticCommits": "enabled",
   "minimumReleaseAge": "3 days",
   "fetchChangeLogs": "pr",
-  "enabledManagers": ["npm", "github-actions"],
+  "enabledManagers": ["npm", "github-actions", "docker"],
   "packageRules": [
     {
       "groupName": "Vite packages",
@@ -22,7 +22,7 @@
     },
     {
       "groupName": "Playwright packages",
-      "matchDatasources": ["npm", "github-actions"],
+      "matchDatasources": ["npm", "docker"],
       "matchPackageNames": [
         "playwright",
         "@playwright/**",
