@@ -620,10 +620,10 @@ importers:
     dependencies:
       '@hono/standard-validator':
         specifier: ^0.4.0
-        version: 0.4.0(@standard-schema/spec@1.1.0)(hono@4.13.5)
+        version: 0.4.0(@standard-schema/spec@1.1.0)(hono@4.13.7)
       '@hono/valibot-validator':
         specifier: ^0.6.1
-        version: 0.6.1(hono@4.13.5)(valibot@1.4.2(typescript@6.0.3))
+        version: 0.6.1(hono@4.13.7)(valibot@1.4.2(typescript@6.0.3))
       '@mikuroxina/scoreboard-types':
         specifier: workspace:*
         version: link:../scoreboard-types
@@ -638,7 +638,7 @@ importers:
         version: 17.4.2
       hono:
         specifier: ^4.12.7
-        version: 4.13.5
+        version: 4.13.7
       react:
         specifier: ^19.2.4
         version: 19.2.8
@@ -660,10 +660,10 @@ importers:
         version: 0.22.0(@vitest/runner@4.1.11)(@vitest/snapshot@4.1.11)(vitest@4.1.11)
       '@hono/vite-cloudflare-pages':
         specifier: ^0.4.3
-        version: 0.4.3(hono@4.13.5)
+        version: 0.4.3(hono@4.13.7)
       '@hono/vite-dev-server':
         specifier: ^0.26.0
-        version: 0.26.1(hono@4.13.5)(miniflare@4.20260730.0)(wrangler@4.130.0)
+        version: 0.26.1(hono@4.13.7)(miniflare@4.20260730.0)(wrangler@4.130.0)
       '@mikuroxina/eslint-config-bemuse':
         specifier: workspace:*
         version: link:../eslint-config-bemuse
@@ -7007,8 +7007,8 @@ packages:
     resolution: {integrity: sha512-eSmmWE5bZTK2Nou4g0AI3zZ9rswp7GRKoKXS1BLUkvPviOqs4YTN1djQIqrXy9k5gEtdLPy86JjRwsNM9tnDcA==}
     engines: {node: '>=0.10.0'}
 
-  hono@4.13.5:
-    resolution: {integrity: sha512-O6+/eCYRkzzzy0rPWwKLiGBR1nFuUPZynnwjxN1MBA62NNqbT0wQEzQyK2gSO5yDIDB336sXQleAhOHrzlYyKw==}
+  hono@4.13.7:
+    resolution: {integrity: sha512-c8/gF9ac8Y78/agExVocyLevgR+JlpNB444Py0FSX8pJoPdYUfUzRcXtYEYGwt6l19qIlVZPN5Mfsw9jFShmQQ==}
     engines: {node: '>=16.9.0'}
 
   hosted-git-info@9.0.3:
@@ -11652,7 +11652,7 @@ snapshots:
     dependencies:
       '@babel/compat-data': 7.29.7
       '@babel/helper-validator-option': 7.29.7
-      browserslist: 4.28.7
+      browserslist: 4.28.9
       lru-cache: 5.1.1
       semver: 6.3.1
 
@@ -14444,28 +14444,28 @@ snapshots:
     dependencies:
       '@hapi/hoek': 9.3.0
 
-  '@hono/node-server@1.19.14(hono@4.13.5)':
+  '@hono/node-server@1.19.14(hono@4.13.7)':
     dependencies:
-      hono: 4.13.5
+      hono: 4.13.7
 
-  '@hono/standard-validator@0.4.0(@standard-schema/spec@1.1.0)(hono@4.13.5)':
+  '@hono/standard-validator@0.4.0(@standard-schema/spec@1.1.0)(hono@4.13.7)':
     dependencies:
       '@standard-schema/spec': 1.1.0
-      hono: 4.13.5
+      hono: 4.13.7
 
-  '@hono/valibot-validator@0.6.1(hono@4.13.5)(valibot@1.4.2(typescript@6.0.3))':
+  '@hono/valibot-validator@0.6.1(hono@4.13.7)(valibot@1.4.2(typescript@6.0.3))':
     dependencies:
-      hono: 4.13.5
+      hono: 4.13.7
       valibot: 1.4.2(typescript@6.0.3)
 
-  '@hono/vite-cloudflare-pages@0.4.3(hono@4.13.5)':
+  '@hono/vite-cloudflare-pages@0.4.3(hono@4.13.7)':
     dependencies:
-      hono: 4.13.5
+      hono: 4.13.7
 
-  '@hono/vite-dev-server@0.26.1(hono@4.13.5)(miniflare@4.20260730.0)(wrangler@4.130.0)':
+  '@hono/vite-dev-server@0.26.1(hono@4.13.7)(miniflare@4.20260730.0)(wrangler@4.130.0)':
     dependencies:
-      '@hono/node-server': 1.19.14(hono@4.13.5)
-      hono: 4.13.5
+      '@hono/node-server': 1.19.14(hono@4.13.7)
+      hono: 4.13.7
       minimatch: 9.0.9
     optionalDependencies:
       miniflare: 4.20260730.0
@@ -17125,8 +17125,8 @@ snapshots:
 
   caniuse-api@3.0.0:
     dependencies:
-      browserslist: 4.28.7
-      caniuse-lite: 1.0.30001806
+      browserslist: 4.28.9
+      caniuse-lite: 1.0.30001810
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
 
@@ -17386,7 +17386,7 @@ snapshots:
 
   core-js-compat@3.49.0:
     dependencies:
-      browserslist: 4.28.7
+      browserslist: 4.28.9
 
   core-js@2.6.12: {}
 
@@ -17565,7 +17565,7 @@ snapshots:
 
   cssnano-preset-default@6.1.2(postcss@8.5.23):
     dependencies:
-      browserslist: 4.28.7
+      browserslist: 4.28.9
       css-declaration-sorter: 7.4.0(postcss@8.5.23)
       cssnano-utils: 4.0.2(postcss@8.5.23)
       postcss: 8.5.23
@@ -19158,7 +19158,7 @@ snapshots:
     dependencies:
       parse-passwd: 1.0.0
 
-  hono@4.13.5: {}
+  hono@4.13.7: {}
 
   hosted-git-info@9.0.3:
     dependencies:
@@ -21257,7 +21257,7 @@ snapshots:
 
   postcss-colormin@6.1.0(postcss@8.5.23):
     dependencies:
-      browserslist: 4.28.7
+      browserslist: 4.28.9
       caniuse-api: 3.0.0
       colord: 2.9.3
       postcss: 8.5.23
@@ -21265,7 +21265,7 @@ snapshots:
 
   postcss-convert-values@6.1.0(postcss@8.5.23):
     dependencies:
-      browserslist: 4.28.7
+      browserslist: 4.28.9
       postcss: 8.5.23
       postcss-value-parser: 4.2.0
 
@@ -21389,7 +21389,7 @@ snapshots:
 
   postcss-merge-rules@6.1.1(postcss@8.5.23):
     dependencies:
-      browserslist: 4.28.7
+      browserslist: 4.28.9
       caniuse-api: 3.0.0
       cssnano-utils: 4.0.2(postcss@8.5.23)
       postcss: 8.5.23
@@ -21409,7 +21409,7 @@ snapshots:
 
   postcss-minify-params@6.1.0(postcss@8.5.23):
     dependencies:
-      browserslist: 4.28.7
+      browserslist: 4.28.9
       cssnano-utils: 4.0.2(postcss@8.5.23)
       postcss: 8.5.23
       postcss-value-parser: 4.2.0
@@ -21478,7 +21478,7 @@ snapshots:
 
   postcss-normalize-unicode@6.1.0(postcss@8.5.23):
     dependencies:
-      browserslist: 4.28.7
+      browserslist: 4.28.9
       postcss: 8.5.23
       postcss-value-parser: 4.2.0
 
@@ -21603,7 +21603,7 @@ snapshots:
 
   postcss-reduce-initial@6.1.0(postcss@8.5.23):
     dependencies:
-      browserslist: 4.28.7
+      browserslist: 4.28.9
       caniuse-api: 3.0.0
       postcss: 8.5.23
 
@@ -23058,7 +23058,7 @@ snapshots:
 
   stylehacks@6.1.1(postcss@8.5.23):
     dependencies:
-      browserslist: 4.28.7
+      browserslist: 4.28.9
       postcss: 8.5.23
       postcss-selector-parser: 6.1.4
 
@@ -24044,7 +24044,7 @@ snapshots:
       '@webassemblyjs/wasm-edit': 1.14.1
       '@webassemblyjs/wasm-parser': 1.14.1
       acorn: 8.17.0
-      browserslist: 4.28.7
+      browserslist: 4.28.9
       chrome-trace-event: 1.0.4
       enhanced-resolve: 5.24.3
       es-module-lexer: 2.3.2
