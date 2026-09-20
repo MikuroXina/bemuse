@@ -18,6 +18,10 @@ export function LoginPanel() {
     if (isAuthenticated) {
       ;(async () => {
         const token = await getAccessTokenSilently()
+        if (token == null) {
+          console.log("failed to get access token silently")
+          return;
+        }
         storeAccessToken(token)
         if (window.opener) {
           ;(window.opener as Window).postMessage([])
