@@ -117,7 +117,7 @@ importers:
         version: 1.4.0
       p-map:
         specifier: ^7.0.0
-        version: 7.0.7
+        version: 7.0.8
       p-memoize:
         specifier: ^8.0.0
         version: 8.0.0
@@ -8593,12 +8593,12 @@ packages:
     resolution: {integrity: sha512-/bjOqmgETBYB5BoEeGVea8dmvHb2m9GLy1E9W43yeyfP6QQCZGFNa+XRceJEuDB6zqr+gKpIAmlLebMpykw/MQ==}
     engines: {node: '>=10'}
 
-  p-map@7.0.6:
-    resolution: {integrity: sha512-I4Prw6ivkd6p8PiYR1tXASOAOBzIJwu0TB7fqaX0c/8c3QAehNYmX57EijyGGGBt3c/BIowGwV03RVBtXvHEVg==}
-    engines: {node: '>=18'}
-
   p-map@7.0.7:
     resolution: {integrity: sha512-VaWRu2i4FJNRtiRWCuuQRgfQ1B7a6+gMSrO+3j0EQi/k0ULfS9kosRxGoiqwzIjZTDI02tGfk5mXXltLg6QtfQ==}
+    engines: {node: '>=18'}
+
+  p-map@7.0.8:
+    resolution: {integrity: sha512-MitaVsCuCFIvOLLPIU7NnfrZvS9H9h7kwMUkDo+T2pEISaJD48IV9S8iIdXB7PsvvdxyYcsSTTrr90XKsbulNw==}
     engines: {node: '>=18'}
 
   p-memoize@8.0.0:
@@ -15439,7 +15439,7 @@ snapshots:
       isbot: 5.2.2
       jsesc: 3.0.2
       lodash: 4.18.1
-      p-map: 7.0.6
+      p-map: 7.0.7
       pathe: 1.1.2
       picocolors: 1.1.1
       pkg-types: 2.3.0
@@ -21183,9 +21183,9 @@ snapshots:
     dependencies:
       aggregate-error: 3.1.0
 
-  p-map@7.0.6: {}
-
   p-map@7.0.7: {}
+
+  p-map@7.0.8: {}
 
   p-memoize@8.0.0:
     dependencies:
