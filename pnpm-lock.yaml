@@ -63,7 +63,7 @@ importers:
         version: 5.100.14(react@19.2.8)
       '@zip.js/zip.js':
         specifier: ^2.8.26
-        version: 2.15.0
+        version: 2.17.0
       bson-objectid:
         specifier: ^2.0.4
         version: 2.0.4
@@ -4943,8 +4943,8 @@ packages:
   '@xtuc/long@4.2.2':
     resolution: {integrity: sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==}
 
-  '@zip.js/zip.js@2.15.0':
-    resolution: {integrity: sha512-hYAuHAaWjt0axbofaDL5XUlmrQPsBDcK3f45ApZuh6N+8UGVk26GoGdtGDvcvzahsHytTQ6DtBVXwG9IcCMjjQ==}
+  '@zip.js/zip.js@2.17.0':
+    resolution: {integrity: sha512-WxvSsJvlI+5v4f1gWjGfqvzOB8XkAIughO+iJUPOJR6OSpUkFauBzi1G4xS2MmK1fxHGuDAqq9Lnpq/ri7BWuw==}
     engines: {bun: '>=0.7.0', deno: '>=1.0.0', node: '>=18.0.0'}
 
   '@zxing/library@0.21.3':
@@ -16684,7 +16684,7 @@ snapshots:
 
   '@xtuc/long@4.2.2': {}
 
-  '@zip.js/zip.js@2.15.0': {}
+  '@zip.js/zip.js@2.17.0': {}
 
   '@zxing/library@0.21.3':
     dependencies:
