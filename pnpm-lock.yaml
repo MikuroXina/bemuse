@@ -12,7 +12,7 @@ importers:
     dependencies:
       '@auth0/auth0-react':
         specifier: ^2.15.1
-        version: 2.26.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        version: 2.27.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@emotion/react':
         specifier: ^11.14.0
         version: 11.14.0(@types/react@19.2.18)(react@19.2.8)(supports-color@10.2.2)
@@ -1004,8 +1004,8 @@ packages:
   '@auth0/auth0-auth-js@1.15.0':
     resolution: {integrity: sha512-obn/Qhxx3eNs2wV6/lLsIDIcEiSJvBEEy15hppB5Me1j2No2toa7KqQcXHBCyGX4mBBdVnxZJBjEX6E4WanYwg==}
 
-  '@auth0/auth0-react@2.26.0':
-    resolution: {integrity: sha512-4kXXdqeVOaESQuWD4/b+FTP30wSHWeFASov39UhWaYaPiSnKCVM0BGveuokJeaCUSiJekW3Zs7G29S1nbwswLg==}
+  '@auth0/auth0-react@2.27.0':
+    resolution: {integrity: sha512-SVDiQM1Eatv+zLzy7qyxMdcETdbGVOqXR+zaBXbMyX32xUzTNIppgcHFoD0AFLqVQrBZgTHX4ujj9D9+sfCXsQ==}
     peerDependencies:
       react: ^16.11.0 || ^17 || ^18 || ~19.0.1 || ~19.1.2 || ^19.2.1
       react-dom: ^16.11.0 || ^17 || ^18 || ~19.0.1 || ~19.1.2 || ^19.2.1
@@ -11703,7 +11703,7 @@ snapshots:
       jose: 6.2.12
       openid-client: 6.8.8
 
-  '@auth0/auth0-react@2.26.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+  '@auth0/auth0-react@2.27.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:
       '@auth0/auth0-spa-js': 2.27.0
       react: 19.2.8
