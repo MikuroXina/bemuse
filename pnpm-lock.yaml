@@ -654,7 +654,7 @@ importers:
     devDependencies:
       '@cloudflare/vite-plugin':
         specifier: ^1.31.0
-        version: 1.58.0(@types/node@26.1.1)(vite@7.3.6(@types/node@26.0.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.105.0)(terser@5.49.0)(yaml@2.9.0))(wrangler@4.137.0(@types/node@26.1.1))
+        version: 1.59.0(@types/node@26.1.1)(vite@7.3.6(@types/node@26.0.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.105.0)(terser@5.49.0)(yaml@2.9.0))(wrangler@4.138.0(@types/node@26.1.1))
       '@cloudflare/vitest-pool-workers':
         specifier: ^0.22.0
         version: 0.22.0(@vitest/runner@4.1.11)(@vitest/snapshot@4.1.11)(vitest@4.1.11)
@@ -663,7 +663,7 @@ importers:
         version: 0.4.3(hono@4.13.9)
       '@hono/vite-dev-server':
         specifier: ^0.26.0
-        version: 0.26.1(hono@4.13.9)(miniflare@4.20260730.0)(wrangler@4.137.0(@types/node@26.1.1))
+        version: 0.26.1(hono@4.13.9)(miniflare@4.20260730.0)(wrangler@4.138.0(@types/node@26.1.1))
       '@mikuroxina/eslint-config-bemuse':
         specifier: workspace:*
         version: link:../eslint-config-bemuse
@@ -693,7 +693,7 @@ importers:
         version: 0.14.13
       wrangler:
         specifier: ^4.80.0
-        version: 4.137.0(@types/node@26.1.1)
+        version: 4.138.0(@types/node@26.1.1)
 
   packages/scoreboard-types:
     dependencies:
@@ -788,7 +788,7 @@ importers:
         version: link:../bms
       '@react-router/fs-routes':
         specifier: ^7.13.1
-        version: 7.14.2(@react-router/dev@7.14.2(@types/node@26.0.0)(babel-plugin-macros@3.1.0)(jiti@1.21.7)(react-router@7.14.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(sass-embedded@1.97.3)(sass@1.105.0)(supports-color@10.2.2)(terser@5.49.0)(typescript@6.0.3)(vite@7.3.6(@types/node@26.0.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.105.0)(terser@5.49.0)(yaml@2.9.0))(wrangler@4.137.0(@types/node@26.1.1))(yaml@2.9.0))(typescript@6.0.3)
+        version: 7.14.2(@react-router/dev@7.14.2(@types/node@26.0.0)(babel-plugin-macros@3.1.0)(jiti@1.21.7)(react-router@7.14.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(sass-embedded@1.97.3)(sass@1.105.0)(supports-color@10.2.2)(terser@5.49.0)(typescript@6.0.3)(vite@7.3.6(@types/node@26.0.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.105.0)(terser@5.49.0)(yaml@2.9.0))(wrangler@4.138.0(@types/node@26.1.1))(yaml@2.9.0))(typescript@6.0.3)
       '@react-router/node':
         specifier: ^7.13.1
         version: 7.14.2(react-router@7.14.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3)
@@ -855,7 +855,7 @@ importers:
         version: link:../eslint-config-bemuse
       '@react-router/dev':
         specifier: ^7.13.1
-        version: 7.14.2(@types/node@26.0.0)(babel-plugin-macros@3.1.0)(jiti@1.21.7)(react-router@7.14.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(sass-embedded@1.97.3)(sass@1.105.0)(supports-color@10.2.2)(terser@5.49.0)(typescript@6.0.3)(vite@7.3.6(@types/node@26.0.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.105.0)(terser@5.49.0)(yaml@2.9.0))(wrangler@4.137.0(@types/node@26.1.1))(yaml@2.9.0)
+        version: 7.14.2(@types/node@26.0.0)(babel-plugin-macros@3.1.0)(jiti@1.21.7)(react-router@7.14.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(sass-embedded@1.97.3)(sass@1.105.0)(supports-color@10.2.2)(terser@5.49.0)(typescript@6.0.3)(vite@7.3.6(@types/node@26.0.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.105.0)(terser@5.49.0)(yaml@2.9.0))(wrangler@4.138.0(@types/node@26.1.1))(yaml@2.9.0)
       '@types/chroma-js':
         specifier: ^3.0.0
         version: 3.1.2
@@ -1771,12 +1771,12 @@ packages:
       workerd:
         optional: true
 
-  '@cloudflare/vite-plugin@1.58.0':
-    resolution: {integrity: sha512-ErEaisovts5TX02cbh7lG5eTRWpLIde5ErnaRsm06UnE/V52Xov+f5xfQcEgxv+goxwmkyp28K47AL1yKc1plA==}
+  '@cloudflare/vite-plugin@1.59.0':
+    resolution: {integrity: sha512-OpG8HdJgzpo360i7lDGS0cF4E94+AKmUYIGglYNwlMUVGORxhZBNbgwMYBdXGxp5GortD6SJjgSi96G9AgR8jA==}
     hasBin: true
     peerDependencies:
       vite: ^6.1.0 || ^7.0.0 || ^8.0.0
-      wrangler: ^4.137.0
+      wrangler: ^4.138.0
 
   '@cloudflare/vitest-pool-workers@0.22.0':
     resolution: {integrity: sha512-OJv/qikkOgxnKxJ5xrLS7zuOLZhc/6iziU+llqZm4tiQf2CJUYwlMuXN68VaWIQebORd1AUx4w6A0oy8XRbuaQ==}
@@ -8300,8 +8300,8 @@ packages:
     resolution: {integrity: sha512-YAaGj4Sh5f4fqHKiMQ8zRHDOOM5IGUVtMhnLIeyjuQfU+9P6hcOTrHUVtbfj/ZPay9Kzik4pWELB39pGgefjiQ==}
     engines: {node: '>=22.0.0'}
 
-  miniflare@5.20260921.0-alpha:
-    resolution: {integrity: sha512-vHH/unOYvV2jA1Q9SdkmzrQhhMoksdwg5jegu6ZeKaaRzgxZhVbt1NdTpQjHF2VTgiBjgP8SiUlUMfruB3N3SQ==}
+  miniflare@5.20260921.1-alpha:
+    resolution: {integrity: sha512-nvw7bDhUCMTKbpZWJ/WHQFn1FDopseuMQQGxkO3/f0r9eXeizux0ZxV3sZnEHnS0lDWb3Je0bIO2MJcFK4O8GQ==}
     engines: {node: '>=22.0.0'}
 
   minimalistic-assert@1.0.1:
@@ -11422,8 +11422,8 @@ packages:
       '@cloudflare/workers-types':
         optional: true
 
-  wrangler@4.137.0:
-    resolution: {integrity: sha512-vq2JmxkvwOjnsMUejQwd89/EK6u1d20OMlGUVVmb55gVi2zSBKp2rvmxUiPqrSEntK8NwzpTF3DQ/S2I9/TLsg==}
+  wrangler@4.138.0:
+    resolution: {integrity: sha512-jxNlOfssgyMo+eUcWBX+BxAuU6/AZAn8mNimicLv4igxbRH40OFRBMtGJT8z4kJwXPJriy1O4TB7A8lYjKb82w==}
     engines: {node: '>=22.0.0'}
     hasBin: true
     peerDependencies:
@@ -12722,14 +12722,14 @@ snapshots:
     optionalDependencies:
       workerd: 1.20260921.1
 
-  '@cloudflare/vite-plugin@1.58.0(@types/node@26.1.1)(vite@7.3.6(@types/node@26.0.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.105.0)(terser@5.49.0)(yaml@2.9.0))(wrangler@4.137.0(@types/node@26.1.1))':
+  '@cloudflare/vite-plugin@1.59.0(@types/node@26.1.1)(vite@7.3.6(@types/node@26.0.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.105.0)(terser@5.49.0)(yaml@2.9.0))(wrangler@4.138.0(@types/node@26.1.1))':
     dependencies:
       '@cloudflare/unenv-preset': 2.16.2(unenv@2.0.0-rc.24)(workerd@1.20260921.1)
-      miniflare: 5.20260921.0-alpha(@types/node@26.1.1)
+      miniflare: 5.20260921.1-alpha(@types/node@26.1.1)
       unenv: 2.0.0-rc.24
       vite: 7.3.6(@types/node@26.0.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.105.0)(terser@5.49.0)(yaml@2.9.0)
       workerd: 1.20260921.1
-      wrangler: 4.137.0(@types/node@26.1.1)
+      wrangler: 4.138.0(@types/node@26.1.1)
       ws: 8.21.0
     transitivePeerDependencies:
       - '@types/node'
@@ -14639,14 +14639,14 @@ snapshots:
     dependencies:
       hono: 4.13.9
 
-  '@hono/vite-dev-server@0.26.1(hono@4.13.9)(miniflare@4.20260730.0)(wrangler@4.137.0(@types/node@26.1.1))':
+  '@hono/vite-dev-server@0.26.1(hono@4.13.9)(miniflare@4.20260730.0)(wrangler@4.138.0(@types/node@26.1.1))':
     dependencies:
       '@hono/node-server': 1.19.14(hono@4.13.9)
       hono: 4.13.9
       minimatch: 9.0.9
     optionalDependencies:
       miniflare: 4.20260730.0
-      wrangler: 4.137.0(@types/node@26.1.1)
+      wrangler: 4.138.0(@types/node@26.1.1)
 
   '@humanfs/core@0.19.2':
     dependencies:
@@ -15454,7 +15454,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.18
 
-  '@react-router/dev@7.14.2(@types/node@26.0.0)(babel-plugin-macros@3.1.0)(jiti@1.21.7)(react-router@7.14.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(sass-embedded@1.97.3)(sass@1.105.0)(supports-color@10.2.2)(terser@5.49.0)(typescript@6.0.3)(vite@7.3.6(@types/node@26.0.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.105.0)(terser@5.49.0)(yaml@2.9.0))(wrangler@4.137.0(@types/node@26.1.1))(yaml@2.9.0)':
+  '@react-router/dev@7.14.2(@types/node@26.0.0)(babel-plugin-macros@3.1.0)(jiti@1.21.7)(react-router@7.14.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(sass-embedded@1.97.3)(sass@1.105.0)(supports-color@10.2.2)(terser@5.49.0)(typescript@6.0.3)(vite@7.3.6(@types/node@26.0.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.105.0)(terser@5.49.0)(yaml@2.9.0))(wrangler@4.138.0(@types/node@26.1.1))(yaml@2.9.0)':
     dependencies:
       '@babel/core': 7.29.0(supports-color@10.2.2)
       '@babel/generator': 7.29.1
@@ -15488,7 +15488,7 @@ snapshots:
       vite-node: 3.2.4(@types/node@26.0.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.105.0)(supports-color@8.1.1)(terser@5.49.0)(yaml@2.9.0)
     optionalDependencies:
       typescript: 6.0.3
-      wrangler: 4.137.0(@types/node@26.1.1)
+      wrangler: 4.138.0(@types/node@26.1.1)
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
@@ -15504,9 +15504,9 @@ snapshots:
       - tsx
       - yaml
 
-  '@react-router/fs-routes@7.14.2(@react-router/dev@7.14.2(@types/node@26.0.0)(babel-plugin-macros@3.1.0)(jiti@1.21.7)(react-router@7.14.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(sass-embedded@1.97.3)(sass@1.105.0)(supports-color@10.2.2)(terser@5.49.0)(typescript@6.0.3)(vite@7.3.6(@types/node@26.0.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.105.0)(terser@5.49.0)(yaml@2.9.0))(wrangler@4.137.0(@types/node@26.1.1))(yaml@2.9.0))(typescript@6.0.3)':
+  '@react-router/fs-routes@7.14.2(@react-router/dev@7.14.2(@types/node@26.0.0)(babel-plugin-macros@3.1.0)(jiti@1.21.7)(react-router@7.14.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(sass-embedded@1.97.3)(sass@1.105.0)(supports-color@10.2.2)(terser@5.49.0)(typescript@6.0.3)(vite@7.3.6(@types/node@26.0.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.105.0)(terser@5.49.0)(yaml@2.9.0))(wrangler@4.138.0(@types/node@26.1.1))(yaml@2.9.0))(typescript@6.0.3)':
     dependencies:
-      '@react-router/dev': 7.14.2(@types/node@26.0.0)(babel-plugin-macros@3.1.0)(jiti@1.21.7)(react-router@7.14.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(sass-embedded@1.97.3)(sass@1.105.0)(supports-color@10.2.2)(terser@5.49.0)(typescript@6.0.3)(vite@7.3.6(@types/node@26.0.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.105.0)(terser@5.49.0)(yaml@2.9.0))(wrangler@4.137.0(@types/node@26.1.1))(yaml@2.9.0)
+      '@react-router/dev': 7.14.2(@types/node@26.0.0)(babel-plugin-macros@3.1.0)(jiti@1.21.7)(react-router@7.14.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(sass-embedded@1.97.3)(sass@1.105.0)(supports-color@10.2.2)(terser@5.49.0)(typescript@6.0.3)(vite@7.3.6(@types/node@26.0.0)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.105.0)(terser@5.49.0)(yaml@2.9.0))(wrangler@4.138.0(@types/node@26.1.1))(yaml@2.9.0)
       minimatch: 9.0.9
     optionalDependencies:
       typescript: 6.0.3
@@ -20913,7 +20913,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  miniflare@5.20260921.0-alpha(@types/node@26.1.1):
+  miniflare@5.20260921.1-alpha(@types/node@26.1.1):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       sharp: 0.35.4(@types/node@26.1.1)
@@ -24656,13 +24656,13 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  wrangler@4.137.0(@types/node@26.1.1):
+  wrangler@4.138.0(@types/node@26.1.1):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.5.0
       '@cloudflare/unenv-preset': 2.16.2(unenv@2.0.0-rc.24)(workerd@1.20260921.1)
       blake3-wasm: 2.1.5
       esbuild: 0.28.1
-      miniflare: 5.20260921.0-alpha(@types/node@26.1.1)
+      miniflare: 5.20260921.1-alpha(@types/node@26.1.1)
       path-to-regexp: 6.3.0
       unenv: 2.0.0-rc.24
       workerd: 1.20260921.1
