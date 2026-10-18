@@ -175,7 +175,7 @@ importers:
         version: 4.0.1
       '@types/lodash':
         specifier: ^4.17.23
-        version: 4.17.25
+        version: 4.17.26
       '@types/markdown-it':
         specifier: ^14.0.0
         version: 14.2.0
@@ -293,7 +293,7 @@ importers:
         version: 2.2.37
       '@types/lodash':
         specifier: ^4.14.176
-        version: 4.17.25
+        version: 4.17.26
       '@types/object-assign':
         specifier: ^4.0.30
         version: 4.0.33
@@ -339,7 +339,7 @@ importers:
         version: 2.2.37
       '@types/lodash':
         specifier: ^4.14.176
-        version: 4.17.25
+        version: 4.17.26
       '@vitest/coverage-v8':
         specifier: ^4.0.18
         version: 4.1.11(@vitest/browser@4.1.11)(vitest@4.1.11)
@@ -535,7 +535,7 @@ importers:
         version: link:../eslint-config-bemuse
       '@types/lodash':
         specifier: ^4.14.176
-        version: 4.17.25
+        version: 4.17.26
       '@types/power-assert':
         specifier: ^1.5.0
         version: 1.5.12
@@ -864,7 +864,7 @@ importers:
         version: 3.1.2
       '@types/lodash':
         specifier: ^4.14.175
-        version: 4.17.25
+        version: 4.17.26
       '@types/markdown-it':
         specifier: ^14.0.0
         version: 14.2.0
@@ -4399,11 +4399,8 @@ packages:
   '@types/lodash.values@4.3.9':
     resolution: {integrity: sha512-IJ20OEfqNwm3k8ENwoM3q0yOs4UMpgtD4GqxB4lwBHToGthHWqhyh5DdSgQjioocz0QK2SSBkJfCq95ZTV8BTw==}
 
-  '@types/lodash@4.17.24':
-    resolution: {integrity: sha512-gIW7lQLZbue7lRSWEFql49QJJWThrTFFeIMJdp3eH4tKoxm1OvEPg02rm4wCCSHS0cL3/Fizimb35b7k8atwsQ==}
-
-  '@types/lodash@4.17.25':
-    resolution: {integrity: sha512-+K1NIO8I+F9/wNulfVvu23QYd0Pe9/OCqRrim4NoYIf1VoEDL90Ve4ClzpyqBLc7NpGGWRvYNCKZ1BE/Jpf8dQ==}
+  '@types/lodash@4.17.26':
+    resolution: {integrity: sha512-48NWfiY6oNcKOh47Z4h+sIvwcQR91h6KPhaYKgeMIrkT2jV82Gy90SErj60vW8jQbeMSOSbhIv3bZ7JoqPPVhA==}
 
   '@types/markdown-it@14.2.0':
     resolution: {integrity: sha512-NoQ2yGlLWj4wpxMs+TYmRKk3thDrQ97agr7sFqfLsAlvoS8SNQuTrlObhFqG9iugdTtgOE9jpJ6FNM4ZGsa5xQ==}
@@ -15899,27 +15896,25 @@ snapshots:
 
   '@types/lodash-es@4.17.12':
     dependencies:
-      '@types/lodash': 4.17.24
+      '@types/lodash': 4.17.26
 
   '@types/lodash.assign@4.2.9':
     dependencies:
-      '@types/lodash': 4.17.24
+      '@types/lodash': 4.17.26
 
   '@types/lodash.map@4.6.13':
     dependencies:
-      '@types/lodash': 4.17.24
+      '@types/lodash': 4.17.26
 
   '@types/lodash.uniq@4.5.9':
     dependencies:
-      '@types/lodash': 4.17.24
+      '@types/lodash': 4.17.26
 
   '@types/lodash.values@4.3.9':
     dependencies:
-      '@types/lodash': 4.17.24
+      '@types/lodash': 4.17.26
 
-  '@types/lodash@4.17.24': {}
-
-  '@types/lodash@4.17.25': {}
+  '@types/lodash@4.17.26': {}
 
   '@types/markdown-it@14.2.0':
     dependencies:
