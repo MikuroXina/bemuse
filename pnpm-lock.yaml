@@ -87,7 +87,7 @@ importers:
         version: 6.3.0
       immer:
         specifier: ~11.1.0
-        version: 11.1.18
+        version: 11.1.21
       immutable:
         specifier: ^5.0.0
         version: 5.1.9
@@ -7294,9 +7294,6 @@ packages:
     resolution: {integrity: sha512-IRqXKlaXwgSMAMtpNzZa1ZAe8m+Sa1770Dhk8VkSsP9LS+iHD62Zd8FQKs8fbPiagBE7BzoFX23cxFnwshpV6w==}
     engines: {node: '>=16.x'}
     hasBin: true
-
-  immer@11.1.18:
-    resolution: {integrity: sha512-EQyQtLiYW029lyoczMl/Hh4Xu7cDecSc58JRYpHyL4tIAu3eqd1yJzQX04d2BZHDkzFFvm6qJEJWOtfDSWAXbQ==}
 
   immer@11.1.21:
     resolution: {integrity: sha512-bZSadeCPGdaY5/qRLgr6mDSH1ra21rD3rqpiWk7+QTr4ayYPTE9qZYdLh/NdPhMe0wSrTvHD/Lk8q5EwhUs0aw==}
@@ -19590,8 +19587,6 @@ snapshots:
   ignore@7.0.12: {}
 
   image-size@2.0.2: {}
-
-  immer@11.1.18: {}
 
   immer@11.1.21: {}
 
