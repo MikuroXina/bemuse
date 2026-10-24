@@ -861,7 +861,7 @@ importers:
         version: 7.18.4(@types/node@26.1.1)(babel-plugin-macros@3.1.0)(jiti@1.21.7)(react-router@7.18.4(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(sass-embedded@1.97.3)(sass@1.105.1)(supports-color@10.2.2)(terser@5.49.0)(typescript@6.0.3)(vite@7.3.7(@types/node@26.1.1)(jiti@1.21.7)(sass-embedded@1.97.3)(sass@1.105.1)(terser@5.49.0)(yaml@2.9.0))(wrangler@4.145.0(@types/node@26.1.1))(yaml@2.9.0)
       '@types/chroma-js':
         specifier: ^3.0.0
-        version: 3.1.2
+        version: 3.1.3
       '@types/lodash':
         specifier: ^4.14.175
         version: 4.17.26
@@ -4282,8 +4282,8 @@ packages:
   '@types/chai@5.2.3':
     resolution: {integrity: sha512-Mw558oeA9fFbv65/y4mHtXDs9bPnFMZAL/jxdPFUpOHHIXX91mcgEHbS5Lahr+pwZFR8A7GQleRWeI6cGFC2UA==}
 
-  '@types/chroma-js@3.1.2':
-    resolution: {integrity: sha512-YBTQqArPN8A0niHXCwrO1z5x++a+6l0mLBykncUpr23oIPW7L4h39s6gokdK/bDrPmSh8+TjMmrhBPnyiaWPmQ==}
+  '@types/chroma-js@3.1.3':
+    resolution: {integrity: sha512-r4kI3HTbLdayBkY1f2Xv7/1TJaHTS//8f6Etv036NQMIj2jVPngUV11NczKiLFKyy01o6hGYVDypP7tJVoFPew==}
 
   '@types/connect-history-api-fallback@1.5.4':
     resolution: {integrity: sha512-n6Cr2xS1h4uAulPRdlw6Jl6s1oG8KrVilPN2yUITEs+K48EzMJJ3W1xy8K5eWuFvjp3R74AOIGSmp2UfBJ8HFw==}
@@ -15731,7 +15731,7 @@ snapshots:
       '@types/deep-eql': 4.0.2
       assertion-error: 2.0.1
 
-  '@types/chroma-js@3.1.2': {}
+  '@types/chroma-js@3.1.3': {}
 
   '@types/connect-history-api-fallback@1.5.4':
     dependencies:
