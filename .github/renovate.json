@@ -11,7 +11,7 @@
   "prHourlyLimit": 20,
   "dependencyDashboard": true,
   "semanticCommits": "enabled",
-  "minimumReleaseAge": "3 days",
+  "minimumReleaseAge": "7 days",
   "fetchChangeLogs": "pr",
   "enabledManagers": ["npm", "github-actions"],
   "customManagers": [
@@ -29,7 +29,8 @@
     {
       "groupName": "Vite packages",
       "matchDatasources": ["npm"],
-      "matchPackageNames": ["vite", "**vite-plugin**", "@vitejs/**"]
+      "matchPackageNames": ["vite", "**vite-plugin**", "@vitejs/**"],
+      "minimumReleaseAge": "7 days"
     },
     {
       "groupName": "Playwright packages",
@@ -37,37 +38,44 @@
         "playwright",
         "@playwright/**",
         "mcr.microsoft.com/playwright"
-      ]
+      ],
+      "minimumReleaseAge": "7 days"
     },
     {
       "groupName": "Vitest packages",
       "matchDatasources": ["npm"],
-      "matchPackageNames": ["vitest", "@vitest/**"]
+      "matchPackageNames": ["vitest", "@vitest/**"],
+      "minimumReleaseAge": "7 days"
     },
     {
       "groupName": "React Router packages",
       "matchDatasources": ["npm"],
-      "matchPackageNames": ["react-router", "@react-router/**"]
+      "matchPackageNames": ["react-router", "@react-router/**"],
+      "minimumReleaseAge": "7 days"
     },
     {
       "groupName": "TanStack packages",
       "matchDatasources": ["npm"],
-      "matchPackageNames": ["@tanstack/**"]
+      "matchPackageNames": ["@tanstack/**"],
+      "minimumReleaseAge": "7 days"
     },
     {
       "groupName": "UI5 Web Components packages",
       "matchDatasources": ["npm"],
-      "matchPackageNames": ["@ui5/**"]
+      "matchPackageNames": ["@ui5/**"],
+      "minimumReleaseAge": "7 days"
     },
     {
       "groupName": "Cloudflare wrangler packages",
       "matchDatasources": ["npm"],
-      "matchPackageNames": ["wrangler", "@cloudflare/**"]
+      "matchPackageNames": ["wrangler", "@cloudflare/**"],
+      "minimumReleaseAge": "7 days"
     },
     {
       "groupName": "Docusaurus packages",
       "matchDatasources": ["npm"],
-      "matchPackageNames": ["@docusaurus/**", "@tsconfig/docusaurus"]
+      "matchPackageNames": ["@docusaurus/**", "@tsconfig/docusaurus"],
+      "minimumReleaseAge": "7 days"
     },
     {
       "groupName": "react",
@@ -76,15 +84,17 @@
         "@types/react",
         "react-dom",
         "@types/react-dom"
-      ]
+      ],
+      "minimumReleaseAge": "7 days"
     },
     {
       "groupName": "Fortawesome",
-      "matchPackageNames": ["@fortawesome/**"]
+      "matchPackageNames": ["@fortawesome/**"],
+      "minimumReleaseAge": "7 days"
     }
   ],
   "npm": {
-    "minimumReleaseAge": "3 days"
+    "minimumReleaseAge": "7 days"
   },
   "vulnerabilityAlerts": {
     "enabled": true,
