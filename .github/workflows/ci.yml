@@ -69,7 +69,7 @@ jobs:
         run: pnpm run -r lint
         if: always()
       - name: Semgrep scan
-        run: semgrep scan --config p/owasp-top-ten --config p/secrets --exclude-rule github-actions-mutable-action-tag --error
+        run: semgrep scan --config p/owasp-top-ten --config p/secrets --exclude-rule yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag --error
         if: always()
   test:
     runs-on: ubuntu-latest
