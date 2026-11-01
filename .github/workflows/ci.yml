@@ -56,6 +56,8 @@ jobs:
         run: pnpm run --filter bemuse typecheck
   tidy:
     runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -66,8 +68,8 @@ jobs:
       - name: Lint all
         run: pnpm run -r lint
         if: always()
-      - name: Semgrep
-        uses: ./.github/actions/semgrep
+      - name: Semgrep scan
+        run: semgrep scan --config p/owasp-top-ten --config p/secrets --exclude-rule github-actions-mutable-action-tag --error
         if: always()
   test:
     runs-on: ubuntu-latest
