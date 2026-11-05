@@ -68,7 +68,7 @@
     "@tsconfig/docusaurus": "^2.0.9",
     "@types/react": "^19.0.0",
     "ajv": "^8.20.0",
-    "eslint": "^9.0.0",
+    "eslint": "^10.0.0",
     "typescript": "^6.0.0",
     "wireit": "^0.14.12"
   }
