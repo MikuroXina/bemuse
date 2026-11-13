@@ -26,12 +26,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6.1.0
-      - name: Setup Node.js
-        uses: actions/setup-node@v6.5.0
-        with:
-          node-version-file: .node-version
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6.1.1
+        uses: pnpm/setup@v3.2.0
       - name: Build
         run: pnpm run build
       - name: Compress build output
@@ -52,12 +48,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6.1.0
-      - name: Setup Node.js
-        uses: actions/setup-node@v6.5.0
-        with:
-          node-version-file: .node-version
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6.1.1
+        uses: pnpm/setup@v3.2.0
       - name: Build dependencies
         run: pnpm run build
       - name: Typecheck
@@ -69,12 +61,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6.1.0
-      - name: Setup Node.js
-        uses: actions/setup-node@v6.5.0
-        with:
-          node-version-file: .node-version
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6.1.1
+        uses: pnpm/setup@v3.2.0
       - name: Build
         run: pnpm run build
       - name: Lint all
@@ -90,12 +78,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6.1.0
-      - name: Setup Node.js
-        uses: actions/setup-node@v6.5.0
-        with:
-          node-version-file: .node-version
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6.1.1
+        uses: pnpm/setup@v3.2.0
       - name: Build
         run: pnpm run build
       - name: Test with coverage

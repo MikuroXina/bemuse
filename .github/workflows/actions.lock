@@ -5,10 +5,9 @@ version: 'v0.0.3'
 workflows:
     '.github/workflows/ci.yml':
         - 'actions/checkout@v6.1.0'
-        - 'actions/setup-node@v6.5.0'
         - 'actions/upload-artifact@v7.0.2'
         - 'codecov/codecov-action@v6.0.2'
-        - 'pnpm/action-setup@v6.1.1'
+        - 'pnpm/setup@v3.2.0'
     '.github/workflows/release-please.yml':
         - 'actions/checkout@v6.1.0'
         - 'actions/setup-node@v6.5.0'
@@ -52,3 +51,8 @@ dependencies:
         commit: 'sha1-73e46992e05b19abd31f2f3c20e0e7370d762115'
         owner_id: 21320719
         repo_id: 262289747
+    'pnpm/setup@v3.2.0':
+        ref: 'v3.2.0'
+        commit: 'sha1-731dfb6463bbd11c11fd0ee11fe00ed0e36d48a1'
+        owner_id: 21320719
+        repo_id: 1235693694
