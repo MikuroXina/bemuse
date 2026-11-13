@@ -120,6 +120,7 @@ export default defineConfig({
     },
     include: [
       '@mikuroxina/bemuse-indexer',
+      'dompurify',
       'fastclick',
       'node:util',
       'redux',
