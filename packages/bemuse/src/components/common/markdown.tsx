@@ -1,3 +1,4 @@
+import DOMPurify from "dompurify"
 import Markdown from 'markdown-it'
 import { type MouseEvent, useMemo } from 'react'
 
@@ -27,7 +28,7 @@ const MarkdownContent = ({ source, safe }: MarkdownContentProps) => {
   }
 
   const html = useMemo(
-    () => (safe ? safeMarkdown : markdown).render(source ?? ''),
+    () => DOMPurify.sanitize((safe ? safeMarkdown : markdown).render(source ?? '')),
     [safe, source]
   )
 
