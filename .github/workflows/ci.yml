@@ -25,9 +25,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v6
-      - name: Set up project
-        uses: ./.github/actions/setup-project
+        uses: actions/checkout@v6.1.0
+      - name: Setup Node.js
+        uses: actions/setup-node@v6.5.0
+        with:
+          node-version-file: .node-version
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6.1.1
       - name: Build
         run: pnpm run build
       - name: Compress build output
@@ -35,7 +39,7 @@ jobs:
         run: tar -cvzf dist.tar.gz packages/bemuse/dist
       - name: Upload artifact
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v7.0.2
         with:
           name: bemuse-build-${{ github.sha }}
           path: dist.tar.gz
@@ -47,9 +51,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
-      - name: Set up project
-        uses: ./.github/actions/setup-project
+        uses: actions/checkout@v6.1.0
+      - name: Setup Node.js
+        uses: actions/setup-node@v6.5.0
+        with:
+          node-version-file: .node-version
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6.1.1
       - name: Build dependencies
         run: pnpm run build
       - name: Typecheck
@@ -60,9 +68,13 @@ jobs:
       image: semgrep/semgrep
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
-      - name: Set up project
-        uses: ./.github/actions/setup-project
+        uses: actions/checkout@v6.1.0
+      - name: Setup Node.js
+        uses: actions/setup-node@v6.5.0
+        with:
+          node-version-file: .node-version
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6.1.1
       - name: Build
         run: pnpm run build
       - name: Lint all
@@ -77,21 +89,25 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
-      - name: Set up project
-        uses: ./.github/actions/setup-project
+        uses: actions/checkout@v6.1.0
+      - name: Setup Node.js
+        uses: actions/setup-node@v6.5.0
+        with:
+          node-version-file: .node-version
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6.1.1
       - name: Build
         run: pnpm run build
       - name: Test with coverage
         run: pnpm run -r coverage
-      - uses: codecov/codecov-action@v6
+      - uses: codecov/codecov-action@v6.0.2
         with:
           files: ./packages/bemuse/coverage/clover.xml,./packages/bemuse-indexer/coverage/clover.xml,./packages/bemuse-notechart/coverage/clover.xml,./packages/bemuse-tools/coverage/clover.xml,./packages/bms/coverage/clover.xml,./packages/bmson/coverage/clover.xml,./packages/monetizer/coverage/clover.xml
           use_oidc: true
       - name: Run E2E tests
         run: pnpm run --filter bemuse-e2e test
       - name: Upload test report
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v7.0.2
         if: failure()
         with:
           name: playwright-report
