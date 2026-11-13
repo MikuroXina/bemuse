@@ -24,7 +24,7 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
-      - uses: googleapis/release-please-action@v5
+      - uses: googleapis/release-please-action@v5.0.0
         id: release_please
         with:
           config-file: release-please-config.json
@@ -40,11 +40,11 @@ jobs:
     env:
       VERSION: ${{ inputs.release_version || needs.release-please.outputs.tag_name }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.1.0
         with:
           fetch-depth: 0
-      - uses: pnpm/action-setup@v6
-      - uses: actions/setup-node@v6
+      - uses: pnpm/action-setup@v6.1.1
+      - uses: actions/setup-node@v6.5.0
         with:
           cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'

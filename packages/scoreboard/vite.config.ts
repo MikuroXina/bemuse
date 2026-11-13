@@ -4,7 +4,7 @@ import { cloudflare } from '@cloudflare/vite-plugin'
 import {
   cloudflareTest,
   readD1Migrations,
-} from '@cloudflare/vitest-pool-workers'
+} from '@cloudflare/vitest-plugin'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vitest/config'
 

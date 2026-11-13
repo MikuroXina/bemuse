@@ -1,3 +1,4 @@
+import DOMPurify from "dompurify"
 import Markdown from 'markdown-it'
 import { type MouseEvent, useMemo } from 'react'
 
@@ -35,7 +36,7 @@ const MarkdownContent = ({ source, safe }: MarkdownContentProps) => {
     <article
       onClick={onClick}
       className='Markdown'
-      dangerouslySetInnerHTML={{ __html: html }}
+      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(html) }}
     />
   )
 }
