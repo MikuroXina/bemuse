@@ -28,7 +28,7 @@ const MarkdownContent = ({ source, safe }: MarkdownContentProps) => {
   }
 
   const html = useMemo(
-    () => DOMPurify.sanitize((safe ? safeMarkdown : markdown).render(source ?? '')),
+    () => (safe ? safeMarkdown : markdown).render(source ?? ''),
     [safe, source]
   )
 
@@ -36,7 +36,7 @@ const MarkdownContent = ({ source, safe }: MarkdownContentProps) => {
     <article
       onClick={onClick}
       className='Markdown'
-      dangerouslySetInnerHTML={{ __html: html }}
+      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(html) }}
     />
   )
 }
