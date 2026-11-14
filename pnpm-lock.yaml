@@ -236,7 +236,7 @@ importers:
         version: 3.4.17
       downshift:
         specifier: ~9.4.0
-        version: 9.4.0(react@19.3.1)
+        version: 9.4.1(react@19.3.1)
       fastclick:
         specifier: ^1.0.6
         version: 1.0.6
@@ -5770,8 +5770,8 @@ packages:
     resolution: {integrity: sha512-nI4U3TottKAcAD9LLud4Cb7b2QztQMUEfHbvhTH09bqXTxnSie8WnjPALV/WMCrJZ6UV/qHJ6L03OqO3LcdYZw==}
     engines: {node: '>=12'}
 
-  downshift@9.4.0:
-    resolution: {integrity: sha512-yIwyzRYzycKwMZhvOahsn4BmRr4Ffi0JymdWOtTDhR+LGDEXCZHTcwgUbNBC/oZLT6YrR46iwJe/BrQUS5ClQQ==}
+  downshift@9.4.1:
+    resolution: {integrity: sha512-Pvn0sG70zOFlWgZY+s//mIC6gDBVVpuF0LVhe964XsLTrQy+1v4q3BRyyrf3dgyzN9pUz40d9BaIQoHVBMEHHg==}
     peerDependencies:
       react: '>=16.12.0'
 
@@ -16704,7 +16704,7 @@ snapshots:
 
   dotenv@17.4.2: {}
 
-  downshift@9.4.0(react@19.3.1):
+  downshift@9.4.1(react@19.3.1):
     dependencies:
       '@babel/runtime': 7.29.13
       compute-scroll-into-view: 3.1.1
