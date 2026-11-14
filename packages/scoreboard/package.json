@@ -58,7 +58,7 @@
   "engines": {
     "node": ">=24.0.0"
   },
-  "packageManager": "pnpm@10.34.7",
+  "packageManager": "pnpm@10.34.9",
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.31.0",
     "@cloudflare/vitest-plugin": "^1.4.11",
