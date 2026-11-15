@@ -69,7 +69,7 @@
   },
   "homepage": "https://github.com/bemusic/bms-js",
   "devDependencies": {
-    "@cucumber/cucumber": "^12.6.0",
+    "@cucumber/cucumber": "^13.0.0",
     "@mikuroxina/eslint-config-bemuse": "workspace:*",
     "@types/invariant": "^2.2.30",
     "@types/lodash.assign": "^4.2.4",
