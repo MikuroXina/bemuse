@@ -58,7 +58,7 @@
     "power-assert": "^1.6.1",
     "typescript": "^6.0.0",
     "vitest": "^4.0.18",
-    "wireit": "^0.14.12"
+    "wireit": "^0.15.0"
   },
   "dependencies": {
     "@mikuroxina/bms": "workspace:*",

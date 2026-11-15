@@ -129,7 +129,7 @@
     "vite-plugin-pwa": "^1.2.0",
     "vite-tsconfig-paths": "^6.1.1",
     "vitest": "^4.0.18",
-    "wireit": "^0.14.12"
+    "wireit": "^0.15.0"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.15.1",
