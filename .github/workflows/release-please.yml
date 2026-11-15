@@ -40,7 +40,7 @@ jobs:
     env:
       VERSION: ${{ inputs.release_version || needs.release-please.outputs.tag_name }}
     steps:
-      - uses: actions/checkout@v6.1.0
+      - uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
       - uses: pnpm/action-setup@v6.1.1
