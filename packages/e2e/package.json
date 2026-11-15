@@ -6,7 +6,7 @@
     "eslint": "^9.0.0",
     "@mikuroxina/eslint-config-bemuse": "workspace:*",
     "typescript": "^6.0.0",
-    "wireit": "^0.14.12"
+    "wireit": "^0.15.0"
   },
   "dependencies": {
     "http-server": "~14.1.1"
