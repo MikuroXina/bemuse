@@ -913,7 +913,7 @@ importers:
         version: link:../eslint-config-bemuse
       '@tsconfig/docusaurus':
         specifier: ^2.0.9
-        version: 2.0.9
+        version: 2.0.10
       '@types/react':
         specifier: ^19.0.0
         version: 19.3.0
@@ -3981,8 +3981,8 @@ packages:
     resolution: {integrity: sha512-/67zpWDBLV+oYAEL682s1ktXL0HgqX76f6gaVGkGnVZlBbm1zd0v4Bz8MFF2GGhoX9rvfq3KSQHubFHwa6w6/Q==}
     engines: {node: '>=12'}
 
-  '@tsconfig/docusaurus@2.0.9':
-    resolution: {integrity: sha512-0jVxZCgy2v7TnJrW9kVNikNwJHeiWb68Zhiiw2vHw4tzBFSP5vS2zn3O5EY2oPEVz5dXZRkK7MnWG3Ay5q0mIg==}
+  '@tsconfig/docusaurus@2.0.10':
+    resolution: {integrity: sha512-/z4AecMQyqG3/RjL5K9XINuqfpg4jP1zMDBBKguoTvTp0bMtCdB0PIq0WwUdBJMfmVxRFa41OXvHXziRjcdsPQ==}
 
   '@tsconfig/node10@1.0.13':
     resolution: {integrity: sha512-gcLdvR9HO1ZJBypsOGqaP6TFEzb6vIta0KSTLt9NAQ6pXQO3cRgSVyCN6pzYqI9DlJgY71XKO0dpDhCf08b3pg==}
@@ -14635,7 +14635,7 @@ snapshots:
       magic-string: 0.30.21
       string.prototype.matchall: 4.1.0
 
-  '@tsconfig/docusaurus@2.0.9': {}
+  '@tsconfig/docusaurus@2.0.10': {}
 
   '@tsconfig/node10@1.0.13': {}
 
