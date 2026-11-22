@@ -248,7 +248,7 @@ importers:
         version: 6.3.0
       immer:
         specifier: ~11.2.0
-        version: 11.2.9
+        version: 11.2.10
       immutable:
         specifier: ^5.0.0
         version: 5.1.9
@@ -6778,8 +6778,8 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  immer@11.2.9:
-    resolution: {integrity: sha512-IQ4UEtXjZjyefyWjtLEDXUSrF6T2hwjKPi6BIJl3bY/2XXW24d6cNGdXJSBOA/+KNnuiXkZY6DR0C3efolhitA==}
+  immer@11.2.10:
+    resolution: {integrity: sha512-pzANBj+0A9u+prdhBJ14DVi44vCvVUQzBa8DKt6I0AMCokPHtt722BK9IX5bFC70xUSU9TnzLRIJLTGqIzjEFw==}
 
   immutable@5.1.9:
     resolution: {integrity: sha512-m8nVez3rwrgmWxtLMt1ZYXB2Lv7OKYn/disyxAlSDYAlKSlFoPPfIAmAM/M5xqL4m4C/wAPw7S2/CNaUii1Hxg==}
@@ -14344,7 +14344,7 @@ snapshots:
     dependencies:
       '@standard-schema/spec': 1.1.0
       '@standard-schema/utils': 0.3.0
-      immer: 11.2.9
+      immer: 11.2.10
       redux: 5.0.1
       redux-thunk: 3.1.0(redux@5.0.1)
       reselect: 5.3.0
@@ -18146,7 +18146,7 @@ snapshots:
 
   image-size@2.0.4: {}
 
-  immer@11.2.9: {}
+  immer@11.2.10: {}
 
   immutable@5.1.9: {}
 
